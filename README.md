@@ -1,6 +1,7 @@
 # pyRACF
 
-Python interface into the RACF management application programming interface.
+Python interface i
+nto the RACF management application programming interface.
 
 ## Description
 
@@ -31,7 +32,7 @@ Make sure that the python code is in a directory defined in your PYTHONPATH or e
 
 ### Executing program
 
-import the pyracf.py package and issue the appropriate python calls.
+import the pyracf.py package and issue the appropriate python calls. This will grow over time. In the samples directory you will find examples of user, group, and resource profile management.
 
 ## Help
 
