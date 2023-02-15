@@ -32,7 +32,7 @@ Make sure that the python code is in a directory defined in your PYTHONPATH or e
 
 ### Executing program
 
-import the pyracf.py package and issue the appropriate python calls. This will grow over time. In the samples directory you will find examples of user, group, and resource profile management.
+import the pyracf.py package and issue the appropriate python calls. This will grow over time. In the samples directory you will find examples of user, group, and resource profile management. Additionally there is more information in the [index.md](./docs/index.md) file.
 
 ## Help
 
