@@ -49,8 +49,8 @@ setup(
         'pyracf.user',
     ],
     package_dir={'': '.'},
-    package_data={'pyracf.common': ['zEDC_gzip.c','zEDC_gzip.so', 'zEDC_gzip.x']},
-    python_requires=">=3.8",
+    package_data={'pyracf.common': ['irrsmo00.c','irrsmo00.so', 'irrsmo00.x', 'irrsmo00.dll']},
+    python_requires=">=3.9",
     license_files=("LICENSE"),
     install_requires=get_requirements(),
     cmdclass = {
