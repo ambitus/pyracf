@@ -9,10 +9,10 @@ class Build(build_py):
     def run(self):
         os.chdir(f"{os.path.dirname(__file__)}/pyracf/common")
         command = (
-            "pwd && c89 -c -D_XOPEN_SOURCE_EXTENDED "
-            + "-Wc,lp64,langlvl\(extended\),STACKPROTECT\(ALL\) "
-            + "-I../../safCommon -I irrsmo00.so irrsmo00.c "
-            + "&& c89 -Wl,\"DLL,LP64,XPLINK\" -o irrsmo00.dll irrsmo00.o"
+            'c89 -c -D_XOPEN_SOURCE_EXTENDED '
+            + '-Wc,lp64,langlvl\(extended\),STACKPROTECT\(ALL\) '
+            + '-I../../safCommon -I irrsmo00.so irrsmo00.c '
+            + '&& c89 -Wl,"DLL,LP64,XPLINK" -o irrsmo00.dll irrsmo00.o'
         )
         run(
             command,
@@ -49,7 +49,7 @@ setup(
         'pyracf.user',
     ],
     package_dir={'': '.'},
-    package_data={'pyracf.common': ['irrsmo00.c', 'irrsmo00.so', 'irrsmo00.x', 'irrsmo00.dll']},
+    package_data={'pyracf.common': ['irrsmo00.c', 'irrsmo00.x', 'irrsmo00.dll']},
     python_requires=">=3.9",
     license_files=("LICENSE"),
     install_requires=get_requirements(),
