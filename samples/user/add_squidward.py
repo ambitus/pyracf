@@ -1,4 +1,4 @@
-from racf.user.UserAdmin import UserAdmin
+from pyracf.user.UserAdmin import UserAdmin
 import json
 import random
 import string

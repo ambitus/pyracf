@@ -1,4 +1,4 @@
-from racf.genprof.ResourceAdmin import ResourceAdmin
+from pyracf.genprof.ResourceAdmin import ResourceAdmin
 import json
 
 def main():

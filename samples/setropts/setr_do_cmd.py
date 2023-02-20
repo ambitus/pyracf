@@ -1,4 +1,4 @@
-from racf.setropts.SetroptsAdmin import SetroptsAdmin
+from pyracf.setropts.SetroptsAdmin import SetroptsAdmin
 import json
 
 def main():

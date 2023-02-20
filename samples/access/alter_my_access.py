@@ -1,4 +1,4 @@
-from racf.access.AccessAdmin import AccessAdmin
+from pyracf.access.AccessAdmin import AccessAdmin
 import json
 
 def main():

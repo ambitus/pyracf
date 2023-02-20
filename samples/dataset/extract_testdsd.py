@@ -1,4 +1,4 @@
-from racf.dataset.DatasetAdmin import DatasetAdmin
+from pyracf.dataset.DatasetAdmin import DatasetAdmin
 import json
 
 
