@@ -6,6 +6,6 @@ class SetroptsRequest(SecurityRequest):
         super().__init__()
         self.security_definition.tag = "systemsettings"
         self.security_definition.attrib = {
-            "operation": 'set',
-            "requestid": "SetroptsRequest"
+            "operation": "set",
+            "requestid": "SetroptsRequest",
         }

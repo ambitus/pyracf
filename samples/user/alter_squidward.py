@@ -1,5 +1,6 @@
-from pyracf.user.UserAdmin import UserAdmin
 import json
+
+from pyracf.user.UserAdmin import UserAdmin
 
 
 def main():
@@ -10,7 +11,7 @@ def main():
         "special": False,
         "operator": True,
         "home": "/u/clarinet",
-        "program": False
+        "program": False,
     }
 
     result = user_admin.alter(traits)

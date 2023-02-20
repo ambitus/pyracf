@@ -1,5 +1,7 @@
-from pyracf.access.AccessAdmin import AccessAdmin
 import json
+
+from pyracf.access.AccessAdmin import AccessAdmin
+
 
 def main():
     access_admin = AccessAdmin()
@@ -8,7 +10,7 @@ def main():
         "resourcename": "BIKINI.BOTTOM.KRUSKRAB",
         "classname": "FACILITY",
         "access": "NONE",
-        "id": "ESWIFT"
+        "id": "ESWIFT",
     }
 
     result = access_admin.alter(traits)
@@ -17,4 +19,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

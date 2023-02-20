@@ -1,5 +1,7 @@
-from pyracf.access.AccessAdmin import AccessAdmin
 import json
+
+from pyracf.access.AccessAdmin import AccessAdmin
+
 
 def main():
     access_admin = AccessAdmin()
@@ -7,7 +9,7 @@ def main():
     traits = {
         "resourcename": "BIKINI.BOTTOM.KRUSKRAB",
         "classname": "FACILITY",
-        "id": "ESWIFT"
+        "id": "ESWIFT",
     }
 
     result = access_admin.delete(traits)

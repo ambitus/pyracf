@@ -1,13 +1,12 @@
-from pyracf.dataset.DatasetAdmin import DatasetAdmin
 import json
+
+from pyracf.dataset.DatasetAdmin import DatasetAdmin
 
 
 def main():
     dataset_admin = DatasetAdmin()
 
-    traits = {
-        "datasetname": "ESWIFT.TEST.T1136242.P3020470"
-    }
+    traits = {"datasetname": "ESWIFT.TEST.T1136242.P3020470"}
 
     result = dataset_admin.extract(traits)
     print(json.dumps(result, indent=4))

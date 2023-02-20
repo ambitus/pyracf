@@ -1,5 +1,7 @@
-from pyracf.setropts.SetroptsAdmin import SetroptsAdmin
 import json
+
+from pyracf.setropts.SetroptsAdmin import SetroptsAdmin
+
 
 def main():
     setropts_admin = SetroptsAdmin()

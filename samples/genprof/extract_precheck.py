@@ -1,14 +1,12 @@
-from pyracf.genprof.ResourceAdmin import ResourceAdmin
 import json
+
+from pyracf.genprof.ResourceAdmin import ResourceAdmin
 
 
 def main():
     profile_admin = ResourceAdmin()
 
-    traits = {
-        "resourcename": "IRR.IRRSMO00.PRECHECK",
-        "classname": "XFACILIT"
-    }
+    traits = {"resourcename": "IRR.IRRSMO00.PRECHECK", "classname": "XFACILIT"}
 
     result = profile_admin.extract(traits)
     print(json.dumps(result, indent=4))

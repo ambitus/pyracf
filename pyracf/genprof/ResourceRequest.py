@@ -9,5 +9,5 @@ class ResourceRequest(SecurityRequest):
             "name": resourcename,
             "class": classname,
             "operation": function,
-            "requestid": "ResourceRequest"
+            "requestid": "ResourceRequest",
         }

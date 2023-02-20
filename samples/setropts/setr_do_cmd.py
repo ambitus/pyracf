@@ -1,12 +1,12 @@
-from pyracf.setropts.SetroptsAdmin import SetroptsAdmin
 import json
+
+from pyracf.setropts.SetroptsAdmin import SetroptsAdmin
+
 
 def main():
     setropts_admin = SetroptsAdmin()
 
-    traits = {
-        'raclist': 'elijtest'
-    }
+    traits = {"raclist": "elijtest"}
 
     result = setropts_admin.command(traits)
     print(json.dumps(result, indent=4))

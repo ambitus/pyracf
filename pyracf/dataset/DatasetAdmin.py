@@ -1,108 +1,102 @@
+from typing import Union
+
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.dataset.DatasetRequest import DatasetRequest
-from pyracf.common.SecurityResult import SecurityResult
 from pyracf.common.SecurityRequestError import SecurityRequestError
-from typing import Union, List
+from pyracf.common.SecurityResult import SecurityResult
+from pyracf.dataset.DatasetRequest import DatasetRequest
 
 
-class DatasetAdmin():
+class DatasetAdmin:
     def __init__(self) -> None:
         self.irrsmo00 = IRRSMO00()
         self.valid_segment_traits = {
-            'base': {
-                'aclcnt': 'racf:aclcnt',
-                'aclacnt': 'racf:aclacnt',
-                'aclacs': 'racf:aclacs',
-                'aclid': 'racf:aclid',
-                'acl2cnt': 'racf:acl2cnt',
-                'acl2acnt': 'racf:acl2acnt',
-                'acl2acs': 'racf:acl2acs',
-                'acl2cond': 'racf:acl2cond',
-                'acl2ent': 'racf:acl2ent',
-                'acl2id': 'racf:acl2id',
-                'acsaltr': 'racf:acsaltr',
-                'acscntl': 'racf:acscntl',
-                'acsread': 'racf:acsread',
-                'acsupdt': 'racf:acsupdt',
-                'all': 'racf:all',
-                'altvol': 'racf:altvol',
-                'audaltr': 'racf:audaltr',
-                'audcntl': 'racf:audcntl',
-                'audnone': 'racf:audnone',
-                'audread': 'racf:audread',
-                'audupdt': 'racf:audupdt',
-                'authuser': 'racf:authuser',
-                'category': 'racf:category',
-                'creatdat': 'racf:creatdat',
-                'data': 'racf:data',
-                'dsns': 'racf:dsns',
-                'dstype': 'racf:dstype',
-                'erase': 'racf:erase',
-                'fclass': 'racf:fclass',
-                'fgeneric': 'racf:fgeneric',
-                'fileseq': 'racf:fileseq',
-                'from': 'racf:from',
-                'fvolume': 'racf:fvolume',
-                'gaudaltr': 'racf:gaudaltr',
-                'gaudcntl': 'racf:gaudcntl',
-                'gaudnone': 'racf:gaudnone',
-                'gaudread': 'racf:gaudread',
-                'gaudupdt': 'racf:gaudupdt',
-                'generic': 'racf:generic',
-                'groupds': 'racf:groupds',
-                'groupnm': 'racf:groupnm',
-                'history': 'racf:history',
-                'id': 'racf:id',
-                'lchgdat': 'racf:lchgdat',
-                'level': 'racf:level',
-                'lrefdat': 'racf:lrefdat',
-                'model': 'racf:model',
-                'noracf': 'racf:noracf',
-                'notify': 'racf:notify',
-                'owner': 'racf:owner',
-                'prefix': 'racf:prefix',
-                'profile': 'racf:profile',
-                'raudit': 'racf:raudit',
-                'retpd': 'racf:retpd',
-                'rgaudit': 'racf:rgaudit',
-                'seclabel': 'racf:seclabel',
-                'seclevel': 'racf:seclevel',
-                'set': 'racf:set',
-                'setonly': 'racf:setonly',
-                'stats': 'racf:stats',
-                'tape': 'racf:tape',
-                'uacc': 'racf:uacc',
-                'unit': 'racf:unit',
-                'volume': 'racf:volume',
-                'volser': 'racf:volser',
-                'warning': 'racf:warning'
+            "base": {
+                "aclcnt": "racf:aclcnt",
+                "aclacnt": "racf:aclacnt",
+                "aclacs": "racf:aclacs",
+                "aclid": "racf:aclid",
+                "acl2cnt": "racf:acl2cnt",
+                "acl2acnt": "racf:acl2acnt",
+                "acl2acs": "racf:acl2acs",
+                "acl2cond": "racf:acl2cond",
+                "acl2ent": "racf:acl2ent",
+                "acl2id": "racf:acl2id",
+                "acsaltr": "racf:acsaltr",
+                "acscntl": "racf:acscntl",
+                "acsread": "racf:acsread",
+                "acsupdt": "racf:acsupdt",
+                "all": "racf:all",
+                "altvol": "racf:altvol",
+                "audaltr": "racf:audaltr",
+                "audcntl": "racf:audcntl",
+                "audnone": "racf:audnone",
+                "audread": "racf:audread",
+                "audupdt": "racf:audupdt",
+                "authuser": "racf:authuser",
+                "category": "racf:category",
+                "creatdat": "racf:creatdat",
+                "data": "racf:data",
+                "dsns": "racf:dsns",
+                "dstype": "racf:dstype",
+                "erase": "racf:erase",
+                "fclass": "racf:fclass",
+                "fgeneric": "racf:fgeneric",
+                "fileseq": "racf:fileseq",
+                "from": "racf:from",
+                "fvolume": "racf:fvolume",
+                "gaudaltr": "racf:gaudaltr",
+                "gaudcntl": "racf:gaudcntl",
+                "gaudnone": "racf:gaudnone",
+                "gaudread": "racf:gaudread",
+                "gaudupdt": "racf:gaudupdt",
+                "generic": "racf:generic",
+                "groupds": "racf:groupds",
+                "groupnm": "racf:groupnm",
+                "history": "racf:history",
+                "id": "racf:id",
+                "lchgdat": "racf:lchgdat",
+                "level": "racf:level",
+                "lrefdat": "racf:lrefdat",
+                "model": "racf:model",
+                "noracf": "racf:noracf",
+                "notify": "racf:notify",
+                "owner": "racf:owner",
+                "prefix": "racf:prefix",
+                "profile": "racf:profile",
+                "raudit": "racf:raudit",
+                "retpd": "racf:retpd",
+                "rgaudit": "racf:rgaudit",
+                "seclabel": "racf:seclabel",
+                "seclevel": "racf:seclevel",
+                "set": "racf:set",
+                "setonly": "racf:setonly",
+                "stats": "racf:stats",
+                "tape": "racf:tape",
+                "uacc": "racf:uacc",
+                "unit": "racf:unit",
+                "volume": "racf:volume",
+                "volser": "racf:volser",
+                "warning": "racf:warning",
             },
-            'csdata': {
-                'custom-keyword': 'racf:custom-keyword'
-            },
-            'dfp': {
-                'resowner': 'racf:resowner',
-                'datakey': 'racf:datakey'
-            },
-            'tme': {
-                'roles': 'racf:roles'
-            }
+            "csdata": {"custom-keyword": "racf:custom-keyword"},
+            "dfp": {"resowner": "racf:resowner", "datakey": "racf:datakey"},
+            "tme": {"roles": "racf:roles"},
         }
         self.segment_traits = {}
         self.trait_map = {}
 
     def get_uacc(self, dataset_name: str) -> str:
         result = self.extract({"datasetname": dataset_name})
-        profile = result['securityresult']['dataset']['commands'][0]['profile']
-        return profile['base'].get('universal access')
-    
+        profile = result["securityresult"]["dataset"]["commands"][0]["profile"]
+        return profile["base"].get("universal access")
+
     def set_uacc(self, dataset_name: str, uacc: str) -> str:
         return self.alter({"datasetname": dataset_name, "uacc": uacc})
-    
+
     def get_your_acc(self, dataset_name: str) -> str:
         result = self.extract({"datasetname": dataset_name})
-        profile = result['securityresult']['dataset']['commands'][0]['profile']
-        return profile['base'].get('your access')
+        profile = result["securityresult"]["dataset"]["commands"][0]["profile"]
+        return profile["base"].get("your access")
 
     def add(self, traits: dict) -> dict:
         datasetname = traits["datasetname"]
@@ -113,7 +107,7 @@ class DatasetAdmin():
         if "volid" in traits.keys():
             volid = traits["volid"]
         else:
-            volid = ''
+            volid = ""
         self.build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(datasetname, "set", generic, volid)
         self.build_segments(dataset_request)
@@ -128,12 +122,12 @@ class DatasetAdmin():
         if "volid" in traits.keys():
             volid = traits["volid"]
         else:
-            volid = ''
+            volid = ""
         self.build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(datasetname, "set", generic, volid)
         self.build_segments(dataset_request, alter=True)
-        return self.make_request(dataset_request,3)
-    
+        return self.make_request(dataset_request, 3)
+
     def extract(self, traits: dict) -> dict:
         datasetname = traits["datasetname"]
         if "generic" in traits.keys():
@@ -143,19 +137,20 @@ class DatasetAdmin():
         if "volid" in traits.keys():
             volid = traits["volid"]
         else:
-            volid = ''
+            volid = ""
         self.build_bool_segment_dictionaries(traits)
         dataset_request = DatasetRequest(datasetname, "listdata", generic, volid)
         self.build_segments(dataset_request, extract=True)
         result = self.make_request(dataset_request)
         if "error" in result["securityresult"]["dataset"]:
             raise SecurityRequestError(result)
-        if (result["securityresult"]["returncode"] == 0 
-                and result["securityresult"]["reasoncode"] == 0):
+        if (
+            result["securityresult"]["returncode"] == 0
+            and result["securityresult"]["reasoncode"] == 0
+        ):
             self.__format_profile(result)
             return result
         raise SecurityRequestError(result)
-
 
     def delete(self, datasetname: str, generic: str = "no", volid: str = "") -> dict:
         dataset_request = DatasetRequest(datasetname, "del", generic, volid)
@@ -165,35 +160,32 @@ class DatasetAdmin():
         for trait in traits:
             for segment in self.valid_segment_traits.keys():
                 if trait in self.valid_segment_traits[segment].keys():
-                    if not segment in self.segment_traits.keys():
+                    if segment not in self.segment_traits.keys():
                         self.segment_traits[segment] = {}
                     self.segment_traits[segment][trait] = traits[trait]
-                    self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+                    self.trait_map[trait] = self.valid_segment_traits[segment][trait]
 
     def build_segments(
-            self, 
-            dataset_request: DatasetRequest, 
-            alter=False, 
-            extract=False
+        self, dataset_request: DatasetRequest, alter=False, extract=False
     ) -> None:
         for segment in self.segment_traits.keys():
             dataset_request.build_segment(
-                segment, 
-                self.segment_traits[segment], 
-                self.trait_map, 
-                alter=alter, 
-                extract=extract
+                segment,
+                self.segment_traits[segment],
+                self.trait_map,
+                alter=alter,
+                extract=extract,
             )
         # Clear segments for new request
         self.segment_traits = {}
-    
+
     def build_bool_segment_dictionaries(self, traits: dict) -> None:
         for trait in traits:
             if trait in self.valid_segment_traits.keys():
                 self.segment_traits[trait] = traits[trait]
 
     def make_request(self, dataset_request: DatasetRequest, opts: int = 1) -> dict:
-        result_xml = self.irrsmo00.call_racf(dataset_request.dump_request_xml(),opts)
+        result_xml = self.irrsmo00.call_racf(dataset_request.dump_request_xml(), opts)
         results = SecurityResult(result_xml)
         return results.get_result_dictionary()
 
@@ -207,64 +199,90 @@ class DatasetAdmin():
             if messages[i] == " ":
                 i += 1
                 continue
-            
-            if '=' in messages[i]:
-                field = messages[i].split('=')[0].strip().lower()
-                profile[current_segment][field] = clean_and_separate(messages[i].split('=')[1])
+
+            if "=" in messages[i]:
+                field = messages[i].split("=")[0].strip().lower()
+                profile[current_segment][field] = clean_and_separate(
+                    messages[i].split("=")[1]
+                )
                 i += 1
                 continue
-            
-            if ' INFORMATION' in messages[i]:
-                if i < len(messages)-1 and '----------------' in messages[i+1]:
-                    current_segment = messages[i].split(' INFORMATION')[0].strip().lower()
+
+            if " INFORMATION" in messages[i]:
+                if i < len(messages) - 1 and "----------------" in messages[i + 1]:
+                    current_segment = (
+                        messages[i].split(" INFORMATION")[0].strip().lower()
+                    )
                     profile[current_segment] = {}
-                    i+=2
+                    i += 2
                     continue
-                elif messages[i].split(' ')[0] == "NO" and messages[i].split(' ')[2] == "INFORMATION":
-                    current_segment = messages[i].split(' ')[1].strip().lower()
+                elif (
+                    messages[i].split(" ")[0] == "NO"
+                    and messages[i].split(" ")[2] == "INFORMATION"
+                ):
+                    current_segment = messages[i].split(" ")[1].strip().lower()
                     profile[current_segment] = {}
-                    i+=1
+                    i += 1
                     continue
-                
-            
-            if i < len(messages)-2 and ("  " in messages[i]) and ("--" in messages[i+1]):
-                tmp_ind = [j for j in range(len(messages[i+1])) if messages[i+1][j] == '-']
-                indexes = [tmp_ind[j] for j in range(len(tmp_ind)) if j == 0 or tmp_ind[j]-tmp_ind[j-1]>1]
-                #print(tmp_ind,indexes)
+
+            if (
+                i < len(messages) - 2
+                and ("  " in messages[i])
+                and ("--" in messages[i + 1])
+            ):
+                tmp_ind = [
+                    j for j in range(len(messages[i + 1])) if messages[i + 1][j] == "-"
+                ]
+                indexes = [
+                    tmp_ind[j]
+                    for j in range(len(tmp_ind))
+                    if j == 0 or tmp_ind[j] - tmp_ind[j - 1] > 1
+                ]
+                # print(tmp_ind,indexes)
                 for j in range(len(indexes)):
                     if j < len(indexes) - 1:
-                        ind_e0 = indexes[j+1]
-                        ind_e1 = indexes[j+1]
+                        ind_e0 = indexes[j + 1]
+                        ind_e1 = indexes[j + 1]
                     else:
                         ind_e0 = len(messages[i])
-                        ind_e1 = len(messages[i+2])
-                    
-                    field = messages[i][indexes[j]:ind_e0].strip().lower()
-                    profile[current_segment][field] = clean_and_separate(messages[i+2][indexes[j]:ind_e1])
+                        ind_e1 = len(messages[i + 2])
+
+                    field = messages[i][indexes[j] : ind_e0].strip().lower()
+                    profile[current_segment][field] = clean_and_separate(
+                        messages[i + 2][indexes[j] : ind_e1]
+                    )
                 i += 2
                 continue
-            
-            if i < len(messages)-2 and ("-" in messages[i+1]):
-                field = ' '.join([txt.lower().strip() for txt in list(filter(None,messages[i].split(' ')))])
-                profile[current_segment][field] = clean_and_separate(messages[i+2])
+
+            if i < len(messages) - 2 and ("-" in messages[i + 1]):
+                field = " ".join(
+                    [
+                        txt.lower().strip()
+                        for txt in list(filter(None, messages[i].split(" ")))
+                    ]
+                )
+                profile[current_segment][field] = clean_and_separate(messages[i + 2])
                 i += 2
                 continue
-            
-            if 'NO INSTALLATION DATA' in messages[i]:
-                profile[current_segment]['installation data'] = None
+
+            if "NO INSTALLATION DATA" in messages[i]:
+                profile[current_segment]["installation data"] = None
             i += 1
-        
-        if profile['base'].get('installation data'):
-            profile['base']['installation data'] = ' '.join(profile['base']['installation data'])
-            
-        if profile['base'].get('notify') == [None, 'user', 'to', 'be', 'notified']:
-            profile['base']['notify'] = None
-        
+
+        if profile["base"].get("installation data"):
+            profile["base"]["installation data"] = " ".join(
+                profile["base"]["installation data"]
+            )
+
+        if profile["base"].get("notify") == [None, "user", "to", "be", "notified"]:
+            profile["base"]["notify"] = None
+
         del result["securityresult"]["dataset"]["commands"][0]["messages"]
         result["securityresult"]["dataset"]["commands"][0]["profile"] = profile
 
-def cast_value(value: str) -> Union[None,int,float,str]:
-    if value == "n/a" or value == "none" or value == "none specified" or value == 'no':
+
+def cast_value(value: str) -> Union[None, int, float, str]:
+    if value == "n/a" or value == "none" or value == "none specified" or value == "no":
         return None
     if "." in value:
         try:
@@ -274,14 +292,15 @@ def cast_value(value: str) -> Union[None,int,float,str]:
     try:
         return int(value.replace(",", ""))
     except ValueError:
-        return value 
+        return value
+
 
 def clean_and_separate(value: str):
     cln_val = value.strip().lower()
-    if ',' in cln_val:
-        out = [cast_value(val.strip()) for val in cln_val.split(',') ]
-    elif ' ' in cln_val:
-        out = [cast_value(val.strip()) for val in cln_val.split(' ') ]
+    if "," in cln_val:
+        out = [cast_value(val.strip()) for val in cln_val.split(",")]
+    elif " " in cln_val:
+        out = [cast_value(val.strip()) for val in cln_val.split(" ")]
     else:
         out = cast_value(cln_val)
     return out

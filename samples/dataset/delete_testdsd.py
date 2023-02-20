@@ -1,11 +1,12 @@
-from pyracf.dataset.DatasetAdmin import DatasetAdmin
 import json
+
+from pyracf.dataset.DatasetAdmin import DatasetAdmin
 
 
 def main():
     dataset_admin = DatasetAdmin()
 
-    datasetname ="ESWIFT.TEST.T1136242.P3020470"
+    datasetname = "ESWIFT.TEST.T1136242.P3020470"
 
     result = dataset_admin.delete(datasetname)
     print(json.dumps(result, indent=4))

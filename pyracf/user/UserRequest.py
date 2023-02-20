@@ -8,5 +8,5 @@ class UserRequest(SecurityRequest):
         self.security_definition.attrib = {
             "name": userid,
             "operation": function,
-            "requestid": "UserRequest"
+            "requestid": "UserRequest",
         }

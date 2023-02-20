@@ -1,7 +1,8 @@
-from pyracf.user.UserAdmin import UserAdmin
 import json
 import random
 import string
+
+from pyracf.user.UserAdmin import UserAdmin
 
 
 def main():
@@ -16,7 +17,7 @@ def main():
         "operator": False,
         "uid": "2424",
         "home": "/u/squidwrd",
-        "program": "/bin/sh"
+        "program": "/bin/sh",
     }
 
     result = user_admin.add(traits)

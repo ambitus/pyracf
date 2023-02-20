@@ -2,7 +2,14 @@ from pyracf.common.SecurityRequest import SecurityRequest
 
 
 class AccessRequest(SecurityRequest):
-    def __init__(self, resourcename: str, classname: str, function: str, generic: str = "no" , volid: str = '') -> None:
+    def __init__(
+        self,
+        resourcename: str,
+        classname: str,
+        function: str,
+        generic: str = "no",
+        volid: str = "",
+    ) -> None:
         super().__init__()
         self.security_definition.tag = "permission"
 
@@ -10,11 +17,10 @@ class AccessRequest(SecurityRequest):
             "name": resourcename,
             "class": classname,
             "operation": function,
-            "requestid": "AccessRequest"
+            "requestid": "AccessRequest",
         }
 
-        if not volid == '':
+        if not volid == "":
             self.security_definition.attrib["volid"] = volid
         if not generic == "no":
             self.security_definition.attrib["generic"] = generic
-

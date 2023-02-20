@@ -1,5 +1,7 @@
-from pyracf.genprof.ResourceAdmin import ResourceAdmin
 import json
+
+from pyracf.genprof.ResourceAdmin import ResourceAdmin
+
 
 def main():
     profile_admin = ResourceAdmin()
@@ -8,7 +10,7 @@ def main():
         "resourcename": "BIKINI.BOTTOM.KRUSKRAB",
         "classname": "FACILITY",
         "uacc": "None",
-        "owner": "eswift"
+        "owner": "eswift",
     }
 
     result = profile_admin.add(traits)

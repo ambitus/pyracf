@@ -1,5 +1,6 @@
-from pyracf.user.UserAdmin import UserAdmin
 import json
+
+from pyracf.user.UserAdmin import UserAdmin
 
 
 def main():

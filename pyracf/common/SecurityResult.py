@@ -10,8 +10,12 @@ class SecurityResult:
     def __extract_results(self) -> None:
         self.definition = self.result[0]
         definition_tag = self.definition.tag.split("}")[-1]
-        self.result_dictionary["securityresult"][definition_tag] = self.definition.attrib
-        self.definition_dictionary = self.result_dictionary["securityresult"][definition_tag]
+        self.result_dictionary["securityresult"][
+            definition_tag
+        ] = self.definition.attrib
+        self.definition_dictionary = self.result_dictionary["securityresult"][
+            definition_tag
+        ]
         if self.definition[0].tag.split("}")[-1] == "info":
             self.__extract_info()
         if self.definition[0].tag.split("}")[-1] == "error":

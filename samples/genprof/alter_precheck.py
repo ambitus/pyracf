@@ -1,5 +1,6 @@
-from pyracf.genprof.ResourceAdmin import ResourceAdmin
 import json
+
+from pyracf.genprof.ResourceAdmin import ResourceAdmin
 
 
 def main():
