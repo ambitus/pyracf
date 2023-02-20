@@ -1,4 +1,4 @@
-from dataset.DatasetAdmin import DatasetAdmin
+from racf.dataset.DatasetAdmin import DatasetAdmin
 import json
 
 def main():

@@ -1,4 +1,4 @@
-from common.SecurityRequest import SecurityRequest
+from pyracf.common.SecurityRequest import SecurityRequest
 
 
 class SetroptsRequest(SecurityRequest):

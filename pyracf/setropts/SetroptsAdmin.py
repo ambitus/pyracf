@@ -1,7 +1,7 @@
-from common.irrsmo00 import IRRSMO00
-from setropts.SetroptsRequest import SetroptsRequest
-from common.SecurityResult import SecurityResult
-from common.SecurityRequestError import SecurityRequestError
+from pyracf.common.irrsmo00 import IRRSMO00
+from pyracf.setropts.SetroptsRequest import SetroptsRequest
+from pyracf.common.SecurityResult import SecurityResult
+from pyracf.common.SecurityRequestError import SecurityRequestError
 from typing import Union, List
 
 

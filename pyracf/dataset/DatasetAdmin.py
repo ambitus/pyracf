@@ -1,7 +1,7 @@
-from common.irrsmo00 import IRRSMO00
-from dataset.DatasetRequest import DatasetRequest
-from common.SecurityResult import SecurityResult
-from common.SecurityRequestError import SecurityRequestError
+from pyracf.common.irrsmo00 import IRRSMO00
+from pyracf.dataset.DatasetRequest import DatasetRequest
+from pyracf.common.SecurityResult import SecurityResult
+from pyracf.common.SecurityRequestError import SecurityRequestError
 from typing import Union, List
 
 
