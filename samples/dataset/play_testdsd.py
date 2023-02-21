@@ -25,6 +25,9 @@ def main():
     print(dataset_admin.no_roles(dsn))
     print(dataset_admin.extract({'datasetname': dsn}))
 
+    result = dataset_admin.delete(dsn)
+    print(json.dumps(result, indent=4))
+
 
 
 if __name__ == "__main__":
