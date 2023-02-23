@@ -110,20 +110,26 @@ class DatasetAdmin():
     def del_category(self, dataset_name: str, category_name: str) -> str:
         return self.alter({"datasetname": dataset_name, "delcategory": category_name})
 
+    def set_volume(self, dataset_name: str, volume_name: str) -> str:
+        return self.alter({"datasetname": dataset_name, "setvolume": volume_name})
+
     def add_volume(self, dataset_name: str, volume_name: str) -> str:
         return self.alter({"datasetname": dataset_name, "addvolume": volume_name})
 
     def del_volume(self, dataset_name: str, volume_name: str) -> str:
         return self.alter({"datasetname": dataset_name, "delvolume": volume_name})
 
+    def set_role(self, dataset_name: str, role_name: str) -> str:
+        return self.alter({"datasetname": dataset_name, "setroles": role_name})
+
     def add_role(self, dataset_name: str, role_name: str) -> str:
         return self.alter({"datasetname": dataset_name, "addroles": role_name})
 
-    def remove_role(self, dataset_name: str, role_name: str) -> str:
+    def del_role(self, dataset_name: str, role_name: str) -> str:
         return self.alter({"datasetname": dataset_name, "delroles": role_name})
 
-    def no_roles(self, dataset_name: str) -> str: #test this
-        return self.alter({"datasetname": dataset_name, "noroles": True})
+    def no_roles(self, dataset_name: str) -> str: 
+        return self.alter({"datasetname": dataset_name, "noroles": "N/A"})
 
     def add(self, traits: dict) -> dict:
         datasetname = traits["datasetname"]
@@ -184,6 +190,15 @@ class DatasetAdmin():
 
     def build_segment_dictionaries(self, traits: dict) -> None:
         for trait in traits:
+            for segment in self.valid_segment_traits.keys():
+                if trait in self.valid_segment_traits[segment].keys():
+                    if not segment in self.segment_traits.keys():
+                        self.segment_traits[segment] = {}
+                    else:
+                        self.segment_traits[segment][trait] = traits[trait]
+                    self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+        
+        for trait in list(set(traits) - set(self.trait_map.keys())):
             alt_trait = trait
             if trait[:3] == 'add':
                 operation = 'add'
@@ -193,17 +208,17 @@ class DatasetAdmin():
                 trait = trait[2:]
             elif trait[:3] == 'del':
                 operation = 'remove'
-                trait = trait[3:]  
+                trait = trait[3:]
+            elif trait[:3] == 'set':
+                operation = 'set'
+                trait = trait[3:]
             else:
                 operation = ""
             for segment in self.valid_segment_traits.keys():
                 if trait in self.valid_segment_traits[segment].keys():
                     if not segment in self.segment_traits.keys():
                         self.segment_traits[segment] = {}
-                    if not (operation == ""):
-                        self.segment_traits[segment][trait] = [traits[alt_trait], operation]
-                    else:
-                        self.segment_traits[segment][trait] = traits[trait]
+                    self.segment_traits[segment][trait] = [traits[alt_trait], operation]
                     self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
 
     def build_segments(

@@ -235,11 +235,92 @@ class ResourceAdmin():
     def del_volume(self, resource_name: str, class_name: str, volume_name: str) -> str:
         return self.alter({'resourcename': resource_name, "classname": class_name, "delvolume": volume_name})
 
+    def set_jobname(self, resource_name: str, class_name: str, jobname_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setjobname": jobname_name})
+
     def add_jobname(self, resource_name: str, class_name: str, jobname_name: str) -> str:
         return self.alter({'resourcename': resource_name, "classname": class_name, "addjobname": jobname_name})
 
     def del_jobname(self, resource_name: str, class_name: str, jobname_name: str) -> str:
         return self.alter({'resourcename': resource_name, "classname": class_name, "deljobname": jobname_name})
+
+    def no_jobnames(self, resource_name: str, class_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "nojobname": "N/A"})
+
+    def set_crtlbl(self, resource_name: str, class_name: str, crtlbl_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setcrtlbls": crtlbl_name})
+
+    def add_crtlbl(self, resource_name: str, class_name: str, crtlbl_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "addcrtlbls": crtlbl_name})
+
+    def del_crtlbl(self, resource_name: str, class_name: str, crtlbl_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "delcrtlbls": crtlbl_name})
+
+    def no_crtlbls(self, resource_name: str, class_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "nocrtlbls": "N/A"})
+
+    def set_keylbl(self, resource_name: str, class_name: str, keylbl_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setkeylbls": keylbl_name})
+
+    def add_keylbl(self, resource_name: str, class_name: str, keylbl_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "addkeylbls": keylbl_name})
+
+    def del_keylbl(self, resource_name: str, class_name: str, keylbl_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "delkeylbls": keylbl_name})
+
+    def no_keylbls(self, resource_name: str, class_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "nokeylbls": "N/A"})
+
+    def set_factor(self, resource_name: str, class_name: str, factor_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setfactors": factor_name})
+
+    def add_factor(self, resource_name: str, class_name: str, factor_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "addfactors": factor_name})
+
+    def del_factor(self, resource_name: str, class_name: str, factor_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "delfactors": factor_name})
+
+    def no_factors(self, resource_name: str, class_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "nofactors": "N/A"})
+
+    def set_child(self, resource_name: str, class_name: str, child_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setchildren": child_name})
+
+    def add_child(self, resource_name: str, class_name: str, child_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "addchildren": child_name})
+
+    def del_child(self, resource_name: str, class_name: str, child_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "delchildren": child_name})
+
+    def no_children(self, resource_name: str, class_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "nochildren": "N/A"})
+
+    def set_group(self, resource_name: str, class_name: str, group_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setgroups": group_name})
+
+    def add_group(self, resource_name: str, class_name: str, group_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "addgroups": group_name})
+
+    def del_group(self, resource_name: str, class_name: str, group_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "delgroups": group_name})
+
+    def no_groups(self, resource_name: str, class_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "nogroups": "N/A"})
+
+    def set_resource(self, resource_name: str, class_name: str, tme_resource_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setresource": tme_resource_name})
+
+    def add_resource(self, resource_name: str, class_name: str, tme_resource_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "addresource": tme_resource_name})
+
+    def del_resource(self, resource_name: str, class_name: str, tme_resource_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "delresource": tme_resource_name})
+
+    def no_resources(self, resource_name: str, class_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "noresource": "N/A"})
+
+    def set_role(self, resource_name: str, class_name: str, role_name: str) -> str:
+        return self.alter({'resourcename': resource_name, "classname": class_name, "setroles": role_name})
 
     def add_role(self, resource_name: str, class_name: str, role_name: str) -> str:
         return self.alter({'resourcename': resource_name, "classname": class_name, "addroles": role_name})
@@ -247,8 +328,8 @@ class ResourceAdmin():
     def del_role(self, resource_name: str, class_name: str, role_name: str) -> str:
         return self.alter({'resourcename': resource_name, "classname": class_name, "delroles": role_name})
 
-    def no_roles(self, resource_name: str, class_name: str) -> str: #test this
-        return self.alter({'resourcename': resource_name, "classname": class_name, "noroles": True})
+    def no_roles(self, resource_name: str, class_name: str) -> str: 
+        return self.alter({'resourcename': resource_name, "classname": class_name, "noroles": "N/A"})
 
 
     def add(self, traits: dict) -> dict:
@@ -288,8 +369,16 @@ class ResourceAdmin():
 
     def build_segment_dictionaries(self, traits: dict) -> None:
         for trait in traits:
+            for segment in self.valid_segment_traits.keys():
+                if trait in self.valid_segment_traits[segment].keys():
+                    if not segment in self.segment_traits.keys():
+                        self.segment_traits[segment] = {}
+                    else:
+                        self.segment_traits[segment][trait] = traits[trait]
+                    self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+        
+        for trait in list(set(traits) - set(self.trait_map.keys())):
             alt_trait = trait
-            #Figure out what to do to unify these. Turn "no" into "del" and del into remove? seems safest
             if trait[:3] == 'add':
                 operation = 'add'
                 trait = trait[3:]
@@ -299,17 +388,18 @@ class ResourceAdmin():
             elif trait[:3] == 'del':
                 operation = 'remove'
                 trait = trait[3:]
+            elif trait[:3] == 'set':
+                operation = 'set'
+                trait = trait[3:]
             else:
                 operation = ""
             for segment in self.valid_segment_traits.keys():
                 if trait in self.valid_segment_traits[segment].keys():
                     if not segment in self.segment_traits.keys():
                         self.segment_traits[segment] = {}
-                    if not (operation == ""):
-                        self.segment_traits[segment][trait] = [traits[alt_trait], operation]
-                    else:
-                        self.segment_traits[segment][trait] = traits[trait]
+                    self.segment_traits[segment][trait] = [traits[alt_trait], operation]
                     self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+
 
     def build_segments(
             self, 

@@ -9,7 +9,7 @@ class UserAdmin():
     def __init__(self) -> None:
         self.irrsmo00 = IRRSMO00()
         self.valid_segment_traits = {
-            'base': {
+            'base': { #fix CICS Netview overlap
                 'adsp': 'racf:adsp',
                 'auditor': 'racf:auditor',
                 'auth': 'racf:auth',
@@ -251,6 +251,78 @@ class UserAdmin():
     def set_uid(self, userid: str, uid: int) -> dict:
         return self.alter({"userid": userid, "uid": uid})
 
+    def add_category(self, userid: str, category_name: str) -> str:
+        return self.alter({"userid": userid, "addcategory": category_name})
+
+    def del_category(self, userid: str, category_name: str) -> str:
+        return self.alter({"userid": userid, "delcategory": category_name})
+
+    def set_clauth(self, userid: str, clauth_name: str) -> str:
+        return self.alter({"userid": userid, "setclauth": clauth_name})
+
+    def add_clauth(self, userid: str, clauth_name: str) -> str:
+        return self.alter({"userid": userid, "addclauth": clauth_name})
+
+    def del_clauth(self, userid: str, clauth_name: str) -> str:
+        return self.alter({"userid": userid, "delclauth": clauth_name})
+
+    def no_clauth(self, userid: str) -> str:
+        return self.alter({"userid": userid, "noclauth": "N/A"})
+
+    def add_mfapolnm(self, userid: str, mfapolnm_name: str) -> str:
+        return self.alter({"userid": userid, "addmfapolnm": mfapolnm_name})
+
+    def del_mfapolnm(self, userid: str, mfapolnm_name: str) -> str:
+        return self.alter({"userid": userid, "delmfapolnm": mfapolnm_name})
+
+    def set_cics_opclass(self, userid: str, opclass_name: str) -> str:
+        return self.alter({"userid": userid, "cics:setopclass": opclass_name})
+
+    def add_cics_opclass(self, userid: str, opclass_name: str) -> str:
+        return self.alter({"userid": userid, "cics:addopclass": opclass_name})
+
+    def del_cics_opclass(self, userid: str, opclass_name: str) -> str:
+        return self.alter({"userid": userid, "cics:delopclass": opclass_name})
+
+    def no_cics_opclass(self, userid: str) -> str:
+        return self.alter({"userid": userid, "cics:noopclass": "N/A"})
+
+    def set_netview_opclass(self, userid: str, opclass_name: str) -> str:
+        return self.alter({"userid": userid, "netview:setopclass": opclass_name})
+
+    def add_netview_opclass(self, userid: str, opclass_name: str) -> str:
+        return self.alter({"userid": userid, "netview:addopclass": opclass_name})
+
+    def del_netview_opclass(self, userid: str, opclass_name: str) -> str:
+        return self.alter({"userid": userid, "netview:delopclass": opclass_name})
+
+    def no_netview_opclass(self, userid: str) -> str:
+        return self.alter({"userid": userid, "netview:noopclass": "N/A"})
+
+    def set_domain(self, userid: str, domain_name: str) -> str:
+        return self.alter({"userid": userid, "setdomains": domain_name})
+
+    def add_domain(self, userid: str, domain_name: str) -> str:
+        return self.alter({"userid": userid, "adddomains": domain_name})
+
+    def del_domain(self, userid: str, domain_name: str) -> str:
+        return self.alter({"userid": userid, "deldomains": domain_name})
+
+    def no_domains(self, userid: str) -> str:
+        return self.alter({"userid": userid, "nodomains": "N/A"})
+
+    def set_mscope(self, userid: str, mscope_name: str) -> str:
+        return self.alter({"userid": userid, "setmscope": mscope_name})
+
+    def add_mscope(self, userid: str, mscope_name: str) -> str:
+        return self.alter({"userid": userid, "addmscope": mscope_name})
+
+    def del_mscope(self, userid: str, mscope_name: str) -> str:
+        return self.alter({"userid": userid, "delmscope": mscope_name})
+
+    def no_mscope(self, userid: str) -> str:
+        return self.alter({"userid": userid, "nomscope": "N/A"})
+
     def add(self, traits: dict) -> dict:
         userid = traits["userid"]
         self.build_segment_dictionaries(traits)
@@ -282,30 +354,43 @@ class UserAdmin():
     def delete(self, userid: str) -> dict:
         user_request = UserRequest(userid, "del")
         return self.make_request(user_request)
+    
+    def evaluate_trait(self, trait: str, segment: str, value: Union[str,list]):
+        if not segment in self.valid_segment_traits.keys():
+            return -1
+        if not trait in self.valid_segment_traits[segment]:
+            if trait[:3] == 'add':
+                operation = 'add'
+                true_trait = trait[3:]
+            elif trait[:2] == 'no':
+                operation = 'del'
+                true_trait = trait[2:]
+            elif trait[:3] == 'del':
+                operation = 'remove'
+                true_trait = trait[3:]
+            elif trait[:3] == 'set':
+                operation = 'set'
+                true_trait = trait[3:]
+            else:
+                return -1
+            self.evaluate_trait(true_trait, segment, [value, operation])
+        if not segment in self.segment_traits.keys():
+            self.segment_traits[segment] = {}
+        self.segment_traits[segment][trait] = value
+        self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+        return 0
+
 
     def build_segment_dictionaries(self, traits: dict) -> None:
         for trait in traits:
-            alt_trait = trait
-            if trait[:3] == 'add':
-                operation = 'add'
-                trait = trait[3:]
-            elif trait[:2] == 'no':
-                operation = 'del'
-                trait = trait[2:]
-            elif trait[:3] == 'del':
-                operation = 'remove'
-                trait = trait[3:]
-            else:
-                operation = ""
+            if ':' in trait:
+                segment = traits.split(':')[0]
+                true_trait = traits.split(':')[1]
+                self.evaluate_trait(true_trait,segment,traits[trait])
+                continue
             for segment in self.valid_segment_traits.keys():
-                if trait in self.valid_segment_traits[segment].keys():
-                    if not segment in self.segment_traits.keys():
-                        self.segment_traits[segment] = {}
-                    if not (operation == ""):
-                        self.segment_traits[segment][trait] = [traits[alt_trait], operation]
-                    else:
-                        self.segment_traits[segment][trait] = traits[trait]
-                    self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+                self.evaluate_trait(trait,segment,traits[trait])
+
 
     def build_segments(
             self, 
