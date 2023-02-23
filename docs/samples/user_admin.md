@@ -38,6 +38,18 @@ False
 {'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'commands': [{'safreturncode': 8, 'returncode': 16, 'reasoncode': 8, 'image': 'ADDUSER SQUIDWRD ', 'messages': ['IKJ56702I INVALID USERID, SQUIDWRD']}, {'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (UID         (1919))'}]}, 'returncode': 4, 'reasoncode': 4}}
 ```
 
+Additional set, add, del and no commands as follows with samples not shown:
+
+```python
+add_category(userid, category_name)/del_category(userid, category_name)
+set_clauth(userid, clauth_name)/add_clauth(userid, clauth_name)/del_clauth(userid, clauth_name)/no_clauth(userid)
+add_mfapolnm(userid, mfapolnm_name)/del_mfapolnm(userid, mfapolnm_name)
+set_cics_opclass(userid, opclass_name)/add_cics_opclass(userid, opclass_name)/del_cics_opclass(userid, opclass_name)/no_cics_opclass(userid)
+set_netview_opclass(userid, opclass_name)/add_netview_opclass(userid, opclass_name)/del_netview_opclass(userid, opclass_name)/no_netview_opclass(userid)
+set_domain(userid, domain_name)/add_domain(userid, domain_name)/del_domain(userid, domain_name)/no_domains(userid)
+set_mscope(userid, mscope_name)/add_mscope(userid, mscope_name)/del_mscope(userid, mscope_name)/no_mscope(userid)
+```
+
 &nbsp;
 
 # Run User Administration Samples

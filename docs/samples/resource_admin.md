@@ -26,6 +26,22 @@
 'read'
 ```
 
+Additional set, add, del and no commands as follows with samples not shown:
+
+```python
+add_category(resource_name, class_name, category_name)/del_category(resource_name, class_name, category_name)
+add_member(resource_name, class_name, member_name)/del_member(resource_name, class_name, member_name)
+add_volume(resource_name, class_name, volume_name)/del_volume(resource_name, class_name, volume_name)
+set_jobname(resource_name, class_name, jobname_name)/add_jobname(resource_name, class_name, jobname_name)/del_jobname(resource_name, class_name, jobname_name)/no_jobnames(resource_name, class_name)
+set_crtlbl(resource_name, class_name, crtlbl_name)/add_crtlbl(resource_name, class_name, crtlbl_name)/del_crtlbl(resource_name, class_name, crtlbl_name)/no_crtlbls(resource_name, class_name)
+set_keylbl(resource_name, class_name, keylbl_name)/add_keylbl(resource_name, class_name, keylbl_name)/del_keylbl(resource_name, class_name, keylbl_name)/no_keylbls(resource_name, class_name)
+set_factor(resource_name, class_name, factor_name)/add_factor(resource_name, class_name, factor_name)/del_factor(resource_name, class_name, factor_name)/no_factors(resource_name, class_name)
+set_child(resource_name, class_name, child_name)/add_child(resource_name, class_name, child_name)/del_child(resource_name, class_name, child_name)/no_children(resource_name, class_name)
+set_group(resource_name, class_name, group_name)/add_group(resource_name, class_name, group_name)/del_group(resource_name, class_name, group_name)/no_groups(resource_name, class_name)
+set_resource(resource_name, class_name, tme_resource_name)/add_resource(resource_name, class_name, tme_resource_name)/del_resource(resource_name, class_name, tme_resource_name)/no_resources(resource_name, class_name)
+set_role(resource_name, class_name, role_name)/add_role(resource_name, class_name, role_name)/del_role(resource_name, class_name, role_name)/no_roles(resource_name, class_name) 
+```
+
 &nbsp;
 
 # Run General Resource Profile Administration Samples

@@ -25,6 +25,14 @@
 >>> dataset_admin.get_your_acc("ESWIFT.TEST.T1136242.P3020470")
 'alter'
 ```
+Additional set, add, del and no commands as follows with samples not shown:
+
+```python
+add_category(dataset_name, category_name)/del_category(dataset_name, category_name)
+add_member(dataset_name, member_name)/del_member(dataset_name, member_name)
+set_volume(dataset_name, volume_name)/add_volume(dataset_name, volume_name)/del_volume(dataset_name, volume_name)
+set_role(dataset_name, role_name)/add_role(dataset_name, role_name)/del_role(dataset_name, role_name)/no_roles(dataset_name) 
+```
 
 &nbsp;
 
