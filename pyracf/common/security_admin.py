@@ -150,6 +150,8 @@ class SecurityAdmin:
             )
             i += 2
         elif messages[i][:8] == "  GROUP=":
+            if "groups" not in profile[current_segment]:
+                profile[current_segment]["groups"] = {}
             group = messages[i].split("=")[1].split()[0]
             profile[current_segment]["groups"][group] = {}
             message = messages[i] + messages[i + 1] + messages[i + 2] + messages[i + 3]
