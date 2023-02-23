@@ -58,6 +58,7 @@ class DatasetAdmin(SecurityAdmin):
         )
         self.segment_traits = {}
         self.trait_map = {}
+        self.profile_type = "dataset"
 
     def get_uacc(self, dataset_name: str) -> str:
         """Get UACC associated with a data set profile."""

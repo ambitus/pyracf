@@ -98,6 +98,7 @@ class SetroptsAdmin(SecurityAdmin):
                 "whenprog": "racf:whenprog",
             }
         }
+        self.profile_type = "systemsettings"
 
     def get_password_rules(self) -> str:
         """Get RACF password rules."""

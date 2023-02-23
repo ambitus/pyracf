@@ -161,6 +161,7 @@ class ResourceAdmin(SecurityAdmin):
                 "roles": "racf:roles",
             },
         }
+        self.profile_type = "resource"
 
     def get_uacc(self, resource_name: str, class_name: str) -> str:
         """Get UACC associated with a general resource profile."""

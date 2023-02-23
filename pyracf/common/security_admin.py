@@ -46,11 +46,12 @@ class SecurityAdmin:
         }
         self.segment_traits = {}
         self.trait_map = {}
+        self.profile_type = None
 
     def extract_and_check_result(self, security_request: SecurityRequest) -> dict:
         """Extract a RACF profile."""
         result = self.make_request(security_request)
-        if "error" in result["securityresult"]["user"]:
+        if "error" in result["securityresult"][self.profile_type]:
             raise SecurityRequestError(result)
         if (
             result["securityresult"]["returncode"] == 0

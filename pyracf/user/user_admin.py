@@ -204,6 +204,7 @@ class UserAdmin(SecurityAdmin):
                 "waemail": "waemail",
             },
         }
+        self.profile_type = "user"
 
     def is_special(self, userid: str) -> bool:
         """Check if a user has RACF special."""
