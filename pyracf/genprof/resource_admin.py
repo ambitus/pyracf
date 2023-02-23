@@ -228,7 +228,7 @@ class ResourceAdmin(SecurityAdmin):
     def format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["resource"]["commands"][0]["messages"]
-        profile = self.__format_profile(
+        profile = self.format_profile_generic(
             messages, self.valid_segment_traits, profile_type="generic"
         )
         # Post processing

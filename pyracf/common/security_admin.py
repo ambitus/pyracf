@@ -75,7 +75,7 @@ class SecurityAdmin:
     def format_profile(self, result: dict):
         """Placeholder for format profile function for profile extract."""
 
-    def __format_profile(
+    def format_profile_generic(
         self, messages: str, valid_segment_traits: dict, profile_type: str
     ) -> None:
         """Generic profile formatter shared by two or more RACF profile formats."""
