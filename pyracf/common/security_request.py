@@ -75,6 +75,8 @@ class SecurityRequest:
                 trait_element.attrib = {"operation": "set"}
         if len(list(segment.iter())) == 1 and not extract:
             self.security_definition.remove(segment)
+        for trait in segment:
+            print(trait.tag, trait.attrib)
 
     def dump_request_xml(self) -> bytes:
         """Dump XML as EBCDIC encoded bytes."""
