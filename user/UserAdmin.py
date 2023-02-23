@@ -356,11 +356,11 @@ class UserAdmin():
         return self.make_request(user_request)
     
     def evaluate_trait(self, trait: str, segment: str, value: Union[str,list]):
-        print("Called to evaluate trait: %s for segment: %s" % (trait,segment))
-        print(self.valid_segment_traits.keys())
+        #print("Called to evaluate trait: %s for segment: %s" % (trait,segment))
+        #print(self.valid_segment_traits.keys())
         if not segment in self.valid_segment_traits.keys():
             return -1
-        print(self.valid_segment_traits[segment].keys())
+        #print(self.valid_segment_traits[segment].keys())
         if not trait in self.valid_segment_traits[segment].keys():
             if trait[:3] == 'add':
                 operation = 'add'
@@ -377,8 +377,9 @@ class UserAdmin():
             else:
                 return -1
             self.evaluate_trait(true_trait, segment, [value, operation])
-        print("Assigning a value")
-        print(value)
+            return 0
+        #print("Assigning a value")
+        #print(value)
         if not segment in self.segment_traits.keys():
             self.segment_traits[segment] = {}
         self.segment_traits[segment][trait] = value
