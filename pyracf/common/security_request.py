@@ -17,10 +17,10 @@ class SecurityRequest:
     def set_volid_and_generic(self, traits) -> None:
         """Set volid and generic as attributes for security definition based on traits."""
         if "volid" in traits:
-            if traits["volid"]:
+            if traits["volid"] != "":
                 self.security_definition.attrib["volid"] = traits["volid"]
         if "generic" in traits:
-            if traits["generic"]:
+            if traits["generic"] != "no":
                 self.security_definition.attrib["generic"] = traits["generic"]
 
     def build_segments(
@@ -75,9 +75,6 @@ class SecurityRequest:
                 trait_element.attrib = {"operation": "set"}
         if len(list(segment.iter())) == 1 and not extract:
             self.security_definition.remove(segment)
-        print(segment.tag, segment.attrib)
-        for trait in segment:
-            print(trait.tag, trait.attrib)
 
     def dump_request_xml(self) -> bytes:
         """Dump XML as EBCDIC encoded bytes."""

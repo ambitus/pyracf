@@ -11,9 +11,9 @@ class DatasetRequest(SecurityRequest):
         self.security_definition.tag = "dataset"
 
         if "generic" not in traits:
-            traits["generic"] = False
+            traits["generic"] = "no"
         if "volid" not in traits:
-            traits["volid"] = None
+            traits["volid"] = ""
 
         self.security_definition.attrib = {
             "name": traits["datasetname"],
