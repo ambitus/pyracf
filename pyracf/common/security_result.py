@@ -7,6 +7,7 @@ class SecurityResult:
     """Generic Security Result Parser."""
 
     def __init__(self, result_xml: str) -> None:
+        print(result_xml)
         self.result = XMLParser.fromstring(result_xml)
         self.result_dictionary = {"securityresult": {}}
         self.__extract_results()
@@ -36,17 +37,12 @@ class SecurityResult:
         """Extract info section from XML into a list."""
         self.definition_dictionary["info"] = []
         info = self.definition_dictionary["info"]
-        print(self.definition[0].tag)
         while self.definition[0].tag.split("}")[-1] == "info":
             item = self.definition[0]
             if item.tag.split("}")[-1] != "info":
                 return
             info.append(item.text)
             self.definition.remove(item)
-            try:
-                self.definition[0].tag.split("}")[-1]
-            except IndexError:
-                return
 
     def __extract_commands(self) -> None:
         """Extract commands section from XML into a list."""
