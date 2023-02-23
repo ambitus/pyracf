@@ -384,8 +384,8 @@ class UserAdmin():
     def build_segment_dictionaries(self, traits: dict) -> None:
         for trait in traits:
             if ':' in trait:
-                segment = traits.split(':')[0]
-                true_trait = traits.split(':')[1]
+                segment = trait.split(':')[0]
+                true_trait = trait.split(':')[1]
                 self.evaluate_trait(true_trait,segment,traits[trait])
                 continue
             for segment in self.valid_segment_traits.keys():
