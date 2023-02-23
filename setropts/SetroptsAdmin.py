@@ -204,39 +204,46 @@ class SetroptsAdmin():
         self.build_segment(setropts_request)
         return self.make_request(setropts_request)
 
-    def build_segment_dictionaries(self, traits: dict) -> None:
-        for trait in traits:
-            for segment in self.valid_segment_traits.keys():
-                if trait in self.valid_segment_traits[segment].keys():
-                    if not segment in self.segment_traits.keys():
-                        self.segment_traits[segment] = {}
-                    else:
-                        self.segment_traits[segment][trait] = traits[trait]
-                    self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
-        
-        for trait in list(set(traits) - set(self.trait_map.keys())):
-            alt_trait = trait
+    def evaluate_trait(self, trait: str, segment: str, value: Union[str,list]):
+        #print("Called to evaluate trait: %s for segment: %s" % (trait,segment))
+        #print(self.valid_segment_traits.keys())
+        if not segment in self.valid_segment_traits.keys():
+            return -1
+        #print(self.valid_segment_traits[segment].keys())
+        if not trait in self.valid_segment_traits[segment].keys():
             if trait[:3] == 'add':
                 operation = 'add'
-                trait = trait[3:]
+                true_trait = trait[3:]
             elif trait[:2] == 'no':
                 operation = 'del'
-                trait = trait[2:]
+                true_trait = trait[2:]
             elif trait[:3] == 'del':
                 operation = 'remove'
-                trait = trait[3:]
+                true_trait = trait[3:]
             elif trait[:3] == 'set':
                 operation = 'set'
-                trait = trait[3:]
+                true_trait = trait[3:]
             else:
-                operation = ""
-            for segment in self.valid_segment_traits.keys():
-                if trait in self.valid_segment_traits[segment].keys():
-                    if not segment in self.segment_traits.keys():
-                        self.segment_traits[segment] = {}
-                    self.segment_traits[segment][trait] = [traits[alt_trait], operation]
-                    self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+                return -1
+            self.evaluate_trait(true_trait, segment, [value, operation])
+            return 0
+        #print("Assigning a value")
+        #print(value)
+        if not segment in self.segment_traits.keys():
+            self.segment_traits[segment] = {}
+        self.segment_traits[segment][trait] = value
+        self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+        return 0
 
+    def build_segment_dictionaries(self, traits: dict) -> None:
+        for trait in traits:
+            if ':' in trait:
+                segment = trait.split(':')[0]
+                true_trait = trait.split(':')[1]
+                self.evaluate_trait(true_trait,segment,traits[trait])
+                continue
+            for segment in self.valid_segment_traits.keys():
+                self.evaluate_trait(trait,segment,traits[trait])
 
     def build_segment(self, profile_request: SetroptsRequest, alter=False) -> None:
         profile_request.build_segment(False, self.segment_traits, self.trait_map, alter=alter)
