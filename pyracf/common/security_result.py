@@ -22,12 +22,17 @@ class SecurityResult:
         self.definition_dictionary = self.result_dictionary["securityresult"][
             definition_tag
         ]
-        if self.definition[0].tag.split("}")[-1] == "info":
-            self.__extract_info()
-        if self.definition[0].tag.split("}")[-1] == "error":
-            self.__extract_error()
-        else:
-            self.__extract_commands()
+        try:
+            if self.definition[0].tag.split("}")[-1] == "info":
+                self.__extract_info()
+            if self.definition[0].tag.split("}")[-1] == "error":
+                self.__extract_error()
+            else:
+                self.__extract_commands()
+        except IndexError:
+            # Index Error indicates that there is no
+            # additional information to extract from the definition.
+            pass
         return_code = self.result[1]
         self.result_dictionary["securityresult"]["returncode"] = int(return_code.text)
         reason_code = self.result[1]
