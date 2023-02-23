@@ -358,7 +358,7 @@ class UserAdmin():
     def evaluate_trait(self, trait: str, segment: str, value: Union[str,list]):
         if not segment in self.valid_segment_traits.keys():
             return -1
-        if not trait in self.valid_segment_traits[segment]:
+        if not trait in self.valid_segment_traits[segment].keys():
             if trait[:3] == 'add':
                 operation = 'add'
                 true_trait = trait[3:]

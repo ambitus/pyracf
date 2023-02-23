@@ -6,7 +6,7 @@ import string
 
 def main():
     user_admin = UserAdmin()
-    uid = "squiliam"
+    uid = "SQUILM"
 
     traits = {
         "name": "Squilliam",
