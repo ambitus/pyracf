@@ -97,7 +97,7 @@ class DatasetAdmin(SecurityAdmin):
         self.build_segments(dataset_request, extract=True)
         return self.extract_and_check_result(dataset_request)
 
-    def delete(self, datasetname: str, generic: str = False, volid: str = None) -> dict:
+    def delete(self, datasetname: str, generic: str = "no", volid: str = "") -> dict:
         """Delete a data set profile."""
         traits = {"datasetname": datasetname, "generic": generic, "volid": volid}
         dataset_request = DatasetRequest(traits, "del")
