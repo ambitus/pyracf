@@ -368,11 +368,8 @@ class ResourceAdmin():
         return self.make_request(profile_request)
 
     def evaluate_trait(self, trait: str, segment: str, value: Union[str,list]):
-        #print("Called to evaluate trait: %s for segment: %s" % (trait,segment))
-        #print(self.valid_segment_traits.keys())
         if not segment in self.valid_segment_traits.keys():
             return -1
-        #print(self.valid_segment_traits[segment].keys())
         if not trait in self.valid_segment_traits[segment].keys():
             if trait[:3] == 'add':
                 operation = 'add'
@@ -390,8 +387,6 @@ class ResourceAdmin():
                 return -1
             self.evaluate_trait(true_trait, segment, [value, operation])
             return 0
-        #print("Assigning a value")
-        #print(value)
         if not segment in self.segment_traits.keys():
             self.segment_traits[segment] = {}
         self.segment_traits[segment][trait] = value

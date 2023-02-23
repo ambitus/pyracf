@@ -66,7 +66,6 @@ class SetroptsAdmin():
                 'pwdalg': 'racf:pwdalg',
                 'pwdspec': 'racf:pwdspec',
                 'raclist': 'racf:raclist',
-                'noraclist': "racf:raclist",
                 'realdsn': 'racf:realdsn',
                 'refresh': 'racf:refresh',
                 'retpd': 'racf:retpd',
@@ -205,11 +204,8 @@ class SetroptsAdmin():
         return self.make_request(setropts_request)
 
     def evaluate_trait(self, trait: str, segment: str, value: Union[str,list]):
-        #print("Called to evaluate trait: %s for segment: %s" % (trait,segment))
-        #print(self.valid_segment_traits.keys())
         if not segment in self.valid_segment_traits.keys():
             return -1
-        #print(self.valid_segment_traits[segment].keys())
         if not trait in self.valid_segment_traits[segment].keys():
             if trait[:3] == 'add':
                 operation = 'add'
@@ -227,8 +223,6 @@ class SetroptsAdmin():
                 return -1
             self.evaluate_trait(true_trait, segment, [value, operation])
             return 0
-        #print("Assigning a value")
-        #print(value)
         self.segment_traits[trait] = value
         self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
         return 0
