@@ -229,13 +229,11 @@ class SetroptsAdmin():
             return 0
         #print("Assigning a value")
         #print(value)
-        if not segment in self.segment_traits.keys():
-            self.segment_traits[segment] = {}
-        self.segment_traits[segment][trait] = value
+        self.segment_traits[trait] = value
         self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
         return 0
 
-    def build_segment_dictionaries(self, traits: dict) -> None:
+    def build_segment_dictionary(self, traits: dict) -> None:
         for trait in traits:
             if ':' in trait:
                 segment = trait.split(':')[0]
