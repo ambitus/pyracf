@@ -1,8 +1,10 @@
+:warning: _Ensure that pyRACF is __[installed](../../README.md#installation)__ as a **Python package** before you run these samples._
+
 # Getters and Setters
 
 ## `get_password_rules`
 ```python
->>> from setropts.SetroptsAdmin import SetroptsAdmin
+>>> from pyracf.setropts.setropts_admin import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.get_password_rules()
 [{'minlength': 4, 'maxlength': 8, 'content': '********', 'legend': {'*': 'ANYTHING'}}]
@@ -10,7 +12,7 @@
 
 ## `refresh`
 ```python
->>> from setropts.SetroptsAdmin import SetroptsAdmin
+>>> from pyracf.setropts.setropts_admin import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.refresh('FACILITY')
 {'securityresult': {'systemsettings': {'operation': 'set', 'requestid': 'SetroptsRequest', 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'SETROPTS      RACLIST     (FACILITY) REFRESH     ', 'messages': ['ICH14063I SETROPTS command complete.'], 'message': 'ICH14063I SETROPTS command complete.'}]}, 'returncode': 0, 'reasoncode': 0}}
@@ -18,7 +20,7 @@
 
 ## `get_class_types`
 ```python
->>> from setropts.SetroptsAdmin import SetroptsAdmin
+>>> from pyracf.setropts.setropts_admin import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.get_class_types('FACILITY')
 ['active', 'generic profile', 'generic command', 'setr raclist']
@@ -30,7 +32,7 @@
 
 ## `raclist_add`
 ```python
->>> from setropts.SetroptsAdmin import SetroptsAdmin
+>>> from pyracf.setropts.setropts_admin import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.raclist_add('ELIJTEST')
 {'securityresult': {'systemsettings': {'operation': 'set', 'requestid': 'SetroptsRequest', 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'SETROPTS      RACLIST     (ELIJTEST)', 'messages': ['ICH14063I SETROPTS command complete.'], 'message': 'ICH14063I SETROPTS command complete.'}]}, 'returncode': 0, 'reasoncode': 0}}
@@ -38,7 +40,7 @@
 
 ## `raclist_del`
 ```python
->>> from setropts.SetroptsAdmin import SetroptsAdmin
+>>> from pyracf.setropts.setropts_admin import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.get_class_types('ELIJTEST')
 {'securityresult': {'systemsettings': {'operation': 'set', 'requestid': 'SetroptsRequest', 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'SETROPTS    NORACLIST     (ELIJTEST)', 'messages': ['ICH14063I SETROPTS command complete.'], 'message': 'ICH14063I SETROPTS command complete.'}]}, 'returncode': 0, 'reasoncode': 0}}
@@ -60,7 +62,7 @@ global_add(class_name)/global_del(class_name)
 
 # Run Set RACF Options Samples
 
-:warning: _Run samples from the `irrsmo00` directory._
+:warning: _Run the following samples from the **root directory** of this **repository**._
 
 ## Set a RACF Option
 

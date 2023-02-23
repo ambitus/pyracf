@@ -1,11 +1,14 @@
+"""Create a new user."""
+
 import json
 import random
 import string
 
-from pyracf.user.UserAdmin import UserAdmin
+from pyracf.user.user_admin import UserAdmin
 
 
 def main():
+    """Entrypoint."""
     user_admin = UserAdmin()
 
     traits = {

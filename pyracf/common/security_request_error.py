@@ -1,3 +1,5 @@
+"""Exception to use when data returned by IRRSMO00 indicates that the request failed."""
+
 import json
 
 

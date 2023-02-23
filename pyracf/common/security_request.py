@@ -1,7 +1,11 @@
+"""Generic Security Request builder."""
+
 import xml.etree.ElementTree as XMLBuilder
 
 
 class SecurityRequest:
+    """Generic Security Request builder."""
+
     def __init__(self) -> None:
         self.racf_request = XMLBuilder.Element("securityrequest")
         self.racf_request.attrib = {
@@ -9,6 +13,32 @@ class SecurityRequest:
             "xmlns:racf": "http://www.ibm.com/systems/zos/racf",
         }
         self.security_definition = XMLBuilder.SubElement(self.racf_request, "undefined")
+
+    def set_volid_and_generic(self, traits) -> None:
+        """Set volid and generic as attributes for security definition based on traits."""
+        if "volid" in traits:
+            if traits["volid"]:
+                self.security_definition.attrib["volid"] = traits["volid"]
+        if "generic" in traits:
+            if traits["generic"]:
+                self.security_definition.attrib["generic"] = traits["generic"]
+
+    def build_segments(
+        self,
+        segment_traits_dictionary: dict,
+        trait_map: dict,
+        alter=False,
+        extract=False,
+    ) -> None:
+        """Build XML representation of segments."""
+        for segment, segment_traits in segment_traits_dictionary.items():
+            self.build_segment(
+                segment,
+                segment_traits,
+                trait_map,
+                alter=alter,
+                extract=extract,
+            )
 
     def build_segment(
         self,
@@ -18,6 +48,7 @@ class SecurityRequest:
         alter=False,
         extract=False,
     ) -> None:
+        """Build segment in XML format."""
         if not traits:
             return
         if segment_name:
@@ -46,4 +77,5 @@ class SecurityRequest:
             self.security_definition.remove(segment)
 
     def dump_request_xml(self) -> bytes:
+        """Dump XML as EBCDIC encoded bytes."""
         return XMLBuilder.tostring(self.racf_request, encoding="cp1047")

@@ -1,9 +1,11 @@
+:warning: _Ensure that pyRACF is __[installed](../../README.md#installation)__ as a **Python package** before you run these samples._
+
 # Setters and Getters
 
 ## `is_special`
 
 ```python
->>> from user.UserAdmin import UserAdmin
+>>> from pyracf.user.user_admin import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.is_special("squidwrd")
 False
@@ -12,7 +14,7 @@ False
 ## `set_special`
 
 ```python
->>> from user.UserAdmin import UserAdmin
+>>> from pyracf.user.user_admin import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.set_special("squidwrd")
 {'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'commands': [{'safreturncode': 8, 'returncode': 16, 'reasoncode': 8, 'image': 'ADDUSER SQUIDWRD ', 'messages': ['IKJ56702I INVALID USERID, SQUIDWRD']}, {'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  SPECIAL     '}]}, 'returncode': 4, 'reasoncode': 4}}
@@ -21,7 +23,7 @@ False
 ## `get_uid`
 
 ```python
->>> from user.UserAdmin import UserAdmin
+>>> from pyracf.user.user_admin import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.get_uid("squidwrd")
 2424
@@ -30,7 +32,7 @@ False
 ## `set_uid`
 
 ```python
->>> from user.UserAdmin import UserAdmin
+>>> from pyracf.user.user_admin import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.set_uid("squidwrd", 1919)
 {'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'commands': [{'safreturncode': 8, 'returncode': 16, 'reasoncode': 8, 'image': 'ADDUSER SQUIDWRD ', 'messages': ['IKJ56702I INVALID USERID, SQUIDWRD']}, {'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (UID         (1919))'}]}, 'returncode': 4, 'reasoncode': 4}}
@@ -40,7 +42,7 @@ False
 
 # Run User Administration Samples
 
-:warning: _Run samples from the `irrsmo00` directory._
+:warning: _Run the following samples from the **root directory** of this **repository**._
 
 ## Add a user
 

@@ -1,8 +1,10 @@
+:warning: _Ensure that pyRACF is __[installed](../../README.md#installation)__ as a **Python package** before you run these samples._
+
 # Getters and Setters
 
 ## `get_uacc`
 ```python
->>> from dataset.DatasetAdmin import DatasetAdmin
+>>> from pyracf.dataset.dataset_admin import DatasetAdmin
 >>> dataset_admin = DatasetAdmin()
 >>> dataset_admin.get_uacc("ESWIFT.TEST.T1136242.P3020470")
 'alter'
@@ -10,7 +12,7 @@
 
 ## `set_uacc`
 ```python
->>> from dataset.DatasetAdmin import DatasetAdmin
+>>> from pyracf.dataset.dataset_admin import DatasetAdmin
 >>> dataset_admin = DatasetAdmin()
 >>> dataset_admin.set_uacc("ESWIFT.TEST.T1136242.P3020470","READ")
 {'securityresult': {'dataset': {'name': 'ESWIFT.TEST.T1136242.P3020470', 'operation': 'set', 'generic': 'no', 'requestid': 'DatasetRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': "ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (READ)"}]}, 'returncode': 0, 'reasoncode': 0}}
@@ -18,7 +20,7 @@
 
 ## `get_your_acc`
 ```python
->>> from dataset.DatasetAdmin import DatasetAdmin
+>>> from pyracf.dataset.dataset_admin import DatasetAdmin
 >>> dataset_admin = DatasetAdmin()
 >>> dataset_admin.get_your_acc("ESWIFT.TEST.T1136242.P3020470")
 'alter'
@@ -28,7 +30,7 @@
 
 # Run Data Set Profile Administration Samples
 
-:warning: _Run samples from the `irrsmo00` directory._
+:warning: _Run the following samples from the **root directory** of this **repository**._
 
 ## Add a Dataset Profile
 

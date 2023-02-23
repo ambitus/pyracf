@@ -1,3 +1,5 @@
+"""PyRACF setup/build configuration."""
+
 import os
 from subprocess import run
 from typing import List
@@ -7,6 +9,8 @@ from setuptools.command.build_py import build_py
 
 
 class Build(build_py):
+    """Build irrsmo00.dll."""
+
     def run(self):
         os.chdir(f"{os.path.dirname(__file__)}/pyracf/common")
         command = (
@@ -21,7 +25,8 @@ class Build(build_py):
 
 
 def get_requirements() -> List[str]:
-    with open("requirements.txt", "r") as requirements_file:
+    """Get dependencies that must be installed with pyRACF."""
+    with open("requirements.txt", "r", encoding="utf-8") as requirements_file:
         return [line.strip() for line in requirements_file.readlines()]
 
 
@@ -32,7 +37,8 @@ setup(
     author="IBM",
     classifiers=[
         "Development Status :: 4 - Beta",
-        "Environment :: Console" "Intended Audience :: Developers",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
         "Topic :: RACF Administration",
         "License :: IBM Internal For Now...",
         "Operating System :: z/OS",

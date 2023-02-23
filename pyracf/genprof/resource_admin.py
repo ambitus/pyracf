@@ -1,38 +1,17 @@
-from typing import Union
+"""General Resource Profile Administration."""
 
-from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.SecurityRequestError import SecurityRequestError
-from pyracf.common.SecurityResult import SecurityResult
-from pyracf.genprof.ResourceRequest import ResourceRequest
+from pyracf.common.security_admin import SecurityAdmin
+from pyracf.genprof.resource_request import ResourceRequest
 
 
-class ResourceAdmin:
+class ResourceAdmin(SecurityAdmin):
+    """General Resaurce Profile Administration."""
+
     def __init__(self) -> None:
-        self.irrsmo00 = IRRSMO00()
+        super().__init__()
         self.valid_segment_traits = {
             "base": {
-                "aclcnt": "racf:aclcnt",
-                "aclacnt": "racf:aclacnt",
-                "aclacs": "racf:aclacs",
-                "aclid": "racf:aclid",
-                "acl2cnt": "racf:acl2cnt",
-                "acl2acnt": "racf:acl2acnt",
-                "acl2acs": "racf:acl2acs",
-                "acl2cond": "racf:acl2cond",
-                "acl2ent": "racf:acl2ent",
-                "acl2id": "racf:acl2id",
-                "acsaltr": "racf:acsaltr",
-                "acscntl": "racf:acscntl",
-                "acsread": "racf:acsread",
-                "acsupdt": "racf:acsupdt",
-                "all": "racf:all",
                 "appldata": "racf:appldata",
-                "audaltr": "racf:audaltr",
-                "audcntl": "racf:audcntl",
-                "audnone": "racf:audnone",
-                "audread": "racf:audread",
-                "audupdt": "racf:audupdt",
-                "authuser": "racf:authuser",
                 "automatc": "racf:automatc",
                 "category": "racf:category",
                 "creatdat": "racf:creatdat",
@@ -40,13 +19,6 @@ class ResourceAdmin:
                 "fclass": "racf:fclass",
                 "fgeneric": "racf:fgeneric",
                 "fprofile": "racf:fprofile",
-                "fvolume": "racf:fvolume",
-                "gaudaltr": "racf:gaudaltr",
-                "gaudcntl": "racf:gaudcntl",
-                "gaudnone": "racf:gaudnone",
-                "gaudread": "racf:gaudread",
-                "gaudupdt": "racf:gaudupdt",
-                "generic": "racf:generic",
                 "history": "racf:history",
                 "lchgdat": "racf:lchgdat",
                 "level": "racf:level",
@@ -189,25 +161,27 @@ class ResourceAdmin:
                 "roles": "racf:roles",
             },
         }
-        self.segment_traits = {}
-        self.trait_map = {}
 
     def get_uacc(self, resource_name: str, class_name: str) -> str:
+        """Get UACC associated with a general resource profile."""
         result = self.extract({"resourcename": resource_name, "classname": class_name})
         profile = result["securityresult"]["resource"]["commands"][0]["profile"]
         return profile["base"].get("universal access")
 
     def set_uacc(self, resource_name: str, class_name: str, uacc: str) -> str:
+        """Set the UACC for a general resource profile."""
         return self.alter(
             {"resourcename": resource_name, "classname": class_name, "uacc": uacc}
         )
 
     def get_your_acc(self, resource_name: str, class_name: str) -> str:
+        """Get the UACC associated with your own general resource profile."""
         result = self.extract({"resourcename": resource_name, "classname": class_name})
         profile = result["securityresult"]["resource"]["commands"][0]["profile"]
         return profile["base"].get("your access")
 
     def add(self, traits: dict) -> dict:
+        """Create a new general resource profile."""
         resourcename = traits["resourcename"]
         classname = traits["classname"]
         self.build_segment_dictionaries(traits)
@@ -216,6 +190,7 @@ class ResourceAdmin:
         return self.make_request(profile_request)
 
     def alter(self, traits: dict) -> dict:
+        """Alter an existing general resource profile."""
         resourcename = traits["resourcename"]
         classname = traits["classname"]
         self.build_segment_dictionaries(traits)
@@ -224,34 +199,18 @@ class ResourceAdmin:
         return self.make_request(profile_request, 3)
 
     def extract(self, traits: dict) -> dict:
+        """Extract a general resource profile."""
         resourcename = traits["resourcename"]
         classname = traits["classname"]
         self.build_bool_segment_dictionaries(traits)
         profile_request = ResourceRequest(resourcename, classname, "listdata")
         self.build_segments(profile_request, extract=True)
-        result = self.make_request(profile_request)
-        if "error" in result["securityresult"]["resource"]:
-            raise SecurityRequestError(result)
-        if (
-            result["securityresult"]["returncode"] == 0
-            and result["securityresult"]["reasoncode"] == 0
-        ):
-            self.__format_profile(result)
-            return result
-        raise SecurityRequestError(result)
+        return self.extract_and_check_result(profile_request)
 
     def delete(self, resourcename: str, classname: str) -> dict:
+        """Delete a general resource profile."""
         profile_request = ResourceRequest(resourcename, classname, "del")
         return self.make_request(profile_request)
-
-    def build_segment_dictionaries(self, traits: dict) -> None:
-        for trait in traits:
-            for segment in self.valid_segment_traits.keys():
-                if trait in self.valid_segment_traits[segment].keys():
-                    if segment not in self.segment_traits.keys():
-                        self.segment_traits[segment] = {}
-                    self.segment_traits[segment][trait] = traits[trait]
-                    self.trait_map[trait] = self.valid_segment_traits[segment][trait]
 
     def build_segments(
         self,
@@ -259,109 +218,23 @@ class ResourceAdmin:
         alter=False,
         extract=False,
     ) -> None:
-        for segment in self.segment_traits.keys():
-            profile_request.build_segment(
-                segment,
-                self.segment_traits[segment],
-                self.trait_map,
-                alter=alter,
-                extract=extract,
-            )
+        """Build XML representation of segments."""
+        profile_request.build_segments(
+            self.segment_traits, self.trait_map, alter=alter, extract=extract
+        )
         # Clear segments for new request
         self.segment_traits = {}
 
-    def build_bool_segment_dictionaries(self, traits: dict) -> None:
-        for trait in traits:
-            if trait in self.valid_segment_traits.keys():
-                self.segment_traits[trait] = traits[trait]
-
-    def make_request(self, profile_request: ResourceRequest, opts: int = 1) -> dict:
-        result_xml = self.irrsmo00.call_racf(profile_request.dump_request_xml(), opts)
-        results = SecurityResult(result_xml)
-        return results.get_result_dictionary()
-
-    def __format_profile(self, result: dict) -> None:
+    def format_profile(self, result: dict) -> None:
+        """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["resource"]["commands"][0]["messages"]
-        profile = {}
-        current_segment = "base"
-        profile[current_segment] = {}
-        i = 0
-        while i < len(messages):
-            if messages[i] == " ":
-                i += 1
-                continue
-
-            if "=" in messages[i]:
-                field = messages[i].split("=")[0].strip().lower()
-                profile[current_segment][field] = clean_and_separate(
-                    messages[i].split("=")[1]
-                )
-                i += 1
-                continue
-
-            if " INFORMATION" in messages[i]:
-                if i < len(messages) - 1 and "----------------" in messages[i + 1]:
-                    current_segment = (
-                        messages[i].split(" INFORMATION")[0].strip().lower()
-                    )
-                    profile[current_segment] = {}
-                    i += 2
-                    continue
-                elif (
-                    messages[i].split(" ")[0] == "NO"
-                    and messages[i].split(" ")[2] == "INFORMATION"
-                ):
-                    current_segment = messages[i].split(" ")[1].strip().lower()
-                    profile[current_segment] = {}
-                    i += 1
-                    continue
-
-            if (
-                i < len(messages) - 2
-                and ("   " in messages[i])
-                and ("--" in messages[i + 1])
-            ):
-                tmp_ind = [
-                    j for j in range(len(messages[i + 1])) if messages[i + 1][j] == "-"
-                ]
-                indexes = [
-                    tmp_ind[j]
-                    for j in range(len(tmp_ind))
-                    if j == 0 or tmp_ind[j] - tmp_ind[j - 1] > 1
-                ]
-                # print(tmp_ind,indexes)
-                for j in range(len(indexes)):
-                    if j < len(indexes) - 1:
-                        ind_e0 = indexes[j + 1]
-                        ind_e1 = indexes[j + 1]
-                    else:
-                        ind_e0 = len(messages[i])
-                        ind_e1 = len(messages[i + 2])
-
-                    field = messages[i][indexes[j] : ind_e0].strip().lower()
-                    profile[current_segment][field] = clean_and_separate(
-                        messages[i + 2][indexes[j] : ind_e1]
-                    )
-                i += 2
-                continue
-
-            if i < len(messages) - 2 and ("-" in messages[i + 1]):
-                field = " ".join(
-                    [
-                        txt.lower().strip()
-                        for txt in list(filter(None, messages[i].split(" ")))
-                    ]
-                )
-                profile[current_segment][field] = clean_and_separate(messages[i + 2])
-                i += 2
-                continue
-
-            i += 1
-
+        profile = self.__format_profile(
+            messages, self.valid_segment_traits, profile_type="generic"
+        )
         # Post processing
         if "(g)" in profile["base"].get("name"):
             profile["base"]["generic"] = True
-            profile["base"]["name"] = cast_value(profile["base"].get("name")[0])
+            profile["base"]["name"] = self.__cast_value(profile["base"].get("name")[0])
         else:
             profile["base"]["generic"] = False
 
@@ -370,28 +243,3 @@ class ResourceAdmin:
 
         del result["securityresult"]["resource"]["commands"][0]["messages"]
         result["securityresult"]["resource"]["commands"][0]["profile"] = profile
-
-
-def cast_value(value: str) -> Union[None, int, float, str]:
-    if value == "n/a" or value == "none" or value == "none specified" or value == "no":
-        return None
-    if "." in value:
-        try:
-            return float(value)
-        except ValueError:
-            return value
-    try:
-        return int(value.replace(",", ""))
-    except ValueError:
-        return value
-
-
-def clean_and_separate(value: str):
-    cln_val = value.strip().lower()
-    if "," in cln_val:
-        out = [cast_value(val.strip()) for val in cln_val.split(",")]
-    elif " " in cln_val:
-        out = [cast_value(val.strip()) for val in cln_val.split(" ")]
-    else:
-        out = cast_value(cln_val)
-    return out

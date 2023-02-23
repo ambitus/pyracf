@@ -1,7 +1,11 @@
-from pyracf.common.SecurityRequest import SecurityRequest
+"""User Administration Request Builder."""
+
+from pyracf.common.security_request import SecurityRequest
 
 
 class UserRequest(SecurityRequest):
+    """User Administration Request Builder."""
+
     def __init__(self, userid: str, function: str) -> None:
         super().__init__()
         self.security_definition.tag = "user"

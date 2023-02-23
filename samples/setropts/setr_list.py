@@ -1,12 +1,15 @@
+"""List RACF Options."""
+
 import json
 
-from pyracf.setropts.SetroptsAdmin import SetroptsAdmin
+from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 
 def main():
+    """Entrypoint."""
     setropts_admin = SetroptsAdmin()
 
-    result = setropts_admin.list()
+    result = setropts_admin.list_ropts()
     print(json.dumps(result, indent=4))
 
 

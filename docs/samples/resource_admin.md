@@ -1,8 +1,10 @@
+:warning: _Ensure that pyRACF is __[installed](../../README.md#installation)__ as a **Python package** before you run these samples._
+
 # Getters and Setters
 
 ## `get_uacc`
 ```python
->>> from genprof.ResourceAdmin import ResourceAdmin
+>>> from pyracf.genprof.resource_admin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
 >>> resource_admin.get_uacc("BIKINI.BOTTOM.KRUSKRAB","FACILITY")
 'read'
@@ -10,7 +12,7 @@
 
 ## `set_uacc`
 ```python
->>> from genprof.ResourceAdmin import ResourceAdmin
+>>> from pyracf.genprof.resource_admin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
 >>> resource_admin.set_uacc("BIKINI.BOTTOM.KRUSKRAB","FACILITY","ALTER")
 {'securityresult': {'resource': {'name': 'BIKINI.BOTTOM.KRUSKRAB', 'class': 'FACILITY', 'operation': 'set', 'requestid': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'RALTER  FACILITY             (BIKINI.BOTTOM.KRUSKRAB)  UACC        (ALTER)', 'messages': ['ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'], 'message': 'ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'}]}, 'returncode': 0, 'reasoncode': 0}}
@@ -18,7 +20,7 @@
 
 ## `get_your_acc`
 ```python
->>> from genprof.ResourceAdmin import ResourceAdmin
+>>> from pyracf.genprof.resource_admin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
 >>> resource_admin.get_your_acc("BIKINI.BOTTOM.KRUSKRAB","FACILITY")
 'read'
@@ -28,7 +30,7 @@
 
 # Run General Resource Profile Administration Samples
 
-:warning: _Run samples from the `irrsmo00` directory._
+:warning: _Run the following samples from the **root directory** of this **repository**._
 
 ## Add a General Resource Profile
 

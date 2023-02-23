@@ -1,13 +1,18 @@
+"""Generic Security Result Parser."""
+
 import defusedxml.ElementTree as XMLParser
 
 
 class SecurityResult:
+    """Generic Security Result Parser."""
+
     def __init__(self, result_xml: str) -> None:
         self.result = XMLParser.fromstring(result_xml)
         self.result_dictionary = {"securityresult": {}}
         self.__extract_results()
 
     def __extract_results(self) -> None:
+        """Extract XML results into a dictionary."""
         self.definition = self.result[0]
         definition_tag = self.definition.tag.split("}")[-1]
         self.result_dictionary["securityresult"][
@@ -28,6 +33,7 @@ class SecurityResult:
         self.result_dictionary["securityresult"]["reasoncode"] = int(reason_code.text)
 
     def __extract_info(self) -> None:
+        """Extract info section from XML into a list."""
         self.definition_dictionary["info"] = []
         info = self.definition_dictionary["info"]
         while self.definition[0].tag.split("}")[-1] == "info":
@@ -38,6 +44,7 @@ class SecurityResult:
             self.definition.remove(item)
 
     def __extract_commands(self) -> None:
+        """Extract commands section from XML into a list."""
         self.definition_dictionary["commands"] = []
         commands = self.definition_dictionary["commands"]
         for command in self.definition:
@@ -55,6 +62,7 @@ class SecurityResult:
                     command_dictionary[item_tag] = item.text
 
     def __extract_error(self) -> None:
+        """Extract error section from XML into a dictionary."""
         self.definition_dictionary["error"] = {}
         error = self.definition[0]
         for item in error:
@@ -65,4 +73,5 @@ class SecurityResult:
                 self.definition_dictionary["error"][item_tag] = item.text
 
     def get_result_dictionary(self) -> dict:
+        """Return result dictionary."""
         return self.result_dictionary

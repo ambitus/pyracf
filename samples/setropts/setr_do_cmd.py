@@ -1,9 +1,12 @@
+"""Run a Set RACF Options command."""
+
 import json
 
-from pyracf.setropts.SetroptsAdmin import SetroptsAdmin
+from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 
 def main():
+    """Entrypoint."""
     setropts_admin = SetroptsAdmin()
 
     traits = {"raclist": "elijtest"}

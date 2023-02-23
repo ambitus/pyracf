@@ -1,6 +1,8 @@
+:warning: _Ensure that pyRACF is __[installed](../../README.md#installation)__ as a **Python package** before you run these samples._
+
 # Run Access Administration Samples
 
-:warning: _Run samples from the `irrsmo00` directory._
+:warning: _Run the following samples from the **root directory** of this **repository**._
 
 ## Add a Profile Permission
 

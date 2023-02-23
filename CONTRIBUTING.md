@@ -33,6 +33,19 @@ There are many ways to contribute to the project. You can write code, work on th
 
 If you want to write code, a good way to get started is by looking at the issues section of the repository. Look for the **Good First Issue** tag. Good First Issues are great as a first contribution.
 
+### pre-commit Hooks
+To ensure that **code formatters _(isort and black)_** and **linters _(flake8 and pylint)_** are always run against your code on **every commit** set up the **pre-commit hooks**.
+
+* Install development dependencies
+  ```shell
+  python3 -m pip install -r requirements-development.txt
+  ```
+* Setup pre-commit hooks
+> :warning: _If your workstation cannot find `pre-commit`, ensure that the **Python package** `bin` directory location is added to the `$PATH` **environment variable**._
+  ```shell
+  pre-commit install -f
+  ```
+
 ### Adding new functionality
 
 If you have a new functionality that can be added to the package, open a GitHub pull request with the code. In the PR, make sure to clearly document the new functionality including why it is valuable.
@@ -80,7 +93,7 @@ When contributing to pyRACF, think about the following:
   * Add your name as a contributor, if you are not part of the list
 * Add any available test cases to /tests
 * Verify **init** files are updated properly
-* Run Flake8 and Black against any code modified
+* Ensure that you have __pre-commit Hooks__ setup to ensure that **isort**, **black**, **flake8**, and **pylint** are run against the code for every commit you make.
 * Test installation of pyzkiln package after updates are made
 
 ## Found a bug?

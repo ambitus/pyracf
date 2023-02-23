@@ -1,9 +1,12 @@
+"""Change an id's access to a resource."""
+
 import json
 
-from pyracf.access.AccessAdmin import AccessAdmin
+from pyracf.access.access_admin import AccessAdmin
 
 
 def main():
+    """Entrypoint."""
     access_admin = AccessAdmin()
 
     traits = {
