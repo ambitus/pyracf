@@ -43,6 +43,10 @@ class SecurityResult:
                 return
             info.append(item.text)
             self.definition.remove(item)
+            try:
+                self.definition[0].tag.split("}")[-1]
+            except IndexError:
+                return
 
     def __extract_commands(self) -> None:
         """Extract commands section from XML into a list."""
