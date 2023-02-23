@@ -36,6 +36,7 @@ class SecurityResult:
         """Extract info section from XML into a list."""
         self.definition_dictionary["info"] = []
         info = self.definition_dictionary["info"]
+        print(self.definition[0].tag)
         while self.definition[0].tag.split("}")[-1] == "info":
             item = self.definition[0]
             if item.tag.split("}")[-1] != "info":
