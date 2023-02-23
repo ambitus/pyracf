@@ -75,7 +75,7 @@ class SecurityRequest:
                 trait_element.attrib = {"operation": "set"}
         if len(list(segment.iter())) == 1 and not extract:
             self.security_definition.remove(segment)
-        print(segment.text, segment.tag)
+        print(segment.tag, segment.attrib)
         for trait in segment:
             print(trait.tag, trait.attrib)
 
