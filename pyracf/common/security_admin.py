@@ -69,6 +69,7 @@ class SecurityAdmin:
 
     def make_request(self, security_request: SecurityRequest, opts: int = 1) -> dict:
         """Make request to IRRSMO00."""
+        print(security_request.dump_request_xml())
         result_xml = self.irrsmo00.call_racf(security_request.dump_request_xml(), opts)
         results = SecurityResult(result_xml)
         return results.get_result_dictionary()
