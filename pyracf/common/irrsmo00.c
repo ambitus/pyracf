@@ -45,7 +45,10 @@ char * call_irrsmo00(char input_xml[BUFFER_SIZE],unsigned int xml_len, unsigned 
         rsp
     );
 
-    printf(rsp);
+    // dump
+    FILE* dump_file = fopen("irrsmo00.dump", "wb+");
+    fwrite(rsp, 1, sizeof(rsp), dump_file);
+    fclose(dump_file);
 
     return rsp;
 }
