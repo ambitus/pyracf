@@ -44,5 +44,8 @@ char * call_irrsmo00(char input_xml[BUFFER_SIZE],unsigned int xml_len, unsigned 
         rsp_len, 
         rsp
     );
+
+    printf(rsp);
+
     return rsp;
 }
