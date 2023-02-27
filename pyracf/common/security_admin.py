@@ -119,7 +119,7 @@ class SecurityAdmin:
             )
         elif (
             i < len(messages) - 2
-            and ("   " in messages[i])
+            and ("  " in messages[i])
             and ("--" in messages[i + 1])
         ):
             self.__format_semi_tabular_data(messages, profile, current_segment, i)
