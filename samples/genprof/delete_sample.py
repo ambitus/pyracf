@@ -9,8 +9,8 @@ def main():
     """Entrypoint."""
     profile_admin = ResourceAdmin()
 
-    resourcename = "BIKINI.BOTTOM.KRUSKRAB"
-    classname = "FACILITY"
+    resourcename ="SAMPLE.TESTING.PROFILE"
+    classname = "ELIJTEST"
 
     result = profile_admin.delete(resourcename, classname)
     print(json.dumps(result, indent=4))

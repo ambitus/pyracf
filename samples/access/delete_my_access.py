@@ -10,9 +10,9 @@ def main():
     access_admin = AccessAdmin()
 
     traits = {
-        "resourcename": "BIKINI.BOTTOM.KRUSKRAB",
-        "classname": "FACILITY",
-        "id": "ESWIFT",
+        "resourcename": "SAMPLE.TESTING.PROFILE",
+        "classname": "ELIJTEST",
+        "id": "ESWIFT"
     }
 
     result = access_admin.delete(traits)

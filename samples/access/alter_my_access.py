@@ -10,8 +10,8 @@ def main():
     access_admin = AccessAdmin()
 
     traits = {
-        "resourcename": "BIKINI.BOTTOM.KRUSKRAB",
-        "classname": "FACILITY",
+        "resourcename": "SAMPLE.TESTING.PROFILE",
+        "classname": "ELIJTEST",
         "access": "NONE",
         "id": "ESWIFT",
     }

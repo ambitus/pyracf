@@ -10,8 +10,8 @@ def main():
     profile_admin = ResourceAdmin()
 
     traits = {
-        "resourcename": "BIKINI.BOTTOM.KRUSKRAB",
-        "classname": "FACILITY",
+        "resourcename": "SAMPLE.TESTING.PROFILE",
+        "classname": "ELIJTEST",
         "uacc": "None",
         "owner": "eswift",
     }
