@@ -22,9 +22,7 @@ def update_access_dynamic(func: str = "add") -> int:
         curr_acc = "None"
     print(f"Your access at start: {curr_acc}")
 
-    give = True if func == "add" else False
-
-    if give:
+    if func == "add":
         if not resource_admin.get_your_acc(test_profile, test_class) is None:
             print(
                 f"You have at least READ access to {test_profile} of class {test_class}"
