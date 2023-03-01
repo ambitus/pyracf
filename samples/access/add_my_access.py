@@ -10,7 +10,7 @@ def main():
     access_admin = AccessAdmin()
 
     traits = {
-        "resourcename": "SAMPLE.TESTING.PROFILE",
+        "resourcename": "ESWIFT.TESTING.PROFILE",
         "classname": "ELIJTEST",
         "access": "READ",
         "id": "ESWIFT",

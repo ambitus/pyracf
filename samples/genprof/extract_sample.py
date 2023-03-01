@@ -10,7 +10,7 @@ def main():
     profile_admin = ResourceAdmin()
 
     traits = {
-        "resourcename": "SAMPLE.TESTING.PROFILE",
+        "resourcename": "ESWIFT.TESTING.PROFILE",
         "classname": "ELIJTEST"
     }
 

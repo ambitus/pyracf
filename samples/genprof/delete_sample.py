@@ -9,7 +9,7 @@ def main():
     """Entrypoint."""
     profile_admin = ResourceAdmin()
 
-    resourcename ="SAMPLE.TESTING.PROFILE"
+    resourcename ="ESWIFT.TESTING.PROFILE"
     classname = "ELIJTEST"
 
     result = profile_admin.delete(resourcename, classname)
