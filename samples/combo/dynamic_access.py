@@ -44,6 +44,7 @@ def main():
         print("Class %s is not RACLISTED, you should have your access. Exiting now...")
     
     setropts_admin.refresh(testing_class)
+    print("Issued RACLIST REFRESH for class %s" % testing_class)
 
     curr_acc = resource_admin.get_your_acc(testing_profile,testing_class)
     if curr_acc == None:

@@ -27,7 +27,7 @@ def main():
     if not (result['securityresult']['permission']['commands'][0]['safreturncode'] == 0 and result['securityresult']['permission']['commands'][0]['returncode'] == 0):
         print("Failed to delete permission to %s of class: %s for userid: %s. Exiting now..." % (testing_profile,testing_class,testing_id))
         return -1
-    print("Deleted permission to %s of class: %s for userid: %s." % (testing_access,testing_profile,testing_class,testing_id))
+    print("Deleted permission to %s of class: %s for userid: %s." % (testing_profile,testing_class,testing_id))
 
     curr_acc = resource_admin.get_your_acc(testing_profile,testing_class)
     if curr_acc == None:
@@ -39,6 +39,7 @@ def main():
         print("Class %s is not RACLISTED, permission should be removed. Exiting now...")
     
     setropts_admin.refresh(testing_class)
+    print("Issued RACLIST REFRESH for class %s" % testing_class)
 
     curr_acc = resource_admin.get_your_acc(testing_profile,testing_class)
     if curr_acc == None:
