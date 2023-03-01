@@ -9,10 +9,7 @@ def main():
     """Entrypoint."""
     profile_admin = ResourceAdmin()
 
-    traits = {
-        "resourcename": "TESTING",
-        "classname": "ELIJTEST"
-    }
+    traits = {"resourcename": "TESTING", "classname": "ELIJTEST"}
 
     result = profile_admin.extract(traits)
     print(json.dumps(result, indent=4))

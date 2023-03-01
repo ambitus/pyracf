@@ -108,7 +108,7 @@ class DatasetAdmin(SecurityAdmin):
         """Delete a role from the Dataset Profile"""
         return self.alter({"datasetname": dataset_name, "delroles": role_name})
 
-    def no_roles(self, dataset_name: str) -> str: 
+    def no_roles(self, dataset_name: str) -> str:
         """Delete all role(s) from the Dataset Profile"""
         return self.alter({"datasetname": dataset_name, "noroles": "N/A"})
 

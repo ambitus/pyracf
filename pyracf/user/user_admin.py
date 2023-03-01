@@ -227,7 +227,7 @@ class UserAdmin(SecurityAdmin):
     def set_uid(self, userid: str, uid: int) -> dict:
         """Set a user's UID."""
         return self.alter({"userid": userid, "uid": str(uid)})
-    
+
     def add_category(self, userid: str, category_name: str) -> str:
         """Set the category for the User Profile"""
         return self.alter({"userid": userid, "addcategory": category_name})

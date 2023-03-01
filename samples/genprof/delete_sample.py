@@ -9,7 +9,7 @@ def main():
     """Entrypoint."""
     profile_admin = ResourceAdmin()
 
-    resourcename ="TESTING"
+    resourcename = "TESTING"
     classname = "ELIJTEST"
 
     result = profile_admin.delete(resourcename, classname)

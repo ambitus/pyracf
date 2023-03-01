@@ -220,15 +220,8 @@ class SetroptsAdmin(SecurityAdmin):
 
     def build_segment_dictionary(self, traits: dict) -> None:
         """Build segemnt dictionary for only base segment."""
-        for trait in traits:
-            if ':' in trait:
-                segment = trait.split(':')[0]
-                true_trait = trait.split(':')[1]
-                self.__validate_trait(true_trait,segment,traits[trait])
-                continue
-            self.__validate_trait(trait,'base',traits[trait])
-        
-        self.segment_traits = self.segment_traits['base']
+        self.build_segment_dictionaries(traits)
+        self.segment_traits = self.segment_traits["base"]
 
     def build_segment(self, profile_request: SetroptsRequest, alter=False) -> None:
         """Build XML representation of segment."""

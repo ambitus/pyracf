@@ -9,11 +9,7 @@ def main():
     """Entrypoint."""
     access_admin = AccessAdmin()
 
-    traits = {
-        "resourcename": "TESTING",
-        "classname": "ELIJTEST",
-        "id": "ESWIFT"
-    }
+    traits = {"resourcename": "TESTING", "classname": "ELIJTEST", "id": "ESWIFT"}
 
     result = access_admin.delete(traits)
     print(json.dumps(result, indent=4))
