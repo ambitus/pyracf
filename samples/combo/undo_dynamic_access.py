@@ -8,19 +8,19 @@ def main():
     setropts_admin = SetroptsAdmin()
     resource_admin = ResourceAdmin()
 
-    testing_profile = "TESTING"
-    testing_class = "ELIJTEST"
-    testing_id = "ESWIFT"
+    test_profile = "TESTING"
+    test_class = "ELIJTEST"
+    test_id = "ESWIFT"
 
-    curr_acc = resource_admin.get_your_acc(testing_profile, testing_class)
+    curr_acc = resource_admin.get_your_acc(test_profile, test_class)
     if curr_acc is None:
         curr_acc = "None"
-    print("Your access at start: %s" % curr_acc)
+    print(f"Your access at start: {curr_acc}")
 
     traits = {
-        "resourcename": testing_profile,
-        "classname": testing_class,
-        "id": testing_id,
+        "resourcename": test_profile,
+        "classname": test_class,
+        "id": test_id,
     }
     result = access_admin.delete(traits)
     if not (
@@ -28,35 +28,33 @@ def main():
         and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
     ):
         print(
-            "Failed to delete permission to %s of class: %s for userid: %s. Exiting now..."
-            % (testing_profile, testing_class, testing_id)
+            f"Failed to delete permission to {test_profile} of class: {test_class} for userid: {test_id}. Exiting now..."
         )
         return -1
     print(
-        "Deleted permission to %s of class: %s for userid: %s."
-        % (testing_profile, testing_class, testing_id)
+        f"Deleted permission to {test_profile} of class: {test_class} for userid: {test_id}."
     )
 
-    curr_acc = resource_admin.get_your_acc(testing_profile, testing_class)
+    curr_acc = resource_admin.get_your_acc(test_profile, test_class)
     if curr_acc is None:
         curr_acc = "None"
-    print("Your access after permission deletion: %s" % curr_acc)
+    print(f"Your access after permission deletion: {curr_acc}")
 
-    class_types = setropts_admin.get_class_types(testing_class)
-    if not ("raclist" in " ".join(class_types)):
+    class_types = setropts_admin.get_class_types(test_class)
+    if "raclist" not in " ".join(class_types):
         print(
-            "Class %s is not RACLISTED, permission should be removed. Exiting now..."
-            % testing_class
+            f"Class {test_class} is not RACLISTED, permission should be removed. Exiting now..."
         )
-        return
+        return 0
 
-    setropts_admin.refresh(testing_class)
-    print("Issued RACLIST REFRESH for class %s" % testing_class)
+    setropts_admin.refresh(test_class)
+    print(f"Issued RACLIST REFRESH for class {test_class}")
 
-    curr_acc = resource_admin.get_your_acc(testing_profile, testing_class)
+    curr_acc = resource_admin.get_your_acc(test_profile, test_class)
     if curr_acc is None:
         curr_acc = "None"
-    print("Your access after refresh: %s" % curr_acc)
+    print(f"Your access after refresh: {curr_acc}")
+    return 0
 
 
 if __name__ == "__main__":
