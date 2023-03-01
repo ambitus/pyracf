@@ -76,6 +76,42 @@ class DatasetAdmin(SecurityAdmin):
         profile = result["securityresult"]["dataset"]["commands"][0]["profile"]
         return profile["base"].get("your access")
 
+    def add_category(self, dataset_name: str, category_name: str) -> str:
+        """Set the category for the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "addcategory": category_name})
+
+    def del_category(self, dataset_name: str, category_name: str) -> str:
+        """Delete the category from the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "delcategory": category_name})
+
+    def set_volume(self, dataset_name: str, volume_name: str) -> str:
+        """Set the volume for the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "setvolume": volume_name})
+
+    def add_volume(self, dataset_name: str, volume_name: str) -> str:
+        """Add a volume to the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "addvolume": volume_name})
+
+    def del_volume(self, dataset_name: str, volume_name: str) -> str:
+        """Delete a volume from the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "delvolume": volume_name})
+
+    def set_role(self, dataset_name: str, role_name: str) -> str:
+        """Set a role for the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "setroles": role_name})
+
+    def add_role(self, dataset_name: str, role_name: str) -> str:
+        """Add a role to the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "addroles": role_name})
+
+    def del_role(self, dataset_name: str, role_name: str) -> str:
+        """Delete a role from the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "delroles": role_name})
+
+    def no_roles(self, dataset_name: str) -> str: 
+        """Delete all role(s) from the Dataset Profile"""
+        return self.alter({"datasetname": dataset_name, "noroles": "N/A"})
+
     def add(self, traits: dict) -> dict:
         """Create a new data set profile."""
         self.build_segment_dictionaries(traits)

@@ -1,6 +1,6 @@
-from access.AccessAdmin import AccessAdmin
-from setropts.SetroptsAdmin import SetroptsAdmin
-from genprof.ResourceAdmin import ResourceAdmin
+from pyracf.access.access_admin import AccessAdmin
+from pyracf.setropts.setropts_admin import SetroptsAdmin
+from pyracf.genprof.resource_admin import ResourceAdmin
 import json
 
 def main():

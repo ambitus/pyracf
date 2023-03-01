@@ -227,6 +227,102 @@ class UserAdmin(SecurityAdmin):
     def set_uid(self, userid: str, uid: int) -> dict:
         """Set a user's UID."""
         return self.alter({"userid": userid, "uid": str(uid)})
+    
+    def add_category(self, userid: str, category_name: str) -> str:
+        """Set the category for the User Profile"""
+        return self.alter({"userid": userid, "addcategory": category_name})
+
+    def del_category(self, userid: str, category_name: str) -> str:
+        """Delete the category from the User Profile"""
+        return self.alter({"userid": userid, "delcategory": category_name})
+
+    def set_clauth(self, userid: str, clauth_name: str) -> str:
+        """Set the class authorization for the User Profile"""
+        return self.alter({"userid": userid, "setclauth": clauth_name})
+
+    def add_clauth(self, userid: str, clauth_name: str) -> str:
+        """Add a class authorization to the User Profile"""
+        return self.alter({"userid": userid, "addclauth": clauth_name})
+
+    def del_clauth(self, userid: str, clauth_name: str) -> str:
+        """Remove a class authorization from the User Profile"""
+        return self.alter({"userid": userid, "delclauth": clauth_name})
+
+    def no_clauth(self, userid: str) -> str:
+        """Remove all class authorization(s) from the User Profile"""
+        return self.alter({"userid": userid, "noclauth": "N/A"})
+
+    def add_mfapolnm(self, userid: str, mfapolnm_name: str) -> str:
+        """Set the MFA Policy Name from the User Profile"""
+        return self.alter({"userid": userid, "addmfapolnm": mfapolnm_name})
+
+    def del_mfapolnm(self, userid: str, mfapolnm_name: str) -> str:
+        """Remove the MFA Policy Name from the User Profile"""
+        return self.alter({"userid": userid, "delmfapolnm": mfapolnm_name})
+
+    def set_cics_opclass(self, userid: str, opclass_name: str) -> str:
+        """Set the Operator Class (CICS) for the User Profile"""
+        return self.alter({"userid": userid, "cics:setopclass": opclass_name})
+
+    def add_cics_opclass(self, userid: str, opclass_name: str) -> str:
+        """Add an Operator Class (CICS) to the User Profile"""
+        return self.alter({"userid": userid, "cics:addopclass": opclass_name})
+
+    def del_cics_opclass(self, userid: str, opclass_name: str) -> str:
+        """Remove an Operator Class (CICS) from the User Profile"""
+        return self.alter({"userid": userid, "cics:delopclass": opclass_name})
+
+    def no_cics_opclass(self, userid: str) -> str:
+        """Remove all Operator Class(es) (CICS) from the User Profile"""
+        return self.alter({"userid": userid, "cics:noopclass": "N/A"})
+
+    def set_netview_opclass(self, userid: str, opclass_name: str) -> str:
+        """Set the Operator Class (Netview) for the User Profile"""
+        return self.alter({"userid": userid, "netview:setopclass": opclass_name})
+
+    def add_netview_opclass(self, userid: str, opclass_name: str) -> str:
+        """Add an Operator Class (Netview) to the User Profile"""
+        return self.alter({"userid": userid, "netview:addopclass": opclass_name})
+
+    def del_netview_opclass(self, userid: str, opclass_name: str) -> str:
+        """Remove an Operator Class (Netview) from the User Profile"""
+        return self.alter({"userid": userid, "netview:delopclass": opclass_name})
+
+    def no_netview_opclass(self, userid: str) -> str:
+        """Remove all Operator Class(es) (Netview) from the User Profile"""
+        return self.alter({"userid": userid, "netview:noopclass": "N/A"})
+
+    def set_domain(self, userid: str, domain_name: str) -> str:
+        """Set the Domain for the User Profile"""
+        return self.alter({"userid": userid, "setdomains": domain_name})
+
+    def add_domain(self, userid: str, domain_name: str) -> str:
+        """Add a Domain for the User Profile"""
+        return self.alter({"userid": userid, "adddomains": domain_name})
+
+    def del_domain(self, userid: str, domain_name: str) -> str:
+        """Delete a Domain from the User Profile"""
+        return self.alter({"userid": userid, "deldomains": domain_name})
+
+    def no_domains(self, userid: str) -> str:
+        """Delete all Domain(s) from the User Profile"""
+        return self.alter({"userid": userid, "nodomains": "N/A"})
+
+    def set_mscope(self, userid: str, mscope_name: str) -> str:
+        """Set the Message Scope for the User Profile"""
+        return self.alter({"userid": userid, "setmscope": mscope_name})
+
+    def add_mscope(self, userid: str, mscope_name: str) -> str:
+        """Add a Message Scope to the User Profile"""
+        return self.alter({"userid": userid, "addmscope": mscope_name})
+
+    def del_mscope(self, userid: str, mscope_name: str) -> str:
+        """Delete a Message Scope from the User Profile"""
+        return self.alter({"userid": userid, "delmscope": mscope_name})
+
+    def no_mscope(self, userid: str) -> str:
+        """Delete all Message Scope(s) from the User Profile"""
+        return self.alter({"userid": userid, "nomscope": "N/A"})
 
     def add(self, traits: dict) -> dict:
         """Create a new user."""

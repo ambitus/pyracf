@@ -125,82 +125,82 @@ class SetroptsAdmin(SecurityAdmin):
         return class_info
 
     def audit_add(self, class_name: str) -> dict:
-        """Add an audit class."""
+        """Add a class to the "Audit" list."""
         traits = {"audit": class_name}
         return self.command(traits)
 
     def audit_del(self, class_name: str) -> dict:
-        """Delete an audit class."""
+        """Delete a class from the "Audit" list."""
         traits = {"noaudit": class_name}
         return self.command(traits)
 
     def classact_add(self, class_name: str) -> dict:
-        """Add a classact class."""
+        """Add a class to the "Active" list."""
         traits = {"classact": class_name}
         return self.command(traits)
 
     def classact_del(self, class_name: str) -> dict:
-        """Delete a classact class."""
+        """Remove a class from the "Active" list."""
         traits = {"noclassact": class_name}
         return self.command(traits)
 
     def classstat_add(self, class_name: str) -> dict:
-        """Add a classstat class."""
+        """Add a class to the "Statistics" list."""
         traits = {"classstat": class_name}
         return self.command(traits)
 
     def classstat_del(self, class_name: str) -> dict:
-        """Delete a classstat class."""
+        """Remove a class from the "Statistics" list."""
         traits = {"noclassstat": class_name}
         return self.command(traits)
 
     def gencmd_add(self, class_name: str) -> dict:
-        """Add a gencmd class."""
+        """Add a class to the "Generic Command Classes" list."""
         traits = {"gencmd": class_name}
         return self.command(traits)
 
     def gencmd_del(self, class_name: str) -> dict:
-        """Delete a gencmd class."""
+        """Remove a class from the "Generic Command Classes" list."""
         traits = {"nogencmd": class_name}
         return self.command(traits)
 
     def generic_add(self, class_name: str) -> dict:
-        """Add a generic class."""
+        """Add a class to the "Generic Profile Classes" list."""
         traits = {"generic": class_name}
         return self.command(traits)
 
     def generic_del(self, class_name: str) -> dict:
-        """Delete a generic class."""
+        """Remove a class from the "Generic Profile Classes" list."""
         traits = {"nogeneric": class_name}
         return self.command(traits)
 
     def genlist_add(self, class_name: str) -> dict:
-        """Add a genlist class."""
+        """Add a class to the "GenList" list."""
         traits = {"genlist": class_name}
         return self.command(traits)
 
     def genlist_del(self, class_name: str) -> dict:
-        """Delete a genlist class."""
+        """Remove a class from the "GenList" list."""
         traits = {"nogenlist": class_name}
         return self.command(traits)
 
     def global_add(self, class_name: str) -> dict:
-        """Add a global class."""
+        """Add a class to the "Global Access Checking" list."""
         traits = {"global": class_name}
         return self.command(traits)
 
     def global_del(self, class_name: str) -> dict:
-        """Delete a global class."""
+        """Remove a class from the "Global Access Checking" list."""
         traits = {"noglobal": class_name}
         return self.command(traits)
 
     def raclist_add(self, class_name: str) -> dict:
-        """Add a raclist class."""
+        """Add a class to the "SETR Raclist" list."""
         traits = {"raclist": class_name}
         return self.command(traits)
 
     def raclist_del(self, class_name: str) -> dict:
-        """Delete a raclist class."""
+        """Remove a class from the "SETR Raclist" list."""
         traits = {"noraclist": class_name}
         return self.command(traits)
 
@@ -219,24 +219,16 @@ class SetroptsAdmin(SecurityAdmin):
         return self.make_request(setropts_request)
 
     def build_segment_dictionary(self, traits: dict) -> None:
-        """Build segment dictionaries for each segment."""
+        """Build segemnt dictionary for only base segment."""
         for trait in traits:
-            alt_trait = trait
-            if trait[:3] == "del" or trait[:3] == "add":
-                operation = trait[:3]
-                trait = trait[3:]
-            elif trait[:2] == "no":
-                operation = "del"
-                trait = trait[2:]
-            else:
-                operation = ""
-            for segment, segment_traits in self.valid_segment_traits.items():
-                if trait in segment_traits:
-                    if operation != "":
-                        self.segment_traits[trait] = [traits[alt_trait], operation]
-                    else:
-                        self.segment_traits[trait] = traits[trait]
-                    self.trait_map[trait] = self.valid_segment_traits[segment][trait]
+            if ':' in trait:
+                segment = trait.split(':')[0]
+                true_trait = trait.split(':')[1]
+                self.__validate_trait(true_trait,segment,traits[trait])
+                continue
+            self.__validate_trait(trait,'base',traits[trait])
+        
+        self.segment_traits = self.segment_traits['base']
 
     def build_segment(self, profile_request: SetroptsRequest, alter=False) -> None:
         """Build XML representation of segment."""

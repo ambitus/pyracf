@@ -299,12 +299,42 @@ class SecurityAdmin:
         except ValueError:
             return value
 
+    def __validate_trait(self, trait: str, segment: str, value: Union[str,list]):
+        """Validate the specified trait exists in the specified segment"""
+        if not segment in self.valid_segment_traits.keys():
+            return -1
+        if not trait in self.valid_segment_traits[segment].keys():
+            """If the trait is invalid, see if it could be valid with an operational parameter"""
+            if trait[:3] == 'add':
+                operation = 'add'
+                true_trait = trait[3:]
+            elif trait[:2] == 'no':
+                operation = 'del'
+                true_trait = trait[2:]
+            elif trait[:3] == 'del':
+                operation = 'remove'
+                true_trait = trait[3:]
+            elif trait[:3] == 'set':
+                operation = 'set'
+                true_trait = trait[3:]
+            else:
+                return -1
+            self.__validate_trait(true_trait, segment, [value, operation])
+            return 0
+        if not segment in self.segment_traits.keys():
+            self.segment_traits[segment] = {}
+        self.segment_traits[segment][trait] = value
+        self.trait_map[trait] =  self.valid_segment_traits[segment][trait]
+        return 0
+
     def build_segment_dictionaries(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
         for trait in traits:
-            for segment, segment_traits in self.valid_segment_traits.items():
-                if trait in segment_traits:
-                    if segment not in self.segment_traits:
-                        self.segment_traits[segment] = {}
-                    self.segment_traits[segment][trait] = traits[trait]
-                    self.trait_map[trait] = self.valid_segment_traits[segment][trait]
+            if ':' in trait:
+                segment = trait.split(':')[0]
+                true_trait = trait.split(':')[1]
+                self.__validate_trait(true_trait,segment,traits[trait])
+                continue
+            for segment in self.valid_segment_traits.keys():
+                self.__validate_trait(trait,segment,traits[trait])
+
