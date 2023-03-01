@@ -8,7 +8,7 @@ def main():
     setropts_admin = SetroptsAdmin()
     resource_admin = ResourceAdmin()
 
-    testing_profile = "ESWIFT.TESTING.PROFILE"
+    testing_profile = "TESTING"
     testing_class = "ELIJTEST"
     testing_access = "READ"
     testing_id = "ESWIFT"

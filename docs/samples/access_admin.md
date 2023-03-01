@@ -14,7 +14,7 @@ $ python3 samples/access/add_my_access.py
 {
     "securityresult": {
         "permission": {
-            "name": "ESWIFT.TESTING.PROFILE",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "AccessRequest",
@@ -23,7 +23,7 @@ $ python3 samples/access/add_my_access.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "PERMIT               ESWIFT.TESTING.PROFILE CLASS(FACILITY)  ACCESS      (READ) ID          (ESWIFT)",
+                    "image": "PERMIT               TESTING CLASS(FACILITY)  ACCESS      (READ) ID          (ESWIFT)",
                     "messages": [
                         "ICH06011I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
                     ],
@@ -47,7 +47,7 @@ $ python3 samples/access/alter_my_access.py
 {
     "securityresult": {
         "permission": {
-            "name": "ESWIFT.TESTING.PROFILE",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "AccessRequest",
@@ -56,7 +56,7 @@ $ python3 samples/access/alter_my_access.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "PERMIT               ESWIFT.TESTING.PROFILE CLASS(FACILITY)  ACCESS      (NONE) ID          (ESWIFT)",
+                    "image": "PERMIT               TESTING CLASS(FACILITY)  ACCESS      (NONE) ID          (ESWIFT)",
                     "messages": [
                         "ICH06011I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
                     ],
@@ -80,7 +80,7 @@ $ python3 samples/access/delete_my_access.py
 {
     "securityresult": {
         "permission": {
-            "name": "ESWIFT.TESTING.PROFILE",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "del",
             "requestid": "AccessRequest",
@@ -89,7 +89,7 @@ $ python3 samples/access/delete_my_access.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "PERMIT               ESWIFT.TESTING.PROFILE CLASS(FACILITY)  DELETE       ID          (ESWIFT)",
+                    "image": "PERMIT               TESTING CLASS(FACILITY)  DELETE       ID          (ESWIFT)",
                     "messages": [
                         "ICH06011I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
                     ],

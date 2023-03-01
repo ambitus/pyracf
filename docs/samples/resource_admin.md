@@ -6,7 +6,7 @@
 ```python
 >>> from pyracf.genprof.resource_admin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.get_uacc("ESWIFT.TESTING.PROFILE","FACILITY")
+>>> resource_admin.get_uacc("TESTING","FACILITY")
 'read'
 ```
 
@@ -14,15 +14,15 @@
 ```python
 >>> from pyracf.genprof.resource_admin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.set_uacc("ESWIFT.TESTING.PROFILE","FACILITY","ALTER")
-{'securityresult': {'resource': {'name': 'ESWIFT.TESTING.PROFILE', 'class': 'FACILITY', 'operation': 'set', 'requestid': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'RALTER  FACILITY             (ESWIFT.TESTING.PROFILE)  UACC        (ALTER)', 'messages': ['ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'], 'message': 'ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'}]}, 'returncode': 0, 'reasoncode': 0}}
+>>> resource_admin.set_uacc("TESTING","FACILITY","ALTER")
+{'securityresult': {'resource': {'name': 'TESTING', 'class': 'FACILITY', 'operation': 'set', 'requestid': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'RALTER  FACILITY             (TESTING)  UACC        (ALTER)', 'messages': ['ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'], 'message': 'ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'}]}, 'returncode': 0, 'reasoncode': 0}}
 ```
 
 ## `get_your_acc`
 ```python
 >>> from pyracf.genprof.resource_admin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.get_your_acc("ESWIFT.TESTING.PROFILE","FACILITY")
+>>> resource_admin.get_your_acc("TESTING","FACILITY")
 'read'
 ```
 
@@ -58,7 +58,7 @@ $ python3 samples/genprof/add_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "ESWIFT.TESTING.PROFILE",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "ResourceRequest",
@@ -67,7 +67,7 @@ $ python3 samples/genprof/add_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RDEFINE FACILITY             (ESWIFT.TESTING.PROFILE) ",
+                    "image": "RDEFINE FACILITY             (TESTING) ",
                     "messages": [
                         "ICH10006I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -77,7 +77,7 @@ $ python3 samples/genprof/add_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RALTER  FACILITY             (ESWIFT.TESTING.PROFILE)  UACC        (None) OWNER       (eswift)",
+                    "image": "RALTER  FACILITY             (TESTING)  UACC        (None) OWNER       (eswift)",
                     "messages": [
                         "ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -101,7 +101,7 @@ $ python3 samples/genprof/alter_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "ESWIFT.TESTING.PROFILE",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "ResourceRequest",
@@ -113,7 +113,7 @@ $ python3 samples/genprof/alter_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RALTER  FACILITY             (ESWIFT.TESTING.PROFILE)  UACC        (Read) OWNER       (eswift)",
+                    "image": "RALTER  FACILITY             (TESTING)  UACC        (Read) OWNER       (eswift)",
                     "messages": [
                         "ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -137,7 +137,7 @@ $ python3 samples/genprof/delete_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "ESWIFT.TESTING.PROFILE",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "del",
             "requestid": "ResourceRequest",
@@ -146,7 +146,7 @@ $ python3 samples/genprof/delete_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RDELETE FACILITY             (ESWIFT.TESTING.PROFILE) ",
+                    "image": "RDELETE FACILITY             (TESTING) ",
                     "messages": [
                         "ICH12002I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -170,7 +170,7 @@ $ python3 samples/genprof/extract_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "ESWIFT.TESTING.PROFILE",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "listdata",
             "requestid": "ResourceRequest",
@@ -179,12 +179,12 @@ $ python3 samples/genprof/extract_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RLIST   FACILITY             (ESWIFT.TESTING.PROFILE) ",
+                    "image": "RLIST   FACILITY             (TESTING) ",
                     "message": "NO USER TO BE NOTIFIED",
                     "profile": {
                         "base": {
                             "class": "facility",
-                            "name": "ESWIFT.TESTING.PROFILE",
+                            "name": "TESTING",
                             "level": 0,
                             "owner": "eswift",
                             "universal access": "read",
