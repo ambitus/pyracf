@@ -24,7 +24,7 @@ def main():
 
     if not resource_admin.get_your_acc(test_profile, test_class) is None:
         print(
-            f"You have at least READ access to {test_profile} of class {test_class}"\
+            f"You have at least READ access to {test_profile} of class {test_class}"
             " already. Exiting now..."
         )
         return 0
@@ -41,14 +41,13 @@ def main():
         and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
     ):
         print(
-            f"Failed to define {test_access} access to {test_profile} of class: {test_class}"\
+            f"Failed to define {test_access} access to {test_profile} of class: {test_class}"
             f" for userid: {test_id}. Exiting now..."
         )
         return -1
     print(
-        f"Defined {test_access} access to {test_profile} of class: {test_class}"\
-        f" for userid: {test_id}."
-        % (test_access, test_profile, test_class, test_id)
+        f"Defined {test_access} access to {test_profile} of class: {test_class}"
+        f" for userid: {test_id}." % (test_access, test_profile, test_class, test_id)
     )
 
     curr_acc = resource_admin.get_your_acc(test_profile, test_class)

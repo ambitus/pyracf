@@ -23,7 +23,7 @@ def main():
 
     if resource_admin.get_your_acc(test_profile, test_class) is None:
         print(
-            f"You have no access to {test_profile} of class {test_class}"\
+            f"You have no access to {test_profile} of class {test_class}"
             " already. Exiting now..."
         )
         return 0
@@ -39,7 +39,7 @@ def main():
         and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
     ):
         print(
-            f"Failed to delete permission to {test_profile} of class: {test_class}"\
+            f"Failed to delete permission to {test_profile} of class: {test_class}"
             f" for userid: {test_id}. Exiting now..."
         )
         return -1

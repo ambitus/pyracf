@@ -301,10 +301,9 @@ class SecurityAdmin:
 
     def __validate_trait(self, trait: str, segment: str, value: Union[str, list]):
         """Validate the specified trait exists in the specified segment"""
-        if segment not in self.valid_segment_traits.keys():
+        if segment not in self.valid_segment_traits:
             return -1
-        if trait not in self.valid_segment_traits[segment].keys():
-            """If the trait is invalid, see if it could be valid with an operational parameter"""
+        if trait not in self.valid_segment_traits[segment]:
             if trait[:3] == "add":
                 operation = "add"
                 true_trait = trait[3:]
@@ -321,7 +320,7 @@ class SecurityAdmin:
                 return -1
             self.__validate_trait(true_trait, segment, [value, operation])
             return 0
-        if segment not in self.segment_traits.keys():
+        if segment not in self.segment_traits:
             self.segment_traits[segment] = {}
         self.segment_traits[segment][trait] = value
         self.trait_map[trait] = self.valid_segment_traits[segment][trait]
