@@ -1,11 +1,10 @@
 """Ensure a user has at least READ access to a specific resource"""
 
-import dynamic_access
+from dynamic_access import update_access_dynamic
 
 def main():
     """Entrypoint"""
-    dynamic_access(True)
-
+    update_access_dynamic("add")
 
 if __name__ == "__main__":
     main()

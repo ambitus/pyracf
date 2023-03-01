@@ -1,4 +1,4 @@
-"""Ensure a user has at least READ access to a specific resource"""
+"""Update user access to a specific resource dynamically"""
 
 
 from pyracf.access.access_admin import AccessAdmin
@@ -6,7 +6,7 @@ from pyracf.genprof.resource_admin import ResourceAdmin
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 
-def dynamic_access(give: bool = True) -> int:
+def update_access_dynamic(func: str = "add") -> int:
     """Entrypoint"""
     access_admin = AccessAdmin()
     setropts_admin = SetroptsAdmin()
@@ -21,6 +21,8 @@ def dynamic_access(give: bool = True) -> int:
     if curr_acc is None:
         curr_acc = "None"
     print(f"Your access at start: {curr_acc}")
+
+    give = True if func == "add" else False
 
     if give:
         if not resource_admin.get_your_acc(test_profile, test_class) is None:
@@ -47,7 +49,8 @@ def dynamic_access(give: bool = True) -> int:
             return -1
         print(
             f"Defined {test_access} access to {test_profile} of class: {test_class}"
-            f" for userid: {test_id}." % (test_access, test_profile, test_class, test_id)
+            f" for userid: {test_id}."
+            % (test_access, test_profile, test_class, test_id)
         )
     else:
         if resource_admin.get_your_acc(test_profile, test_class) is None:
@@ -75,7 +78,6 @@ def dynamic_access(give: bool = True) -> int:
             f"Deleted permission to {test_profile} of class: {test_class} for userid: {test_id}."
         )
 
-
     curr_acc = resource_admin.get_your_acc(test_profile, test_class)
     if curr_acc is None:
         curr_acc = "None"
@@ -83,9 +85,7 @@ def dynamic_access(give: bool = True) -> int:
 
     class_types = setropts_admin.get_class_types(test_class)
     if "raclist" not in " ".join(class_types):
-        print(
-            f"Class {test_class} is not RACLISTED, access is updated. Exiting now..."
-        )
+        print(f"Class {test_class} is not RACLISTED, access is updated. Exiting now...")
         return 0
 
     setropts_admin.refresh(test_class)
@@ -96,7 +96,3 @@ def dynamic_access(give: bool = True) -> int:
         curr_acc = "None"
     print(f"Your access after refresh: {curr_acc}")
     return 0
-
-
-if __name__ == "__main__":
-    main()
