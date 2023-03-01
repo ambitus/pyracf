@@ -1,9 +1,13 @@
+"""Ensure a user has at least READ access to a specific resource"""
+
+
 from pyracf.access.access_admin import AccessAdmin
 from pyracf.genprof.resource_admin import ResourceAdmin
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 
 def main():
+    """Entrypoint"""
     access_admin = AccessAdmin()
     setropts_admin = SetroptsAdmin()
     resource_admin = ResourceAdmin()
@@ -20,7 +24,8 @@ def main():
 
     if not resource_admin.get_your_acc(test_profile, test_class) is None:
         print(
-            f"You have at least READ access to {test_profile} of class {test_class} already. Exiting now..."
+            f"You have at least READ access to {test_profile} of class {test_class}"\
+            " already. Exiting now..."
         )
         return 0
 
@@ -36,11 +41,13 @@ def main():
         and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
     ):
         print(
-            f"Failed to define {test_access} access to {test_profile} of class: {test_class} for userid: {test_id}. Exiting now..."
+            f"Failed to define {test_access} access to {test_profile} of class: {test_class}"\
+            f" for userid: {test_id}. Exiting now..."
         )
         return -1
     print(
-        f"Defined {test_access} access to {test_profile} of class: {test_class} for userid: {test_id}."
+        f"Defined {test_access} access to {test_profile} of class: {test_class}"\
+        f" for userid: {test_id}."
         % (test_access, test_profile, test_class, test_id)
     )
 

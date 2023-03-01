@@ -1,9 +1,13 @@
+"""Remove any permissions granting READ access or better to a specific resource"""
+
+
 from pyracf.access.access_admin import AccessAdmin
 from pyracf.genprof.resource_admin import ResourceAdmin
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 
 def main():
+    """Entrypoint"""
     access_admin = AccessAdmin()
     setropts_admin = SetroptsAdmin()
     resource_admin = ResourceAdmin()
@@ -17,6 +21,13 @@ def main():
         curr_acc = "None"
     print(f"Your access at start: {curr_acc}")
 
+    if resource_admin.get_your_acc(test_profile, test_class) is None:
+        print(
+            f"You have no access to {test_profile} of class {test_class}"\
+            " already. Exiting now..."
+        )
+        return 0
+
     traits = {
         "resourcename": test_profile,
         "classname": test_class,
@@ -28,7 +39,8 @@ def main():
         and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
     ):
         print(
-            f"Failed to delete permission to {test_profile} of class: {test_class} for userid: {test_id}. Exiting now..."
+            f"Failed to delete permission to {test_profile} of class: {test_class}"\
+            f" for userid: {test_id}. Exiting now..."
         )
         return -1
     print(
