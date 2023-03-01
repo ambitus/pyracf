@@ -334,5 +334,5 @@ class SecurityAdmin:
                 true_trait = trait.split(":")[1]
                 self.__validate_trait(true_trait, segment, traits[trait])
                 continue
-            for segment in self.valid_segment_traits.keys():
+            for segment in self.valid_segment_traits:
                 self.__validate_trait(trait, segment, traits[trait])
