@@ -6,7 +6,7 @@ from pyracf.genprof.resource_admin import ResourceAdmin
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 
-def main():
+def dynamic_access(give: bool = True) -> int:
     """Entrypoint"""
     access_admin = AccessAdmin()
     setropts_admin = SetroptsAdmin()
@@ -22,33 +22,59 @@ def main():
         curr_acc = "None"
     print(f"Your access at start: {curr_acc}")
 
-    if not resource_admin.get_your_acc(test_profile, test_class) is None:
+    if give:
+        if not resource_admin.get_your_acc(test_profile, test_class) is None:
+            print(
+                f"You have at least READ access to {test_profile} of class {test_class}"
+                " already. Exiting now..."
+            )
+            return 0
+        traits = {
+            "resourcename": test_profile,
+            "classname": test_class,
+            "access": test_access,
+            "id": test_id,
+        }
+        result = access_admin.add(traits)
+        if not (
+            result["securityresult"]["permission"]["commands"][0]["safreturncode"] == 0
+            and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
+        ):
+            print(
+                f"Failed to define {test_access} access to {test_profile} of class: {test_class}"
+                f" for userid: {test_id}. Exiting now..."
+            )
+            return -1
         print(
-            f"You have at least READ access to {test_profile} of class {test_class}"
-            " already. Exiting now..."
+            f"Defined {test_access} access to {test_profile} of class: {test_class}"
+            f" for userid: {test_id}." % (test_access, test_profile, test_class, test_id)
         )
-        return 0
+    else:
+        if resource_admin.get_your_acc(test_profile, test_class) is None:
+            print(
+                f"You have no access to {test_profile} of class {test_class}"
+                " already. Exiting now..."
+            )
+            return 0
+        traits = {
+            "resourcename": test_profile,
+            "classname": test_class,
+            "id": test_id,
+        }
+        result = access_admin.delete(traits)
+        if not (
+            result["securityresult"]["permission"]["commands"][0]["safreturncode"] == 0
+            and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
+        ):
+            print(
+                f"Failed to delete permission to {test_profile} of class: {test_class}"
+                f" for userid: {test_id}. Exiting now..."
+            )
+            return -1
+        print(
+            f"Deleted permission to {test_profile} of class: {test_class} for userid: {test_id}."
+        )
 
-    traits = {
-        "resourcename": test_profile,
-        "classname": test_class,
-        "access": test_access,
-        "id": test_id,
-    }
-    result = access_admin.add(traits)
-    if not (
-        result["securityresult"]["permission"]["commands"][0]["safreturncode"] == 0
-        and result["securityresult"]["permission"]["commands"][0]["returncode"] == 0
-    ):
-        print(
-            f"Failed to define {test_access} access to {test_profile} of class: {test_class}"
-            f" for userid: {test_id}. Exiting now..."
-        )
-        return -1
-    print(
-        f"Defined {test_access} access to {test_profile} of class: {test_class}"
-        f" for userid: {test_id}." % (test_access, test_profile, test_class, test_id)
-    )
 
     curr_acc = resource_admin.get_your_acc(test_profile, test_class)
     if curr_acc is None:
@@ -58,7 +84,7 @@ def main():
     class_types = setropts_admin.get_class_types(test_class)
     if "raclist" not in " ".join(class_types):
         print(
-            f"Class {test_class} is not RACLISTED, you should have your access. Exiting now..."
+            f"Class {test_class} is not RACLISTED, access is updated. Exiting now..."
         )
         return 0
 
