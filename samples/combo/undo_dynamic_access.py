@@ -38,7 +38,7 @@ def main():
     if not ('raclist' in ' '.join(class_types)):
         print("Class %s is not RACLISTED, permission should be removed. Exiting now...")
     
-    setropts_admin.refresh()
+    setropts_admin.refresh(testing_class)
 
     curr_acc = resource_admin.get_your_acc(testing_profile,testing_class)
     if curr_acc == None:
