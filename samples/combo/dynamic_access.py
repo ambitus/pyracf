@@ -41,7 +41,8 @@ def main():
 
     class_types = setropts_admin.get_class_types(testing_class)
     if not ('raclist' in ' '.join(class_types)):
-        print("Class %s is not RACLISTED, you should have your access. Exiting now...")
+        print("Class %s is not RACLISTED, you should have your access. Exiting now..." % testing_class)
+        return
     
     setropts_admin.refresh(testing_class)
     print("Issued RACLIST REFRESH for class %s" % testing_class)
