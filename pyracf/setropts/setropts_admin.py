@@ -69,7 +69,6 @@ class SetroptsAdmin(SecurityAdmin):
                 "pwdalg": "racf:pwdalg",
                 "pwdspec": "racf:pwdspec",
                 "raclist": "racf:raclist",
-                "noraclist": "racf:raclist",
                 "realdsn": "racf:realdsn",
                 "refresh": "racf:refresh",
                 "retpd": "racf:retpd",
@@ -348,11 +347,11 @@ class SetroptsAdmin(SecurityAdmin):
         """Add key-value pair values to profile."""
         field = message.split(" = ")[0].strip().lower()
         if current_segment:
-            profile[current_segment][field] = self.__clean_and_separate(
+            profile[current_segment][field] = self.clean_and_separate(
                 message.split(" = ")[1]
             )
         else:
-            profile[field] = self.__clean_and_separate(message.split(" = ")[1])
+            profile[field] = self.clean_and_separate(message.split(" = ")[1])
         return field
 
     def __add_classes_and_rules_to_profile(
@@ -360,7 +359,7 @@ class SetroptsAdmin(SecurityAdmin):
     ) -> int:
         """Add classes and rules to profile."""
         if "classes" in field:
-            new_val = self.__clean_and_separate(message.replace("  ", ""))
+            new_val = self.clean_and_separate(message.replace("  ", ""))
             if isinstance(new_val, str):
                 profile[field].append(new_val)
             else:
@@ -404,11 +403,11 @@ class SetroptsAdmin(SecurityAdmin):
             .replace(" is", "")
         )
         if current_segment:
-            profile[current_segment][field] = self.__clean_and_separate(
+            profile[current_segment][field] = self.clean_and_separate(
                 message.split(" : ")[1].replace(" / ", "/")
             )
         else:
-            profile[field] = self.__clean_and_separate(
+            profile[field] = self.clean_and_separate(
                 message.split(" : ")[1].replace(" / ", "/")
             )
         return field

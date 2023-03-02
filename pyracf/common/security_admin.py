@@ -131,7 +131,7 @@ class SecurityAdmin:
                     for txt in list(filter(None, messages[i].split(" ")))
                 ]
             )
-            profile[current_segment][field] = self.__clean_and_separate(messages[i + 2])
+            profile[current_segment][field] = self.clean_and_separate(messages[i + 2])
             i += 1
         elif "NO INSTALLATION DATA" in messages[i]:
             profile[current_segment]["installation data"] = None
@@ -220,7 +220,7 @@ class SecurityAdmin:
                 ind_e1 = len(messages[i + 2])
 
             field = messages[i][indexes[j] : ind_e0].strip().lower()
-            profile[current_segment][field] = self.__clean_and_separate(
+            profile[current_segment][field] = self.clean_and_separate(
                 messages[i + 2][indexes[j] : ind_e1]
             )
 
@@ -265,11 +265,11 @@ class SecurityAdmin:
     ) -> None:
         """Generic function for extracting key-value pair from RACF profile data."""
         field = message.split("=")[0].strip().lower()
-        profile[current_segment][field] = self.__clean_and_separate(
+        profile[current_segment][field] = self.clean_and_separate(
             message.split("=")[1]
         )
 
-    def __clean_and_separate(self, value: str) -> Union[list, str]:
+    def clean_and_separate(self, value: str) -> Union[list, str]:
         """Clean cast and separate comma and space delimited data."""
         cln_val = value.strip().lower()
         if "," in cln_val:
