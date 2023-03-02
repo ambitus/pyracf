@@ -249,13 +249,13 @@ class SetroptsAdmin(SecurityAdmin):
                 i += 1
                 continue
             if "  " in messages[i]:
-                result = self.__add_classes_and_rules_to_profile(
+                retcode = self.__add_classes_and_rules_to_profile(
                     messages[i],
                     profile,
                     current_segment,
                     field,
                 )
-                if result == 1:
+                if retcode == 1:
                     i += 1
                     continue
             if " : " in messages[i]:
@@ -303,7 +303,6 @@ class SetroptsAdmin(SecurityAdmin):
                     "legend"
                 ] = self.__content_keyword_map(content)
 
-        print(result)
         del result["securityresult"]["systemsettings"]["commands"][0]["messages"]
         result["securityresult"]["systemsettings"]["commands"][0]["profile"] = profile
 
@@ -329,7 +328,6 @@ class SetroptsAdmin(SecurityAdmin):
             field = "revoke"
             profile[current_segment][field] = 0
         elif "PASSWORD PROCESSING OPTIONS:" in message:
-            print("pw processing options?")
             current_segment = "password processing options"
             profile[current_segment] = {}
             field = ""
@@ -337,7 +335,6 @@ class SetroptsAdmin(SecurityAdmin):
             field = "rules"
             profile[current_segment][field] = []
         elif "LEGEND:" in message:
-            print("Legend?")
             current_segment = None
             field = ""
         return (current_segment, field)
