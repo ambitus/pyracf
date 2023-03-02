@@ -336,6 +336,11 @@ class SetroptsAdmin(SecurityAdmin):
         elif "LEGEND:" in message:
             current_segment = None
             field = ""
+        else:
+            print(f"Incorrect parsing of '{message}'!")
+            current_segment = None
+            field = ""
+
         return (current_segment, field)
 
     def __add_key_value_pair_to_profile(
