@@ -607,7 +607,7 @@ class ResourceAdmin(SecurityAdmin):
         # Post processing
         if "(g)" in profile["base"].get("name"):
             profile["base"]["generic"] = True
-            profile["base"]["name"] = self.__cast_value(profile["base"].get("name")[0])
+            profile["base"]["name"] = self.cast_value(profile["base"].get("name")[0])
         else:
             profile["base"]["generic"] = False
 

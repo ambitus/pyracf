@@ -193,7 +193,7 @@ class SecurityAdmin:
         keys_length = len(keys)
         for i in range(keys_length):
             key = keys[i].strip().lower().replace(" ", "").replace("-", "")
-            segment[key] = self.__cast_value(values[i])
+            segment[key] = self.cast_value(values[i])
 
     def __format_semi_tabular_data(
         self,
@@ -244,18 +244,18 @@ class SecurityAdmin:
                 if current_key not in segment:
                     segment[current_key] = []
                 values = [
-                    self.__cast_value(value)
+                    self.cast_value(value)
                     for value in value.split()
                     if value != "NONE"
                 ]
                 segment[current_key] += values
             else:
-                segment[current_key] = self.__cast_value(value)
+                segment[current_key] = self.cast_value(value)
             key = "".join(sub_tokens[1:])
             if len(sub_tokens) == 1:
                 if i < len(tokens) - 1 and " " in sub_tokens[0] and i != 0:
                     sub_tokens = sub_tokens[0].split()
-                    segment[current_key] = self.__cast_value(sub_tokens[0])
+                    segment[current_key] = self.cast_value(sub_tokens[0])
                     key = sub_tokens[-1]
                 else:
                     key = sub_tokens[0]
@@ -271,14 +271,14 @@ class SecurityAdmin:
         """Clean cast and separate comma and space delimited data."""
         cln_val = value.strip().lower()
         if "," in cln_val:
-            out = [self.__cast_value(val.strip()) for val in cln_val.split(",")]
+            out = [self.cast_value(val.strip()) for val in cln_val.split(",")]
         elif " " in cln_val:
-            out = [self.__cast_value(val.strip()) for val in cln_val.split(" ")]
+            out = [self.cast_value(val.strip()) for val in cln_val.split(" ")]
         else:
-            out = self.__cast_value(cln_val)
+            out = self.cast_value(cln_val)
         return out
 
-    def __cast_value(self, value: str) -> Union[None, int, float, str]:
+    def cast_value(self, value: str) -> Union[None, int, float, str]:
         """Cast null values floats and integers."""
         value = value.lower()
         if value in ("n/a", "none", "none specified", "no"):

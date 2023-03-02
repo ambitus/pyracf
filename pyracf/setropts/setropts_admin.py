@@ -321,7 +321,7 @@ class SetroptsAdmin(SecurityAdmin):
             )
         elif ", A USERID WILL BE REVOKED." in message:
             field = "revoke"
-            profile[current_segment][field] = self.__cast_value(
+            profile[current_segment][field] = self.cast_value(
                 message.split("AFTER ")[1].split(" CONSECUTIVE")[0].strip()
             )
         elif "USERIDS NOT BEING AUTOMATICALLY REVOKED." in message:
@@ -372,11 +372,11 @@ class SetroptsAdmin(SecurityAdmin):
         ):
             length_chars = message.lower().split("length(")[1].split(")")[0]
             if ":" in length_chars:
-                minlength = self.__cast_value(length_chars.split(":")[0])
-                maxlength = self.__cast_value(length_chars.split(":")[1])
+                minlength = self.cast_value(length_chars.split(":")[0])
+                maxlength = self.cast_value(length_chars.split(":")[1])
             else:
-                minlength = self.__cast_value(length_chars)
-                maxlength = self.__cast_value(length_chars)
+                minlength = self.cast_value(length_chars)
+                maxlength = self.cast_value(length_chars)
             chars = message[-1 * maxlength :]
             profile[current_segment][field].append(
                 {
@@ -426,17 +426,17 @@ class SetroptsAdmin(SecurityAdmin):
             .replace("the active ", "")
         )
         if "CURRENT OPTIONS:" in messages[i] and i < len(messages) - 1:
-            profile[field] = self.__cast_value(
+            profile[field] = self.cast_value(
                 messages[i + 1].split('"')[1:2][0].strip().lower()
             )
             i += 2
             return (i, field)
         if current_segment:
-            profile[current_segment][field] = self.__cast_value(
+            profile[current_segment][field] = self.cast_value(
                 messages[i].split("IS ")[1].strip().lower()
             )
         else:
-            profile[field] = self.__cast_value(
+            profile[field] = self.cast_value(
                 messages[i].split("IS ")[1].strip().lower()
             )
         i += 1
@@ -448,11 +448,11 @@ class SetroptsAdmin(SecurityAdmin):
         """Add are field to profile"""
         field = message.split("ARE ")[0].strip().lower()
         if current_segment:
-            profile[current_segment][field] = self.__cast_value(
+            profile[current_segment][field] = self.cast_value(
                 message.split("ARE ")[1].strip().lower()
             )
         else:
-            profile[field] = self.__cast_value(message.split("ARE ")[1].strip().lower())
+            profile[field] = self.cast_value(message.split("ARE ")[1].strip().lower())
         return field
 
     def __add_being_maintained_field_to_profile(
@@ -464,7 +464,7 @@ class SetroptsAdmin(SecurityAdmin):
         if "no password history" in cln_msg:
             profile[current_segment][field] = 0
         else:
-            profile[current_segment][field] = self.__cast_value(cln_msg.split(" ")[0])
+            profile[current_segment][field] = self.cast_value(cln_msg.split(" ")[0])
         return field
 
     def __content_keyword_map(self, content: str) -> dict:
