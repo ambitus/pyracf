@@ -312,6 +312,7 @@ class SetroptsAdmin(SecurityAdmin):
         profile: dict,
         current_segment: str,
     ) -> Tuple[str, str]:
+        field = ""
         """Add other keys to profile."""
         if "ARE " in message:
             field = self.__add_are_field_to_profile(message, profile, current_segment)
@@ -340,7 +341,8 @@ class SetroptsAdmin(SecurityAdmin):
             print(f"Incorrect parsing of '{message}'!")
             current_segment = None
             field = ""
-
+        if field == "":
+            print(f"Weird incorrect parsing of '{message}'!")
         return (current_segment, field)
 
     def __add_key_value_pair_to_profile(
