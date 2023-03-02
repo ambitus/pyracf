@@ -48,7 +48,6 @@ def update_access_dynamic(func: str = "add") -> int:
         print(
             f"Defined {test_access} access to {test_profile} of class: {test_class}"
             f" for userid: {test_id}."
-            % (test_access, test_profile, test_class, test_id)
         )
     else:
         if resource_admin.get_your_acc(test_profile, test_class) is None:
