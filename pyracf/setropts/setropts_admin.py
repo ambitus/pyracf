@@ -303,6 +303,7 @@ class SetroptsAdmin(SecurityAdmin):
                     "legend"
                 ] = self.__content_keyword_map(content)
 
+        print(result["securityresult"]["systemsettings"]["commands"][0])
         del result["securityresult"]["systemsettings"]["commands"][0]["messages"]
         result["securityresult"]["systemsettings"]["commands"][0]["profile"] = profile
 
@@ -329,12 +330,14 @@ class SetroptsAdmin(SecurityAdmin):
             field = "revoke"
             profile[current_segment][field] = 0
         elif "PASSWORD PROCESSING OPTIONS:" in message:
+            print("pw processing options?")
             current_segment = "password processing options"
             profile[current_segment] = {}
         elif "INSTALLATION PASSWORD SYNTAX RULES:" in message:
             field = "rules"
             profile[current_segment][field] = []
         elif "LEGEND:" in message:
+            print("Legend?")
             current_segment = None
             field = ""
         else:
