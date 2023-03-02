@@ -265,9 +265,7 @@ class SecurityAdmin:
     ) -> None:
         """Generic function for extracting key-value pair from RACF profile data."""
         field = message.split("=")[0].strip().lower()
-        profile[current_segment][field] = self.clean_and_separate(
-            message.split("=")[1]
-        )
+        profile[current_segment][field] = self.clean_and_separate(message.split("=")[1])
 
     def clean_and_separate(self, value: str) -> Union[list, str]:
         """Clean cast and separate comma and space delimited data."""
