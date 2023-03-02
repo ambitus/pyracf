@@ -244,9 +244,7 @@ class SecurityAdmin:
                 if current_key not in segment:
                     segment[current_key] = []
                 values = [
-                    self.cast_value(value)
-                    for value in value.split()
-                    if value != "NONE"
+                    self.cast_value(value) for value in value.split() if value != "NONE"
                 ]
                 segment[current_key] += values
             else:
