@@ -218,6 +218,42 @@ class UserAdmin(SecurityAdmin):
         """Make user RACF special."""
         return self.alter({"userid": userid, "special": True})
 
+    def set_special(self, userid: str) -> dict:
+        """Make user not RACF special."""
+        return self.alter({"userid": userid, "special": True})
+
+    def is_auditor(self, userid: str) -> bool:
+        """Check if a user is RACF auditor."""
+        result = self.extract({"userid": userid})
+        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        if "AUDITOR" in profile["base"]["attributes"]:
+            return True
+        return False
+
+    def set_auditor(self, userid: str) -> dict:
+        """Make user a RACF auditor."""
+        return self.alter({"userid": userid, "auditor": True})
+
+    def del_auditor(self, userid: str) -> dict:
+        """Make user not a RACF auditor."""
+        return self.alter({"userid": userid, "auditor": False})
+
+    def is_operations(self, userid: str) -> bool:
+        """Check if a user is RACF operator."""
+        result = self.extract({"userid": userid})
+        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        if "OPERATOR" in profile["base"]["attributes"]:
+            return True
+        return False
+
+    def set_operator(self, userid: str) -> dict:
+        """Make user a RACF operator."""
+        return self.alter({"userid": userid, "operator": True})
+
+    def del_operator(self, userid: str) -> dict:
+        """Make user not a RACF operator."""
+        return self.alter({"userid": userid, "operator": False})
+
     def get_uid(self, userid: str) -> Union[str, int]:
         """Get a user's UID."""
         result = self.extract({"userid": userid, "omvs": True})
