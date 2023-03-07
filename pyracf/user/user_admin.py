@@ -218,9 +218,9 @@ class UserAdmin(SecurityAdmin):
         """Make user RACF special."""
         return self.alter({"userid": userid, "special": True})
 
-    def set_special(self, userid: str) -> dict:
+    def del_special(self, userid: str) -> dict:
         """Make user not RACF special."""
-        return self.alter({"userid": userid, "special": True})
+        return self.alter({"userid": userid, "special": False})
 
     def is_auditor(self, userid: str) -> bool:
         """Check if a user is RACF auditor."""
@@ -238,7 +238,7 @@ class UserAdmin(SecurityAdmin):
         """Make user not a RACF auditor."""
         return self.alter({"userid": userid, "auditor": False})
 
-    def is_operations(self, userid: str) -> bool:
+    def is_operator(self, userid: str) -> bool:
         """Check if a user is RACF operator."""
         result = self.extract({"userid": userid})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
