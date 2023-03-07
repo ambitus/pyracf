@@ -210,6 +210,7 @@ class UserAdmin(SecurityAdmin):
         """Check if a user has RACF special."""
         result = self.extract({"userid": userid})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        print(profile["base"]["attributes"])
         if "SPECIAL" in profile["base"]["attributes"]:
             return True
         return False
@@ -226,6 +227,7 @@ class UserAdmin(SecurityAdmin):
         """Check if a user is RACF auditor."""
         result = self.extract({"userid": userid})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        print(profile["base"]["attributes"])
         if "AUDITOR" in profile["base"]["attributes"]:
             return True
         return False
@@ -242,17 +244,18 @@ class UserAdmin(SecurityAdmin):
         """Check if a user is RACF operator."""
         result = self.extract({"userid": userid})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        print(profile["base"]["attributes"])
         if "OPERATOR" in profile["base"]["attributes"]:
             return True
         return False
 
     def set_operator(self, userid: str) -> dict:
         """Make user a RACF operator."""
-        return self.alter({"userid": userid, "operator": True})
+        return self.alter({"userid": userid, "oper": True})
 
     def del_operator(self, userid: str) -> dict:
         """Make user not a RACF operator."""
-        return self.alter({"userid": userid, "operator": False})
+        return self.alter({"userid": userid, "oper": False})
 
     def get_uid(self, userid: str) -> Union[str, int]:
         """Get a user's UID."""
