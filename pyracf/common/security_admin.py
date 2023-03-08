@@ -51,7 +51,6 @@ class SecurityAdmin:
     def extract_and_check_result(self, security_request: SecurityRequest) -> dict:
         """Extract a RACF profile."""
         result = self.make_request(security_request)
-        print(result)
         if "error" in result["securityresult"][self.profile_type]:
             raise SecurityRequestError(result)
         if (

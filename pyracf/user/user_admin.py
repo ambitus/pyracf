@@ -210,8 +210,7 @@ class UserAdmin(SecurityAdmin):
         """Check if a user has RACF special."""
         result = self.extract({"userid": userid})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
-        print(profile["base"]["attributes"])
-        if "SPECIAL" in profile["base"]["attributes"]:
+        if "special" in profile["base"]["attributes"]:
             return True
         return False
 
@@ -227,8 +226,7 @@ class UserAdmin(SecurityAdmin):
         """Check if a user is RACF auditor."""
         result = self.extract({"userid": userid})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
-        print(profile["base"]["attributes"])
-        if "AUDITOR" in profile["base"]["attributes"]:
+        if "auditor" in profile["base"]["attributes"]:
             return True
         return False
 
@@ -240,20 +238,19 @@ class UserAdmin(SecurityAdmin):
         """Make user not a RACF auditor."""
         return self.alter({"userid": userid, "auditor": False})
 
-    def is_operator(self, userid: str) -> bool:
+    def is_operations(self, userid: str) -> bool:
         """Check if a user is RACF operator."""
         result = self.extract({"userid": userid})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
-        print(profile["base"]["attributes"])
-        if "OPERATOR" in profile["base"]["attributes"]:
+        if "operations" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_operator(self, userid: str) -> dict:
+    def set_operations(self, userid: str) -> dict:
         """Make user a RACF operator."""
         return self.alter({"userid": userid, "oper": True})
 
-    def del_operator(self, userid: str) -> dict:
+    def del_operations(self, userid: str) -> dict:
         """Make user not a RACF operator."""
         return self.alter({"userid": userid, "oper": False})
 
