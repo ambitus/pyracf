@@ -286,7 +286,7 @@ class SecurityAdmin:
         if value in ("not in effect", "inactive", "not allowed."):
             return False
         if "days" in value and any(chr.isdigit() for chr in value):
-            digits = [chr for chr in value if chr.isdigit()]
+            digits = ''.join([chr for chr in value if chr.isdigit()])
             return int(digits)
         if "." in value:
             try:
