@@ -279,12 +279,15 @@ class SecurityAdmin:
     def cast_value(self, value: str) -> Union[None, int, float, str]:
         """Cast null values floats and integers."""
         value = value.lower()
-        if value in ("n/a", "none", "none specified", "no"):
+        if value in ("n/a", "none", "none specified", "no", "None"):
             return None
-        if value in ("in effect", "active", "being done.", "in effect.", "allowed."):
+        if value in ("in effect", "active", "active.", "being done.", "in effect.", "allowed."):
             return True
-        if value in ("not in effect", "inavtive", "not allowed."):
+        if value in ("not in effect", "inactive", "not allowed."):
             return False
+        if "days" in value and any(chr.isdigit() for chr in value):
+            digits = [chr for chr in value if chr.isdigit()]
+            return int(digits)
         if "." in value:
             try:
                 return float(value)
