@@ -285,6 +285,7 @@ class SecurityAdmin:
                     close_ind.append(i)
             for i in range(len(open_ind)):
                 out[open_ind[i]:close_ind[i]] = ' '.join(out[open_ind[i]:close_ind[i]])
+                print(out[open_ind[i]:close_ind[i]],open_ind[i],close_ind[i])
                 
         return out
 

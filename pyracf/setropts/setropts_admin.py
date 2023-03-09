@@ -431,8 +431,8 @@ class SetroptsAdmin(SecurityAdmin):
             .replace(" option", "")
             .replace(" in effect", "")
             .replace("the active ", "")
-            .replace(" for gdgs.","")
         )
+        messages[i] = messages[i].replace(' for gdgs.')
         if "CURRENT OPTIONS:" in messages[i] and i < len(messages) - 1:
             profile[field] = self.cast_value(
                 messages[i + 1].split('"')[1:2][0].strip().lower()
