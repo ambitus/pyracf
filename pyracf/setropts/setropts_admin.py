@@ -273,8 +273,7 @@ class SetroptsAdmin(SecurityAdmin):
                 continue
             other_keys = (
                 "ARE ",
-                " NOT BEING DONE"
-                "BEING MAINTAINED.",
+                " NOT BEING DONE" "BEING MAINTAINED.",
                 ", A USERID WILL BE REVOKED.",
                 ", A USERID WILL BE REVOKED.",
                 "USERIDS NOT BEING AUTOMATICALLY REVOKED.",
@@ -432,8 +431,8 @@ class SetroptsAdmin(SecurityAdmin):
             .replace(" in effect", "")
             .replace("the active ", "")
         )
-        
-        messages[i] = messages[i].replace(' FOR GDGS.','')
+
+        messages[i] = messages[i].replace(" FOR GDGS.", "")
 
         if "CURRENT OPTIONS:" in messages[i] and i < len(messages) - 1:
             profile[field] = self.cast_value(
@@ -452,9 +451,9 @@ class SetroptsAdmin(SecurityAdmin):
                 )
             else:
                 profile[field] = [profile[field]]
-                profile[field].append(self.cast_value(
-                    messages[i].split("IS ")[1].strip().lower()
-                ))
+                profile[field].append(
+                    self.cast_value(messages[i].split("IS ")[1].strip().lower())
+                )
         i += 1
         return (i, field)
 
@@ -489,7 +488,7 @@ class SetroptsAdmin(SecurityAdmin):
         """Add being done field to profile."""
         cln_msg = message.strip().lower().replace(" for gdgs.")
         field = cln_msg.replace(" not being done", "")
-        profile[current_segment][field] = self.cast_value(cln_msg[len(field):])
+        profile[current_segment][field] = self.cast_value(cln_msg[len(field) :])
         return field
 
     def __content_keyword_map(self, content: str) -> dict:

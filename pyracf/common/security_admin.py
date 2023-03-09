@@ -274,25 +274,25 @@ class SecurityAdmin:
             out = [self.cast_value(val.strip()) for val in cln_val.split(" ")]
         else:
             out = self.cast_value(cln_val)
-        
-        if type(out) == list:
+
+        if isinstance(out, list):
             open_ind = []
             close_ind = []
             cln_ind = []
-            for i in range(len(out)):
-                if '(' in out[i] and ')' not in out[i]:
+            for i,val in enumerate(out):
+                if "(" in val and ")" not in val:
                     open_ind.append(i)
-                if ')' in out[i] and '(' not in out[i]:
+                if ")" in val and "(" not in val:
                     close_ind.append(i)
-            if open_ind == [] and close_ind == []:
+            if not open_ind and not close_ind:
                 return out
-            for i in range(len(open_ind)):
-                out[open_ind[i]] = ' '.join(out[open_ind[i]:(close_ind[i]+1)])
-                cln_ind = cln_ind + [*range(open_ind[i],close_ind[i]+1)][1:]
+            for i,ind in enumerate(open_ind)):
+                out[ind] = " ".join(out[ind : (close_ind[i] + 1)])
+                cln_ind = cln_ind + [*range(ind, close_ind[i] + 1)][1:]
             cln_ind.reverse()
             for i in cln_ind:
-                del out[i]     
-                
+                del out[i]
+
         return out
 
     def cast_value(self, value: str) -> Union[None, int, float, str]:
@@ -300,15 +300,23 @@ class SecurityAdmin:
         value = value.lower()
         if value in ("n/a", "none", "none specified", "no", "None"):
             return None
-        if value in ("in effect", "active", "active.", "being done.", "in effect.", "allowed.", "being done"):
+        if value in (
+            "in effect",
+            "active",
+            "active.",
+            "being done.",
+            "in effect.",
+            "allowed.",
+            "being done",
+        ):
             return True
         if value in ("not in effect", "inactive", "not allowed.", "not being done"):
             return False
         if "days" in value and any(chr.isdigit() for chr in value):
-            digits = ''.join([chr for chr in value if chr.isdigit()])
+            digits = "".join([chr for chr in value if chr.isdigit()])
             return int(digits)
         if "in effect for the " in value and " function." in value:
-            return (value.split("in effect for the ")[1].split(" function.")[0])
+            return value.split("in effect for the ")[1].split(" function.")[0]
         if "." in value:
             try:
                 return float(value)
