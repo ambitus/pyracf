@@ -284,7 +284,7 @@ class SecurityAdmin:
             close_ind = []
             cln_ind = []
             for i, val in enumerate(out):
-                print(i,val,out)
+                print(i, val, out)
                 if "(" in val and ")" not in val:
                     open_ind.append(i)
                 if ")" in val and "(" not in val:
