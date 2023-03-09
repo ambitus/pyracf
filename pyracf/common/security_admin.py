@@ -274,6 +274,7 @@ class SecurityAdmin:
             out = [self.cast_value(val.strip()) for val in cln_val.split(" ")]
         else:
             out = self.cast_value(cln_val)
+        print(out)
         
         if type(out) == list:
             open_ind = []
