@@ -237,10 +237,6 @@ class SetroptsAdmin(SecurityAdmin):
         current_segment = None
         i = 0
         while i < len(messages):
-            if 'GDGS' in messages[i]:
-                print(messages[i])
-                messages[i] = messages[i].replace(' FOR GDGS.','')
-                print(messages[i])
             if messages[i] == " ":
                 i += 1
                 continue
@@ -436,10 +432,9 @@ class SetroptsAdmin(SecurityAdmin):
             .replace(" in effect", "")
             .replace("the active ", "")
         )
-        if 'gdgs' in messages[i]:
-            print(messages[i])
-            messages[i] = messages[i].replace(' for gdgs.','')
-            print(messages[i])
+        
+        messages[i] = messages[i].replace(' FOR GDGS.','')
+
         if "CURRENT OPTIONS:" in messages[i] and i < len(messages) - 1:
             profile[field] = self.cast_value(
                 messages[i + 1].split('"')[1:2][0].strip().lower()
