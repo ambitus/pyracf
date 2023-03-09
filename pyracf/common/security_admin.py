@@ -193,7 +193,7 @@ class SecurityAdmin:
         keys_length = len(keys)
         for i in range(keys_length):
             key = keys[i].strip().lower().replace(" ", "").replace("-", "")
-            segment[key] = self.cast_value(values[i])
+            segment[key] = self.cast_from_str(values[i])
 
     def __format_semi_tabular_data(
         self,
@@ -244,16 +244,16 @@ class SecurityAdmin:
                 if current_key not in segment:
                     segment[current_key] = []
                 values = [
-                    self.cast_value(value) for value in value.split() if value != "NONE"
+                    self.cast_from_str(value) for value in value.split() if value != "NONE"
                 ]
                 segment[current_key] += values
             else:
-                segment[current_key] = self.cast_value(value)
+                segment[current_key] = self.cast_from_str(value)
             key = "".join(sub_tokens[1:])
             if len(sub_tokens) == 1:
                 if i < len(tokens) - 1 and " " in sub_tokens[0] and i != 0:
                     sub_tokens = sub_tokens[0].split()
-                    segment[current_key] = self.cast_value(sub_tokens[0])
+                    segment[current_key] = self.cast_from_str(sub_tokens[0])
                     key = sub_tokens[-1]
                 else:
                     key = sub_tokens[0]
@@ -269,11 +269,11 @@ class SecurityAdmin:
         """Clean cast and separate comma and space delimited data."""
         cln_val = value.strip().lower()
         if "," in cln_val:
-            out = [self.cast_value(val.strip()) for val in cln_val.split(",")]
+            out = [self.cast_from_str(val.strip()) for val in cln_val.split(",")]
         elif " " in cln_val:
-            out = [self.cast_value(val.strip()) for val in cln_val.split(" ")]
+            out = [self.cast_from_str(val.strip()) for val in cln_val.split(" ")]
         else:
-            out = self.cast_value(cln_val)
+            out = self.cast_from_str(cln_val)
 
         if isinstance(out, list):
             open_ind = []
@@ -295,7 +295,7 @@ class SecurityAdmin:
 
         return out
 
-    def cast_value(self, value: str) -> Union[None, int, float, str]:
+    def cast_from_str(self, value: str) -> Union[None, bool, int, float, str]:
         """Cast null values floats and integers."""
         value = value.lower()
         if value in ("n/a", "none", "none specified", "no", "None"):
@@ -307,7 +307,7 @@ class SecurityAdmin:
             "being done.",
             "in effect.",
             "allowed.",
-            "being done"
+            "being done",
         ):
             return True
         if value in ("not in effect", "inactive", "not allowed.", "not being done"):
@@ -317,6 +317,9 @@ class SecurityAdmin:
             return int(digits)
         if "in effect for the " in value and " function." in value:
             return value.split("in effect for the ")[1].split(" function.")[0]
+        return self.__cast_num(value)
+    
+    def __cast_num(self,value: str) -> Union[int, float, str]:
         if "." in value:
             try:
                 return float(value)
