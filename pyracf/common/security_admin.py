@@ -278,15 +278,17 @@ class SecurityAdmin:
         if type(out) == list:
             open_ind = []
             close_ind = []
+            cln_ind = []
             for i in range(len(out)):
                 if '(' in out[i] and ')' not in out[i]:
                     open_ind.append(i)
                 if ')' in out[i] and '(' not in out[i]:
                     close_ind.append(i)
             for i in range(len(open_ind)):
-                print(out,out[open_ind[i]:close_ind[i]],open_ind[i],close_ind[i])
-                out[open_ind[i]:close_ind[i]] = ' '.join(out[open_ind[i]:close_ind[i]])
-                print(out,out[open_ind[i]:close_ind[i]],open_ind[i],close_ind[i])
+                out[open_ind[i]] = ' '.join(out[open_ind[i]:(close_ind[i]+1)])
+                cln_ind = cln_ind + range(open_ind[i],close_ind[i])[1:]
+            for i in cln_ind.reverse():
+                del out[i]     
                 
         return out
 
