@@ -277,6 +277,8 @@ class SecurityAdmin:
         else:
             out = self.cast_from_str(cln_val)
 
+        if None in out:
+            return None
         if isinstance(out, list):
             open_ind = []
             close_ind = []
