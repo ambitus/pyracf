@@ -284,6 +284,8 @@ class SecurityAdmin:
                     open_ind.append(i)
                 if ')' in out[i] and '(' not in out[i]:
                     close_ind.append(i)
+            if open_ind == [] and close_ind == []:
+                return out
             for i in range(len(open_ind)):
                 out[open_ind[i]] = ' '.join(out[open_ind[i]:(close_ind[i]+1)])
                 cln_ind = cln_ind + [*range(open_ind[i],close_ind[i]+1)][1:]
