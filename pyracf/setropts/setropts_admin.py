@@ -444,7 +444,7 @@ class SetroptsAdmin(SecurityAdmin):
                 messages[i].split("IS ")[1].strip().lower()
             )
         else:
-            if profile[field] is None:
+            if field in profile:
                 profile[field] = self.cast_value(
                     messages[i].split("IS ")[1].strip().lower()
                 )
