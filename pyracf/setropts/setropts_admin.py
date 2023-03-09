@@ -273,7 +273,8 @@ class SetroptsAdmin(SecurityAdmin):
                 continue
             other_keys = (
                 "ARE ",
-                " NOT BEING DONE" "BEING MAINTAINED.",
+                " NOT BEING DONE",
+                "BEING MAINTAINED.",
                 ", A USERID WILL BE REVOKED.",
                 ", A USERID WILL BE REVOKED.",
                 "USERIDS NOT BEING AUTOMATICALLY REVOKED.",
