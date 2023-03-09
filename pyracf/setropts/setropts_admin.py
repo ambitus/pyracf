@@ -273,6 +273,7 @@ class SetroptsAdmin(SecurityAdmin):
                 continue
             other_keys = (
                 "ARE ",
+                " NOT BEING DONE"
                 "BEING MAINTAINED.",
                 ", A USERID WILL BE REVOKED.",
                 ", A USERID WILL BE REVOKED.",
@@ -318,6 +319,10 @@ class SetroptsAdmin(SecurityAdmin):
             field = self.__add_are_field_to_profile(message, profile, current_segment)
         elif " BEING MAINTAINED." in message:
             field = self.__add_being_maintained_field_to_profile(
+                message, profile, current_segment
+            )
+        elif " NOT BEING DONE" in message:
+            field = self.__add_being_done_field_to_profile(
                 message, profile, current_segment
             )
         elif ", A USERID WILL BE REVOKED." in message:
@@ -426,6 +431,7 @@ class SetroptsAdmin(SecurityAdmin):
             .replace(" option", "")
             .replace(" in effect", "")
             .replace("the active ", "")
+            .replace(" for gdgs.")
         )
         if "CURRENT OPTIONS:" in messages[i] and i < len(messages) - 1:
             profile[field] = self.cast_value(
@@ -438,9 +444,14 @@ class SetroptsAdmin(SecurityAdmin):
                 messages[i].split("IS ")[1].strip().lower()
             )
         else:
-            profile[field] = self.cast_value(
-                messages[i].split("IS ")[1].strip().lower()
-            )
+            if profile[field] is None:
+                profile[field] = self.cast_value(
+                    messages[i].split("IS ")[1].strip().lower()
+                )
+            else:
+                profile[field].append(self.cast_value(
+                    messages[i].split("IS ")[1].strip().lower()
+                ))
         i += 1
         return (i, field)
 
@@ -467,6 +478,15 @@ class SetroptsAdmin(SecurityAdmin):
             profile[current_segment][field] = 0
         else:
             profile[current_segment][field] = self.cast_value(cln_msg.split(" ")[0])
+        return field
+
+    def __add_being_done_field_to_profile(
+        self, message: str, profile: dict, current_segment: str
+    ) -> str:
+        """Add being done field to profile."""
+        cln_msg = message.strip().lower().replace(" for gdgs.")
+        field = cln_msg.replace(" not being done", "")
+        profile[current_segment][field] = self.cast_value(cln_msg[len(field):])
         return field
 
     def __content_keyword_map(self, content: str) -> dict:

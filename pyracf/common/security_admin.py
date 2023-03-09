@@ -274,6 +274,18 @@ class SecurityAdmin:
             out = [self.cast_value(val.strip()) for val in cln_val.split(" ")]
         else:
             out = self.cast_value(cln_val)
+        
+        if type(out) == list:
+            open_ind = []
+            close_ind = []
+            for i in range(len(out)):
+                if '(' in out[i] and ')' not in out[i]:
+                    open_ind.append(i)
+                if ')' in out[i] and '(' not in out[i]:
+                    close_ind.append(i)
+            for i in range(len(open_ind)):
+                out[open_ind[i]:close_ind[i]] = ' '.join(out[open_ind[i]:close_ind[i]])
+                
         return out
 
     def cast_value(self, value: str) -> Union[None, int, float, str]:
@@ -281,13 +293,15 @@ class SecurityAdmin:
         value = value.lower()
         if value in ("n/a", "none", "none specified", "no", "None"):
             return None
-        if value in ("in effect", "active", "active.", "being done.", "in effect.", "allowed."):
+        if value in ("in effect", "active", "active.", "being done.", "in effect.", "allowed.", "being done"):
             return True
-        if value in ("not in effect", "inactive", "not allowed."):
+        if value in ("not in effect", "inactive", "not allowed.", "not being done"):
             return False
         if "days" in value and any(chr.isdigit() for chr in value):
             digits = ''.join([chr for chr in value if chr.isdigit()])
             return int(digits)
+        if "in effect for the " in value and " function." in value:
+            return (value.split("in effect for the ")[1].split(" function.")[0])
         if "." in value:
             try:
                 return float(value)
