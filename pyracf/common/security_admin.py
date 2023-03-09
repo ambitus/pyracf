@@ -284,13 +284,14 @@ class SecurityAdmin:
                     open_ind.append(i)
                 if ")" in val and "(" not in val:
                     close_ind.append(i)
-            if open_ind and close_ind:
-                for i, ind in enumerate(open_ind):
-                    out[ind] = " ".join(out[ind : (close_ind[i] + 1)])
-                    cln_ind = cln_ind + [*range(ind, close_ind[i] + 1)][1:]
-                cln_ind.reverse()
-                for i in cln_ind:
-                    del out[i]
+            if not open_ind and not close_ind:
+                return out
+            for i, ind in enumerate(open_ind):
+                out[ind] = " ".join(out[ind : (close_ind[i] + 1)])
+                cln_ind = cln_ind + [*range(ind, close_ind[i] + 1)][1:]
+            cln_ind.reverse()
+            for i in cln_ind:
+                del out[i]
 
         return out
 
@@ -306,7 +307,7 @@ class SecurityAdmin:
             "being done.",
             "in effect.",
             "allowed.",
-            "being done",
+            "being done"
         ):
             return True
         if value in ("not in effect", "inactive", "not allowed.", "not being done"):
