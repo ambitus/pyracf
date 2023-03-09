@@ -244,7 +244,9 @@ class SecurityAdmin:
                 if current_key not in segment:
                     segment[current_key] = []
                 values = [
-                    self.cast_from_str(value) for value in value.split() if value != "NONE"
+                    self.cast_from_str(value)
+                    for value in value.split()
+                    if value != "NONE"
                 ]
                 segment[current_key] += values
             else:
@@ -318,8 +320,8 @@ class SecurityAdmin:
         if "in effect for the " in value and " function." in value:
             return value.split("in effect for the ")[1].split(" function.")[0]
         return self.__cast_num(value)
-    
-    def __cast_num(self,value: str) -> Union[int, float, str]:
+
+    def __cast_num(self, value: str) -> Union[int, float, str]:
         if "." in value:
             try:
                 return float(value)

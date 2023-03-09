@@ -468,7 +468,9 @@ class SetroptsAdmin(SecurityAdmin):
                 message.split("ARE ")[1].strip().lower()
             )
         else:
-            profile[field] = self.cast_from_str(message.split("ARE ")[1].strip().lower())
+            profile[field] = self.cast_from_str(
+                message.split("ARE ")[1].strip().lower()
+            )
         return field
 
     def __add_being_maintained_field_to_profile(
