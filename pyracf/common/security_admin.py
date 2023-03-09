@@ -286,7 +286,7 @@ class SecurityAdmin:
                     close_ind.append(i)
             if not open_ind and not close_ind:
                 return out
-            for i,ind in enumerate(open_ind)):
+            for i,ind in enumerate(open_ind):
                 out[ind] = " ".join(out[ind : (close_ind[i] + 1)])
                 cln_ind = cln_ind + [*range(ind, close_ind[i] + 1)][1:]
             cln_ind.reverse()
