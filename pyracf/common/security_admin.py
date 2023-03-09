@@ -276,10 +276,9 @@ class SecurityAdmin:
             out = [self.cast_from_str(val.strip()) for val in cln_val.split(" ")]
         else:
             out = self.cast_from_str(cln_val)
-
-        if None in out:
-            return None
         if isinstance(out, list):
+            if None in out:
+                return None
             open_ind = []
             close_ind = []
             cln_ind = []
