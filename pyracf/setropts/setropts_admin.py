@@ -237,9 +237,9 @@ class SetroptsAdmin(SecurityAdmin):
         current_segment = None
         i = 0
         while i < len(messages):
-            if 'gdgs' in messages[i]:
+            if 'GDGS' in messages[i]:
                 print(messages[i])
-                messages[i] = messages[i].replace(' for gdgs.','')
+                messages[i] = messages[i].replace(' FOR GDGS.','')
                 print(messages[i])
             if messages[i] == " ":
                 i += 1

@@ -289,7 +289,6 @@ class SecurityAdmin:
             for i in range(len(open_ind)):
                 out[open_ind[i]] = ' '.join(out[open_ind[i]:(close_ind[i]+1)])
                 cln_ind = cln_ind + [*range(open_ind[i],close_ind[i]+1)][1:]
-                print([*range(open_ind[i],close_ind[i]+1)],[*range(open_ind[i],close_ind[i]+1)][1:],cln_ind)
             cln_ind.reverse()
             for i in cln_ind:
                 del out[i]     
