@@ -444,11 +444,12 @@ class SetroptsAdmin(SecurityAdmin):
                 messages[i].split("IS ")[1].strip().lower()
             )
         else:
-            if field in profile:
+            if field not in profile:
                 profile[field] = self.cast_value(
                     messages[i].split("IS ")[1].strip().lower()
                 )
             else:
+                profile[field] = [profile[field]]
                 profile[field].append(self.cast_value(
                     messages[i].split("IS ")[1].strip().lower()
                 ))
