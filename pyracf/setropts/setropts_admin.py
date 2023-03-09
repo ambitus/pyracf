@@ -305,7 +305,6 @@ class SetroptsAdmin(SecurityAdmin):
                 ] = self.__content_keyword_map(content)
 
         del result["securityresult"]["systemsettings"]["commands"][0]["messages"]
-        del result["securityresult"]["systemsettings"]["commands"][0]["message"]
         result["securityresult"]["systemsettings"]["commands"][0]["profile"] = profile
 
     def __add_other_keys_to_profile(
