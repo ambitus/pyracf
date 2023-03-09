@@ -274,7 +274,6 @@ class SecurityAdmin:
             out = [self.cast_value(val.strip()) for val in cln_val.split(" ")]
         else:
             out = self.cast_value(cln_val)
-        print(out)
         
         if type(out) == list:
             open_ind = []
@@ -285,6 +284,7 @@ class SecurityAdmin:
                 if ')' in out[i] and '(' not in out[i]:
                     close_ind.append(i)
             for i in range(len(open_ind)):
+                print(out,out[open_ind[i]:close_ind[i]],open_ind[i],close_ind[i])
                 out[open_ind[i]:close_ind[i]] = ' '.join(out[open_ind[i]:close_ind[i]])
                 print(out,out[open_ind[i]:close_ind[i]],open_ind[i],close_ind[i])
                 
