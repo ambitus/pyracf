@@ -78,7 +78,10 @@ def update_access_dynamic(func: str = "add") -> int:
     curr_acc = resource_admin.get_your_acc(test_profile, test_class)
     if curr_acc is None:
         curr_acc = "None"
-    print(f"Your access after definition: {curr_acc}")
+    if func == "add":
+        print(f"Your access after definition: {curr_acc}")
+    else:
+        print(f"Your access after deletion: {curr_acc}")
 
     class_types = setropts_admin.get_class_types(test_class)
     if "raclist" not in " ".join(class_types):

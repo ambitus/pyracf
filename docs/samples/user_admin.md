@@ -17,7 +17,67 @@ False
 >>> from pyracf.user.user_admin import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.set_special("squidwrd")
-{'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'commands': [{'safreturncode': 8, 'returncode': 16, 'reasoncode': 8, 'image': 'ADDUSER SQUIDWRD ', 'messages': ['IKJ56702I INVALID USERID, SQUIDWRD']}, {'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  SPECIAL     '}]}, 'returncode': 4, 'reasoncode': 4}}
+{'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  SPECIAL     '}]}, 'returncode': 0, 'reasoncode': 0}}
+```
+
+## `del_special`
+```python
+>>> from pyracf.user.user_admin import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.del_special("squidwrd")
+{'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  NOSPECIAL     '}]}, 'returncode': 0, 'reasoncode': 0}}
+```
+
+## `is_auditor`
+
+```python
+>>> from pyracf.user.user_admin import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.is_auditor("squidwrd")
+False
+```
+
+## `set_auditor`
+
+```python
+>>> from pyracf.user.user_admin import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.set_auditor("squidwrd")
+{'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  AUDITOR     '}]}, 'returncode': 0, 'reasoncode': 0}}
+```
+
+## `del_auditor`
+```python
+>>> from pyracf.user.user_admin import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.del_auditor("squidwrd")
+{'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  NOAUDITOR     '}]}, 'returncode': 0, 'reasoncode': 0}}
+```
+
+## `is_operations`
+
+```python
+>>> from pyracf.user.user_admin import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.is_operations("squidwrd")
+False
+```
+
+## `set_operations`
+
+```python
+>>> from pyracf.user.user_admin import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.set_operations("squidwrd")
+{'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  OPERATIONS     '}]}, 'returncode': 0, 'reasoncode': 0}}
+```
+
+## `del_operations`
+```python
+>>> from pyracf.user.user_admin import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.del_operations("squidwrd")
+{'securityresult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestid': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'ALTUSER SQUIDWRD  NOOPERATIONS     '}]}, 'returncode': 0, 'reasoncode': 0}}
 ```
 
 ## `get_uid`
