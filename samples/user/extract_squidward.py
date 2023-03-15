@@ -1,8 +1,12 @@
-from user.UserAdmin import UserAdmin
+"""Extract a user profile."""
+
 import json
+
+from pyracf.user.user_admin import UserAdmin
 
 
 def main():
+    """Entrypoint."""
     user_adimn = UserAdmin()
     traits = {
         "userid": "squidwrd",

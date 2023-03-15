@@ -1,8 +1,12 @@
-from user.UserAdmin import UserAdmin
+"""Alter an existing user."""
+
 import json
+
+from pyracf.user.user_admin import UserAdmin
 
 
 def main():
+    """Entrypoint."""
     user_admin = UserAdmin()
 
     traits = {
@@ -10,7 +14,7 @@ def main():
         "special": False,
         "operator": True,
         "home": "/u/clarinet",
-        "program": False
+        "program": False,
     }
 
     result = user_admin.alter(traits)

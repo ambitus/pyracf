@@ -1,8 +1,12 @@
-from genprof.ResourceAdmin import ResourceAdmin
+"""Alter a general resource profile."""
+
 import json
+
+from pyracf.genprof.resource_admin import ResourceAdmin
 
 
 def main():
+    """Entrypoint."""
     profile_admin = ResourceAdmin()
 
     traits = {

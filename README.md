@@ -19,24 +19,19 @@ As automation becomes more and more prevalent, the need to manage the security e
 * R_SecMgtOper (IRRSMO00): Security Management Operations.
 * The appropriate RACF authorizations. Detail can be found at: <https://www.ibm.com/docs/en/zos/2.3.0?topic=operations-racf-authorization>
 
-### Installing
-
-Build the c code with:
+### Installation
 
 ```shell
-cd common && ./build.sh && cd ..
+python3 -m pip install git+ssh://git@github.ibm.com/z-innersource/pyRACF@<tag version/branch name>
 ```
 
-Put the resulting dll in a directory of your libpath or include the directory that contains the dll in your libpath.
-Make sure that the python code is in a directory defined in your PYTHONPATH or extend your PYTHONPATH to point to the directory containing pyracf python code.
+### Usage
 
-### Executing program
-
-import the pyracf.py package and issue the appropriate python calls. This will grow over time. In the samples directory you will find examples of user, group, and resource profile management. Additionally there is more information in the [index.md](./docs/index.md) file.
+In the samples directory you will find examples of user, group, and resource profile management. Additionally there is more information in the [index.md](./docs/index.md) file.
 
 ## Help
 
-Questions, comments, and bugs can be discussed on the #pyracf channel in the IBMZ community
+Questions, comments, and bugs can be discussed on the __[#pyracf](https://ibm-systems-z.slack.com/archives/C0455P33BS4)__ __Slack channel__ in the __IBMZ Slack organization__.
 
 ## Authors
 

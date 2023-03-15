@@ -6,13 +6,14 @@ from pyracf.genprof.resource_admin import ResourceAdmin
 
 
 def main():
-    """Entrypoint."""
+    """Entrypoint"""
     profile_admin = ResourceAdmin()
 
     traits = {
-        "resourcename": "IRR.IRRSMO00.PRECHECK",
-        "classname": "XFACILIT",
-        "uacc": "READ",
+        "resourcename": "TESTING",
+        "classname": "ELIJTEST",
+        "uacc": "None",
+        "owner": "eswift",
     }
 
     result = profile_admin.add(traits)

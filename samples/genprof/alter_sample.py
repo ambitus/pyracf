@@ -1,4 +1,4 @@
-"""Add a general resource profile."""
+"""Alter a general resource profile."""
 
 import json
 
@@ -10,12 +10,13 @@ def main():
     profile_admin = ResourceAdmin()
 
     traits = {
-        "resourcename": "IRR.IRRSMO00.PRECHECK",
-        "classname": "XFACILIT",
-        "uacc": "READ",
+        "resourcename": "TESTING",
+        "classname": "ELIJTEST",
+        "uacc": "Read",
+        "owner": "eswift",
     }
 
-    result = profile_admin.add(traits)
+    result = profile_admin.alter(traits)
     print(json.dumps(result, indent=4))
 
 

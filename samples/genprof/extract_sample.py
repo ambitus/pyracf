@@ -1,4 +1,4 @@
-"""Add a general resource profile."""
+"""Extract a general resource profile."""
 
 import json
 
@@ -9,13 +9,9 @@ def main():
     """Entrypoint."""
     profile_admin = ResourceAdmin()
 
-    traits = {
-        "resourcename": "IRR.IRRSMO00.PRECHECK",
-        "classname": "XFACILIT",
-        "uacc": "READ",
-    }
+    traits = {"resourcename": "TESTING", "classname": "ELIJTEST"}
 
-    result = profile_admin.add(traits)
+    result = profile_admin.extract(traits)
     print(json.dumps(result, indent=4))
 
 

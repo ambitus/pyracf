@@ -1,4 +1,4 @@
-"""Run a Set RACF Options command."""
+"""List RACF Options."""
 
 import json
 
@@ -9,9 +9,9 @@ def main():
     """Entrypoint."""
     setropts_admin = SetroptsAdmin()
 
-    traits = {"raclist": "elijtest"}
+    test_class = "ELIJTEST"
 
-    result = setropts_admin.command(traits)
+    result = setropts_admin.refresh(test_class)
     print(json.dumps(result, indent=4))
 
 

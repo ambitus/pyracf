@@ -6,55 +6,24 @@ The pyRACF implementation relies on the R_SecMgtOper. The architectural decision
 
 There is a small amount of C code written to connect Python with the underlying R_SecMgtOper macro and marshalling and demarshalling the data becomes relatively simple.
 
-## Build
+## Installation
 
-Information on how to build pyRACF is found in the [README.md](../README.md)
-This will ultimately be replaced with a pypi version with a prebuilt dll.
+Information on how to __install__ pyRACF can be found __[here](../README.md#installation)__.
+There will ultimately be a PyPi version of pyRACF that will be able to be installed from PyPi directly.
 
 ## Use
 
-This will evolve over time. Currently the examples found in the sample directory will provide some understanding of how to call the capabilities.
+This will evolve over time. Currently the examples found in the __[samples](../samples)__ directory will provide some understanding of how to call the capabilities.
 
-### Add a user
+&nbsp;
 
-```shell
-python3 samples/user/add_squidward.py
-```
+### [User Administration](samples/user_admin.md)
 
-```json
-{
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "set",
-            "requestid": "UserRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ADDUSER SQUIDWRD ",
-                    "message": "ICH01024I User SQUIDWRD is defined as PROTECTED."
-                },
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
-}
-```
+### [General Resource Profile](samples/resource_admin.md)
 
-### Alter a User
+### [Data Set Profile Administration](samples/dataset_admin.md)
 
-```shell
-python3 samples/user/alter_squidward.py
-```
+### [Access Administration](samples/access_admin.md)
 
 ```json
 {
@@ -193,7 +162,7 @@ python3 samples/genprof/add_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "BIKINI.BOTTOM.KRUSKRAB",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "ResourceRequest",
@@ -202,7 +171,7 @@ python3 samples/genprof/add_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RDEFINE FACILITY             (BIKINI.BOTTOM.KRUSKRAB) ",
+                    "image": "RDEFINE FACILITY             (TESTING) ",
                     "messages": [
                         "ICH10006I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -212,7 +181,7 @@ python3 samples/genprof/add_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RALTER  FACILITY             (BIKINI.BOTTOM.KRUSKRAB)  UACC        (None) OWNER       (eswift)",
+                    "image": "RALTER  FACILITY             (TESTING)  UACC        (None) OWNER       (eswift)",
                     "messages": [
                         "ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -236,7 +205,7 @@ python3 samples/genprof/alter_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "BIKINI.BOTTOM.KRUSKRAB",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "ResourceRequest",
@@ -248,7 +217,7 @@ python3 samples/genprof/alter_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RALTER  FACILITY             (BIKINI.BOTTOM.KRUSKRAB)  UACC        (Read) OWNER       (eswift)",
+                    "image": "RALTER  FACILITY             (TESTING)  UACC        (Read) OWNER       (eswift)",
                     "messages": [
                         "ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -272,7 +241,7 @@ python3 samples/genprof/delete_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "BIKINI.BOTTOM.KRUSKRAB",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "del",
             "requestid": "ResourceRequest",
@@ -281,7 +250,7 @@ python3 samples/genprof/delete_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RDELETE FACILITY             (BIKINI.BOTTOM.KRUSKRAB) ",
+                    "image": "RDELETE FACILITY             (TESTING) ",
                     "messages": [
                         "ICH12002I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ],
@@ -305,7 +274,7 @@ python3 samples/genprof/extract_kruskrab.py
 {
     "securityresult": {
         "resource": {
-            "name": "BIKINI.BOTTOM.KRUSKRAB",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "listdata",
             "requestid": "ResourceRequest",
@@ -314,12 +283,12 @@ python3 samples/genprof/extract_kruskrab.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RLIST   FACILITY             (BIKINI.BOTTOM.KRUSKRAB) ",
+                    "image": "RLIST   FACILITY             (TESTING) ",
                     "message": "NO USER TO BE NOTIFIED",
                     "profile": {
                         "base": {
                             "class": "facility",
-                            "name": "bikini.bottom.kruskrab",
+                            "name": "TESTING",
                             "level": 0,
                             "owner": "eswift",
                             "universal access": "read",
@@ -493,7 +462,7 @@ python3 samples/access/add_my_access.py
 {
     "securityresult": {
         "permission": {
-            "name": "BIKINI.BOTTOM.KRUSKRAB",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "AccessRequest",
@@ -502,7 +471,7 @@ python3 samples/access/add_my_access.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "PERMIT               BIKINI.BOTTOM.KRUSKRAB CLASS(FACILITY)  ACCESS      (READ) ID          (ESWIFT)",
+                    "image": "PERMIT               TESTING CLASS(FACILITY)  ACCESS      (READ) ID          (ESWIFT)",
                     "messages": [
                         "ICH06011I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
                     ],
@@ -526,7 +495,7 @@ python3 samples/access/alter_my_access.py
 {
     "securityresult": {
         "permission": {
-            "name": "BIKINI.BOTTOM.KRUSKRAB",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "set",
             "requestid": "AccessRequest",
@@ -535,7 +504,7 @@ python3 samples/access/alter_my_access.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "PERMIT               BIKINI.BOTTOM.KRUSKRAB CLASS(FACILITY)  ACCESS      (NONE) ID          (ESWIFT)",
+                    "image": "PERMIT               TESTING CLASS(FACILITY)  ACCESS      (NONE) ID          (ESWIFT)",
                     "messages": [
                         "ICH06011I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
                     ],
@@ -559,7 +528,7 @@ python3 samples/access/delete_my_access.py
 {
     "securityresult": {
         "permission": {
-            "name": "BIKINI.BOTTOM.KRUSKRAB",
+            "name": "TESTING",
             "class": "FACILITY",
             "operation": "del",
             "requestid": "AccessRequest",
@@ -568,7 +537,7 @@ python3 samples/access/delete_my_access.py
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "PERMIT               BIKINI.BOTTOM.KRUSKRAB CLASS(FACILITY)  DELETE       ID          (ESWIFT)",
+                    "image": "PERMIT               TESTING CLASS(FACILITY)  DELETE       ID          (ESWIFT)",
                     "messages": [
                         "ICH06011I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
                     ],
@@ -1124,7 +1093,7 @@ False
 ```python
 >>> from genprof.ResourceAdmin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.get_uacc("BIKINI.BOTTOM.KRUSKRAB","FACILITY")
+>>> resource_admin.get_uacc("TESTING","FACILITY")
 'read'
 ```
 
@@ -1133,8 +1102,8 @@ False
 ```python
 >>> from genprof.ResourceAdmin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.set_uacc("BIKINI.BOTTOM.KRUSKRAB","FACILITY","ALTER")
-{'securityresult': {'resource': {'name': 'BIKINI.BOTTOM.KRUSKRAB', 'class': 'FACILITY', 'operation': 'set', 'requestid': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'RALTER  FACILITY             (BIKINI.BOTTOM.KRUSKRAB)  UACC        (ALTER)', 'messages': ['ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'], 'message': 'ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'}]}, 'returncode': 0, 'reasoncode': 0}}
+>>> resource_admin.set_uacc("TESTING","FACILITY","ALTER")
+{'securityresult': {'resource': {'name': 'TESTING', 'class': 'FACILITY', 'operation': 'set', 'requestid': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': 'RALTER  FACILITY             (TESTING)  UACC        (ALTER)', 'messages': ['ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'], 'message': 'ICH11009I RACLISTED PROFILES FOR FACILITY WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.'}]}, 'returncode': 0, 'reasoncode': 0}}
 ```
 
 #### `get_your_acc`
@@ -1142,7 +1111,7 @@ False
 ```python
 >>> from genprof.ResourceAdmin import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.get_your_acc("BIKINI.BOTTOM.KRUSKRAB","FACILITY")
+>>> resource_admin.get_your_acc("TESTING","FACILITY")
 'read'
 ```
 
