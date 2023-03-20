@@ -49,7 +49,6 @@ class DatasetAdmin(SecurityAdmin):
                 "volser": "racf:volser",
                 "warning": "racf:warning",
             },
-            "csdata": {"custom-keyword": "racf:custom-keyword"},
             "dfp": {"resowner": "racf:resowner", "datakey": "racf:datakey"},
             "tme": {"roles": "racf:roles"},
         }

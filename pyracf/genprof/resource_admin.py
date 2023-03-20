@@ -77,7 +77,6 @@ class ResourceAdmin(SecurityAdmin):
                 "cfother": "other",
                 "cfvalrx": "racf:cfvalrx",
             },
-            "csdata": {"custom-keyword": "racf:custom-keyword"},
             "dlfdata": {"jobname": "racf:jobname", "retain": "racf:retain"},
             "eim": {
                 "domaindn": "domaindn",

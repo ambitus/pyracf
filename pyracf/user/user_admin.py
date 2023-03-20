@@ -88,7 +88,6 @@ class UserAdmin(SecurityAdmin):
                 "tslkey": "racf:tslkey",
                 "xrfsoff": "force",
             },
-            "csdata": {"custom-keyword": "racf:custom-keyword"},
             "dce": {
                 "autolog": "autolog",
                 "dcename": "dcename",
