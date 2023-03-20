@@ -46,11 +46,13 @@ def main():
     print('added field data')
     result = user_admin.alter(traits)
     print(json.dumps(result, indent=4))
+    user_admin = UserAdmin()
 
     user_admin.add_field_data(ca_segments)
     print('overwrote ca field data')
     result = user_admin.alter(traits)
     print(json.dumps(result, indent=4))
+    user_admin = UserAdmin()
 
     user_admin.overwrite_field_data(over_segments)
     print('overwrote all field data')
