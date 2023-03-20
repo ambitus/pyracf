@@ -52,13 +52,13 @@ class SecurityAdmin:
         """Add additional field data to a function group."""
         for segment in field_data:
             if segment in self.segment_traits:
-                self.segment_traits[segment].update(field_data[segment])
+                self.valid_segment_traits[segment].update(field_data[segment])
             else:
-                self.segment_traits[segment] = field_data[segment]
+                self.valid_segment_traits[segment] = field_data[segment]
     
     def overwrite_field_data(self, field_data: dict):
         """Overwrite field data to a function group."""
-        self.segment_traits = field_data
+        self.valid_segment_traits = field_data
 
     def extract_and_check_result(self, security_request: SecurityRequest) -> dict:
         """Extract a RACF profile."""
