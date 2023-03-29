@@ -1,0 +1,23 @@
+{
+    "securityresult": {
+        "user": {
+            "name": "SQUIDWRD",
+            "operation": "del",
+            "requestid": "UserRequest",
+            "commands": [
+                {
+                    "safreturncode": 8,
+                    "returncode": 16,
+                    "reasoncode": 8,
+                    "image": "DELUSER SQUIDWRD",
+                    "messages": [
+                        "IKJ56702I INVALID USERID, SQUIDWRD"
+                    ],
+                    "message": "IKJ56702I INVALID USERID, SQUIDWRD"
+                }
+            ]
+        },
+        "returncode": 4,
+        "reasoncode": 4
+    }
+}

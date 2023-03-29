@@ -7,7 +7,6 @@ class SecurityResult:
     """Generic Security Result Parser."""
 
     def __init__(self, result_xml: str) -> None:
-        # print(result_xml)
         self.result = XMLParser.fromstring(result_xml)
         self.result_dictionary = {"securityresult": {}}
         self.__extract_results()

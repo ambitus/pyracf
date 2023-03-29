@@ -3,6 +3,7 @@
 from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 from pyracf.user.user_request import UserRequest
 
 
@@ -214,13 +215,19 @@ class UserAdmin(SecurityAdmin):
             return True
         return False
 
-    def set_special(self, userid: str) -> dict:
+    def set_special(self, userid: str, generate_request_only=False) -> dict:
         """Make user RACF special."""
-        return self.alter({"userid": userid, "special": True})
+        return self.alter(
+            {"userid": userid, "special": True},
+            generate_request_only=generate_request_only,
+        )
 
-    def del_special(self, userid: str) -> dict:
+    def del_special(self, userid: str, generate_request_only=False) -> dict:
         """Make user not RACF special."""
-        return self.alter({"userid": userid, "special": False})
+        return self.alter(
+            {"userid": userid, "special": False},
+            generate_request_only=generate_request_only,
+        )
 
     def is_auditor(self, userid: str) -> bool:
         """Check if a user is RACF auditor."""
@@ -260,9 +267,12 @@ class UserAdmin(SecurityAdmin):
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
         return profile["omvs"]["uid"]
 
-    def set_uid(self, userid: str, uid: int) -> dict:
+    def set_uid(self, userid: str, uid: int, generate_request_only=False) -> dict:
         """Set a user's UID."""
-        return self.alter({"userid": userid, "uid": str(uid)})
+        return self.alter(
+            {"userid": userid, "uid": str(uid)},
+            generate_request_only=generate_request_only,
+        )
 
     def add_category(self, userid: str, category_name: str) -> str:
         """Set the category for the User Profile"""
@@ -360,34 +370,63 @@ class UserAdmin(SecurityAdmin):
         """Delete all Message Scope(s) from the User Profile"""
         return self.alter({"userid": userid, "nomscope": "N/A"})
 
-    def add(self, traits: dict) -> dict:
+    def add(self, traits: dict, generate_request_only=False) -> dict:
         """Create a new user."""
         userid = traits["userid"]
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request)
-        return self.make_request(user_request)
+        result = self.make_request(
+            user_request, generate_request_only=generate_request_only
+        )
+        if not generate_request_only:
+            if (
+                result["securityresult"]["returncode"] != 0
+                or result["securityresult"]["reasoncode"] != 0
+            ):
+                raise SecurityRequestError(result)
+        return result
 
-    def alter(self, traits: dict) -> dict:
+    def alter(self, traits: dict, generate_request_only=False) -> dict:
         """Alter an existing user."""
         userid = traits["userid"]
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request, alter=True)
-        return self.make_request(user_request, 3)
+        result = self.make_request(
+            user_request, 3, generate_request_only=generate_request_only
+        )
+        if not generate_request_only:
+            if (
+                result["securityresult"]["returncode"] != 0
+                or result["securityresult"]["reasoncode"] != 0
+            ):
+                raise SecurityRequestError(result)
+        return result
 
-    def extract(self, traits: dict) -> dict:
+    def extract(self, traits: dict, generate_request_only=False) -> dict:
         """Extract a user's profile."""
         userid = traits["userid"]
         self.build_bool_segment_dictionaries(traits)
         user_request = UserRequest(userid, "listdata")
         self.build_segments(user_request, extract=True)
-        return self.extract_and_check_result(user_request)
+        return self.extract_and_check_result(
+            user_request, generate_request_only=generate_request_only
+        )
 
-    def delete(self, userid: str) -> dict:
+    def delete(self, userid: str, generate_request_only=False) -> dict:
         """Delete a user."""
         user_request = UserRequest(userid, "del")
-        return self.make_request(user_request)
+        result = self.make_request(
+            user_request, generate_request_only=generate_request_only
+        )
+        if not generate_request_only:
+            if (
+                result["securityresult"]["returncode"] != 0
+                or result["securityresult"]["reasoncode"] != 0
+            ):
+                raise SecurityRequestError(result)
+        return result
 
     def build_segments(
         self, user_request: UserRequest, alter=False, extract=False

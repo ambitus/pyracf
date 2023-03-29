@@ -48,8 +48,12 @@ class SecurityAdmin:
         self.trait_map = {}
         self.profile_type = None
 
-    def extract_and_check_result(self, security_request: SecurityRequest) -> dict:
+    def extract_and_check_result(
+        self, security_request: SecurityRequest, generate_request_only=False
+    ) -> dict:
         """Extract a RACF profile."""
+        if generate_request_only:
+            return self.make_request(security_request, generate_request_only=True)
         result = self.make_request(security_request)
         if "error" in result["securityresult"][self.profile_type]:
             raise SecurityRequestError(result)
@@ -67,11 +71,20 @@ class SecurityAdmin:
             if trait in self.valid_segment_traits:
                 self.segment_traits[trait] = traits[trait]
 
-    def make_request(self, security_request: SecurityRequest, opts: int = 1) -> dict:
+    def make_request(
+        self,
+        security_request: SecurityRequest,
+        opts: int = 1,
+        generate_request_only=False,
+    ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
-        result_xml = self.irrsmo00.call_racf(security_request.dump_request_xml(), opts)
-        results = SecurityResult(result_xml)
-        return results.get_result_dictionary()
+        if not generate_request_only:
+            result_xml = self.irrsmo00.call_racf(
+                security_request.dump_request_xml(), opts
+            )
+            results = SecurityResult(result_xml)
+            return results.get_result_dictionary()
+        return security_request.dump_request_xml(encoding="utf-8")
 
     def format_profile(self, result: dict):
         """Placeholder for format profile function for profile extract."""
@@ -209,7 +222,6 @@ class SecurityAdmin:
             for j in range(len(tmp_ind))
             if j == 0 or tmp_ind[j] - tmp_ind[j - 1] > 1
         ]
-        # print(tmp_ind,indexes)
         indexes_length = len(indexes)
         for j in range(indexes_length):
             if j < indexes_length - 1:

@@ -80,6 +80,6 @@ class SecurityRequest:
         if len(list(segment.iter())) == 1 and not extract:
             self.security_definition.remove(segment)
 
-    def dump_request_xml(self) -> bytes:
-        """Dump XML as EBCDIC encoded bytes."""
-        return XMLBuilder.tostring(self.racf_request, encoding="cp1047")
+    def dump_request_xml(self, encoding="cp1047") -> bytes:
+        """Dump XML as EBCDIC encoded bytes. (Encoding can be overridden for testing)."""
+        return XMLBuilder.tostring(self.racf_request, encoding=encoding)
