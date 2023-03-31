@@ -58,7 +58,7 @@ class DatasetAdmin(SecurityAdmin):
         )
 
         del self.valid_segment_traits["base"]["generic"]
-        
+
         self.segment_traits = {}
         self.trait_map = {}
         self.profile_type = "dataset"

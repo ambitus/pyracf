@@ -13,7 +13,7 @@ def main():
         "datasetname": "ESWIFT.TEST.**",
         "uacc": "None",
         "owner": "eswift",
-        "generic": "yes"
+        "generic": "yes",
     }
 
     result = dataset_admin.add(traits)
