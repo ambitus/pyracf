@@ -56,6 +56,9 @@ class DatasetAdmin(SecurityAdmin):
         self.valid_segment_traits["base"].update(
             self.common_base_traits_dataset_generic
         )
+
+        del self.valid_segment_traits["base"]["generic"]
+        
         self.segment_traits = {}
         self.trait_map = {}
         self.profile_type = "dataset"
