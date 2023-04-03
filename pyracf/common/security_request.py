@@ -16,6 +16,7 @@ class SecurityRequest:
 
     def set_volid_and_generic(self, traits) -> None:
         """Set volid and generic as attributes for security definition based on traits."""
+        self.security_definition.attrib = {}
         if "generic" not in traits:
             traits["generic"] = "no"
         if "volid" in traits:
