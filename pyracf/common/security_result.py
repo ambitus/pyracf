@@ -1,5 +1,7 @@
 """Generic Security Result Parser."""
 
+from xml.etree.ElementTree import Element  # Only used for type hints.
+
 import defusedxml.ElementTree as XMLParser
 
 
@@ -53,14 +55,18 @@ class SecurityResult:
         self.definition_dictionary["commands"] = []
         commands = self.definition_dictionary["commands"]
         for command in self.definition:
-            command_dictionary = {}
-            commands.append(command_dictionary)
-            for item in command:
-                item_tag = item.tag.split("}")[-1]
-                if item_tag == "message":
-                    if "messages" not in command_dictionary:
-                        command_dictionary["messages"] = []
-                    command_dictionary["messages"].append(item.text)
+            self.__extract_command(commands, command)
+
+    def __extract_command(self, commands: dict, command: Element) -> None:
+        command_dictionary = {}
+        commands.append(command_dictionary)
+        for item in command:
+            item_tag = item.tag.split("}")[-1]
+            if item_tag == "message":
+                if "messages" not in command_dictionary:
+                    command_dictionary["messages"] = []
+                command_dictionary["messages"].append(item.text)
+            else:
                 try:
                     command_dictionary[item_tag] = int(item.text)
                 except ValueError:

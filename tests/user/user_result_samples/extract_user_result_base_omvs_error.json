@@ -12,8 +12,7 @@
                     "image": "LISTUSER SQUIDWRD  OMVS    ",
                     "messages": [
                         "ICH30001I UNABLE TO LOCATE USER    ENTRY SQUIDWRD"
-                    ],
-                    "message": "ICH30001I UNABLE TO LOCATE USER    ENTRY SQUIDWRD"
+                    ]
                 }
             ]
         },

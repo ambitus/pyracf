@@ -98,3 +98,15 @@ class TestUserGetters(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError):
             user_admin.get_uid("squidwrd"), 2424
+
+    def test_user_admin_get_uid_returns_none_when_no_omvs_segment_exists(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+        dump_request_xml_mock: Mock,
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+        )
+        self.assertEqual(user_admin.get_uid("squidwrd"), None)

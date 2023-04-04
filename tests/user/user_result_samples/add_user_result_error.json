@@ -12,8 +12,7 @@
                     "image": "ADDUSER SQUIDWRD ",
                     "messages": [
                         "IKJ56702I INVALID USERID, SQUIDWRD"
-                    ],
-                    "message": "IKJ56702I INVALID USERID, SQUIDWRD"
+                    ]
                 },
                 {
                     "safreturncode": 0,

@@ -40,6 +40,12 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY = get_sample(
     "extract_user_result_base_omvs_error.json"
 )
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
+    "extract_user_result_base_only_no_omvs_success.xml"
+)
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
+    "extract_user_result_base_only_no_omvs_success.json"
+)
 
 # Delete User
 TEST_DELETE_USER_RESULT_SUCCESS_XML = get_sample("delete_user_result_success.xml")

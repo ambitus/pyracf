@@ -34,7 +34,7 @@ There are many ways to contribute to the project. You can write code, work on th
 If you want to write code, a good way to get started is by looking at the issues section of the repository. Look for the **Good First Issue** tag. Good First Issues are great as a first contribution.
 
 ### pre-commit Hooks
-To ensure that **code formatters _(isort and black)_** and **linters _(flake8 and pylint)_** are always run against your code on **every commit** set up the **pre-commit hooks**.
+To ensure that **code formatters _(isort and black)_**, **linters _(flake8 and pylint)_**, and **unit tests** are always run against your code on **every commit** set up the **pre-commit hooks**.
 
 * Install development dependencies
   ```shell
@@ -52,20 +52,14 @@ If you have a new functionality that can be added to the package, open a GitHub 
 
 ### Testing
 
-There are two different ways to support the testing effort. You can perform a number of tests, or provide test cases. Test cases should be placed in the /tests directory along side test scripts. The test case should describe:
+There are two different ways to support the testing effort. The first way pyRACF can be tested is by creating sample scripts in the [`samples`](samples) folder which requires that the user logon to a **z/OS system** to run the scripts to **manually validate** a piece of functionality. The other method, is to write **unit tests** in the [`tests`](tests) folder which **mocks** the real **IRRSMO00 API** to allow tests of **XML generation** and **XML parsing** logic to be validated in an **automated** way. It is recommended to implement **both** since the sample scripts help validate that **real API calls** work and provides examples of how pyRACF can be used, and the automated unit testsing helps ensure that the majority of the functionality provided can be validated **quickly** and **easily** by just running the test suite.
 
-* A Test case ID that allows people to track the test case. It should contain the type in the ID name:
-  * The component involved in the test case (or general if it hits multiple)
-  * The Type of test case (Functionality, Security, Usability)
-  * A unique ordinal integer
-  * Examples: UserFunctionality001 or GeneralUsability005
-* A Description of the test - This should define what is being tested and why
-* Assumptions and preconditions - What needs to be in place for the test to be made (for example - "User must be logged on in problem program state")
-* Any test data that is required for the test to complete
-* The steps of the test.
-* Passing Result - What consititutes success
-* Failing Result - what consititutes failure
-* If Automated, the script that is being used to perform the test
+* **Samples:**
+  * Sample scripts should be placed in the the **subfolder** corresponding to the **class** you are providing a sample for. 
+    * _**Example:** An **Add User** sample should go in the [`user`](samples/user) subfolder._
+* **Unit Tests:**
+  * Unit tests should be placed in the **subfolder** corresponding to the **class** you are creating a test for. Secondly, note that you should place your test case in the **unit test class** that corresponds to the type of functionality you are trying to validate. In general, each **class** should have **test classes** for **XML generation**, **XML parsing**, **Setter functions**, and **Getter functions**. Lastly, there should also be a **folder** of **XML request samples** and **XML/dictionary result** samples in the same directory as the **unit tests classes**, and these samples should be loaded in a corresponding **constants module** in that same folder for use in unit test cases. 
+    * _**Example:** A test case for verifying that the `get_uid` **User Administration** function can extract an **OMVS UID** from **profile extract XML** that contains an **OMVS segment**. should be placed in in [`test_user_getters.py`](tests/user/test_user_getters.py) unit test class within the [`users`](tests/user) subfolder. A **profile extract XML** sample that contains an **OMVS Segment** should be created in the [`user_result_samples`](tests/user/user_result_samples) folder within the same folder as the corresponding **unit test classes** if one does not exist already._
 
 ### Fixing bugs
 

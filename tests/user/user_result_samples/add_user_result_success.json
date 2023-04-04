@@ -12,8 +12,7 @@
                     "image": "ADDUSER SQUIDWRD ",
                     "messages": [
                         "ICH01024I User SQUIDWRD is defined as PROTECTED."
-                    ],
-                    "message": "ICH01024I User SQUIDWRD is defined as PROTECTED."
+                    ]
                 },
                 {
                     "safreturncode": 0,

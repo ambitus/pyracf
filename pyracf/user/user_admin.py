@@ -265,7 +265,10 @@ class UserAdmin(SecurityAdmin):
         """Get a user's UID."""
         result = self.extract({"userid": userid, "omvs": True})
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
-        return profile["omvs"]["uid"]
+        try:
+            return profile["omvs"]["uid"]
+        except KeyError:
+            return None
 
     def set_uid(self, userid: str, uid: int, generate_request_only=False) -> dict:
         """Set a user's UID."""

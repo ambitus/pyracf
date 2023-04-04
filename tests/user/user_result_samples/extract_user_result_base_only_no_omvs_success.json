@@ -15,17 +15,15 @@
                             "user": "squidwrd",
                             "name": "squidward",
                             "owner": "leonard",
-                            "created": 23.087,
+                            "created": 23.094,
                             "defaultgroup": "sys1",
                             "passdate": 0.0,
                             "passinterval": 186,
                             "phrasedate": null,
-                            "attributes": [
-                                "special"
-                            ],
+                            "attributes": [],
                             "revokedate": null,
                             "resumedate": null,
-                            "lastaccess": "23.087/12:37:10",
+                            "lastaccess": "23.094/12:55:37",
                             "classauthorizations": [],
                             "logonalloweddays": "anyday",
                             "logonallowedtime": "anytime",
@@ -33,7 +31,7 @@
                                 "SYS1": {
                                     "auth": "use",
                                     "connectowner": "leonard",
-                                    "connectdate": 23.087,
+                                    "connectdate": 23.094,
                                     "connects": 0,
                                     "uacc": null,
                                     "lastconnect": "unknown",
@@ -45,17 +43,6 @@
                             "securitylevel": null,
                             "categoryauthorization": null,
                             "securitylabel": null
-                        },
-                        "omvs": {
-                            "uid": 2424,
-                            "home": "/u/squidwrd",
-                            "program": "/bin/sh",
-                            "cputimemax": null,
-                            "assizemax": null,
-                            "fileprocmax": null,
-                            "procusermax": null,
-                            "threadsmax": null,
-                            "mmapareamax": null
                         }
                     }
                 }
