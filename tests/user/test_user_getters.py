@@ -109,4 +109,4 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
-        self.assertEqual(user_admin.get_uid("squidwrd"), None)
+        self.assertIsNone(user_admin.get_uid("squidwrd"))
