@@ -25,3 +25,9 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+      - id: unittest
+        name: unittest
+        entry: python tests/test_runner.py
+        language: system
+        pass_filenames: false
+        always_run: true
