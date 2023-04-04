@@ -35,6 +35,8 @@ class AccessAdmin(SecurityAdmin):
             }
         }
 
+        del self.valid_segment_traits["base"]["generic"]
+
     def add(self, traits: dict) -> dict:
         """Create a new user."""
         self.build_segment_dictionaries(traits)

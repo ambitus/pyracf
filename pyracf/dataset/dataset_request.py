@@ -10,9 +10,11 @@ class DatasetRequest(SecurityRequest):
         super().__init__()
         self.security_definition.tag = "dataset"
         self.set_volid_and_generic(traits)
-        self.security_definition.attrib = {
-            "name": traits["datasetname"],
-            "operation": operation,
-            "generic": traits["generic"],
-            "requestid": "DatasetRequest",
-        }
+        self.security_definition.attrib.update(
+            {
+                "name": traits["datasetname"],
+                "operation": operation,
+                "generic": traits["generic"],
+                "requestid": "DatasetRequest",
+            }
+        )
