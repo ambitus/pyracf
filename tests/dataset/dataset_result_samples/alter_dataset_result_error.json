@@ -10,7 +10,7 @@
                "safreturncode":8,
                "returncode":16,
                "reasoncode":4,
-               "image":"ADDSD                ('ESWIFT.TEST.T113622.P3020470') ",
+               "image":"ADDSD                ('ESWIFT.TEST.T113622.P3020470')",
                "messages":[
                   "ICH09005I ESWIFT.TEST.T113622.P3020470 NOT FOUND IN CATALOG"
                ]
