@@ -1,7 +1,6 @@
 """General Resource Profile Administration."""
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
 from pyracf.genprof.resource_request import ResourceRequest
 
 

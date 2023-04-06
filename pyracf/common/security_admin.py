@@ -84,8 +84,10 @@ class SecurityAdmin:
             )
             results = SecurityResult(result_xml)
             result_dict = results.get_result_dictionary()
-            if (result_dict["securityresult"]["returncode"] != 0
-            or result_dict["securityresult"]["reasoncode"] != 0):
+            if (
+                result_dict["securityresult"]["returncode"] != 0
+                or result_dict["securityresult"]["reasoncode"] != 0
+            ):
                 raise SecurityRequestError(result_dict)
             return result_dict
         return security_request.dump_request_xml(encoding="utf-8")
