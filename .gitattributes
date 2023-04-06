@@ -1,1 +1,2 @@
-* text git-encoding=utf-8 zos-working-tree-encoding=iso-8859-1 working-tree-encoding=utf-8
+* text git-encoding=utf-8 zos-working-tree-encoding=iso8859-1 working-tree-encoding=utf-8
+.DS_Store binary
