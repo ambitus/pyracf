@@ -105,7 +105,7 @@ class SecurityAdmin:
             results = SecurityResult(result_xml)
             if debug:
                 result_dictionary_json = json.dumps(
-                    results.get_result_dictionary(), intend=4
+                    results.get_result_dictionary(), indent=4
                 )
                 self.logger.log_debug(f"Result Dictionary:\n{result_dictionary_json}")
             return results.get_result_dictionary()
@@ -121,7 +121,14 @@ class SecurityAdmin:
             current_line = xml_tokens[i]
             if previous_line[:5] == "<?xml":
                 indented_xml += f"{previous_line}>\n"
-            elif "</" not in previous_line and previous_line[0] != "/":
+            elif i == 1:
+                indented_xml += f"{previous_line}>\n"
+                indent_level += 1
+            elif (
+                "</" not in previous_line
+                and previous_line[0] != "/"
+                and previous_line[-1] != "/"
+            ):
                 indent_level += 1
             if current_line[0] == "/":
                 indent_level -= 1
