@@ -10,7 +10,7 @@
                 "safreturncode":8,
                 "returncode":16,
                 "reasoncode":8,
-                "image":"RDEFINE ELIXTEST             (TESTING) ",
+                "image":"RDEFINE ELIXTEST             (TESTING)",
                 "messages":[
                    "IKJ56702I INVALID CLASS, ELIXTEST",
                    "IKJ56701I MISSING ENTITY NAME+",

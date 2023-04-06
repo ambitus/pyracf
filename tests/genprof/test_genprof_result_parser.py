@@ -56,8 +56,8 @@ class TestGenprofResultParser(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError) as exception:
             resource_admin.add({"resourcename": "TESTING", "classname": "ELIXTEST"})
-        print("EXCP",exception.exception.results)
-        print("TEST",TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_DICTIONARY)
+        print("EXCP", exception.exception.results)
+        print("TEST", TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_DICTIONARY)
         self.assertEqual(
             exception.exception.results,
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_DICTIONARY,

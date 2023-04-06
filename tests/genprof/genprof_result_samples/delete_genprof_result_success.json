@@ -10,7 +10,7 @@
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RDELETE ELIJTEST             (TESTING) ",
+                    "image": "RDELETE ELIJTEST             (TESTING)",
                     "messages": [
                         "ICH12002I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ]

@@ -10,7 +10,7 @@
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RDEFINE ELIJTEST             (TESTING) ",
+                    "image": "RDEFINE ELIJTEST             (TESTING)",
                     "messages": [
                         "ICH10006I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
                     ]
