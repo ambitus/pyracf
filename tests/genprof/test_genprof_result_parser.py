@@ -36,7 +36,9 @@ class TestGenprofResultParser(unittest.TestCase):
         dump_request_xml_mock: Mock,
     ):
         resource_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
+        )
         self.assertEqual(
             resource_admin.add({"genprofid": "squidward"}),
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_DICTIONARY,
@@ -49,7 +51,9 @@ class TestGenprofResultParser(unittest.TestCase):
         dump_request_xml_mock: Mock,
     ):
         resource_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_XML
+        )
         with self.assertRaises(SecurityRequestError) as exception:
             resource_admin.add({"genprofid": "squidward"})
         self.assertEqual(
@@ -82,7 +86,9 @@ class TestGenprofResultParser(unittest.TestCase):
         dump_request_xml_mock: Mock,
     ):
         resource_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_XML
+        )
         with self.assertRaises(SecurityRequestError) as exception:
             resource_admin.alter({"genprofid": "squidward"})
         self.assertEqual(

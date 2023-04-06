@@ -164,24 +164,38 @@ class ResourceAdmin(SecurityAdmin):
         }
         self.profile_type = "resource"
 
-    def get_uacc(self, resource_name: str, class_name: str, generate_request_only=False) -> str:
+    def get_uacc(
+        self, resource_name: str, class_name: str, generate_request_only=False
+    ) -> str:
         """Get UACC associated with a general resource profile."""
-        result = self.extract({"resourcename": resource_name, "classname": class_name},
-        generate_request_only=generate_request_only,)
+        result = self.extract(
+            {"resourcename": resource_name, "classname": class_name},
+            generate_request_only=generate_request_only,
+        )
         profile = result["securityresult"]["resource"]["commands"][0]["profile"]
         return profile["base"].get("universal access")
 
-    def set_uacc(self, resource_name: str, class_name: str, uacc: str, generate_request_only=False) -> str:
+    def set_uacc(
+        self,
+        resource_name: str,
+        class_name: str,
+        uacc: str,
+        generate_request_only=False,
+    ) -> str:
         """Set the UACC for a general resource profile."""
         return self.alter(
             {"resourcename": resource_name, "classname": class_name, "uacc": uacc},
             generate_request_only=generate_request_only,
         )
 
-    def get_your_acc(self, resource_name: str, class_name: str, generate_request_only=False) -> str:
+    def get_your_acc(
+        self, resource_name: str, class_name: str, generate_request_only=False
+    ) -> str:
         """Get the UACC associated with your own general resource profile."""
-        result = self.extract({"resourcename": resource_name, "classname": class_name},
-        generate_request_only=generate_request_only,)
+        result = self.extract(
+            {"resourcename": resource_name, "classname": class_name},
+            generate_request_only=generate_request_only,
+        )
         profile = result["securityresult"]["resource"]["commands"][0]["profile"]
         return profile["base"].get("your access")
 
@@ -600,9 +614,13 @@ class ResourceAdmin(SecurityAdmin):
         self.build_bool_segment_dictionaries(traits)
         profile_request = ResourceRequest(resourcename, classname, "listdata")
         self.build_segments(profile_request, extract=True)
-        return self.extract_and_check_result(profile_request, generate_request_only=generate_request_only)
+        return self.extract_and_check_result(
+            profile_request, generate_request_only=generate_request_only
+        )
 
-    def delete(self, resourcename: str, classname: str, generate_request_only=False) -> dict:
+    def delete(
+        self, resourcename: str, classname: str, generate_request_only=False
+    ) -> dict:
         """Delete a general resource profile."""
         profile_request = ResourceRequest(resourcename, classname, "del")
         result = self.make_request(

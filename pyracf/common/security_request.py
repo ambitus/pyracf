@@ -81,5 +81,5 @@ class SecurityRequest:
 
     def dump_request_xml(self, encoding="cp1047") -> bytes:
         """Dump XML as EBCDIC encoded bytes. (Encoding can be overridden for testing)."""
-        #return XMLBuilder.tostring(self.racf_request, encoding=encoding)
+        # return XMLBuilder.tostring(self.racf_request, encoding=encoding)
         return XMLBuilder.tostring(self.racf_request)

@@ -5,15 +5,14 @@ import unittest
 
 import __init__
 
-from tests.user.test_user_getters import TestUserGetters
-from tests.user.test_user_request_builder import TestUserRequestBuilder
-from tests.user.test_user_result_parser import TestUserResultParser
-from tests.user.test_user_setters import TestUserSetters
-
 from tests.genprof.test_genprof_getters import TestGenprofGetters
 from tests.genprof.test_genprof_request_builder import TestGenprofRequestBuilder
 from tests.genprof.test_genprof_result_parser import TestGenprofResultParser
 from tests.genprof.test_genprof_setters import TestGenprofSetters
+from tests.user.test_user_getters import TestUserGetters
+from tests.user.test_user_request_builder import TestUserRequestBuilder
+from tests.user.test_user_result_parser import TestUserResultParser
+from tests.user.test_user_setters import TestUserSetters
 
 # Resolves F401
 __init__

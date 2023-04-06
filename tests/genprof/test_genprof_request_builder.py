@@ -23,14 +23,16 @@ class TestGenprofRequestBuilder(unittest.TestCase):
     def test_resource_admin_build_add_genprof_request(self, irrsmo00_init_mock: Mock):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
         result = resource_admin.add(
-            TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS, generate_request_only=True
+            TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS,
+            generate_request_only=True,
         )
         self.assertEqual(result, TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_XML)
 
     def test_resource_admin_build_alter_genprof_request(self, irrsmo00_init_mock: Mock):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
         result = resource_admin.alter(
-            TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS, generate_request_only=True
+            TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS,
+            generate_request_only=True,
         )
         self.assertEqual(result, TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_XML)
 
@@ -46,7 +48,11 @@ class TestGenprofRequestBuilder(unittest.TestCase):
             result, TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_XML
         )
 
-    def test_resource_admin_build_delete_genprof_request(self, irrsmo00_init_mock: Mock):
+    def test_resource_admin_build_delete_genprof_request(
+        self, irrsmo00_init_mock: Mock
+    ):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.delete("TESTING","ELIJTEST", generate_request_only=True)
+        result = resource_admin.delete(
+            "TESTING", "ELIJTEST", generate_request_only=True
+        )
         self.assertEqual(result, TestGenprofConstants.TEST_DELETE_GENPROF_REQUEST_XML)

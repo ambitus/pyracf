@@ -39,7 +39,9 @@ class TestGenprofGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_XML
         )
-        self.assertTrue(resource_admin.get_uacc("TESTING","ELIJTEST").title()=="Read")
+        self.assertTrue(
+            resource_admin.get_uacc("TESTING", "ELIJTEST").title() == "Read"
+        )
 
     def test_resource_admin_get_uacc_returns_valid_when_none(
         self,
@@ -56,7 +58,7 @@ class TestGenprofGetters(unittest.TestCase):
             "<message> 00    ESWIFT          NONE               READ    NO</message>",
         )
         call_racf_mock.return_value = genprof_extract_no_uacc
-        self.assertTrue(resource_admin.get_uacc("TESTING","ELIJTEST") is None)
+        self.assertTrue(resource_admin.get_uacc("TESTING", "ELIJTEST") is None)
 
     def test_resource_admin_get_uacc_raises_an_exception_when_extract_fails(
         self,
@@ -69,7 +71,7 @@ class TestGenprofGetters(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            resource_admin.get_uacc("TESTING","ELIJTEST")
+            resource_admin.get_uacc("TESTING", "ELIJTEST")
 
     # ============================================================================
     # ResourceAdmin.get_your_acc()
@@ -84,7 +86,9 @@ class TestGenprofGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_XML
         )
-        self.assertTrue(resource_admin.get_your_acc("TESTING","ELIJTEST").title()=="Read")
+        self.assertTrue(
+            resource_admin.get_your_acc("TESTING", "ELIJTEST").title() == "Read"
+        )
 
     def test_resource_admin_get_your_acc_returns_valid_when_none(
         self,
@@ -101,7 +105,7 @@ class TestGenprofGetters(unittest.TestCase):
             "<message> 00    ESWIFT          READ               NONE    NO</message>",
         )
         call_racf_mock.return_value = genprof_extract_no_your_acc
-        self.assertTrue(resource_admin.get_your_acc("TESTING","ELIJTEST") is None)
+        self.assertTrue(resource_admin.get_your_acc("TESTING", "ELIJTEST") is None)
 
     def test_resource_admin_get_your_acc_raises_an_exception_when_extract_fails(
         self,
@@ -114,5 +118,4 @@ class TestGenprofGetters(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            resource_admin.get_your_acc("TESTING","ELIJTEST")
-
+            resource_admin.get_your_acc("TESTING", "ELIJTEST")
