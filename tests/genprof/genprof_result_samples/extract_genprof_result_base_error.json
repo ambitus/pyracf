@@ -10,7 +10,7 @@
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 4,
-                    "image": "RLIST   ELIJTEST             (TESTING) ",
+                    "image": "RLIST   ELIJTEST             (TESTING)",
                     "messages": [
                         "ICH13003I TESTING NOT FOUND"
                     ]

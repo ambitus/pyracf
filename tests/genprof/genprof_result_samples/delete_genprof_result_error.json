@@ -10,7 +10,7 @@
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 4,
-                    "image": "RDELETE ELIJTEST             (TESTING) ",
+                    "image": "RDELETE ELIJTEST             (TESTING)",
                     "messages": [
                         "ICH12102I TESTING NOT DEFINED TO CLASS ELIJTEST."
                     ]
