@@ -231,7 +231,9 @@ class UserAdmin(SecurityAdmin):
 
     def is_auditor(self, userid: str, generate_request_only=False) -> bool:
         """Check if a user is RACF auditor."""
-        result = self.extract({"userid": userid},generate_request_only=generate_request_only)
+        result = self.extract(
+            {"userid": userid}, generate_request_only=generate_request_only
+        )
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
         if "auditor" in profile["base"]["attributes"]:
             return True
@@ -239,15 +241,23 @@ class UserAdmin(SecurityAdmin):
 
     def set_auditor(self, userid: str, generate_request_only=False) -> dict:
         """Make user a RACF auditor."""
-        return self.alter({"userid": userid, "auditor": True},generate_request_only=generate_request_only)
+        return self.alter(
+            {"userid": userid, "auditor": True},
+            generate_request_only=generate_request_only,
+        )
 
     def del_auditor(self, userid: str, generate_request_only=False) -> dict:
         """Make user not a RACF auditor."""
-        return self.alter({"userid": userid, "auditor": False},generate_request_only=generate_request_only)
+        return self.alter(
+            {"userid": userid, "auditor": False},
+            generate_request_only=generate_request_only,
+        )
 
     def is_operations(self, userid: str, generate_request_only=False) -> bool:
         """Check if a user is RACF operator."""
-        result = self.extract({"userid": userid},generate_request_only=generate_request_only)
+        result = self.extract(
+            {"userid": userid}, generate_request_only=generate_request_only
+        )
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
         if "operations" in profile["base"]["attributes"]:
             return True
@@ -255,11 +265,17 @@ class UserAdmin(SecurityAdmin):
 
     def set_operations(self, userid: str, generate_request_only=False) -> dict:
         """Make user a RACF operator."""
-        return self.alter({"userid": userid, "oper": True},generate_request_only=generate_request_only)
+        return self.alter(
+            {"userid": userid, "oper": True},
+            generate_request_only=generate_request_only,
+        )
 
     def del_operations(self, userid: str, generate_request_only=False) -> dict:
         """Make user not a RACF operator."""
-        return self.alter({"userid": userid, "oper": False},generate_request_only=generate_request_only)
+        return self.alter(
+            {"userid": userid, "oper": False},
+            generate_request_only=generate_request_only,
+        )
 
     def get_uid(self, userid: str) -> Union[str, int]:
         """Get a user's UID."""

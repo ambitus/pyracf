@@ -102,4 +102,8 @@ TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
 
 TEST_USER_SET_SPECIAL_XML = get_sample("user_set_special.xml")
 TEST_USER_DEL_SPECIAL_XML = get_sample("user_del_special.xml")
+TEST_USER_SET_AUDITOR_XML = get_sample("user_set_auditor.xml")
+TEST_USER_DEL_AUDITOR_XML = get_sample("user_del_auditor.xml")
+TEST_USER_SET_OPER_XML = get_sample("user_set_operations.xml")
+TEST_USER_DEL_OPER_XML = get_sample("user_del_operations.xml")
 TEST_USER_SET_UID_XML = get_sample("user_set_uid.xml")

@@ -25,6 +25,10 @@ This will evolve over time. Currently the examples found in the __[samples](../s
 
 ### [Access Administration](samples/access_admin.md)
 
+### [Setropts Administration](samples/setropts_admin.md)
+
+### [Combination Scripts](samples/combination_scripts.md)
+
 ```json
 {
     "securityresult": {
