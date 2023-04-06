@@ -10,7 +10,7 @@
                "safreturncode":8,
                "returncode":16,
                "reasoncode":4,
-               "image":"ADDSD                ('ESWIFF.TEST.T1136242.P3020470') ",
+               "image":"ADDSD                ('ESWIFF.TEST.T1136242.P3020470')",
                "messages":[
                   "ICH09006I USER OR GROUP ESWIFF   NOT DEFINED TO RACF"
                ]
