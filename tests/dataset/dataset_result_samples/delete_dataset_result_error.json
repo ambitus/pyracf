@@ -10,7 +10,7 @@
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 4,
-                    "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470') ",
+                    "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470')",
                     "messages": [
                         "ICH09020I ESWIFT.TEST.T1136242.P3020470 NOT DEFINED TO RACF"
                     ]
