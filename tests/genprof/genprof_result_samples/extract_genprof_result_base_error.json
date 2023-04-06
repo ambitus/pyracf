@@ -1,17 +1,18 @@
 {
     "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
+        "resource": {
+            "name": "TESTING",
+            "class": "ELIJTEST",
             "operation": "listdata",
-            "requestid": "UserRequest",
+            "requestid": "ResourceRequest",
             "commands": [
                 {
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 4,
-                    "image": "LISTUSER SQUIDWRD  OMVS    ",
+                    "image": "RLIST   ELIJTEST             (TESTING) ",
                     "messages": [
-                        "ICH30001I UNABLE TO LOCATE USER    ENTRY SQUIDWRD"
+                        "ICH13003I TESTING NOT FOUND"
                     ]
                 }
             ]
@@ -20,3 +21,4 @@
         "reasoncode": 4
     }
 }
+

@@ -1,11 +1,8 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidwrd" operation="set" requestid="UserRequest">
+    <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
         <base>
-            <racf:special operation="del" />
+            <racf:uacc operation="set">Read</racf:uacc>
+            <racf:owner operation="set">eswift</racf:owner>
         </base>
-        <omvs>
-            <home operation="set">/u/clarinet</home>
-            <pgm operation="del" />
-        </omvs>
-    </user>
+    </resource>
 </securityrequest>

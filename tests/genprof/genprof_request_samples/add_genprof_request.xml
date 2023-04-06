@@ -1,15 +1,8 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidwrd" operation="set" requestid="UserRequest">
+    <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
         <base>
-            <name>Squidward</name>
-            <racf:password>password</racf:password>
-            <racf:owner>leonard</racf:owner>
-            <racf:special />
+            <racf:uacc>None</racf:uacc>
+            <racf:owner>eswift</racf:owner>
         </base>
-        <omvs>
-            <uid>2424</uid>
-            <home>/u/squidwrd</home>
-            <pgm>/bin/sh</pgm>
-        </omvs>
-    </user>
+    </resource>
 </securityrequest>

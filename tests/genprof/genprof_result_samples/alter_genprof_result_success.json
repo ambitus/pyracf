@@ -1,9 +1,10 @@
 {
     "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
+        "resource": {
+            "name": "TESTING",
+            "class": "ELIJTEST",
             "operation": "set",
-            "requestid": "UserRequest",
+            "requestid": "ResourceRequest",
             "info": [
                 "Definition exists. Add command skipped due  to precheck option"
             ],
@@ -12,7 +13,10 @@
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "ALTUSER SQUIDWRD  NOSPECIAL      OMVS     (HOME        ('/u/clarinet') NOPROGRAM     )"
+                    "image": "RALTER  ELIJTEST             (TESTING)  UACC        (Read) OWNER       (eswift)",
+                    "messages": [
+                        "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+                    ]
                 }
             ]
         },
@@ -20,3 +24,4 @@
         "reasoncode": 0
     }
 }
+

@@ -1,7 +1,7 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidwrd" operation="set" requestid="UserRequest">
+    <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
         <base>
-            <racf:auditor operation="set" />
+            <racf:uacc operation="set">ALTER</racf:uacc>
         </base>
-    </user>
+    </resource>
 </securityrequest>

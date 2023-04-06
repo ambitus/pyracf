@@ -10,6 +10,11 @@ from tests.user.test_user_request_builder import TestUserRequestBuilder
 from tests.user.test_user_result_parser import TestUserResultParser
 from tests.user.test_user_setters import TestUserSetters
 
+from tests.genprof.test_genprof_getters import TestGenprofGetters
+from tests.genprof.test_genprof_request_builder import TestGenprofRequestBuilder
+from tests.genprof.test_genprof_result_parser import TestGenprofResultParser
+from tests.genprof.test_genprof_setters import TestGenprofSetters
+
 # Resolves F401
 __init__
 
@@ -23,6 +28,10 @@ def __test_suite() -> unittest.TestSuite:
         TestUserRequestBuilder,
         TestUserGetters,
         TestUserSetters,
+        TestGenprofResultParser,
+        TestGenprofRequestBuilder,
+        TestGenprofGetters,
+        TestGenprofSetters,
     ]
     for test_class in test_classes:
         tests = test_loader.loadTestsFromTestCase(test_class)
