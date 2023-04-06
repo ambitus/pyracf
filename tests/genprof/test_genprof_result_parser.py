@@ -40,7 +40,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            resource_admin.add({"resourcename":"TESTING","classname": "ELIXTEST"}),
+            resource_admin.add({"resourcename": "TESTING", "classname": "ELIXTEST"}),
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -55,7 +55,8 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            resource_admin.add({"resourcename":"TESTING","classname": "ELIXTEST"})
+            resource_admin.add({"resourcename": "TESTING", "classname": "ELIXTEST"})
+        print(exception.exception.results)
         self.assertEqual(
             exception.exception.results,
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_DICTIONARY,
