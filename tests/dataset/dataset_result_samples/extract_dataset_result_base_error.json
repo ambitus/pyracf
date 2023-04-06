@@ -10,7 +10,7 @@
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 4,
-                    "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470') ",
+                    "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')",
                     "messages": [
                         "ICH35003I NO RACF DESCRIPTION FOUND FOR ESWIFT.TEST.T1136242.P3020470"
                     ]
