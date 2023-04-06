@@ -3,6 +3,7 @@
 from typing import List, Tuple, Union
 
 from pyracf.common.irrsmo00 import IRRSMO00
+from pyracf.common.logger import Logger
 from pyracf.common.security_request import SecurityRequest
 from pyracf.common.security_request_error import SecurityRequestError
 from pyracf.common.security_result import SecurityResult
@@ -47,14 +48,20 @@ class SecurityAdmin:
         self.segment_traits = {}
         self.trait_map = {}
         self.profile_type = None
+        self.logger = Logger()
 
     def extract_and_check_result(
-        self, security_request: SecurityRequest, generate_request_only=False
+        self,
+        security_request: SecurityRequest,
+        generate_request_only=False,
+        debug=False,
     ) -> dict:
         """Extract a RACF profile."""
         if generate_request_only:
-            return self.make_request(security_request, generate_request_only=True)
-        result = self.make_request(security_request)
+            return self.make_request(
+                security_request, generate_request_only=True, debug=debug
+            )
+        result = self.make_request(security_request, debug=debug)
         if "error" in result["securityresult"][self.profile_type]:
             raise SecurityRequestError(result)
         if (
@@ -62,6 +69,10 @@ class SecurityAdmin:
             and result["securityresult"]["reasoncode"] == 0
         ):
             self.format_profile(result)
+            if debug:
+                self.logger.log_debug(
+                    f"Result Dictionary (Formatted Profile):\n{result}"
+                )
             return result
         raise SecurityRequestError(result)
 
@@ -76,13 +87,25 @@ class SecurityAdmin:
         security_request: SecurityRequest,
         opts: int = 1,
         generate_request_only=False,
+        debug=False,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
+        if debug:
+            request_xml = security_request.dump_request_xml(encoding="utf-8")
+            self.logger.log_debug(
+                f"Request XML:\n{request_xml.decode(encoding='utf-8')}"
+            )
         if not generate_request_only:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
             )
+            if debug:
+                self.logger.log_debug(f"Result XML:\n{result_xml}")
             results = SecurityResult(result_xml)
+            if debug:
+                self.logger.log_debug(
+                    f"Result Dictionary:\n{results.get_result_dictionary()}"
+                )
             return results.get_result_dictionary()
         return security_request.dump_request_xml(encoding="utf-8")
 
