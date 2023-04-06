@@ -27,14 +27,18 @@ class TestDatasetRequestBuilder(unittest.TestCase):
             generate_request_only=True,
         )
         self.assertEqual(result, TestDatasetConstants.TEST_ADD_DATASET_REQUEST_XML)
-    
-    def test_dataset_admin_build_add_dataset_request_generic(self, irrsmo00_init_mock: Mock):
+
+    def test_dataset_admin_build_add_dataset_request_generic(
+        self, irrsmo00_init_mock: Mock
+    ):
         dataset_admin = self.boilerplate(irrsmo00_init_mock)
         result = dataset_admin.add(
             TestDatasetConstants.TEST_ADD_DATASET_REQUEST_GENERIC_TRAITS,
             generate_request_only=True,
         )
-        self.assertEqual(result, TestDatasetConstants.TEST_ADD_DATASET_REQUEST_GENERIC_XML)
+        self.assertEqual(
+            result, TestDatasetConstants.TEST_ADD_DATASET_REQUEST_GENERIC_XML
+        )
 
     def test_dataset_admin_build_alter_dataset_request(self, irrsmo00_init_mock: Mock):
         dataset_admin = self.boilerplate(irrsmo00_init_mock)
@@ -56,9 +60,7 @@ class TestDatasetRequestBuilder(unittest.TestCase):
             result, TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_XML
         )
 
-    def test_dataset_admin_build_delete_dataset_request(
-        self, irrsmo00_init_mock: Mock
-    ):
+    def test_dataset_admin_build_delete_dataset_request(self, irrsmo00_init_mock: Mock):
         dataset_admin = self.boilerplate(irrsmo00_init_mock)
         result = dataset_admin.delete(
             "ESWIFT.TEST.T1136242.P3020470", generate_request_only=True

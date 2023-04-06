@@ -22,7 +22,9 @@ TEST_ADD_DATASET_RESULT_SUCCESS_DICTIONARY = get_sample(
 )
 TEST_ADD_DATASET_RESULT_ERROR_XML = get_sample("add_dataset_result_error.xml")
 TEST_ADD_DATASET_RESULT_ERROR_DICTIONARY = get_sample("add_dataset_result_error.json")
-TEST_ADD_DATASET_RESULT_GENERIC_SUCCESS_XML = get_sample("add_dataset_result_generic_success.xml")
+TEST_ADD_DATASET_RESULT_GENERIC_SUCCESS_XML = get_sample(
+    "add_dataset_result_generic_success.xml"
+)
 TEST_ADD_DATASET_RESULT_GENERIC_SUCCESS_DICTIONARY = get_sample(
     "add_dataset_result_generic_success.json"
 )
@@ -85,9 +87,9 @@ TEST_ADD_DATASET_REQUEST_GENERIC_TRAITS = {
 # Alter Dataset
 TEST_ALTER_DATASET_REQUEST_XML = get_sample("alter_dataset_request.xml")
 TEST_ALTER_DATASET_REQUEST_TRAITS = {
-        "datasetname": "ESWIFT.TEST.T1136242.P3020470",
-        "uacc": "Read",
-        "owner": "eswift",
+    "datasetname": "ESWIFT.TEST.T1136242.P3020470",
+    "uacc": "Read",
+    "owner": "eswift",
 }
 
 # Extract Dataset

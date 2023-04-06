@@ -87,7 +87,8 @@ class TestDatasetGetters(unittest.TestCase):
             TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_XML
         )
         self.assertTrue(
-            dataset_admin.get_your_acc("ESWIFT.TEST.T1136242.P3020470").title() == "Alter"
+            dataset_admin.get_your_acc("ESWIFT.TEST.T1136242.P3020470").title()
+            == "Alter"
         )
 
     def test_dataset_admin_get_your_acc_returns_valid_when_none(
@@ -105,7 +106,9 @@ class TestDatasetGetters(unittest.TestCase):
             "<message>NONE         SYS1           NON-VSAM</message>",
         )
         call_racf_mock.return_value = dataset_extract_no_your_acc
-        self.assertTrue(dataset_admin.get_your_acc("ESWIFT.TEST.T1136242.P3020470") is None)
+        self.assertTrue(
+            dataset_admin.get_your_acc("ESWIFT.TEST.T1136242.P3020470") is None
+        )
 
     def test_dataset_admin_get_your_acc_raises_an_exception_when_extract_fails(
         self,

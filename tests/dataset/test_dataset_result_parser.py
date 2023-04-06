@@ -40,7 +40,7 @@ class TestDatasetResultParser(unittest.TestCase):
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            dataset_admin.add("ESWIFT.TEST.T1136242.P3020470"),
+            dataset_admin.add({"datasetname": "ESWIFT.TEST.T1136242.P3020470"}),
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -55,7 +55,7 @@ class TestDatasetResultParser(unittest.TestCase):
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            dataset_admin.add("ESWIFF.TEST.T1136242.P3020470")
+            dataset_admin.add({"datasetname": "ESWIFF.TEST.T1136242.P3020470"})
         self.assertEqual(
             exception.exception.results,
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_DICTIONARY,
@@ -75,9 +75,7 @@ class TestDatasetResultParser(unittest.TestCase):
             TestDatasetConstants.TEST_ALTER_DATASET_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            dataset_admin.alter(
-                TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_TRAITS
-            ),
+            dataset_admin.alter(TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_TRAITS),
             TestDatasetConstants.TEST_ALTER_DATASET_RESULT_SUCCESS_DICTIONARY,
         )
 
