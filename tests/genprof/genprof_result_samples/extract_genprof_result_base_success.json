@@ -10,7 +10,7 @@
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RLIST   ELIJTEST             (TESTING)",
+                    "image": "RLIST   ELIJTEST             (TESTING) ",
                     "profile": {
                         "base": {
                             "class": "elijtest",
