@@ -113,7 +113,7 @@ class TestGenprofResultParser(unittest.TestCase):
         )
         self.assertEqual(
             resource_admin.extract(
-                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_TRAITS
+                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
             ),
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_DICTIONARY,
         )
