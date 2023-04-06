@@ -130,7 +130,7 @@ class TestGenprofResultParser(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError) as exception:
             resource_admin.extract(
-                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_TRAITS
+                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
             )
         self.assertEqual(
             exception.exception.results,

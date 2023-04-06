@@ -80,9 +80,7 @@ TEST_ALTER_GENPROF_REQUEST_TRAITS = {
 }
 
 # Extract Genprof
-TEST_EXTRACT_GENPROF_REQUEST_BASE_XML = get_sample(
-    "extract_genprof_request_base.xml"
-)
+TEST_EXTRACT_GENPROF_REQUEST_BASE_XML = get_sample("extract_genprof_request_base.xml")
 TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS = {
     "resourcename": "TESTING",
     "classname": "ELIJTEST",
