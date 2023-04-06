@@ -1,5 +1,6 @@
 """Base Class for RACF Administration Interface."""
 
+import json
 from typing import List, Tuple, Union
 
 from pyracf.common.irrsmo00 import IRRSMO00
@@ -71,7 +72,7 @@ class SecurityAdmin:
             self.format_profile(result)
             if debug:
                 self.logger.log_debug(
-                    f"Result Dictionary (Formatted Profile):\n{result}"
+                    f"Result Dictionary (Formatted Profile):\n{json.dumps(result,indent=4)}"
                 )
             return result
         raise SecurityRequestError(result)
@@ -93,21 +94,40 @@ class SecurityAdmin:
         if debug:
             request_xml = security_request.dump_request_xml(encoding="utf-8")
             self.logger.log_debug(
-                f"Request XML:\n{request_xml.decode(encoding='utf-8')}"
+                f"Request XML:\n{self.__indent_xml(request_xml.decode(encoding='utf-8'))}"
             )
         if not generate_request_only:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
             )
             if debug:
-                self.logger.log_debug(f"Result XML:\n{result_xml}")
+                self.logger.log_debug(f"Result XML:\n{self.__indent_xml(result_xml)}")
             results = SecurityResult(result_xml)
             if debug:
-                self.logger.log_debug(
-                    f"Result Dictionary:\n{results.get_result_dictionary()}"
+                result_dictionary_json = json.dumps(
+                    results.get_result_dictionary(), intend=4
                 )
+                self.logger.log_debug(f"Result Dictionary:\n{result_dictionary_json}")
             return results.get_result_dictionary()
         return security_request.dump_request_xml(encoding="utf-8")
+
+    def __indent_xml(self, minified_xml: str) -> str:
+        """Used to indent XML for readability in debug logging."""
+        indent_level = 0
+        indented_xml = ""
+        xml_tokens = minified_xml.split("><")
+        for i in range(1, len(xml_tokens)):
+            previous_line = xml_tokens[i - 1]
+            current_line = xml_tokens[i]
+            if previous_line[:5] == "<?xml":
+                indented_xml += f"{previous_line}>\n"
+            elif "</" not in previous_line and previous_line[0] != "/":
+                indent_level += 1
+            if current_line[0] == "/":
+                indent_level -= 1
+            current_line = f"<{current_line}>"
+            indented_xml += f"{'    ' * indent_level}{current_line}\n"
+        return indented_xml[:-2]
 
     def format_profile(self, result: dict):
         """Placeholder for format profile function for profile extract."""
