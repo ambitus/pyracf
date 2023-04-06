@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-   <resource name="TESTING" class="ELIJTEST" operation="del" requestid="ResourceRequest">
-      <command>
-         <safreturncode>8</safreturncode>
-         <returncode>16</returncode>
-         <reasoncode>4</reasoncode>
-         <image>RDELETE ELIJTEST             (TESTING)</image>
-         <message>ICH12102I TESTING NOT DEFINED TO CLASS ELIJTEST.</message>
-      </command>
-   </resource>
-   <returncode>4</returncode>
-   <reasoncode>0</reasoncode>
+    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="del" generic="no" requestid="DatasetRequest">
+        <command>
+            <safreturncode>8</safreturncode>
+            <returncode>16</returncode>
+            <reasoncode>4</reasoncode>
+            <image>DELDSD               ('ESWIFT.TEST.T1136242.P3020470')</image>
+            <message>ICH09020I ESWIFT.TEST.T1136242.P3020470 NOT DEFINED TO RACF</message>
+        </command>
+    </dataset>
+    <returncode>4</returncode>
+    <reasoncode>0</reasoncode>
 </securityresult>

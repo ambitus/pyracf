@@ -1,17 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-   <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
-      <info>Definition exists. Add command skipped due  to precheck option</info>
-      <command>
-         <safreturncode>8</safreturncode>
-         <returncode>16</returncode>
-         <reasoncode>8</reasoncode>
-         <image>RALTER  ELIJTEST             (TESTING)  UACC        (ALL) OWNER       (eswift)</image>
-         <message>IKJ56702I INVALID UNIVERSAL ACCESS, ALL</message>
-         <message>IKJ56701I MISSING UNIVERSAL ACCESS+</message>
-         <message>IKJ56701I MISSING ALTER, CONTROL, UPDATE, READ, EXECUTE, OR NONE</message>
-      </command>
-   </resource>
-   <returncode>4</returncode>
-   <reasoncode>0</reasoncode>
+    <dataset name="ESWIFT.TEST.T113622.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+        <command>
+            <safreturncode>8</safreturncode>
+            <returncode>16</returncode>
+            <reasoncode>4</reasoncode>
+            <image>ADDSD                ('ESWIFT.TEST.T113622.P3020470')</image>
+            <message>ICH09005I ESWIFT.TEST.T113622.P3020470 NOT FOUND IN CATALOG</message>
+        </command>
+        <command>
+            <safreturncode>8</safreturncode>
+            <returncode>16</returncode>
+            <reasoncode>4</reasoncode>
+            <image>ALTDSD               ('ESWIFT.TEST.T113622.P3020470')  UACC        (ALTER)</image>
+            <message>ICH22001I ESWIFT.TEST.T113622.P3020470 NOT DEFINED TO RACF</message>
+        </command>
+    </dataset>
+    <returncode>4</returncode>
+    <reasoncode>0</reasoncode>
 </securityresult>

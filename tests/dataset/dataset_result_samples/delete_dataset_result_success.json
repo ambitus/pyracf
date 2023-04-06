@@ -1,19 +1,16 @@
 {
     "securityresult": {
-        "resource": {
-            "name": "TESTING",
-            "class": "ELIJTEST",
+        "dataset": {
+            "name": "ESWIFT.TEST.T1136242.P3020470",
             "operation": "del",
-            "requestid": "ResourceRequest",
+            "generic": "no",
+            "requestid": "DatasetRequest",
             "commands": [
                 {
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RDELETE ELIJTEST             (TESTING) ",
-                    "messages": [
-                        "ICH12002I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-                    ]
+                    "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470') "
                 }
             ]
         },

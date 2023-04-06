@@ -1,24 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-   <resource name="TESTING" class="ELIXTEST" operation="set" requestid="ResourceRequest">
-      <command>
-         <safreturncode>8</safreturncode>
-         <returncode>16</returncode>
-         <reasoncode>8</reasoncode>
-         <image>RDEFINE ELIXTEST             (TESTING)</image>
-         <message>IKJ56702I INVALID CLASS, ELIXTEST</message>
-         <message>IKJ56701I MISSING ENTITY NAME+</message>
-         <message>IKJ56701I MISSING NAME OF ENTITY IN SPECIFIED CLASS</message>
-      </command>
-      <command>
-         <safreturncode>8</safreturncode>
-         <returncode>16</returncode>
-         <reasoncode>8</reasoncode>
-         <image>RALTER  ELIXTEST             (TESTING)  UACC        (None) OWNER       (eswift)</image>
-         <message>IKJ56702I INVALID CLASS, ELIXTEST</message>
-         <message>IKJ56712I INVALID KEYWORD, )</message>
-      </command>
-   </resource>
-   <returncode>4</returncode>
-   <reasoncode>0</reasoncode>
+    <dataset name="ESWIFF.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+        <command>
+            <safreturncode>8</safreturncode>
+            <returncode>16</returncode>
+            <reasoncode>4</reasoncode>
+            <image>ADDSD                ('ESWIFF.TEST.T1136242.P3020470')</image>
+            <message>ICH09006I USER OR GROUP ESWIFF   NOT DEFINED TO RACF</message>
+        </command>
+        <command>
+            <safreturncode>8</safreturncode>
+            <returncode>16</returncode>
+            <reasoncode>4</reasoncode>
+            <image>ALTDSD               ('ESWIFF.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)</image>
+            <message>ICH22001I ESWIFF.TEST.T1136242.P3020470 NOT DEFINED TO RACF</message>
+        </command>
+    </dataset>
+    <returncode>4</returncode>
+    <reasoncode>0</reasoncode>
 </securityresult>

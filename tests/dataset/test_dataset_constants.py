@@ -1,5 +1,5 @@
 """
-Sample data for testing General Resource Profile Administration functions.
+Sample data for testing Dataset Profile Administration functions.
 """
 
 from typing import Union
@@ -8,89 +8,99 @@ import tests.test_utilities as TestUtilities
 
 
 def get_sample(sample_file: str) -> Union[str, bytes]:
-    return TestUtilities.get_sample(sample_file, "genprof")
+    return TestUtilities.get_sample(sample_file, "dataset")
 
 
 # ============================================================================
-# Genprof Administration Result Sample Data
+# Dataset Administration Result Sample Data
 # ============================================================================
 
-# Add Genprof
-TEST_ADD_GENPROF_RESULT_SUCCESS_XML = get_sample("add_genprof_result_success.xml")
-TEST_ADD_GENPROF_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "add_genprof_result_success.json"
+# Add Dataset
+TEST_ADD_DATASET_RESULT_SUCCESS_XML = get_sample("add_dataset_result_success.xml")
+TEST_ADD_DATASET_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "add_dataset_result_success.json"
 )
-TEST_ADD_GENPROF_RESULT_ERROR_XML = get_sample("add_genprof_result_error.xml")
-TEST_ADD_GENPROF_RESULT_ERROR_DICTIONARY = get_sample("add_genprof_result_error.json")
-
-# Alter Genprof
-TEST_ALTER_GENPROF_RESULT_SUCCESS_XML = get_sample("alter_genprof_result_success.xml")
-TEST_ALTER_GENPROF_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "alter_genprof_result_success.json"
-)
-TEST_ALTER_GENPROF_RESULT_ERROR_XML = get_sample("alter_genprof_result_error.xml")
-TEST_ALTER_GENPROF_RESULT_ERROR_DICTIONARY = get_sample(
-    "alter_genprof_result_error.json"
+TEST_ADD_DATASET_RESULT_ERROR_XML = get_sample("add_dataset_result_error.xml")
+TEST_ADD_DATASET_RESULT_ERROR_DICTIONARY = get_sample("add_dataset_result_error.json")
+TEST_ADD_DATASET_RESULT_GENERIC_SUCCESS_XML = get_sample("add_dataset_result_generic_success.xml")
+TEST_ADD_DATASET_RESULT_GENERIC_SUCCESS_DICTIONARY = get_sample(
+    "add_dataset_result_generic_success.json"
 )
 
-# Extract Genprof
-TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_XML = get_sample(
-    "extract_genprof_result_base_success.xml"
+# Alter Dataset
+TEST_ALTER_DATASET_RESULT_SUCCESS_XML = get_sample("alter_dataset_result_success.xml")
+TEST_ALTER_DATASET_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "alter_dataset_result_success.json"
 )
-TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_DICTIONARY = get_sample(
-    "extract_genprof_result_base_success.json"
-)
-TEST_EXTRACT_GENPROF_RESULT_BASE_ERROR_XML = get_sample(
-    "extract_genprof_result_base_error.xml"
-)
-TEST_EXTRACT_GENPROF_RESULT_BASE_ERROR_DICTIONARY = get_sample(
-    "extract_genprof_result_base_error.json"
+TEST_ALTER_DATASET_RESULT_ERROR_XML = get_sample("alter_dataset_result_error.xml")
+TEST_ALTER_DATASET_RESULT_ERROR_DICTIONARY = get_sample(
+    "alter_dataset_result_error.json"
 )
 
-# Delete Genprof
-TEST_DELETE_GENPROF_RESULT_SUCCESS_XML = get_sample("delete_genprof_result_success.xml")
-TEST_DELETE_GENPROF_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "delete_genprof_result_success.json"
+# Extract Dataset
+TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_XML = get_sample(
+    "extract_dataset_result_base_success.xml"
 )
-TEST_DELETE_GENPROF_RESULT_ERROR_XML = get_sample("delete_genprof_result_error.xml")
-TEST_DELETE_GENPROF_RESULT_ERROR_DICTIONARY = get_sample(
-    "delete_genprof_result_error.json"
+TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_DICTIONARY = get_sample(
+    "extract_dataset_result_base_success.json"
+)
+TEST_EXTRACT_DATASET_RESULT_BASE_ERROR_XML = get_sample(
+    "extract_dataset_result_base_error.xml"
+)
+TEST_EXTRACT_DATASET_RESULT_BASE_ERROR_DICTIONARY = get_sample(
+    "extract_dataset_result_base_error.json"
+)
+
+# Delete Dataset
+TEST_DELETE_DATASET_RESULT_SUCCESS_XML = get_sample("delete_dataset_result_success.xml")
+TEST_DELETE_DATASET_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "delete_dataset_result_success.json"
+)
+TEST_DELETE_DATASET_RESULT_ERROR_XML = get_sample("delete_dataset_result_error.xml")
+TEST_DELETE_DATASET_RESULT_ERROR_DICTIONARY = get_sample(
+    "delete_dataset_result_error.json"
 )
 
 # ============================================================================
-# Genprof Administration Request Sample Data
+# Dataset Administration Request Sample Data
 # ============================================================================
 
-# Add Genprof
-TEST_ADD_GENPROF_REQUEST_XML = get_sample("add_genprof_request.xml")
-TEST_ADD_GENPROF_REQUEST_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
+# Add Dataset
+TEST_ADD_DATASET_REQUEST_XML = get_sample("add_dataset_request.xml")
+TEST_ADD_DATASET_REQUEST_TRAITS = {
+    "datasetname": "ESWIFT.TEST.T1136242.P3020470",
     "uacc": "None",
     "owner": "eswift",
 }
 
-# Alter Genprof
-TEST_ALTER_GENPROF_REQUEST_XML = get_sample("alter_genprof_request.xml")
-TEST_ALTER_GENPROF_REQUEST_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-    "uacc": "Read",
+# Add Dataset Generic
+TEST_ADD_DATASET_REQUEST_GENERIC_XML = get_sample("add_dataset_request.xml")
+TEST_ADD_DATASET_REQUEST_GENERIC_TRAITS = {
+    "datasetname": "ESWIFT.TEST.**",
+    "uacc": "None",
     "owner": "eswift",
+    "generic": "yes",
 }
 
-# Extract Genprof
-TEST_EXTRACT_GENPROF_REQUEST_BASE_XML = get_sample("extract_genprof_request_base.xml")
-TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
+# Alter Dataset
+TEST_ALTER_DATASET_REQUEST_XML = get_sample("alter_dataset_request.xml")
+TEST_ALTER_DATASET_REQUEST_TRAITS = {
+        "datasetname": "ESWIFT.TEST.T1136242.P3020470",
+        "uacc": "Read",
+        "owner": "eswift",
 }
 
-# Delete Genprof
-TEST_DELETE_GENPROF_REQUEST_XML = get_sample("delete_genprof_request.xml")
+# Extract Dataset
+TEST_EXTRACT_DATASET_REQUEST_BASE_XML = get_sample("extract_dataset_request_base.xml")
+TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS = {
+    "datasetname": "ESWIFT.TEST.T1136242.P3020470"
+}
+
+# Delete Dataset
+TEST_DELETE_DATASET_REQUEST_XML = get_sample("delete_dataset_request.xml")
 
 # ============================================================================
-# Genprof Administration Setters Sample Data
+# Dataset Administration Setters Sample Data
 # ============================================================================
 
-TEST_GENPROF_SET_UACC_XML = get_sample("genprof_set_uacc.xml")
+TEST_DATASET_SET_UACC_XML = get_sample("dataset_set_uacc.xml")

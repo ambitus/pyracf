@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
    <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
       <info>Definition exists. Add command skipped due  to precheck option</info>

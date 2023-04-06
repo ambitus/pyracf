@@ -1,58 +1,66 @@
-"""Test general resource profile request builder."""
+"""Test dataset profile request builder."""
 
 import unittest
 from unittest.mock import Mock, patch
 
 import __init__
 
-import tests.genprof.test_genprof_constants as TestGenprofConstants
-from pyracf.genprof.resource_admin import ResourceAdmin
+import tests.dataset.test_dataset_constants as TestDatasetConstants
+from pyracf.dataset.dataset_admin import DatasetAdmin
 
 # Resolves F401
 __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
-class TestGenprofRequestBuilder(unittest.TestCase):
+class TestDatasetRequestBuilder(unittest.TestCase):
     maxDiff = None
 
-    def boilerplate(self, irrsmo00_init_mock: Mock) -> ResourceAdmin:
+    def boilerplate(self, irrsmo00_init_mock: Mock) -> DatasetAdmin:
         irrsmo00_init_mock.return_value = None
-        return ResourceAdmin()
+        return DatasetAdmin()
 
-    def test_resource_admin_build_add_genprof_request(self, irrsmo00_init_mock: Mock):
-        resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.add(
-            TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS,
+    def test_dataset_admin_build_add_dataset_request(self, irrsmo00_init_mock: Mock):
+        dataset_admin = self.boilerplate(irrsmo00_init_mock)
+        result = dataset_admin.add(
+            TestDatasetConstants.TEST_ADD_DATASET_REQUEST_TRAITS,
             generate_request_only=True,
         )
-        self.assertEqual(result, TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_XML)
-
-    def test_resource_admin_build_alter_genprof_request(self, irrsmo00_init_mock: Mock):
-        resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.alter(
-            TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS,
+        self.assertEqual(result, TestDatasetConstants.TEST_ADD_DATASET_REQUEST_XML)
+    
+    def test_dataset_admin_build_add_dataset_request_generic(self, irrsmo00_init_mock: Mock):
+        dataset_admin = self.boilerplate(irrsmo00_init_mock)
+        result = dataset_admin.add(
+            TestDatasetConstants.TEST_ADD_DATASET_REQUEST_GENERIC_TRAITS,
             generate_request_only=True,
         )
-        self.assertEqual(result, TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_XML)
+        self.assertEqual(result, TestDatasetConstants.TEST_ADD_DATASET_REQUEST_GENERIC_XML)
 
-    def test_resource_admin_build_extract_genprof_request_base(
+    def test_dataset_admin_build_alter_dataset_request(self, irrsmo00_init_mock: Mock):
+        dataset_admin = self.boilerplate(irrsmo00_init_mock)
+        result = dataset_admin.alter(
+            TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_TRAITS,
+            generate_request_only=True,
+        )
+        self.assertEqual(result, TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_XML)
+
+    def test_dataset_admin_build_extract_dataset_request_base(
         self, irrsmo00_init_mock: Mock
     ):
-        resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.extract(
-            TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS,
+        dataset_admin = self.boilerplate(irrsmo00_init_mock)
+        result = dataset_admin.extract(
+            TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS,
             generate_request_only=True,
         )
         self.assertEqual(
-            result, TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_XML
+            result, TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_XML
         )
 
-    def test_resource_admin_build_delete_genprof_request(
+    def test_dataset_admin_build_delete_dataset_request(
         self, irrsmo00_init_mock: Mock
     ):
-        resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.delete(
-            "TESTING", "ELIJTEST", generate_request_only=True
+        dataset_admin = self.boilerplate(irrsmo00_init_mock)
+        result = dataset_admin.delete(
+            "ESWIFT.TEST.T1136242.P3020470", generate_request_only=True
         )
-        self.assertEqual(result, TestGenprofConstants.TEST_DELETE_GENPROF_REQUEST_XML)
+        self.assertEqual(result, TestDatasetConstants.TEST_DELETE_DATASET_REQUEST_XML)

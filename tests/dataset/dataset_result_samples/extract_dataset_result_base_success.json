@@ -1,30 +1,30 @@
 {
     "securityresult": {
-        "resource": {
-            "name": "TESTING",
-            "class": "ELIJTEST",
+        "dataset": {
+            "name": "ESWIFT.TEST.T1136242.P3020470",
             "operation": "listdata",
-            "requestid": "ResourceRequest",
+            "generic": "no",
+            "requestid": "DatasetRequest",
             "commands": [
                 {
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "RLIST   ELIJTEST             (TESTING) ",
+                    "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470') ",
                     "profile": {
                         "base": {
-                            "class": "elijtest",
-                            "name": "testing",
                             "level": 0,
                             "owner": "eswift",
                             "universal access": "read",
-                            "your access": "read",
                             "warning": null,
-                            "installation data": null,
-                            "application data": null,
+                            "erase": null,
                             "auditing": "failures(read)",
                             "notify": null,
-                            "generic": false
+                            "your access": "alter",
+                            "creation group": "sys1",
+                            "dataset type": "non-vsam",
+                            "volumes on which dataset resides": "usrat2",
+                            "installation data": null
                         }
                     }
                 }
@@ -34,3 +34,4 @@
         "reasoncode": 0
     }
 }
+
