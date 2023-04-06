@@ -207,26 +207,32 @@ class UserAdmin(SecurityAdmin):
         }
         self.profile_type = "user"
 
-    def is_special(self, userid: str) -> bool:
+    def is_special(self, userid: str, debug=False) -> bool:
         """Check if a user has RACF special."""
-        result = self.extract({"userid": userid})
+        result = self.extract({"userid": userid}, debug=debug)
         profile = result["securityresult"]["user"]["commands"][0]["profile"]
         if "special" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_special(self, userid: str, generate_request_only=False) -> dict:
+    def set_special(
+        self, userid: str, generate_request_only=False, debug=False
+    ) -> dict:
         """Make user RACF special."""
         return self.alter(
             {"userid": userid, "special": True},
             generate_request_only=generate_request_only,
+            debug=debug,
         )
 
-    def del_special(self, userid: str, generate_request_only=False) -> dict:
+    def del_special(
+        self, userid: str, generate_request_only=False, debug=False
+    ) -> dict:
         """Make user not RACF special."""
         return self.alter(
             {"userid": userid, "special": False},
             generate_request_only=generate_request_only,
+            debug=debug,
         )
 
     def is_auditor(self, userid: str) -> bool:
@@ -270,11 +276,14 @@ class UserAdmin(SecurityAdmin):
         except KeyError:
             return None
 
-    def set_uid(self, userid: str, uid: int, generate_request_only=False) -> dict:
+    def set_uid(
+        self, userid: str, uid: int, generate_request_only=False, debug=False
+    ) -> dict:
         """Set a user's UID."""
         return self.alter(
             {"userid": userid, "uid": str(uid)},
             generate_request_only=generate_request_only,
+            debug=debug,
         )
 
     def add_category(self, userid: str, category_name: str) -> str:
