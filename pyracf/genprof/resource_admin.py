@@ -578,16 +578,9 @@ class ResourceAdmin(SecurityAdmin):
         self.build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resourcename, classname, "set")
         self.build_segments(profile_request)
-        result = self.make_request(
+        return self.make_request(
             profile_request, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def alter(self, traits: dict, generate_request_only=False) -> dict:
         """Alter an existing general resource profile."""
@@ -596,16 +589,9 @@ class ResourceAdmin(SecurityAdmin):
         self.build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resourcename, classname, "set")
         self.build_segments(profile_request, alter=True)
-        result = self.make_request(
+        return self.make_request(
             profile_request, 3, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def extract(self, traits: dict, generate_request_only=False) -> dict:
         """Extract a general resource profile."""
@@ -623,16 +609,9 @@ class ResourceAdmin(SecurityAdmin):
     ) -> dict:
         """Delete a general resource profile."""
         profile_request = ResourceRequest(resourcename, classname, "del")
-        result = self.make_request(
+        return self.make_request(
             profile_request, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def build_segments(
         self,

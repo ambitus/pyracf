@@ -395,16 +395,9 @@ class UserAdmin(SecurityAdmin):
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request)
-        result = self.make_request(
+        return self.make_request(
             user_request, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def alter(self, traits: dict, generate_request_only=False) -> dict:
         """Alter an existing user."""
@@ -412,16 +405,9 @@ class UserAdmin(SecurityAdmin):
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request, alter=True)
-        result = self.make_request(
+        return self.make_request(
             user_request, 3, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def extract(self, traits: dict, generate_request_only=False) -> dict:
         """Extract a user's profile."""
@@ -436,16 +422,9 @@ class UserAdmin(SecurityAdmin):
     def delete(self, userid: str, generate_request_only=False) -> dict:
         """Delete a user."""
         user_request = UserRequest(userid, "del")
-        result = self.make_request(
+        return self.make_request(
             user_request, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def build_segments(
         self, user_request: UserRequest, alter=False, extract=False
