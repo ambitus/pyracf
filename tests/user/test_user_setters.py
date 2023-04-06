@@ -20,15 +20,35 @@ class TestUserSetters(unittest.TestCase):
         irrsmo00_init_mock.return_value = None
         return UserAdmin()
 
-    def test_user_admin_build_set_special_request(self, irrsmo00_init_mock: Mock):
+    def test_user_admin_build_set_operations_request(self, irrsmo00_init_mock: Mock):
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        result = user_admin.set_special("squidwrd", generate_request_only=True)
-        self.assertEqual(result, TestUserConstants.TEST_USER_SET_SPECIAL_XML)
+        result = user_admin.set_operations("squidwrd", generate_request_only=True)
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_OPERATIONS_XML)
 
-    def test_user_admin_build_del_special_request(self, irrsom00_init_mock: Mock):
+    def test_user_admin_build_del_operations_request(self, irrsom00_init_mock: Mock):
         user_admin = self.boilerplate(irrsom00_init_mock)
-        result = user_admin.del_special("squidwrd", generate_request_only=True)
-        self.assertEqual(result, TestUserConstants.TEST_USER_DEL_SPECIAL_XML)
+        result = user_admin.del_operations("squidwrd", generate_request_only=True)
+        self.assertEqual(result, TestUserConstants.TEST_USER_DEL_OPERATIONS_XML)
+
+    def test_user_admin_build_set_auditor_request(self, irrsmo00_init_mock: Mock):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        result = user_admin.set_auditor("squidwrd", generate_request_only=True)
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_AUDITOR_XML)
+
+    def test_user_admin_build_del_auditor_request(self, irrsom00_init_mock: Mock):
+        user_admin = self.boilerplate(irrsom00_init_mock)
+        result = user_admin.del_auditor("squidwrd", generate_request_only=True)
+        self.assertEqual(result, TestUserConstants.TEST_USER_DEL_AUDITOR_XML)
+
+    def test_user_admin_build_set_operations_request(self, irrsmo00_init_mock: Mock):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        result = user_admin.set_operations("squidwrd", generate_request_only=True)
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_OPER_XML)
+
+    def test_user_admin_build_del_operations_request(self, irrsom00_init_mock: Mock):
+        user_admin = self.boilerplate(irrsom00_init_mock)
+        result = user_admin.del_operations("squidwrd", generate_request_only=True)
+        self.assertEqual(result, TestUserConstants.TEST_USER_DEL_OPER_XML)
 
     def test_user_admin_build_set_uid_request(self, init_mock_init_mock: Mock):
         user_admin = self.boilerplate(init_mock_init_mock)
