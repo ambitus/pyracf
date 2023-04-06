@@ -116,7 +116,7 @@ class TestUserGetters(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError):
             user_admin.is_auditor("squidwrd")
-    
+
     # ============================================================================
     # UserAdmin.is_operations()
     # ============================================================================
