@@ -147,7 +147,7 @@ class SecurityAdmin:
             and ("--" in messages[i + 1])
         ):
             self.__format_semi_tabular_data(messages, profile, current_segment, i)
-            i += 1
+            i += 2
         elif (
             i < len(messages) - 2
             and messages[i + 1] is not None
@@ -237,7 +237,6 @@ class SecurityAdmin:
             for j in range(len(tmp_ind))
             if j == 0 or tmp_ind[j] - tmp_ind[j - 1] > 1
         ]
-        print(tmp_ind, indexes)
         indexes_length = len(indexes)
         for j in range(indexes_length):
             if j < indexes_length - 1:
@@ -312,7 +311,6 @@ class SecurityAdmin:
             close_ind = []
             cln_ind = []
             for i, val in enumerate(out):
-                print(out, i, val)
                 if "(" in val and ")" not in val:
                     open_ind.append(i)
                 if ")" in val and "(" not in val:
