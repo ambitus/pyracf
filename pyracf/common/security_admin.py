@@ -120,7 +120,7 @@ class SecurityAdmin:
                 profile[current_segment] = {}
                 i += 2
             if profile_type in ("dataset", "generic"):
-                print('parsing',i,messages[i])
+                print("parsing", i, messages[i])
                 i = self.__format_data_set_generic_profile_data(
                     messages, profile, current_segment, i
                 )
@@ -310,6 +310,7 @@ class SecurityAdmin:
             close_ind = []
             cln_ind = []
             for i, val in enumerate(out):
+                print(out,i,val)
                 if "(" in val and ")" not in val:
                     open_ind.append(i)
                 if ")" in val and "(" not in val:
