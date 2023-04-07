@@ -102,8 +102,8 @@ class TestDatasetGetters(unittest.TestCase):
             TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_XML
         )
         dataset_extract_no_your_acc = dataset_extract_no_your_acc.replace(
-            "<message>ALTER        SYS1           NON-VSAM</message>",
-            "<message>NONE         SYS1           NON-VSAM</message>",
+            "<message> ALTER        SYS1           NON-VSAM</message>",
+            "<message> NONE         SYS1           NON-VSAM</message>",
         )
         call_racf_mock.return_value = dataset_extract_no_your_acc
         self.assertTrue(
