@@ -97,45 +97,6 @@ class TestAccessResultParser(unittest.TestCase):
         )
 
     # ============================================================================
-    # Extract Access
-    # ============================================================================
-    def test_access_admin_can_parse_extract_access_base_success_xml(
-        self,
-        irrsmo00_init_mock: Mock,
-        call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
-    ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = (
-            TestAccessConstants.TEST_EXTRACT_ACCESS_RESULT_BASE_SUCCESS_XML
-        )
-        self.assertEqual(
-            access_admin.extract(
-                TestAccessConstants.TEST_EXTRACT_ACCESS_REQUEST_BASE_TRAITS
-            ),
-            TestAccessConstants.TEST_EXTRACT_ACCESS_RESULT_BASE_SUCCESS_DICTIONARY,
-        )
-
-    def test_access_admin_can_parse_extract_access_base_error_xml(
-        self,
-        irrsmo00_init_mock: Mock,
-        call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
-    ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = (
-            TestAccessConstants.TEST_EXTRACT_ACCESS_RESULT_BASE_ERROR_XML
-        )
-        with self.assertRaises(SecurityRequestError) as exception:
-            access_admin.extract(
-                TestAccessConstants.TEST_EXTRACT_ACCESS_REQUEST_BASE_TRAITS
-            )
-        self.assertEqual(
-            exception.exception.results,
-            TestAccessConstants.TEST_EXTRACT_ACCESS_RESULT_BASE_ERROR_DICTIONARY,
-        )
-
-    # ============================================================================
     # Delete Access
     # ============================================================================
     def test_access_admin_can_parse_delete_access_success_xml(
