@@ -246,7 +246,6 @@ class SecurityAdmin:
                 ind_e1 = len(messages[i + 2])
 
             field = messages[i][indexes[j] : ind_e0].strip().lower()
-            print(ind_e0, ind_e1, indexes[j])
             profile[current_segment][field] = self.clean_and_separate(
                 messages[i + 2][indexes[j] : ind_e1]
             )

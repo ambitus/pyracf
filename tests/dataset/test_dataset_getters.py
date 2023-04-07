@@ -54,8 +54,8 @@ class TestDatasetGetters(unittest.TestCase):
             TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_XML
         )
         dataset_extract_no_uacc = dataset_extract_no_uacc.replace(
-            "<message>00    ESWIFT          READ          NO      NO</message>",
-            "<message>00    ESWIFT          NONE          NO      NO</message>",
+            "<message> 00    ESWIFT          READ          NO      NO</message>",
+            "<message> 00    ESWIFT          NONE          NO      NO</message>",
         )
         call_racf_mock.return_value = dataset_extract_no_uacc
         self.assertTrue(dataset_admin.get_uacc("ESWIFT.TEST.T1136242.P3020470") is None)
