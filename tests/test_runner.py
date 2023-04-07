@@ -5,6 +5,8 @@ import unittest
 
 import __init__
 
+from tests.access.test_access_request_builder import TestAccessRequestBuilder
+from tests.access.test_access_result_parser import TestAccessResultParser
 from tests.dataset.test_dataset_getters import TestDatasetGetters
 from tests.dataset.test_dataset_request_builder import TestDatasetRequestBuilder
 from tests.dataset.test_dataset_result_parser import TestDatasetResultParser
@@ -39,6 +41,8 @@ def __test_suite() -> unittest.TestSuite:
         TestDatasetRequestBuilder,
         TestDatasetGetters,
         TestDatasetSetters,
+        TestAccessResultParser,
+        TestAccessRequestBuilder,
     ]
     for test_class in test_classes:
         tests = test_loader.loadTestsFromTestCase(test_class)

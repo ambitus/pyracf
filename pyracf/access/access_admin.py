@@ -37,35 +37,35 @@ class AccessAdmin(SecurityAdmin):
 
         del self.valid_segment_traits["base"]["generic"]
 
-    def add(self, traits: dict) -> dict:
-        """Create a new user."""
+    def add(self, traits: dict, generate_request_only=False) -> dict:
+        """Create a new permission."""
         self.build_segment_dictionaries(traits)
         if traits["classname"] == "dataset":
             access_request = AccessRequest(traits, "set")
         else:
             access_request = AccessRequest(traits, "set")
         self.build_segments(access_request)
-        return self.make_request(access_request)
+        return self.make_request(access_request, generate_request_only=generate_request_only)
 
-    def alter(self, traits: dict) -> dict:
-        """Alter an existing user."""
+    def alter(self, traits: dict, generate_request_only=False) -> dict:
+        """Alter an existing permission."""
         self.build_segment_dictionaries(traits)
         if traits["classname"] == "dataset":
             access_request = AccessRequest(traits, "set")
         else:
             access_request = AccessRequest(traits, "set")
         self.build_segments(access_request, alter=True)
-        return self.make_request(access_request, 3)
+        return self.make_request(access_request, generate_request_only=generate_request_only)
 
-    def delete(self, traits: dict) -> dict:
-        """Delete a user."""
+    def delete(self, traits: dict, generate_request_only=False) -> dict:
+        """Delete a permission."""
         self.build_segment_dictionaries(traits)
         if traits["classname"] == "dataset":
             access_request = AccessRequest(traits, "del")
         else:
             access_request = AccessRequest(traits, "del")
         self.build_segments(access_request)
-        return self.make_request(access_request)
+        return self.make_request(access_request, generate_request_only=generate_request_only)
 
     def build_segments(self, access_request: AccessRequest, alter=False) -> None:
         """Build XML representation of segments."""

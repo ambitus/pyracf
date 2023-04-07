@@ -1,0 +1,25 @@
+{
+    "securityresult": {
+        "permission": {
+            "name": "TESTING",
+            "class": "ELIJTEST",
+            "operation": "del",
+            "requestid": "AccessRequest",
+            "commands": [
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "PERMIT               TESTING CLASS(ELIJTEST)  DELETE       ID          (ESWIFT)",
+                    "messages": [
+                        "ICH06011I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
+                    ]
+                }
+            ]
+        },
+        "returncode": 0,
+        "reasoncode": 0
+    }
+}
+
+

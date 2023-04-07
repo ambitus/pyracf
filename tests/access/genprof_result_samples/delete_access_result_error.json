@@ -1,0 +1,24 @@
+{
+    "securityresult": {
+        "permission": {
+            "name": "TESTING",
+            "class": "ELIJTEST",
+            "operation": "del",
+            "requestid": "AccessRequest",
+            "commands": [
+                {
+                    "safreturncode": 8,
+                    "returncode": 16,
+                    "reasoncode": 4,
+                    "image": "PERMIT               TESTING CLASS(ELIJTEST)  DELETE       ID          (ESWIFT)",
+                    "messages": [
+                        "ICH06002I ESWIFT   NOT AUTHORIZED, DELETE IGNORED"
+                    ]
+                }
+            ]
+        },
+        "returncode": 4,
+        "reasoncode": 4
+    }
+}
+
