@@ -10,7 +10,7 @@
             <message />
             <message>LEVEL  OWNER    UNIVERSAL ACCESS   WARNING   ERASE</message>
             <message>-----  -------- ----------------   -------   -----</message>
-            <message>00    ESWIFT          READ          NO      NO</message>
+            <message> 00    ESWIFT          READ          NO      NO</message>
             <message />
             <message>AUDITING</message>
             <message>--------</message>
@@ -22,7 +22,7 @@
             <message />
             <message>YOUR ACCESS  CREATION GROUP  DATASET TYPE</message>
             <message>-----------  --------------  ------------</message>
-            <message>ALTER        SYS1           NON-VSAM</message>
+            <message> ALTER        SYS1           NON-VSAM</message>
             <message />
             <message>VOLUMES ON WHICH DATASET RESIDES</message>
             <message>--------------------------------</message>
