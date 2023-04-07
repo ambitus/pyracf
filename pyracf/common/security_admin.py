@@ -237,6 +237,7 @@ class SecurityAdmin:
             for j in range(len(tmp_ind))
             if j == 0 or tmp_ind[j] - tmp_ind[j - 1] > 1
         ]
+        print(tmp_ind,indexes)
         indexes_length = len(indexes)
         for j in range(indexes_length):
             if j < indexes_length - 1:
@@ -247,7 +248,7 @@ class SecurityAdmin:
                 ind_e1 = len(messages[i + 2])
 
             field = messages[i][indexes[j] : ind_e0].strip().lower()
-            print(ind_e0,ind_e1,indexes[j])
+            print(ind_e0, ind_e1, indexes[j])
             profile[current_segment][field] = self.clean_and_separate(
                 messages[i + 2][indexes[j] : ind_e1]
             )
@@ -311,7 +312,7 @@ class SecurityAdmin:
             close_ind = []
             cln_ind = []
             for i, val in enumerate(out):
-                print(out,i,val)
+                print(out, i, val)
                 if "(" in val and ")" not in val:
                     open_ind.append(i)
                 if ")" in val and "(" not in val:
