@@ -108,12 +108,7 @@ class SecurityAdmin:
         profile[current_segment] = {}
         i = 0
         while i < len(messages):
-            if (
-                messages[i] == " "
-                or messages[i] in no_segment_information_keys
-                or messages[i] is None
-            ):
-                print('cutting',i,messages[i])
+            if messages[i] == " " or messages[i] in no_segment_information_keys:
                 i += 1
                 continue
             if i < len(messages) - 1 and messages[i] in additional_segment_keys:
@@ -121,7 +116,6 @@ class SecurityAdmin:
                 profile[current_segment] = {}
                 i += 2
             if profile_type in ("dataset", "generic"):
-                print('parsing',i,messages[i])
                 i = self.__format_data_set_generic_profile_data(
                     messages, profile, current_segment, i
                 )
@@ -149,7 +143,7 @@ class SecurityAdmin:
         ):
             self.__format_semi_tabular_data(messages, profile, current_segment, i)
             i += 1
-        elif i < len(messages) - 2 and ("-" in messages[i + 1]):
+        elif i < len(messages) - 2 and messages[i + 1] is not None and ("-" in messages[i + 1]):
             field = " ".join(
                 [
                     txt.lower().strip()
