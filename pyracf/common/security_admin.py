@@ -310,7 +310,7 @@ class SecurityAdmin:
             close_ind = []
             cln_ind = []
             for i, val in enumerate(out):
-                print(out,i,val)
+                print(out, i, val)
                 if "(" in val and ")" not in val:
                     open_ind.append(i)
                 if ")" in val and "(" not in val:
@@ -327,6 +327,7 @@ class SecurityAdmin:
         return out
 
     def cast_from_str(self, value: str) -> Union[None, bool, int, float, str]:
+        print('casting from str')
         """Cast null values floats and integers."""
         value = value.lower()
         if value in ("n/a", "none", "none specified", "no", "None"):
@@ -351,6 +352,7 @@ class SecurityAdmin:
         return self.__cast_num(value)
 
     def __cast_num(self, value: str) -> Union[int, float, str]:
+        print('casting as num')
         if "." in value:
             try:
                 return float(value)
@@ -359,6 +361,7 @@ class SecurityAdmin:
         try:
             return int(value.replace(",", ""))
         except ValueError:
+            print('val err going for int')
             return value
 
     def __validate_trait(self, trait: str, segment: str, value: Union[str, list]):
