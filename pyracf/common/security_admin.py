@@ -237,12 +237,12 @@ class SecurityAdmin:
             for j in range(len(tmp_ind))
             if j == 0 or tmp_ind[j] - tmp_ind[j - 1] > 1
         ]
-        print(tmp_ind,indexes)
+        print(tmp_ind, indexes)
         indexes_length = len(indexes)
         for j in range(indexes_length):
             if j < indexes_length - 1:
-                ind_e0 = indexes[j + 1]
-                ind_e1 = indexes[j + 1]
+                ind_e0 = indexes[j + 1] - 1
+                ind_e1 = indexes[j + 1] - 1
             else:
                 ind_e0 = len(messages[i])
                 ind_e1 = len(messages[i + 2])
