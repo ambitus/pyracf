@@ -115,32 +115,32 @@ class DatasetAdmin(SecurityAdmin):
         """Delete all role(s) from the Dataset Profile"""
         return self.alter({"datasetname": dataset_name, "noroles": "N/A"})
 
-    def add(self, traits: dict) -> dict:
+    def add(self, traits: dict, generate_request_only=False) -> dict:
         """Create a new data set profile."""
         self.build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(traits, "set")
         self.build_segments(dataset_request)
-        return self.make_request(dataset_request)
+        return self.make_request(dataset_request, generate_request_only=generate_request_only)
 
-    def alter(self, traits: dict) -> dict:
+    def alter(self, traits: dict, generate_request_only=False) -> dict:
         """Alter an existing data set profile."""
         self.build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(traits, "set")
         self.build_segments(dataset_request, alter=True)
-        return self.make_request(dataset_request, 3)
+        return self.make_request(dataset_request, 3, generate_request_only=generate_request_only)
 
-    def extract(self, traits: dict) -> dict:
+    def extract(self, traits: dict, generate_request_only=False) -> dict:
         """Extract a data set profile."""
         self.build_bool_segment_dictionaries(traits)
         dataset_request = DatasetRequest(traits, "listdata")
         self.build_segments(dataset_request, extract=True)
-        return self.extract_and_check_result(dataset_request)
+        return self.extract_and_check_result(dataset_request, generate_request_only=generate_request_only)
 
-    def delete(self, datasetname: str, generic: str = "no", volid: str = "") -> dict:
+    def delete(self, datasetname: str, generic: str = "no", volid: str = "", generate_request_only=False) -> dict:
         """Delete a data set profile."""
         traits = {"datasetname": datasetname, "generic": generic, "volid": volid}
         dataset_request = DatasetRequest(traits, "del")
-        return self.make_request(dataset_request)
+        return self.make_request(dataset_request, generate_request_only=generate_request_only)
 
     def build_segments(
         self, dataset_request: DatasetRequest, alter=False, extract=False

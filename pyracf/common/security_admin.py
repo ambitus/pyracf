@@ -120,7 +120,6 @@ class SecurityAdmin:
                 profile[current_segment] = {}
                 i += 2
             if profile_type in ("dataset", "generic"):
-                print("parsing", i, messages[i])
                 i = self.__format_data_set_generic_profile_data(
                     messages, profile, current_segment, i
                 )
