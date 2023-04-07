@@ -65,17 +65,26 @@ class DatasetAdmin(SecurityAdmin):
 
     def get_uacc(self, dataset_name: str, generate_request_only=False) -> str:
         """Get UACC associated with a data set profile."""
-        result = self.extract({"datasetname": dataset_name}, generate_request_only=generate_request_only)
+        result = self.extract(
+            {"datasetname": dataset_name}, generate_request_only=generate_request_only
+        )
         profile = result["securityresult"]["dataset"]["commands"][0]["profile"]
         return profile["base"].get("universal access")
 
-    def set_uacc(self, dataset_name: str, uacc: str, generate_request_only=False) -> str:
+    def set_uacc(
+        self, dataset_name: str, uacc: str, generate_request_only=False
+    ) -> str:
         """Set the UACC for a data set profile."""
-        return self.alter({"datasetname": dataset_name, "uacc": uacc}, generate_request_only=generate_request_only)
+        return self.alter(
+            {"datasetname": dataset_name, "uacc": uacc},
+            generate_request_only=generate_request_only,
+        )
 
     def get_your_acc(self, dataset_name: str, generate_request_only=False) -> str:
         """Get the UACC associated with your own data set profile."""
-        result = self.extract({"datasetname": dataset_name}, generate_request_only=generate_request_only)
+        result = self.extract(
+            {"datasetname": dataset_name}, generate_request_only=generate_request_only
+        )
         profile = result["securityresult"]["dataset"]["commands"][0]["profile"]
         return profile["base"].get("your access")
 
