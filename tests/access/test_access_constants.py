@@ -17,9 +17,7 @@ def get_sample(sample_file: str) -> Union[str, bytes]:
 
 # Add Access
 TEST_ADD_ACCESS_RESULT_SUCCESS_XML = get_sample("add_access_result_success.xml")
-TEST_ADD_ACCESS_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "add_access_result_success.json"
-)
+TEST_ADD_ACCESS_RESULT_SUCCESS_DICTIONARY = get_sample("add_access_result_success.json")
 TEST_ADD_ACCESS_RESULT_ERROR_XML = get_sample("add_access_result_error.xml")
 TEST_ADD_ACCESS_RESULT_ERROR_DICTIONARY = get_sample("add_access_result_error.json")
 
@@ -29,9 +27,7 @@ TEST_ALTER_ACCESS_RESULT_SUCCESS_DICTIONARY = get_sample(
     "alter_access_result_success.json"
 )
 TEST_ALTER_ACCESS_RESULT_ERROR_XML = get_sample("alter_access_result_error.xml")
-TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY = get_sample(
-    "alter_access_result_error.json"
-)
+TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY = get_sample("alter_access_result_error.json")
 
 
 # Delete Access

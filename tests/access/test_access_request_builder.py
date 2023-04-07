@@ -48,11 +48,10 @@ class TestAccessRequestBuilder(unittest.TestCase):
             result, TestAccessConstants.TEST_EXTRACT_ACCESS_REQUEST_BASE_XML
         )
 
-    def test_access_admin_build_delete_access_request(
-        self, irrsmo00_init_mock: Mock
-    ):
+    def test_access_admin_build_delete_access_request(self, irrsmo00_init_mock: Mock):
         access_admin = self.boilerplate(irrsmo00_init_mock)
         result = access_admin.delete(
-            {"resourcename": "TESTING", "classname": "ELIJTEST", "id": "ESWIFT"}, generate_request_only=True
+            {"resourcename": "TESTING", "classname": "ELIJTEST", "id": "ESWIFT"},
+            generate_request_only=True,
         )
         self.assertEqual(result, TestAccessConstants.TEST_DELETE_ACCESS_REQUEST_XML)

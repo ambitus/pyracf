@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf.common.security_request_error import SecurityRequestError
 from pyracf.access.access_admin import AccessAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -75,9 +75,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            access_admin.alter(
-                TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_TRAITS
-            ),
+            access_admin.alter(TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_TRAITS),
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -151,7 +149,9 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            access_admin.delete({"resourcename": "TESTING", "classname": "ELIJTEST", "id": "ESWIFT"}),
+            access_admin.delete(
+                {"resourcename": "TESTING", "classname": "ELIJTEST", "id": "ESWIFT"}
+            ),
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -166,7 +166,9 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            access_admin.delete({"resourcename": "TESTING", "classname": "ELIJTEST", "id": "ESWIFT"})
+            access_admin.delete(
+                {"resourcename": "TESTING", "classname": "ELIJTEST", "id": "ESWIFT"}
+            )
         self.assertEqual(
             exception.exception.results,
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_ERROR_DICTIONARY,

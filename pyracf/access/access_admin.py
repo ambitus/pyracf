@@ -45,7 +45,9 @@ class AccessAdmin(SecurityAdmin):
         else:
             access_request = AccessRequest(traits, "set")
         self.build_segments(access_request)
-        return self.make_request(access_request, generate_request_only=generate_request_only)
+        return self.make_request(
+            access_request, generate_request_only=generate_request_only
+        )
 
     def alter(self, traits: dict, generate_request_only=False) -> dict:
         """Alter an existing permission."""
@@ -55,7 +57,9 @@ class AccessAdmin(SecurityAdmin):
         else:
             access_request = AccessRequest(traits, "set")
         self.build_segments(access_request, alter=True)
-        return self.make_request(access_request, generate_request_only=generate_request_only)
+        return self.make_request(
+            access_request, generate_request_only=generate_request_only
+        )
 
     def delete(self, traits: dict, generate_request_only=False) -> dict:
         """Delete a permission."""
@@ -65,7 +69,9 @@ class AccessAdmin(SecurityAdmin):
         else:
             access_request = AccessRequest(traits, "del")
         self.build_segments(access_request)
-        return self.make_request(access_request, generate_request_only=generate_request_only)
+        return self.make_request(
+            access_request, generate_request_only=generate_request_only
+        )
 
     def build_segments(self, access_request: AccessRequest, alter=False) -> None:
         """Build XML representation of segments."""
