@@ -69,6 +69,7 @@ class Logger:
             second_half = f"{tokens[0]}{self.orange(value)}{''.join(tokens[2:])}"
         else:
             skip_values = ["{", "[", "{}", "[]"]
+            blue_values = ["null", "true", "false"]
             if "," in tokens[0]:
                 value = tokens[0][2:-1]
                 has_comma = True
@@ -77,9 +78,11 @@ class Logger:
                 has_comma = False
             if value in skip_values:
                 pass
-            elif value == "null":
+            elif value in blue_values:
+                # null and booleans
                 value = f"{self.blue(value)}"
             else:
+                # numbers
                 value = f"{self.green(value)}"
             second_half = f": {value}"
             if has_comma:
@@ -132,6 +135,8 @@ class Logger:
         if len(attribute_tokens) != 1:
             for token in attribute_tokens:
                 subtokens = token.split()
+                if subtokens[-1] == "/":
+                    subtokens = subtokens[:-1]
                 for subtoken in subtokens:
                     if '"' in subtoken:
                         updated_xml_attributes += f"{self.orange(subtoken)} "

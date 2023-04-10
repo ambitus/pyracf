@@ -130,6 +130,8 @@ class SecurityAdmin:
                 security_request.dump_request_xml(), opts
             )
             if self.logger:
+                if sanitize_password:
+                    result_xml = result_xml.replace(sanitize_password, "********")
                 colorized_result_xml = self.logger.colorize_xml(
                     self.logger.indent_xml(result_xml)
                 )
@@ -139,6 +141,10 @@ class SecurityAdmin:
                 result_dictionary_json = json.dumps(
                     results.get_result_dictionary(), indent=4
                 )
+                if sanitize_password:
+                    result_dictionary_json = result_dictionary_json.replace(
+                        sanitize_password, "********"
+                    )
                 colorized_result_dictionary_json = self.logger.colorize_json(
                     result_dictionary_json
                 )
