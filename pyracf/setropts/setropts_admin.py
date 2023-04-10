@@ -107,7 +107,10 @@ class SetroptsAdmin(SecurityAdmin):
 
     def refresh(self, class_name: str, generate_request_only=False) -> str:
         """Refresh raclist."""
-        return self.command({"raclist": class_name, "refresh": True}, generate_request_only=generate_request_only)
+        return self.command(
+            {"raclist": class_name, "refresh": True},
+            generate_request_only=generate_request_only,
+        )
 
     def get_class_types(self, class_name: str, generate_request_only=False) -> list:
         """Get RACF class types."""
@@ -208,14 +211,18 @@ class SetroptsAdmin(SecurityAdmin):
         self.build_segment_dictionary({"list": True})
         setropts_request = SetroptsRequest()
         self.build_segment(setropts_request)
-        return self.extract_and_check_result(setropts_request, generate_request_only=generate_request_only)
+        return self.extract_and_check_result(
+            setropts_request, generate_request_only=generate_request_only
+        )
 
     def command(self, traits: dict, generate_request_only=False) -> dict:
         """Run a set RACF options command."""
         self.build_segment_dictionary(traits)
         setropts_request = SetroptsRequest()
         self.build_segment(setropts_request)
-        return self.make_request(setropts_request, generate_request_only=generate_request_only)
+        return self.make_request(
+            setropts_request, generate_request_only=generate_request_only
+        )
 
     def build_segment_dictionary(self, traits: dict) -> None:
         """Build segemnt dictionary for only base segment."""

@@ -16,15 +16,19 @@ def get_sample(sample_file: str) -> Union[str, bytes]:
 # ============================================================================
 
 # Setropts Command
-TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML = get_sample("command_setropts_result_success.xml")
-TEST_COMMAND_SETROPTS_RESULT_SUCCESS_DICTIONARY = get_sample("command_setropts_result_success.json")
-TEST_COMMAND_SETROPTS_RESULT_ERROR_XML = get_sample("comman_setropts_result_error.xml")
-TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY = get_sample("command_setropts_result_error.json")
+TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML = get_sample(
+    "command_setropts_result_success.xml"
+)
+TEST_COMMAND_SETROPTS_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "command_setropts_result_success.json"
+)
+TEST_COMMAND_SETROPTS_RESULT_ERROR_XML = get_sample("command_setropts_result_error.xml")
+TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY = get_sample(
+    "command_setropts_result_error.json"
+)
 
 # List Setropt
-TEST_LIST_SETROPTS_RESULT_SUCCESS_XML = get_sample(
-    "list_setropts_result_success.xml"
-)
+TEST_LIST_SETROPTS_RESULT_SUCCESS_XML = get_sample("list_setropts_result_success.xml")
 TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY = get_sample(
     "list_setropts_result_success.json"
 )
@@ -38,9 +42,7 @@ TEST_COMMAND_SETROPTS_REQUEST_XML = get_sample("command_setropts_request.xml")
 TEST_COMMAND_SETROPTS_REQUEST_TRAITS = {"raclist": "elijtest"}
 
 # List Setropts
-TEST_LIST_SETROPTS_REQUEST_XML = get_sample(
-    "list_setropts_request.xml"
-)
+TEST_LIST_SETROPTS_REQUEST_XML = get_sample("list_setropts_request.xml")
 
 # ============================================================================
 # Setropts Administration Setters Sample Data
@@ -68,5 +70,12 @@ TEST_SETROPTS_REFRESH_CLASS_XML = get_sample("setropts_refresh_class.xml")
 # Setropts Administration Getters Comparison Data
 # ============================================================================
 
-TEST_SETROPTS_PASSWORD_RULES = [{'minlength': 4, 'maxlength': 8, 'content': '********', 'legend': {'*': 'ANYTHING'}}]
-TEST_SETROPTS_CLASS_ATTRIBUTES = ['active', 'generic profile', 'generic command', 'setr raclist']
+TEST_SETROPTS_PASSWORD_RULES = [
+    {"minlength": 4, "maxlength": 8, "content": "********", "legend": {"*": "ANYTHING"}}
+]
+TEST_SETROPTS_CLASS_ATTRIBUTES = [
+    "active",
+    "generic profile",
+    "generic command",
+    "setr raclist",
+]

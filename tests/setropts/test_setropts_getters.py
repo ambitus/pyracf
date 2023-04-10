@@ -40,7 +40,8 @@ class TestSetroptsGetters(unittest.TestCase):
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
         self.assertTrue(
-            setropts_admin.get_password_rules() == TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES
+            setropts_admin.get_password_rules()
+            == TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES
         )
 
     def test_setropts_admin_get_password_rules_raises_an_exception_when_extract_fails(
@@ -71,7 +72,8 @@ class TestSetroptsGetters(unittest.TestCase):
         )
         call_racf_mock.return_value = setropts_extract_auditor
         self.assertTrue(
-            setropts_admin.get_class_types("FACILITY") == TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES
+            setropts_admin.get_class_types("FACILITY")
+            == TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES
         )
 
     def test_setropts_admin_get_class_types_raises_an_exception_when_extract_fails(

@@ -36,9 +36,13 @@ class TestSetroptsResultParser(unittest.TestCase):
         dump_request_xml_mock: Mock,
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML
+        )
         self.assertEqual(
-            setropts_admin.command(TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS),
+            setropts_admin.command(
+                TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS
+            ),
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -49,14 +53,17 @@ class TestSetroptsResultParser(unittest.TestCase):
         dump_request_xml_mock: Mock,
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
+        )
         with self.assertRaises(SecurityRequestError) as exception:
-            setropts_admin.command(TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS)
+            setropts_admin.command(
+                TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS
+            )
         self.assertEqual(
             exception.exception.results,
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY,
         )
-
 
     # ============================================================================
     # List Setropts

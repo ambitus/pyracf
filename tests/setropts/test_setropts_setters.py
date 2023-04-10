@@ -104,4 +104,3 @@ class TestSetroptsSetters(unittest.TestCase):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         result = setropts_admin.refresh("ELIJTEST", generate_request_only=True)
         self.assertEqual(result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_CLASS_XML)
-

@@ -5,10 +5,6 @@ import unittest
 
 import __init__
 
-from tests.setropts.test_setropts_getters import TestSetroptsGetters
-from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
-from tests.setropts.test_setropts_result_parser import TestSetroptsResultParser
-from tests.setropts.test_setropts_setters import TestSetroptsSetters
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
 from tests.dataset.test_dataset_getters import TestDatasetGetters
@@ -19,6 +15,10 @@ from tests.genprof.test_genprof_getters import TestGenprofGetters
 from tests.genprof.test_genprof_request_builder import TestGenprofRequestBuilder
 from tests.genprof.test_genprof_result_parser import TestGenprofResultParser
 from tests.genprof.test_genprof_setters import TestGenprofSetters
+from tests.setropts.test_setropts_getters import TestSetroptsGetters
+from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
+from tests.setropts.test_setropts_result_parser import TestSetroptsResultParser
+from tests.setropts.test_setropts_setters import TestSetroptsSetters
 from tests.user.test_user_getters import TestUserGetters
 from tests.user.test_user_request_builder import TestUserRequestBuilder
 from tests.user.test_user_result_parser import TestUserResultParser
