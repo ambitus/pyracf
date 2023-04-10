@@ -123,9 +123,10 @@ class Logger:
                 tag_name = tag_name.split(">")[0]
                 tag_tokens = []
             attributes = " ".join(tag_tokens[1:])[: -len(tag_end)]
-            if attributes[-1] == "/":
-                attributes = attributes[:-1]
-                tag_end = "/>"
+            if len(attributes) > 0:
+                if attributes[-1] == "/":
+                    attributes = attributes[:-1]
+                    tag_end = "/>"
             start_tag = (
                 f"{self.gray(tag_start)}"
                 + f"{self.blue(tag_name)}"
