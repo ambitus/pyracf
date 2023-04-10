@@ -122,9 +122,10 @@ class Logger:
             if ">" in tag_name:
                 tag_name = tag_name.split(">")[0]
                 tag_tokens = []
-            if tag_tokens[-1][-2:] == "/>":
-                tag_end = "/>"
             attributes = " ".join(tag_tokens[1:])[: -len(tag_end)]
+            if attributes[-1] == "/":
+                attributes = attributes[:-1]
+                tag_end = "/>"
             start_tag = (
                 f"{self.gray(tag_start)}"
                 + f"{self.blue(tag_name)}"
@@ -150,8 +151,6 @@ class Logger:
         if len(attribute_tokens) != 1:
             for token in attribute_tokens:
                 subtokens = token.split()
-                if subtokens[-1] == "/":
-                    subtokens = subtokens[:-1]
                 for subtoken in subtokens:
                     if '"' in subtoken:
                         updated_xml_attributes += f"{self.orange(subtoken)} "
