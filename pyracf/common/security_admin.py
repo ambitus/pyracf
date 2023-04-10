@@ -13,7 +13,7 @@ from pyracf.common.security_result import SecurityResult
 class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
-    def __init__(self) -> None:
+    def __init__(self, debug=False) -> None:
         self.irrsmo00 = IRRSMO00()
         self.valid_segment_traits = {}
         self.common_base_traits_dataset_generic = {
@@ -49,20 +49,19 @@ class SecurityAdmin:
         self.segment_traits = {}
         self.trait_map = {}
         self.profile_type = None
-        self.logger = Logger()
+        self.logger = None
+        if debug:
+            self.logger = Logger()
 
     def extract_and_check_result(
         self,
         security_request: SecurityRequest,
         generate_request_only=False,
-        debug=False,
     ) -> dict:
         """Extract a RACF profile."""
         if generate_request_only:
-            return self.make_request(
-                security_request, generate_request_only=True, debug=debug
-            )
-        result = self.make_request(security_request, debug=debug)
+            return self.make_request(security_request, generate_request_only=True)
+        result = self.make_request(security_request)
         if "error" in result["securityresult"][self.profile_type]:
             raise SecurityRequestError(result)
         if (
@@ -70,7 +69,7 @@ class SecurityAdmin:
             and result["securityresult"]["reasoncode"] == 0
         ):
             self.format_profile(result)
-            if debug:
+            if self.logger:
                 self.logger.log_debug(
                     f"Result Dictionary (Formatted Profile):\n{json.dumps(result,indent=4)}"
                 )
@@ -88,10 +87,9 @@ class SecurityAdmin:
         security_request: SecurityRequest,
         opts: int = 1,
         generate_request_only=False,
-        debug=False,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
-        if debug:
+        if self.logger:
             request_xml = security_request.dump_request_xml(encoding="utf-8")
             self.logger.log_debug(
                 f"Request XML:\n{self.__indent_xml(request_xml.decode(encoding='utf-8'))}"
@@ -100,10 +98,10 @@ class SecurityAdmin:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
             )
-            if debug:
+            if self.logger:
                 self.logger.log_debug(f"Result XML:\n{self.__indent_xml(result_xml)}")
             results = SecurityResult(result_xml)
-            if debug:
+            if self.logger:
                 result_dictionary_json = json.dumps(
                     results.get_result_dictionary(), indent=4
                 )
