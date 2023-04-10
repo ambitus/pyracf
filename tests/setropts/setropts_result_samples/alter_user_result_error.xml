@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <user name="squidward" operation="set" requestid="UserRequest">
+        <error>
+            <errorfunction>10</errorfunction>
+            <errorcode>2000</errorcode>
+            <errorreason>68</errorreason>
+            <errormessage>Invalid attribute value specified.</errormessage>
+            <erroroffset>149</erroroffset>
+            <textinerror>name</textinerror>
+        </error>
+    </user>
+    <returncode>2000</returncode>
+    <reasoncode>68</reasoncode>
+</securityresult>
