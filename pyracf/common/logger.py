@@ -49,17 +49,34 @@ class Logger:
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
         dictionary_json = json.dumps(dictionary, indent=4)
-        if sanitize_string:
-            dictionary_json = dictionary_json.replace(sanitize_string, "********")
-        colorized_dictionary_json = self.colorize_json(dictionary_json)
+        dictionary_json = self.__sanitize_string(dictionary_json, sanitize_string)
+        colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(f"{header_message}:\n\n{colorized_dictionary_json}")
+
+    def log_xml(
+        self,
+        header_message: str,
+        xml_string: Union[str, bytes],
+        sanitize_string: Union[str, None],
+    ) -> None:
+        """Indent and colorize XML string and log it to the console."""
+        if isinstance(xml_string, bytes):
+            xml_string = xml_string.decode(encoding="utf-8")
+        xml_string = self.__sanitize_string(xml_string, sanitize_string)
+        indented_xml_string = self.indent_xml(xml_string)
+        colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
+        self.log_debug(f"{header_message}:\n\n{colorized_indented_xml_string}")
 
     def log_debug(self, message: str) -> None:
         """Log function to use for debug logging."""
         print(f"{self.magenta(self.debug_label)} {message}")
 
-    def colorize_json(self, json_text: str) -> str:
-        """Add coloring to JSON string."""
+    def __sanitize_string(self, string: str, sanitize_string: Union[str, None]) -> str:
+        if sanitize_string:
+            return string.replace(sanitize_string, "********")
+        return string
+
+    def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""
         json_lines = json_text.splitlines()
         for line in json_lines:
@@ -102,8 +119,7 @@ class Logger:
                 second_half += ","
         return second_half
 
-    def colorize_xml(self, xml_text: str) -> str:
-        """Add coloring to XML string."""
+    def __colorize_xml(self, xml_text: str) -> str:
         updated_xml_text = ""
         xml_lines = xml_text.splitlines()
         for line in xml_lines:

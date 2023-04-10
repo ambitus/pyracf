@@ -1,6 +1,5 @@
 """Base Class for RACF Administration Interface."""
 
-import json
 from typing import List, Tuple, Union
 
 from pyracf.common.irrsmo00 import IRRSMO00
@@ -72,12 +71,8 @@ class SecurityAdmin:
         ):
             self.format_profile(result)
             if self.logger:
-                colorized_result_dictionary_json = self.logger.colorize_json(
-                    json.dumps(result, indent=4)
-                )
-                self.logger.log_debug(
-                    "Result Dictionary (Formatted Profile):"
-                    + f"\n\n{colorized_result_dictionary_json}"
+                self.logger.log_dictionary(
+                    "Result Dictionary (Formatted Profile)", result, None
                 )
             return result
         raise SecurityRequestError(result)
@@ -105,27 +100,17 @@ class SecurityAdmin:
             self.logger.log_dictionary(
                 "Request Dictionary", self.preserved_segment_traits, sanitize_password
             )
-            request_xml = security_request.dump_request_xml(encoding="utf-8")
-            indented_request_xml = self.logger.indent_xml(
-                request_xml.decode(encoding="utf-8")
+            self.logger.log_xml(
+                "Request XML",
+                security_request.dump_request_xml(encoding="utf-8"),
+                sanitize_password,
             )
-            if sanitize_password:
-                indented_request_xml = indented_request_xml.replace(
-                    sanitize_password, "********"
-                )
-            colorized_request_xml = self.logger.colorize_xml(indented_request_xml)
-            self.logger.log_debug(f"Request XML:\n\n{colorized_request_xml}")
         if not generate_request_only:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
             )
             if self.logger:
-                if sanitize_password:
-                    result_xml = result_xml.replace(sanitize_password, "********")
-                colorized_result_xml = self.logger.colorize_xml(
-                    self.logger.indent_xml(result_xml)
-                )
-                self.logger.log_debug(f"Result XML:\n\n{colorized_result_xml}")
+                self.logger.log_xml("Result XML", result_xml, sanitize_password)
             results = SecurityResult(result_xml)
             if self.logger:
                 self.logger.log_dictionary(
