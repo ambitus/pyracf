@@ -47,6 +47,8 @@ class SecurityAdmin:
             "generic": "racf:generic",
         }
         self.segment_traits = {}
+        # used to preserve segment traits for debug logging.
+        self.preserved_segment_traits = {}
         self.trait_map = {}
         self.profile_type = None
         self.logger = None
@@ -85,6 +87,8 @@ class SecurityAdmin:
         for trait in traits:
             if trait in self.valid_segment_traits:
                 self.segment_traits[trait] = traits[trait]
+        # preserve segment traits for debug logging.
+        self.preserved_segment_traits = self.segment_traits
 
     def make_request(
         self,
@@ -94,7 +98,9 @@ class SecurityAdmin:
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         if self.logger:
-            request_dictionary_json = json.dumps(self.segment_traits, indent=4)
+            request_dictionary_json = json.dumps(
+                self.preserved_segment_traits, indent=4
+            )
             colorized_request_dictionary_json = self.logger.colorize_json(
                 request_dictionary_json
             )
@@ -426,3 +432,5 @@ class SecurityAdmin:
                 continue
             for segment in self.valid_segment_traits:
                 self.__validate_trait(trait, segment, traits[trait])
+        # preserve segment traits for debug logging.
+        self.preserved_segment_traits = self.segment_traits
