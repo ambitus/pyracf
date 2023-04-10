@@ -97,10 +97,18 @@ class SecurityAdmin:
         generate_request_only=False,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
+        try:
+            sanitize_password = self.preserved_segment_traits["base"]["password"]
+        except KeyError:
+            sanitize_password = None
         if self.logger:
             request_dictionary_json = json.dumps(
                 self.preserved_segment_traits, indent=4
             )
+            if sanitize_password:
+                request_dictionary_json = request_dictionary_json.replace(
+                    sanitize_password, "********"
+                )
             colorized_request_dictionary_json = self.logger.colorize_json(
                 request_dictionary_json
             )
@@ -108,6 +116,8 @@ class SecurityAdmin:
                 f"Request Dictionary:\n\n{colorized_request_dictionary_json}"
             )
             request_xml = security_request.dump_request_xml(encoding="utf-8")
+            if sanitize_password:
+                request_xml = request_xml.replace(sanitize_password, "********")
             indented_request_xml = self.logger.indent_xml(
                 request_xml.decode(encoding="utf-8")
             )
