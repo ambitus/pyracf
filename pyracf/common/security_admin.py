@@ -116,11 +116,13 @@ class SecurityAdmin:
                 f"Request Dictionary:\n\n{colorized_request_dictionary_json}"
             )
             request_xml = security_request.dump_request_xml(encoding="utf-8")
-            if sanitize_password:
-                request_xml = request_xml.replace(sanitize_password, "********")
             indented_request_xml = self.logger.indent_xml(
                 request_xml.decode(encoding="utf-8")
             )
+            if sanitize_password:
+                indented_request_xml = indented_request_xml.replace(
+                    sanitize_password, "********"
+                )
             colorized_request_xml = self.logger.colorize_xml(indented_request_xml)
             self.logger.log_debug(f"Request XML:\n\n{colorized_request_xml}")
         if not generate_request_only:
