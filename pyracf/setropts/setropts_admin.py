@@ -244,7 +244,7 @@ class SetroptsAdmin(SecurityAdmin):
         current_segment = None
         i = 0
         while i < len(messages):
-            print(i,messages[i])
+            print(i, messages[i])
             if messages[i] == " ":
                 i += 1
                 continue
@@ -256,7 +256,7 @@ class SetroptsAdmin(SecurityAdmin):
                 )
                 i += 1
                 continue
-            if "  " in messages[i]:
+            if " " in messages[i]:
                 print("sanity check print statement", field, i, messages[i])
                 retcode = self.__add_classes_and_rules_to_profile(
                     messages[i],
