@@ -73,7 +73,7 @@ class TestSetroptsGetters(unittest.TestCase):
         call_racf_mock.return_value = setropts_extract_auditor
         self.assertTrue(
             setropts_admin.get_class_types("FACILITY")
-            == TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES
+            == TestSetroptsConstants.TEST_SETROPTS_CLASS_ATTRIBUTES
         )
 
     def test_setropts_admin_get_class_types_raises_an_exception_when_extract_fails(
