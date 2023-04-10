@@ -94,7 +94,7 @@ class SecurityAdmin:
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         if self.logger:
-            request_dictionary_json = json.dumps(self.trait_map, indent=4)
+            request_dictionary_json = json.dumps(self.segment_traits, indent=4)
             colorized_request_dictionary_json = self.logger.colorize_json(
                 request_dictionary_json
             )
