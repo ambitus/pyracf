@@ -32,12 +32,11 @@ class TestSetroptsRequestBuilder(unittest.TestCase):
             result, TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_XML
         )
 
-    def test_setropts_admin_build_list_setropts_request_base_omvs(
+    def test_setropts_admin_build_list_setropts_request(
         self, irrsmo00_init_mock: Mock
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         result = setropts_admin.list_ropts(
-            TestSetroptsConstants.TEST_LIST_SETROPTS_REQUEST_TRAITS,
             generate_request_only=True,
         )
         self.assertEqual(result, TestSetroptsConstants.TEST_LIST_SETROPTS_REQUEST_XML)
