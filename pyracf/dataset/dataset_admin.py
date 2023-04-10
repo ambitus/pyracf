@@ -7,8 +7,8 @@ from pyracf.dataset.dataset_request import DatasetRequest
 class DatasetAdmin(SecurityAdmin):
     """RACF DataSet Profile Administration."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, debug=False) -> None:
+        super().__init__(debug=debug)
         self.valid_segment_traits = {
             "base": {
                 "altvol": "racf:altvol",
