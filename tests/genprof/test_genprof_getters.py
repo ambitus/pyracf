@@ -27,7 +27,7 @@ class TestGenprofGetters(unittest.TestCase):
         return ResourceAdmin()
 
     # ============================================================================
-    # ResourceAdmin.get_uacc()
+    # ResourceAdmin.get_uacc(class_name)
     # ============================================================================
     def test_resource_admin_get_uacc_returns_valid_when_read(
         self,
@@ -74,7 +74,7 @@ class TestGenprofGetters(unittest.TestCase):
             resource_admin.get_uacc("TESTING", "ELIJTEST")
 
     # ============================================================================
-    # ResourceAdmin.get_your_acc()
+    # ResourceAdmin.get_your_acc(class_name)
     # ============================================================================
     def test_resource_admin_get_your_acc_returns_valid_when_read(
         self,

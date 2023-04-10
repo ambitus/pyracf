@@ -1,7 +1,5 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidwrd" operation="set" requestid="UserRequest">
-        <base>
-            <racf:auditor operation="del" />
-        </base>
-    </user>
+    <systemsettings operation="set" requestid="SetroptsRequest">
+        <racf:audit operation="del">elijtest</racf:audit>
+    </systemsettings>
 </securityrequest>

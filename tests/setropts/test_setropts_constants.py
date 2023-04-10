@@ -1,5 +1,5 @@
 """
-Sample data for testing User Administration functions.
+Sample data for testing Setropts Administration functions.
 """
 
 from typing import Union
@@ -8,102 +8,65 @@ import tests.test_utilities as TestUtilities
 
 
 def get_sample(sample_file: str) -> Union[str, bytes]:
-    return TestUtilities.get_sample(sample_file, "user")
+    return TestUtilities.get_sample(sample_file, "setropts")
 
 
 # ============================================================================
-# User Administration Result Sample Data
+# Setropts Administration Result Sample Data
 # ============================================================================
 
-# Add User
-TEST_ADD_USER_RESULT_SUCCESS_XML = get_sample("add_user_result_success.xml")
-TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY = get_sample("add_user_result_success.json")
-TEST_ADD_USER_RESULT_ERROR_XML = get_sample("add_user_result_error.xml")
-TEST_ADD_USER_RESULT_ERROR_DICTIONARY = get_sample("add_user_result_error.json")
+# Setropts Command
+TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML = get_sample("command_setropts_result_success.xml")
+TEST_COMMAND_SETROPTS_RESULT_SUCCESS_DICTIONARY = get_sample("command_setropts_result_success.json")
+TEST_COMMAND_SETROPTS_RESULT_ERROR_XML = get_sample("comman_setropts_result_error.xml")
+TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY = get_sample("command_setropts_result_error.json")
 
-# Alter User
-TEST_ALTER_USER_RESULT_SUCCESS_XML = get_sample("alter_user_result_success.xml")
-TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY = get_sample("alter_user_result_success.json")
-TEST_ALTER_USER_RESULT_ERROR_XML = get_sample("alter_user_result_error.xml")
-TEST_ALTER_USER_RESULT_ERROR_DICTIONARY = get_sample("alter_user_result_error.json")
-
-# Extract User
-TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML = get_sample(
-    "extract_user_result_base_omvs_success.xml"
+# List Setropt
+TEST_LIST_SETROPTS_RESULT_SUCCESS_XML = get_sample(
+    "list_setropts_result_success.xml"
 )
-TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY = get_sample(
-    "extract_user_result_base_omvs_success.json"
+TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "list_setropts_result_success.json"
 )
-TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML = get_sample(
-    "extract_user_result_base_omvs_error.xml"
-)
-TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY = get_sample(
-    "extract_user_result_base_omvs_error.json"
-)
-TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
-    "extract_user_result_base_only_no_omvs_success.xml"
-)
-TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
-    "extract_user_result_base_only_no_omvs_success.json"
-)
-
-# Delete User
-TEST_DELETE_USER_RESULT_SUCCESS_XML = get_sample("delete_user_result_success.xml")
-TEST_DELETE_USER_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "delete_user_result_success.json"
-)
-TEST_DELETE_USER_RESULT_ERROR_XML = get_sample("delete_user_result_error.xml")
-TEST_DELETE_USER_RESULT_ERROR_DICTIONARY = get_sample("delete_user_result_error.json")
 
 # ============================================================================
-# User Administration Request Sample Data
+# Setropts Administration Request Sample Data
 # ============================================================================
 
-# Add User
-TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
-TEST_ADD_USER_REQUEST_TRAITS = {
-    "name": "Squidward",
-    "userid": "squidwrd",
-    "password": "password",
-    "owner": "leonard",
-    "special": True,
-    "operator": False,
-    "uid": "2424",
-    "home": "/u/squidwrd",
-    "program": "/bin/sh",
-}
+# Command Setropts
+TEST_COMMAND_SETROPTS_REQUEST_XML = get_sample("command_setropts_request.xml")
+TEST_COMMAND_SETROPTS_REQUEST_TRAITS = {"raclist": "elijtest"}
 
-# Alter User
-TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
-TEST_ALTER_USER_REQUEST_TRAITS = {
-    "userid": "squidwrd",
-    "special": False,
-    "operator": True,
-    "home": "/u/clarinet",
-    "program": False,
-}
-
-# Extract User
-TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
-    "extract_user_request_base_omvs.xml"
+# List Setropts
+TEST_LIST_SETROPTS_REQUEST_XML = get_sample(
+    "list_setropts_request.xml"
 )
-TEST_EXTRACT_USER_REQUEST_BASE_OMVS_TRAITS = {
-    "userid": "squidwrd",
-    "omvs": True,
-    "mfa": False,
-}
-
-# Delete User
-TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
 
 # ============================================================================
-# User Administration Setters Sample Data
+# Setropts Administration Setters Sample Data
 # ============================================================================
 
-TEST_USER_SET_SPECIAL_XML = get_sample("user_set_special.xml")
-TEST_USER_DEL_SPECIAL_XML = get_sample("user_del_special.xml")
-TEST_USER_SET_AUDITOR_XML = get_sample("user_set_auditor.xml")
-TEST_USER_DEL_AUDITOR_XML = get_sample("user_del_auditor.xml")
-TEST_USER_SET_OPER_XML = get_sample("user_set_operations.xml")
-TEST_USER_DEL_OPER_XML = get_sample("user_del_operations.xml")
-TEST_USER_SET_UID_XML = get_sample("user_set_uid.xml")
+TEST_SETROPTS_AUDIT_ADD_XML = get_sample("setropts_audit_add.xml")
+TEST_SETROPTS_AUDIT_DEL_XML = get_sample("setropts_audit_del.xml")
+TEST_SETROPTS_CLASSACT_ADD_XML = get_sample("setropts_classact_add.xml")
+TEST_SETROPTS_CLASSACT_DEL_XML = get_sample("setropts_classact_del.xml")
+TEST_SETROPTS_CLASSTAT_ADD_XML = get_sample("setropts_classtat_add.xml")
+TEST_SETROPTS_CLASSTAT_DEL_XML = get_sample("setropts_classtat_del.xml")
+TEST_SETROPTS_GENCMD_ADD_XML = get_sample("setropts_gencmd_add.xml")
+TEST_SETROPTS_GENCMD_DEL_XML = get_sample("setropts_gencmd_del.xml")
+TEST_SETROPTS_GENERIC_ADD_XML = get_sample("setropts_generic_add.xml")
+TEST_SETROPTS_GENERIC_DEL_XML = get_sample("setropts_generic_del.xml")
+TEST_SETROPTS_GENLIST_ADD_XML = get_sample("setropts_genlist_add.xml")
+TEST_SETROPTS_GENLIST_DEL_XML = get_sample("setropts_genlist_del.xml")
+TEST_SETROPTS_GLOBAL_ADD_XML = get_sample("setropts_global_add.xml")
+TEST_SETROPTS_GLOBAL_DEL_XML = get_sample("setropts_global_del.xml")
+TEST_SETROPTS_RACLIST_ADD_XML = get_sample("setropts_raclist_add.xml")
+TEST_SETROPTS_RACLIST_DEL_XML = get_sample("setropts_raclist_del.xml")
+TEST_SETROPTS_REFRESH_CLASS_XML = get_sample("setropts_refresh_class.xml")
+
+# ============================================================================
+# Setropts Administration Getters Comparison Data
+# ============================================================================
+
+TEST_SETROPTS_PASSWORD_RULES = [{'minlength': 4, 'maxlength': 8, 'content': '********', 'legend': {'*': 'ANYTHING'}}]
+TEST_SETROPTS_CLASS_ATTRIBUTES = ['active', 'generic profile', 'generic command', 'setr raclist']

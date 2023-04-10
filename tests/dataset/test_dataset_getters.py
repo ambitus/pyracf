@@ -27,7 +27,7 @@ class TestDatasetGetters(unittest.TestCase):
         return DatasetAdmin()
 
     # ============================================================================
-    # DatasetAdmin.get_uacc()
+    # DatasetAdmin.get_uacc(class_name)
     # ============================================================================
     def test_dataset_admin_get_uacc_returns_valid_when_read(
         self,
@@ -74,7 +74,7 @@ class TestDatasetGetters(unittest.TestCase):
             dataset_admin.get_uacc("ESWIFT.TEST.T1136242.P3020470")
 
     # ============================================================================
-    # DatasetAdmin.get_your_acc()
+    # DatasetAdmin.get_your_acc(class_name)
     # ============================================================================
     def test_dataset_admin_get_your_acc_returns_valid_when_alter(
         self,

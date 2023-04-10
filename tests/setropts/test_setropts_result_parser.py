@@ -1,13 +1,13 @@
-"""Test user result parser."""
+"""Test setropts result parser."""
 
 import unittest
 from unittest.mock import Mock, patch
 
 import __init__
 
-import tests.user.test_user_constants as TestUserConstants
+import tests.setropts.test_setropts_constants as TestSetroptsConstants
 from pyracf.common.security_request_error import SecurityRequestError
-from pyracf.user.user_admin import UserAdmin
+from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 # Resolves F401
 __init__
@@ -16,146 +16,79 @@ __init__
 @patch("pyracf.common.security_request.SecurityRequest.dump_request_xml")
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 @patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
-class TestUserResultParser(unittest.TestCase):
+class TestSetroptsResultParser(unittest.TestCase):
     maxDiff = None
 
     def boilerplate(
         self, irrsmo00_init_mock: Mock, dump_request_xml_mock: Mock
-    ) -> UserAdmin:
+    ) -> SetroptsAdmin:
         irrsmo00_init_mock.return_value = None
         dump_request_xml_mock.return_value = b""
-        return UserAdmin()
+        return SetroptsAdmin()
 
     # ============================================================================
-    # Add User
+    # Command Setropts
     # ============================================================================
-    def test_user_admin_can_parse_add_user_success_xml(
+    def test_setropts_admin_can_parse_command_setropts_success_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
         dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
+        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        call_racf_mock.return_value = TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML
         self.assertEqual(
-            user_admin.add({"userid": "squidward"}),
-            TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
+            setropts_admin.command(TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS),
+            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
-    def test_user_admin_can_parse_add_user_error_xml(
+    def test_setropts_admin_can_parse_add_setropts_error_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
         dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
+        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        call_racf_mock.return_value = TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.add({"userid": "squidward"})
+            setropts_admin.command(TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS)
         self.assertEqual(
             exception.exception.results,
-            TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
+            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY,
         )
 
+
     # ============================================================================
-    # Alter User
+    # List Setropts
     # ============================================================================
-    def test_user_admin_can_parse_alter_user_success_xml(
+    def test_setropts_admin_can_parse_extract_setropts_base_omvs_success_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
         dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML
+            TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.alter({"userid": "squidward"}),
-            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY,
+            setropts_admin.list_ropts(),
+            TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
-    def test_user_admin_can_parse_alter_user_error_xml(
+    def test_setropts_admin_can_parse_extract_setropts_base_omvs_error_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
         dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML
-        with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.alter({"userid": "squidward"})
-        self.assertEqual(
-            exception.exception.results,
-            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_DICTIONARY,
-        )
-
-    # ============================================================================
-    # Extract User
-    # ============================================================================
-    def test_user_admin_can_parse_extract_user_base_omvs_success_xml(
-        self,
-        irrsmo00_init_mock: Mock,
-        call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
-    ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
-        )
-        self.assertEqual(
-            user_admin.extract({"userid": "squidward"}),
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
-        )
-
-    def test_user_admin_can_parse_extract_user_base_omvs_error_xml(
-        self,
-        irrsmo00_init_mock: Mock,
-        call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
-    ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
+            TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.extract({"userid": "squidward"})
+            setropts_admin.list_ropts()
         self.assertEqual(
             exception.exception.results,
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY,
-        )
-
-    # ============================================================================
-    # Delete User
-    # ============================================================================
-    def test_user_admin_can_parse_delete_user_success_xml(
-        self,
-        irrsmo00_init_mock: Mock,
-        call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
-    ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_DELETE_USER_RESULT_SUCCESS_XML
-        )
-        self.assertEqual(
-            user_admin.delete("squidwrd"),
-            TestUserConstants.TEST_DELETE_USER_RESULT_SUCCESS_DICTIONARY,
-        )
-
-    def test_user_admin_can_parse_delete_user_error_xml(
-        self,
-        irrsmo00_init_mock: Mock,
-        call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
-    ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_XML
-        )
-        with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.delete("squidwrd")
-        self.assertEqual(
-            exception.exception.results,
-            TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_DICTIONARY,
+            TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_ERROR_DICTIONARY,
         )

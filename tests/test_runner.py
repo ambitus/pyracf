@@ -5,6 +5,10 @@ import unittest
 
 import __init__
 
+from tests.setropts.test_setropts_getters import TestSetroptsGetters
+from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
+from tests.setropts.test_setropts_result_parser import TestSetroptsResultParser
+from tests.setropts.test_setropts_setters import TestSetroptsSetters
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
 from tests.dataset.test_dataset_getters import TestDatasetGetters
@@ -43,6 +47,10 @@ def __test_suite() -> unittest.TestSuite:
         TestDatasetSetters,
         TestAccessResultParser,
         TestAccessRequestBuilder,
+        TestSetroptsResultParser,
+        TestSetroptsRequestBuilder,
+        TestSetroptsGetters,
+        TestSetroptsSetters,
     ]
     for test_class in test_classes:
         tests = test_loader.loadTestsFromTestCase(test_class)
