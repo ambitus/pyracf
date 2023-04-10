@@ -1,5 +1,8 @@
 """Logging for pyRACF."""
 
+import json
+from typing import Union
+
 
 class Logger:
     """Logging for pyRACF."""
@@ -40,6 +43,16 @@ class Logger:
 
     def __colorize_string(self, ansi_color: str, string: str) -> str:
         return f"{ansi_color}{string}{self.ansi_reset}"
+
+    def log_dictionary(
+        self, header_message: str, dictionary: dict, sanitize_string: Union[str, None]
+    ) -> None:
+        """JSONify and colorize a dictionary and log it to the console."""
+        dictionary_json = json.dumps(dictionary, indent=4)
+        if sanitize_string:
+            dictionary_json = dictionary_json.replace(sanitize_string, "********")
+        colorized_dictionary_json = self.colorize_json(dictionary_json)
+        self.log_debug(f"{header_message}:\n\n{colorized_dictionary_json}")
 
     def log_debug(self, message: str) -> None:
         """Log function to use for debug logging."""
@@ -103,12 +116,14 @@ class Logger:
                 tag_start = "<?"
                 tag_end = "?>"
                 tag_name = tag_name[1:]
-            if tag_name[0] == "/":
+            elif tag_name[0] == "/":
                 tag_start = "</"
                 tag_name = tag_name[1:]
             if ">" in tag_name:
                 tag_name = tag_name.split(">")[0]
                 tag_tokens = []
+            if tag_tokens[-1][-2:] == "/>":
+                tag_end = "/>"
             attributes = " ".join(tag_tokens[1:])[: -len(tag_end)]
             start_tag = (
                 f"{self.gray(tag_start)}"

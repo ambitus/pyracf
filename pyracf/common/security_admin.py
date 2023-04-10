@@ -102,18 +102,8 @@ class SecurityAdmin:
         except KeyError:
             sanitize_password = None
         if self.logger:
-            request_dictionary_json = json.dumps(
-                self.preserved_segment_traits, indent=4
-            )
-            if sanitize_password:
-                request_dictionary_json = request_dictionary_json.replace(
-                    sanitize_password, "********"
-                )
-            colorized_request_dictionary_json = self.logger.colorize_json(
-                request_dictionary_json
-            )
-            self.logger.log_debug(
-                f"Request Dictionary:\n\n{colorized_request_dictionary_json}"
+            self.logger.log_dictionary(
+                "Request Dictionary", self.preserved_segment_traits, sanitize_password
             )
             request_xml = security_request.dump_request_xml(encoding="utf-8")
             indented_request_xml = self.logger.indent_xml(
@@ -138,18 +128,10 @@ class SecurityAdmin:
                 self.logger.log_debug(f"Result XML:\n\n{colorized_result_xml}")
             results = SecurityResult(result_xml)
             if self.logger:
-                result_dictionary_json = json.dumps(
-                    results.get_result_dictionary(), indent=4
-                )
-                if sanitize_password:
-                    result_dictionary_json = result_dictionary_json.replace(
-                        sanitize_password, "********"
-                    )
-                colorized_result_dictionary_json = self.logger.colorize_json(
-                    result_dictionary_json
-                )
-                self.logger.log_debug(
-                    f"Result Dictionary:\n\n{colorized_result_dictionary_json}"
+                self.logger.log_dictionary(
+                    "Result Dictionary",
+                    results.get_result_dictionary(),
+                    sanitize_password,
                 )
             return results.get_result_dictionary()
         return security_request.dump_request_xml(encoding="utf-8")
