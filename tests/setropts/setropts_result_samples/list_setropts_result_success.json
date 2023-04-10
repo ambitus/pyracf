@@ -8,7 +8,7 @@
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "SETROPTS   LIST        ",
+                    "image": "SETROPTS   LIST",
                     "profile": {
                         "attributes": [
                             "initstats",
