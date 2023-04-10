@@ -68,7 +68,7 @@ class TestSetroptsResultParser(unittest.TestCase):
     # ============================================================================
     # List Setropts
     # ============================================================================
-    def test_setropts_admin_can_parse_extract_setropts_base_omvs_success_xml(
+    def test_setropts_admin_can_parse_list_setropts_success_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -83,7 +83,7 @@ class TestSetroptsResultParser(unittest.TestCase):
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
-    def test_setropts_admin_can_parse_extract_setropts_base_omvs_error_xml(
+    def test_setropts_admin_can_parse_list_setropts_error_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -91,11 +91,11 @@ class TestSetroptsResultParser(unittest.TestCase):
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_ERROR_XML
+            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
             setropts_admin.list_ropts()
         self.assertEqual(
             exception.exception.results,
-            TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_ERROR_DICTIONARY,
+            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY,
         )
