@@ -244,6 +244,7 @@ class SetroptsAdmin(SecurityAdmin):
         current_segment = None
         i = 0
         while i < len(messages):
+            print(i,messages[i])
             if messages[i] == " ":
                 i += 1
                 continue
