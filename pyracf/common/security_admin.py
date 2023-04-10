@@ -94,8 +94,15 @@ class SecurityAdmin:
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         if self.logger:
+            request_dictionary_json = json.dumps(self.trait_map, indent=4)
+            colorized_request_dictionary_json = self.logger.colorize_json(
+                request_dictionary_json
+            )
+            self.logger.log_debug(
+                f"Request Dictionary:\n\n{colorized_request_dictionary_json}"
+            )
             request_xml = security_request.dump_request_xml(encoding="utf-8")
-            indented_request_xml = self.__indent_xml(
+            indented_request_xml = self.logger.indent_xml(
                 request_xml.decode(encoding="utf-8")
             )
             colorized_request_xml = self.logger.colorize_xml(indented_request_xml)
@@ -106,7 +113,7 @@ class SecurityAdmin:
             )
             if self.logger:
                 colorized_result_xml = self.logger.colorize_xml(
-                    self.__indent_xml(result_xml)
+                    self.logger.indent_xml(result_xml)
                 )
                 self.logger.log_debug(f"Result XML:\n\n{colorized_result_xml}")
             results = SecurityResult(result_xml)
@@ -122,31 +129,6 @@ class SecurityAdmin:
                 )
             return results.get_result_dictionary()
         return security_request.dump_request_xml(encoding="utf-8")
-
-    def __indent_xml(self, minified_xml: str) -> str:
-        """Used to indent XML for readability in debug logging."""
-        indent_level = 0
-        indented_xml = ""
-        xml_tokens = minified_xml.split("><")
-        for i in range(1, len(xml_tokens)):
-            previous_line = xml_tokens[i - 1]
-            current_line = xml_tokens[i]
-            if previous_line[:5] == "<?xml":
-                indented_xml += f"{previous_line}>\n"
-            elif i == 1:
-                indented_xml += f"{previous_line}>\n"
-                indent_level += 1
-            elif (
-                "</" not in previous_line
-                and previous_line[0] != "/"
-                and previous_line[-1] != "/"
-            ):
-                indent_level += 1
-            if current_line[0] == "/":
-                indent_level -= 1
-            current_line = f"<{current_line}>"
-            indented_xml += f"{'    ' * indent_level}{current_line}\n"
-        return indented_xml[:-2]
 
     def format_profile(self, result: dict):
         """Placeholder for format profile function for profile extract."""

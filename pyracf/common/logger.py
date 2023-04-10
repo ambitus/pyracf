@@ -16,27 +16,30 @@ class Logger:
 
     def gray(self, string: str) -> str:
         """Make contents of string gray."""
-        return f"{self.ansi_gray}{string}{self.ansi_reset}"
+        return self.__colorize_string(self.ansi_gray, string)
 
     def green(self, string: str) -> str:
         """Make contents of string green."""
-        return f"{self.ansi_green}{string}{self.ansi_reset}"
+        return self.__colorize_string(self.ansi_green, string)
 
     def blue(self, string: str) -> str:
         """Make contents of string blue."""
-        return f"{self.ansi_blue}{string}{self.ansi_reset}"
+        return self.__colorize_string(self.ansi_blue, string)
 
     def orange(self, string: str) -> str:
         """Make contents of string orange."""
-        return f"{self.ansi_orange}{string}{self.ansi_reset}"
+        return self.__colorize_string(self.ansi_orange, string)
 
     def cyan(self, string: str) -> str:
         """Make contents of string cyan."""
-        return f"{self.ansi_cyan}{string}{self.ansi_reset}"
+        return self.__colorize_string(self.ansi_cyan, string)
 
     def magenta(self, string: str) -> str:
         """Make contents of string magenta."""
-        return f"{self.ansi_magenta}{string}{self.ansi_reset}"
+        return self.__colorize_string(self.ansi_magenta, string)
+
+    def __colorize_string(self, ansi_color: str, string: str) -> str:
+        return f"{ansi_color}{string}{self.ansi_reset}"
 
     def log_debug(self, message: str) -> None:
         """Log function to use for debug logging."""
@@ -135,3 +138,28 @@ class Logger:
                     else:
                         updated_xml_attributes += f"{self.cyan(subtoken)}="
         return updated_xml_attributes.rstrip()
+
+    def indent_xml(self, minified_xml: str) -> str:
+        """Used to indent XML for readability in debug logging."""
+        indent_level = 0
+        indented_xml = ""
+        xml_tokens = minified_xml.split("><")
+        for i in range(1, len(xml_tokens)):
+            previous_line = xml_tokens[i - 1]
+            current_line = xml_tokens[i]
+            if previous_line[:5] == "<?xml":
+                indented_xml += f"{previous_line}>\n"
+            elif i == 1:
+                indented_xml += f"{previous_line}>\n"
+                indent_level += 1
+            elif (
+                "</" not in previous_line
+                and previous_line[0] != "/"
+                and previous_line[-1] != "/"
+            ):
+                indent_level += 1
+            if current_line[0] == "/":
+                indent_level -= 1
+            current_line = f"<{current_line}>"
+            indented_xml += f"{'    ' * indent_level}{current_line}\n"
+        return indented_xml[:-2]
