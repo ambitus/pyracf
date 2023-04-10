@@ -74,7 +74,8 @@ class SecurityAdmin:
                     json.dumps(result, indent=4)
                 )
                 self.logger.log_debug(
-                    f"Result Dictionary (Formatted Profile):\n{colorized_result_dictionary_json}"
+                    "Result Dictionary (Formatted Profile):"
+                    + f"\n\n{colorized_result_dictionary_json}"
                 )
             return result
         raise SecurityRequestError(result)
@@ -98,7 +99,7 @@ class SecurityAdmin:
                 request_xml.decode(encoding="utf-8")
             )
             colorized_request_xml = self.logger.colorize_xml(indented_request_xml)
-            self.logger.log_debug(f"Request XML:\n{colorized_request_xml}")
+            self.logger.log_debug(f"Request XML:\n\n{colorized_request_xml}")
         if not generate_request_only:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
@@ -107,7 +108,7 @@ class SecurityAdmin:
                 colorized_result_xml = self.logger.colorize_xml(
                     self.__indent_xml(result_xml)
                 )
-                self.logger.log_debug(f"Result XML:\n{colorized_result_xml}")
+                self.logger.log_debug(f"Result XML:\n\n{colorized_result_xml}")
             results = SecurityResult(result_xml)
             if self.logger:
                 result_dictionary_json = json.dumps(
@@ -117,7 +118,7 @@ class SecurityAdmin:
                     result_dictionary_json
                 )
                 self.logger.log_debug(
-                    f"Result Dictionary:\n{colorized_result_dictionary_json}"
+                    f"Result Dictionary:\n\n{colorized_result_dictionary_json}"
                 )
             return results.get_result_dictionary()
         return security_request.dump_request_xml(encoding="utf-8")

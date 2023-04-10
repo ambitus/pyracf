@@ -14,9 +14,33 @@ class Logger:
 
     debug_label = "[ Debug ]"
 
+    def gray(self, string: str) -> str:
+        """Make contents of string gray."""
+        return f"{self.ansi_gray}{string}{self.ansi_reset}"
+
+    def green(self, string: str) -> str:
+        """Make contents of string green."""
+        return f"{self.ansi_green}{string}{self.ansi_reset}"
+
+    def blue(self, string: str) -> str:
+        """Make contents of string blue."""
+        return f"{self.ansi_blue}{string}{self.ansi_reset}"
+
+    def orange(self, string: str) -> str:
+        """Make contents of string orange."""
+        return f"{self.ansi_orange}{string}{self.ansi_reset}"
+
+    def cyan(self, string: str) -> str:
+        """Make contents of string cyan."""
+        return f"{self.ansi_cyan}{string}{self.ansi_reset}"
+
+    def magenta(self, string: str) -> str:
+        """Make contents of string magenta."""
+        return f"{self.ansi_magenta}{string}{self.ansi_reset}"
+
     def log_debug(self, message: str) -> None:
         """Log function to use for debug logging."""
-        print(f"{self.ansi_magenta}{self.debug_label}{self.ansi_reset} {message}")
+        print(f"{self.magenta(self.debug_label)} {message}")
 
     def colorize_json(self, json_text: str) -> str:
         """Add coloring to JSON string."""
@@ -29,9 +53,8 @@ class Logger:
             elif len(tokens[2]) == 0 or len(tokens[2]) == 1:
                 line = self.__colorize_json_value(tokens)
             elif tokens[2][0] == ":":
-                first_half = (
-                    f'{tokens[0]}{self.ansi_cyan}"{tokens[1]}"{self.ansi_reset}'
-                )
+                key = f'"{tokens[1]}"'
+                first_half = f"{tokens[0]}{self.cyan(key)}"
                 second_half = self.__colorize_json_value(tokens[2:])
                 line = first_half + second_half
             updated_json_text += f"{line}\n"
@@ -39,11 +62,8 @@ class Logger:
 
     def __colorize_json_value(self, tokens: dict) -> str:
         if len(tokens) != 1:
-            second_half = (
-                f"{tokens[0]}"
-                + f'{self.ansi_orange}"{tokens[1]}"{self.ansi_reset}'
-                + f'{"".join(tokens[2:])}'
-            )
+            value = f'"{tokens[1]}"'
+            second_half = f"{tokens[0]}{self.orange(value)}{''.join(tokens[2:])}"
         else:
             skip_values = ["{", "[", "{}", "[]"]
             if "," in tokens[0]:
@@ -55,9 +75,9 @@ class Logger:
             if value in skip_values:
                 pass
             elif value == "null":
-                value = f"{self.ansi_blue}{value}{self.ansi_reset}"
+                value = f"{self.blue(value)}"
             else:
-                value = f"{self.ansi_green}{value}{self.ansi_reset}"
+                value = f"{self.green(value)}"
             second_half = f": {value}"
             if has_comma:
                 second_half += ","
@@ -85,19 +105,19 @@ class Logger:
                 tag_tokens = []
             attributes = " ".join(tag_tokens[1:])[: -len(tag_end)]
             start_tag = (
-                f"{self.ansi_gray}{tag_start}{self.ansi_reset}"
-                + f"{self.ansi_blue}{tag_name}{self.ansi_reset}"
+                f"{self.gray(tag_start)}"
+                + f"{self.blue(tag_name)}"
                 + f"{self.__colorize_xml_attributes(attributes)}"
-                + f"{self.ansi_gray}{tag_end}{self.ansi_reset}"
+                + f"{self.gray(tag_end)}"
             )
             data = ""
             end_tag = ""
             if len(tokens) > 2:
                 data = "".join(tokens[1].split(">")[1:])
                 end_tag = (
-                    f"{self.ansi_gray}</{self.ansi_reset}"
-                    + f"{self.ansi_blue}{tokens[-1][1:-1]}{self.ansi_reset}"
-                    + f"{self.ansi_gray}>{self.ansi_reset}"
+                    f"{self.gray('</')}"
+                    + f"{self.blue(tokens[-1][1:-1])}"
+                    + f"{self.gray('>')}"
                 )
             line = tokens[0] + start_tag + data + end_tag
             updated_xml_text += f"{line}\n"
@@ -111,11 +131,7 @@ class Logger:
                 subtokens = token.split()
                 for subtoken in subtokens:
                     if '"' in subtoken:
-                        updated_xml_attributes += (
-                            f"{self.ansi_orange}{subtoken}{self.ansi_reset} "
-                        )
+                        updated_xml_attributes += f"{self.orange(subtoken)} "
                     else:
-                        updated_xml_attributes += (
-                            f"{self.ansi_cyan}{subtoken}{self.ansi_reset}="
-                        )
+                        updated_xml_attributes += f"{self.cyan(subtoken)}="
         return updated_xml_attributes.rstrip()
