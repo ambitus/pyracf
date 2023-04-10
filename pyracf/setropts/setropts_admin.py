@@ -256,6 +256,7 @@ class SetroptsAdmin(SecurityAdmin):
                 i += 1
                 continue
             if "  " in messages[i]:
+                print('sanity check print statement',field)
                 retcode = self.__add_classes_and_rules_to_profile(
                     messages[i],
                     profile,
@@ -372,6 +373,7 @@ class SetroptsAdmin(SecurityAdmin):
     ) -> int:
         """Add classes and rules to profile."""
         if "classes" in field:
+            print('should be a class')
             new_val = self.clean_and_separate(message.replace("  ", ""))
             if isinstance(new_val, str):
                 profile[field].append(new_val)
