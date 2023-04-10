@@ -145,12 +145,12 @@ class SetroptsAdmin(SecurityAdmin):
 
     def classstat_add(self, class_name: str) -> dict:
         """Add a class to the "Statistics" list."""
-        traits = {"classstat": class_name}
+        traits = {"classtat": class_name}
         return self.command(traits)
 
     def classstat_del(self, class_name: str) -> dict:
         """Remove a class from the "Statistics" list."""
-        traits = {"noclassstat": class_name}
+        traits = {"noclasstat": class_name}
         return self.command(traits)
 
     def gencmd_add(self, class_name: str) -> dict:
