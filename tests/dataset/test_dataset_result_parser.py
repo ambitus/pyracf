@@ -119,7 +119,7 @@ class TestDatasetResultParser(unittest.TestCase):
             ),
             TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_DICTIONARY,
         )
-    
+
     def test_dataset_admin_can_parse_extract_dataset_generic_base_success_xml(
         self,
         irrsmo00_init_mock: Mock,

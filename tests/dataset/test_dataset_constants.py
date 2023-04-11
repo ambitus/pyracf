@@ -109,7 +109,9 @@ TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS = {
     "datasetname": "ESWIFT.TEST.T1136242.P3020470"
 }
 # Extract Dataset
-TEST_EXTRACT_DATASET_REQUEST_GENRIC_BASE_XML = get_sample("extract_dataset_request_generic_base.xml")
+TEST_EXTRACT_DATASET_REQUEST_GENRIC_BASE_XML = get_sample(
+    "extract_dataset_request_generic_base.xml"
+)
 TEST_EXTRACT_DATASET_REQUEST_GENERIC_BASE_TRAITS = {
     "datasetname": "ESWIFT.TEST.T1136242.*"
 }
