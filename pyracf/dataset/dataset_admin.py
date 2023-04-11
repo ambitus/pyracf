@@ -178,24 +178,29 @@ class DatasetAdmin(SecurityAdmin):
     def format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["dataset"]["commands"][0]["messages"]
-        profile = self.format_profile_generic(
-            messages, self.valid_segment_traits, profile_type="dataset"
-        )
-        # Post processing
-        if "(g)" in profile["base"].get("name"):
-            profile["base"]["generic"] = True
-            profile["base"]["name"] = self.cast_from_str(
-                profile["base"].get("name").split(" ")[0]
+        indexes = [i for i in range(len(messages)) if "INFORMATION FOR DATASET " in messages[i]]
+        indexes.append(len(messages))
+        profiles = []
+        for i in range(len(indexes)-1):
+            profile = self.format_profile_generic(
+                messages[indexes[i]:(indexes[i+1]-1)], self.valid_segment_traits, profile_type="dataset"
             )
-        else:
-            profile["base"]["generic"] = False
+            # Post processing
+            if "(g)" in profile["base"].get("name"):
+                profile["base"]["generic"] = True
+                profile["base"]["name"] = self.cast_from_str(
+                    profile["base"].get("name").split(" ")[0]
+                )
+            else:
+                profile["base"]["generic"] = False
 
-        if profile["base"].get("installation data"):
-            profile["base"]["installation data"] = " ".join(
-                profile["base"]["installation data"]
-            )
-        if profile["base"].get("notify") == [None, "user", "to", "be", "notified"]:
-            profile["base"]["notify"] = None
+            if profile["base"].get("installation data"):
+                profile["base"]["installation data"] = " ".join(
+                    profile["base"]["installation data"]
+                )
+            if profile["base"].get("notify") == [None, "user", "to", "be", "notified"]:
+                profile["base"]["notify"] = None
+            profiles.append(profile)
 
         del result["securityresult"]["dataset"]["commands"][0]["messages"]
-        result["securityresult"]["dataset"]["commands"][0]["profile"] = profile
+        result["securityresult"]["dataset"]["commands"][0]["profiles"] = profiles
