@@ -68,7 +68,7 @@ class DatasetAdmin(SecurityAdmin):
         result = self.extract(
             {"datasetname": dataset_name}, generate_request_only=generate_request_only
         )
-        profile = result["securityresult"]["dataset"]["commands"][0]["profile"]
+        profile = result["securityresult"]["dataset"]["commands"][0]["profiles"][0]
         return profile["base"].get("universal access")
 
     def set_uacc(
@@ -85,7 +85,7 @@ class DatasetAdmin(SecurityAdmin):
         result = self.extract(
             {"datasetname": dataset_name}, generate_request_only=generate_request_only
         )
-        profile = result["securityresult"]["dataset"]["commands"][0]["profile"]
+        profile = result["securityresult"]["dataset"]["commands"][0]["profiles"][0]
         return profile["base"].get("your access")
 
     def add_category(self, dataset_name: str, category_name: str) -> str:
@@ -187,7 +187,7 @@ class DatasetAdmin(SecurityAdmin):
         profiles = []
         for i in range(len(indexes) - 1):
             profile = self.format_profile_generic(
-                messages[indexes[i] : (indexes[i + 1] - 1)],
+                messages[indexes[i] : indexes[i + 1]],
                 self.valid_segment_traits,
                 profile_type="dataset",
             )

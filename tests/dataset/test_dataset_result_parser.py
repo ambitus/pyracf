@@ -113,8 +113,6 @@ class TestDatasetResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_XML
         )
-        print(TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS)
-        print(TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_DICTIONARY)
         self.assertEqual(
             dataset_admin.extract(
                 TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS

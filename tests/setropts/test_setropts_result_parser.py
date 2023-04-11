@@ -77,7 +77,6 @@ class TestSetroptsResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
-        print(setropts_admin.list_ropts())
         self.assertEqual(
             setropts_admin.list_ropts(),
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY,
