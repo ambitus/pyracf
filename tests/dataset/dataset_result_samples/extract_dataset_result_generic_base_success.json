@@ -10,7 +10,7 @@
                     "safreturncode": 0,
                     "returncode": 0,
                     "reasoncode": 0,
-                    "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.*') ",
+                    "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.*')",
                     "profile": {
                         "base": {
                             "level": 0,
