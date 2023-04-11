@@ -209,7 +209,7 @@ class UserAdmin(SecurityAdmin):
     def is_special(self, userid: str) -> bool:
         """Check if a user has RACF special."""
         result = self.extract({"userid": userid})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "special" in profile["base"]["attributes"]:
             return True
         return False
@@ -233,7 +233,7 @@ class UserAdmin(SecurityAdmin):
         result = self.extract(
             {"userid": userid}, generate_request_only=generate_request_only
         )
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "auditor" in profile["base"]["attributes"]:
             return True
         return False
@@ -257,7 +257,7 @@ class UserAdmin(SecurityAdmin):
         result = self.extract(
             {"userid": userid}, generate_request_only=generate_request_only
         )
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "operations" in profile["base"]["attributes"]:
             return True
         return False
@@ -279,7 +279,7 @@ class UserAdmin(SecurityAdmin):
     def get_uid(self, userid: str) -> Union[str, int]:
         """Get a user's UID."""
         result = self.extract({"userid": userid, "omvs": True})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         try:
             return profile["omvs"]["uid"]
         except KeyError:
@@ -438,9 +438,19 @@ class UserAdmin(SecurityAdmin):
     def format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["user"]["commands"][0]["messages"]
-        profile = self.format_profile_generic(
-            messages, self.valid_segment_traits, profile_type="user"
-        )
+        indexes = [
+            i
+            for i in range(len(messages) - 1)
+            if messages[i] and "USER=" in messages[i]
+        ]
+        indexes.append(len(messages))
+        profiles = []
+        for i in range(len(indexes) - 1):
+            profile = self.format_profile_generic(
+                messages[indexes[i] : indexes[i + 1]], self.valid_segment_traits, profile_type="user"
+            )
+            profiles.append(profile)
+
         # Post processing
         del result["securityresult"]["user"]["commands"][0]["messages"]
-        result["securityresult"]["user"]["commands"][0]["profile"] = profile
+        result["securityresult"]["user"]["commands"][0]["profiles"] = profiles

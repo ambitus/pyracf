@@ -171,7 +171,7 @@ class ResourceAdmin(SecurityAdmin):
             {"resourcename": resource_name, "classname": class_name},
             generate_request_only=generate_request_only,
         )
-        profile = result["securityresult"]["resource"]["commands"][0]["profile"]
+        profile = result["securityresult"]["resource"]["commands"][0]["profiles"][0]
         return profile["base"].get("universal access")
 
     def set_uacc(
@@ -195,7 +195,7 @@ class ResourceAdmin(SecurityAdmin):
             {"resourcename": resource_name, "classname": class_name},
             generate_request_only=generate_request_only,
         )
-        profile = result["securityresult"]["resource"]["commands"][0]["profile"]
+        profile = result["securityresult"]["resource"]["commands"][0]["profiles"][0]
         return profile["base"].get("your access")
 
     def add_category(
@@ -628,18 +628,27 @@ class ResourceAdmin(SecurityAdmin):
     def format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["resource"]["commands"][0]["messages"]
-        profile = self.format_profile_generic(
-            messages, self.valid_segment_traits, profile_type="generic"
-        )
-        # Post processing
-        if "(g)" in profile["base"].get("name"):
-            profile["base"]["generic"] = True
-            profile["base"]["name"] = self.cast_from_str(profile["base"].get("name")[0])
-        else:
-            profile["base"]["generic"] = False
+        indexes = [
+            i
+            for i in range(len(messages) - 1)
+            if messages[i] and "CLASS      NAME" in messages[i]
+        ]
+        indexes.append(len(messages))
+        profiles = []
+        for i in range(len(indexes) - 1):
+            profile = self.format_profile_generic(
+                messages[indexes[i] : indexes[i + 1]], self.valid_segment_traits, profile_type="generic"
+            )
+            # Post processing
+            if "(g)" in profile["base"].get("name"):
+                profile["base"]["generic"] = True
+                profile["base"]["name"] = self.cast_from_str(profile["base"].get("name")[0])
+            else:
+                profile["base"]["generic"] = False
 
-        if profile["base"].get("notify") == [None, "user", "to", "be", "notified"]:
-            profile["base"]["notify"] = None
+            if profile["base"].get("notify") == [None, "user", "to", "be", "notified"]:
+                profile["base"]["notify"] = None
+            profiles.append(profile)
 
         del result["securityresult"]["resource"]["commands"][0]["messages"]
-        result["securityresult"]["resource"]["commands"][0]["profile"] = profile
+        result["securityresult"]["resource"]["commands"][0]["profiles"] = profiles

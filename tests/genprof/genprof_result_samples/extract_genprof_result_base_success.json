@@ -11,22 +11,24 @@
                     "returncode": 0,
                     "reasoncode": 0,
                     "image": "RLIST   ELIJTEST             (TESTING) ",
-                    "profile": {
-                        "base": {
-                            "class": "elijtest",
-                            "name": "testing",
-                            "level": 0,
-                            "owner": "eswift",
-                            "universal access": "read",
-                            "your access": "read",
-                            "warning": null,
-                            "installation data": null,
-                            "application data": null,
-                            "auditing": "failures(read)",
-                            "notify": null,
-                            "generic": false
+                    "profiles": [
+                        {
+                            "base": {
+                                "class": "elijtest",
+                                "name": "testing",
+                                "level": 0,
+                                "owner": "eswift",
+                                "universal access": "read",
+                                "your access": "read",
+                                "warning": null,
+                                "installation data": null,
+                                "application data": null,
+                                "auditing": "failures(read)",
+                                "notify": null,
+                                "generic": false
+                            }
                         }
-                    }
+                    ]
                 }
             ]
         },
