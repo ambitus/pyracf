@@ -163,9 +163,9 @@ class SecurityAdmin:
         elif "NO INSTALLATION DATA" in messages[i]:
             profile[current_segment]["installation data"] = None
         if "INFORMATION FOR DATASET" in messages[i]:
-            profile[current_segment]["name"] = messages[i].split(
-                "INFORMATION FOR DATASET "
-            )[1].lower()
+            profile[current_segment]["name"] = (
+                messages[i].split("INFORMATION FOR DATASET ")[1].lower()
+            )
         return i
 
     def __format_user_profile_data(

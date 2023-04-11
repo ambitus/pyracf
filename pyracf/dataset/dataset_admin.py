@@ -184,7 +184,7 @@ class DatasetAdmin(SecurityAdmin):
         # Post processing
         if "(g)" in profile["base"].get("name"):
             profile["base"]["generic"] = True
-            profile["base"]["name"] = self.cast_from_str(profile["base"].get("name"))
+            profile["base"]["name"] = self.cast_from_str(profile["base"].get("name")[0])
         else:
             profile["base"]["generic"] = False
 
