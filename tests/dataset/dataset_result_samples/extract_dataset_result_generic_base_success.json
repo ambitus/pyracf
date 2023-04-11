@@ -13,7 +13,7 @@
                     "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.*')",
                     "profile": {
                         "base": {
-                            "name": "ESWIFT.TEST.T1136242.*",
+                            "name": "eswift.test.t1136242.*",
                             "level": 0,
                             "owner": "eswift",
                             "universal access": null,

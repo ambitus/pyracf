@@ -165,7 +165,7 @@ class SecurityAdmin:
         if "INFORMATION FOR DATASET" in messages[i]:
             profile[current_segment]["name"] = messages[i].split(
                 "INFORMATION FOR DATASET "
-            )[1]
+            )[1].lower()
         return i
 
     def __format_user_profile_data(
