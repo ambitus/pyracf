@@ -178,12 +178,16 @@ class DatasetAdmin(SecurityAdmin):
     def format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["dataset"]["commands"][0]["messages"]
-        indexes = [i for i in range(len(messages)) if "INFORMATION FOR DATASET " in messages[i]]
+        indexes = [
+            i for i in range(len(messages)-1) if "INFORMATION FOR DATASET " in messages[i]
+        ]
         indexes.append(len(messages))
         profiles = []
-        for i in range(len(indexes)-1):
+        for i in range(len(indexes) - 1):
             profile = self.format_profile_generic(
-                messages[indexes[i]:(indexes[i+1]-1)], self.valid_segment_traits, profile_type="dataset"
+                messages[indexes[i] : (indexes[i + 1] - 1)],
+                self.valid_segment_traits,
+                profile_type="dataset",
             )
             # Post processing
             if "(g)" in profile["base"].get("name"):
