@@ -74,6 +74,11 @@ TEST_ADD_DATASET_REQUEST_TRAITS = {
     "uacc": "None",
     "owner": "eswift",
 }
+TEST_ADD_DATASET_REQUEST_ERROR_TRAITS = {
+    "datasetname": "ESWIFF.TEST.T1136242.P3020470",
+    "uacc": "None",
+    "owner": "eswift",
+}
 
 # Add Dataset Generic
 TEST_ADD_DATASET_REQUEST_GENERIC_XML = get_sample("add_dataset_request_generic.xml")

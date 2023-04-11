@@ -61,6 +61,11 @@ TEST_ALTER_ACCESS_REQUEST_TRAITS = {
     "access": "NONE",
     "id": "ESWIFT",
 }
-
+TEST_ALTER_ACCESS_REQUEST_ERROR_TRAITS = {
+    "resourcename": "TESTING",
+    "classname": "ELIJTEST",
+    "access": "NONE",
+    "id": "MCGINLEY",
+}
 # Delete Access
 TEST_DELETE_ACCESS_REQUEST_XML = get_sample("delete_access_request.xml")

@@ -91,10 +91,8 @@ class TestAccessResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_XML
         )
-        error_parms = TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_TRAITS
-        error_parms.update({"id": "MCGINLEY"})
         with self.assertRaises(SecurityRequestError) as exception:
-            access_admin.alter(error_parms)
+            access_admin.alter(TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_ERROR_TRAITS)
         self.assertEqual(
             exception.exception.results,
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY,

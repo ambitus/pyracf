@@ -78,6 +78,12 @@ TEST_ALTER_GENPROF_REQUEST_TRAITS = {
     "uacc": "Read",
     "owner": "eswift",
 }
+TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS = {
+    "resourcename": "TESTING",
+    "classname": "ELIJTEST",
+    "uacc": "ALL",
+    "owner": "eswift",
+}
 
 # Extract Genprof
 TEST_EXTRACT_GENPROF_REQUEST_BASE_XML = get_sample("extract_genprof_request_base.xml")

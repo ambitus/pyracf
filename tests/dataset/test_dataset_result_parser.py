@@ -55,10 +55,8 @@ class TestDatasetResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_XML
         )
-        error_parms = TestDatasetConstants.TEST_ADD_DATASET_REQUEST_TRAITS
-        error_parms.update({"datasetname": "ESWIFF.TEST.T1136242.P3020470"})
         with self.assertRaises(SecurityRequestError) as exception:
-            dataset_admin.add(error_parms)
+            dataset_admin.add(TestDatasetConstants.TEST_ADD_DATASET_REQUEST_ERROR_TRAITS)
         self.assertEqual(
             exception.exception.results,
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_DICTIONARY,
