@@ -13,6 +13,7 @@
                     "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.*')",
                     "profile": {
                         "base": {
+                            "name": "ESWIFT.TEST.T1136242.*",
                             "level": 0,
                             "owner": "eswift",
                             "universal access": null,
@@ -23,6 +24,7 @@
                             "your access": "alter",
                             "creation group": "sys1",
                             "dataset type": "non-vsam",
+                            "generic": true,
                             "installation data": null
                         }
                     }

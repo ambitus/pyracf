@@ -42,7 +42,7 @@ def __test_suite() -> unittest.TestSuite:
         TestGenprofGetters,
         TestGenprofSetters,
         TestDatasetResultParser,
-        #TestDatasetRequestBuilder,
+        TestDatasetRequestBuilder,
         TestDatasetGetters,
         TestDatasetSetters,
         TestAccessResultParser,

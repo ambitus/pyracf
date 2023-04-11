@@ -57,7 +57,7 @@ class DatasetAdmin(SecurityAdmin):
             self.common_base_traits_dataset_generic
         )
 
-        # del self.valid_segment_traits["base"]["generic"]
+        del self.valid_segment_traits["base"]["generic"]
 
         self.segment_traits = {}
         self.trait_map = {}
@@ -182,6 +182,12 @@ class DatasetAdmin(SecurityAdmin):
             messages, self.valid_segment_traits, profile_type="dataset"
         )
         # Post processing
+        if "(g)" in profile["base"].get("name"):
+            profile["base"]["generic"] = True
+            profile["base"]["name"] = self.cast_from_str(profile["base"].get("name")[0])
+        else:
+            profile["base"]["generic"] = False
+
         if profile["base"].get("installation data"):
             profile["base"]["installation data"] = " ".join(
                 profile["base"]["installation data"]
