@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <dataset name="ESWIFT.TEST.T1136242.*" operation="listdata" generic="no" requestid="DatasetRequest">
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.*')</image>
+            <message>INFORMATION FOR DATASET ESWIFT.TEST.T1136242.* (G)</message>
+            <message />
+            <message>LEVEL  OWNER    UNIVERSAL ACCESS   WARNING   ERASE</message>
+            <message>-----  -------- ----------------   -------   -----</message>
+            <message>00    ESWIFT          NONE          NO      NO</message>
+            <message />
+            <message>AUDITING</message>
+            <message>--------</message>
+            <message>FAILURES(READ)</message>
+            <message />
+            <message>NOTIFY</message>
+            <message>--------</message>
+            <message>NO USER TO BE NOTIFIED</message>
+            <message />
+            <message>YOUR ACCESS  CREATION GROUP  DATASET TYPE</message>
+            <message>-----------  --------------  ------------</message>
+            <message>ALTER        SYS1           NON-VSAM</message>
+            <message />
+            <message>NO INSTALLATION DATA</message>
+        </command>
+    </dataset>
+    <returncode>0</returncode>
+    <reasoncode>0</reasoncode>
+</securityresult>

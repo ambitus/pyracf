@@ -46,6 +46,12 @@ TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_XML = get_sample(
 TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_DICTIONARY = get_sample(
     "extract_dataset_result_base_success.json"
 )
+TEST_EXTRACT_DATASET_RESULT_GENERIC_BASE_SUCCESS_XML = get_sample(
+    "extract_dataset_result_generic_base_success.xml"
+)
+TEST_EXTRACT_DATASET_RESULT_GENERIC_BASE_SUCCESS_DICTIONARY = get_sample(
+    "extract_dataset_result_generic_base_success.json"
+)
 TEST_EXTRACT_DATASET_RESULT_BASE_ERROR_XML = get_sample(
     "extract_dataset_result_base_error.xml"
 )
@@ -101,6 +107,11 @@ TEST_ALTER_DATASET_REQUEST_TRAITS = {
 TEST_EXTRACT_DATASET_REQUEST_BASE_XML = get_sample("extract_dataset_request_base.xml")
 TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS = {
     "datasetname": "ESWIFT.TEST.T1136242.P3020470"
+}
+# Extract Dataset
+TEST_EXTRACT_DATASET_REQUEST_GENRIC_BASE_XML = get_sample("extract_dataset_request_generic_base.xml")
+TEST_EXTRACT_DATASET_REQUEST_GENERIC_BASE_TRAITS = {
+    "datasetname": "ESWIFT.TEST.T1136242.*"
 }
 
 # Delete Dataset

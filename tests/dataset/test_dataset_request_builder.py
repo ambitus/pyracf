@@ -60,6 +60,18 @@ class TestDatasetRequestBuilder(unittest.TestCase):
             result, TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_XML
         )
 
+    def test_dataset_admin_build_extract_dataset_request_generic_base(
+        self, irrsmo00_init_mock: Mock
+    ):
+        dataset_admin = self.boilerplate(irrsmo00_init_mock)
+        result = dataset_admin.extract(
+            TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS,
+            generate_request_only=True,
+        )
+        self.assertEqual(
+            result, TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_XML
+        )
+
     def test_dataset_admin_build_delete_dataset_request(self, irrsmo00_init_mock: Mock):
         dataset_admin = self.boilerplate(irrsmo00_init_mock)
         result = dataset_admin.delete(

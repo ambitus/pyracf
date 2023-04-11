@@ -119,6 +119,23 @@ class TestDatasetResultParser(unittest.TestCase):
             ),
             TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_DICTIONARY,
         )
+    
+    def test_dataset_admin_can_parse_extract_dataset_generic_base_success_xml(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+        dump_request_xml_mock: Mock,
+    ):
+        dataset_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        call_racf_mock.return_value = (
+            TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_GENERIC_BASE_SUCCESS_XML
+        )
+        self.assertEqual(
+            dataset_admin.extract(
+                TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_GENERIC_BASE_TRAITS
+            ),
+            TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_GENERIC_BASE_SUCCESS_DICTIONARY,
+        )
 
     # Error in environment, ESWIFT.TEST.T1136242.P3020470 already deleted/not added
     def test_dataset_admin_can_parse_extract_dataset_base_error_xml(
