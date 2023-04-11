@@ -38,10 +38,11 @@ class TestUserResultParser(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         self.assertEqual(
-            user_admin.add({"userid": "squidward"}),
+            user_admin.add(TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS),
             TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error in environment, SQUIDWRD already added/exists
     def test_user_admin_can_parse_add_user_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -51,7 +52,7 @@ class TestUserResultParser(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.add({"userid": "squidward"})
+            user_admin.add(TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS)
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
@@ -71,10 +72,11 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.alter({"userid": "squidward"}),
+            user_admin.alter(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS),
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error: invalid parameter "name"
     def test_user_admin_can_parse_alter_user_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -84,7 +86,7 @@ class TestUserResultParser(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.alter({"userid": "squidward"})
+            user_admin.alter(user_admin.alter(TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS))
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_DICTIONARY,
@@ -108,6 +110,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
+    # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_can_parse_extract_user_base_omvs_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -143,6 +146,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_DELETE_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_can_parse_delete_user_error_xml(
         self,
         irrsmo00_init_mock: Mock,

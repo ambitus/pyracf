@@ -27,7 +27,7 @@ TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY = get_sample(
     "command_setropts_result_error.json"
 )
 
-# List Setropt
+# List Setropts
 TEST_LIST_SETROPTS_RESULT_SUCCESS_XML = get_sample("list_setropts_result_success.xml")
 TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY = get_sample(
     "list_setropts_result_success.json"

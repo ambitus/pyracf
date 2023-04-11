@@ -60,6 +60,7 @@ class TestDatasetGetters(unittest.TestCase):
         call_racf_mock.return_value = dataset_extract_no_uacc
         self.assertTrue(dataset_admin.get_uacc("ESWIFT.TEST.T1136242.P3020470") is None)
 
+    #Error in environment, ESWIFT.TEST.T1136242.P3020470 already deleted/not added
     def test_dataset_admin_get_uacc_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,
@@ -110,6 +111,7 @@ class TestDatasetGetters(unittest.TestCase):
             dataset_admin.get_your_acc("ESWIFT.TEST.T1136242.P3020470") is None
         )
 
+    #Error in environment, ESWIFT.TEST.T1136242.P3020470 already deleted/not added
     def test_dataset_admin_get_your_acc_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,

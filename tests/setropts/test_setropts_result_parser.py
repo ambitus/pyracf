@@ -46,6 +46,7 @@ class TestSetroptsResultParser(unittest.TestCase):
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error in misspelled SETROPTS parameter
     def test_setropts_admin_can_parse_add_setropts_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -58,7 +59,7 @@ class TestSetroptsResultParser(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError) as exception:
             setropts_admin.command(
-                TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS
+                {"raclist":"elixtest"}
             )
         self.assertEqual(
             exception.exception.results,
@@ -84,6 +85,7 @@ class TestSetroptsResultParser(unittest.TestCase):
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error in misspelled SETROPTS parameter
     def test_setropts_admin_can_parse_list_setropts_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -95,7 +97,7 @@ class TestSetroptsResultParser(unittest.TestCase):
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            setropts_admin.list_ropts()
+            setropts_admin.list_ropts() # Not possible to misspell in this function, but it is the easiest error to test
         self.assertEqual(
             exception.exception.results,
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY,

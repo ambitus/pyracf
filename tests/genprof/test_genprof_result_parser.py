@@ -40,10 +40,11 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            resource_admin.add({"resourcename": "TESTING", "classname": "ELIXTEST"}),
+            resource_admin.add({"resourcename": "TESTING", "classname": "ELIJTEST"}),
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error: Invalid Entity Name ELIXTEST
     def test_resource_admin_can_parse_add_genprof_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -81,6 +82,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error: Invalid Universal Access ALL
     def test_resource_admin_can_parse_alter_genprof_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -92,7 +94,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            resource_admin.alter(TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS)
+            resource_admin.alter(TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS.update({'UACC':'ALL'}))
         self.assertEqual(
             exception.exception.results,
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_DICTIONARY,
@@ -118,6 +120,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_DICTIONARY,
         )
 
+    # Error in environment, TESTING already deleted/not added
     def test_resource_admin_can_parse_extract_genprof_base_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -155,6 +158,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_DELETE_GENPROF_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error in environment, TESTING already deleted/not added
     def test_resource_admin_can_parse_delete_genprof_error_xml(
         self,
         irrsmo00_init_mock: Mock,

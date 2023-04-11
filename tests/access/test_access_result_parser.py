@@ -44,6 +44,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error in environment, TESTING resource already deleted/not added
     def test_access_admin_can_parse_add_access_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -79,6 +80,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error, UserID MCGINLEY not defined to RACF
     def test_access_admin_can_parse_alter_access_error_xml(
         self,
         irrsmo00_init_mock: Mock,
@@ -90,7 +92,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            access_admin.alter(TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_TRAITS)
+            access_admin.alter(TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_TRAITS.update({'id':'MCGINLEY'}))
         self.assertEqual(
             exception.exception.results,
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY,
@@ -116,6 +118,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
+    # Error User not authorized, delete ignored
     def test_access_admin_can_parse_delete_access_error_xml(
         self,
         irrsmo00_init_mock: Mock,

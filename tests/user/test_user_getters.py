@@ -58,6 +58,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = user_extract_no_special
         self.assertFalse(user_admin.is_special("squidwrd"))
 
+    # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_is_special_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,
@@ -104,6 +105,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = user_extract_no_auditor
         self.assertFalse(user_admin.is_auditor("squidwrd"))
 
+    # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_is_auditor_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,
@@ -149,6 +151,7 @@ class TestUserGetters(unittest.TestCase):
         )
         self.assertFalse(user_admin.is_operations("squidwrd"))
 
+    # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_is_operations_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,
@@ -190,6 +193,7 @@ class TestUserGetters(unittest.TestCase):
         with self.assertRaises(SecurityRequestError):
             user_admin.get_uid("squidwrd"), 2424
 
+    # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_get_uid_returns_none_when_no_omvs_segment_exists(
         self,
         irrsmo00_init_mock: Mock,
