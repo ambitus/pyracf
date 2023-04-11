@@ -179,7 +179,9 @@ class DatasetAdmin(SecurityAdmin):
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["dataset"]["commands"][0]["messages"]
         indexes = [
-            i for i in range(len(messages)-1) if "INFORMATION FOR DATASET " in messages[i]
+            i
+            for i in range(len(messages) - 1)
+            if messages[i] and "INFORMATION FOR DATASET " in messages[i]
         ]
         indexes.append(len(messages))
         profiles = []
