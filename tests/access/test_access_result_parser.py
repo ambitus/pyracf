@@ -92,7 +92,9 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            access_admin.alter(TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_ERROR_TRAITS)
+            access_admin.alter(
+                TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_ERROR_TRAITS
+            )
         self.assertEqual(
             exception.exception.results,
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY,

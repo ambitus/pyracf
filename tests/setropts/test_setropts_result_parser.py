@@ -95,7 +95,7 @@ class TestSetroptsResultParser(unittest.TestCase):
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            setropts_admin.list_ropts()  # Not possible to misspell in this function, but it is the easiest error to test
+            setropts_admin.list_ropts()  # Not valid error for this command, but good test
         self.assertEqual(
             exception.exception.results,
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY,

@@ -56,7 +56,9 @@ class TestDatasetResultParser(unittest.TestCase):
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            dataset_admin.add(TestDatasetConstants.TEST_ADD_DATASET_REQUEST_ERROR_TRAITS)
+            dataset_admin.add(
+                TestDatasetConstants.TEST_ADD_DATASET_REQUEST_ERROR_TRAITS
+            )
         self.assertEqual(
             exception.exception.results,
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_DICTIONARY,

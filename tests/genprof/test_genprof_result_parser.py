@@ -94,7 +94,9 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            resource_admin.alter(TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS)
+            resource_admin.alter(
+                TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS
+            )
         self.assertEqual(
             exception.exception.results,
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_DICTIONARY,
