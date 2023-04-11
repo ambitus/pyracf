@@ -43,7 +43,7 @@ class TestSetroptsGetters(unittest.TestCase):
             setropts_admin.get_password_rules()
             == TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES
         )
-        
+
     # Error in misspelled SETROPTS parameter
     def test_setropts_admin_get_password_rules_raises_an_exception_when_extract_fails(
         self,

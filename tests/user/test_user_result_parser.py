@@ -86,7 +86,9 @@ class TestUserResultParser(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.alter(user_admin.alter(TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS))
+            user_admin.alter(
+                user_admin.alter(TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS)
+            )
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_DICTIONARY,

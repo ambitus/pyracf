@@ -93,8 +93,10 @@ class TestGenprofResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_XML
         )
+        error_parms = TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS
+        error_parms.update({"UACC": "ALL"})
         with self.assertRaises(SecurityRequestError) as exception:
-            resource_admin.alter(TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS.update({'UACC':'ALL'}))
+            resource_admin.alter(error_parms)
         self.assertEqual(
             exception.exception.results,
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_ERROR_DICTIONARY,
