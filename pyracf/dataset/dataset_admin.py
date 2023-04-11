@@ -182,7 +182,7 @@ class DatasetAdmin(SecurityAdmin):
             messages, self.valid_segment_traits, profile_type="dataset"
         )
         # Post processing
-        if "(g)" in profile["base"].get("name"):
+        if "(G)" in profile["base"].get("name"):
             profile["base"]["generic"] = True
             profile["base"]["name"] = self.cast_from_str(profile["base"].get("name")[0])
         else:
