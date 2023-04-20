@@ -27,7 +27,14 @@ repos:
         always_run: true
       - id: unittest
         name: unittest
-        entry: python tests/test_runner.py
+        entry: coverage run tests/test_runner.py
         language: system
         pass_filenames: false
         always_run: true
+      - id: coverage
+        name: coverage
+        entry: coverage report -m
+        language: system
+        pass_filenames: false
+        always_run: true
+        verbose: true

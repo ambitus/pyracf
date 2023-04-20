@@ -49,7 +49,7 @@ class Logger:
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
         dictionary_json = json.dumps(dictionary, indent=4)
-        dictionary_json = self.__sanitize_string(dictionary_json, sanitize_string)
+        dictionary_json = self.sanitize_string(dictionary_json, sanitize_string)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(f"{header_message}:\n\n{colorized_dictionary_json}")
 
@@ -62,7 +62,7 @@ class Logger:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
-        xml_string = self.__sanitize_string(xml_string, sanitize_string)
+        xml_string = self.sanitize_string(xml_string, sanitize_string)
         indented_xml_string = self.indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(f"{header_message}:\n\n{colorized_indented_xml_string}")
@@ -71,10 +71,16 @@ class Logger:
         """Log function to use for debug logging."""
         print(f"{self.magenta(self.debug_label)} {message}")
 
-    def __sanitize_string(self, string: str, sanitize_string: Union[str, None]) -> str:
-        if sanitize_string:
-            return string.replace(sanitize_string, "********")
-        return string
+    def sanitize_string(
+        self, string: Union[str, bytes], sanitize_string: Union[str, bytes, None]
+    ) -> str:
+        """Sanitize a string or bytes object."""
+        if not sanitize_string:
+            return string
+        redacted_string = "********"
+        if isinstance(sanitize_string, bytes):
+            redacted_string = b"********"
+        return string.replace(sanitize_string, redacted_string)
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""

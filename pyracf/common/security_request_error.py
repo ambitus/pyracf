@@ -1,7 +1,5 @@
 """Exception to use when data returned by IRRSMO00 indicates that the request failed."""
 
-import json
-
 
 class SecurityRequestError(Exception):
     """
@@ -11,8 +9,10 @@ class SecurityRequestError(Exception):
     def __init__(self, results: dict) -> None:
         self.message = "Security request made to IRRSMO00 failed."
         self.results = results
-        self.error_message = json.dumps(results, indent=4)
-        self.message += f"\n\nError Message:\n{self.error_message}"
+        self.message += (
+            "\n\nSee results dictionary "
+            + f"'{self.__class__.__name__}.results' for more details."
+        )
         self.message = f"({self.__class__.__name__}) {self.message}"
 
     def __str__(self) -> str:

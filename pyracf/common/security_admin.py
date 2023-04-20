@@ -1,5 +1,6 @@
 """Base Class for RACF Administration Interface."""
 
+import json
 from typing import List, Tuple, Union
 
 from pyracf.common.irrsmo00 import IRRSMO00
@@ -50,9 +51,8 @@ class SecurityAdmin:
         self.preserved_segment_traits = {}
         self.trait_map = {}
         self.profile_type = None
-        self.logger = None
-        if debug:
-            self.logger = Logger()
+        self.logger = Logger()
+        self.debug = debug
 
     def extract_and_check_result(
         self,
@@ -70,7 +70,7 @@ class SecurityAdmin:
             and result["securityresult"]["reasoncode"] == 0
         ):
             self.format_profile(result)
-            if self.logger:
+            if self.debug:
                 self.logger.log_dictionary(
                     "Result Dictionary (Formatted Profile)", result, None
                 )
@@ -96,7 +96,31 @@ class SecurityAdmin:
             sanitize_password = self.preserved_segment_traits["base"]["password"]
         except KeyError:
             sanitize_password = None
-        if self.logger:
+        result = self.make_request_unsanitized(
+            security_request,
+            opts=opts,
+            generate_request_only=generate_request_only,
+            sanitize_password=sanitize_password,
+        )
+        if not sanitize_password:
+            return result
+        if isinstance(result, dict):
+            # Dump to json string, sanitize, and then load back to dictionary.
+            return json.loads(
+                self.logger.sanitize_string(json.dumps(result), sanitize_password)
+            )
+        # Sanitize XML bytes (Always UTF-8).
+        return self.logger.sanitize_string(result, bytes(sanitize_password, "utf-8"))
+
+    def make_request_unsanitized(
+        self,
+        security_request: SecurityRequest,
+        opts: int = 1,
+        generate_request_only=False,
+        sanitize_password=None,
+    ) -> Union[dict, bytes]:
+        """Make request to IRRSMO00 (Result not sanitized, Debug messages are sanitized)."""
+        if self.debug:
             self.logger.log_dictionary(
                 "Request Dictionary", self.preserved_segment_traits, sanitize_password
             )
@@ -109,10 +133,10 @@ class SecurityAdmin:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
             )
-            if self.logger:
+            if self.debug:
                 self.logger.log_xml("Result XML", result_xml, sanitize_password)
             results = SecurityResult(result_xml)
-            if self.logger:
+            if self.debug:
                 self.logger.log_dictionary(
                     "Result Dictionary",
                     results.get_result_dictionary(),

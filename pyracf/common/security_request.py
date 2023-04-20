@@ -1,5 +1,6 @@
 """Generic Security Request builder."""
 
+import platform
 import xml.etree.ElementTree as XMLBuilder
 
 
@@ -81,4 +82,8 @@ class SecurityRequest:
 
     def dump_request_xml(self, encoding="cp1047") -> bytes:
         """Dump XML as EBCDIC encoded bytes. (Encoding can be overridden)."""
+        if platform.system() != "OS/390" and encoding == "cp1047":
+            # If not running on z/OS EBCDIC is most likely not supported.
+            # Force utf-8 if running tests on Linux, Mac, Windows, etc...
+            encoding = "utf-8"
         return XMLBuilder.tostring(self.racf_request, encoding=encoding)

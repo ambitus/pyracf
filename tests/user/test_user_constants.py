@@ -64,7 +64,7 @@ TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
 TEST_ADD_USER_REQUEST_TRAITS = {
     "name": "Squidward",
     "userid": "squidwrd",
-    "password": "password",
+    "password": "GIyTTqdF",
     "owner": "leonard",
     "special": True,
     "operator": False,
@@ -103,3 +103,10 @@ TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
 TEST_USER_SET_SPECIAL_XML = get_sample("user_set_special.xml")
 TEST_USER_DEL_SPECIAL_XML = get_sample("user_del_special.xml")
 TEST_USER_SET_UID_XML = get_sample("user_set_uid.xml")
+
+# ============================================================================
+# Password Sanitization in Logging
+# ============================================================================
+
+TEST_ADD_USER_SUCCESS_LOG = get_sample("add_user_success.log")
+TEST_ADD_USER_ERROR_LOG = get_sample("add_user_error.log")
