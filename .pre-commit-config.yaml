@@ -31,6 +31,12 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+      - id: coverage-html
+        name: coverage-html
+        entry: coverage report -m
+        language: system
+        pass_filenames: false
+        always_run: true
       - id: coverage
         name: coverage
         entry: coverage report -m

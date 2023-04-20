@@ -4,7 +4,8 @@ from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
 from pyracf.common.security_request_error import SecurityRequestError
-from pyracf.user.user_request import UserRequest
+
+from .user_request import UserRequest
 
 
 class UserAdmin(SecurityAdmin):

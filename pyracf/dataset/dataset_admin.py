@@ -1,7 +1,8 @@
 """RACF Data Set Profile Administration."""
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.dataset.dataset_request import DatasetRequest
+
+from .dataset_request import DatasetRequest
 
 
 class DatasetAdmin(SecurityAdmin):

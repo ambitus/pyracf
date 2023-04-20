@@ -9,8 +9,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
+from pyracf import UserAdmin
 from pyracf.common.security_request_error import SecurityRequestError
-from pyracf.user.user_admin import UserAdmin
 
 # Resolves F401
 __init__

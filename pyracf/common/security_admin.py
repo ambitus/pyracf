@@ -3,11 +3,11 @@
 import json
 from typing import List, Tuple, Union
 
-from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.logger import Logger
-from pyracf.common.security_request import SecurityRequest
-from pyracf.common.security_request_error import SecurityRequestError
-from pyracf.common.security_result import SecurityResult
+from .irrsmo00 import IRRSMO00
+from .logger import Logger
+from .security_request import SecurityRequest
+from .security_request_error import SecurityRequestError
+from .security_result import SecurityResult
 
 
 class SecurityAdmin:

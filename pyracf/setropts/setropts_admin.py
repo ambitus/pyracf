@@ -3,7 +3,8 @@
 from typing import List, Tuple
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.setropts.setropts_requset import SetroptsRequest
+
+from .setropts_requset import SetroptsRequest
 
 
 class SetroptsAdmin(SecurityAdmin):
