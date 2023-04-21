@@ -7,5 +7,6 @@ install:
 script:
   - flake8 .
   - pylint --recursive=y .
+  - ls -al tests/user/user_log_samples
   - coverage run tests/test_runner.py
   - coverage report -m
