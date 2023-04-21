@@ -12,6 +12,8 @@ Python interface into the RACF management application programming interface.
 1919
 ```
 
+[![Build Status](https://v3.travis.ibm.com/z-innersource/pyRACF.svg?token=9v6Apmv6YSouXWPYsx7p&branch=main)](https://v3.travis.ibm.com/z-innersource/pyRACF)
+
 ## Description
 
 As automation becomes more and more prevalent, the need to manage the security environment programmaticaly increases. On z/OS that means managing a security product like the IBM Resource Access Control Facility(RACF). RACF is the primary facility for managing identity, authority, and access control for z/OS. There are more than 50 callable services with assembler interfaces that are part of the RACF API. The complete set of interfaces can be found at:

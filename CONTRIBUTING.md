@@ -65,37 +65,6 @@ There are two different ways to support the testing effort. The first way pyRACF
   * Unit tests should be placed in the **subfolder** corresponding to the **class** you are creating a test for. Secondly, note that you should place your test case in the **unit test class** that corresponds to the type of functionality you are trying to validate. In general, each **class** you are testing should have **test classes** for **XML generation**, **XML parsing**, **Setter functions**, and **Getter functions**. Lastly, there should also be **folders** conatining **XML request samples** and **XML/dictionary result samples** in the same folder as the **unit tests classes**, and these samples should be loaded in a corresponding **constants module** in that same folder for use in unit test cases. 
 
     > _**Example:** A test case for verifying that the `UserAdmin.get_uid()` **User Administration** function can extract an **OMVS UID** from **profile extract XML** that contains an **OMVS segment** should be placed in the [`test_user_getters.py`](tests/user/test_user_getters.py) unit test class within the [`users`](tests/user) subfolder. A **profile extract XML** sample that contains an **OMVS Segment** should be created in the [`user_result_samples`](tests/user/user_result_samples) folder that resides within the same folder as the corresponding **unit test classes** if one does not exist already. The **profile extract XML** sample should be loaded in [`test_user_constants.py`](tests/user/test_user_constants.py) and then used to **mock** the **IRRSMO00 response** so that the `UserAdmin.get_uid()` logic can be tested without making a **real API call**._
-    
-  * Unit test cases should follow the Arrange, Act, and Assert (AAA) pattern:
-
-    > _Note that the **Act** and **Assert** stage can be combined into one._
-
-    
-
-    * **Arrange** is the portion of your test that loads in/creates test data and initalizes any structures needed for the test.
-    * **Act** is the portion of your test that performs the function that is being tested.
-    * **Assert** is the portion of your test that makes assertions about the results of the test case.
-
-
-    > ```python
-    >     ...     
-    >
-    >     def test_case_example(self):
-    >         # arrange
-    >         ...
-    >         # act
-    >         ...
-    >         # assert
-    >         ...
-    >
-    >     def test_case_example2(self):
-    >         # arrange
-    >         ...
-    >         # act and assert
-    >         ...
-    >
-    >     ...
-    > ```
 
 ### Fixing bugs
 
