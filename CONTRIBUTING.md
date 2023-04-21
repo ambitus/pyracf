@@ -64,6 +64,15 @@ There are two different ways to support the testing effort. The first way pyRACF
     > _**Example:** A test case for verifying that the `UserAdmin.get_uid()` **User Administration** function can extract an **OMVS UID** from **profile extract XML** that contains an **OMVS segment** should be placed in the [`test_user_getters.py`](tests/user/test_user_getters.py) unit test class within the [`users`](tests/user) subfolder. A **profile extract XML** sample that contains an **OMVS Segment** should be created in the [`user_result_samples`](tests/user/user_result_samples) folder that resides within the same folder as the corresponding **unit test classes** if one does not exist already. The **profile extract XML** sample should be loaded in [`test_user_constants.py`](tests/user/test_user_constants.py) and then used to **mock** the **IRRSMO00 response** so that the `UserAdmin.get_uid()` logic can be tested without making a **real API call**._
     
   * Unit test cases should follow the following convention:
+
+    > _Note that the **Act** and **Assert** stage can be combined into one.
+
+    > _See the Python [`unittest`](https://docs.python.org/3/library/unittest.html) and [`unittest.mock`](https://docs.python.org/3/library/unittest.mock.html) documentation for more details on writing test cases._
+
+    * **Arrange** is the portion of your test that loads in/creates test data and initalizes any structures needed for the test.
+    * **Act** is the portion of your test that performs the function that is being tested.
+    * **Assert** is the portion of your test that makes assertions about the results of the test case.
+
     > ```python
     >     ...     
     >
@@ -73,6 +82,7 @@ There are two different ways to support the testing effort. The first way pyRACF
     >         # act
     >         ...
     >         # assert
+    >         ...
     >
     >     def test_case_example2(self):
     >         # arrange
