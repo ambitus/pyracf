@@ -13,9 +13,7 @@ class Logger:
     ansi_blue = "\033[34m"
     ansi_orange = "\033[38;5;214m"
     ansi_cyan = "\033[96m"
-    ansi_magenta = "\033[1;35m"
-
-    debug_label = "[ Debug ]"
+    ansi_purple_background = "\033[1;45m"
 
     def gray(self, string: str) -> str:
         """Make contents of string gray."""
@@ -37,9 +35,9 @@ class Logger:
         """Make contents of string cyan."""
         return self.__colorize_string(self.ansi_cyan, string)
 
-    def magenta(self, string: str) -> str:
+    def purple_background(self, string: str) -> str:
         """Make contents of string magenta."""
-        return self.__colorize_string(self.ansi_magenta, string)
+        return self.__colorize_string(self.ansi_purple_background, string)
 
     def __colorize_string(self, ansi_color: str, string: str) -> str:
         return f"{ansi_color}{string}{self.ansi_reset}"
@@ -51,7 +49,7 @@ class Logger:
         dictionary_json = json.dumps(dictionary, indent=4)
         dictionary_json = self.sanitize_string(dictionary_json, sanitize_string)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
-        self.log_debug(f"{header_message}:\n\n{colorized_dictionary_json}")
+        self.log_debug(header_message, colorized_dictionary_json)
 
     def log_xml(
         self,
@@ -65,11 +63,17 @@ class Logger:
         xml_string = self.sanitize_string(xml_string, sanitize_string)
         indented_xml_string = self.indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
-        self.log_debug(f"{header_message}:\n\n{colorized_indented_xml_string}")
+        self.log_debug(header_message, colorized_indented_xml_string)
 
-    def log_debug(self, message: str) -> None:
+    def log_debug(self, header_message: str, message: str) -> None:
         """Log function to use for debug logging."""
-        print(f"{self.magenta(self.debug_label)} {message}")
+        header = f"[pyRACF:Debug] {header_message}"
+        header = (
+            f"{self.purple_background(' '*79)}\n"
+            + f"{self.purple_background(header.center(79))}\n"
+            + f"{self.purple_background(' '*79)}\n"
+        )
+        print(f"{header}\n{message}")
 
     def sanitize_string(
         self, string: Union[str, bytes], sanitize_string: Union[str, bytes, None]

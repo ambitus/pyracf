@@ -1,4 +1,6 @@
-[ Debug ] Request Dictionary:
+                                                                               
+                       [pyRACF:Debug] Request Dictionary                       
+                                                                               
 
 {
     "base": {
@@ -6,7 +8,9 @@
     }
 }
 
-[ Debug ] Request XML:
+                                                                               
+                           [pyRACF:Debug] Request XML                          
+                                                                               
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
     <user name="squidward" operation="set" requestid="UserRequest">
@@ -16,7 +20,9 @@
     </user>
 </securityrequest>
 
-[ Debug ] Result XML:
+                                                                               
+                           [pyRACF:Debug] Result XML                           
+                                                                               
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
@@ -39,7 +45,9 @@
     <reasoncode>0</reasoncode>
 </securityresult>
 
-[ Debug ] Result Dictionary:
+                                                                               
+                        [pyRACF:Debug] Result Dictionary                       
+                                                                               
 
 {
     "securityresult": {
