@@ -21,25 +21,16 @@ class TestUserSetters(unittest.TestCase):
         return UserAdmin()
 
     def test_user_admin_build_set_special_request(self, irrsmo00_init_mock: Mock):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        # act
         result = user_admin.set_special("squidwrd", generate_request_only=True)
-        # assert
         self.assertEqual(result, TestUserConstants.TEST_USER_SET_SPECIAL_XML)
 
     def test_user_admin_build_del_special_request(self, irrsom00_init_mock: Mock):
-        # arrange
         user_admin = self.boilerplate(irrsom00_init_mock)
-        # act
         result = user_admin.del_special("squidwrd", generate_request_only=True)
-        # assert
         self.assertEqual(result, TestUserConstants.TEST_USER_DEL_SPECIAL_XML)
 
     def test_user_admin_build_set_uid_request(self, init_mock_init_mock: Mock):
-        # arrange
         user_admin = self.boilerplate(init_mock_init_mock)
-        # act
         result = user_admin.set_uid("squidwrd", 40, generate_request_only=True)
-        # assert
         self.assertEqual(result, TestUserConstants.TEST_USER_SET_UID_XML)

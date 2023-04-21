@@ -33,13 +33,10 @@ class TestUserSanitizePasswords(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
-        # act
         with contextlib.redirect_stdout(self.stdout):
             user_admin.add({"userid": "squidward", "password": self.test_password})
-        # assert
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_SUCCESS_LOG)
         self.assertNotIn(self.test_password, success_log)
@@ -49,16 +46,13 @@ class TestUserSanitizePasswords(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
-        # act
         with contextlib.redirect_stdout(self.stdout):
             try:
                 user_admin.add({"userid": "squidward", "password": self.test_password})
             except SecurityRequestError:
                 pass
-        # assert
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_ERROR_LOG)
         self.assertNotIn(self.test_password, error_log)

@@ -12,6 +12,7 @@ using the 'json' library.
 """
 
 import json
+import os
 from typing import Union
 
 
@@ -54,9 +55,10 @@ def get_sample(sample_file: str, function_group: str) -> Union[str, bytes]:
     * '.xml' files get loaded as strings for result samples and bytes objects for request samples.
     * '.log' files get loaded as strings.
     """
-    result_samples = f"{function_group}/{function_group}_result_samples"
-    request_samples = f"{function_group}/{function_group}_request_samples"
-    log_samples = f"{function_group}/{function_group}_log_samples"
+    pwd = os.path.dirname(__file__)
+    result_samples = f"{pwd}/{function_group}/{function_group}_result_samples"
+    request_samples = f"{pwd}/{function_group}/{function_group}_request_samples"
+    log_samples = f"{pwd}/{function_group}/{function_group}_log_samples"
     if f"{function_group}_result" in sample_file:
         result_sample_file = f"{result_samples}/{sample_file}"
         if sample_file[-4:] == ".xml":

@@ -30,12 +30,10 @@ class TestUserGetters(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
-        # act and assert
         self.assertTrue(user_admin.is_special("squidwrd"))
 
     def test_user_admin_is_special_returns_false_when_not_special(
@@ -43,7 +41,6 @@ class TestUserGetters(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         user_extract_no_special = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
@@ -53,7 +50,6 @@ class TestUserGetters(unittest.TestCase):
             "<message> ATTRIBUTES=NONE</message>",
         )
         call_racf_mock.return_value = user_extract_no_special
-        # act and assert
         self.assertFalse(user_admin.is_special("squidwrd"))
 
     def test_user_admin_is_special_raises_an_exception_when_extract_fails(
@@ -61,12 +57,10 @@ class TestUserGetters(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        # act and assert
         with self.assertRaises(SecurityRequestError):
             user_admin.is_special("squidwrd")
 
@@ -78,12 +72,10 @@ class TestUserGetters(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
-        # act and assert
         self.assertEqual(user_admin.get_uid("squidwrd"), 2424)
 
     def test_user_admin_get_uid_raises_an_exception_when_extract_fails(
@@ -91,12 +83,10 @@ class TestUserGetters(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        # act and assert
         with self.assertRaises(SecurityRequestError):
             user_admin.get_uid("squidwrd"), 2424
 
@@ -105,10 +95,8 @@ class TestUserGetters(unittest.TestCase):
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
-        # act and assert
         self.assertIsNone(user_admin.get_uid("squidwrd"))

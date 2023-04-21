@@ -21,44 +21,32 @@ class TestUserRequestBuilder(unittest.TestCase):
         return UserAdmin()
 
     def test_user_admin_build_add_user_request(self, irrsmo00_init_mock: Mock):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        # act
         result = user_admin.add(
             TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS, generate_request_only=True
         )
-        # assert
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_XML)
 
     def test_user_admin_build_alter_user_request(self, irrsmo00_init_mock: Mock):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        # act
         result = user_admin.alter(
             TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS, generate_request_only=True
         )
-        # assert
         self.assertEqual(result, TestUserConstants.TEST_ALTER_USER_REQUEST_XML)
 
     def test_user_admin_build_extract_user_request_base_omvs(
         self, irrsmo00_init_mock: Mock
     ):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        # act
         result = user_admin.extract(
             TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_TRAITS,
             generate_request_only=True,
         )
-        # assert
         self.assertEqual(
             result, TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML
         )
 
     def test_user_admin_build_delete_user_request(self, irrsmo00_init_mock: Mock):
-        # arrange
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        # act
         result = user_admin.delete("squidwrd", generate_request_only=True)
-        # assert
         self.assertEqual(result, TestUserConstants.TEST_DELETE_USER_REQUEST_XML)
