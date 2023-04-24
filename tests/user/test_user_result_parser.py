@@ -95,7 +95,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.extract({"userid": "squidward"}),
+            user_admin.extract({"userid": "squidward", "omvs": True}),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
@@ -109,7 +109,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.extract({"userid": "squidward"})
+            user_admin.extract({"userid": "squidward", "omvs": True})
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY,

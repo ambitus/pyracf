@@ -43,11 +43,11 @@ class Logger:
         return f"{ansi_color}{string}{self.ansi_reset}"
 
     def log_dictionary(
-        self, header_message: str, dictionary: dict, sanitize_string: Union[str, None]
+        self, header_message: str, dictionary: dict, redact_string: Union[str, None]
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
         dictionary_json = json.dumps(dictionary, indent=4)
-        dictionary_json = self.sanitize_string(dictionary_json, sanitize_string)
+        dictionary_json = self.redact_string(dictionary_json, redact_string)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(header_message, colorized_dictionary_json)
 
@@ -55,12 +55,12 @@ class Logger:
         self,
         header_message: str,
         xml_string: Union[str, bytes],
-        sanitize_string: Union[str, None],
+        redact_string: Union[str, None],
     ) -> None:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
-        xml_string = self.sanitize_string(xml_string, sanitize_string)
+        xml_string = self.redact_string(xml_string, redact_string)
         indented_xml_string = self.indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
@@ -75,16 +75,16 @@ class Logger:
         )
         print(f"{header}\n{message}")
 
-    def sanitize_string(
-        self, string: Union[str, bytes], sanitize_string: Union[str, bytes, None]
+    def redact_string(
+        self, string: Union[str, bytes], redact_string: Union[str, bytes, None]
     ) -> str:
-        """Sanitize a string or bytes object."""
-        if not sanitize_string:
+        """Redact a string or sequence of byte in a bytes object."""
+        if not redact_string:
             return string
         redacted_string = "********"
-        if isinstance(sanitize_string, bytes):
+        if isinstance(redact_string, bytes):
             redacted_string = b"********"
-        return string.replace(sanitize_string, redacted_string)
+        return string.replace(redact_string, redacted_string)
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""

@@ -93,54 +93,57 @@ class SecurityAdmin:
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         try:
-            sanitize_password = self.preserved_segment_traits["base"]["password"]
+            redact_password = self.preserved_segment_traits["base"]["password"]
         except KeyError:
-            sanitize_password = None
-        result = self.make_request_unsanitized(
+            redact_password = None
+        result = self.make_request_unredacted(
             security_request,
             opts=opts,
             generate_request_only=generate_request_only,
-            sanitize_password=sanitize_password,
+            redact_password=redact_password,
         )
-        if not sanitize_password:
+        if not redact_password:
             return result
         if isinstance(result, dict):
-            # Dump to json string, sanitize, and then load back to dictionary.
+            # Dump to json string, redact password, and then load back to dictionary.
             return json.loads(
-                self.logger.sanitize_string(json.dumps(result), sanitize_password)
+                self.logger.redact_string(json.dumps(result), redact_password)
             )
-        # Sanitize XML bytes (Always UTF-8).
-        return self.logger.sanitize_string(result, bytes(sanitize_password, "utf-8"))
+        # redact password from XML bytes (Always UTF-8).
+        return self.logger.redact_string(result, bytes(redact_password, "utf-8"))
 
-    def make_request_unsanitized(
+    def make_request_unredacted(
         self,
         security_request: SecurityRequest,
         opts: int = 1,
         generate_request_only=False,
-        sanitize_password=None,
+        redact_password=None,
     ) -> Union[dict, bytes]:
-        """Make request to IRRSMO00 (Result not sanitized, Debug messages are sanitized)."""
+        """
+        Make request to IRRSMO00.
+        Note: Passwords are not redacted from result, but are redacted from log messages.
+        """
         if self.debug:
             self.logger.log_dictionary(
-                "Request Dictionary", self.preserved_segment_traits, sanitize_password
+                "Request Dictionary", self.preserved_segment_traits, redact_password
             )
             self.logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
-                sanitize_password,
+                redact_password,
             )
         if not generate_request_only:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
             )
             if self.debug:
-                self.logger.log_xml("Result XML", result_xml, sanitize_password)
+                self.logger.log_xml("Result XML", result_xml, redact_password)
             results = SecurityResult(result_xml)
             if self.debug:
                 self.logger.log_dictionary(
                     "Result Dictionary",
                     results.get_result_dictionary(),
-                    sanitize_password,
+                    redact_password,
                 )
             return results.get_result_dictionary()
         return security_request.dump_request_xml(encoding="utf-8")
