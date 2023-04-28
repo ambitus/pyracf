@@ -67,6 +67,7 @@ cover/
 # Django stuff:
 # pyRACF does not use Django and we want log samples to be included for unit testing.
 # *.log
+
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
