@@ -7,8 +7,8 @@ from pyracf.common.security_admin import SecurityAdmin
 class AccessAdmin(SecurityAdmin):
     """RACF Access Administration."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, debug=False) -> None:
+        super().__init__(debug=debug)
         self.valid_segment_traits = {
             "base": {
                 "access": "access",

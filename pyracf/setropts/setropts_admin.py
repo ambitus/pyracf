@@ -3,14 +3,15 @@
 from typing import List, Tuple
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.setropts.setropts_requset import SetroptsRequest
+
+from .setropts_requset import SetroptsRequest
 
 
 class SetroptsAdmin(SecurityAdmin):
     """Set RACF Options Administration."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, debug=False) -> None:
+        super().__init__(debug=debug)
         self.valid_segment_traits = {
             "base": {
                 "addcreat": "racf:addcreat",

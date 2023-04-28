@@ -5,6 +5,7 @@ import unittest
 
 import __init__
 
+from tests.user.test_user_debug_logging import TestUserDebugLogging
 from tests.user.test_user_getters import TestUserGetters
 from tests.user.test_user_request_builder import TestUserRequestBuilder
 from tests.user.test_user_result_parser import TestUserResultParser
@@ -23,6 +24,7 @@ def __test_suite() -> unittest.TestSuite:
         TestUserRequestBuilder,
         TestUserGetters,
         TestUserSetters,
+        TestUserDebugLogging,
     ]
     for test_class in test_classes:
         tests = test_loader.loadTestsFromTestCase(test_class)

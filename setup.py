@@ -44,6 +44,7 @@ setup(
         "Operating System :: z/OS",
     ],
     packages=[
+        "pyracf",
         "pyracf.access",
         "pyracf.common",
         "pyracf.dataset",
