@@ -38,19 +38,30 @@ def get_dictionary(json_file: str) -> dict:
         return json.load(json_file_handle)
 
 
+def get_log(log_file: str) -> str:
+    """Read in a log file sample as a string."""
+    with open(log_file, "r", encoding="utf-8") as log_file_handle:
+        return log_file_handle.read()
+
+
 def get_sample(sample_file: str, function_group: str) -> Union[str, bytes]:
     """
     Read in a sample file based on the following folder and naming conventions:
     * <function group>/<function_group>_result_samples (result samples)
     * <function group>/<function_group>_request_samples (request samples)
+    * <function group>/<function_group>_log_samples (log samples)
     * '.json' files get parsed into dictionaries
     * '.xml' files get loaded as strings for result samples and bytes objects for request samples.
+    * '.log' files get loaded as strings.
     """
     result_samples = f"{function_group}/{function_group}_result_samples"
     request_samples = f"{function_group}/{function_group}_request_samples"
+    log_samples = f"{function_group}/{function_group}_log_samples"
     if f"{function_group}_result" in sample_file:
         result_sample_file = f"{result_samples}/{sample_file}"
         if sample_file[-4:] == ".xml":
             return get_xml(result_sample_file)
         return get_dictionary(result_sample_file)
-    return get_xml(f"{request_samples}/{sample_file}", mode="rb")
+    if sample_file[-4:] != ".log":
+        return get_xml(f"{request_samples}/{sample_file}", mode="rb")
+    return get_log(f"{log_samples}/{sample_file}")

@@ -1,17 +1,19 @@
 """Base Class for RACF Administration Interface."""
 
+import json
 from typing import List, Tuple, Union
 
-from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request import SecurityRequest
-from pyracf.common.security_request_error import SecurityRequestError
-from pyracf.common.security_result import SecurityResult
+from .irrsmo00 import IRRSMO00
+from .logger import Logger
+from .security_request import SecurityRequest
+from .security_request_error import SecurityRequestError
+from .security_result import SecurityResult
 
 
 class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
-    def __init__(self) -> None:
+    def __init__(self, debug=False) -> None:
         self.irrsmo00 = IRRSMO00()
         self.valid_segment_traits = {}
         self.common_base_traits_dataset_generic = {
@@ -45,11 +47,17 @@ class SecurityAdmin:
             "generic": "racf:generic",
         }
         self.segment_traits = {}
+        # used to preserve segment traits for debug logging.
+        self.preserved_segment_traits = {}
         self.trait_map = {}
         self.profile_type = None
+        self.logger = Logger()
+        self.debug = debug
 
     def extract_and_check_result(
-        self, security_request: SecurityRequest, generate_request_only=False
+        self,
+        security_request: SecurityRequest,
+        generate_request_only=False,
     ) -> dict:
         """Extract a RACF profile."""
         if generate_request_only:
@@ -62,6 +70,10 @@ class SecurityAdmin:
             and result["securityresult"]["reasoncode"] == 0
         ):
             self.format_profile(result)
+            if self.debug:
+                self.logger.log_dictionary(
+                    "Result Dictionary (Formatted Profile)", result, None
+                )
             return result
         raise SecurityRequestError(result)
 
@@ -70,6 +82,8 @@ class SecurityAdmin:
         for trait in traits:
             if trait in self.valid_segment_traits:
                 self.segment_traits[trait] = traits[trait]
+        # preserve segment traits for debug logging.
+        self.preserved_segment_traits = self.segment_traits
 
     def make_request(
         self,
@@ -78,11 +92,59 @@ class SecurityAdmin:
         generate_request_only=False,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
+        try:
+            redact_password = self.preserved_segment_traits["base"]["password"]
+        except KeyError:
+            redact_password = None
+        result = self.make_request_unredacted(
+            security_request,
+            opts=opts,
+            generate_request_only=generate_request_only,
+            redact_password=redact_password,
+        )
+        if not redact_password:
+            return result
+        if isinstance(result, dict):
+            # Dump to json string, redact password, and then load back to dictionary.
+            return json.loads(
+                self.logger.redact_string(json.dumps(result), redact_password)
+            )
+        # redact password from XML bytes (Always UTF-8).
+        return self.logger.redact_string(result, bytes(redact_password, "utf-8"))
+
+    def make_request_unredacted(
+        self,
+        security_request: SecurityRequest,
+        opts: int = 1,
+        generate_request_only=False,
+        redact_password=None,
+    ) -> Union[dict, bytes]:
+        """
+        Make request to IRRSMO00.
+        Note: Passwords are not redacted from result, but are redacted from log messages.
+        """
+        if self.debug:
+            self.logger.log_dictionary(
+                "Request Dictionary", self.preserved_segment_traits, redact_password
+            )
+            self.logger.log_xml(
+                "Request XML",
+                security_request.dump_request_xml(encoding="utf-8"),
+                redact_password,
+            )
         if not generate_request_only:
             result_xml = self.irrsmo00.call_racf(
                 security_request.dump_request_xml(), opts
             )
+            if self.debug:
+                self.logger.log_xml("Result XML", result_xml, redact_password)
             results = SecurityResult(result_xml)
+            if self.debug:
+                self.logger.log_dictionary(
+                    "Result Dictionary",
+                    results.get_result_dictionary(),
+                    redact_password,
+                )
             return results.get_result_dictionary()
         return security_request.dump_request_xml(encoding="utf-8")
 
@@ -382,3 +444,5 @@ class SecurityAdmin:
                 continue
             for segment in self.valid_segment_traits:
                 self.__validate_trait(trait, segment, traits[trait])
+        # preserve segment traits for debug logging.
+        self.preserved_segment_traits = self.segment_traits
