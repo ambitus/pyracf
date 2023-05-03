@@ -139,7 +139,13 @@ class SecurityAdmin:
             if self.debug:
                 self.logger.log_xml("Result XML", result_xml, redact_password)
             results = SecurityResult(result_xml)
-<<<<<<< HEAD
+
+            if self.debug:
+                self.logger.log_dictionary(
+                    "Result Dictionary",
+                    results.get_result_dictionary(),
+                    redact_password,
+                )
             result_dict = results.get_result_dictionary()
             if (
                 result_dict["securityresult"]["returncode"] != 0
@@ -147,15 +153,7 @@ class SecurityAdmin:
             ):
                 raise SecurityRequestError(result_dict)
             return result_dict
-=======
-            if self.debug:
-                self.logger.log_dictionary(
-                    "Result Dictionary",
-                    results.get_result_dictionary(),
-                    redact_password,
-                )
-            return results.get_result_dictionary()
->>>>>>> main
+
         return security_request.dump_request_xml(encoding="utf-8")
 
     def format_profile(self, result: dict):
