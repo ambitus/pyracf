@@ -19,6 +19,7 @@ from tests.setropts.test_setropts_getters import TestSetroptsGetters
 from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
 from tests.setropts.test_setropts_result_parser import TestSetroptsResultParser
 from tests.setropts.test_setropts_setters import TestSetroptsSetters
+from tests.user.test_user_debug_logging import TestUserDebugLogging
 from tests.user.test_user_getters import TestUserGetters
 from tests.user.test_user_request_builder import TestUserRequestBuilder
 from tests.user.test_user_result_parser import TestUserResultParser
@@ -37,6 +38,7 @@ def __test_suite() -> unittest.TestSuite:
         TestUserRequestBuilder,
         TestUserGetters,
         TestUserSetters,
+        TestUserDebugLogging,
         TestGenprofResultParser,
         TestGenprofRequestBuilder,
         TestGenprofGetters,

@@ -4,13 +4,16 @@ from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
 from pyracf.user.user_request import UserRequest
+from pyracf.common.security_request_error import SecurityRequestError
+
+from .user_request import UserRequest
 
 
 class UserAdmin(SecurityAdmin):
     """User Administration."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, debug=False) -> None:
+        super().__init__(debug=debug)
         self.valid_segment_traits = {
             "base": {
                 "adsp": "racf:adsp",
@@ -221,7 +224,11 @@ class UserAdmin(SecurityAdmin):
             generate_request_only=generate_request_only,
         )
 
-    def del_special(self, userid: str, generate_request_only=False) -> dict:
+    def del_special(
+        self,
+        userid: str,
+        generate_request_only=False,
+    ) -> dict:
         """Make user not RACF special."""
         return self.alter(
             {"userid": userid, "special": False},
@@ -285,7 +292,12 @@ class UserAdmin(SecurityAdmin):
         except KeyError:
             return None
 
-    def set_uid(self, userid: str, uid: int, generate_request_only=False) -> dict:
+    def set_uid(
+        self,
+        userid: str,
+        uid: int,
+        generate_request_only=False,
+    ) -> dict:
         """Set a user's UID."""
         return self.alter(
             {"userid": userid, "uid": str(uid)},
