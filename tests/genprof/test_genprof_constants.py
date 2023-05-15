@@ -40,6 +40,12 @@ TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_XML = get_sample(
 TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_DICTIONARY = get_sample(
     "extract_genprof_result_base_success.json"
 )
+TEST_EXTRACT_GENPROF_RESULT_MULTI_BASE_SUCCESS_XML = get_sample(
+    "extract_genprof_result_multi_base_success.xml"
+)
+TEST_EXTRACT_GENPROF_RESULT_MULTI_BASE_SUCCESS_DICTIONARY = get_sample(
+    "extract_genprof_result_multi_base_success.json"
+)
 TEST_EXTRACT_GENPROF_RESULT_BASE_ERROR_XML = get_sample(
     "extract_genprof_result_base_error.xml"
 )
@@ -91,6 +97,10 @@ TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS = {
     "resourcename": "TESTING",
     "classname": "ELIJTEST",
 }
+TEST_EXTRACT_GENPROF_REQUEST_MULTI_BASE_TRAITS = {
+    "resourcename": "*",
+    "classname": "XFACILIT",
+}
 
 # Delete Genprof
 TEST_DELETE_GENPROF_REQUEST_XML = get_sample("delete_genprof_request.xml")
@@ -100,3 +110,15 @@ TEST_DELETE_GENPROF_REQUEST_XML = get_sample("delete_genprof_request.xml")
 # ============================================================================
 
 TEST_GENPROF_SET_UACC_XML = get_sample("genprof_set_uacc.xml")
+
+# ============================================================================
+# Debug Logging
+# ============================================================================
+
+TEST_ADD_GENPROF_SUCCESS_LOG = get_sample("add_genprof_success.log")
+TEST_ADD_GENPROF_ERROR_LOG = get_sample("add_genprof_error.log")
+
+TEST_EXTRACT_GENPROF_BASE_SUCCESS_LOG = get_sample(
+    "extract_genprof_base_success.log"
+)
+TEST_EXTRACT_GENPROF_BASE_ERROR_LOG = get_sample("extract_genprof_base_error.log")

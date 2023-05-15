@@ -122,6 +122,24 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_DICTIONARY,
         )
 
+    # Successful parse of multiple profiles in one command
+    def test_resource_admin_can_parse_extract_genprof_multi_base_success_xml(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+        dump_request_xml_mock: Mock,
+    ):
+        resource_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        call_racf_mock.return_value = (
+            TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_MULTI_BASE_SUCCESS_XML
+        )
+        self.assertEqual(
+            resource_admin.extract(
+                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_MULTI_BASE_TRAITS
+            ),
+            TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_MULTI_BASE_SUCCESS_DICTIONARY,
+        )
+
     # Error in environment, TESTING already deleted/not added
     def test_resource_admin_can_parse_extract_genprof_base_error_xml(
         self,

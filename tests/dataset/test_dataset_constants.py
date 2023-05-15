@@ -124,3 +124,15 @@ TEST_DELETE_DATASET_REQUEST_XML = get_sample("delete_dataset_request.xml")
 # ============================================================================
 
 TEST_DATASET_SET_UACC_XML = get_sample("dataset_set_uacc.xml")
+
+# ============================================================================
+# Debug Logging
+# ============================================================================
+
+TEST_ADD_DATASET_SUCCESS_LOG = get_sample("add_dataset_success.log")
+TEST_ADD_DATASET_ERROR_LOG = get_sample("add_dataset_error.log")
+
+TEST_EXTRACT_DATASET_BASE_OMVS_SUCCESS_LOG = get_sample(
+    "extract_dataset_base_success.log"
+)
+TEST_EXTRACT_DATASET_BASE_OMVS_ERROR_LOG = get_sample("extract_dataset_base_error.log")

@@ -1,0 +1,56 @@
+{
+    "securityresult":{
+        "resource":{
+            "name":"*",
+            "class":"XFACILIT",
+            "operation":"listdata",
+            "requestid":"ResourceRequest",
+            "commands":[
+                {
+                    "safreturncode":0,
+                    "returncode":0,
+                    "reasoncode":0,
+                    "image":"RLIST   XFACILIT             (*) ",
+                    "profiles":[
+                        {
+                            "base":{
+                                "class":"xfacilit",
+                                "name":"irr.irrsmo00.precheck",
+                                "group class name":"gxfacili",
+                                "level":0,
+                                "owner":"eswift",
+                                "universal access":"read",
+                                "your access":"alter",
+                                "warning":"None",
+                                "installation data":"None",
+                                "application data":"None",
+                                "auditing":"failures(read)",
+                                "notify":"None",
+                                "generic":false
+                            }
+                        },
+                        {
+                            "base":{
+                                "class":"xfacilit",
+                                "name":"hzs.**",
+                                "group class name":"gxfacili",
+                                "level":0,
+                                "owner":"sys1",
+                                "universal access":"read",
+                                "your access":"read",
+                                "warning":"yes",
+                                "installation data":"None",
+                                "application data":"None",
+                                "auditing":"failures(read)",
+                                "notify":"None",
+                                "generic":true
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "returncode":0,
+        "reasoncode":0
+    }
+}

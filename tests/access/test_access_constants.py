@@ -69,3 +69,11 @@ TEST_ALTER_ACCESS_REQUEST_ERROR_TRAITS = {
 }
 # Delete Access
 TEST_DELETE_ACCESS_REQUEST_XML = get_sample("delete_access_request.xml")
+
+# ============================================================================
+# Debug Logging
+# ============================================================================
+
+TEST_ADD_ACCESS_SUCCESS_LOG = get_sample("add_access_success.log")
+TEST_ADD_ACCESS_ERROR_LOG = get_sample("add_access_error.log")
+

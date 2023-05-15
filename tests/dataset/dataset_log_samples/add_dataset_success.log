@@ -1,0 +1,78 @@
+
+                       [pyRACF:Debug] Request Dictionary
+
+
+{
+    "base": {
+        "uacc": "None",
+        "owner": "eswift"
+    }
+}
+
+
+                           [pyRACF:Debug] Request XML
+
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+        <base>
+            <racf:uacc>None</racf:uacc>
+            <racf:owner>eswift</racf:owner>
+        </base>
+    </dataset>
+</securityrequest>
+
+
+                           [pyRACF:Debug] Result XML
+
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>ADDSD                ('ESWIFT.TEST.T1136242.P3020470') </image>
+        </command>
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)</image>
+        </command>
+    </dataset>
+    <returncode>0</returncode>
+    <reasoncode>0</reasoncode>
+</securityresult>
+
+
+                        [pyRACF:Debug] Result Dictionary
+
+
+{
+    "securityresult": {
+        "dataset": {
+            "name": "ESWIFT.TEST.T1136242.P3020470",
+            "operation": "set",
+            "generic": "no",
+            "requestid": "DatasetRequest",
+            "commands": [
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "ADDSD                ('ESWIFT.TEST.T1136242.P3020470') "
+                },
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)"
+                }
+            ]
+        },
+        "returncode": 0,
+        "reasoncode": 0
+    }
+}
