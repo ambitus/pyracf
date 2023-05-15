@@ -118,7 +118,5 @@ TEST_GENPROF_SET_UACC_XML = get_sample("genprof_set_uacc.xml")
 TEST_ADD_GENPROF_SUCCESS_LOG = get_sample("add_genprof_success.log")
 TEST_ADD_GENPROF_ERROR_LOG = get_sample("add_genprof_error.log")
 
-TEST_EXTRACT_GENPROF_BASE_SUCCESS_LOG = get_sample(
-    "extract_genprof_base_success.log"
-)
+TEST_EXTRACT_GENPROF_BASE_SUCCESS_LOG = get_sample("extract_genprof_base_success.log")
 TEST_EXTRACT_GENPROF_BASE_ERROR_LOG = get_sample("extract_genprof_base_error.log")

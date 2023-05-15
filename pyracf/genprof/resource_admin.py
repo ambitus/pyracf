@@ -638,12 +638,16 @@ class ResourceAdmin(SecurityAdmin):
         profiles = []
         for i in range(len(indexes) - 1):
             profile = self.format_profile_generic(
-                messages[indexes[i] : indexes[i + 1]], self.valid_segment_traits, profile_type="generic"
+                messages[indexes[i] : indexes[i + 1]],
+                self.valid_segment_traits,
+                profile_type="generic",
             )
             # Post processing
             if "(g)" in profile["base"].get("name"):
                 profile["base"]["generic"] = True
-                profile["base"]["name"] = self.cast_from_str(profile["base"].get("name")[0])
+                profile["base"]["name"] = self.cast_from_str(
+                    profile["base"].get("name")[0]
+                )
             else:
                 profile["base"]["generic"] = False
 

@@ -36,7 +36,9 @@ class TestAccessDebugLogging(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         access_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_XML
+        )
         with contextlib.redirect_stdout(self.stdout):
             access_admin.add(TestAccessConstants.TEST_ADD_ACCESS_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
@@ -48,10 +50,14 @@ class TestAccessDebugLogging(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         access_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_XML
+        )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                access_admin.add(TestAccessConstants.TEST_ADD_ACCESS_REQUEST_ERROR_TRAITS)
+                access_admin.add(
+                    TestAccessConstants.TEST_ADD_ACCESS_REQUEST_ERROR_TRAITS
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

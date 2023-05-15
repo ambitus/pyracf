@@ -36,7 +36,9 @@ class TestGenprofDebugLogging(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         genprof_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
+        )
         with contextlib.redirect_stdout(self.stdout):
             genprof_admin.add(TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
@@ -48,10 +50,14 @@ class TestGenprofDebugLogging(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         genprof_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_XML
+        )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                genprof_admin.add(TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS)
+                genprof_admin.add(
+                    TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
@@ -70,7 +76,9 @@ class TestGenprofDebugLogging(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            genprof_admin.extract(TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS)
+            genprof_admin.extract(
+                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
+            )
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
             success_log, TestGenprofConstants.TEST_EXTRACT_GENPROF_BASE_SUCCESS_LOG
@@ -87,7 +95,9 @@ class TestGenprofDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                genprof_admin.extract(TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS)
+                genprof_admin.extract(
+                    TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

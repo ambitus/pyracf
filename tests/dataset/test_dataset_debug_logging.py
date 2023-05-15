@@ -36,7 +36,9 @@ class TestDatasetDebugLogging(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         dataset_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestDatasetConstants.TEST_ADD_DATASET_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestDatasetConstants.TEST_ADD_DATASET_RESULT_SUCCESS_XML
+        )
         with contextlib.redirect_stdout(self.stdout):
             dataset_admin.add(TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
@@ -48,10 +50,14 @@ class TestDatasetDebugLogging(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         dataset_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestDatasetConstants.TEST_ADD_DATASET_RESULT_ERROR_XML
+        )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                dataset_admin.add(TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_ERROR_TRAITS)
+                dataset_admin.add(
+                    TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_ERROR_TRAITS
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
@@ -70,7 +76,9 @@ class TestDatasetDebugLogging(unittest.TestCase):
             TestDatasetConstants.TEST_EXTRACT_DATASET_RESULT_BASE_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            dataset_admin.extract(TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS)
+            dataset_admin.extract(
+                TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS
+            )
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
             success_log, TestDatasetConstants.TEST_EXTRACT_DATASET_BASE_SUCCESS_LOG
@@ -87,7 +95,9 @@ class TestDatasetDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                dataset_admin.extract(TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS)
+                dataset_admin.extract(
+                    TestDatasetConstants.TEST_EXTRACT_DATASET_REQUEST_BASE_TRAITS
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

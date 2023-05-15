@@ -152,12 +152,10 @@ class SetroptsAdmin(SecurityAdmin):
         traits = {"classtat": class_name}
         return self.command(traits, generate_request_only=generate_request_only)
 
-
     def classstat_del(self, class_name: str, generate_request_only=False) -> dict:
         """Remove a class from the "Statistics" list."""
         traits = {"noclasstat": class_name}
         return self.command(traits, generate_request_only=generate_request_only)
-
 
     def gencmd_add(self, class_name: str, generate_request_only=False) -> dict:
         """Add a class to the "Generic Command Classes" list."""

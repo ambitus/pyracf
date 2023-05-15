@@ -87,6 +87,4 @@ TEST_SETROPTS_CLASS_ATTRIBUTES = [
 TEST_COMMAND_SETROPTS_SUCCESS_LOG = get_sample("command_setropts_success.log")
 TEST_COMMAND_SETROPTS_ERROR_LOG = get_sample("command_setropts_error.log")
 
-TEST_LIST_SETROPTS_SUCCESS_LOG = get_sample(
-    "list_setropts_success.log"
-)
+TEST_LIST_SETROPTS_SUCCESS_LOG = get_sample("list_setropts_success.log")

@@ -3,8 +3,6 @@
 from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.user.user_request import UserRequest
-from pyracf.common.security_request_error import SecurityRequestError
 
 from .user_request import UserRequest
 
@@ -459,7 +457,9 @@ class UserAdmin(SecurityAdmin):
         profiles = []
         for i in range(len(indexes) - 1):
             profile = self.format_profile_generic(
-                messages[indexes[i] : indexes[i + 1]], self.valid_segment_traits, profile_type="user"
+                messages[indexes[i] : indexes[i + 1]],
+                self.valid_segment_traits,
+                profile_type="user",
             )
             profiles.append(profile)
 
