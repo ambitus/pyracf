@@ -55,9 +55,7 @@ class TestAccessDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                access_admin.add(
-                    TestAccessConstants.TEST_ADD_ACCESS_REQUEST_TRAITS
-                )
+                access_admin.add(TestAccessConstants.TEST_ADD_ACCESS_REQUEST_TRAITS)
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

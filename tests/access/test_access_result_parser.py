@@ -6,24 +6,20 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf.access.access_admin import AccessAdmin
+from pyracf import AccessAdmin
 from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
 
 
-@patch("pyracf.common.security_request.SecurityRequest.dump_request_xml")
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 @patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
 class TestAccessResultParser(unittest.TestCase):
     maxDiff = None
 
-    def boilerplate(
-        self, irrsmo00_init_mock: Mock, dump_request_xml_mock: Mock
-    ) -> AccessAdmin:
+    def boilerplate(self, irrsmo00_init_mock: Mock) -> AccessAdmin:
         irrsmo00_init_mock.return_value = None
-        dump_request_xml_mock.return_value = b""
         return AccessAdmin()
 
     # ============================================================================
@@ -33,9 +29,8 @@ class TestAccessResultParser(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        access_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_XML
         )
@@ -49,9 +44,8 @@ class TestAccessResultParser(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        access_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_XML
         )
@@ -69,9 +63,8 @@ class TestAccessResultParser(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        access_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_XML
         )
@@ -85,9 +78,8 @@ class TestAccessResultParser(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        access_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_XML
         )
@@ -107,9 +99,8 @@ class TestAccessResultParser(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        access_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_SUCCESS_XML
         )
@@ -125,9 +116,8 @@ class TestAccessResultParser(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        access_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        access_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_ERROR_XML
         )

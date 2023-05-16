@@ -13,17 +13,13 @@ from pyracf.setropts.setropts_admin import SetroptsAdmin
 __init__
 
 
-@patch("pyracf.common.security_request.SecurityRequest.dump_request_xml")
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 @patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
 class TestSetroptsGetters(unittest.TestCase):
     maxDiff = None
 
-    def boilerplate(
-        self, irrsmo00_init_mock: Mock, dump_request_xml_mock: Mock
-    ) -> SetroptsAdmin:
+    def boilerplate(self, irrsmo00_init_mock: Mock) -> SetroptsAdmin:
         irrsmo00_init_mock.return_value = None
-        dump_request_xml_mock.return_value = b""
         return SetroptsAdmin()
 
     # ============================================================================
@@ -33,9 +29,8 @@ class TestSetroptsGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
@@ -49,9 +44,8 @@ class TestSetroptsGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
         )
@@ -65,9 +59,8 @@ class TestSetroptsGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         setropts_extract_auditor = (
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
@@ -82,9 +75,8 @@ class TestSetroptsGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
         )

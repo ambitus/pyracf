@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf.access.access_admin import AccessAdmin
+from pyracf import AccessAdmin
 
 # Resolves F401
 __init__

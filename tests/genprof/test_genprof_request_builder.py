@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.genprof.test_genprof_constants as TestGenprofConstants
-from pyracf.genprof.resource_admin import ResourceAdmin
+from pyracf import ResourceAdmin
 
 # Resolves F401
 __init__

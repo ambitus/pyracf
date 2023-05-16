@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.dataset.test_dataset_constants as TestDatasetConstants
-from pyracf.dataset.dataset_admin import DatasetAdmin
+from pyracf import DatasetAdmin
 
 # Resolves F401
 __init__

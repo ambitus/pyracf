@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
-from pyracf.setropts.setropts_admin import SetroptsAdmin
+from pyracf import SetroptsAdmin
 
 # Resolves F401
 __init__

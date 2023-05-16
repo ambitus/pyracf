@@ -132,7 +132,5 @@ TEST_DATASET_SET_UACC_XML = get_sample("dataset_set_uacc.xml")
 TEST_ADD_DATASET_SUCCESS_LOG = get_sample("add_dataset_success.log")
 TEST_ADD_DATASET_ERROR_LOG = get_sample("add_dataset_error.log")
 
-TEST_EXTRACT_DATASET_BASE_SUCCESS_LOG = get_sample(
-    "extract_dataset_base_success.log"
-)
+TEST_EXTRACT_DATASET_BASE_SUCCESS_LOG = get_sample("extract_dataset_base_success.log")
 TEST_EXTRACT_DATASET_BASE_ERROR_LOG = get_sample("extract_dataset_base_error.log")
