@@ -1,4 +1,5 @@
 """Make security admin subclasses available from package root."""
+from .access.access_admin import AccessAdmin
 from .dataset.dataset_admin import DatasetAdmin
 from .genprof.resource_admin import ResourceAdmin
 from .setropts.setropts_admin import SetroptsAdmin

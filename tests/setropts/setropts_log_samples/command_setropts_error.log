@@ -1,26 +1,26 @@
-
-                       [pyRACF:Debug] Request Dictionary
-
+                                                                               
+                       [pyRACF:Debug] Request Dictionary                       
+                                                                               
 
 {
     "base": {
-        "raclist": "elixtest"
+        "raclist": "ELIXTEST"
     }
 }
 
-
-                           [pyRACF:Debug] Request XML
-
+                                                                               
+                           [pyRACF:Debug] Request XML                          
+                                                                               
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
     <systemsettings operation="set" requestid="SetroptsRequest">
-        <racf:raclist>elixtest</racf:raclist>
+        <racf:raclist>ELIXTEST</racf:raclist>
     </systemsettings>
 </securityrequest>
 
-
-                           [pyRACF:Debug] Result XML
-
+                                                                               
+                           [pyRACF:Debug] Result XML                           
+                                                                               
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
@@ -39,9 +39,9 @@
     <reasoncode>0</reasoncode>
 </securityresult>
 
-
-                        [pyRACF:Debug] Result Dictionary
-
+                                                                               
+                        [pyRACF:Debug] Result Dictionary                       
+                                                                               
 
 {
     "securityresult": {

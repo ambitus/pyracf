@@ -40,7 +40,7 @@ class TestDatasetDebugLogging(unittest.TestCase):
             TestDatasetConstants.TEST_ADD_DATASET_RESULT_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            dataset_admin.add(TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_TRAITS)
+            dataset_admin.add(TestDatasetConstants.TEST_ADD_DATASET_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(success_log, TestDatasetConstants.TEST_ADD_DATASET_SUCCESS_LOG)
 
@@ -56,7 +56,7 @@ class TestDatasetDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(self.stdout):
             try:
                 dataset_admin.add(
-                    TestDatasetConstants.TEST_ALTER_DATASET_REQUEST_ERROR_TRAITS
+                    TestDatasetConstants.TEST_ADD_DATASET_REQUEST_ERROR_TRAITS
                 )
             except SecurityRequestError:
                 pass

@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf.access.access_admin import AccessAdmin
+from pyracf import AccessAdmin
 from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
@@ -56,7 +56,7 @@ class TestAccessDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(self.stdout):
             try:
                 access_admin.add(
-                    TestAccessConstants.TEST_ADD_ACCESS_REQUEST_ERROR_TRAITS
+                    TestAccessConstants.TEST_ADD_ACCESS_REQUEST_TRAITS
                 )
             except SecurityRequestError:
                 pass

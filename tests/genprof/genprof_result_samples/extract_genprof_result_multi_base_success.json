@@ -21,11 +21,11 @@
                                 "owner":"eswift",
                                 "universal access":"read",
                                 "your access":"alter",
-                                "warning":"None",
-                                "installation data":"None",
-                                "application data":"None",
+                                "warning":null,
+                                "installation data":null,
+                                "application data":null,
                                 "auditing":"failures(read)",
-                                "notify":"None",
+                                "notify":null,
                                 "generic":false
                             }
                         },
@@ -39,10 +39,10 @@
                                 "universal access":"read",
                                 "your access":"read",
                                 "warning":"yes",
-                                "installation data":"None",
-                                "application data":"None",
+                                "installation data":null,
+                                "application data":null,
                                 "auditing":"failures(read)",
-                                "notify":"None",
+                                "notify":null,
                                 "generic":true
                             }
                         }

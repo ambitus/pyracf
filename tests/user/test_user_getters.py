@@ -72,9 +72,8 @@ class TestUserGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        user_admin = self.boilerplate(irrsmo00_init_mock)
         user_extract_auditor = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
@@ -89,9 +88,8 @@ class TestUserGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        user_admin = self.boilerplate(irrsmo00_init_mock)
         user_extract_no_auditor = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
@@ -103,9 +101,8 @@ class TestUserGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
@@ -119,9 +116,8 @@ class TestUserGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        user_admin = self.boilerplate(irrsmo00_init_mock)
         user_extract_operations = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
@@ -136,9 +132,8 @@ class TestUserGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
@@ -149,9 +144,8 @@ class TestUserGetters(unittest.TestCase):
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
-        dump_request_xml_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock, dump_request_xml_mock)
+        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )

@@ -40,7 +40,7 @@ class TestGenprofDebugLogging(unittest.TestCase):
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            genprof_admin.add(TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS)
+            genprof_admin.add(TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(success_log, TestGenprofConstants.TEST_ADD_GENPROF_SUCCESS_LOG)
 
@@ -56,7 +56,7 @@ class TestGenprofDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(self.stdout):
             try:
                 genprof_admin.add(
-                    TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS
+                    TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_ERROR_TRAITS
                 )
             except SecurityRequestError:
                 pass

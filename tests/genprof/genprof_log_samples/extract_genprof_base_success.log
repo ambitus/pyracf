@@ -1,20 +1,20 @@
-
-                       [pyRACF:Debug] Request Dictionary
-
+                                                                               
+                       [pyRACF:Debug] Request Dictionary                       
+                                                                               
 
 {}
 
-
-                           [pyRACF:Debug] Request XML
-
+                                                                               
+                           [pyRACF:Debug] Request XML                          
+                                                                               
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
     <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest"/>
 </securityrequest>
 
-
-                           [pyRACF:Debug] Result XML
-
+                                                                               
+                           [pyRACF:Debug] Result XML                           
+                                                                               
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
@@ -30,7 +30,7 @@
             <message> </message>
             <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
             <message>-----  --------   ----------------  -----------  -------</message>
-            <message> 00    ESWIFT          NONE               NONE    NO</message>
+            <message> 00    ESWIFT          READ               READ    NO</message>
             <message> </message>
             <message>INSTALLATION DATA</message>
             <message>-----------------</message>
@@ -53,9 +53,9 @@
     <reasoncode>0</reasoncode>
 </securityresult>
 
-
-                        [pyRACF:Debug] Result Dictionary
-
+                                                                               
+                        [pyRACF:Debug] Result Dictionary                       
+                                                                               
 
 {
     "securityresult": {
@@ -77,7 +77,7 @@
                         " ",
                         "LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING",
                         "-----  --------   ----------------  -----------  -------",
-                        " 00    ESWIFT          NONE               NONE    NO",
+                        " 00    ESWIFT          READ               READ    NO",
                         " ",
                         "INSTALLATION DATA",
                         "-----------------",
@@ -103,9 +103,9 @@
     }
 }
 
-
-              [pyRACF:Debug] Result Dictionary (Formatted Profile)
-
+                                                                               
+              [pyRACF:Debug] Result Dictionary (Formatted Profile)             
+                                                                               
 
 {
     "securityresult": {
@@ -127,8 +127,8 @@
                                 "name": "testing",
                                 "level": 0,
                                 "owner": "eswift",
-                                "universal access": null,
-                                "your access": null,
+                                "universal access": "read",
+                                "your access": "read",
                                 "warning": null,
                                 "installation data": null,
                                 "application data": null,
@@ -145,3 +145,4 @@
         "reasoncode": 0
     }
 }
+

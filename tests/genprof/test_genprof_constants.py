@@ -75,6 +75,12 @@ TEST_ADD_GENPROF_REQUEST_TRAITS = {
     "uacc": "None",
     "owner": "eswift",
 }
+TEST_ADD_GENPROF_REQUEST_ERROR_TRAITS = {
+    "resourcename": "TESTING",
+    "classname": "ELIXTEST",
+    "uacc": "None",
+    "owner": "eswift",
+}
 
 # Alter Genprof
 TEST_ALTER_GENPROF_REQUEST_XML = get_sample("alter_genprof_request.xml")

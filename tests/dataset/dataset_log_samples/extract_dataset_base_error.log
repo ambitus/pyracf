@@ -1,79 +1,20 @@
-
-                       [pyRACF:Debug] Request Dictionary
-
-
-{}
-
-
-                           [pyRACF:Debug] Request XML
-
-
-<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="del" generic="no" requestid="DatasetRequest"/>
-</securityrequest>
-
-
-                           [pyRACF:Debug] Result XML
-
-
-<?xml version="1.0" encoding="IBM-1047"?>
-<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="del" generic="no" requestid="DatasetRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>DELDSD               ('ESWIFT.TEST.T1136242.P3020470') </image>
-        </command>
-    </dataset>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
-</securityresult>
-
-
-                        [pyRACF:Debug] Result Dictionary
-
-
-{
-    "securityresult": {
-        "dataset": {
-            "name": "ESWIFT.TEST.T1136242.P3020470",
-            "operation": "del",
-            "generic": "no",
-            "requestid": "DatasetRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470') "
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
-}
-
-{'securityresult': {'dataset': {'name': 'ESWIFT.TEST.T1136242.P3020470', 'operation': 'del', 'generic': 'no', 'requestid': 'DatasetRequest', 'commands': [{'safreturncode': 0, 'returncode': 0, 'reasoncode': 0, 'image': "DELDSD               ('ESWIFT.TEST.T1136242.P3020470') "}]}, 'returncode': 0, 'reasoncode': 0}}
->>> d_admin.extract(traits)
-
-                       [pyRACF:Debug] Request Dictionary
-
+                                                                               
+                       [pyRACF:Debug] Request Dictionary                       
+                                                                               
 
 {}
 
-
-                           [pyRACF:Debug] Request XML
-
+                                                                               
+                           [pyRACF:Debug] Request XML                          
+                                                                               
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
     <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="listdata" generic="no" requestid="DatasetRequest"/>
 </securityrequest>
 
-
-                           [pyRACF:Debug] Result XML
-
+                                                                               
+                           [pyRACF:Debug] Result XML                           
+                                                                               
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
@@ -82,7 +23,7 @@
             <safreturncode>8</safreturncode>
             <returncode>16</returncode>
             <reasoncode>4</reasoncode>
-            <image>LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470') </image>
+            <image>LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')</image>
             <message>ICH35003I NO RACF DESCRIPTION FOUND FOR ESWIFT.TEST.T1136242.P3020470</message>
         </command>
     </dataset>
@@ -90,9 +31,9 @@
     <reasoncode>0</reasoncode>
 </securityresult>
 
-
-                        [pyRACF:Debug] Result Dictionary
-
+                                                                               
+                        [pyRACF:Debug] Result Dictionary                       
+                                                                               
 
 {
     "securityresult": {
@@ -106,7 +47,7 @@
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 4,
-                    "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470') ",
+                    "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')",
                     "messages": [
                         "ICH35003I NO RACF DESCRIPTION FOUND FOR ESWIFT.TEST.T1136242.P3020470"
                     ]
@@ -117,3 +58,4 @@
         "reasoncode": 4
     }
 }
+

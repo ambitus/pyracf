@@ -1,6 +1,6 @@
-
-                       [pyRACF:Debug] Request Dictionary
-
+                                                                               
+                       [pyRACF:Debug] Request Dictionary                       
+                                                                               
 
 {
     "base": {
@@ -9,9 +9,9 @@
     }
 }
 
-
-                           [pyRACF:Debug] Request XML
-
+                                                                               
+                           [pyRACF:Debug] Request XML                          
+                                                                               
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
     <dataset name="ESWIFF.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
@@ -22,9 +22,9 @@
     </dataset>
 </securityrequest>
 
-
-                           [pyRACF:Debug] Result XML
-
+                                                                               
+                           [pyRACF:Debug] Result XML                           
+                                                                               
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
@@ -33,7 +33,7 @@
             <safreturncode>8</safreturncode>
             <returncode>16</returncode>
             <reasoncode>4</reasoncode>
-            <image>ADDSD                ('ESWIFF.TEST.T1136242.P3020470') </image>
+            <image>ADDSD                ('ESWIFF.TEST.T1136242.P3020470')</image>
             <message>ICH09006I USER OR GROUP ESWIFF   NOT DEFINED TO RACF</message>
         </command>
         <command>
@@ -48,9 +48,9 @@
     <reasoncode>0</reasoncode>
 </securityresult>
 
-
-                        [pyRACF:Debug] Result Dictionary
-
+                                                                               
+                        [pyRACF:Debug] Result Dictionary                       
+                                                                               
 
 {
     "securityresult": {
@@ -64,7 +64,7 @@
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 4,
-                    "image": "ADDSD                ('ESWIFF.TEST.T1136242.P3020470') ",
+                    "image": "ADDSD                ('ESWIFF.TEST.T1136242.P3020470')",
                     "messages": [
                         "ICH09006I USER OR GROUP ESWIFF   NOT DEFINED TO RACF"
                     ]
@@ -83,7 +83,5 @@
         "returncode": 4,
         "reasoncode": 4
     }
-}
-
 }
 
