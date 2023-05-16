@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.dataset.test_dataset_constants as TestDatasetConstants
-from pyracf.common.security_request_error import SecurityRequestError
 from pyracf import DatasetAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__

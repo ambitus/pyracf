@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.genprof.test_genprof_constants as TestGenprofConstants
-from pyracf.common.security_request_error import SecurityRequestError
 from pyracf import ResourceAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -18,7 +18,7 @@ __init__
 class TestGenprofResultParser(unittest.TestCase):
     maxDiff = None
 
-    def boilerplate(self, irrsmo00_init_mock: Mock    ) -> ResourceAdmin:
+    def boilerplate(self, irrsmo00_init_mock: Mock) -> ResourceAdmin:
         irrsmo00_init_mock.return_value = None
         return ResourceAdmin()
 

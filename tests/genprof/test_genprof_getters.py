@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.genprof.test_genprof_constants as TestGenprofConstants
-from pyracf.common.security_request_error import SecurityRequestError
 from pyracf import ResourceAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
