@@ -3,7 +3,6 @@
 from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
 
 from .user_request import UserRequest
 
@@ -211,7 +210,7 @@ class UserAdmin(SecurityAdmin):
     def is_special(self, userid: str) -> bool:
         """Check if a user has RACF special."""
         result = self.extract({"userid": userid})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "special" in profile["base"]["attributes"]:
             return True
         return False
@@ -234,42 +233,58 @@ class UserAdmin(SecurityAdmin):
             generate_request_only=generate_request_only,
         )
 
-    def is_auditor(self, userid: str) -> bool:
+    def is_auditor(self, userid: str, generate_request_only=False) -> bool:
         """Check if a user is RACF auditor."""
-        result = self.extract({"userid": userid})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        result = self.extract(
+            {"userid": userid}, generate_request_only=generate_request_only
+        )
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "auditor" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_auditor(self, userid: str) -> dict:
+    def set_auditor(self, userid: str, generate_request_only=False) -> dict:
         """Make user a RACF auditor."""
-        return self.alter({"userid": userid, "auditor": True})
+        return self.alter(
+            {"userid": userid, "auditor": True},
+            generate_request_only=generate_request_only,
+        )
 
-    def del_auditor(self, userid: str) -> dict:
+    def del_auditor(self, userid: str, generate_request_only=False) -> dict:
         """Make user not a RACF auditor."""
-        return self.alter({"userid": userid, "auditor": False})
+        return self.alter(
+            {"userid": userid, "auditor": False},
+            generate_request_only=generate_request_only,
+        )
 
-    def is_operations(self, userid: str) -> bool:
+    def is_operations(self, userid: str, generate_request_only=False) -> bool:
         """Check if a user is RACF operator."""
-        result = self.extract({"userid": userid})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        result = self.extract(
+            {"userid": userid}, generate_request_only=generate_request_only
+        )
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "operations" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_operations(self, userid: str) -> dict:
+    def set_operations(self, userid: str, generate_request_only=False) -> dict:
         """Make user a RACF operator."""
-        return self.alter({"userid": userid, "oper": True})
+        return self.alter(
+            {"userid": userid, "oper": True},
+            generate_request_only=generate_request_only,
+        )
 
-    def del_operations(self, userid: str) -> dict:
+    def del_operations(self, userid: str, generate_request_only=False) -> dict:
         """Make user not a RACF operator."""
-        return self.alter({"userid": userid, "oper": False})
+        return self.alter(
+            {"userid": userid, "oper": False},
+            generate_request_only=generate_request_only,
+        )
 
     def get_uid(self, userid: str) -> Union[str, int]:
         """Get a user's UID."""
         result = self.extract({"userid": userid, "omvs": True})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         try:
             return profile["omvs"]["uid"]
         except KeyError:
@@ -389,16 +404,9 @@ class UserAdmin(SecurityAdmin):
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request)
-        result = self.make_request(
+        return self.make_request(
             user_request, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def alter(self, traits: dict, generate_request_only=False) -> dict:
         """Alter an existing user."""
@@ -406,16 +414,9 @@ class UserAdmin(SecurityAdmin):
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request, alter=True)
-        result = self.make_request(
+        return self.make_request(
             user_request, 3, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def extract(self, traits: dict, generate_request_only=False) -> dict:
         """Extract a user's profile."""
@@ -430,16 +431,9 @@ class UserAdmin(SecurityAdmin):
     def delete(self, userid: str, generate_request_only=False) -> dict:
         """Delete a user."""
         user_request = UserRequest(userid, "del")
-        result = self.make_request(
+        return self.make_request(
             user_request, generate_request_only=generate_request_only
         )
-        if not generate_request_only:
-            if (
-                result["securityresult"]["returncode"] != 0
-                or result["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result)
-        return result
 
     def build_segments(
         self, user_request: UserRequest, alter=False, extract=False
@@ -454,9 +448,21 @@ class UserAdmin(SecurityAdmin):
     def format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["user"]["commands"][0]["messages"]
-        profile = self.format_profile_generic(
-            messages, self.valid_segment_traits, profile_type="user"
-        )
+        indexes = [
+            i
+            for i in range(len(messages) - 1)
+            if messages[i] and "USER=" in messages[i]
+        ]
+        indexes.append(len(messages))
+        profiles = []
+        for i in range(len(indexes) - 1):
+            profile = self.format_profile_generic(
+                messages[indexes[i] : indexes[i + 1]],
+                self.valid_segment_traits,
+                profile_type="user",
+            )
+            profiles.append(profile)
+
         # Post processing
         del result["securityresult"]["user"]["commands"][0]["messages"]
-        result["securityresult"]["user"]["commands"][0]["profile"] = profile
+        result["securityresult"]["user"]["commands"][0]["profiles"] = profiles

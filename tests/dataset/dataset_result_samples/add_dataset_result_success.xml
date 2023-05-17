@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>ADDSD                ('ESWIFT.TEST.T1136242.P3020470')</image>
+        </command>
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)</image>
+        </command>
+    </dataset>
+    <returncode>0</returncode>
+    <reasoncode>0</reasoncode>
+</securityresult>

@@ -139,13 +139,21 @@ class SecurityAdmin:
             if self.debug:
                 self.logger.log_xml("Result XML", result_xml, redact_password)
             results = SecurityResult(result_xml)
+
             if self.debug:
                 self.logger.log_dictionary(
                     "Result Dictionary",
                     results.get_result_dictionary(),
                     redact_password,
                 )
-            return results.get_result_dictionary()
+            result_dict = results.get_result_dictionary()
+            if (
+                result_dict["securityresult"]["returncode"] != 0
+                or result_dict["securityresult"]["reasoncode"] != 0
+            ):
+                raise SecurityRequestError(result_dict)
+            return result_dict
+
         return security_request.dump_request_xml(encoding="utf-8")
 
     def format_profile(self, result: dict):
@@ -164,7 +172,11 @@ class SecurityAdmin:
         profile[current_segment] = {}
         i = 0
         while i < len(messages):
-            if messages[i] == " " or messages[i] in no_segment_information_keys:
+            if (
+                messages[i] == " "
+                or messages[i] in no_segment_information_keys
+                or messages[i] is None
+            ):
                 i += 1
                 continue
             if i < len(messages) - 1 and messages[i] in additional_segment_keys:
@@ -198,8 +210,12 @@ class SecurityAdmin:
             and ("--" in messages[i + 1])
         ):
             self.__format_semi_tabular_data(messages, profile, current_segment, i)
-            i += 1
-        elif i < len(messages) - 2 and ("-" in messages[i + 1]):
+            i += 2
+        elif (
+            i < len(messages) - 2
+            and messages[i + 1] is not None
+            and ("-" in messages[i + 1])
+        ):
             field = " ".join(
                 [
                     txt.lower().strip()
@@ -210,6 +226,10 @@ class SecurityAdmin:
             i += 1
         elif "NO INSTALLATION DATA" in messages[i]:
             profile[current_segment]["installation data"] = None
+        if "INFORMATION FOR DATASET" in messages[i]:
+            profile[current_segment]["name"] = (
+                messages[i].split("INFORMATION FOR DATASET ")[1].lower()
+            )
         return i
 
     def __format_user_profile_data(
@@ -287,8 +307,8 @@ class SecurityAdmin:
         indexes_length = len(indexes)
         for j in range(indexes_length):
             if j < indexes_length - 1:
-                ind_e0 = indexes[j + 1]
-                ind_e1 = indexes[j + 1]
+                ind_e0 = indexes[j + 1] - 1
+                ind_e1 = indexes[j + 1] - 1
             else:
                 ind_e0 = len(messages[i])
                 ind_e1 = len(messages[i + 2])
