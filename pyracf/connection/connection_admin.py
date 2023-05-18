@@ -1,7 +1,7 @@
 """RACF Connection Administration."""
 
-from pyracf.connection.connection_request import ConnectionRequest
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.connection.connection_request import ConnectionRequest
 
 
 class ConnectionAdmin(SecurityAdmin):
@@ -10,26 +10,26 @@ class ConnectionAdmin(SecurityAdmin):
     def __init__(self, debug=False) -> None:
         super().__init__(debug=debug)
         self.valid_segment_traits = {
-            'base': {
-                'adsp': 'racf:adsp', 
-                'auditor': 'racf:auditor', 
-                'auth': 'racf:auth', 
-                'cgauthda': 'racf:cgauthda', 
-                'cginitct': 'racf:cginitct', 
-                'cgljdate': 'racf:cgljdate', 
-                'cgljtime': 'racf:cgljtime', 
-                'group': 'racf:group', 
-                'grpacc': 'racf:grpacc', 
-                'oper': 'racf:oper', 
-                'owner': 'racf:owner', 
-                'resume': 'racf:resume', 
-                'revoke': 'racf:revoke', 
-                'revokefl': 'racf:revokefl', 
-                'special': 'racf:special', 
-                'uacc': 'racf:uacc'
+            "base": {
+                "adsp": "racf:adsp",
+                "auditor": "racf:auditor",
+                "auth": "racf:auth",
+                "cgauthda": "racf:cgauthda",
+                "cginitct": "racf:cginitct",
+                "cgljdate": "racf:cgljdate",
+                "cgljtime": "racf:cgljtime",
+                "group": "racf:group",
+                "grpacc": "racf:grpacc",
+                "oper": "racf:oper",
+                "owner": "racf:owner",
+                "resume": "racf:resume",
+                "revoke": "racf:revoke",
+                "revokefl": "racf:revokefl",
+                "special": "racf:special",
+                "uacc": "racf:uacc",
             }
         }
-    
+
     def add(self, traits: dict, generate_request_only=False) -> dict:
         """Create a new group connection."""
         userid = traits["userid"]
@@ -63,10 +63,14 @@ class ConnectionAdmin(SecurityAdmin):
             connection_request, generate_request_only=generate_request_only
         )
 
-    def build_segments(self, connection_request: ConnectionRequest, alter=False) -> None:
+    def build_segments(
+        self, connection_request: ConnectionRequest, alter=False
+    ) -> None:
         """Build XML representation of segments."""
         for segment, traits in self.segment_traits.items():
             if segment == "base":
-                connection_request.build_segment("", traits, self.trait_map, alter=alter)
+                connection_request.build_segment(
+                    "", traits, self.trait_map, alter=alter
+                )
         # Clear segments for new request
         self.segment_traits = {}

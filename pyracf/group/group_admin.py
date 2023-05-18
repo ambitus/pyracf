@@ -13,33 +13,29 @@ class GroupAdmin(SecurityAdmin):
     def __init__(self, debug=False) -> None:
         super().__init__(debug=debug)
         self.valid_segment_traits = {
-            'base': {
-                'connects': 'racf:connects', 
-                'gauth': 'racf:gauth', 
-                'guserid': 'racf:guserid', 
-                'creatdat': 'racf:creatdat', 
-                'data': 'racf:data', 
-                'model': 'racf:model', 
-                'owner': 'racf:owner', 
-                'subgroup': 'racf:subgroup', 
-                'supgroup': 'racf:supgroup', 
-                'termuacc': 'racf:termuacc', 
-                'universl': 'racf:universl'
-            }, 
-            'csdata': {'custom-keyword': 'racf:custom-keyword'}, 
-            'dfp': {
-                'dataappl': 'racf:dataappl', 
-                'dataclas': 'racf:dataclas', 
-                'mgmtclas': 'racf:mgmtclas', 
-                'storclas': 'racf:storclas'
-            }, 
-            'omvs': {
-                'autogid': 'racf:autogid', 
-                'gid': 'gid', 
-                'shared': 'racf:shared'
-            }, 
-            'ovm': {'gid': 'gid'}, 
-            'tme': {'roles': 'racf:roles'}
+            "base": {
+                "connects": "racf:connects",
+                "gauth": "racf:gauth",
+                "guserid": "racf:guserid",
+                "creatdat": "racf:creatdat",
+                "data": "racf:data",
+                "model": "racf:model",
+                "owner": "racf:owner",
+                "subgroup": "racf:subgroup",
+                "supgroup": "racf:supgroup",
+                "termuacc": "racf:termuacc",
+                "universl": "racf:universl",
+            },
+            "csdata": {"custom-keyword": "racf:custom-keyword"},
+            "dfp": {
+                "dataappl": "racf:dataappl",
+                "dataclas": "racf:dataclas",
+                "mgmtclas": "racf:mgmtclas",
+                "storclas": "racf:storclas",
+            },
+            "omvs": {"autogid": "racf:autogid", "gid": "gid", "shared": "racf:shared"},
+            "ovm": {"gid": "gid"},
+            "tme": {"roles": "racf:roles"},
         }
         self.profile_type = "group"
 

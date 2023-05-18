@@ -191,7 +191,7 @@ class SecurityAdmin:
                 i = self.__format_user_profile_data(
                     messages, profile, current_segment, i
                 )
-            if profile_type == 'group':
+            if profile_type == "group":
                 i = self.__format_group_profile_data(
                     messages, profile, current_segment, i
                 )
@@ -271,11 +271,14 @@ class SecurityAdmin:
         self, messages: List[str], profile: dict, current_segment: str, i: int
     ) -> int:
         """Specialized logic for formatting user profile data."""
-        if 'users' in profile[current_segment].keys() and i < len(messages) - 2:
+        if "users" in profile[current_segment].keys() and i < len(messages) - 2:
             self.__format_user_list_data(messages, profile, current_segment, i)
             i += 2
-        if "USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=" in messages[i]:
-            profile[current_segment]['users'] = []
+        if (
+            "USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS="
+            in messages[i]
+        ):
+            profile[current_segment]["users"] = []
         elif "=" in messages[i]:
             self.__add_key_value_pair_to_profile(
                 messages[i],
@@ -297,26 +300,33 @@ class SecurityAdmin:
         return i
 
     def __format_user_list_data(
-        self,
-        messages: list,
-        profile: dict,
-        current_segment: str,
-        i: int  
+        self, messages: list, profile: dict, current_segment: str, i: int
     ) -> None:
-        profile[current_segment]['users'].append({})
-        user_index = len(profile[current_segment]['users'])
-        user_fields = [field.strip() for field in messages[0].split(' ') if field.strip()]
+        profile[current_segment]["users"].append({})
+        user_index = len(profile[current_segment]["users"])
+        user_fields = [
+            field.strip() for field in messages[0].split(" ") if field.strip()
+        ]
 
-        profile[current_segment]['users'][user_index]['userid'] = user_fields[0]
-        profile[current_segment]['users'][user_index]['access'] = self.cast_from_str(user_fields[1])
-        profile[current_segment]['users'][user_index]['access count'] = self.cast_from_str(user_fields[2])
-        profile[current_segment]['users'][user_index]['universal access'] = self.cast_from_str(user_fields[3])
+        profile[current_segment]["users"][user_index]["userid"] = user_fields[0]
+        profile[current_segment]["users"][user_index]["access"] = self.cast_from_str(
+            user_fields[1]
+        )
+        profile[current_segment]["users"][user_index][
+            "access count"
+        ] = self.cast_from_str(user_fields[2])
+        profile[current_segment]["users"][user_index][
+            "universal access"
+        ] = self.cast_from_str(user_fields[3])
 
-        self.add_key_value_pairs_to_segment(profile[current_segment]['users'][user_index],messages[i+1])
+        self.add_key_value_pairs_to_segment(
+            profile[current_segment]["users"][user_index], messages[i + 1]
+        )
 
-        self.add_key_value_pairs_to_segment(profile[current_segment]['users'][user_index],messages[i+2])
-        
-        
+        self.add_key_value_pairs_to_segment(
+            profile[current_segment]["users"][user_index], messages[i + 2]
+        )
+
     def __build_additional_segment_keys(
         self, valid_segment_traits: dict
     ) -> Tuple[str, str]:
