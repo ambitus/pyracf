@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: echo
+        name: echo
+        entry: echo make pre-commit happy
+        language: system
+        pass_filenames: false
+        always_run: true

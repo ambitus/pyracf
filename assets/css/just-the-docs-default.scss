@@ -1,0 +1,341 @@
+---
+---
+
+{% include css/just-the-docs.scss.liquid color_scheme="dark" %}
+
+:focus-visible {
+    outline: none;
+}
+
+.site-title {
+    font-weight: bold;
+}
+
+.site-title:hover {
+    background-image: none;
+}
+
+.search-input:focus + .search-label .search-icon {
+    color: #9af;
+}
+
+.search-input {
+    color: #fff
+}
+
+.search-active .search-input {
+    background-color: #223;
+}
+
+.search-results {
+    background-color: #223;
+}
+
+.search-result {
+    background-color: #334;
+}
+
+.search-no-result {
+    background-color: #334;
+}
+
+hr {
+    margin-left: -20px;
+}
+
+.search-result:hover, hr {
+    background-color: #445;
+}
+
+a, .search-result-doc .search-result-icon {
+    color: #9af
+}
+
+a:not([class]) {
+    color: #9af;
+    background-image: none;
+    text-decoration: none;
+}
+
+a:not([class]):hover, a:not([class]):focus-visible {
+    background-image: none;
+    text-decoration: underline;
+}
+
+.side-bar, body, .main-header, .search-input {
+    background-color: #223;
+}
+
+.nav-list-item {
+    background-color: #334;
+    margin: 0 0 1px 0;
+    border-style: none none solid none;
+    border-color: #272737;
+    border-width: 1.5px;
+}
+
+.site-nav > .nav-list > li.nav-list-item:first-child {
+    border-radius: 10px 0 0 0;
+}
+
+.site-nav > .nav-list > li.nav-list-item:last-child {
+    border-radius: 0 0 0 10px;
+    border: none;
+}
+
+.site-nav > .nav-list > li.nav-list-item.active:last-child > .nav-list-link {
+    border-radius: 0;
+}
+
+.nav-list .nav-list-item > .nav-list {
+    padding: 0;
+}
+
+.nav-list .nav-list-item > .nav-list .nav-list-item {
+    border: none;
+}
+
+.nav-list .nav-list-item:last-child > .nav-list .nav-list-item:last-child {
+    border-radius: 0 0 0 10px;
+}
+
+.nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link {
+    line-height: inherit;
+}
+
+.nav-list .nav-list-item .nav-list-link {
+    line-height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: auto;
+}
+
+a.nav-list-link {
+    color: #eee;
+    font-weight: bold;
+}
+
+.nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link {
+    color: #bbb;
+    font-weight: normal;
+}
+
+.nav-list .nav-list-item .nav-list-link:hover, 
+.nav-list .nav-list-item .nav-list-link.active,
+.nav-list .nav-list-item .nav-list-link:focus-visible,
+.nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link:hover,
+.nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link.active,
+.nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link:focus-visible {
+    background-image: none;
+    background-color: #445;
+    color: #eee;
+}
+
+.nav-list-link:hover, .nav-list-link.active, .nav-list-link:focus-visible {
+    border-radius: inherit;
+}
+
+.nav-list .nav-list-item .nav-list-expander {
+    height: 3.11rem;
+    padding: 16px;
+    width: 3.11rem;
+    color: #eee;
+}
+
+.nav-list .nav-list-item .nav-list-expander:hover, 
+.nav-list .nav-list-item .nav-list-expander:focus-visible {
+    padding: 13px;
+    background-image: none;
+}
+
+td {
+    background-color: #334;
+    border: 0;
+}
+
+tr:first-child > td:first-of-type {
+    border-radius: 10px 0 0 0;
+}
+
+
+tr:first-child > td:last-of-type {
+    border-radius: 0 10px 0 0;
+}
+
+tr:last-child > td:first-of-type {
+    border-radius: 0 0 0 10px;
+}
+
+
+tr:last-child > td:last-of-type {
+    border-radius: 0 0 10px 0;
+}
+
+pre.highlight {
+    background-color: #334;
+}
+
+code.highlighter-rouge {
+    background-color: #445;
+    border: none;
+}
+
+code, div.highlighter-rouge {
+    background-color: #334;
+    margin-bottom: 24px;
+    line-height: 1;
+}
+
+em {
+    color: #bbb;
+}
+
+blockquote.note, p.note {
+    border-left: 4px solid #9af;
+    background-color: rgba(119, 119, 255, 0.2)
+}
+
+blockquote.note::before, p.note::before {
+    color: #99f;
+}
+
+blockquote.note > p > em > code.highlighter-rouge,
+p.note > p > em > code.highlighter-rouge {
+    background-color: #557;
+    color: #ccc
+}
+
+blockquote.warning > p > em > code.highlighter-rouge {
+    background-color: #553;
+}
+
+.main-content {
+    margin-left: 20px;
+}
+
+p, .main-content ul, .main-content blockquote {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+h4, .main-content h4 {
+    font-weight: bold;
+    font-size: 17px !important;
+    letter-spacing: 0;
+    text-transform: none;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 21px !important;
+}
+
+h2 {
+    font-size: 30px !important;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+    margin-left: -20px;
+}
+
+h3 > em {
+    font-weight: normal;
+}
+
+.main-content .anchor-heading svg, .icon {
+    color: #9af;
+}
+
+.site-button:hover {
+    background-image: none;
+}
+
+.aux-nav-list-item > .site-button {
+    font-size: 13px;
+}
+
+.aux-nav-list-item > .site-button:hover,  .aux-nav-list-item > .site-button:focus-visible{
+    text-decoration: underline;
+}
+
+.site-button:hover > .icon {
+    width: 26px;
+    height: 26px;
+}
+
+#site-home-description {
+    width: 65%;
+    float: left;
+}
+
+img {
+    border-radius: 10px;
+}
+
+.side-bar {
+    border-right: 1px solid #445;
+    background-color: #272737;
+}
+
+.site-header, .main-header {
+    border-bottom: 1px solid #445;
+}
+
+.main {
+    padding-bottom: 40px;
+}
+
+.site-footer {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1000px) {
+    #site-home-description {
+      width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1066px) {
+    .site-nav > .nav-list > li.nav-list-item:first-child, 
+    .site-nav > .nav-list > li.nav-list-item:last-child {
+        border-radius: 0;
+    }
+}
+
+@media only screen and (max-width: 799px) {
+    .side-bar {
+        border: 0;
+    }
+    .main-header {
+        background-color: #272737;
+    }
+    .search-input {
+        background-color: #445;
+    }
+    .site-header {
+        border: 0;
+    }
+    .main-content-wrap {
+        border-top: 1px solid #445;
+    }
+    .nav-open ~ .main-content-wrap {
+        border: 0;
+    }
+}
+
+@media only screen and (max-width: 499px) {
+    .nav-list .nav-list-item .nav-list-expander {
+        height: 3.53rem;
+        width: 3.53rem;
+    }
+    .site-button:hover > .icon {
+        width: 23px;
+        height: 23px;
+    }
+}
+
+#ambitus-logo {
+    position: relative;
+    bottom: 5%;
+}
