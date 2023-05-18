@@ -18,7 +18,7 @@ title: pyRACF
 description: >- # this means to ignore newlines until "baseurl:"
   Python interface to the RACF Command interface.
 baseurl: "/pyracf" # the subpath of your site, e.g. /blog
-url: "https://ibmredbooks.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+#url: "https://pages.github.ibm.com/z-innersource/pyRACF" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: pretty
 # logo: "/assets/img/logo.jpg"
 
