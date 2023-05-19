@@ -112,12 +112,12 @@ a:not([class]):hover, a:not([class]):focus-visible {
 
 a.nav-list-link {
     color: #eee;
-    font-weight: bold;
 }
 
 .nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link {
     color: #bbb;
     font-weight: normal;
+    padding-bottom: 7px;
 }
 
 .nav-list .nav-list-item .nav-list-link:hover, 
@@ -335,7 +335,6 @@ img {
     }
 }
 
-#ambitus-logo {
-    position: relative;
-    bottom: 5%;
+.mermaid {
+    text-align: center;
 }

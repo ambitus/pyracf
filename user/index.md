@@ -3,6 +3,7 @@ layout: default
 title: User Admin
 has_children: true
 permalink: /user
+has_toc: false
 ---
 
 # User Administration

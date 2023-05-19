@@ -75,7 +75,7 @@ Create a new **z/OS userid**.
 
 #### 📥 Parameters
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the user on creation. See **[Traits](#traits)** to see what all of the valid **User Traits** are.
+  A dictionary of **traits/attributes** that should be given to the user on creation. See [Traits](#traits) to see what all of the valid **User Traits** are.
 
 * `generate_request_only`<br>
   **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
@@ -204,7 +204,7 @@ Extract user profiles.
 
 #### 📥 Parameters
 * `traits`<br>
-  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always. Also note that `userid` must also be included in the dictionary to indicate which userid to extract profiles from. See **[Segments](#segmets)** to see what all of the valid **User Segments** are.
+  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always. Also note that `userid` must also be included in the dictionary to indicate which userid to extract profiles from. See [Segments](#segmets) to see what all of the valid **User Segments** are.
 
 * `generate_request_only`<br>
   **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.

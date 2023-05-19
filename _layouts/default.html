@@ -6,6 +6,21 @@ layout: table_wrappers
 
 <html lang="{{ site.lang | default: 'en-US' }}">
 {% include head.html %}
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    theme: 'base',
+    themeVariables: {
+      primaryTextColor: "#ccc",
+      primaryColor: "#334",
+      primaryBorderColor: "#667",
+      tertiaryColor: "#272737",
+      tertiaryTextColor: "#ccc",
+      tertiaryBorderColor: "#556",
+      lineColor: "#ccc"
+    }
+  });
+</script>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="svg-link" viewBox="0 0 24 24">
