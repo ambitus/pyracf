@@ -2,7 +2,7 @@
 layout: default
 title: Data Set Admin
 has_children: true
-permalink: /data_set
+has_toc: false
 ---
 
 # Data Set Administration

@@ -2,7 +2,6 @@
 layout: default
 title: Access Admin
 has_children: true
-permalink: /access
 ---
 
 # Access Administration

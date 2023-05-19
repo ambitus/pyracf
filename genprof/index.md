@@ -2,7 +2,7 @@
 layout: default
 title: General Resource Admin
 has_children: true
-permalink: /genprof
+has_toc: false
 ---
 
 # General Resource Administration

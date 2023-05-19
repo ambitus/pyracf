@@ -2,7 +2,7 @@
 layout: default
 title: Group Admin
 has_children: true
-permalink: /group
+has_toc: false
 ---
 
 # Group Administration

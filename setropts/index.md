@@ -2,7 +2,7 @@
 layout: default
 title: Setropts Admin
 has_children: true
-permalink: /setropts
+has_toc: false
 ---
 
 # Setropts Administration
