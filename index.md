@@ -1,10 +1,12 @@
 ---
 layout: page
+nav_exclude: true
 ---
 
-<h1>pyRACF</h1>
+# pyRACF
 
 Python interface into the RACF management application programming interface.
+{: .fs-6 .fw-300 }
 
 &nbsp;
 

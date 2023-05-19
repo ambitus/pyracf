@@ -6,6 +6,7 @@ parent: User Admin
 # Advanced User Administration
 
 User administration functions that should be used by power users to perform more complex tasks.
+{: .fs-6 .fw-300 }
 
 ## Traits
 

@@ -137,14 +137,14 @@ a.nav-list-link {
 
 .nav-list .nav-list-item .nav-list-expander {
     height: 3.11rem;
-    padding: 16px;
+    padding: 17px;
     width: 3.11rem;
     color: #eee;
 }
 
 .nav-list .nav-list-item .nav-list-expander:hover, 
 .nav-list .nav-list-item .nav-list-expander:focus-visible {
-    padding: 13px;
+    padding: 15px;
     background-image: none;
 }
 
@@ -169,6 +169,15 @@ tr:last-child > td:first-of-type {
 
 tr:last-child > td:last-of-type {
     border-radius: 0 0 10px 0;
+}
+
+div.highlighter-rouge {
+    border-radius: 6px;
+}
+
+div.highlighter-rouge div.highlight {
+    padding: 1rem;
+    border-radius: 6px;
 }
 
 pre.highlight {
@@ -337,4 +346,9 @@ img {
 
 .mermaid {
     text-align: center;
+}
+
+div.highlighter-rouge > button, div.listingblock > div.content > button, figure.highlight > button {
+    color: #9af;
+    border-radius: 5px;
 }

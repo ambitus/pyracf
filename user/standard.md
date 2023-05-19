@@ -6,6 +6,7 @@ parent: User Admin
 # Standard User Administration
 
 User administration functions that should be used for most common use cases.
+{: .fs-6 .fw-300 }
 
 ## `UserAdmin.is_special()`
 
