@@ -47,8 +47,10 @@ setup(
         "pyracf",
         "pyracf.access",
         "pyracf.common",
+        "pyracf.connection"
         "pyracf.dataset",
         "pyracf.genprof",
+        "pyracf.group"
         "pyracf.setropts",
         "pyracf.user",
     ],
