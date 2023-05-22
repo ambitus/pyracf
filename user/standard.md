@@ -345,7 +345,7 @@ Get a user's **z/OS Unix System Services UID**.
 2424
 ```
 
-## `set_uid`
+## `UserAdmin.set_uid()`
 
 ```python
 def set_uid(self, userid: str, uid: int, generate_request_only=False) -> dict:

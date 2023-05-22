@@ -180,7 +180,7 @@ div.highlighter-rouge div.highlight {
     border-radius: 6px;
 }
 
-pre.highlight {
+pre.highlight, .highlight{
     background-color: #334;
 }
 
@@ -193,10 +193,6 @@ code, div.highlighter-rouge {
     background-color: #334;
     margin-bottom: 24px;
     line-height: 1;
-}
-
-em {
-    color: #bbb;
 }
 
 blockquote.note, p.note {
@@ -351,4 +347,6 @@ img {
 div.highlighter-rouge > button, div.listingblock > div.content > button, figure.highlight > button {
     color: #9af;
     border-radius: 5px;
+    background-color: #334;
+    border-color: #334;
 }
