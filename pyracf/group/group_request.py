@@ -1,16 +1,16 @@
-"""User Administration Request Builder."""
+"""Group Administration Request Builder."""
 
 from pyracf.common.security_request import SecurityRequest
 
 
-class UserRequest(SecurityRequest):
-    """User Administration Request Builder."""
+class GroupRequest(SecurityRequest):
+    """Group Administration Request Builder."""
 
-    def __init__(self, userid: str, function: str) -> None:
+    def __init__(self, groupid: str, function: str) -> None:
         super().__init__()
-        self.security_definition.tag = "user"
+        self.security_definition.tag = "group"
         self.security_definition.attrib = {
-            "name": userid,
+            "name": groupid,
             "operation": function,
-            "requestid": "UserRequest",
+            "requestid": "GroupRequest",
         }
