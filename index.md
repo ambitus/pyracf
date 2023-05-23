@@ -49,15 +49,16 @@ While there are a number of languages that can be used to manage RACF, _(from lo
 <pre class="mermaid">
   graph LR
     subgraph Python
-        AccessAdmin --> SecurityAdmin
-        DataSetAdmin --> SecurityAdmin
-        ResourceAdmin --> SecurityAdmin
-        GroupAdmin --> SecurityAdmin
-        SetroptsAdmin --> SecurityAdmin
-        UserAdmin --> SecurityAdmin
+        access[Access Admin] --> parent
+        dataset[DataSet Admin] --> parent
+        resource[Resource Admin] --> parent
+        group[Group Admin] --> parent
+        groupconnect[Group Connection Admin] --> parent
+        setropts[Setropts Admin] --> parent
+        user[User Admin] --> parent
     end
     subgraph C
-        SecurityAdmin --> IRRSMO00
+        parent[Security Admin] --> IRRSMO00
     end
     subgraph System
         IRRSMO00 --> RACF
