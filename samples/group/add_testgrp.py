@@ -1,8 +1,6 @@
 """Create a new group."""
 
 import json
-import random
-import string
 
 from pyracf.group.group_admin import GroupAdmin
 
