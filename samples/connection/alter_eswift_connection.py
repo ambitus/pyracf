@@ -2,12 +2,12 @@
 
 import json
 
-from pyracf.access.access_admin import AccessAdmin
+from pyracf.group.group_admin import GroupAdmin
 
 
 def main():
     """Entrypoint."""
-    access_admin = AccessAdmin()
+    group_admin = GroupAdmin()
 
     traits = {
         "groupname": "TESTGRP",
@@ -16,7 +16,7 @@ def main():
         "special": True,
     }
 
-    result = access_admin.add(traits)
+    result = group_admin.alter(traits)
     print(json.dumps(result, indent=4))
 
 
