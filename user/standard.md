@@ -49,7 +49,7 @@ False
 ## `UserAdmin.set_special()`
 
 ```python
-def set_special(self, userid: str, generate_request_only=False) -> dict:
+def set_special(self, userid: str) -> dict:
 ```
 
 #### 📄 Description
@@ -67,12 +67,9 @@ Give a user **RACF Special** authority.
 * `userid`<br>
   The ID of the user to give **RACF Special** authority.
 
-* `generate_request_only`<br>
-  **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
-
 #### 📤 Returns
 * `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `generate_request_only` toggle is used.
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -90,7 +87,7 @@ Give a user **RACF Special** authority.
 ## `UserAdmin.del_special()`
 
 ```python
-def del_special(self, userid: str, generate_request_only=False) -> dict:
+def del_special(self, userid: str) -> dict:
 ```
 
 #### 📄 Description
@@ -108,12 +105,9 @@ Remove a user's **RACF Special** authority.
 * `userid`<br>
   The ID of the user to take RACF **Special** authority away from.
 
-* `generate_request_only`<br>
-  **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
-
 #### 📤 Returns
 * `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `generate_request_only` toggle is used.
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -348,7 +342,7 @@ Get a user's **z/OS Unix System Services UID**.
 ## `UserAdmin.set_uid()`
 
 ```python
-def set_uid(self, userid: str, uid: int, generate_request_only=False) -> dict:
+def set_uid(self, userid: str, uid: int) -> dict:
 ```
 
 #### 📄 Description
@@ -359,12 +353,9 @@ Change a user's **z/OS Unix System Services UID**.
 * `userid`<br>
   The ID of the user who's **z/OS Unix System Services UID** is being changed.
 
-* `generate_request_only`<br>
-  **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
-
 #### 📤 Returns
 * `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `generate_request_only` toggle is used.
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` attribute is `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

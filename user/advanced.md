@@ -13,11 +13,6 @@ User administration functions that should be used by power users to perform more
 &nbsp;
 
 {: .note }
-> _The `userid` trait is **always required**._
-
-&nbsp;
-
-{: .note }
 > _All traits can be set to `False` in **[`UserAdmin.alter()`](#useradminalter)** to indicate that they should be removed._
 
 &nbsp;
@@ -35,17 +30,22 @@ When using the **[`UserAdmin.add()`](#useradminadd)** and **[`UserAdmin.alter()`
 | `password` | Set the user's password. | Add: `str`<br>Alter: `str`, `False` | `base` |
 | `program` | `Union[str,bool]`: Set the user's **default shell**. | Add: `str`<br>Alter: `str`, `False` | `omvs` |
 | `special` | Set to `True` to give the user **RACF Special** authority or `False` otherwise. | Add: `bool`<br>Alter: `bool` | `base` |
-| `uid` | The user's **z/OS userid**. | Add: `str`<br>Alter: `str`, `False` | `base` |
-| `userid` | Set the user's **z/OS Unix System Services UID**. | Add: `int`, `str`<br>Alter: `int`, `str`, `False` | `omvs` |
+| `uid` | Set the user's **z/OS Unix System Services UID**. | Add: `int`, `str`<br>Alter: `int`, `str`, `False` | `omvs` |
 
 ## Segments
+
+&nbsp;
+
+{: .note }
+> _The `base` segment is **always included** by default._
+
+&nbsp;
 
 When using the **[`UserAdmin.extract()`](#useradminextract)** function, the following are valid segments.
 
 &nbsp;
 
 | **Segment** | **Description** |
-| `base` | The base segment that all userids have |
 | `cics` | |
 | `csdata` | |
 | `dce` | |
@@ -67,7 +67,7 @@ When using the **[`UserAdmin.extract()`](#useradminextract)** function, the foll
 ## `UserAdmin.add()`
 
 ```python
-def add(self, traits: dict, generate_request_only=False) -> Union[dict,str]:
+def add(self, userid: str, traits: dict) -> Union[dict,str]:
 ```
 
 #### 📄 Description
@@ -75,15 +75,15 @@ def add(self, traits: dict, generate_request_only=False) -> Union[dict,str]:
 Create a new **z/OS userid**.
 
 #### 📥 Parameters
+* `userid`<br>
+  The **z/OS userid** being created.
+
 * `traits`<br>
   A dictionary of **traits/attributes** that should be given to the user on creation. See [Traits](#traits) to see what all of the valid **User Traits** are.
 
-* `generate_request_only`<br>
-  **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
-
 #### 📤 Returns
 * `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `generate_request_only` toggle is used.
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -101,7 +101,6 @@ user_admin = UserAdmin()
 
 traits = {
     "name": "Squidward",
-    "userid": "squidwrd",
     "password": "******",
     "owner": "leonard",
     "special": True,
@@ -111,13 +110,13 @@ traits = {
     "program": "/bin/sh",
 }
 
-user_admin.add(traits)
+user_admin.add("squidwrd", traits)
 ```
 
 ## `UserAdmin.alter()`
 
 ```python
-def alter(self, traits: dict, generate_request_only=False) -> Union[dict,str]:
+def alter(self, userid: str, traits: dict) -> Union[dict,str]:
 ```
 
 #### 📄 Description
@@ -125,15 +124,15 @@ def alter(self, traits: dict, generate_request_only=False) -> Union[dict,str]:
 Create a new **z/OS userid**.
 
 #### 📥 Parameters
+* `userid`<br>
+  The **z/OS userid** being altered.
+
 * `traits`<br>
   A dictionary of **traits/attributes** that should be altered. See **[Traits](#traits)** to see what all of the valid **User Traits** are.
 
-* `generate_request_only`<br>
-  **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
-
 #### 📤 Returns
 * `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `generate_request_only` toggle is used.
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_request_only` class attribute is `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -150,20 +149,19 @@ from pyracf import UserAdmin
 user_admin = UserAdmin()
 
 traits = {
-    "userid": "squidwrd",
     "special": False,
     "operator": True,
     "home": "/u/clarinet",
     "program": False,
 }
 
-user_admin.alter(traits)
+user_admin.alter("squidwrd", traits)
 ```
 
 ## `UserAdmin.delete()`
 
 ```python
-def delete(self, userid: str, generate_request_only=False) -> Union[dict,str]:
+def delete(self, userid: str) -> Union[dict,str]:
 ```
 
 #### 📄 Description
@@ -172,14 +170,11 @@ Create a new **z/OS userid**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The z/OS userid to delete.
-
-* `generate_request_only`<br>
-  **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
+  The **z/OS userid** to delete.
 
 #### 📤 Returns
 * `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `generate_request_only` toggle is used.
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -196,7 +191,7 @@ user_admin.delete("squdwrd")
 ## `UserAdmin.extract()`
 
 ```python
-def extract(self, traits: str, generate_request_only=False) -> Union[dict,str]:
+def extract(self, userid: str, segments: dict = {}) -> Union[dict,str]:
 ```
 
 #### 📄 Description
@@ -204,15 +199,15 @@ def extract(self, traits: str, generate_request_only=False) -> Union[dict,str]:
 Extract user profiles.
 
 #### 📥 Parameters
-* `traits`<br>
-  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always. Also note that `userid` must also be included in the dictionary to indicate which userid to extract profiles from. See [Segments](#segmets) to see what all of the valid **User Segments** are.
+* `userid`<br>
+  The **z/OS userid** to extract segment data from.
 
-* `generate_request_only`<br>
-  **Optional** toggle that can be used to tell pyRACF to **ONLY** generate and return the **Security Request** without making any calls to the **IRRSMO00 API**.
+* `segments`<br>
+  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always. Also note that `userid` must also be included in the dictionary to indicate which userid to extract profiles from. See [Segments](#segmets) to see what all of the valid **User Segments** are.
 
 #### 📤 Returns
 * `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `generate_request_only` toggle is used.
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_request_only` class attribute is `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -227,12 +222,11 @@ The following example **extract** userid `squidwrd`'s **base segment** and **OMV
 ```python
 from pyracf import UserAdmin
 user_admin = UserAdmin()
-traits = {
-    "userid": "squidwrd",
+segments = {
     "omvs": True,
     "mfa": False,
 }
-user_admin.extract(traits)
+user_admin.extract("squidwrd", segments=segments)
 ```
 
 ```json

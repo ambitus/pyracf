@@ -6,3 +6,6 @@ vendor
 
 .vscode
 Gemfile.lock
+.coverage
+pyracf/
+tests/

@@ -3,7 +3,9 @@ layout: page
 nav_exclude: true
 ---
 
-# pyRACF
+![pyRACF Logo](/assets/images/logo.png)
+
+&nbsp;
 
 Python interface into the RACF management application programming interface.
 {: .fs-6 .fw-300 }
