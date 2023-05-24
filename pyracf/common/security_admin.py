@@ -13,7 +13,7 @@ from .security_result import SecurityResult
 class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
-    def __init__(self, debug=False) -> None:
+    def __init__(self, debug=False, generate_requests_only=False) -> None:
         self.irrsmo00 = IRRSMO00()
         self.valid_segment_traits = {}
         self.common_base_traits_dataset_generic = {
@@ -53,16 +53,13 @@ class SecurityAdmin:
         self.profile_type = None
         self.logger = Logger()
         self.debug = debug
+        self.generate_requests_only = generate_requests_only
 
-    def extract_and_check_result(
-        self,
-        security_request: SecurityRequest,
-        generate_request_only=False,
-    ) -> dict:
+    def extract_and_check_result(self, security_request: SecurityRequest) -> dict:
         """Extract a RACF profile."""
-        if generate_request_only:
-            return self.make_request(security_request, generate_request_only=True)
         result = self.make_request(security_request)
+        if self.generate_requests_only:
+            return result
         if "error" in result["securityresult"][self.profile_type]:
             raise SecurityRequestError(result)
         if (
@@ -77,11 +74,11 @@ class SecurityAdmin:
             return result
         raise SecurityRequestError(result)
 
-    def build_bool_segment_dictionaries(self, traits: dict) -> None:
+    def build_bool_segment_dictionaries(self, segments: dict) -> None:
         """Build segment dictionaries for profile extract."""
-        for trait in traits:
-            if trait in self.valid_segment_traits:
-                self.segment_traits[trait] = traits[trait]
+        for segment in segments:
+            if segment in self.valid_segment_traits:
+                self.segment_traits[segment] = segments[segment]
         # preserve segment traits for debug logging.
         self.preserved_segment_traits = self.segment_traits
 
@@ -89,7 +86,6 @@ class SecurityAdmin:
         self,
         security_request: SecurityRequest,
         opts: int = 1,
-        generate_request_only=False,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         try:
@@ -99,7 +95,6 @@ class SecurityAdmin:
         result = self.make_request_unredacted(
             security_request,
             opts=opts,
-            generate_request_only=generate_request_only,
             redact_password=redact_password,
         )
         if not redact_password:
@@ -116,7 +111,6 @@ class SecurityAdmin:
         self,
         security_request: SecurityRequest,
         opts: int = 1,
-        generate_request_only=False,
         redact_password=None,
     ) -> Union[dict, bytes]:
         """
@@ -132,29 +126,26 @@ class SecurityAdmin:
                 security_request.dump_request_xml(encoding="utf-8"),
                 redact_password,
             )
-        if not generate_request_only:
-            result_xml = self.irrsmo00.call_racf(
-                security_request.dump_request_xml(), opts
+        if self.generate_requests_only:
+            return security_request.dump_request_xml(encoding="utf-8")
+        result_xml = self.irrsmo00.call_racf(security_request.dump_request_xml(), opts)
+        if self.debug:
+            self.logger.log_xml("Result XML", result_xml, redact_password)
+        results = SecurityResult(result_xml)
+
+        if self.debug:
+            self.logger.log_dictionary(
+                "Result Dictionary",
+                results.get_result_dictionary(),
+                redact_password,
             )
-            if self.debug:
-                self.logger.log_xml("Result XML", result_xml, redact_password)
-            results = SecurityResult(result_xml)
-
-            if self.debug:
-                self.logger.log_dictionary(
-                    "Result Dictionary",
-                    results.get_result_dictionary(),
-                    redact_password,
-                )
-            result_dict = results.get_result_dictionary()
-            if (
-                result_dict["securityresult"]["returncode"] != 0
-                or result_dict["securityresult"]["reasoncode"] != 0
-            ):
-                raise SecurityRequestError(result_dict)
-            return result_dict
-
-        return security_request.dump_request_xml(encoding="utf-8")
+        result_dict = results.get_result_dictionary()
+        if (
+            result_dict["securityresult"]["returncode"] != 0
+            or result_dict["securityresult"]["reasoncode"] != 0
+        ):
+            raise SecurityRequestError(result_dict)
+        return result_dict
 
     def format_profile(self, result: dict):
         """Placeholder for format profile function for profile extract."""

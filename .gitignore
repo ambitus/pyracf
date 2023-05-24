@@ -163,3 +163,11 @@ cython_debug/
 
 # Mac
 .DS_Store
+
+# GitHub Pages
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor
+Gemfile.lock

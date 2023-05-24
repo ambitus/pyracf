@@ -13,7 +13,7 @@
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidward" operation="set" requestid="UserRequest">
+    <user name="squidwrd" operation="set" requestid="UserRequest">
         <base>
             <racf:password>********</racf:password>
         </base>

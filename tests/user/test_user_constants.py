@@ -63,7 +63,6 @@ TEST_DELETE_USER_RESULT_ERROR_DICTIONARY = get_sample("delete_user_result_error.
 TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
 TEST_ADD_USER_REQUEST_TRAITS = {
     "name": "Squidward",
-    "userid": "squidwrd",
     "password": "GIyTTqdF",
     "owner": "leonard",
     "special": True,
@@ -76,7 +75,6 @@ TEST_ADD_USER_REQUEST_TRAITS = {
 # Alter User
 TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
 TEST_ALTER_USER_REQUEST_TRAITS = {
-    "userid": "squidwrd",
     "special": False,
     "operator": True,
     "home": "/u/clarinet",
@@ -88,7 +86,6 @@ TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
     "extract_user_request_base_omvs.xml"
 )
 TEST_EXTRACT_USER_REQUEST_BASE_OMVS_TRAITS = {
-    "userid": "squidwrd",
     "omvs": True,
     "mfa": False,
 }

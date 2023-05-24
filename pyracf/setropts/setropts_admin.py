@@ -10,8 +10,8 @@ from .setropts_requset import SetroptsRequest
 class SetroptsAdmin(SecurityAdmin):
     """Set RACF Options Administration."""
 
-    def __init__(self, debug=False) -> None:
-        super().__init__(debug=debug)
+    def __init__(self, debug=False, generate_requests_only=False) -> None:
+        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
         self.valid_segment_traits = {
             "base": {
                 "addcreat": "racf:addcreat",
@@ -100,22 +100,19 @@ class SetroptsAdmin(SecurityAdmin):
         }
         self.profile_type = "systemsettings"
 
-    def get_password_rules(self, generate_request_only=False) -> str:
+    def get_password_rules(self) -> str:
         """Get RACF password rules."""
-        result = self.list_ropts(generate_request_only=generate_request_only)
+        result = self.list_ropts()
         profile = result["securityresult"]["systemsettings"]["commands"][0]["profile"]
         return profile["password processing options"].get("rules")
 
-    def refresh(self, class_name: str, generate_request_only=False) -> str:
+    def refresh(self, class_name: str) -> str:
         """Refresh raclist."""
-        return self.command(
-            {"raclist": class_name, "refresh": True},
-            generate_request_only=generate_request_only,
-        )
+        return self.command({"raclist": class_name, "refresh": True})
 
-    def get_class_types(self, class_name: str, generate_request_only=False) -> list:
+    def get_class_types(self, class_name: str) -> list:
         """Get RACF class types."""
-        result = self.list_ropts(generate_request_only=generate_request_only)
+        result = self.list_ropts()
         profile = result["securityresult"]["systemsettings"]["commands"][0]["profile"]
         class_info = []
         for key in profile.keys():
@@ -127,103 +124,101 @@ class SetroptsAdmin(SecurityAdmin):
                     class_info.append(key.replace(" raclist only", "").strip())
         return class_info
 
-    def audit_add(self, class_name: str, generate_request_only=False) -> dict:
+    def audit_add(self, class_name: str) -> dict:
         """Add a class to the "Audit" list."""
         traits = {"audit": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def audit_del(self, class_name: str, generate_request_only=False) -> dict:
+    def audit_del(self, class_name: str) -> dict:
         """Delete a class from the "Audit" list."""
         traits = {"noaudit": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def classact_add(self, class_name: str, generate_request_only=False) -> dict:
+    def classact_add(self, class_name: str) -> dict:
         """Add a class to the "Active" list."""
         traits = {"classact": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def classact_del(self, class_name: str, generate_request_only=False) -> dict:
+    def classact_del(self, class_name: str) -> dict:
         """Remove a class from the "Active" list."""
         traits = {"noclassact": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def classstat_add(self, class_name: str, generate_request_only=False) -> dict:
+    def classstat_add(self, class_name: str) -> dict:
         """Add a class to the "Statistics" list."""
         traits = {"classtat": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def classstat_del(self, class_name: str, generate_request_only=False) -> dict:
+    def classstat_del(self, class_name: str) -> dict:
         """Remove a class from the "Statistics" list."""
         traits = {"noclasstat": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def gencmd_add(self, class_name: str, generate_request_only=False) -> dict:
+    def gencmd_add(self, class_name: str) -> dict:
         """Add a class to the "Generic Command Classes" list."""
         traits = {"gencmd": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def gencmd_del(self, class_name: str, generate_request_only=False) -> dict:
+    def gencmd_del(self, class_name: str) -> dict:
         """Remove a class from the "Generic Command Classes" list."""
         traits = {"nogencmd": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def generic_add(self, class_name: str, generate_request_only=False) -> dict:
+    def generic_add(self, class_name: str) -> dict:
         """Add a class to the "Generic Profile Classes" list."""
         traits = {"generic": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def generic_del(self, class_name: str, generate_request_only=False) -> dict:
+    def generic_del(self, class_name: str) -> dict:
         """Remove a class from the "Generic Profile Classes" list."""
         traits = {"nogeneric": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def genlist_add(self, class_name: str, generate_request_only=False) -> dict:
+    def genlist_add(self, class_name: str) -> dict:
         """Add a class to the "GenList" list."""
         traits = {"genlist": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def genlist_del(self, class_name: str, generate_request_only=False) -> dict:
+    def genlist_del(self, class_name: str) -> dict:
         """Remove a class from the "GenList" list."""
         traits = {"nogenlist": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def global_add(self, class_name: str, generate_request_only=False) -> dict:
+    def global_add(self, class_name: str) -> dict:
         """Add a class to the "Global Access Checking" list."""
         traits = {"global": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def global_del(self, class_name: str, generate_request_only=False) -> dict:
+    def global_del(self, class_name: str) -> dict:
         """Remove a class from the "Global Access Checking" list."""
         traits = {"noglobal": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def raclist_add(self, class_name: str, generate_request_only=False) -> dict:
+    def raclist_add(self, class_name: str) -> dict:
         """Add a class to the "SETR Raclist" list."""
         traits = {"raclist": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def raclist_del(self, class_name: str, generate_request_only=False) -> dict:
+    def raclist_del(self, class_name: str) -> dict:
         """Remove a class from the "SETR Raclist" list."""
         traits = {"noraclist": class_name}
-        return self.command(traits, generate_request_only=generate_request_only)
+        return self.command(traits)
 
-    def list_ropts(self, generate_request_only=False) -> dict:
+    def list_ropts(self) -> dict:
         """List RACF options."""
         self.build_segment_dictionary({"list": True})
         setropts_request = SetroptsRequest()
         self.build_segment(setropts_request)
         return self.extract_and_check_result(
-            setropts_request, generate_request_only=generate_request_only
+            setropts_request,
         )
 
-    def command(self, traits: dict, generate_request_only=False) -> dict:
+    def command(self, traits: dict) -> dict:
         """Run a set RACF options command."""
         self.build_segment_dictionary(traits)
         setropts_request = SetroptsRequest()
         self.build_segment(setropts_request)
-        return self.make_request(
-            setropts_request, generate_request_only=generate_request_only
-        )
+        return self.make_request(setropts_request)
 
     def build_segment_dictionary(self, traits: dict) -> None:
         """Build segemnt dictionary for only base segment."""

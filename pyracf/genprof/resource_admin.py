@@ -8,8 +8,8 @@ from .resource_request import ResourceRequest
 class ResourceAdmin(SecurityAdmin):
     """General Resaurce Profile Administration."""
 
-    def __init__(self, debug=False) -> None:
-        super().__init__(debug=debug)
+    def __init__(self, debug=False, generate_requests_only=False) -> None:
+        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
         self.valid_segment_traits = {
             "base": {
                 "appldata": "racf:appldata",
@@ -164,454 +164,204 @@ class ResourceAdmin(SecurityAdmin):
         }
         self.profile_type = "resource"
 
-    def get_uacc(
-        self, resource_name: str, class_name: str, generate_request_only=False
-    ) -> str:
+    def get_uacc(self, resource: str, class_name: str) -> str:
         """Get UACC associated with a general resource profile."""
-        result = self.extract(
-            {"resourcename": resource_name, "classname": class_name},
-            generate_request_only=generate_request_only,
-        )
+        result = self.extract(resource, class_name)
         profile = result["securityresult"]["resource"]["commands"][0]["profiles"][0]
         return profile["base"].get("universal access")
 
     def set_uacc(
         self,
-        resource_name: str,
+        resource: str,
         class_name: str,
         uacc: str,
-        generate_request_only=False,
     ) -> str:
         """Set the UACC for a general resource profile."""
-        return self.alter(
-            {"resourcename": resource_name, "classname": class_name, "uacc": uacc},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(resource, class_name, {"uacc": uacc})
 
-    def get_your_acc(
-        self, resource_name: str, class_name: str, generate_request_only=False
-    ) -> str:
+    def get_your_acc(self, resource: str, class_name: str) -> str:
         """Get the UACC associated with your own general resource profile."""
-        result = self.extract(
-            {"resourcename": resource_name, "classname": class_name},
-            generate_request_only=generate_request_only,
-        )
+        result = self.extract(resource, class_name)
         profile = result["securityresult"]["resource"]["commands"][0]["profiles"][0]
         return profile["base"].get("your access")
 
-    def add_category(
-        self, resource_name: str, class_name: str, category_name: str
-    ) -> str:
+    def add_category(self, resource: str, class_name: str, category: str) -> str:
         """Set the category for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addcategory": category_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addcategory": category})
 
-    def del_category(
-        self, resource_name: str, class_name: str, category_name: str
-    ) -> str:
+    def del_category(self, resource: str, class_name: str, category: str) -> str:
         """Delete the category from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delcategory": category_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delcategory": category})
 
-    def add_member(self, resource_name: str, class_name: str, member_name: str) -> str:
+    def add_member(self, resource: str, class_name: str, member: str) -> str:
         """Add a member to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addmember": member_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addmember": member})
 
-    def del_member(self, resource_name: str, class_name: str, member_name: str) -> str:
+    def del_member(self, resource: str, class_name: str, member: str) -> str:
         """Delete a member from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delmember": member_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delmember": member})
 
-    def add_volume(self, resource_name: str, class_name: str, volume_name: str) -> str:
+    def add_volume(self, resource: str, class_name: str, volume: str) -> str:
         """Add a volume to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addvolume": volume_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addvolume": volume})
 
-    def del_volume(self, resource_name: str, class_name: str, volume_name: str) -> str:
+    def del_volume(self, resource: str, class_name: str, volume: str) -> str:
         """Delete a volume from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delvolume": volume_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delvolume": volume})
 
-    def set_jobname(
-        self, resource_name: str, class_name: str, jobname_name: str
-    ) -> str:
+    def set_jobname(self, resource: str, class_name: str, jobname: str) -> str:
         """Set the jobname for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setjobname": jobname_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setjobname": jobname})
 
-    def add_jobname(
-        self, resource_name: str, class_name: str, jobname_name: str
-    ) -> str:
+    def add_jobname(self, resource: str, class_name: str, jobname: str) -> str:
         """Add a jobname to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addjobname": jobname_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addjobname": jobname})
 
-    def del_jobname(
-        self, resource_name: str, class_name: str, jobname_name: str
-    ) -> str:
+    def del_jobname(self, resource: str, class_name: str, jobname: str) -> str:
         """Delete a jobname from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "deljobname": jobname_name,
-            }
-        )
+        return self.alter(resource, class_name, {"deljobname": jobname})
 
-    def no_jobnames(self, resource_name: str, class_name: str) -> str:
+    def no_jobnames(self, resource: str, class_name: str) -> str:
         """Delete all jobname(s) from the General Resource Profile"""
-        return self.alter(
-            {"resourcename": resource_name, "classname": class_name, "nojobname": "N/A"}
-        )
+        return self.alter(resource, class_name, {"nojobname": "N/A"})
 
-    def set_crtlbl(self, resource_name: str, class_name: str, crtlbl_name: str) -> str:
+    def set_crtlbl(self, resource: str, class_name: str, crtlbl: str) -> str:
         """Set the certificate label for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setcrtlbls": crtlbl_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setcrtlbls": crtlbl})
 
-    def add_crtlbl(self, resource_name: str, class_name: str, crtlbl_name: str) -> str:
+    def add_crtlbl(self, resource: str, class_name: str, crtlbl: str) -> str:
         """Add a certificate label to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addcrtlbls": crtlbl_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addcrtlbls": crtlbl})
 
-    def del_crtlbl(self, resource_name: str, class_name: str, crtlbl_name: str) -> str:
+    def del_crtlbl(self, resource: str, class_name: str, crtlbl: str) -> str:
         """Delete a certificate label from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delcrtlbls": crtlbl_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delcrtlbls": crtlbl})
 
-    def no_crtlbls(self, resource_name: str, class_name: str) -> str:
+    def no_crtlbls(self, resource: str, class_name: str) -> str:
         """Delete all certificate label(s) the General Resource Profile"""
-        return self.alter(
-            {"resourcename": resource_name, "classname": class_name, "nocrtlbls": "N/A"}
-        )
+        return self.alter(resource, class_name, {"nocrtlbls": "N/A"})
 
-    def set_keylbl(self, resource_name: str, class_name: str, keylbl_name: str) -> str:
+    def set_keylbl(self, resource: str, class_name: str, keylbl: str) -> str:
         """Set the key label for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setkeylbls": keylbl_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setkeylbls": keylbl})
 
-    def add_keylbl(self, resource_name: str, class_name: str, keylbl_name: str) -> str:
+    def add_keylbl(self, resource: str, class_name: str, keylbl: str) -> str:
         """Add a key label to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addkeylbls": keylbl_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addkeylbls": keylbl})
 
-    def del_keylbl(self, resource_name: str, class_name: str, keylbl_name: str) -> str:
+    def del_keylbl(self, resource: str, class_name: str, keylbl: str) -> str:
         """Delete a key label from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delkeylbls": keylbl_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delkeylbls": keylbl})
 
-    def no_keylbls(self, resource_name: str, class_name: str) -> str:
+    def no_keylbls(self, resource: str, class_name: str) -> str:
         """Delete all key label(s) from the General Resource Profile"""
-        return self.alter(
-            {"resourcename": resource_name, "classname": class_name, "nokeylbls": "N/A"}
-        )
+        return self.alter(resource, class_name, {"nokeylbls": "N/A"})
 
-    def set_factor(self, resource_name: str, class_name: str, factor_name: str) -> str:
+    def set_factor(self, resource: str, class_name: str, factor: str) -> str:
         """Set the MFA factor for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setfactors": factor_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setfactors": factor})
 
-    def add_factor(self, resource_name: str, class_name: str, factor_name: str) -> str:
+    def add_factor(self, resource: str, class_name: str, factor: str) -> str:
         """Add a MFA factor to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addfactors": factor_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addfactors": factor})
 
-    def del_factor(self, resource_name: str, class_name: str, factor_name: str) -> str:
+    def del_factor(self, resource: str, class_name: str, factor: str) -> str:
         """Delete a MFA factor from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delfactors": factor_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delfactors": factor})
 
-    def no_factors(self, resource_name: str, class_name: str) -> str:
+    def no_factors(self, resource: str, class_name: str) -> str:
         """Delete all MFA facor(s) from the General Resource Profile"""
-        return self.alter(
-            {"resourcename": resource_name, "classname": class_name, "nofactors": "N/A"}
-        )
+        return self.alter(resource, class_name, {"nofactors": "N/A"})
 
-    def set_child(self, resource_name: str, class_name: str, child_name: str) -> str:
+    def set_child(self, resource: str, class_name: str, child: str) -> str:
         """Set the child for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setchildren": child_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setchildren": child})
 
-    def add_child(self, resource_name: str, class_name: str, child_name: str) -> str:
+    def add_child(self, resource: str, class_name: str, child: str) -> str:
         """Add a child to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addchildren": child_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addchildren": child})
 
-    def del_child(self, resource_name: str, class_name: str, child_name: str) -> str:
+    def del_child(self, resource: str, class_name: str, child: str) -> str:
         """Delete a child from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delchildren": child_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delchildren": child})
 
-    def no_children(self, resource_name: str, class_name: str) -> str:
+    def no_children(self, resource: str, class_name: str) -> str:
         """Delete all child(ren) from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "nochildren": "N/A",
-            }
-        )
+        return self.alter(resource, class_name, {"nochildren": "N/A"})
 
-    def set_group(self, resource_name: str, class_name: str, group_name: str) -> str:
+    def set_group(self, resource: str, class_name: str, group: str) -> str:
         """Set the group for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setgroups": group_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setgroups": group})
 
-    def add_group(self, resource_name: str, class_name: str, group_name: str) -> str:
+    def add_group(self, resource: str, class_name: str, group: str) -> str:
         """Add a group to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addgroups": group_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addgroups": group})
 
-    def del_group(self, resource_name: str, class_name: str, group_name: str) -> str:
+    def del_group(self, resource: str, class_name: str, group: str) -> str:
         """Delete a group from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delgroups": group_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delgroups": group})
 
-    def no_groups(self, resource_name: str, class_name: str) -> str:
+    def no_groups(self, resource: str, class_name: str) -> str:
         """Delete all group(s) from the General Resource Profile"""
-        return self.alter(
-            {"resourcename": resource_name, "classname": class_name, "nogroups": "N/A"}
-        )
+        return self.alter(resource, class_name, {"nogroups": "N/A"})
 
-    def set_resource(
-        self, resource_name: str, class_name: str, tme_resource_name: str
-    ) -> str:
+    def set_resource(self, resource: str, class_name: str, tme_resource: str) -> str:
         """Set the TME resource for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setresource": tme_resource_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setresource": tme_resource})
 
-    def add_resource(
-        self, resource_name: str, class_name: str, tme_resource_name: str
-    ) -> str:
+    def add_resource(self, resource: str, class_name: str, tme_resource: str) -> str:
         """Add a TME resource to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addresource": tme_resource_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addresource": tme_resource})
 
-    def del_resource(
-        self, resource_name: str, class_name: str, tme_resource_name: str
-    ) -> str:
+    def del_resource(self, resource: str, class_name: str, tme_resource: str) -> str:
         """Delete a TME resource from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delresource": tme_resource_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delresource": tme_resource})
 
-    def no_resources(self, resource_name: str, class_name: str) -> str:
+    def no_resources(self, resource: str, class_name: str) -> str:
         """Delete all TME resource(s) from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "noresource": "N/A",
-            }
-        )
+        return self.alter(resource, class_name, {"noresource": "N/A"})
 
-    def set_role(self, resource_name: str, class_name: str, role_name: str) -> str:
+    def set_role(self, resource: str, class_name: str, role: str) -> str:
         """Set a role for the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "setroles": role_name,
-            }
-        )
+        return self.alter(resource, class_name, {"setroles": role})
 
-    def add_role(self, resource_name: str, class_name: str, role_name: str) -> str:
+    def add_role(self, resource: str, class_name: str, role: str) -> str:
         """Add a role to the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "addroles": role_name,
-            }
-        )
+        return self.alter(resource, class_name, {"addroles": role})
 
-    def del_role(self, resource_name: str, class_name: str, role_name: str) -> str:
+    def del_role(self, resource: str, class_name: str, role: str) -> str:
         """Delete a role from the General Resource Profile"""
-        return self.alter(
-            {
-                "resourcename": resource_name,
-                "classname": class_name,
-                "delroles": role_name,
-            }
-        )
+        return self.alter(resource, class_name, {"delroles": role})
 
-    def no_roles(self, resource_name: str, class_name: str) -> str:
+    def no_roles(self, resource: str, class_name: str) -> str:
         """Delete all role(s) from the General Resource Profile"""
-        return self.alter(
-            {"resourcename": resource_name, "classname": class_name, "noroles": "N/A"}
-        )
+        return self.alter(resource, class_name, {"noroles": "N/A"})
 
-    def add(self, traits: dict, generate_request_only=False) -> dict:
+    def add(self, resource: str, class_name: str, traits: dict) -> dict:
         """Create a new general resource profile."""
-        resourcename = traits["resourcename"]
-        classname = traits["classname"]
         self.build_segment_dictionaries(traits)
-        profile_request = ResourceRequest(resourcename, classname, "set")
+        profile_request = ResourceRequest(resource, class_name, "set")
         self.build_segments(profile_request)
-        return self.make_request(
-            profile_request, generate_request_only=generate_request_only
-        )
+        return self.make_request(profile_request)
 
-    def alter(self, traits: dict, generate_request_only=False) -> dict:
+    def alter(self, resource: str, class_name: str, traits: dict) -> dict:
         """Alter an existing general resource profile."""
-        resourcename = traits["resourcename"]
-        classname = traits["classname"]
         self.build_segment_dictionaries(traits)
-        profile_request = ResourceRequest(resourcename, classname, "set")
+        profile_request = ResourceRequest(resource, class_name, "set")
         self.build_segments(profile_request, alter=True)
-        return self.make_request(
-            profile_request, 3, generate_request_only=generate_request_only
-        )
+        return self.make_request(profile_request, 3)
 
-    def extract(self, traits: dict, generate_request_only=False) -> dict:
+    def extract(self, resource: str, class_name: str, segments={}) -> dict:
         """Extract a general resource profile."""
-        resourcename = traits["resourcename"]
-        classname = traits["classname"]
-        self.build_bool_segment_dictionaries(traits)
-        profile_request = ResourceRequest(resourcename, classname, "listdata")
+        self.build_bool_segment_dictionaries(segments)
+        profile_request = ResourceRequest(resource, class_name, "listdata")
         self.build_segments(profile_request, extract=True)
-        return self.extract_and_check_result(
-            profile_request, generate_request_only=generate_request_only
-        )
+        return self.extract_and_check_result(profile_request)
 
-    def delete(
-        self, resourcename: str, classname: str, generate_request_only=False
-    ) -> dict:
+    def delete(self, resource: str, class_name: str) -> dict:
         """Delete a general resource profile."""
-        profile_request = ResourceRequest(resourcename, classname, "del")
-        return self.make_request(
-            profile_request, generate_request_only=generate_request_only
-        )
+        profile_request = ResourceRequest(resource, class_name, "del")
+        return self.make_request(profile_request)
 
     def build_segments(
         self,

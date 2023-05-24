@@ -1,5 +1,7 @@
 """RACF Data Set Profile Administration."""
 
+from typing import Union
+
 from pyracf.common.security_admin import SecurityAdmin
 
 from .dataset_request import DatasetRequest
@@ -8,8 +10,8 @@ from .dataset_request import DatasetRequest
 class DatasetAdmin(SecurityAdmin):
     """RACF DataSet Profile Administration."""
 
-    def __init__(self, debug=False) -> None:
-        super().__init__(debug=debug)
+    def __init__(self, debug=False, generate_requests_only=False) -> None:
+        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
         self.valid_segment_traits = {
             "base": {
                 "altvol": "racf:altvol",
@@ -64,107 +66,106 @@ class DatasetAdmin(SecurityAdmin):
         self.trait_map = {}
         self.profile_type = "dataset"
 
-    def get_uacc(self, dataset_name: str, generate_request_only=False) -> str:
+    def get_uacc(self, data_set: str) -> str:
         """Get UACC associated with a data set profile."""
-        result = self.extract(
-            {"datasetname": dataset_name}, generate_request_only=generate_request_only
-        )
+        result = self.extract(data_set)
         profile = result["securityresult"]["dataset"]["commands"][0]["profiles"][0]
         return profile["base"].get("universal access")
 
-    def set_uacc(
-        self, dataset_name: str, uacc: str, generate_request_only=False
-    ) -> str:
+    def set_uacc(self, data_set: str, uacc: str) -> str:
         """Set the UACC for a data set profile."""
-        return self.alter(
-            {"datasetname": dataset_name, "uacc": uacc},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(data_set, {"uacc": uacc})
 
-    def get_your_acc(self, dataset_name: str, generate_request_only=False) -> str:
+    def get_your_acc(self, data_set: str) -> str:
         """Get the UACC associated with your own data set profile."""
-        result = self.extract(
-            {"datasetname": dataset_name}, generate_request_only=generate_request_only
-        )
+        result = self.extract(data_set)
         profile = result["securityresult"]["dataset"]["commands"][0]["profiles"][0]
         return profile["base"].get("your access")
 
-    def add_category(self, dataset_name: str, category_name: str) -> str:
+    def add_category(self, data_set: str, category: str) -> str:
         """Set the category for the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "addcategory": category_name})
+        return self.alter(data_set, {"addcategory": category})
 
-    def del_category(self, dataset_name: str, category_name: str) -> str:
+    def del_category(self, data_set: str, category: str) -> str:
         """Delete the category from the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "delcategory": category_name})
+        return self.alter(data_set, {"delcategory": category})
 
-    def set_volume(self, dataset_name: str, volume_name: str) -> str:
+    def set_volume(self, data_set: str, volume: str) -> str:
         """Set the volume for the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "setvolume": volume_name})
+        return self.alter(data_set, {"setvolume": volume})
 
-    def add_volume(self, dataset_name: str, volume_name: str) -> str:
+    def add_volume(self, data_set: str, volume: str) -> str:
         """Add a volume to the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "addvolume": volume_name})
+        return self.alter(data_set, {"addvolume": volume})
 
-    def del_volume(self, dataset_name: str, volume_name: str) -> str:
+    def del_volume(self, data_set: str, volume: str) -> str:
         """Delete a volume from the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "delvolume": volume_name})
+        return self.alter(data_set, {"delvolume": volume})
 
-    def set_role(self, dataset_name: str, role_name: str) -> str:
+    def set_role(self, data_set: str, role: str) -> str:
         """Set a role for the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "setroles": role_name})
+        return self.alter(data_set, {"setroles": role})
 
-    def add_role(self, dataset_name: str, role_name: str) -> str:
+    def add_role(self, data_set: str, role: str) -> str:
         """Add a role to the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "addroles": role_name})
+        return self.alter(data_set, {"addroles": role})
 
-    def del_role(self, dataset_name: str, role_name: str) -> str:
+    def del_role(self, data_set: str, role: str) -> str:
         """Delete a role from the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "delroles": role_name})
+        return self.alter(data_set, {"delroles": role})
 
-    def no_roles(self, dataset_name: str) -> str:
+    def no_roles(self, data_set: str) -> str:
         """Delete all role(s) from the Dataset Profile"""
-        return self.alter({"datasetname": dataset_name, "noroles": "N/A"})
+        return self.alter(data_set, {"noroles": "N/A"})
 
-    def add(self, traits: dict, generate_request_only=False) -> dict:
+    def add(
+        self,
+        data_set: str,
+        traits: dict,
+        volume: Union[str, None] = None,
+        generic: bool = False,
+    ) -> dict:
         """Create a new data set profile."""
         self.build_segment_dictionaries(traits)
-        dataset_request = DatasetRequest(traits, "set")
+        dataset_request = DatasetRequest(data_set, "set", volume, generic)
         self.build_segments(dataset_request)
-        return self.make_request(
-            dataset_request, generate_request_only=generate_request_only
-        )
+        return self.make_request(dataset_request)
 
-    def alter(self, traits: dict, generate_request_only=False) -> dict:
+    def alter(
+        self,
+        data_set: str,
+        traits: dict,
+        volume: Union[str, None] = None,
+        generic: bool = False,
+    ) -> dict:
         """Alter an existing data set profile."""
         self.build_segment_dictionaries(traits)
-        dataset_request = DatasetRequest(traits, "set")
+        dataset_request = DatasetRequest(data_set, "set", volume, generic)
         self.build_segments(dataset_request, alter=True)
-        return self.make_request(
-            dataset_request, 3, generate_request_only=generate_request_only
-        )
+        return self.make_request(dataset_request, 3)
 
-    def extract(self, traits: dict, generate_request_only=False) -> dict:
+    def extract(
+        self,
+        data_set: str,
+        segments: dict = {},
+        volume: Union[str, None] = None,
+        generic: bool = False,
+    ) -> dict:
         """Extract a data set profile."""
-        self.build_bool_segment_dictionaries(traits)
-        dataset_request = DatasetRequest(traits, "listdata")
+        self.build_bool_segment_dictionaries(segments)
+        dataset_request = DatasetRequest(data_set, "listdata", volume, generic)
         self.build_segments(dataset_request, extract=True)
-        return self.extract_and_check_result(
-            dataset_request, generate_request_only=generate_request_only
-        )
+        return self.extract_and_check_result(dataset_request)
 
     def delete(
         self,
-        datasetname: str,
-        generic: str = "no",
-        volid: str = "",
-        generate_request_only=False,
+        data_set: str,
+        volume: Union[str, None] = None,
+        generic: bool = False,
     ) -> dict:
         """Delete a data set profile."""
-        traits = {"datasetname": datasetname, "generic": generic, "volid": volid}
-        dataset_request = DatasetRequest(traits, "del")
-        return self.make_request(
-            dataset_request, generate_request_only=generate_request_only
-        )
+        dataset_request = DatasetRequest(data_set, "del", volume, generic)
+        return self.make_request(dataset_request)
 
     def build_segments(
         self, dataset_request: DatasetRequest, alter=False, extract=False

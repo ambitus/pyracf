@@ -18,21 +18,21 @@ class TestGenprofRequestBuilder(unittest.TestCase):
 
     def boilerplate(self, irrsmo00_init_mock: Mock) -> ResourceAdmin:
         irrsmo00_init_mock.return_value = None
-        return ResourceAdmin()
+        return ResourceAdmin(generate_requests_only=True)
 
     def test_resource_admin_build_add_genprof_request(self, irrsmo00_init_mock: Mock):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
         result = resource_admin.add(
-            TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS,
-            generate_request_only=True,
+            "TESTING", "ELIJTEST", TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS
         )
         self.assertEqual(result, TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_XML)
 
     def test_resource_admin_build_alter_genprof_request(self, irrsmo00_init_mock: Mock):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
         result = resource_admin.alter(
+            "TESTING",
+            "ELIJTEST",
             TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS,
-            generate_request_only=True,
         )
         self.assertEqual(result, TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_XML)
 
@@ -40,10 +40,7 @@ class TestGenprofRequestBuilder(unittest.TestCase):
         self, irrsmo00_init_mock: Mock
     ):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.extract(
-            TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS,
-            generate_request_only=True,
-        )
+        result = resource_admin.extract("TESTING", "ELIJTEST")
         self.assertEqual(
             result, TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_XML
         )
@@ -52,7 +49,5 @@ class TestGenprofRequestBuilder(unittest.TestCase):
         self, irrsmo00_init_mock: Mock
     ):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.delete(
-            "TESTING", "ELIJTEST", generate_request_only=True
-        )
+        result = resource_admin.delete("TESTING", "ELIJTEST")
         self.assertEqual(result, TestGenprofConstants.TEST_DELETE_GENPROF_REQUEST_XML)

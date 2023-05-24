@@ -1,4 +1,4 @@
-# pyRACF
+![pyRACF Logo](pyracf.png)
 
 Python interface into the RACF management application programming interface.
 

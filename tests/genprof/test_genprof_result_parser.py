@@ -35,7 +35,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            resource_admin.add({"resourcename": "TESTING", "classname": "ELIJTEST"}),
+            resource_admin.add("TESTING", "ELIJTEST", {}),
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -50,7 +50,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            resource_admin.add({"resourcename": "TESTING", "classname": "ELIXTEST"})
+            resource_admin.add("TESTING", "ELIXTEST", {})
         self.assertEqual(
             exception.exception.results,
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_ERROR_DICTIONARY,
@@ -70,7 +70,9 @@ class TestGenprofResultParser(unittest.TestCase):
         )
         self.assertEqual(
             resource_admin.alter(
-                TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS
+                "TESTING",
+                "ELIJTEST",
+                TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_TRAITS,
             ),
             TestGenprofConstants.TEST_ALTER_GENPROF_RESULT_SUCCESS_DICTIONARY,
         )
@@ -87,7 +89,9 @@ class TestGenprofResultParser(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError) as exception:
             resource_admin.alter(
-                TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS
+                "TESTING",
+                "ELIJTEST",
+                TestGenprofConstants.TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS,
             )
         self.assertEqual(
             exception.exception.results,
@@ -107,9 +111,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_XML
         )
         self.assertEqual(
-            resource_admin.extract(
-                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
-            ),
+            resource_admin.extract("TESTING", "ELIJTEST"),
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_DICTIONARY,
         )
 
@@ -124,9 +126,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_MULTI_BASE_SUCCESS_XML
         )
         self.assertEqual(
-            resource_admin.extract(
-                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_MULTI_BASE_TRAITS
-            ),
+            resource_admin.extract("*", "XFACILIT"),
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_MULTI_BASE_SUCCESS_DICTIONARY,
         )
 
@@ -141,9 +141,7 @@ class TestGenprofResultParser(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            resource_admin.extract(
-                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
-            )
+            resource_admin.extract("TESTING", "ELIJTEST")
         self.assertEqual(
             exception.exception.results,
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_ERROR_DICTIONARY,

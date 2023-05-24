@@ -39,7 +39,7 @@ class TestUserDebugLogging(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         with contextlib.redirect_stdout(self.stdout):
-            user_admin.add({"userid": "squidward", "password": self.test_password})
+            user_admin.add("squidwrd", {"password": self.test_password})
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_SUCCESS_LOG)
         self.assertNotIn(self.test_password, success_log)
@@ -53,7 +53,7 @@ class TestUserDebugLogging(unittest.TestCase):
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         with contextlib.redirect_stdout(self.stdout):
             try:
-                user_admin.add({"userid": "squidward", "password": self.test_password})
+                user_admin.add("squidwrd", {"password": self.test_password})
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
@@ -73,7 +73,7 @@ class TestUserDebugLogging(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            user_admin.extract({"userid": "squidward", "omvs": True})
+            user_admin.extract("squidwrd", segments={"omvs": True})
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
             success_log, TestUserConstants.TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG
@@ -90,7 +90,7 @@ class TestUserDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                user_admin.extract({"userid": "squidward", "omvs": True})
+                user_admin.extract("squidwrd", segments={"omvs": True})
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

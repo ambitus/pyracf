@@ -75,33 +75,14 @@ TEST_DELETE_DATASET_RESULT_ERROR_DICTIONARY = get_sample(
 
 # Add Dataset
 TEST_ADD_DATASET_REQUEST_XML = get_sample("add_dataset_request.xml")
-TEST_ADD_DATASET_REQUEST_TRAITS = {
-    "datasetname": "ESWIFT.TEST.T1136242.P3020470",
-    "uacc": "None",
-    "owner": "eswift",
-}
-TEST_ADD_DATASET_REQUEST_ERROR_TRAITS = {
-    "datasetname": "ESWIFF.TEST.T1136242.P3020470",
-    "uacc": "None",
-    "owner": "eswift",
-}
+TEST_ADD_DATASET_REQUEST_TRAITS = {"uacc": "None", "owner": "eswift"}
 
 # Add Dataset Generic
 TEST_ADD_DATASET_REQUEST_GENERIC_XML = get_sample("add_dataset_request_generic.xml")
-TEST_ADD_DATASET_REQUEST_GENERIC_TRAITS = {
-    "datasetname": "ESWIFT.TEST.**",
-    "uacc": "None",
-    "owner": "eswift",
-    "generic": "yes",
-}
 
 # Alter Dataset
 TEST_ALTER_DATASET_REQUEST_XML = get_sample("alter_dataset_request.xml")
-TEST_ALTER_DATASET_REQUEST_TRAITS = {
-    "datasetname": "ESWIFT.TEST.T1136242.P3020470",
-    "uacc": "Read",
-    "owner": "eswift",
-}
+TEST_ALTER_DATASET_REQUEST_TRAITS = {"uacc": "Read", "owner": "eswift"}
 
 # Extract Dataset
 TEST_EXTRACT_DATASET_REQUEST_BASE_XML = get_sample("extract_dataset_request_base.xml")

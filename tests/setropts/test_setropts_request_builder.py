@@ -18,15 +18,14 @@ class TestSetroptsRequestBuilder(unittest.TestCase):
 
     def boilerplate(self, irrsmo00_init_mock: Mock) -> SetroptsAdmin:
         irrsmo00_init_mock.return_value = None
-        return SetroptsAdmin()
+        return SetroptsAdmin(generate_requests_only=True)
 
     def test_setropts_admin_build_command_setropts_request(
         self, irrsmo00_init_mock: Mock
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         result = setropts_admin.command(
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS,
-            generate_request_only=True,
+            TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS
         )
         self.assertEqual(
             result, TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_XML
@@ -34,7 +33,5 @@ class TestSetroptsRequestBuilder(unittest.TestCase):
 
     def test_setropts_admin_build_list_setropts_request(self, irrsmo00_init_mock: Mock):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
-        result = setropts_admin.list_ropts(
-            generate_request_only=True,
-        )
+        result = setropts_admin.list_ropts()
         self.assertEqual(result, TestSetroptsConstants.TEST_LIST_SETROPTS_REQUEST_XML)

@@ -10,8 +10,8 @@ from .user_request import UserRequest
 class UserAdmin(SecurityAdmin):
     """User Administration."""
 
-    def __init__(self, debug=False) -> None:
-        super().__init__(debug=debug)
+    def __init__(self, debug=False, generate_requests_only=False) -> None:
+        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
         self.valid_segment_traits = {
             "base": {
                 "adsp": "racf:adsp",
@@ -209,81 +209,58 @@ class UserAdmin(SecurityAdmin):
 
     def is_special(self, userid: str) -> bool:
         """Check if a user has RACF special."""
-        result = self.extract({"userid": userid})
+        result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "special" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_special(self, userid: str, generate_request_only=False) -> dict:
+    def set_special(self, userid: str) -> dict:
         """Make user RACF special."""
-        return self.alter(
-            {"userid": userid, "special": True},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(userid, {"special": True})
 
     def del_special(
         self,
         userid: str,
-        generate_request_only=False,
     ) -> dict:
         """Make user not RACF special."""
-        return self.alter(
-            {"userid": userid, "special": False},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(userid, {"special": False})
 
-    def is_auditor(self, userid: str, generate_request_only=False) -> bool:
+    def is_auditor(self, userid: str) -> bool:
         """Check if a user is RACF auditor."""
-        result = self.extract(
-            {"userid": userid}, generate_request_only=generate_request_only
-        )
+        result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "auditor" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_auditor(self, userid: str, generate_request_only=False) -> dict:
+    def set_auditor(self, userid: str) -> dict:
         """Make user a RACF auditor."""
-        return self.alter(
-            {"userid": userid, "auditor": True},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(userid, {"auditor": True})
 
-    def del_auditor(self, userid: str, generate_request_only=False) -> dict:
+    def del_auditor(self, userid: str) -> dict:
         """Make user not a RACF auditor."""
-        return self.alter(
-            {"userid": userid, "auditor": False},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(userid, {"auditor": False})
 
-    def is_operations(self, userid: str, generate_request_only=False) -> bool:
+    def is_operations(self, userid: str) -> bool:
         """Check if a user is RACF operator."""
-        result = self.extract(
-            {"userid": userid}, generate_request_only=generate_request_only
-        )
+        result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "operations" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_operations(self, userid: str, generate_request_only=False) -> dict:
+    def set_operations(self, userid: str) -> dict:
         """Make user a RACF operator."""
-        return self.alter(
-            {"userid": userid, "oper": True},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(userid, {"oper": True})
 
-    def del_operations(self, userid: str, generate_request_only=False) -> dict:
+    def del_operations(self, userid: str) -> dict:
         """Make user not a RACF operator."""
-        return self.alter(
-            {"userid": userid, "oper": False},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(userid, {"oper": False})
 
     def get_uid(self, userid: str) -> Union[str, int]:
         """Get a user's UID."""
-        result = self.extract({"userid": userid, "omvs": True})
+        result = self.extract(userid, segments={"omvs": True})
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         try:
             return profile["omvs"]["uid"]
@@ -294,146 +271,131 @@ class UserAdmin(SecurityAdmin):
         self,
         userid: str,
         uid: int,
-        generate_request_only=False,
     ) -> dict:
         """Set a user's UID."""
-        return self.alter(
-            {"userid": userid, "uid": str(uid)},
-            generate_request_only=generate_request_only,
-        )
+        return self.alter(userid, {"uid": str(uid)})
 
-    def add_category(self, userid: str, category_name: str) -> str:
+    def add_category(self, userid: str, category: str) -> str:
         """Set the category for the User Profile"""
-        return self.alter({"userid": userid, "addcategory": category_name})
+        return self.alter(userid, {"addcategory": category})
 
-    def del_category(self, userid: str, category_name: str) -> str:
+    def del_category(self, userid: str, category: str) -> str:
         """Delete the category from the User Profile"""
-        return self.alter({"userid": userid, "delcategory": category_name})
+        return self.alter(userid, {"delcategory": category})
 
-    def set_clauth(self, userid: str, clauth_name: str) -> str:
+    def set_clauth(self, userid: str, clauth: str) -> str:
         """Set the class authorization for the User Profile"""
-        return self.alter({"userid": userid, "setclauth": clauth_name})
+        return self.alter(userid, {"setclauth": clauth})
 
-    def add_clauth(self, userid: str, clauth_name: str) -> str:
+    def add_clauth(self, userid: str, clauth: str) -> str:
         """Add a class authorization to the User Profile"""
-        return self.alter({"userid": userid, "addclauth": clauth_name})
+        return self.alter(userid, {"addclauth": clauth})
 
-    def del_clauth(self, userid: str, clauth_name: str) -> str:
+    def del_clauth(self, userid: str, clauth: str) -> str:
         """Remove a class authorization from the User Profile"""
-        return self.alter({"userid": userid, "delclauth": clauth_name})
+        return self.alter(userid, {"delclauth": clauth})
 
     def no_clauth(self, userid: str) -> str:
         """Remove all class authorization(s) from the User Profile"""
-        return self.alter({"userid": userid, "noclauth": "N/A"})
+        return self.alter(userid, {"noclauth": "N/A"})
 
-    def add_mfapolnm(self, userid: str, mfapolnm_name: str) -> str:
+    def add_mfapolnm(self, userid: str, mfapolnm: str) -> str:
         """Set the MFA Policy Name from the User Profile"""
-        return self.alter({"userid": userid, "addmfapolnm": mfapolnm_name})
+        return self.alter(userid, {"addmfapolnm": mfapolnm})
 
-    def del_mfapolnm(self, userid: str, mfapolnm_name: str) -> str:
+    def del_mfapolnm(self, userid: str, mfapolnm: str) -> str:
         """Remove the MFA Policy Name from the User Profile"""
-        return self.alter({"userid": userid, "delmfapolnm": mfapolnm_name})
+        return self.alter(userid, {"delmfapolnm": mfapolnm})
 
-    def set_cics_opclass(self, userid: str, opclass_name: str) -> str:
+    def set_cics_opclass(self, userid: str, opclass: str) -> str:
         """Set the Operator Class (CICS) for the User Profile"""
-        return self.alter({"userid": userid, "cics:setopclass": opclass_name})
+        return self.alter(userid, {"cics:setopclass": opclass})
 
-    def add_cics_opclass(self, userid: str, opclass_name: str) -> str:
+    def add_cics_opclass(self, userid: str, opclass: str) -> str:
         """Add an Operator Class (CICS) to the User Profile"""
-        return self.alter({"userid": userid, "cics:addopclass": opclass_name})
+        return self.alter(userid, {"cics:addopclass": opclass})
 
-    def del_cics_opclass(self, userid: str, opclass_name: str) -> str:
+    def del_cics_opclass(self, userid: str, opclass: str) -> str:
         """Remove an Operator Class (CICS) from the User Profile"""
-        return self.alter({"userid": userid, "cics:delopclass": opclass_name})
+        return self.alter(userid, {"cics:delopclass": opclass})
 
     def no_cics_opclass(self, userid: str) -> str:
         """Remove all Operator Class(es) (CICS) from the User Profile"""
-        return self.alter({"userid": userid, "cics:noopclass": "N/A"})
+        return self.alter(userid, {"cics:noopclass": "N/A"})
 
-    def set_netview_opclass(self, userid: str, opclass_name: str) -> str:
+    def set_netview_opclass(self, userid: str, opclass: str) -> str:
         """Set the Operator Class (Netview) for the User Profile"""
-        return self.alter({"userid": userid, "netview:setopclass": opclass_name})
+        return self.alter(userid, {"netview:setopclass": opclass})
 
-    def add_netview_opclass(self, userid: str, opclass_name: str) -> str:
+    def add_netview_opclass(self, userid: str, opclass: str) -> str:
         """Add an Operator Class (Netview) to the User Profile"""
-        return self.alter({"userid": userid, "netview:addopclass": opclass_name})
+        return self.alter(userid, {"netview:addopclass": opclass})
 
-    def del_netview_opclass(self, userid: str, opclass_name: str) -> str:
+    def del_netview_opclass(self, userid: str, opclass: str) -> str:
         """Remove an Operator Class (Netview) from the User Profile"""
-        return self.alter({"userid": userid, "netview:delopclass": opclass_name})
+        return self.alter(userid, {"netview:delopclass": opclass})
 
     def no_netview_opclass(self, userid: str) -> str:
         """Remove all Operator Class(es) (Netview) from the User Profile"""
-        return self.alter({"userid": userid, "netview:noopclass": "N/A"})
+        return self.alter(userid, {"netview:noopclass": "N/A"})
 
-    def set_domain(self, userid: str, domain_name: str) -> str:
+    def set_domain(self, userid: str, domain: str) -> str:
         """Set the Domain for the User Profile"""
-        return self.alter({"userid": userid, "setdomains": domain_name})
+        return self.alter(userid, {"setdomains": domain})
 
-    def add_domain(self, userid: str, domain_name: str) -> str:
+    def add_domain(self, userid: str, domain: str) -> str:
         """Add a Domain for the User Profile"""
-        return self.alter({"userid": userid, "adddomains": domain_name})
+        return self.alter(userid, {"adddomains": domain})
 
-    def del_domain(self, userid: str, domain_name: str) -> str:
+    def del_domain(self, userid: str, domain: str) -> str:
         """Delete a Domain from the User Profile"""
-        return self.alter({"userid": userid, "deldomains": domain_name})
+        return self.alter(userid, {"deldomains": domain})
 
     def no_domains(self, userid: str) -> str:
         """Delete all Domain(s) from the User Profile"""
-        return self.alter({"userid": userid, "nodomains": "N/A"})
+        return self.alter(userid, {"nodomains": "N/A"})
 
-    def set_mscope(self, userid: str, mscope_name: str) -> str:
+    def set_mscope(self, userid: str, mscope: str) -> str:
         """Set the Message Scope for the User Profile"""
-        return self.alter({"userid": userid, "setmscope": mscope_name})
+        return self.alter(userid, {"setmscope": mscope})
 
-    def add_mscope(self, userid: str, mscope_name: str) -> str:
+    def add_mscope(self, userid: str, mscope: str) -> str:
         """Add a Message Scope to the User Profile"""
-        return self.alter({"userid": userid, "addmscope": mscope_name})
+        return self.alter(userid, {"addmscope": mscope})
 
-    def del_mscope(self, userid: str, mscope_name: str) -> str:
+    def del_mscope(self, userid: str, mscope: str) -> str:
         """Delete a Message Scope from the User Profile"""
-        return self.alter({"userid": userid, "delmscope": mscope_name})
+        return self.alter(userid, {"delmscope": mscope})
 
     def no_mscope(self, userid: str) -> str:
         """Delete all Message Scope(s) from the User Profile"""
-        return self.alter({"userid": userid, "nomscope": "N/A"})
+        return self.alter(userid, {"nomscope": "N/A"})
 
-    def add(self, traits: dict, generate_request_only=False) -> dict:
+    def add(self, userid: str, traits: dict) -> dict:
         """Create a new user."""
-        userid = traits["userid"]
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request)
-        return self.make_request(
-            user_request, generate_request_only=generate_request_only
-        )
+        return self.make_request(user_request)
 
-    def alter(self, traits: dict, generate_request_only=False) -> dict:
+    def alter(self, userid: str, traits: dict) -> dict:
         """Alter an existing user."""
-        userid = traits["userid"]
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request, alter=True)
-        return self.make_request(
-            user_request, 3, generate_request_only=generate_request_only
-        )
+        return self.make_request(user_request, 3)
 
-    def extract(self, traits: dict, generate_request_only=False) -> dict:
+    def extract(self, userid: str, segments: dict = {}) -> dict:
         """Extract a user's profile."""
-        userid = traits["userid"]
-        self.build_bool_segment_dictionaries(traits)
+        self.build_bool_segment_dictionaries(segments)
         user_request = UserRequest(userid, "listdata")
         self.build_segments(user_request, extract=True)
-        return self.extract_and_check_result(
-            user_request, generate_request_only=generate_request_only
-        )
+        return self.extract_and_check_result(user_request)
 
-    def delete(self, userid: str, generate_request_only=False) -> dict:
+    def delete(self, userid: str) -> dict:
         """Delete a user."""
         user_request = UserRequest(userid, "del")
-        return self.make_request(
-            user_request, generate_request_only=generate_request_only
-        )
+        return self.make_request(user_request)
 
     def build_segments(
         self, user_request: UserRequest, alter=False, extract=False

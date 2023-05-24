@@ -2,6 +2,7 @@
 
 import platform
 import xml.etree.ElementTree as XMLBuilder
+from typing import Union
 
 
 class SecurityRequest:
@@ -15,17 +16,17 @@ class SecurityRequest:
         }
         self.security_definition = XMLBuilder.SubElement(self.racf_request, "undefined")
 
-    def set_volid_and_generic(self, traits) -> None:
-        """Set volid and generic as attributes for security definition based on traits."""
-        self.security_definition.attrib = {}
-        if "generic" not in traits:
-            traits["generic"] = "no"
-        if "volid" in traits:
-            if traits["volid"] != "":
-                self.security_definition.attrib["volume"] = traits["volid"]
-        if "generic" in traits:
-            if traits["generic"] != "no":
-                self.security_definition.attrib["generic"] = traits["generic"]
+    def get_volume_and_generic_security_definition_values(
+        self, volume: Union[str, None], generic: bool
+    ) -> None:
+        """Get volid and generic xml values for security definition"""
+        security_definition_volume = ""
+        security_definition_generic = "no"
+        if volume:
+            security_definition_volume = volume
+        if generic:
+            security_definition_generic = "yes"
+        return (security_definition_volume, security_definition_generic)
 
     def build_segments(
         self,

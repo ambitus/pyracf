@@ -69,44 +69,16 @@ TEST_DELETE_GENPROF_RESULT_ERROR_DICTIONARY = get_sample(
 
 # Add Genprof
 TEST_ADD_GENPROF_REQUEST_XML = get_sample("add_genprof_request.xml")
-TEST_ADD_GENPROF_REQUEST_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-    "uacc": "None",
-    "owner": "eswift",
-}
-TEST_ADD_GENPROF_REQUEST_ERROR_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIXTEST",
-    "uacc": "None",
-    "owner": "eswift",
-}
+TEST_ADD_GENPROF_REQUEST_TRAITS = {"uacc": "None", "owner": "eswift"}
+TEST_ADD_GENPROF_REQUEST_ERROR_TRAITS = {"uacc": "None", "owner": "eswift"}
 
 # Alter Genprof
 TEST_ALTER_GENPROF_REQUEST_XML = get_sample("alter_genprof_request.xml")
-TEST_ALTER_GENPROF_REQUEST_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-    "uacc": "Read",
-    "owner": "eswift",
-}
-TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-    "uacc": "ALL",
-    "owner": "eswift",
-}
+TEST_ALTER_GENPROF_REQUEST_TRAITS = {"uacc": "Read", "owner": "eswift"}
+TEST_ALTER_GENPROF_REQUEST_ERROR_TRAITS = {"uacc": "ALL", "owner": "eswift"}
 
 # Extract Genprof
 TEST_EXTRACT_GENPROF_REQUEST_BASE_XML = get_sample("extract_genprof_request_base.xml")
-TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-}
-TEST_EXTRACT_GENPROF_REQUEST_MULTI_BASE_TRAITS = {
-    "resourcename": "*",
-    "classname": "XFACILIT",
-}
 
 # Delete Genprof
 TEST_DELETE_GENPROF_REQUEST_XML = get_sample("delete_genprof_request.xml")

@@ -11,7 +11,7 @@
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidward" operation="listdata" requestid="UserRequest">
+    <user name="squidwrd" operation="listdata" requestid="UserRequest">
         <omvs/>
     </user>
 </securityrequest>

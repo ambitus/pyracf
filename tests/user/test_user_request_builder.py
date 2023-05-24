@@ -18,19 +18,19 @@ class TestUserRequestBuilder(unittest.TestCase):
 
     def boilerplate(self, irrsmo00_init_mock: Mock) -> UserAdmin:
         irrsmo00_init_mock.return_value = None
-        return UserAdmin()
+        return UserAdmin(generate_requests_only=True)
 
     def test_user_admin_build_add_user_request(self, irrsmo00_init_mock: Mock):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         result = user_admin.add(
-            TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS, generate_request_only=True
+            "squidwrd", TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_XML)
 
     def test_user_admin_build_alter_user_request(self, irrsmo00_init_mock: Mock):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         result = user_admin.alter(
-            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS, generate_request_only=True
+            "squidwrd", TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
         )
         self.assertEqual(result, TestUserConstants.TEST_ALTER_USER_REQUEST_XML)
 
@@ -39,8 +39,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     ):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         result = user_admin.extract(
-            TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_TRAITS,
-            generate_request_only=True,
+            "squidwrd", TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_TRAITS
         )
         self.assertEqual(
             result, TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML
@@ -48,5 +47,5 @@ class TestUserRequestBuilder(unittest.TestCase):
 
     def test_user_admin_build_delete_user_request(self, irrsmo00_init_mock: Mock):
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        result = user_admin.delete("squidwrd", generate_request_only=True)
+        result = user_admin.delete("squidwrd")
         self.assertEqual(result, TestUserConstants.TEST_DELETE_USER_REQUEST_XML)

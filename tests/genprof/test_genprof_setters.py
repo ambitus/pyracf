@@ -18,11 +18,9 @@ class TestGenprofSetters(unittest.TestCase):
 
     def boilerplate(self, irrsmo00_init_mock: Mock) -> ResourceAdmin:
         irrsmo00_init_mock.return_value = None
-        return ResourceAdmin()
+        return ResourceAdmin(generate_requests_only=True)
 
     def test_resource_admin_build_set_uacc_request(self, irrsmo00_init_mock: Mock):
         resource_admin = self.boilerplate(irrsmo00_init_mock)
-        result = resource_admin.set_uacc(
-            "TESTING", "ELIJTEST", "ALTER", generate_request_only=True
-        )
+        result = resource_admin.set_uacc("TESTING", "ELIJTEST", "ALTER")
         self.assertEqual(result, TestGenprofConstants.TEST_GENPROF_SET_UACC_XML)

@@ -40,7 +40,11 @@ class TestGenprofDebugLogging(unittest.TestCase):
             TestGenprofConstants.TEST_ADD_GENPROF_RESULT_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            genprof_admin.add(TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS)
+            genprof_admin.add(
+                "TESTING",
+                "ELIJTEST",
+                TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_TRAITS,
+            )
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(success_log, TestGenprofConstants.TEST_ADD_GENPROF_SUCCESS_LOG)
 
@@ -56,7 +60,9 @@ class TestGenprofDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(self.stdout):
             try:
                 genprof_admin.add(
-                    TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_ERROR_TRAITS
+                    "TESTING",
+                    "ELIXTEST",
+                    TestGenprofConstants.TEST_ADD_GENPROF_REQUEST_ERROR_TRAITS,
                 )
             except SecurityRequestError:
                 pass
@@ -76,9 +82,7 @@ class TestGenprofDebugLogging(unittest.TestCase):
             TestGenprofConstants.TEST_EXTRACT_GENPROF_RESULT_BASE_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            genprof_admin.extract(
-                TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
-            )
+            genprof_admin.extract("TESTING", "ELIJTEST")
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
             success_log, TestGenprofConstants.TEST_EXTRACT_GENPROF_BASE_SUCCESS_LOG
@@ -95,9 +99,7 @@ class TestGenprofDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                genprof_admin.extract(
-                    TestGenprofConstants.TEST_EXTRACT_GENPROF_REQUEST_BASE_TRAITS
-                )
+                genprof_admin.extract("TESTING", "ELIJTEST")
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

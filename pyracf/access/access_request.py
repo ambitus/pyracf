@@ -1,5 +1,7 @@
 """Access Request Builder."""
 
+from typing import Union
+
 from pyracf.common.security_request import SecurityRequest
 
 
@@ -8,17 +10,28 @@ class AccessRequest(SecurityRequest):
 
     def __init__(
         self,
-        traits: dict,
+        resource: str,
+        class_name: str,
         operation: str,
+        volume: Union[str, bool],
+        generic: bool,
     ) -> None:
         super().__init__()
         self.security_definition.tag = "permission"
-        self.set_volid_and_generic(traits)
+        (volume, generic) = self.get_volume_and_generic_security_definition_values(
+            volume, generic
+        )
         self.security_definition.attrib.update(
             {
-                "name": traits["resourcename"],
-                "class": traits["classname"],
+                "name": resource,
+                "class": class_name,
                 "operation": operation,
+                "generic": generic,
+                "volume": volume,
                 "requestid": "AccessRequest",
             }
         )
+        if volume == "":
+            del self.security_definition.attrib["volume"]
+        if generic == "no":
+            del self.security_definition.attrib["generic"]
