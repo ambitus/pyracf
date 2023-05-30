@@ -304,7 +304,7 @@ class SecurityAdmin:
         profile[current_segment]["users"].append({})
         user_index = len(profile[current_segment]["users"]) - 1
         user_fields = [
-            field.strip() for field in messages[0].split(" ") if field.strip()
+            field.strip() for field in messages[i].split(" ") if field.strip()
         ]
 
         profile[current_segment]["users"][user_index]["userid"] = user_fields[0]
