@@ -10,7 +10,7 @@ def main():
     group_admin = GroupAdmin()
 
     traits = {
-        "groupname": "TESTGRP",
+        "groupname": "TESTGRP0",
         "omvs:gid": "2323",
     }
 

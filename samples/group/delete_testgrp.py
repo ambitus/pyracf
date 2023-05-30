@@ -9,7 +9,7 @@ def main():
     """Entrypoint."""
     group_admin = GroupAdmin()
 
-    result = group_admin.delete("TESTGRP")
+    result = group_admin.delete("TESTGRP0")
     print(json.dumps(result, indent=4))
 
 

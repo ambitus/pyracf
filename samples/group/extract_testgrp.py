@@ -9,7 +9,7 @@ def main():
     """Entrypoint."""
     group_adimn = GroupAdmin()
     traits = {
-        "groupname": "TESTGRP",
+        "groupname": "TESTGRP0",
         "omvs": True,
     }
     result = group_adimn.extract(traits)
