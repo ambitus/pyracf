@@ -9,7 +9,7 @@ class ConnectionRequest(SecurityRequest):
     def __init__(
         self,
         userid,
-        groupid,
+        groupname,
         operation: str,
     ) -> None:
         super().__init__()
@@ -17,7 +17,7 @@ class ConnectionRequest(SecurityRequest):
         self.security_definition.attrib.update(
             {
                 "name": userid,
-                "class": groupid,
+                "group": groupname,
                 "operation": operation,
                 "requestid": "ConnectionRequest",
             }
