@@ -7,7 +7,7 @@ from pyracf.connection.connection_admin import ConnectionAdmin
 
 def main():
     """Entrypoint."""
-    group_admin = ConnectionAdmin(debug=True)
+    connection_admin = ConnectionAdmin(debug=True)
 
     traits = {
         "groupname": "TESTGRP0",
@@ -15,7 +15,7 @@ def main():
         "operator": True,
     }
 
-    result = group_admin.add(traits)
+    result = connection_admin.add(traits)
     print(json.dumps(result, indent=4))
 
 

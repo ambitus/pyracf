@@ -2,19 +2,19 @@
 
 import json
 
-from pyracf.group.group_admin import GroupAdmin
+from pyracf.connection.connection_admin import ConnectionAdmin
 
 
 def main():
     """Entrypoint."""
-    group_admin = GroupAdmin()
+    connection_admin = ConnectionAdmin(debug=True)
 
     traits = {
         "groupname": "TESTGRP0",
         "userid": "ESWIFT",
     }
 
-    result = group_admin.delete(traits)
+    result = connection_admin.delete(traits)
     print(json.dumps(result, indent=4))
 
 
