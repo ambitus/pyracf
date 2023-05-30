@@ -7,11 +7,11 @@ from pyracf.group.group_admin import GroupAdmin
 
 def main():
     """Entrypoint."""
-    group_admin = GroupAdmin()
+    group_admin = GroupAdmin(debug=True)
 
     traits = {
         "groupname": "TESTGRP0",
-        "omvs:gid": "2323",
+        "omvs:gid": "3434",
     }
 
     result = group_admin.add(traits)

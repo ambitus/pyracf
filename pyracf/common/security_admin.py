@@ -280,10 +280,10 @@ class SecurityAdmin:
         ):
             profile[current_segment]["users"] = []
         elif "=" in messages[i]:
-            self.__add_key_value_pair_to_profile(
+            self.__add_key_value_pairs_to_segment(
                 messages[i],
-                profile,
                 current_segment,
+                profile,
             )
         elif "NO " in messages[i]:
             field_name = messages[i].split("NO ")[1].strip().lower()
@@ -387,7 +387,7 @@ class SecurityAdmin:
         segment: dict,
         message: str,
     ) -> None:
-        """Add a key value pair to a sgement dictionary."""
+        """Add a key value pair to a segment dictionary."""
         list_fields = ["attributes", "classauthorizations"]
         tokens = message.strip().split("=")
         key = tokens[0]

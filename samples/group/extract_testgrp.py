@@ -7,7 +7,7 @@ from pyracf.group.group_admin import GroupAdmin
 
 def main():
     """Entrypoint."""
-    group_adimn = GroupAdmin()
+    group_adimn = GroupAdmin(debug=True)
     traits = {
         "groupname": "TESTGRP0",
         "omvs": True,
