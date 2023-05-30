@@ -318,11 +318,11 @@ class SecurityAdmin:
             "universal access"
         ] = self.cast_from_str(user_fields[3])
 
-        self.add_key_value_pairs_to_segment(
+        self.__add_key_value_pairs_to_segment(
             profile[current_segment]["users"][user_index], messages[i + 1]
         )
 
-        self.add_key_value_pairs_to_segment(
+        self.__add_key_value_pairs_to_segment(
             profile[current_segment]["users"][user_index], messages[i + 2]
         )
 
