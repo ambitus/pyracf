@@ -302,7 +302,7 @@ class SecurityAdmin:
         self, messages: list, profile: dict, current_segment: str, i: int
     ) -> None:
         profile[current_segment]["users"].append({})
-        user_index = len(profile[current_segment]["users"])
+        user_index = len(profile[current_segment]["users"]) - 1
         user_fields = [
             field.strip() for field in messages[0].split(" ") if field.strip()
         ]
