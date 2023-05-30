@@ -281,9 +281,8 @@ class SecurityAdmin:
             profile[current_segment]["users"] = []
         elif "=" in messages[i]:
             self.__add_key_value_pairs_to_segment(
-                messages[i],
-                current_segment,
-                profile,
+                profile[current_segment],
+                messages[i]
             )
         elif "NO " in messages[i]:
             field_name = messages[i].split("NO ")[1].strip().lower()
