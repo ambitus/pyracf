@@ -2,12 +2,12 @@
 
 import json
 
-from pyracf.group.group_admin import GroupAdmin
+from pyracf.connection.connection_admin import ConnectionAdmin
 
 
 def main():
     """Entrypoint."""
-    group_admin = GroupAdmin()
+    connection_admin = ConnectionAdmin(debug=True)
 
     traits = {
         "groupname": "TESTGRP0",
@@ -16,7 +16,7 @@ def main():
         "special": True,
     }
 
-    result = group_admin.alter(traits)
+    result = connection_admin.alter(traits)
     print(json.dumps(result, indent=4))
 
 
