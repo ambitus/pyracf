@@ -34,7 +34,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
-        self.assertTrue(group_admin.get_group_special("ESWIFT","TESTGRP0"))
+        self.assertTrue(group_admin.get_group_special("ESWIFT", "TESTGRP0"))
 
     def test_group_admin_get_group_special_returns_false_when_not_group_special(
         self,
@@ -45,7 +45,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
         )
-        self.assertFalse(group_admin.get_group_special("ESWIFT","TESTGRP0"))
+        self.assertFalse(group_admin.get_group_special("ESWIFT", "TESTGRP0"))
 
     # Error in environment, TESTGRP0 already deleted/not added
     def test_group_admin_get_group_special_raises_an_exception_when_extract_fails(
@@ -58,7 +58,7 @@ class TestGroupGetters(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            group_admin.get_group_special("ESWIFT","TESTGRP0")
+            group_admin.get_group_special("ESWIFT", "TESTGRP0")
 
     # ============================================================================
     # GroupAdmin.get_group_operations()
@@ -72,7 +72,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
-        self.assertTrue(group_admin.get_group_operations("LEONARD","TESTGRP0"))
+        self.assertTrue(group_admin.get_group_operations("LEONARD", "TESTGRP0"))
 
     def test_group_admin_get_group_operations_returns_false_when_not_group_operations(
         self,
@@ -83,7 +83,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
         )
-        self.assertFalse(group_admin.get_group_operations("LEONARD","TESTGRP0"))
+        self.assertFalse(group_admin.get_group_operations("LEONARD", "TESTGRP0"))
 
     # Error in environment, TESTGRP0 already deleted/not added
     def test_group_admin_get_group_operations_raises_an_exception_when_extract_fails(
@@ -96,7 +96,7 @@ class TestGroupGetters(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            group_admin.get_group_operations("LEONARD","TESTGRP0")
+            group_admin.get_group_operations("LEONARD", "TESTGRP0")
 
     # ============================================================================
     # GroupAdmin.get_group_auditor()
@@ -112,10 +112,10 @@ class TestGroupGetters(unittest.TestCase):
         )
         group_extract_auditor = group_extract_auditor.replace(
             "<message>         CONNECT ATTRIBUTES=SPECIAL</message>",
-            "<message>         CONNECT ATTRIBUTES=AUDITOR</message>"
+            "<message>         CONNECT ATTRIBUTES=AUDITOR</message>",
         )
         call_racf_mock.return_value = group_extract_auditor
-        self.assertTrue(group_admin.get_group_auditor("ESWIFT","TESTGRP0"))
+        self.assertTrue(group_admin.get_group_auditor("ESWIFT", "TESTGRP0"))
 
     def test_group_admin_get_group_auditor_returns_false_when_not_group_auditor(
         self,
@@ -126,7 +126,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
-        self.assertFalse(group_admin.get_group_auditor("ESWIFT","TESTGRP0"))
+        self.assertFalse(group_admin.get_group_auditor("ESWIFT", "TESTGRP0"))
 
     # Error in environment, TESTGRP0 already deleted/not added
     def test_group_admin_get_group_auditor_raises_an_exception_when_extract_fails(
@@ -139,7 +139,7 @@ class TestGroupGetters(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            group_admin.get_group_auditor("ESWIFT","TESTGRP0")
+            group_admin.get_group_auditor("ESWIFT", "TESTGRP0")
 
     # ============================================================================
     # GroupAdmin.get_grpacc()
@@ -155,10 +155,10 @@ class TestGroupGetters(unittest.TestCase):
         )
         group_extract_grpacc = group_extract_grpacc.replace(
             "<message>         CONNECT ATTRIBUTES=OPERATIONS</message>",
-            "<message>         CONNECT ATTRIBUTES=GRPACC</message>"
+            "<message>         CONNECT ATTRIBUTES=GRPACC</message>",
         )
         call_racf_mock.return_value = group_extract_grpacc
-        self.assertTrue(group_admin.get_grpacc("LEONARD","TESTGRP0"))
+        self.assertTrue(group_admin.get_grpacc("LEONARD", "TESTGRP0"))
 
     def test_group_admin_get_grpacc_returns_false_when_not_grpacc(
         self,
@@ -169,7 +169,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
-        self.assertFalse(group_admin.get_grpacc("LEONARD","TESTGRP0"))
+        self.assertFalse(group_admin.get_grpacc("LEONARD", "TESTGRP0"))
 
     # Error in environment, TESTGRP0 already deleted/not added
     def test_group_admin_get_grpacc_raises_an_exception_when_extract_fails(
@@ -182,7 +182,7 @@ class TestGroupGetters(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            group_admin.get_grpacc("LEONARD","TESTGRP0")
+            group_admin.get_grpacc("LEONARD", "TESTGRP0")
 
     # ============================================================================
     # GroupAdmin.get_omvs_gid()
@@ -235,8 +235,7 @@ class TestGroupGetters(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OVM_SUCCESS_XML
         )
         group_extract_ovm_gid = group_extract_ovm_gid.replace(
-            "<message>OMVS INFORMATION</message>",
-            "<message>OVM INFORMATION</message>"
+            "<message>OMVS INFORMATION</message>", "<message>OVM INFORMATION</message>"
         )
         call_racf_mock.return_value = group_extract_ovm_gid
         self.assertEqual(group_admin.get_ovm_gid("TESTGRP0"), 1234567)

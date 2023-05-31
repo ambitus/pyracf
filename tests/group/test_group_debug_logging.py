@@ -36,7 +36,9 @@ class TestGroupDebugLogging(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         group_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML
+        )
         with contextlib.redirect_stdout(self.stdout):
             group_admin.add(TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
@@ -72,7 +74,9 @@ class TestGroupDebugLogging(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            group_admin.extract(TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS)
+            group_admin.extract(
+                TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS
+            )
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
             success_log, TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_SUCCESS_LOG
@@ -89,7 +93,9 @@ class TestGroupDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                group_admin.extract(TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS)
+                group_admin.extract(
+                    TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

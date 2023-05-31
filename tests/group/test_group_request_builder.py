@@ -30,7 +30,8 @@ class TestGroupRequestBuilder(unittest.TestCase):
     def test_group_admin_build_alter_group_request(self, irrsmo00_init_mock: Mock):
         group_admin = self.boilerplate(irrsmo00_init_mock)
         result = group_admin.alter(
-            TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS, generate_request_only=True
+            TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS,
+            generate_request_only=True,
         )
         self.assertEqual(result, TestGroupConstants.TEST_ALTER_GROUP_REQUEST_XML)
 

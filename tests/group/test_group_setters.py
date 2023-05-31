@@ -22,10 +22,14 @@ class TestGroupSetters(unittest.TestCase):
 
     def test_group_admin_build_set_ovm_gid_request(self, irrsmo00_init_mock: Mock):
         group_admin = self.boilerplate(irrsmo00_init_mock)
-        result = group_admin.set_ovm_gid("ESWIFT", "TESTGRP0", generate_request_only=True)
+        result = group_admin.set_ovm_gid(
+            "ESWIFT", "TESTGRP0", generate_request_only=True
+        )
         self.assertEqual(result, TestGroupConstants.TEST_GROUP_SET_OVM_GID_XML)
 
     def test_group_admin_build_set_omvs_gid_request(self, irrsmo00_init_mock: Mock):
         group_admin = self.boilerplate(irrsmo00_init_mock)
-        result = group_admin.set_omvs_gid("ESWIFT", "TESTGRP0", generate_request_only=True)
+        result = group_admin.set_omvs_gid(
+            "ESWIFT", "TESTGRP0", generate_request_only=True
+        )
         self.assertEqual(result, TestGroupConstants.TEST_GROUP_SET_OMVS_GID_XML)
