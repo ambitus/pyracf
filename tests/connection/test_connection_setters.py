@@ -23,57 +23,71 @@ class TestConnectionSetters(unittest.TestCase):
     def test_connection_admin_build_set_group_special(self, irrsmo00_init_mock: Mock):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.set_group_special(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
-        self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_SPECIAL)
+        self.assertEqual(
+            result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_SPECIAL
+        )
 
     def test_connection_admin_build_del_group_special(self, irrsmo00_init_mock: Mock):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.del_group_special(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
-        self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_DEL_GROUP_SPECIAL)
+        self.assertEqual(
+            result, TestConnectionConstants.TEST_CONNECTION_DEL_GROUP_SPECIAL
+        )
 
     def test_connection_admin_build_set_group_auditor(self, irrsmo00_init_mock: Mock):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.set_group_auditor(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
-        self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_AUDITOR)
+        self.assertEqual(
+            result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_AUDITOR
+        )
 
     def test_connection_admin_build_del_group_auditor(self, irrsmo00_init_mock: Mock):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.del_group_auditor(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
-        self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_DEL_GROUP_AUDITOR)
+        self.assertEqual(
+            result, TestConnectionConstants.TEST_CONNECTION_DEL_GROUP_AUDITOR
+        )
 
-    def test_connection_admin_build_set_group_operations(self, irrsmo00_init_mock: Mock):
+    def test_connection_admin_build_set_group_operations(
+        self, irrsmo00_init_mock: Mock
+    ):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.set_group_operations(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
-        self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_OPERATIONS)
+        self.assertEqual(
+            result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_OPERATIONS
+        )
 
-    def test_connection_admin_build_del_group_operations(self, irrsmo00_init_mock: Mock):
+    def test_connection_admin_build_del_group_operations(
+        self, irrsmo00_init_mock: Mock
+    ):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.del_group_operations(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
-        self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_DEL_GROUP_OPERATIONS)
+        self.assertEqual(
+            result, TestConnectionConstants.TEST_CONNECTION_DEL_GROUP_OPERATIONS
+        )
 
     def test_connection_admin_build_set_grpacc(self, irrsmo00_init_mock: Mock):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.set_grpacc(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
         self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_SET_GRPACC)
 
     def test_connection_admin_build_del_grpacc(self, irrsmo00_init_mock: Mock):
         connection_admin = self.boilerplate(irrsmo00_init_mock)
         result = connection_admin.del_grpacc(
-            "ESWIFT","TESTGRP0", generate_request_only=True
+            "ESWIFT", "TESTGRP0", generate_request_only=True
         )
         self.assertEqual(result, TestConnectionConstants.TEST_CONNECTION_DEL_GRPACC)
-
-

@@ -40,9 +40,13 @@ class TestConnectionDebugLogging(unittest.TestCase):
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            connection_admin.add(TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS)
+            connection_admin.add(
+                TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS
+            )
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
-        self.assertEqual(success_log, TestConnectionConstants.TEST_ADD_CONNECTION_SUCCESS_LOG)
+        self.assertEqual(
+            success_log, TestConnectionConstants.TEST_ADD_CONNECTION_SUCCESS_LOG
+        )
 
     def test_add_connection_request_debug_log_works_on_error(
         self,
@@ -55,8 +59,12 @@ class TestConnectionDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                connection_admin.add(TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS)
+                connection_admin.add(
+                    TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
-        self.assertEqual(error_log, TestConnectionConstants.TEST_ADD_CONNECTION_ERROR_LOG)
+        self.assertEqual(
+            error_log, TestConnectionConstants.TEST_ADD_CONNECTION_ERROR_LOG
+        )

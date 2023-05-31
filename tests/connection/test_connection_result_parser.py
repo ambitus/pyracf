@@ -35,7 +35,9 @@ class TestConnectionResultParser(unittest.TestCase):
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            connection_admin.add(TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS),
+            connection_admin.add(
+                TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS
+            ),
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -50,7 +52,9 @@ class TestConnectionResultParser(unittest.TestCase):
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            connection_admin.add(TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS)
+            connection_admin.add(
+                TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_TRAITS
+            )
         self.assertEqual(
             exception.exception.results,
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_ERROR_DICTIONARY,
@@ -69,7 +73,9 @@ class TestConnectionResultParser(unittest.TestCase):
             TestConnectionConstants.TEST_ALTER_CONNECTION_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            connection_admin.alter(TestConnectionConstants.TEST_ALTER_CONNECTION_REQUEST_TRAITS),
+            connection_admin.alter(
+                TestConnectionConstants.TEST_ALTER_CONNECTION_REQUEST_TRAITS
+            ),
             TestConnectionConstants.TEST_ALTER_CONNECTION_RESULT_SUCCESS_DICTIONARY,
         )
 

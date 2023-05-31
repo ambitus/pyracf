@@ -17,25 +17,37 @@ def get_sample(sample_file: str) -> Union[str, bytes]:
 
 # Add Connection
 TEST_ADD_CONNECTION_RESULT_SUCCESS_XML = get_sample("add_connection_result_success.xml")
-TEST_ADD_CONNECTION_RESULT_SUCCESS_DICTIONARY = get_sample("add_connection_result_success.json")
+TEST_ADD_CONNECTION_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "add_connection_result_success.json"
+)
 TEST_ADD_CONNECTION_RESULT_ERROR_XML = get_sample("add_connection_result_error.xml")
-TEST_ADD_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample("add_connection_result_error.json")
+TEST_ADD_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
+    "add_connection_result_error.json"
+)
 
 # Alter Connection
-TEST_ALTER_CONNECTION_RESULT_SUCCESS_XML = get_sample("alter_connection_result_success.xml")
+TEST_ALTER_CONNECTION_RESULT_SUCCESS_XML = get_sample(
+    "alter_connection_result_success.xml"
+)
 TEST_ALTER_CONNECTION_RESULT_SUCCESS_DICTIONARY = get_sample(
     "alter_connection_result_success.json"
 )
 TEST_ALTER_CONNECTION_RESULT_ERROR_XML = get_sample("alter_connection_result_error.xml")
-TEST_ALTER_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample("alter_connection_result_error.json")
+TEST_ALTER_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
+    "alter_connection_result_error.json"
+)
 
 
 # Delete Connection
-TEST_DELETE_CONNECTION_RESULT_SUCCESS_XML = get_sample("delete_connection_result_success.xml")
+TEST_DELETE_CONNECTION_RESULT_SUCCESS_XML = get_sample(
+    "delete_connection_result_success.xml"
+)
 TEST_DELETE_CONNECTION_RESULT_SUCCESS_DICTIONARY = get_sample(
     "delete_connection_result_success.json"
 )
-TEST_DELETE_CONNECTION_RESULT_ERROR_XML = get_sample("delete_connection_result_error.xml")
+TEST_DELETE_CONNECTION_RESULT_ERROR_XML = get_sample(
+    "delete_connection_result_error.xml"
+)
 TEST_DELETE_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
     "delete_connection_result_error.json"
 )
@@ -47,25 +59,25 @@ TEST_DELETE_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
 # Add Connection
 TEST_ADD_CONNECTION_REQUEST_XML = get_sample("add_connection_request.xml")
 TEST_ADD_CONNECTION_REQUEST_TRAITS = {
-        "groupname": "TESTGRP0",
-        "userid": "ESWIFT",
-    }
+    "groupname": "TESTGRP0",
+    "userid": "ESWIFT",
+}
 
 # Alter Connection
 TEST_ALTER_CONNECTION_REQUEST_XML = get_sample("alter_connection_request.xml")
 TEST_ALTER_CONNECTION_REQUEST_TRAITS = {
-        "groupname": "TESTGRP0",
-        "userid": "ESWIFT",
-        "operator": False,
-        "special": True,
-    }
+    "groupname": "TESTGRP0",
+    "userid": "ESWIFT",
+    "operator": False,
+    "special": True,
+}
 
 # Delete Connection
 TEST_DELETE_CONNECTION_REQUEST_XML = get_sample("delete_connection_request.xml")
 TEST_DELETE_CONNECTION_REQUEST_TRAITS = {
-        "groupname": "TESTGRP0",
-        "userid": "ESWIFT",
-    }
+    "groupname": "TESTGRP0",
+    "userid": "ESWIFT",
+}
 
 # ============================================================================
 # Connection Administration Setters Sample Data

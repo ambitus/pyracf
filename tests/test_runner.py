@@ -9,7 +9,9 @@ from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
 from tests.connection.test_connection_debug_logging import TestConnectionDebugLogging
-from tests.connection.test_connection_request_builder import TestConnectionRequestBuilder
+from tests.connection.test_connection_request_builder import (
+    TestConnectionRequestBuilder,
+)
 from tests.connection.test_connection_result_parser import TestConnectionResultParser
 from tests.connection.test_connection_setters import TestConnectionSetters
 from tests.dataset.test_dataset_debug_logging import TestDatasetDebugLogging
