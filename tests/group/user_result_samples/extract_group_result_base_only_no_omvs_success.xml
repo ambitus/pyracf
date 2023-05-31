@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>LISTGRP TESTGRP0 </image>
+            <message>INFORMATION FOR GROUP TESTGRP0</message>
+            <message>    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.150</message>
+            <message>    NO INSTALLATION DATA</message>
+            <message>    NO MODEL DATA SET</message>
+            <message>    TERMUACC</message>
+            <message>    NO SUBGROUPS</message>
+            <message>    USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=</message>
+            <message>      ESWIFT        USE           000000               NONE</message>
+            <message>         CONNECT ATTRIBUTES=SPECIAL</message>
+            <message>         REVOKE DATE=NONE                 RESUME DATE=NONE</message>
+            <message>      LEONARD       USE           000000               NONE</message>
+            <message>         CONNECT ATTRIBUTES=OPERATIONS</message>
+            <message>         REVOKE DATE=NONE                 RESUME DATE=NONE</message>
+        </command>
+    </group>
+    <returncode>0</returncode>
+    <reasoncode>0</reasoncode>
+</securityresult>

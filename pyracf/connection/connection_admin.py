@@ -29,6 +29,30 @@ class ConnectionAdmin(SecurityAdmin):
                 "uacc": "racf:uacc",
             }
         }
+    
+    def set_group_special(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"special":True}, generate_request_only=generate_request_only)
+
+    def set_group_operations(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"oper":True}, generate_request_only=generate_request_only)
+    
+    def set_group_auditor(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"auditor":True}, generate_request_only=generate_request_only)
+
+    def set_grpacc(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"grpacc":True}, generate_request_only=generate_request_only)
+
+    def del_group_special(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"special":False}, generate_request_only=generate_request_only)
+
+    def del_group_operations(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"oper":False}, generate_request_only=generate_request_only)
+    
+    def del_group_auditor(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"auditor":False}, generate_request_only=generate_request_only)
+
+    def del_grpacc(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+        return self.alter({"userid":userid,"groupname":group_name,"grpacc":False}, generate_request_only=generate_request_only)
 
     def add(self, traits: dict, generate_request_only=False) -> dict:
         """Create a new group connection."""

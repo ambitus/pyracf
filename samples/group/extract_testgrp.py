@@ -7,12 +7,12 @@ from pyracf.group.group_admin import GroupAdmin
 
 def main():
     """Entrypoint."""
-    group_adimn = GroupAdmin(debug=True)
+    group_admin = GroupAdmin(debug=True)
     traits = {
         "groupname": "TESTGRP0",
         "omvs": True,
     }
-    result = group_adimn.extract(traits)
+    result = group_admin.extract(traits)
     print(json.dumps(result, indent=4))
 
 

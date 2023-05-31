@@ -1,0 +1,144 @@
+                                                                               
+                       [pyRACF:Debug] Request Dictionary                       
+                                                                               
+
+{
+    "omvs": true
+}
+
+                                                                               
+                           [pyRACF:Debug] Request XML                          
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+    <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+        <omvs/>
+    </group>
+</securityrequest>
+
+                                                                               
+                           [pyRACF:Debug] Result XML                           
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>LISTGRP TESTGRP0  OMVS    </image>
+            <message>INFORMATION FOR GROUP TESTGRP0</message>
+            <message>    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.150</message>
+            <message>    NO INSTALLATION DATA</message>
+            <message>    NO MODEL DATA SET</message>
+            <message>    TERMUACC</message>
+            <message>    NO SUBGROUPS</message>
+            <message>    USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=</message>
+            <message>      ESWIFT        USE           000000               NONE</message>
+            <message>         CONNECT ATTRIBUTES=SPECIAL</message>
+            <message>         REVOKE DATE=NONE                 RESUME DATE=NONE</message>
+            <message> </message>
+            <message>OMVS INFORMATION</message>
+            <message>----------------</message>
+            <message>GID= 0000003434</message>
+        </command>
+    </group>
+    <returncode>0</returncode>
+    <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                        [pyRACF:Debug] Result Dictionary                       
+                                                                               
+
+{
+    "securityresult": {
+        "group": {
+            "name": "TESTGRP0",
+            "operation": "listdata",
+            "requestid": "GroupRequest",
+            "commands": [
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "LISTGRP TESTGRP0  OMVS    ",
+                    "messages": [
+                        "INFORMATION FOR GROUP TESTGRP0",
+                        "    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.150",
+                        "    NO INSTALLATION DATA",
+                        "    NO MODEL DATA SET",
+                        "    TERMUACC",
+                        "    NO SUBGROUPS",
+                        "    USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=",
+                        "      ESWIFT        USE           000000               NONE",
+                        "         CONNECT ATTRIBUTES=SPECIAL",
+                        "         REVOKE DATE=NONE                 RESUME DATE=NONE",
+                        " ",
+                        "OMVS INFORMATION",
+                        "----------------",
+                        "GID= 0000003434"
+                    ]
+                }
+            ]
+        },
+        "returncode": 0,
+        "reasoncode": 0
+    }
+}
+
+
+              [pyRACF:Debug] Result Dictionary (Formatted Profile)
+
+
+{
+    "securityresult": {
+        "group": {
+            "name": "TESTGRP0",
+            "operation": "listdata",
+            "requestid": "GroupRequest",
+            "commands": [
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "LISTGRP TESTGRP0  OMVS    ",
+                    "profiles": [
+                        {
+                            "base": {
+                                "name": "testgrp0",
+                                "superiorgroup": "sys1",
+                                "owner": "eswift",
+                                "created": 23.15,
+                                "installation data": null,
+                                "model data set": null,
+                                "termuacc": true,
+                                "subgroups": null,
+                                "users": [
+                                    {
+                                        "userid": "INFORMATION",
+                                        "access": "for",
+                                        "access count": "group",
+                                        "universal access": "testgrp0",
+                                        "connectattributes": "special",
+                                        "revokedate": null,
+                                        "resumedate": null
+                                    }
+                                ],
+                                "revokedate": null,
+                                "resumedate": null
+                            },
+                            "omvs": {
+                                "gid": 3434
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "returncode": 0,
+        "reasoncode": 0
+    }
+}
+

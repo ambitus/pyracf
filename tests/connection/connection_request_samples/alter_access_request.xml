@@ -1,0 +1,6 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+    <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
+        <access operation="set">NONE</access>
+        <authid operation="set">ESWIFT</authid>
+    </permission>
+</securityrequest>

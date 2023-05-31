@@ -307,7 +307,7 @@ class SecurityAdmin:
             field.strip() for field in messages[i].split(" ") if field.strip()
         ]
 
-        profile[current_segment]["users"][user_index]["userid"] = user_fields[0]
+        profile[current_segment]["users"][user_index]["userid"] = self.cast_from_str(user_fields[0])
         profile[current_segment]["users"][user_index]["access"] = self.cast_from_str(
             user_fields[1]
         )

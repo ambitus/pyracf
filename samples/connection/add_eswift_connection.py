@@ -12,7 +12,7 @@ def main():
     traits = {
         "groupname": "TESTGRP0",
         "userid": "ESWIFT",
-        "operator": True,
+        "oper": True,
     }
 
     result = connection_admin.add(traits)
