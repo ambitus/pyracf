@@ -232,7 +232,7 @@ class TestGroupGetters(unittest.TestCase):
     ):
         group_admin = self.boilerplate(irrsmo00_init_mock)
         group_extract_ovm_gid = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OVM_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
         )
         group_extract_ovm_gid = group_extract_ovm_gid.replace(
             "<message>OMVS INFORMATION</message>", "<message>OVM INFORMATION</message>"
@@ -248,7 +248,7 @@ class TestGroupGetters(unittest.TestCase):
     ):
         group_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OVM_ERROR_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
             group_admin.get_ovm_gid("TESTGRP0"), 1234567
@@ -260,6 +260,6 @@ class TestGroupGetters(unittest.TestCase):
     ):
         group_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OVM_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
         self.assertIsNone(group_admin.get_ovm_gid("TESTGRP0"))

@@ -35,7 +35,7 @@ class TestGroupResultParser(unittest.TestCase):
             TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            group_admin.add(TestGroupConstants.TESTADD_GROUP_REQUEST_TRAITS),
+            group_admin.add(TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS),
             TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -48,7 +48,7 @@ class TestGroupResultParser(unittest.TestCase):
         group_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            group_admin.add(TestGroupConstants.TESTADD_GROUP_REQUEST_TRAITS)
+            group_admin.add(TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS)
         self.assertEqual(
             exception.exception.results,
             TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_DICTIONARY,
@@ -106,7 +106,7 @@ class TestGroupResultParser(unittest.TestCase):
         )
         self.assertEqual(
             group_admin.extract(
-                TestGroupConstants.TEST_REQUEST_EXTRACT_GROUP_BASE_OMVS_TRAITS
+                TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS
             ),
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
@@ -123,7 +123,7 @@ class TestGroupResultParser(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError) as exception:
             group_admin.extract(
-                TestGroupConstants.TEST_REQUEST_EXTRACT_GROUP_BASE_OMVS_TRAITS
+                TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS
             )
         self.assertEqual(
             exception.exception.results,

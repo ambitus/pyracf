@@ -43,7 +43,6 @@ class TestGroupDebugLogging(unittest.TestCase):
             group_admin.add(TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(success_log, TestGroupConstants.TEST_ADD_GROUP_SUCCESS_LOG)
-        self.assertNotIn(self.test_password, success_log)
 
     def test_add_group_request_debug_log_works_on_error(
         self,
@@ -59,7 +58,6 @@ class TestGroupDebugLogging(unittest.TestCase):
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(error_log, TestGroupConstants.TEST_ADD_GROUP_ERROR_LOG)
-        self.assertNotIn(self.test_password, error_log)
 
     # ============================================================================
     # Extract Group

@@ -44,13 +44,15 @@ class GroupAdmin(SecurityAdmin):
     ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+        if profile["base"]["users"] is None:
+            return False
         connect_profile = [
             user
-            for user in profile["users"]
+            for user in profile["base"]["users"]
             if user["userid"].lower() == userid.lower()
         ]
         if connect_profile:
-            if "special" in connect_profile["connectattributes"]:
+            if "special" in connect_profile[0]["connectattributes"]:
                 return True
         return False
 
@@ -59,13 +61,15 @@ class GroupAdmin(SecurityAdmin):
     ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+        if profile["base"]["users"] is None:
+            return False
         connect_profile = [
             user
-            for user in profile["users"]
+            for user in profile["base"]["users"]
             if user["userid"].lower() == userid.lower()
         ]
         if connect_profile:
-            if "operations" in connect_profile["connectattributes"]:
+            if "operations" in connect_profile[0]["connectattributes"]:
                 return True
         return False
 
@@ -74,13 +78,15 @@ class GroupAdmin(SecurityAdmin):
     ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+        if profile["base"]["users"] is None:
+            return False
         connect_profile = [
             user
-            for user in profile["users"]
+            for user in profile["base"]["users"]
             if user["userid"].lower() == userid.lower()
         ]
         if connect_profile:
-            if "auditor" in connect_profile["connectattributes"]:
+            if "auditor" in connect_profile[0]["connectattributes"]:
                 return True
         return False
 
@@ -89,13 +95,15 @@ class GroupAdmin(SecurityAdmin):
     ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+        if profile["base"]["users"] is None:
+            return False
         connect_profile = [
             user
-            for user in profile["users"]
+            for user in profile["base"]["users"]
             if user["userid"].lower() == userid.lower()
         ]
         if connect_profile:
-            if "grpacc" in connect_profile["connectattributes"]:
+            if "grpacc" in connect_profile[0]["connectattributes"]:
                 return True
         return False
 

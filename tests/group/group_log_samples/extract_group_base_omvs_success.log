@@ -29,19 +29,16 @@
             <reasoncode>0</reasoncode>
             <image>LISTGRP TESTGRP0  OMVS    </image>
             <message>INFORMATION FOR GROUP TESTGRP0</message>
-            <message>    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.150</message>
+            <message>    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.151</message>
             <message>    NO INSTALLATION DATA</message>
             <message>    NO MODEL DATA SET</message>
             <message>    TERMUACC</message>
             <message>    NO SUBGROUPS</message>
-            <message>    USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=</message>
-            <message>      ESWIFT        USE           000000               NONE</message>
-            <message>         CONNECT ATTRIBUTES=SPECIAL</message>
-            <message>         REVOKE DATE=NONE                 RESUME DATE=NONE</message>
+            <message>    NO USERS</message>
             <message> </message>
             <message>OMVS INFORMATION</message>
             <message>----------------</message>
-            <message>GID= 0000003434</message>
+            <message>GID= 0001234567</message>
         </command>
     </group>
     <returncode>0</returncode>
@@ -66,19 +63,16 @@
                     "image": "LISTGRP TESTGRP0  OMVS    ",
                     "messages": [
                         "INFORMATION FOR GROUP TESTGRP0",
-                        "    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.150",
+                        "    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.151",
                         "    NO INSTALLATION DATA",
                         "    NO MODEL DATA SET",
                         "    TERMUACC",
                         "    NO SUBGROUPS",
-                        "    USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=",
-                        "      ESWIFT        USE           000000               NONE",
-                        "         CONNECT ATTRIBUTES=SPECIAL",
-                        "         REVOKE DATE=NONE                 RESUME DATE=NONE",
+                        "    NO USERS",
                         " ",
                         "OMVS INFORMATION",
                         "----------------",
-                        "GID= 0000003434"
+                        "GID= 0001234567"
                     ]
                 }
             ]
@@ -88,9 +82,9 @@
     }
 }
 
-
-              [pyRACF:Debug] Result Dictionary (Formatted Profile)
-
+                                                                               
+              [pyRACF:Debug] Result Dictionary (Formatted Profile)             
+                                                                               
 
 {
     "securityresult": {
@@ -110,27 +104,15 @@
                                 "name": "testgrp0",
                                 "superiorgroup": "sys1",
                                 "owner": "eswift",
-                                "created": 23.15,
+                                "created": 23.151,
                                 "installation data": null,
                                 "model data set": null,
                                 "termuacc": true,
                                 "subgroups": null,
-                                "users": [
-                                    {
-                                        "userid": "INFORMATION",
-                                        "access": "for",
-                                        "access count": "group",
-                                        "universal access": "testgrp0",
-                                        "connectattributes": "special",
-                                        "revokedate": null,
-                                        "resumedate": null
-                                    }
-                                ],
-                                "revokedate": null,
-                                "resumedate": null
+                                "users": null
                             },
                             "omvs": {
-                                "gid": 3434
+                                "gid": 1234567
                             }
                         }
                     ]

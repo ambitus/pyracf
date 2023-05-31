@@ -1,5 +1,5 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
     <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
-        <omvs/>
+        <omvs />
     </group>
 </securityrequest>

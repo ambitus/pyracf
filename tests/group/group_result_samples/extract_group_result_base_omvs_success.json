@@ -13,7 +13,7 @@
                     "profiles": [
                         {
                             "base": {
-                                "name": "TESTGRP0",
+                                "name": "testgrp0",
                                 "superiorgroup": "sys1",
                                 "owner": "eswift",
                                 "created": 23.151,
