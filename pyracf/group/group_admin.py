@@ -116,7 +116,7 @@ class GroupAdmin(SecurityAdmin):
     ) -> dict:
         """Set a group's GID."""
         return self.alter(
-            {"groupid": group_name, "omvs:gid": str(gid)},
+            {"groupname": group_name, "omvs:gid": str(gid)},
             generate_request_only=generate_request_only,
         )
 
@@ -137,7 +137,7 @@ class GroupAdmin(SecurityAdmin):
     ) -> dict:
         """Set a group's GID."""
         return self.alter(
-            {"groupid": group_name, "ovm:gid": str(gid)},
+            {"groupname": group_name, "ovm:gid": str(gid)},
             generate_request_only=generate_request_only,
         )
 

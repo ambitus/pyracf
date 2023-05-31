@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <group name="TESTGRP0" operation="del" requestid="GroupRequest">
+        <command>
+            <safreturncode>8</safreturncode>
+            <returncode>16</returncode>
+            <reasoncode>8</reasoncode>
+            <image>DELGROUP TESTGRP0</image>
+            <message>IKJ56702I INVALID GROUP, TESTGRP0</message>
+        </command>
+    </group>
+    <returncode>4</returncode>
+    <reasoncode>0</reasoncode>
+</securityresult>
