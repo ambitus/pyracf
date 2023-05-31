@@ -280,10 +280,7 @@ class SecurityAdmin:
         ):
             profile[current_segment]["users"] = []
         elif "=" in messages[i]:
-            self.__add_key_value_pairs_to_segment(
-                profile[current_segment],
-                messages[i]
-            )
+            self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
         elif "NO " in messages[i]:
             field_name = messages[i].split("NO ")[1].strip().lower()
             profile[current_segment][field_name] = None
@@ -307,7 +304,9 @@ class SecurityAdmin:
             field.strip() for field in messages[i].split(" ") if field.strip()
         ]
 
-        profile[current_segment]["users"][user_index]["userid"] = self.cast_from_str(user_fields[0])
+        profile[current_segment]["users"][user_index]["userid"] = self.cast_from_str(
+            user_fields[0]
+        )
         profile[current_segment]["users"][user_index]["access"] = self.cast_from_str(
             user_fields[1]
         )

@@ -39,37 +39,61 @@ class GroupAdmin(SecurityAdmin):
         }
         self.profile_type = "group"
 
-    def get_group_special(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+    def get_group_special(
+        self, userid: str, group_name: str, generate_request_only=False
+    ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
-        connect_profile = [user for user in profile["users"] if user["userid"].lower() == userid.lower()]
+        connect_profile = [
+            user
+            for user in profile["users"]
+            if user["userid"].lower() == userid.lower()
+        ]
         if connect_profile:
             if "special" in connect_profile["connectattributes"]:
                 return True
         return False
 
-    def get_group_operations(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+    def get_group_operations(
+        self, userid: str, group_name: str, generate_request_only=False
+    ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
-        connect_profile = [user for user in profile["users"] if user["userid"].lower() == userid.lower()]
+        connect_profile = [
+            user
+            for user in profile["users"]
+            if user["userid"].lower() == userid.lower()
+        ]
         if connect_profile:
             if "operations" in connect_profile["connectattributes"]:
                 return True
         return False
-    
-    def get_group_auditor(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+
+    def get_group_auditor(
+        self, userid: str, group_name: str, generate_request_only=False
+    ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
-        connect_profile = [user for user in profile["users"] if user["userid"].lower() == userid.lower()]
+        connect_profile = [
+            user
+            for user in profile["users"]
+            if user["userid"].lower() == userid.lower()
+        ]
         if connect_profile:
             if "auditor" in connect_profile["connectattributes"]:
                 return True
         return False
 
-    def get_grpacc(self, userid: str, group_name: str, generate_request_only=False) -> dict:
+    def get_grpacc(
+        self, userid: str, group_name: str, generate_request_only=False
+    ) -> dict:
         result = self.extract({"groupname": group_name})
         profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
-        connect_profile = [user for user in profile["users"] if user["userid"].lower() == userid.lower()]
+        connect_profile = [
+            user
+            for user in profile["users"]
+            if user["userid"].lower() == userid.lower()
+        ]
         if connect_profile:
             if "grpacc" in connect_profile["connectattributes"]:
                 return True
