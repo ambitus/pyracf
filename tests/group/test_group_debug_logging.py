@@ -1,4 +1,4 @@
-"""Test password sanitization in user debug logging."""
+"""Test password sanitization in group debug logging."""
 
 import contextlib
 import io
@@ -8,8 +8,8 @@ from unittest.mock import Mock, patch
 
 import __init__
 
-import tests.user.test_user_constants as TestUserConstants
-from pyracf import UserAdmin
+import tests.group.test_group_constants as TestGroupConstants
+from pyracf import GroupAdmin
 from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
@@ -18,82 +18,81 @@ __init__
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 @patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
-class TestUserDebugLogging(unittest.TestCase):
+class TestGroupDebugLogging(unittest.TestCase):
     maxDiff = None
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
-    test_password = "GIyTTqdF"
 
-    def boilerplate(self, irrsmo00_init_mock: Mock) -> UserAdmin:
+    def boilerplate(self, irrsmo00_init_mock: Mock) -> GroupAdmin:
         irrsmo00_init_mock.return_value = None
         self.stdout = io.StringIO()
-        return UserAdmin(debug=True)
+        return GroupAdmin(debug=True)
 
     # ============================================================================
-    # Add User
+    # Add Group
     # ============================================================================
-    def test_add_user_request_debug_log_passwords_get_redacted_on_success(
+    def test_add_group_request_debug_log_works_on_success(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
+        group_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML
         with contextlib.redirect_stdout(self.stdout):
-            user_admin.add({"userid": "squidward", "password": self.test_password})
+            group_admin.add(TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
-        self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_SUCCESS_LOG)
+        self.assertEqual(success_log, TestGroupConstants.TEST_ADD_GROUP_SUCCESS_LOG)
         self.assertNotIn(self.test_password, success_log)
 
-    def test_add_user_request_debug_log_passwords_get_redacted_on_error(
+    def test_add_group_request_debug_log_works_on_error(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
+        group_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML
         with contextlib.redirect_stdout(self.stdout):
             try:
-                user_admin.add({"userid": "squidward", "password": self.test_password})
+                group_admin.add(TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS)
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
-        self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_ERROR_LOG)
+        self.assertEqual(error_log, TestGroupConstants.TEST_ADD_GROUP_ERROR_LOG)
         self.assertNotIn(self.test_password, error_log)
 
     # ============================================================================
-    # Extract User
+    # Extract Group
     # ============================================================================
-    def test_extract_user_base_omvs_request_debug_log_works_on_success(
+    def test_extract_group_base_omvs_request_debug_log_works_on_success(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
+        group_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            user_admin.extract({"userid": "squidward", "omvs": True})
+            group_admin.extract(TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS)
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
-            success_log, TestUserConstants.TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG
+            success_log, TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_SUCCESS_LOG
         )
 
-    def test_extract_user_base_omvs_request_debug_log_works_on_error(
+    def test_extract_group_base_omvs_request_debug_log_works_on_error(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
+        group_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                user_admin.extract({"userid": "squidward", "omvs": True})
+                group_admin.extract(TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS)
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
-            error_log, TestUserConstants.TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG
+            error_log, TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_ERROR_LOG
         )
