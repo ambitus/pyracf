@@ -2,20 +2,14 @@
                        [pyRACF:Debug] Request Dictionary                       
                                                                                
 
-{
-    "base": {
-        "oper": true
-    }
-}
+{}
 
                                                                                
                            [pyRACF:Debug] Request XML                          
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
-        <racf:oper/>
-    </groupconnection>
+    <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest"/>
 </securityrequest>
 
                                                                                
@@ -29,7 +23,7 @@
             <safreturncode>8</safreturncode>
             <returncode>16</returncode>
             <reasoncode>8</reasoncode>
-            <image>CONNECT ESWIFT  GROUP       (TESTGRP0) OPERATIONS  </image>
+            <image>CONNECT ESWIFT  GROUP       (TESTGRP0)</image>
             <message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>
             <message>ICH02003I USER(S) NOT CONNECTED.</message>
         </command>
@@ -54,7 +48,7 @@
                     "safreturncode": 8,
                     "returncode": 16,
                     "reasoncode": 8,
-                    "image": "CONNECT ESWIFT  GROUP       (TESTGRP0) OPERATIONS  ",
+                    "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)",
                     "messages": [
                         "ICH51003I NAME NOT FOUND IN RACF DATA SET",
                         "ICH02003I USER(S) NOT CONNECTED."
