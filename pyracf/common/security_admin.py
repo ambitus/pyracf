@@ -62,7 +62,7 @@ class SecurityAdmin:
 
     def _extract_and_check_result(self, security_request: SecurityRequest) -> dict:
         """Extract a RACF profile."""
-        result = self.make_request(security_request)
+        result = self._make_request(security_request)
         if self.__generate_requests_only:
             return result
         if "error" in result["securityresult"][self.__profile_type]:
@@ -87,10 +87,10 @@ class SecurityAdmin:
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 
-    def make_request(
+    def _make_request(
         self,
         security_request: SecurityRequest,
-        opts: int = 1,
+        irrsmo00_options: int = 1,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         try:
@@ -99,7 +99,7 @@ class SecurityAdmin:
             redact_password = None
         result = self.__make_request_unredacted(
             security_request,
-            opts=opts,
+            irrsmo00_options=irrsmo00_options,
             redact_password=redact_password,
         )
         if not redact_password:
@@ -115,7 +115,7 @@ class SecurityAdmin:
     def __make_request_unredacted(
         self,
         security_request: SecurityRequest,
-        opts: int = 1,
+        irrsmo00_options: int = 1,
         redact_password: str = None,
     ) -> Union[dict, bytes]:
         """
@@ -134,7 +134,7 @@ class SecurityAdmin:
         if self.__generate_requests_only:
             return security_request.dump_request_xml(encoding="utf-8")
         result_xml = self.__irrsmo00.call_racf(
-            security_request.dump_request_xml(), opts
+            security_request.dump_request_xml(), irrsmo00_options
         )
         if self.__debug:
             self.__logger.log_xml("Result XML", result_xml, redact_password)
@@ -185,6 +185,10 @@ class SecurityAdmin:
                 )
             if self.__profile_type == "user":
                 i = self.__format_user_profile_data(
+                    messages, profile, current_segment, i
+                )
+            if self.__profile_type == "group":
+                i = self.__format_group_profile_data(
                     messages, profile, current_segment, i
                 )
             i += 1
@@ -259,6 +263,64 @@ class SecurityAdmin:
             self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
         return i
 
+    def __format_group_profile_data(
+        self, messages: List[str], profile: dict, current_segment: str, i: int
+    ) -> int:
+        """Specialized logic for formatting user profile data."""
+        if "users" in profile[current_segment].keys() and i < len(messages) - 2:
+            self.__format_user_list_data(messages, profile, current_segment, i)
+            i += 2
+        if (
+            "USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS="
+            in messages[i]
+        ):
+            profile[current_segment]["users"] = []
+        elif "=" in messages[i]:
+            self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
+        elif "NO " in messages[i]:
+            field_name = messages[i].split("NO ")[1].strip().lower()
+            profile[current_segment][field_name] = None
+        elif "TERMUACC" in messages[i]:
+            if "NO" in messages[i]:
+                profile[current_segment]["termuacc"] = False
+            else:
+                profile[current_segment]["termuacc"] = True
+        elif "INFORMATION FOR GROUP" in messages[i]:
+            profile[current_segment]["name"] = (
+                messages[i].split("INFORMATION FOR GROUP ")[1].lower()
+            )
+        return i
+
+    def __format_user_list_data(
+        self, messages: list, profile: dict, current_segment: str, i: int
+    ) -> None:
+        profile[current_segment]["users"].append({})
+        user_index = len(profile[current_segment]["users"]) - 1
+        user_fields = [
+            field.strip() for field in messages[i].split(" ") if field.strip()
+        ]
+
+        profile[current_segment]["users"][user_index]["userid"] = self._cast_from_str(
+            user_fields[0]
+        )
+        profile[current_segment]["users"][user_index]["access"] = self._cast_from_str(
+            user_fields[1]
+        )
+        profile[current_segment]["users"][user_index][
+            "access count"
+        ] = self._cast_from_str(user_fields[2])
+        profile[current_segment]["users"][user_index][
+            "universal access"
+        ] = self._cast_from_str(user_fields[3])
+
+        self.__add_key_value_pairs_to_segment(
+            profile[current_segment]["users"][user_index], messages[i + 1]
+        )
+
+        self.__add_key_value_pairs_to_segment(
+            profile[current_segment]["users"][user_index], messages[i + 2]
+        )
+
     def __build_additional_segment_keys(self) -> Tuple[str, str]:
         """Build keys for detecting additional segments in RACF profile data."""
         additional_segment_keys = [
@@ -317,7 +379,7 @@ class SecurityAdmin:
         segment: dict,
         message: str,
     ) -> None:
-        """Add a key value pair to a sgement dictionary."""
+        """Add a key value pair to a segment dictionary."""
         list_fields = ["attributes", "classauthorizations"]
         tokens = message.strip().split("=")
         key = tokens[0]
@@ -423,7 +485,9 @@ class SecurityAdmin:
         except ValueError:
             return value
 
-    def __validate_trait(self, trait: str, segment: str, value: Union[str, list]):
+    def __validate_and_add_trait(
+        self, trait: str, segment: str, value: Union[str, list]
+    ):
         """Validate the specified trait exists in the specified segment"""
         if segment not in self._valid_segment_traits:
             return False
@@ -435,7 +499,7 @@ class SecurityAdmin:
             true_trait = trait[len(operation) + 1 :]
             if operation == "delete":
                 operation = "del"
-            self.__validate_trait(true_trait, segment, [value, operation])
+            self.__validate_and_add_trait(true_trait, segment, [value, operation])
             return True
         if segment not in self._segment_traits:
             self._segment_traits[segment] = {}
@@ -447,6 +511,31 @@ class SecurityAdmin:
         """Build segemnt dictionaries for each segment."""
         for trait in traits:
             for segment in self._valid_segment_traits:
-                self.__validate_trait(trait, segment, traits[trait])
+                self.__validate_and_add_trait(trait, segment, traits[trait])
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
+
+    def _build_xml_segments(
+        self,
+        security_request: SecurityRequest,
+        alter: bool = False,
+        extract: bool = True,
+    ) -> None:
+        """Build XML representation of segments."""
+        security_request._build_segments(
+            self._segment_traits, self._trait_map, alter=alter, extract=extract
+        )
+        # Clear segments for new request
+        self._segment_traits = {}
+
+    def _add_traits_directly_to_request_xml_with_no_segments(
+        self, security_request: SecurityRequest, alter: bool = False
+    ) -> None:
+        """Add traits as directly to request xml without building segments."""
+        for segment, traits in self._segment_traits.items():
+            if segment == "base":
+                security_request._build_segment(
+                    None, traits, self._trait_map, alter=alter
+                )
+        # Clear segments for new request
+        self._segment_traits = {}

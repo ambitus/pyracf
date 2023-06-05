@@ -12,7 +12,7 @@ class IRRSMO00:
         self.dll = ctypes.CDLL(f"{os.path.dirname(__file__)}/irrsmo00.dll")
         self.buffer_size = 10000
 
-    def call_racf(self, request_xml: bytes, opts: int = 1) -> str:
+    def call_racf(self, request_xml: bytes, options: int = 1) -> str:
         """Make request to IRRSMO00."""
         # Specify return type and argument types
         self.dll.call_irrsmo00.restype = ctypes.c_char_p
@@ -21,7 +21,7 @@ class IRRSMO00:
             ctypes.c_uint,
             ctypes.c_uint,
         ]
-        req_opts = ctypes.c_uint(opts)
+        req_opts = ctypes.c_uint(options)
         req_len = ctypes.c_uint(len(request_xml))
         req_buf = (ctypes.c_char * (self.buffer_size))(*request_xml)
         # Decode result bytes from

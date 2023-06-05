@@ -16,47 +16,47 @@ class DatasetAdmin(SecurityAdmin):
         )
         self._valid_segment_traits = {
             "base": {
-                "altvol": "racf:altvol",
-                "category": "racf:category",
-                "creatdat": "racf:creatdat",
-                "data": "racf:data",
-                "dsns": "racf:dsns",
-                "dstype": "racf:dstype",
-                "erase": "racf:erase",
-                "fclass": "racf:fclass",
-                "fgeneric": "racf:fgeneric",
-                "fileseq": "racf:fileseq",
-                "from": "racf:from",
-                "groupnm": "racf:groupnm",
-                "history": "racf:history",
-                "id": "racf:id",
-                "lchgdat": "racf:lchgdat",
-                "level": "racf:level",
-                "lrefdat": "racf:lrefdat",
-                "model": "racf:model",
-                "noracf": "racf:noracf",
-                "notify": "racf:notify",
-                "owner": "racf:owner",
-                "prefix": "racf:prefix",
-                "profile": "racf:profile",
-                "raudit": "racf:raudit",
-                "retpd": "racf:retpd",
-                "rgaudit": "racf:rgaudit",
-                "seclabel": "racf:seclabel",
-                "seclevel": "racf:seclevel",
-                "set": "racf:set",
-                "setonly": "racf:setonly",
-                "stats": "racf:stats",
-                "tape": "racf:tape",
-                "uacc": "racf:uacc",
-                "unit": "racf:unit",
-                "volume": "racf:volume",
-                "volser": "racf:volser",
-                "warning": "racf:warning",
+                "base:altvol": "racf:altvol",
+                "base:category": "racf:category",
+                "base:creatdat": "racf:creatdat",
+                "base:data": "racf:data",
+                "base:dsns": "racf:dsns",
+                "base:dstype": "racf:dstype",
+                "base:erase": "racf:erase",
+                "base:fclass": "racf:fclass",
+                "base:fgeneric": "racf:fgeneric",
+                "base:fileseq": "racf:fileseq",
+                "base:from": "racf:from",
+                "base:groupnm": "racf:groupnm",
+                "base:history": "racf:history",
+                "base:id": "racf:id",
+                "base:lchgdat": "racf:lchgdat",
+                "base:level": "racf:level",
+                "base:lrefdat": "racf:lrefdat",
+                "base:model": "racf:model",
+                "base:noracf": "racf:noracf",
+                "base:notify": "racf:notify",
+                "base:owner": "racf:owner",
+                "base:prefix": "racf:prefix",
+                "base:profile": "racf:profile",
+                "base:raudit": "racf:raudit",
+                "base:retpd": "racf:retpd",
+                "base:rgaudit": "racf:rgaudit",
+                "base:seclabel": "racf:seclabel",
+                "base:seclevel": "racf:seclevel",
+                "base:set": "racf:set",
+                "base:setonly": "racf:setonly",
+                "base:stats": "racf:stats",
+                "base:tape": "racf:tape",
+                "base:uacc": "racf:uacc",
+                "base:unit": "racf:unit",
+                "base:volume": "racf:volume",
+                "base:volser": "racf:volser",
+                "base:warning": "racf:warning",
             },
-            "csdata": {"custom-keyword": "racf:custom-keyword"},
-            "dfp": {"resowner": "racf:resowner", "datakey": "racf:datakey"},
-            "tme": {"roles": "racf:roles"},
+            "csdata": {"csdata:custom-keyword": "racf:custom-keyword"},
+            "dfp": {"dfp:resowner": "racf:resowner", "dfp:datakey": "racf:datakey"},
+            "tme": {"tme:roles": "racf:roles"},
         }
         self._valid_segment_traits["base"].update(
             self._common_base_traits_dataset_generic
@@ -71,7 +71,7 @@ class DatasetAdmin(SecurityAdmin):
 
     def set_uacc(self, data_set: str, uacc: str) -> str:
         """Set the UACC for a data set profile."""
-        return self.alter(data_set, {"uacc": uacc})
+        return self.alter(data_set, {"base:uacc": uacc})
 
     def get_your_acc(self, data_set: str) -> str:
         """Get the UACC associated with your own data set profile."""
@@ -125,8 +125,8 @@ class DatasetAdmin(SecurityAdmin):
         """Create a new data set profile."""
         self._build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(data_set, "set", volume, generic)
-        self.build_segments(dataset_request)
-        return self.make_request(dataset_request)
+        self._build_xml_segments(dataset_request)
+        return self._make_request(dataset_request)
 
     def alter(
         self,
@@ -138,8 +138,8 @@ class DatasetAdmin(SecurityAdmin):
         """Alter an existing data set profile."""
         self._build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(data_set, "set", volume, generic)
-        self.build_segments(dataset_request, alter=True)
-        return self.make_request(dataset_request, 3)
+        self._build_xml_segments(dataset_request, alter=True)
+        return self._make_request(dataset_request, irrsmo00_options=3)
 
     def extract(
         self,
@@ -151,7 +151,7 @@ class DatasetAdmin(SecurityAdmin):
         """Extract a data set profile."""
         self._build_bool_segment_dictionaries(segments)
         dataset_request = DatasetRequest(data_set, "listdata", volume, generic)
-        self.build_segments(dataset_request, extract=True)
+        self._build_xml_segments(dataset_request, extract=True)
         return self._extract_and_check_result(dataset_request)
 
     def delete(
@@ -162,17 +162,7 @@ class DatasetAdmin(SecurityAdmin):
     ) -> dict:
         """Delete a data set profile."""
         dataset_request = DatasetRequest(data_set, "del", volume, generic)
-        return self.make_request(dataset_request)
-
-    def build_segments(
-        self, dataset_request: DatasetRequest, alter=False, extract=False
-    ) -> None:
-        """Build XML representation of segments."""
-        dataset_request.build_segments(
-            self._segment_traits, self._trait_map, alter=alter, extract=extract
-        )
-        # Clear segments for new request
-        self._segment_traits = {}
+        return self._make_request(dataset_request)
 
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""

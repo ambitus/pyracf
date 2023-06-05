@@ -53,8 +53,8 @@ class AccessAdmin(SecurityAdmin):
         traits["id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
-        self.build_segments(access_request)
-        return self.make_request(access_request)
+        self._add_traits_directly_to_request_xml_with_no_segments(access_request)
+        return self._make_request(access_request)
 
     def alter(
         self,
@@ -69,8 +69,10 @@ class AccessAdmin(SecurityAdmin):
         traits["id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
-        self.build_segments(access_request, alter=True)
-        return self.make_request(access_request)
+        self._add_traits_directly_to_request_xml_with_no_segments(
+            access_request, alter=True
+        )
+        return self._make_request(access_request)
 
     def delete(
         self,
@@ -84,13 +86,5 @@ class AccessAdmin(SecurityAdmin):
         traits = {"id": auth_id}
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "del", volume, generic)
-        self.build_segments(access_request)
-        return self.make_request(access_request)
-
-    def build_segments(self, access_request: AccessRequest, alter=False) -> None:
-        """Build XML representation of segments."""
-        for segment, traits in self._segment_traits.items():
-            if segment == "base":
-                access_request.build_segment("", traits, self._trait_map, alter=alter)
-        # Clear segments for new request
-        self._segment_traits = {}
+        self._add_traits_directly_to_request_xml_with_no_segments(access_request)
+        return self._make_request(access_request)

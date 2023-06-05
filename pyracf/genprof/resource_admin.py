@@ -342,40 +342,27 @@ class ResourceAdmin(SecurityAdmin):
         """Create a new general resource profile."""
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
-        self.build_segments(profile_request)
-        return self.make_request(profile_request)
+        self._build_xml_segments(profile_request)
+        return self._make_request(profile_request)
 
     def alter(self, resource: str, class_name: str, traits: dict) -> dict:
         """Alter an existing general resource profile."""
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
-        self.build_segments(profile_request, alter=True)
-        return self.make_request(profile_request, 3)
+        self._build_xml_segments(profile_request, alter=True)
+        return self._make_request(profile_request, irrsmo00_options=3)
 
     def extract(self, resource: str, class_name: str, segments={}) -> dict:
         """Extract a general resource profile."""
         self._build_bool_segment_dictionaries(segments)
         profile_request = ResourceRequest(resource, class_name, "listdata")
-        self.build_segments(profile_request, extract=True)
+        self._build_xml_segments(profile_request, extract=True)
         return self._extract_and_check_result(profile_request)
 
     def delete(self, resource: str, class_name: str) -> dict:
         """Delete a general resource profile."""
         profile_request = ResourceRequest(resource, class_name, "del")
-        return self.make_request(profile_request)
-
-    def build_segments(
-        self,
-        profile_request: ResourceRequest,
-        alter=False,
-        extract=False,
-    ) -> None:
-        """Build XML representation of segments."""
-        profile_request.build_segments(
-            self._segment_traits, self._trait_map, alter=alter, extract=extract
-        )
-        # Clear segments for new request
-        self._segment_traits = {}
+        return self._make_request(profile_request)
 
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""

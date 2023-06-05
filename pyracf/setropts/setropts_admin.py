@@ -217,36 +217,23 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     def list_racf_options(self) -> dict:
         """List RACF options."""
-        self.__build_segment_dictionary({"base:list": True})
+        self._build_segment_dictionaries({"base:list": True})
         setropts_request = SetroptsRequest()
-        self.__build_segment(setropts_request)
+        self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
         return self._extract_and_check_result(
             setropts_request,
         )
 
     def alter(self, options: dict = {}) -> dict:
         """Update RACF options."""
-        self.__build_segment_dictionary(options)
+        self._build_segment_dictionaries(options)
         setropts_request = SetroptsRequest()
-        self.__build_segment(setropts_request)
-        return self.make_request(setropts_request)
+        self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
+        return self._make_request(setropts_request)
 
     # ============================================================================
     # Private/Protected Utility Functions
     # ============================================================================
-    def __build_segment_dictionary(self, traits: dict) -> None:
-        """Build segemnt dictionary for only base segment."""
-        self._build_segment_dictionaries(traits)
-        self._segment_traits = self._segment_traits["base"]
-
-    def __build_segment(self, profile_request: SetroptsRequest, alter=False) -> None:
-        """Build XML representation of segment."""
-        profile_request.build_segment(
-            False, self._segment_traits, self._trait_map, alter=alter
-        )
-        # Clear segments for new request
-        self._segment_traits = {}
-
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["systemsettings"]["commands"][0]["messages"]

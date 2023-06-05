@@ -30,16 +30,16 @@ class SecurityRequest:
             security_definition_generic = "yes"
         return (security_definition_volume, security_definition_generic)
 
-    def build_segments(
+    def _build_segments(
         self,
         segment_traits_dictionary: dict,
         trait_map: dict,
-        alter=False,
-        extract=False,
+        alter: bool = False,
+        extract: bool = False,
     ) -> None:
         """Build XML representation of segments."""
         for segment, segment_traits in segment_traits_dictionary.items():
-            self.build_segment(
+            self._build_segment(
                 segment,
                 segment_traits,
                 trait_map,
@@ -47,13 +47,13 @@ class SecurityRequest:
                 extract=extract,
             )
 
-    def build_segment(
+    def _build_segment(
         self,
         segment_name: str,
         traits: dict,
         trait_map: dict,
-        alter=False,
-        extract=False,
+        alter: bool = False,
+        extract: bool = False,
     ) -> None:
         """Build segment in XML format."""
         if not traits:

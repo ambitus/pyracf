@@ -4,8 +4,8 @@
 
 {
     "base": {
-        "uacc": "None",
-        "owner": "eswift"
+        "base:uacc": "None",
+        "base:owner": "eswift"
     }
 }
 

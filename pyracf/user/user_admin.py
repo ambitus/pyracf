@@ -378,41 +378,31 @@ class UserAdmin(SecurityAdmin):
         """Create a new user."""
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
-        self.__build_segments(user_request)
-        return self.make_request(user_request)
+        self._build_xml_segments(user_request)
+        return self._make_request(user_request)
 
     def alter(self, userid: str, traits: dict = {}) -> dict:
         """Alter an existing user."""
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
-        self.__build_segments(user_request, alter=True)
-        return self.make_request(user_request, 3)
+        self._build_xml_segments(user_request, alter=True)
+        return self._make_request(user_request, irrsmo00_options=3)
 
     def extract(self, userid: str, segments: dict = {}) -> dict:
         """Extract a user's profile."""
         self._build_bool_segment_dictionaries(segments)
         user_request = UserRequest(userid, "listdata")
-        self.__build_segments(user_request, extract=True)
+        self._build_xml_segments(user_request, extract=True)
         return self._extract_and_check_result(user_request)
 
     def delete(self, userid: str) -> dict:
         """Delete a user."""
         user_request = UserRequest(userid, "del")
-        return self.make_request(user_request)
+        return self._make_request(user_request)
 
     # ============================================================================
     # Private/Protected Utility Functions
     # ============================================================================
-    def __build_segments(
-        self, user_request: UserRequest, alter: bool = False, extract: bool = False
-    ) -> None:
-        """Build XML representation of segments."""
-        user_request.build_segments(
-            self._segment_traits, self._trait_map, alter=alter, extract=extract
-        )
-        # Clear segments for new request
-        self._segment_traits = {}
-
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["user"]["commands"][0]["messages"]
