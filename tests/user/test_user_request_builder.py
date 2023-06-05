@@ -23,14 +23,16 @@ class TestUserRequestBuilder(unittest.TestCase):
     def test_user_admin_build_add_user_request(self, irrsmo00_init_mock: Mock):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         result = user_admin.add(
-            "squidwrd", TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
+            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
         )
+        print(result)
+        print(TestUserConstants.TEST_ADD_USER_REQUEST_XML)
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_XML)
 
     def test_user_admin_build_alter_user_request(self, irrsmo00_init_mock: Mock):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         result = user_admin.alter(
-            "squidwrd", TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
+            "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
         )
         self.assertEqual(result, TestUserConstants.TEST_ALTER_USER_REQUEST_XML)
 

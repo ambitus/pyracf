@@ -13,10 +13,15 @@ from .security_result import SecurityResult
 class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
-    def __init__(self, debug=False, generate_requests_only=False) -> None:
-        self.irrsmo00 = IRRSMO00()
-        self.valid_segment_traits = {}
-        self.common_base_traits_dataset_generic = {
+    def __init__(
+        self,
+        profile_type: str,
+        debug: bool = False,
+        generate_requests_only: bool = False,
+    ) -> None:
+        self.__irrsmo00 = IRRSMO00()
+        self._valid_segment_traits = {}
+        self._common_base_traits_dataset_generic = {
             "aclcnt": "racf:aclcnt",
             "aclacnt": "racf:aclacnt",
             "aclacs": "racf:aclacs",
@@ -46,41 +51,41 @@ class SecurityAdmin:
             "gaudupdt": "racf:gaudupdt",
             "generic": "racf:generic",
         }
-        self.segment_traits = {}
+        self._segment_traits = {}
         # used to preserve segment traits for debug logging.
-        self.preserved_segment_traits = {}
-        self.trait_map = {}
-        self.profile_type = None
-        self.logger = Logger()
-        self.debug = debug
-        self.generate_requests_only = generate_requests_only
+        self.__preserved_segment_traits = {}
+        self._trait_map = {}
+        self.__profile_type = profile_type
+        self.__logger = Logger()
+        self.__debug = debug
+        self.__generate_requests_only = generate_requests_only
 
-    def extract_and_check_result(self, security_request: SecurityRequest) -> dict:
+    def _extract_and_check_result(self, security_request: SecurityRequest) -> dict:
         """Extract a RACF profile."""
         result = self.make_request(security_request)
-        if self.generate_requests_only:
+        if self.__generate_requests_only:
             return result
-        if "error" in result["securityresult"][self.profile_type]:
+        if "error" in result["securityresult"][self.__profile_type]:
             raise SecurityRequestError(result)
         if (
             result["securityresult"]["returncode"] == 0
             and result["securityresult"]["reasoncode"] == 0
         ):
-            self.format_profile(result)
-            if self.debug:
-                self.logger.log_dictionary(
+            self._format_profile(result)
+            if self.__debug:
+                self.__logger.log_dictionary(
                     "Result Dictionary (Formatted Profile)", result, None
                 )
             return result
         raise SecurityRequestError(result)
 
-    def build_bool_segment_dictionaries(self, segments: dict) -> None:
+    def _build_bool_segment_dictionaries(self, segments: dict) -> None:
         """Build segment dictionaries for profile extract."""
         for segment in segments:
-            if segment in self.valid_segment_traits:
-                self.segment_traits[segment] = segments[segment]
+            if segment in self._valid_segment_traits:
+                self._segment_traits[segment] = segments[segment]
         # preserve segment traits for debug logging.
-        self.preserved_segment_traits = self.segment_traits
+        self.__preserved_segment_traits = self._segment_traits
 
     def make_request(
         self,
@@ -89,10 +94,10 @@ class SecurityAdmin:
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         try:
-            redact_password = self.preserved_segment_traits["base"]["password"]
+            redact_password = self.__preserved_segment_traits["base"]["base:password"]
         except KeyError:
             redact_password = None
-        result = self.make_request_unredacted(
+        result = self.__make_request_unredacted(
             security_request,
             opts=opts,
             redact_password=redact_password,
@@ -102,39 +107,41 @@ class SecurityAdmin:
         if isinstance(result, dict):
             # Dump to json string, redact password, and then load back to dictionary.
             return json.loads(
-                self.logger.redact_string(json.dumps(result), redact_password)
+                self.__logger.redact_string(json.dumps(result), redact_password)
             )
         # redact password from XML bytes (Always UTF-8).
-        return self.logger.redact_string(result, bytes(redact_password, "utf-8"))
+        return self.__logger.redact_string(result, bytes(redact_password, "utf-8"))
 
-    def make_request_unredacted(
+    def __make_request_unredacted(
         self,
         security_request: SecurityRequest,
         opts: int = 1,
-        redact_password=None,
+        redact_password: str = None,
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
         Note: Passwords are not redacted from result, but are redacted from log messages.
         """
-        if self.debug:
-            self.logger.log_dictionary(
-                "Request Dictionary", self.preserved_segment_traits, redact_password
+        if self.__debug:
+            self.__logger.log_dictionary(
+                "Request Dictionary", self.__preserved_segment_traits, redact_password
             )
-            self.logger.log_xml(
+            self.__logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
                 redact_password,
             )
-        if self.generate_requests_only:
+        if self.__generate_requests_only:
             return security_request.dump_request_xml(encoding="utf-8")
-        result_xml = self.irrsmo00.call_racf(security_request.dump_request_xml(), opts)
-        if self.debug:
-            self.logger.log_xml("Result XML", result_xml, redact_password)
+        result_xml = self.__irrsmo00.call_racf(
+            security_request.dump_request_xml(), opts
+        )
+        if self.__debug:
+            self.__logger.log_xml("Result XML", result_xml, redact_password)
         results = SecurityResult(result_xml)
 
-        if self.debug:
-            self.logger.log_dictionary(
+        if self.__debug:
+            self.__logger.log_dictionary(
                 "Result Dictionary",
                 results.get_result_dictionary(),
                 redact_password,
@@ -147,19 +154,17 @@ class SecurityAdmin:
             raise SecurityRequestError(result_dict)
         return result_dict
 
-    def format_profile(self, result: dict):
+    def _format_profile(self, result: dict):
         """Placeholder for format profile function for profile extract."""
 
-    def format_profile_generic(
-        self, messages: str, valid_segment_traits: dict, profile_type: str
-    ) -> None:
+    def _format_profile_generic(self, messages: str) -> None:
         """Generic profile formatter shared by two or more RACF profile formats."""
         profile = {}
         current_segment = "base"
         (
             additional_segment_keys,
             no_segment_information_keys,
-        ) = self.__build_additional_segment_keys(valid_segment_traits)
+        ) = self.__build_additional_segment_keys()
         profile[current_segment] = {}
         i = 0
         while i < len(messages):
@@ -174,11 +179,11 @@ class SecurityAdmin:
                 current_segment = messages[i].split()[0].lower()
                 profile[current_segment] = {}
                 i += 2
-            if profile_type in ("dataset", "generic"):
+            if self.__profile_type in ("dataset", "resource"):
                 i = self.__format_data_set_generic_profile_data(
                     messages, profile, current_segment, i
                 )
-            if profile_type == "user":
+            if self.__profile_type == "user":
                 i = self.__format_user_profile_data(
                     messages, profile, current_segment, i
                 )
@@ -213,7 +218,7 @@ class SecurityAdmin:
                     for txt in list(filter(None, messages[i].split(" ")))
                 ]
             )
-            profile[current_segment][field] = self.clean_and_separate(messages[i + 2])
+            profile[current_segment][field] = self._clean_and_separate(messages[i + 2])
             i += 1
         elif "NO INSTALLATION DATA" in messages[i]:
             profile[current_segment]["installation data"] = None
@@ -254,13 +259,11 @@ class SecurityAdmin:
             self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
         return i
 
-    def __build_additional_segment_keys(
-        self, valid_segment_traits: dict
-    ) -> Tuple[str, str]:
+    def __build_additional_segment_keys(self) -> Tuple[str, str]:
         """Build keys for detecting additional segments in RACF profile data."""
         additional_segment_keys = [
             f"{segment.upper()} INFORMATION"
-            for segment in valid_segment_traits
+            for segment in self._valid_segment_traits
             if segment != "base"
         ]
         no_segment_information_keys = [
@@ -279,7 +282,7 @@ class SecurityAdmin:
         keys_length = len(keys)
         for i in range(keys_length):
             key = keys[i].strip().lower().replace(" ", "").replace("-", "")
-            segment[key] = self.cast_from_str(values[i])
+            segment[key] = self._cast_from_str(values[i])
 
     def __format_semi_tabular_data(
         self,
@@ -305,7 +308,7 @@ class SecurityAdmin:
                 ind_e1 = len(messages[i + 2])
 
             field = messages[i][indexes[j] : ind_e0].strip().lower()
-            profile[current_segment][field] = self.clean_and_separate(
+            profile[current_segment][field] = self._clean_and_separate(
                 messages[i + 2][indexes[j] : ind_e1]
             )
 
@@ -329,18 +332,18 @@ class SecurityAdmin:
                 if current_key not in segment:
                     segment[current_key] = []
                 values = [
-                    self.cast_from_str(value)
+                    self._cast_from_str(value)
                     for value in value.split()
                     if value != "NONE"
                 ]
                 segment[current_key] += values
             else:
-                segment[current_key] = self.cast_from_str(value)
+                segment[current_key] = self._cast_from_str(value)
             key = "".join(sub_tokens[1:])
             if len(sub_tokens) == 1:
                 if i < len(tokens) - 1 and " " in sub_tokens[0] and i != 0:
                     sub_tokens = sub_tokens[0].split()
-                    segment[current_key] = self.cast_from_str(sub_tokens[0])
+                    segment[current_key] = self._cast_from_str(sub_tokens[0])
                     key = sub_tokens[-1]
                 else:
                     key = sub_tokens[0]
@@ -350,17 +353,19 @@ class SecurityAdmin:
     ) -> None:
         """Generic function for extracting key-value pair from RACF profile data."""
         field = message.split("=")[0].strip().lower()
-        profile[current_segment][field] = self.clean_and_separate(message.split("=")[1])
+        profile[current_segment][field] = self._clean_and_separate(
+            message.split("=")[1]
+        )
 
-    def clean_and_separate(self, value: str) -> Union[list, str]:
+    def _clean_and_separate(self, value: str) -> Union[list, str]:
         """Clean cast and separate comma and space delimited data."""
         cln_val = value.strip().lower()
         if "," in cln_val:
-            out = [self.cast_from_str(val.strip()) for val in cln_val.split(",")]
+            out = [self._cast_from_str(val.strip()) for val in cln_val.split(",")]
         elif " " in cln_val:
-            out = [self.cast_from_str(val.strip()) for val in cln_val.split(" ")]
+            out = [self._cast_from_str(val.strip()) for val in cln_val.split(" ")]
         else:
-            out = self.cast_from_str(cln_val)
+            out = self._cast_from_str(cln_val)
         if isinstance(out, list):
             if None in out:
                 return None
@@ -383,7 +388,7 @@ class SecurityAdmin:
 
         return out
 
-    def cast_from_str(self, value: str) -> Union[None, bool, int, float, str]:
+    def _cast_from_str(self, value: str) -> Union[None, bool, int, float, str]:
         """Cast null values floats and integers."""
         value = value.lower()
         if value in ("n/a", "none", "none specified", "no", "None"):
@@ -420,40 +425,28 @@ class SecurityAdmin:
 
     def __validate_trait(self, trait: str, segment: str, value: Union[str, list]):
         """Validate the specified trait exists in the specified segment"""
-        if segment not in self.valid_segment_traits:
-            return -1
-        if trait not in self.valid_segment_traits[segment]:
-            if trait[:3] == "add":
-                operation = "add"
-                true_trait = trait[3:]
-            elif trait[:2] == "no":
+        if segment not in self._valid_segment_traits:
+            return False
+        if trait not in self._valid_segment_traits[segment]:
+            tokens = trait.split(":")
+            operation = tokens[0]
+            if operation not in ["add", "remove", "delete"] or len(tokens) == 1:
+                return False
+            true_trait = trait[len(operation) + 1 :]
+            if operation == "delete":
                 operation = "del"
-                true_trait = trait[2:]
-            elif trait[:3] == "del":
-                operation = "remove"
-                true_trait = trait[3:]
-            elif trait[:3] == "set":
-                operation = "set"
-                true_trait = trait[3:]
-            else:
-                return -1
             self.__validate_trait(true_trait, segment, [value, operation])
-            return 0
-        if segment not in self.segment_traits:
-            self.segment_traits[segment] = {}
-        self.segment_traits[segment][trait] = value
-        self.trait_map[trait] = self.valid_segment_traits[segment][trait]
-        return 0
+            return True
+        if segment not in self._segment_traits:
+            self._segment_traits[segment] = {}
+        self._segment_traits[segment][trait] = value
+        self._trait_map[trait] = self._valid_segment_traits[segment][trait]
+        return True
 
-    def build_segment_dictionaries(self, traits: dict) -> None:
+    def _build_segment_dictionaries(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
         for trait in traits:
-            if ":" in trait:
-                segment = trait.split(":")[0]
-                true_trait = trait.split(":")[1]
-                self.__validate_trait(true_trait, segment, traits[trait])
-                continue
-            for segment in self.valid_segment_traits:
+            for segment in self._valid_segment_traits:
                 self.__validate_trait(trait, segment, traits[trait])
         # preserve segment traits for debug logging.
-        self.preserved_segment_traits = self.segment_traits
+        self.__preserved_segment_traits = self._segment_traits

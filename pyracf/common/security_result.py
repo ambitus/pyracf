@@ -9,18 +9,18 @@ class SecurityResult:
     """Generic Security Result Parser."""
 
     def __init__(self, result_xml: str) -> None:
-        self.result = XMLParser.fromstring(result_xml)
-        self.result_dictionary = {"securityresult": {}}
+        self.__result = XMLParser.fromstring(result_xml)
+        self.__result_dictionary = {"securityresult": {}}
         self.__extract_results()
 
     def __extract_results(self) -> None:
         """Extract XML results into a dictionary."""
-        self.definition = self.result[0]
+        self.definition = self.__result[0]
         definition_tag = self.definition.tag.split("}")[-1]
-        self.result_dictionary["securityresult"][
+        self.__result_dictionary["securityresult"][
             definition_tag
         ] = self.definition.attrib
-        self.definition_dictionary = self.result_dictionary["securityresult"][
+        self.definition_dictionary = self.__result_dictionary["securityresult"][
             definition_tag
         ]
         try:
@@ -34,10 +34,10 @@ class SecurityResult:
             # Index Error indicates that there is no
             # additional information to extract from the definition.
             pass
-        return_code = self.result[1]
-        self.result_dictionary["securityresult"]["returncode"] = int(return_code.text)
-        reason_code = self.result[1]
-        self.result_dictionary["securityresult"]["reasoncode"] = int(reason_code.text)
+        return_code = self.__result[1]
+        self.__result_dictionary["securityresult"]["returncode"] = int(return_code.text)
+        reason_code = self.__result[1]
+        self.__result_dictionary["securityresult"]["reasoncode"] = int(reason_code.text)
 
     def __extract_info(self) -> None:
         """Extract info section from XML into a list."""
@@ -85,4 +85,4 @@ class SecurityResult:
 
     def get_result_dictionary(self) -> dict:
         """Return result dictionary."""
-        return self.result_dictionary
+        return self.__result_dictionary

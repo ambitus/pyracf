@@ -28,47 +28,45 @@ class TestSetroptsDebugLogging(unittest.TestCase):
         return SetroptsAdmin(debug=True)
 
     # ============================================================================
-    # Setropts Command
+    # Setropts Alter
     # ============================================================================
-    def test_command_setropts_request_debug_log_works_on_success(
+    def test_alter_setropts_request_debug_log_works_on_success(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            setropts_admin.command({"raclist": "ELIJTEST"})
+            setropts_admin.alter(options={"base:raclist": "ELIJTEST"})
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
-            success_log, TestSetroptsConstants.TEST_COMMAND_SETROPTS_SUCCESS_LOG
+            success_log, TestSetroptsConstants.TEST_ALTER_SETROPTS_SUCCESS_LOG
         )
 
-    def test_command_setropts_request_debug_log_works_on_error(
+    def test_alter_setropts_request_debug_log_works_on_error(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                setropts_admin.command({"raclist": "ELIXTEST"})
+                setropts_admin.alter(options={"base:raclist": "ELIXTEST"})
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())
-        self.assertEqual(
-            error_log, TestSetroptsConstants.TEST_COMMAND_SETROPTS_ERROR_LOG
-        )
+        self.assertEqual(error_log, TestSetroptsConstants.TEST_ALTER_SETROPTS_ERROR_LOG)
 
     # ============================================================================
     # List Racf Options
     # ============================================================================
-    def test_list_setropts_request_debug_log_works_on_success(
+    def test_list_racf_options_request_debug_log_works_on_success(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -78,7 +76,7 @@ class TestSetroptsDebugLogging(unittest.TestCase):
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            setropts_admin.list_ropts()
+            setropts_admin.list_racf_options()
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(
             success_log, TestSetroptsConstants.TEST_LIST_SETROPTS_SUCCESS_LOG

@@ -7,40 +7,40 @@ from typing import Union
 class Logger:
     """Logging for pyRACF."""
 
-    ansi_reset = "\033[0m"
-    ansi_gray = "\033[2m"
-    ansi_green = "\033[32m"
-    ansi_blue = "\033[34m"
-    ansi_orange = "\033[38;5;214m"
-    ansi_cyan = "\033[96m"
-    ansi_purple_background = "\033[1;45m"
+    __ansi_reset = "\033[0m"
+    __ansi_gray = "\033[2m"
+    __ansi_green = "\033[32m"
+    __ansi_blue = "\033[34m"
+    __ansi_orange = "\033[38;5;214m"
+    __ansi_cyan = "\033[96m"
+    __ansi_purple_background = "\033[1;45m"
 
-    def gray(self, string: str) -> str:
+    def __gray(self, string: str) -> str:
         """Make contents of string gray."""
-        return self.__colorize_string(self.ansi_gray, string)
+        return self.__colorize_string(self.__ansi_gray, string)
 
-    def green(self, string: str) -> str:
+    def __green(self, string: str) -> str:
         """Make contents of string green."""
-        return self.__colorize_string(self.ansi_green, string)
+        return self.__colorize_string(self.__ansi_green, string)
 
-    def blue(self, string: str) -> str:
+    def __blue(self, string: str) -> str:
         """Make contents of string blue."""
-        return self.__colorize_string(self.ansi_blue, string)
+        return self.__colorize_string(self.__ansi_blue, string)
 
-    def orange(self, string: str) -> str:
+    def __orange(self, string: str) -> str:
         """Make contents of string orange."""
-        return self.__colorize_string(self.ansi_orange, string)
+        return self.__colorize_string(self.__ansi_orange, string)
 
-    def cyan(self, string: str) -> str:
+    def __cyan(self, string: str) -> str:
         """Make contents of string cyan."""
-        return self.__colorize_string(self.ansi_cyan, string)
+        return self.__colorize_string(self.__ansi_cyan, string)
 
-    def purple_background(self, string: str) -> str:
+    def __purple_background(self, string: str) -> str:
         """Make contents of string magenta."""
-        return self.__colorize_string(self.ansi_purple_background, string)
+        return self.__colorize_string(self.__ansi_purple_background, string)
 
     def __colorize_string(self, ansi_color: str, string: str) -> str:
-        return f"{ansi_color}{string}{self.ansi_reset}"
+        return f"{ansi_color}{string}{self.__ansi_reset}"
 
     def log_dictionary(
         self, header_message: str, dictionary: dict, redact_string: Union[str, None]
@@ -61,7 +61,7 @@ class Logger:
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
         xml_string = self.redact_string(xml_string, redact_string)
-        indented_xml_string = self.indent_xml(xml_string)
+        indented_xml_string = self.__indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
 
@@ -69,9 +69,9 @@ class Logger:
         """Log function to use for debug logging."""
         header = f"[pyRACF:Debug] {header_message}"
         header = (
-            f"{self.purple_background(' '*79)}\n"
-            + f"{self.purple_background(header.center(79))}\n"
-            + f"{self.purple_background(' '*79)}\n"
+            f"{self.__purple_background(' '*79)}\n"
+            + f"{self.__purple_background(header.center(79))}\n"
+            + f"{self.__purple_background(' '*79)}\n"
         )
         print(f"{header}\n{message}")
 
@@ -97,7 +97,7 @@ class Logger:
                 line = self.__colorize_json_value(tokens)
             elif tokens[2][0] == ":":
                 key = f'"{tokens[1]}"'
-                first_half = f"{tokens[0]}{self.cyan(key)}"
+                first_half = f"{tokens[0]}{self.__cyan(key)}"
                 second_half = self.__colorize_json_value(tokens[2:])
                 line = first_half + second_half
             updated_json_text += f"{line}\n"
@@ -106,7 +106,7 @@ class Logger:
     def __colorize_json_value(self, tokens: dict) -> str:
         if len(tokens) != 1:
             value = f'"{tokens[1]}"'
-            second_half = f"{tokens[0]}{self.orange(value)}{''.join(tokens[2:])}"
+            second_half = f"{tokens[0]}{self.__orange(value)}{''.join(tokens[2:])}"
         else:
             skip_values = ["{", "[", "{}", "[]"]
             blue_values = ["null", "true", "false"]
@@ -120,10 +120,10 @@ class Logger:
                 pass
             elif value in blue_values:
                 # null and booleans
-                value = f"{self.blue(value)}"
+                value = f"{self.__blue(value)}"
             else:
                 # numbers
-                value = f"{self.green(value)}"
+                value = f"{self.__green(value)}"
             second_half = f": {value}"
             if has_comma:
                 second_half += ","
@@ -154,19 +154,19 @@ class Logger:
                     attributes = attributes[:-1]
                     tag_end = "/>"
             start_tag = (
-                f"{self.gray(tag_start)}"
-                + f"{self.blue(tag_name)}"
+                f"{self.__gray(tag_start)}"
+                + f"{self.__blue(tag_name)}"
                 + f"{self.__colorize_xml_attributes(attributes)}"
-                + f"{self.gray(tag_end)}"
+                + f"{self.__gray(tag_end)}"
             )
             data = ""
             end_tag = ""
             if len(tokens) > 2:
                 data = "".join(tokens[1].split(">")[1:])
                 end_tag = (
-                    f"{self.gray('</')}"
-                    + f"{self.blue(tokens[-1][1:-1])}"
-                    + f"{self.gray('>')}"
+                    f"{self.__gray('</')}"
+                    + f"{self.__blue(tokens[-1][1:-1])}"
+                    + f"{self.__gray('>')}"
                 )
             line = tokens[0] + start_tag + data + end_tag
             updated_xml_text += f"{line}\n"
@@ -180,12 +180,12 @@ class Logger:
                 subtokens = token.split()
                 for subtoken in subtokens:
                     if '"' in subtoken:
-                        updated_xml_attributes += f"{self.orange(subtoken)} "
+                        updated_xml_attributes += f"{self.__orange(subtoken)} "
                     else:
-                        updated_xml_attributes += f"{self.cyan(subtoken)}="
+                        updated_xml_attributes += f"{self.__cyan(subtoken)}="
         return updated_xml_attributes.rstrip()
 
-    def indent_xml(self, minified_xml: str) -> str:
+    def __indent_xml(self, minified_xml: str) -> str:
         """Used to indent XML for readability in debug logging."""
         indent_level = 0
         indented_xml = ""

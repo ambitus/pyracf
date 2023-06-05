@@ -23,22 +23,20 @@ class TestSetroptsResultParser(unittest.TestCase):
         return SetroptsAdmin()
 
     # ============================================================================
-    # Command Setropts
+    # Alter Setropts
     # ============================================================================
-    def test_setropts_admin_can_parse_command_setropts_success_xml(
+    def test_setropts_admin_can_parse_alter_setropts_success_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_XML
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            setropts_admin.command(
-                TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS
-            ),
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_SUCCESS_DICTIONARY,
+            setropts_admin.alter(options={"base:raclist": "elijtest"}),
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
     # Error in misspelled SETROPTS parameter
@@ -49,13 +47,13 @@ class TestSetroptsResultParser(unittest.TestCase):
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            setropts_admin.command({"raclist": "elixtest"})
+            setropts_admin.alter(options={"base:raclist": "elixtest"})
         self.assertEqual(
             exception.exception.results,
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY,
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_DICTIONARY,
         )
 
     # ============================================================================
@@ -71,7 +69,7 @@ class TestSetroptsResultParser(unittest.TestCase):
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            setropts_admin.list_ropts(),
+            setropts_admin.list_racf_options(),
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -83,11 +81,11 @@ class TestSetroptsResultParser(unittest.TestCase):
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            setropts_admin.list_ropts()  # Not valid error for this command, but good test
+            setropts_admin.list_racf_options()  # Not valid error for this request, but good test
         self.assertEqual(
             exception.exception.results,
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_DICTIONARY,
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_DICTIONARY,
         )

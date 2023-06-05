@@ -9,14 +9,16 @@ class SecurityRequest:
     """Generic Security Request builder."""
 
     def __init__(self) -> None:
-        self.racf_request = XMLBuilder.Element("securityrequest")
-        self.racf_request.attrib = {
+        self.__racf_request = XMLBuilder.Element("securityrequest")
+        self.__racf_request.attrib = {
             "xmlns": "http://www.ibm.com/systems/zos/saf",
             "xmlns:racf": "http://www.ibm.com/systems/zos/racf",
         }
-        self.security_definition = XMLBuilder.SubElement(self.racf_request, "undefined")
+        self._security_definition = XMLBuilder.SubElement(
+            self.__racf_request, "undefined"
+        )
 
-    def get_volume_and_generic_security_definition_values(
+    def _get_volume_and_generic_security_definition_values(
         self, volume: Union[str, None], generic: bool
     ) -> None:
         """Get volid and generic xml values for security definition"""
@@ -57,9 +59,9 @@ class SecurityRequest:
         if not traits:
             return
         if segment_name:
-            segment = XMLBuilder.SubElement(self.security_definition, segment_name)
+            segment = XMLBuilder.SubElement(self._security_definition, segment_name)
         else:
-            segment = self.security_definition
+            segment = self._security_definition
         if isinstance(traits, bool):
             return
         for trait in traits:
@@ -79,12 +81,12 @@ class SecurityRequest:
             else:
                 trait_element.attrib = {"operation": "set"}
         if len(list(segment.iter())) == 1 and not extract:
-            self.security_definition.remove(segment)
+            self._security_definition.remove(segment)
 
-    def dump_request_xml(self, encoding="cp1047") -> bytes:
+    def dump_request_xml(self, encoding: str = "cp1047") -> bytes:
         """Dump XML as EBCDIC encoded bytes. (Encoding can be overridden)."""
         if platform.system() != "OS/390" and encoding == "cp1047":
-            # If not running on z/OS EBCDIC is most likely not supported.
+            # If not running on z/OS, EBCDIC is most likely not supported.
             # Force utf-8 if running tests on Linux, Mac, Windows, etc...
             encoding = "utf-8"
-        return XMLBuilder.tostring(self.racf_request, encoding=encoding)
+        return XMLBuilder.tostring(self.__racf_request, encoding=encoding)

@@ -11,8 +11,10 @@ class DatasetAdmin(SecurityAdmin):
     """RACF DataSet Profile Administration."""
 
     def __init__(self, debug=False, generate_requests_only=False) -> None:
-        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
-        self.valid_segment_traits = {
+        super().__init__(
+            "dataset", debug=debug, generate_requests_only=generate_requests_only
+        )
+        self._valid_segment_traits = {
             "base": {
                 "altvol": "racf:altvol",
                 "category": "racf:category",
@@ -56,15 +58,10 @@ class DatasetAdmin(SecurityAdmin):
             "dfp": {"resowner": "racf:resowner", "datakey": "racf:datakey"},
             "tme": {"roles": "racf:roles"},
         }
-        self.valid_segment_traits["base"].update(
-            self.common_base_traits_dataset_generic
+        self._valid_segment_traits["base"].update(
+            self._common_base_traits_dataset_generic
         )
-
-        del self.valid_segment_traits["base"]["generic"]
-
-        self.segment_traits = {}
-        self.trait_map = {}
-        self.profile_type = "dataset"
+        del self._valid_segment_traits["base"]["generic"]
 
     def get_uacc(self, data_set: str) -> str:
         """Get UACC associated with a data set profile."""
@@ -126,7 +123,7 @@ class DatasetAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Create a new data set profile."""
-        self.build_segment_dictionaries(traits)
+        self._build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(data_set, "set", volume, generic)
         self.build_segments(dataset_request)
         return self.make_request(dataset_request)
@@ -139,7 +136,7 @@ class DatasetAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Alter an existing data set profile."""
-        self.build_segment_dictionaries(traits)
+        self._build_segment_dictionaries(traits)
         dataset_request = DatasetRequest(data_set, "set", volume, generic)
         self.build_segments(dataset_request, alter=True)
         return self.make_request(dataset_request, 3)
@@ -152,10 +149,10 @@ class DatasetAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Extract a data set profile."""
-        self.build_bool_segment_dictionaries(segments)
+        self._build_bool_segment_dictionaries(segments)
         dataset_request = DatasetRequest(data_set, "listdata", volume, generic)
         self.build_segments(dataset_request, extract=True)
-        return self.extract_and_check_result(dataset_request)
+        return self._extract_and_check_result(dataset_request)
 
     def delete(
         self,
@@ -172,12 +169,12 @@ class DatasetAdmin(SecurityAdmin):
     ) -> None:
         """Build XML representation of segments."""
         dataset_request.build_segments(
-            self.segment_traits, self.trait_map, alter=alter, extract=extract
+            self._segment_traits, self._trait_map, alter=alter, extract=extract
         )
         # Clear segments for new request
-        self.segment_traits = {}
+        self._segment_traits = {}
 
-    def format_profile(self, result: dict) -> None:
+    def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["dataset"]["commands"][0]["messages"]
         indexes = [
@@ -188,15 +185,13 @@ class DatasetAdmin(SecurityAdmin):
         indexes.append(len(messages))
         profiles = []
         for i in range(len(indexes) - 1):
-            profile = self.format_profile_generic(
-                messages[indexes[i] : indexes[i + 1]],
-                self.valid_segment_traits,
-                profile_type="dataset",
+            profile = self._format_profile_generic(
+                messages[indexes[i] : indexes[i + 1]]
             )
             # Post processing
             if "(g)" in profile["base"].get("name"):
                 profile["base"]["generic"] = True
-                profile["base"]["name"] = self.cast_from_str(
+                profile["base"]["name"] = self._cast_from_str(
                     profile["base"].get("name").split(" ")[0]
                 )
             else:

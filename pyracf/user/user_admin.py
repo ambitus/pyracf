@@ -1,6 +1,6 @@
 """User Administration."""
 
-from typing import Union
+from typing import List, Union
 
 from pyracf.common.security_admin import SecurityAdmin
 
@@ -10,205 +10,211 @@ from .user_request import UserRequest
 class UserAdmin(SecurityAdmin):
     """User Administration."""
 
-    def __init__(self, debug=False, generate_requests_only=False) -> None:
-        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
-        self.valid_segment_traits = {
+    def __init__(
+        self, debug: bool = False, generate_requests_only: bool = False
+    ) -> None:
+        super().__init__(
+            "user", debug=debug, generate_requests_only=generate_requests_only
+        )
+        self._valid_segment_traits = {
             "base": {
-                "adsp": "racf:adsp",
-                "auditor": "racf:auditor",
-                "auth": "racf:auth",
-                "category": "racf:category",
-                "clauth": "racf:clauth",
-                "connects": "racf:connects",
-                "cadsp": "racf:cadsp",
-                "cauditor": "racf:cauditor",
-                "cauthda": "racf:cauthda",
-                "cgroup": "racf:cgroup",
-                "cgrpacc": "racf:cgrpacc",
-                "cinitct": "racf:cinitct",
-                "cljdate": "racf:cljdate",
-                "cljtime": "racf:cljtime",
-                "coper": "racf:coper",
-                "cowner": "racf:cowner",
-                "cresume": "racf:cresume",
-                "crevoke": "racf:crevoke",
-                "crevokfl": "racf:crevokfl",
-                "cspecial": "racf:cspecial",
-                "cuacc": "racf:cuacc",
-                "creatdat": "racf:creatdat",
-                "data": "racf:data",
-                "dfltgrp": "defgroup",
-                "expired": "racf:expired",
-                "factorn": "racf:factorn",
-                "factor": "racf:factor",
-                "facactv": "racf:facactv",
-                "factagnn": "racf:factagnn",
-                "facvalnn": "racf:facvalnn",
-                "group": "racf:group",
-                "grpacc": "racf:grpacc",
-                "hasphras": "racf:hasphras",
-                "haspwd": "racf:haspwd",
-                "lastdate": "racf:lastdate",
-                "lasttime": "racf:lasttime",
-                "mfaflbk": "racf:mfaflbk",
-                "mfapolnm": "racf:mfapolnm",
-                "model": "racf:model",
-                "name": "name",
-                "oidcard": "racf:oidcard",
-                "oper": "racf:oper",
-                "owner": "racf:owner",
-                "passdate": "racf:passdate",
-                "passint": "racf:passint",
-                "password": "racf:password",
-                "phrase": "racf:phrase",
-                "phrdate": "racf:phrdate",
-                "phrint": "racf:phrint",
-                "pphenv": "racf:pphenv",
-                "protectd": "racf:protectd",
-                "pwdenv": "racf:pwdenv",
-                "rest": "racf:rest",
-                "resume": "resumedate",
-                "revoke": "revokedate",
-                "revokefl": "racf:revokefl",
-                "roaudit": "racf:roaudit",
-                "seclabel": "seclabel",
-                "seclevel": "racf:seclevel",
-                "special": "racf:special",
-                "uacc": "racf:uacc",
-                "uaudit": "uaudit",
-                "whendays": "whendays",
-                "whensrv": "whensrv",
-                "whentime": "whentime",
+                "base:adsp": "racf:adsp",
+                "base:auditor": "racf:auditor",
+                "base:auth": "racf:auth",
+                "base:category": "racf:category",
+                "base:clauth": "racf:clauth",
+                "base:connects": "racf:connects",
+                "base:cadsp": "racf:cadsp",
+                "base:cauditor": "racf:cauditor",
+                "base:cauthda": "racf:cauthda",
+                "base:cgroup": "racf:cgroup",
+                "base:cgrpacc": "racf:cgrpacc",
+                "base:cinitct": "racf:cinitct",
+                "base:cljdate": "racf:cljdate",
+                "base:cljtime": "racf:cljtime",
+                "base:coper": "racf:coper",
+                "base:cowner": "racf:cowner",
+                "base:cresume": "racf:cresume",
+                "base:crevoke": "racf:crevoke",
+                "base:crevokfl": "racf:crevokfl",
+                "base:cspecial": "racf:cspecial",
+                "base:cuacc": "racf:cuacc",
+                "base:creatdat": "racf:creatdat",
+                "base:data": "racf:data",
+                "base:dfltgrp": "defgroup",
+                "base:expired": "racf:expired",
+                "base:factorn": "racf:factorn",
+                "base:factor": "racf:factor",
+                "base:facactv": "racf:facactv",
+                "base:factagnn": "racf:factagnn",
+                "base:facvalnn": "racf:facvalnn",
+                "base:group": "racf:group",
+                "base:grpacc": "racf:grpacc",
+                "base:hasphras": "racf:hasphras",
+                "base:haspwd": "racf:haspwd",
+                "base:lastdate": "racf:lastdate",
+                "base:lasttime": "racf:lasttime",
+                "base:mfaflbk": "racf:mfaflbk",
+                "base:mfapolnm": "racf:mfapolnm",
+                "base:model": "racf:model",
+                "base:name": "name",
+                "base:oidcard": "racf:oidcard",
+                "base:oper": "racf:oper",
+                "base:owner": "racf:owner",
+                "base:passdate": "racf:passdate",
+                "base:passint": "racf:passint",
+                "base:password": "racf:password",
+                "base:phrase": "racf:phrase",
+                "base:phrdate": "racf:phrdate",
+                "base:phrint": "racf:phrint",
+                "base:pphenv": "racf:pphenv",
+                "base:protectd": "racf:protectd",
+                "base:pwdenv": "racf:pwdenv",
+                "base:rest": "racf:rest",
+                "base:resume": "resumedate",
+                "base:revoke": "revokedate",
+                "base:revokefl": "racf:revokefl",
+                "base:roaudit": "racf:roaudit",
+                "base:seclabel": "seclabel",
+                "base:seclevel": "racf:seclevel",
+                "base:special": "racf:special",
+                "base:uacc": "racf:uacc",
+                "base:uaudit": "uaudit",
+                "base:whendays": "whendays",
+                "base:whensrv": "whensrv",
+                "base:whentime": "whentime",
             },
             "cics": {
-                "opclass": "racf:opclass",
-                "opident": "opident",
-                "opprty": "opprty",
-                "rslkey": "racf:rslkey",
-                "timeout": "timeout",
-                "tslkey": "racf:tslkey",
-                "xrfsoff": "force",
+                "cisc:opclass": "racf:opclass",
+                "cics:opident": "opident",
+                "cics:opprty": "opprty",
+                "cics:rslkey": "racf:rslkey",
+                "cics:timeout": "timeout",
+                "cics:tslkey": "racf:tslkey",
+                "cics:xrfsoff": "force",
             },
-            "csdata": {"custom-keyword": "racf:custom-keyword"},
+            "csdata": {"csdata:custom-keyword": "racf:custom-keyword"},
             "dce": {
-                "autolog": "autolog",
-                "dcename": "dcename",
-                "homecell": "homecell",
-                "homeuuid": "homeuuid",
-                "uuid": "uuid",
+                "dce:autolog": "autolog",
+                "dce:dcename": "dcename",
+                "dce:homecell": "homecell",
+                "dce:homeuuid": "homeuuid",
+                "dce:uuid": "uuid",
             },
             "dfp": {
-                "dataappl": "dataappl",
-                "dataclas": "dataclas",
-                "mgmtclas": "mgmtclass",
-                "storclas": "storclas",
+                "dfp:dataappl": "dataappl",
+                "dfp:dataclas": "dataclas",
+                "dfp:mgmtclas": "mgmtclass",
+                "dfp:storclas": "storclas",
             },
             "eim": {"ldapprof": "racf:ldapprof"},
             "kerb": {
-                "encrypt": "racf:encrypt",
-                "kerbname": "racf:kerbname",
-                "keyfrom": "racf:keyfrom",
-                "keyvers": "racf:keyvers",
-                "maxtktlf": "racf:maxtktlf",
+                "dfp:encrypt": "racf:encrypt",
+                "dfp:kerbname": "racf:kerbname",
+                "dfp:keyfrom": "racf:keyfrom",
+                "dfp:keyvers": "racf:keyvers",
+                "dfp:maxtktlf": "racf:maxtktlf",
             },
-            "language": {"primary": "primary", "second": "secondary"},
-            "lnotes": {"sname": "racf:sname"},
+            "language": {"language:primary": "primary", "language:second": "secondary"},
+            "lnotes": {"lnotes:sname": "racf:sname"},
             "mfa": {
-                "factor": "racf:factor",
-                "facactv": "racf:facactv",
-                "factags": "racf:factags",
-                "mfaflbk": "racf:mfaflbk",
-                "mfapolnm": "racf:mfapolnm",
+                "mfa:factor": "racf:factor",
+                "mfa:facactv": "racf:facactv",
+                "mfa:factags": "racf:factags",
+                "mfa:mfaflbk": "racf:mfaflbk",
+                "mfa:mfapolnm": "racf:mfapolnm",
             },
-            "nds": {"uname": "racf:uname"},
+            "nds": {"nds:uname": "racf:uname"},
             "netview": {
-                "consname": "consid",
-                "ctl": "secctl",
-                "domains": "nvdomains",
-                "ic": "ic",
-                "msgrecvr": "msgrec",
-                "ngmfadmn": "racf:ngmfadmn",
-                "ngmfvspn": "gmfadmin",
-                "opclass": "racf:opclass",
+                "netview:consname": "consid",
+                "netview:ctl": "secctl",
+                "netview:domains": "nvdomains",
+                "netview:ic": "ic",
+                "netview:msgrecvr": "msgrec",
+                "netview:ngmfadmn": "racf:ngmfadmn",
+                "netview:ngmfvspn": "gmfadmin",
+                "netview:opclass": "racf:opclass",
             },
             "omvs": {
-                "assize": "assize",
-                "autouid": "racf:autouid",
-                "cputime": "cputime",
-                "fileproc": "filemax",
-                "home": "home",
-                "memlimit": "memlim",
-                "mmaparea": "mmaparea",
-                "procuser": "procmax",
-                "program": "pgm",
-                "shared": "racf:shared",
-                "shmemmax": "shmemmax",
-                "threads": "threads",
-                "uid": "uid",
+                "omvs:assize": "assize",
+                "omvs:autouid": "racf:autouid",
+                "omvs:cputime": "cputime",
+                "omvs:fileproc": "filemax",
+                "omvs:home": "home",
+                "omvs:memlimit": "memlim",
+                "omvs:mmaparea": "mmaparea",
+                "omvs:procuser": "procmax",
+                "omvs:program": "pgm",
+                "omvs:shared": "racf:shared",
+                "omvs:shmemmax": "shmemmax",
+                "omvs:threads": "threads",
+                "omvs:uid": "uid",
             },
             "operparm": {
-                "altgrp": "altgrp",
-                "auto": "auto",
-                "cmdsys": "cmdsys",
-                "dom": "dom",
-                "hc": "hc",
-                "intids": "intid",
-                "key": "key",
-                "level": "racf:level",
-                "logcmd": "logcmd",
-                "mform": "mform",
-                "migid": "migid",
-                "monitor": "mon",
-                "mscope": "racf:mscope",
-                "operauth": "auth",
-                "routcode": "routcode",
-                "storage": "storage",
-                "ud": "ud",
-                "unknids": "unkids",
+                "operparm:altgrp": "altgrp",
+                "operparm:auto": "auto",
+                "operparm:cmdsys": "cmdsys",
+                "operparm:dom": "dom",
+                "operparm:hc": "hc",
+                "operparm:intids": "intid",
+                "operparm:key": "key",
+                "operparm:level": "racf:level",
+                "operparm:logcmd": "logcmd",
+                "operparm:mform": "mform",
+                "operparm:migid": "migid",
+                "operparm:monitor": "mon",
+                "operparm:mscope": "racf:mscope",
+                "operparm:operauth": "auth",
+                "operparm:routcode": "routcode",
+                "operparm:storage": "storage",
+                "operparm:ud": "ud",
+                "operparm:unknids": "unkids",
             },
             "ovm": {
-                "fsroot": "racf:fsroot",
-                "vhome": "racf:vhome",
-                "vprogram": "racf:vprogram",
-                "vuid": "racf:vuid",
+                "ovm:fsroot": "racf:fsroot",
+                "ovm:vhome": "racf:vhome",
+                "ovm:vprogram": "racf:vprogram",
+                "ovm:vuid": "racf:vuid",
             },
             "proxy": {
-                "binddn": "racf:binddn",
-                "bindpw": "racf:bindpw",
-                "ldaphost": "racf:ldaphost",
+                "proxy:binddn": "racf:binddn",
+                "proxy:bindpw": "racf:bindpw",
+                "proxy:ldaphost": "racf:ldaphost",
             },
             "tso": {
-                "acctnum": "acctnum",
-                "command": "command",
-                "dest": "dest",
-                "hldclass": "holdclass",
-                "jobclass": "jobclass",
-                "maxsize": "maxsize",
-                "msgclass": "msgclass",
-                "proc": "proc",
-                "seclabel": "seclabel",
-                "size": "size",
-                "sysoutcl": "sysclass",
-                "unit": "unit",
-                "userdata": "userdata",
+                "tso:acctnum": "acctnum",
+                "tso:command": "command",
+                "tso:dest": "dest",
+                "tso:hldclass": "holdclass",
+                "tso:jobclass": "jobclass",
+                "tso:maxsize": "maxsize",
+                "tso:msgclass": "msgclass",
+                "tso:proc": "proc",
+                "tso:seclabel": "seclabel",
+                "tso:size": "size",
+                "tso:sysoutcl": "sysclass",
+                "tso:unit": "unit",
+                "tso:userdata": "userdata",
             },
             "workattr": {
-                "waaccnt": "waaccnt",
-                "waaddr1": "waaddr1",
-                "waaddr2": "waaddr2",
-                "waaddr3": "waaddr3",
-                "waaddr4": "waaddr4",
-                "wabldg": "wabldg",
-                "wadept": "wadept",
-                "waname": "waname",
-                "waroom": "waroom",
-                "waemail": "waemail",
+                "workattr:waaccnt": "waaccnt",
+                "workattr:waaddr1": "waaddr1",
+                "workattr:waaddr2": "waaddr2",
+                "workattr:waaddr3": "waaddr3",
+                "workattr:waaddr4": "waaddr4",
+                "workattr:wabldg": "wabldg",
+                "workattr:wadept": "wadept",
+                "workattr:waname": "waname",
+                "workattr:waroom": "waroom",
+                "workattr:waemail": "waemail",
             },
         }
-        self.profile_type = "user"
 
+    # ============================================================================
+    # Special Attribute
+    # ============================================================================
     def is_special(self, userid: str) -> bool:
-        """Check if a user has RACF special."""
+        """Check if a user has RACF special authority."""
         result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "special" in profile["base"]["attributes"]:
@@ -216,18 +222,21 @@ class UserAdmin(SecurityAdmin):
         return False
 
     def set_special(self, userid: str) -> dict:
-        """Make user RACF special."""
-        return self.alter(userid, {"special": True})
+        """Give a user RACF special authority."""
+        return self.alter(userid, traits={"base:special": True})
 
-    def del_special(
+    def delete_special(
         self,
         userid: str,
     ) -> dict:
-        """Make user not RACF special."""
-        return self.alter(userid, {"special": False})
+        """Remove a user's RACF special authority."""
+        return self.alter(userid, traits={"base:special": False})
 
+    # ============================================================================
+    # Auditor Attribute
+    # ============================================================================
     def is_auditor(self, userid: str) -> bool:
-        """Check if a user is RACF auditor."""
+        """Check if a user has auditor authority"""
         result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "auditor" in profile["base"]["attributes"]:
@@ -235,15 +244,18 @@ class UserAdmin(SecurityAdmin):
         return False
 
     def set_auditor(self, userid: str) -> dict:
-        """Make user a RACF auditor."""
-        return self.alter(userid, {"auditor": True})
+        """Give a user auditor authority."""
+        return self.alter(userid, traits={"base:auditor": True})
 
-    def del_auditor(self, userid: str) -> dict:
-        """Make user not a RACF auditor."""
-        return self.alter(userid, {"auditor": False})
+    def delete_auditor(self, userid: str) -> dict:
+        """Remove a user's auditor authority."""
+        return self.alter(userid, traits={"base:auditor": False})
 
+    # ============================================================================
+    # Operations Attribute
+    # ============================================================================
     def is_operations(self, userid: str) -> bool:
-        """Check if a user is RACF operator."""
+        """Check if a user has operations authority."""
         result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "operations" in profile["base"]["attributes"]:
@@ -251,15 +263,59 @@ class UserAdmin(SecurityAdmin):
         return False
 
     def set_operations(self, userid: str) -> dict:
-        """Make user a RACF operator."""
-        return self.alter(userid, {"oper": True})
+        """Give a user operations authority."""
+        return self.alter(userid, traits={"base:oper": True})
 
-    def del_operations(self, userid: str) -> dict:
-        """Make user not a RACF operator."""
-        return self.alter(userid, {"oper": False})
+    def delete_operations(self, userid: str) -> dict:
+        """Remove a user's operations authority."""
+        return self.alter(userid, traits={"base:oper": False})
 
-    def get_uid(self, userid: str) -> Union[str, int]:
-        """Get a user's UID."""
+    # ============================================================================
+    # Password
+    # ============================================================================
+    def set_password(
+        self,
+        userid: str,
+        password: str,
+    ) -> dict:
+        """Set a user's password."""
+        return self.alter(userid, traits={"base:password": password})
+
+    # ============================================================================
+    # Class Authorizations
+    # ============================================================================
+    def set_class_authorizations(
+        self, userid: str, class_authorizations: List[str]
+    ) -> dict:
+        """Set a user's class authorizations."""
+        return self.alter(userid, traits={"base:clauth": class_authorizations})
+
+    def add_class_authorization(self, userid: str, class_authorization: str) -> dict:
+        """Add a class to a user's class authorizations."""
+        return self.alter(userid, traits={"add:base:clauth": class_authorization})
+
+    def remove_class_authorization(self, userid: str, class_authorization: str) -> dict:
+        """Remove a class from a user's class authorizations."""
+        return self.alter(userid, traits={"remove:base:clauth": class_authorization})
+
+    def delete_class_authorizaitons(self, userid: str) -> str:
+        """Remove all class authorization(s) from the User Profile"""
+        return self.alter(userid, traits={"base:clauth": False})
+
+    def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
+        """Get a user's class authorizations."""
+        result = self.extract(userid)
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        try:
+            return profile["base"]["classauthorizations"]
+        except KeyError:
+            return None
+
+    # ============================================================================
+    # OMVS UID
+    # ============================================================================
+    def get_omvs_uid(self, userid: str) -> Union[int, None]:
+        """Get a user's OMVS UID."""
         result = self.extract(userid, segments={"omvs": True})
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         try:
@@ -267,149 +323,103 @@ class UserAdmin(SecurityAdmin):
         except KeyError:
             return None
 
-    def set_uid(
+    def set_omvs_uid(
         self,
         userid: str,
         uid: int,
     ) -> dict:
-        """Set a user's UID."""
-        return self.alter(userid, {"uid": str(uid)})
+        """Set a user's OMVS UID."""
+        return self.alter(userid, traits={"omvs:uid": uid})
 
-    def add_category(self, userid: str, category: str) -> str:
-        """Set the category for the User Profile"""
-        return self.alter(userid, {"addcategory": category})
+    # ============================================================================
+    # OMVS Home
+    # ============================================================================
+    def get_omvs_home(self, userid: str) -> Union[str, None]:
+        """Get a user's OMVS home directory."""
+        result = self.extract(userid, segments={"omvs": True})
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        try:
+            return profile["omvs"]["home"]
+        except KeyError:
+            return None
 
-    def del_category(self, userid: str, category: str) -> str:
-        """Delete the category from the User Profile"""
-        return self.alter(userid, {"delcategory": category})
+    def set_omvs_home(
+        self,
+        userid: str,
+        home_directory: str,
+    ) -> dict:
+        """Set a user's OMVS home directory."""
+        return self.alter(userid, traits={"omvs:home": str(home_directory)})
 
-    def set_clauth(self, userid: str, clauth: str) -> str:
-        """Set the class authorization for the User Profile"""
-        return self.alter(userid, {"setclauth": clauth})
+    # ============================================================================
+    # OMVS Program
+    # ============================================================================
+    def get_omvs_program(self, userid: str) -> Union[str, None]:
+        """Get a user's OMVS program."""
+        result = self.extract(userid, segments={"omvs": True})
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        try:
+            return profile["omvs"]["home"]
+        except KeyError:
+            return None
 
-    def add_clauth(self, userid: str, clauth: str) -> str:
-        """Add a class authorization to the User Profile"""
-        return self.alter(userid, {"addclauth": clauth})
+    def set_omvs_program(
+        self,
+        userid: str,
+        program: str,
+    ) -> dict:
+        """Set a user's OMVS program."""
+        return self.alter(userid, traits={"omvs:home": str(program)})
 
-    def del_clauth(self, userid: str, clauth: str) -> str:
-        """Remove a class authorization from the User Profile"""
-        return self.alter(userid, {"delclauth": clauth})
-
-    def no_clauth(self, userid: str) -> str:
-        """Remove all class authorization(s) from the User Profile"""
-        return self.alter(userid, {"noclauth": "N/A"})
-
-    def add_mfapolnm(self, userid: str, mfapolnm: str) -> str:
-        """Set the MFA Policy Name from the User Profile"""
-        return self.alter(userid, {"addmfapolnm": mfapolnm})
-
-    def del_mfapolnm(self, userid: str, mfapolnm: str) -> str:
-        """Remove the MFA Policy Name from the User Profile"""
-        return self.alter(userid, {"delmfapolnm": mfapolnm})
-
-    def set_cics_opclass(self, userid: str, opclass: str) -> str:
-        """Set the Operator Class (CICS) for the User Profile"""
-        return self.alter(userid, {"cics:setopclass": opclass})
-
-    def add_cics_opclass(self, userid: str, opclass: str) -> str:
-        """Add an Operator Class (CICS) to the User Profile"""
-        return self.alter(userid, {"cics:addopclass": opclass})
-
-    def del_cics_opclass(self, userid: str, opclass: str) -> str:
-        """Remove an Operator Class (CICS) from the User Profile"""
-        return self.alter(userid, {"cics:delopclass": opclass})
-
-    def no_cics_opclass(self, userid: str) -> str:
-        """Remove all Operator Class(es) (CICS) from the User Profile"""
-        return self.alter(userid, {"cics:noopclass": "N/A"})
-
-    def set_netview_opclass(self, userid: str, opclass: str) -> str:
-        """Set the Operator Class (Netview) for the User Profile"""
-        return self.alter(userid, {"netview:setopclass": opclass})
-
-    def add_netview_opclass(self, userid: str, opclass: str) -> str:
-        """Add an Operator Class (Netview) to the User Profile"""
-        return self.alter(userid, {"netview:addopclass": opclass})
-
-    def del_netview_opclass(self, userid: str, opclass: str) -> str:
-        """Remove an Operator Class (Netview) from the User Profile"""
-        return self.alter(userid, {"netview:delopclass": opclass})
-
-    def no_netview_opclass(self, userid: str) -> str:
-        """Remove all Operator Class(es) (Netview) from the User Profile"""
-        return self.alter(userid, {"netview:noopclass": "N/A"})
-
-    def set_domain(self, userid: str, domain: str) -> str:
-        """Set the Domain for the User Profile"""
-        return self.alter(userid, {"setdomains": domain})
-
-    def add_domain(self, userid: str, domain: str) -> str:
-        """Add a Domain for the User Profile"""
-        return self.alter(userid, {"adddomains": domain})
-
-    def del_domain(self, userid: str, domain: str) -> str:
-        """Delete a Domain from the User Profile"""
-        return self.alter(userid, {"deldomains": domain})
-
-    def no_domains(self, userid: str) -> str:
-        """Delete all Domain(s) from the User Profile"""
-        return self.alter(userid, {"nodomains": "N/A"})
-
-    def set_mscope(self, userid: str, mscope: str) -> str:
-        """Set the Message Scope for the User Profile"""
-        return self.alter(userid, {"setmscope": mscope})
-
-    def add_mscope(self, userid: str, mscope: str) -> str:
-        """Add a Message Scope to the User Profile"""
-        return self.alter(userid, {"addmscope": mscope})
-
-    def del_mscope(self, userid: str, mscope: str) -> str:
-        """Delete a Message Scope from the User Profile"""
-        return self.alter(userid, {"delmscope": mscope})
-
-    def no_mscope(self, userid: str) -> str:
-        """Delete all Message Scope(s) from the User Profile"""
-        return self.alter(userid, {"nomscope": "N/A"})
-
-    def add(self, userid: str, traits: dict) -> dict:
+    # ============================================================================
+    # Core Functions
+    # ============================================================================
+    def add(self, userid: str, traits: dict = {}) -> dict:
         """Create a new user."""
-        self.build_segment_dictionaries(traits)
+        self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
-        self.build_segments(user_request)
+        self.__build_segments(user_request)
         return self.make_request(user_request)
 
-    def alter(self, userid: str, traits: dict) -> dict:
+    def alter(self, userid: str, traits: dict = {}) -> dict:
         """Alter an existing user."""
-        self.build_segment_dictionaries(traits)
+        self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
-        self.build_segments(user_request, alter=True)
+        self.__build_segments(user_request, alter=True)
         return self.make_request(user_request, 3)
 
     def extract(self, userid: str, segments: dict = {}) -> dict:
         """Extract a user's profile."""
-        self.build_bool_segment_dictionaries(segments)
+        self._build_bool_segment_dictionaries(segments)
         user_request = UserRequest(userid, "listdata")
-        self.build_segments(user_request, extract=True)
-        return self.extract_and_check_result(user_request)
+        self.__build_segments(user_request, extract=True)
+        return self._extract_and_check_result(user_request)
 
     def delete(self, userid: str) -> dict:
         """Delete a user."""
         user_request = UserRequest(userid, "del")
         return self.make_request(user_request)
 
-    def build_segments(
-        self, user_request: UserRequest, alter=False, extract=False
+    # ============================================================================
+    # Private/Protected Utility Functions
+    # ============================================================================
+    def __build_segments(
+        self, user_request: UserRequest, alter: bool = False, extract: bool = False
     ) -> None:
         """Build XML representation of segments."""
         user_request.build_segments(
-            self.segment_traits, self.trait_map, alter=alter, extract=extract
+            self._segment_traits, self._trait_map, alter=alter, extract=extract
         )
         # Clear segments for new request
-        self.segment_traits = {}
+        self._segment_traits = {}
 
-    def format_profile(self, result: dict) -> None:
+    def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["user"]["commands"][0]["messages"]
+        userid = result["securityresult"]["user"]["name"]
+        exclude_command_audit_trail_string = f"Command Audit Trail for USER {userid}"
+        if exclude_command_audit_trail_string in messages:
+            messages = messages[: messages.index(exclude_command_audit_trail_string)]
         indexes = [
             i
             for i in range(len(messages) - 1)
@@ -418,10 +428,8 @@ class UserAdmin(SecurityAdmin):
         indexes.append(len(messages))
         profiles = []
         for i in range(len(indexes) - 1):
-            profile = self.format_profile_generic(
-                messages[indexes[i] : indexes[i + 1]],
-                self.valid_segment_traits,
-                profile_type="user",
+            profile = self._format_profile_generic(
+                messages[indexes[i] : indexes[i + 1]]
             )
             profiles.append(profile)
 

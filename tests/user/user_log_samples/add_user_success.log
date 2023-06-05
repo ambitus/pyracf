@@ -4,7 +4,7 @@
 
 {
     "base": {
-        "password": "********"
+        "base:password": "********"
     }
 }
 

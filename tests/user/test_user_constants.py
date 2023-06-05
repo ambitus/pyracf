@@ -46,6 +46,9 @@ TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
     "extract_user_result_base_only_no_omvs_success.json"
 )
+TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML = get_sample(
+    "extract_user_result_with_command_audit_trail.xml"
+)
 
 # Delete User
 TEST_DELETE_USER_RESULT_SUCCESS_XML = get_sample("delete_user_result_success.xml")
@@ -62,23 +65,23 @@ TEST_DELETE_USER_RESULT_ERROR_DICTIONARY = get_sample("delete_user_result_error.
 # Add User
 TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
 TEST_ADD_USER_REQUEST_TRAITS = {
-    "name": "Squidward",
-    "password": "GIyTTqdF",
-    "owner": "leonard",
-    "special": True,
-    "operator": False,
-    "uid": "2424",
-    "home": "/u/squidwrd",
-    "program": "/bin/sh",
+    "base:name": "Squidward",
+    "base:password": "GIyTTqdF",
+    "base:owner": "leonard",
+    "base:special": True,
+    "base:operator": False,
+    "omvs:uid": "2424",
+    "omvs:home": "/u/squidwrd",
+    "omvs:program": "/bin/sh",
 }
 
 # Alter User
 TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
 TEST_ALTER_USER_REQUEST_TRAITS = {
-    "special": False,
-    "operator": True,
-    "home": "/u/clarinet",
-    "program": False,
+    "base:special": False,
+    "base:operator": True,
+    "omvs:home": "/u/clarinet",
+    "omvs:program": False,
 }
 
 # Extract User
@@ -97,13 +100,13 @@ TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
 # User Administration Setters Sample Data
 # ============================================================================
 
-TEST_USER_SET_SPECIAL_XML = get_sample("user_set_special.xml")
-TEST_USER_DEL_SPECIAL_XML = get_sample("user_del_special.xml")
-TEST_USER_SET_AUDITOR_XML = get_sample("user_set_auditor.xml")
-TEST_USER_DEL_AUDITOR_XML = get_sample("user_del_auditor.xml")
-TEST_USER_SET_OPER_XML = get_sample("user_set_operations.xml")
-TEST_USER_DEL_OPER_XML = get_sample("user_del_operations.xml")
-TEST_USER_SET_UID_XML = get_sample("user_set_uid.xml")
+TEST_USER_SET_SPECIAL_XML = get_sample("user_set_special_request.xml")
+TEST_USER_DELELETE_SPECIAL_XML = get_sample("user_delete_special_request.xml")
+TEST_USER_SET_AUDITOR_XML = get_sample("user_set_auditor_request.xml")
+TEST_USER_DELETE_AUDITOR_XML = get_sample("user_delete_auditor_request.xml")
+TEST_USER_SET_OPERATOR_XML = get_sample("user_set_operations_request.xml")
+TEST_USER_DELETE_OPERATOR_XML = get_sample("user_delete_operations_request.xml")
+TEST_USER_SET_OMVS_UID_XML = get_sample("user_set_omvs_uid_request.xml")
 
 # ============================================================================
 # Debug Logging

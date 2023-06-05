@@ -33,7 +33,7 @@ class TestUserResultParser(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         self.assertEqual(
-            user_admin.add("squidwrd", {"password": "GIyTTqdF"}),
+            user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"}),
             TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -46,7 +46,7 @@ class TestUserResultParser(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.add("squidwrd", {"password": "GIyTTqdF"})
+            user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"})
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
@@ -66,7 +66,7 @@ class TestUserResultParser(unittest.TestCase):
         )
         self.assertEqual(
             user_admin.alter(
-                "squidwrd", TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
+                "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
             ),
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY,
         )
@@ -80,7 +80,9 @@ class TestUserResultParser(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.alter("squidwrd", TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS)
+            user_admin.alter(
+                "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
+            )
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_DICTIONARY,
@@ -118,6 +120,20 @@ class TestUserResultParser(unittest.TestCase):
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY,
+        )
+
+    def test_user_admin_can_parse_extract_user_and_ignore_command_audit_trail_xml(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML
+        )
+        self.assertEqual(
+            user_admin.extract("squidwrd", {"omvs": True}),
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
     # ============================================================================

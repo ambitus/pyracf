@@ -8,8 +8,8 @@ class SetroptsRequest(SecurityRequest):
 
     def __init__(self) -> None:
         super().__init__()
-        self.security_definition.tag = "systemsettings"
-        self.security_definition.attrib = {
+        self._security_definition.tag = "systemsettings"
+        self._security_definition.attrib = {
             "operation": "set",
             "requestid": "SetroptsRequest",
         }

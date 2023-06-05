@@ -34,9 +34,9 @@ class TestSetroptsGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
-        self.assertTrue(
-            setropts_admin.get_password_rules()
-            == TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES
+        self.assertEqual(
+            setropts_admin.get_password_rules(),
+            TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES,
         )
 
     # Error in misspelled SETROPTS parameter
@@ -47,7 +47,7 @@ class TestSetroptsGetters(unittest.TestCase):
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
             setropts_admin.get_password_rules()
@@ -65,9 +65,9 @@ class TestSetroptsGetters(unittest.TestCase):
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
         call_racf_mock.return_value = setropts_extract_auditor
-        self.assertTrue(
-            setropts_admin.get_class_types("FACILITY")
-            == TestSetroptsConstants.TEST_SETROPTS_CLASS_ATTRIBUTES
+        self.assertEqual(
+            setropts_admin.get_class_types("FACILITY"),
+            TestSetroptsConstants.TEST_SETROPTS_CLASS_ATTRIBUTES,
         )
 
     # Error in misspelled SETROPTS parameter
@@ -78,7 +78,7 @@ class TestSetroptsGetters(unittest.TestCase):
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_RESULT_ERROR_XML
+            TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
             setropts_admin.get_class_types("FACILITY")

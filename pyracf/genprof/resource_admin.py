@@ -9,8 +9,10 @@ class ResourceAdmin(SecurityAdmin):
     """General Resaurce Profile Administration."""
 
     def __init__(self, debug=False, generate_requests_only=False) -> None:
-        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
-        self.valid_segment_traits = {
+        super().__init__(
+            "resource", debug=debug, generate_requests_only=generate_requests_only
+        )
+        self._valid_segment_traits = {
             "base": {
                 "appldata": "racf:appldata",
                 "automatc": "racf:automatc",
@@ -162,7 +164,6 @@ class ResourceAdmin(SecurityAdmin):
                 "roles": "racf:roles",
             },
         }
-        self.profile_type = "resource"
 
     def get_uacc(self, resource: str, class_name: str) -> str:
         """Get UACC associated with a general resource profile."""
@@ -339,24 +340,24 @@ class ResourceAdmin(SecurityAdmin):
 
     def add(self, resource: str, class_name: str, traits: dict) -> dict:
         """Create a new general resource profile."""
-        self.build_segment_dictionaries(traits)
+        self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self.build_segments(profile_request)
         return self.make_request(profile_request)
 
     def alter(self, resource: str, class_name: str, traits: dict) -> dict:
         """Alter an existing general resource profile."""
-        self.build_segment_dictionaries(traits)
+        self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self.build_segments(profile_request, alter=True)
         return self.make_request(profile_request, 3)
 
     def extract(self, resource: str, class_name: str, segments={}) -> dict:
         """Extract a general resource profile."""
-        self.build_bool_segment_dictionaries(segments)
+        self._build_bool_segment_dictionaries(segments)
         profile_request = ResourceRequest(resource, class_name, "listdata")
         self.build_segments(profile_request, extract=True)
-        return self.extract_and_check_result(profile_request)
+        return self._extract_and_check_result(profile_request)
 
     def delete(self, resource: str, class_name: str) -> dict:
         """Delete a general resource profile."""
@@ -371,12 +372,12 @@ class ResourceAdmin(SecurityAdmin):
     ) -> None:
         """Build XML representation of segments."""
         profile_request.build_segments(
-            self.segment_traits, self.trait_map, alter=alter, extract=extract
+            self._segment_traits, self._trait_map, alter=alter, extract=extract
         )
         # Clear segments for new request
-        self.segment_traits = {}
+        self._segment_traits = {}
 
-    def format_profile(self, result: dict) -> None:
+    def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["resource"]["commands"][0]["messages"]
         indexes = [
@@ -387,15 +388,13 @@ class ResourceAdmin(SecurityAdmin):
         indexes.append(len(messages))
         profiles = []
         for i in range(len(indexes) - 1):
-            profile = self.format_profile_generic(
-                messages[indexes[i] : indexes[i + 1]],
-                self.valid_segment_traits,
-                profile_type="generic",
+            profile = self._format_profile_generic(
+                messages[indexes[i] : indexes[i + 1]]
             )
             # Post processing
             if "(g)" in profile["base"].get("name"):
                 profile["base"]["generic"] = True
-                profile["base"]["name"] = self.cast_from_str(
+                profile["base"]["name"] = self._cast_from_str(
                     profile["base"].get("name")[0]
                 )
             else:

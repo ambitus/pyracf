@@ -20,18 +20,14 @@ class TestSetroptsRequestBuilder(unittest.TestCase):
         irrsmo00_init_mock.return_value = None
         return SetroptsAdmin(generate_requests_only=True)
 
-    def test_setropts_admin_build_command_setropts_request(
+    def test_setropts_admin_build_alter_setropts_request(
         self, irrsmo00_init_mock: Mock
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
-        result = setropts_admin.command(
-            TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_TRAITS
-        )
-        self.assertEqual(
-            result, TestSetroptsConstants.TEST_COMMAND_SETROPTS_REQUEST_XML
-        )
+        result = setropts_admin.alter(options={"base:raclist": "elijtest"})
+        self.assertEqual(result, TestSetroptsConstants.TEST_ALTER_SETROPTS_REQUEST_XML)
 
     def test_setropts_admin_build_list_setropts_request(self, irrsmo00_init_mock: Mock):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
-        result = setropts_admin.list_ropts()
+        result = setropts_admin.list_racf_options()
         self.assertEqual(result, TestSetroptsConstants.TEST_LIST_SETROPTS_REQUEST_XML)

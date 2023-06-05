@@ -10,109 +10,112 @@ from .setropts_requset import SetroptsRequest
 class SetroptsAdmin(SecurityAdmin):
     """Set RACF Options Administration."""
 
-    def __init__(self, debug=False, generate_requests_only=False) -> None:
-        super().__init__(debug=debug, generate_requests_only=generate_requests_only)
-        self.valid_segment_traits = {
+    def __init__(
+        self, debug: bool = False, generate_requests_only: bool = False
+    ) -> None:
+        super().__init__(
+            "systemsettings", debug=debug, generate_requests_only=generate_requests_only
+        )
+        self._valid_segment_traits = {
             "base": {
-                "addcreat": "racf:addcreat",
-                "adsp": "racf:adsp",
-                "applaudt": "racf:applaudt",
-                "audit": "racf:audit",
-                "catdsns": "racf:catdsns",
-                "classact": "racf:classact",
-                "classtat": "racf:classtat",
-                "cmdviol": "racf:cmdviol",
-                "compmode": "racf:compmode",
-                "egn": "racf:egn",
-                "erase": "racf:erase",
-                "eraseall": "racf:eraseall",
-                "erasesec": "racf:erasesec",
-                "gencmd": "racf:gencmd",
-                "generic": "racf:generic",
-                "genlist": "racf:genlist",
-                "genowner": "racf:genowner",
-                "global": "racf:global",
-                "grplist": "racf:grplist",
-                "history": "racf:history",
-                "inactive": "racf:inactive",
-                "initstat": "racf:initstat",
-                "interval": "racf:interval",
-                "jesbatch": "racf:jesbatch",
-                "jesearly": "racf:jesearly",
-                "jesnje": "racf:jesnje",
-                "jesundef": "racf:jesundef",
-                "jesxbm": "racf:jesxbm",
-                "kerblvl": "racf:kerblvl",
-                "list": "racf:list",
-                "logalwys": "racf:logalwys",
-                "logdeflt": "racf:logdeflt",
-                "logfail": "racf:logfail",
-                "lognever": "racf:lognever",
-                "logsucc": "racf:logsucc",
-                "minchang": "racf:minchang",
-                "mixdcase": "racf:mixdcase",
-                "mlactive": "racf:mlactive",
-                "mlfs": "racf:mlfs",
-                "mlipc": "racf:mlipc",
-                "mlnames": "racf:mlnames",
-                "mlquiet": "racf:mlquiet",
-                "mls": "racf:mls",
-                "mlstable": "racf:mlstable",
-                "model": "racf:model",
-                "modgdg": "racf:modgdg",
-                "modgroup": "racf:modgroup",
-                "moduser": "racf:moduser",
-                "operaudt": "racf:operaudt",
-                "phrint": "racf:phrint",
-                "prefix": "racf:prefix",
-                "primlang": "racf:primlang",
-                "protall": "racf:protall",
-                "pwdalg": "racf:pwdalg",
-                "pwdspec": "racf:pwdspec",
-                "raclist": "racf:raclist",
-                "realdsn": "racf:realdsn",
-                "refresh": "racf:refresh",
-                "retpd": "racf:retpd",
-                "revoke": "racf:revoke",
-                "rules": "racf:rules",
-                "rule1": "racf:rule1",
-                "rule2": "racf:rule2",
-                "rule3": "racf:rule3",
-                "rule4": "racf:rule4",
-                "rule5": "racf:rule5",
-                "rule6": "racf:rule6",
-                "rule7": "racf:rule7",
-                "rule8": "racf:rule8",
-                "rvarswpw": "racf:rvarswpw",
-                "rvarstpw": "racf:rvarstpw",
-                "saudit": "racf:saudit",
-                "seclabct": "racf:seclabct",
-                "seclang": "racf:seclang",
-                "sessint": "racf:sessint",
-                "slabaudt": "racf:slabaudt",
-                "slbysys": "racf:slbysys",
-                "slevaudt": "racf:slevaudt",
-                "tapedsn": "racf:tapedsn",
-                "terminal": "racf:terminal",
-                "warning": "racf:warning",
-                "whenprog": "racf:whenprog",
+                "base:addcreat": "racf:addcreat",
+                "base:adsp": "racf:adsp",
+                "base:applaudt": "racf:applaudt",
+                "base:audit": "racf:audit",
+                "base:catdsns": "racf:catdsns",
+                "base:classact": "racf:classact",
+                "base:classtat": "racf:classtat",
+                "base:cmdviol": "racf:cmdviol",
+                "base:compmode": "racf:compmode",
+                "base:egn": "racf:egn",
+                "base:erase": "racf:erase",
+                "base:eraseall": "racf:eraseall",
+                "base:erasesec": "racf:erasesec",
+                "base:gencmd": "racf:gencmd",
+                "base:generic": "racf:generic",
+                "base:genlist": "racf:genlist",
+                "base:genowner": "racf:genowner",
+                "base:global": "racf:global",
+                "base:grplist": "racf:grplist",
+                "base:history": "racf:history",
+                "base:inactive": "racf:inactive",
+                "base:initstat": "racf:initstat",
+                "base:interval": "racf:interval",
+                "base:jesbatch": "racf:jesbatch",
+                "base:jesearly": "racf:jesearly",
+                "base:jesnje": "racf:jesnje",
+                "base:jesundef": "racf:jesundef",
+                "base:jesxbm": "racf:jesxbm",
+                "base:kerblvl": "racf:kerblvl",
+                "base:list": "racf:list",
+                "base:logalwys": "racf:logalwys",
+                "base:logdeflt": "racf:logdeflt",
+                "base:logfail": "racf:logfail",
+                "base:lognever": "racf:lognever",
+                "base:logsucc": "racf:logsucc",
+                "base:minchang": "racf:minchang",
+                "base:mixdcase": "racf:mixdcase",
+                "base:mlactive": "racf:mlactive",
+                "base:mlfs": "racf:mlfs",
+                "base:mlipc": "racf:mlipc",
+                "base:mlnames": "racf:mlnames",
+                "base:mlquiet": "racf:mlquiet",
+                "base:mls": "racf:mls",
+                "base:mlstable": "racf:mlstable",
+                "base:model": "racf:model",
+                "base:modgdg": "racf:modgdg",
+                "base:modgroup": "racf:modgroup",
+                "base:moduser": "racf:moduser",
+                "base:operaudt": "racf:operaudt",
+                "base:phrint": "racf:phrint",
+                "base:prefix": "racf:prefix",
+                "base:primlang": "racf:primlang",
+                "base:protall": "racf:protall",
+                "base:pwdalg": "racf:pwdalg",
+                "base:pwdspec": "racf:pwdspec",
+                "base:raclist": "racf:raclist",
+                "base:realdsn": "racf:realdsn",
+                "base:refresh": "racf:refresh",
+                "base:retpd": "racf:retpd",
+                "base:revoke": "racf:revoke",
+                "base:rules": "racf:rules",
+                "base:rule1": "racf:rule1",
+                "base:rule2": "racf:rule2",
+                "base:rule3": "racf:rule3",
+                "base:rule4": "racf:rule4",
+                "base:rule5": "racf:rule5",
+                "base:rule6": "racf:rule6",
+                "base:rule7": "racf:rule7",
+                "base:rule8": "racf:rule8",
+                "base:rvarswpw": "racf:rvarswpw",
+                "base:rvarstpw": "racf:rvarstpw",
+                "base:saudit": "racf:saudit",
+                "base:seclabct": "racf:seclabct",
+                "base:seclang": "racf:seclang",
+                "base:sessint": "racf:sessint",
+                "base:slabaudt": "racf:slabaudt",
+                "base:slbysys": "racf:slbysys",
+                "base:slevaudt": "racf:slevaudt",
+                "base:tapedsn": "racf:tapedsn",
+                "base:terminal": "racf:terminal",
+                "base:warning": "racf:warning",
+                "base:whenprog": "racf:whenprog",
             }
         }
-        self.profile_type = "systemsettings"
 
     def get_password_rules(self) -> str:
         """Get RACF password rules."""
-        result = self.list_ropts()
+        result = self.list_racf_options()
         profile = result["securityresult"]["systemsettings"]["commands"][0]["profile"]
         return profile["password processing options"].get("rules")
 
-    def refresh(self, class_name: str) -> str:
+    def refresh_raclist(self, class_name: str) -> str:
         """Refresh raclist."""
-        return self.command({"raclist": class_name, "refresh": True})
+        return self.alter(options={"base:raclist": class_name, "base:refresh": True})
 
     def get_class_types(self, class_name: str) -> list:
         """Get RACF class types."""
-        result = self.list_ropts()
+        result = self.list_racf_options()
         profile = result["securityresult"]["systemsettings"]["commands"][0]["profile"]
         class_info = []
         for key in profile.keys():
@@ -124,116 +127,127 @@ class SetroptsAdmin(SecurityAdmin):
                     class_info.append(key.replace(" raclist only", "").strip())
         return class_info
 
-    def audit_add(self, class_name: str) -> dict:
-        """Add a class to the "Audit" list."""
-        traits = {"audit": class_name}
-        return self.command(traits)
+    def add_audit_class(self, class_name: str) -> dict:
+        """Add a class to list of classes that RACF performs auditing for."""
+        return self.alter(options={"base:audit": class_name})
 
-    def audit_del(self, class_name: str) -> dict:
-        """Delete a class from the "Audit" list."""
-        traits = {"noaudit": class_name}
-        return self.command(traits)
+    def remove_audit_class(self, class_name: str) -> dict:
+        """Remove a class from the list of classes that RACF performs auditing for."""
+        return self.alter(options={"delete:base:audit": class_name})
 
-    def classact_add(self, class_name: str) -> dict:
-        """Add a class to the "Active" list."""
-        traits = {"classact": class_name}
-        return self.command(traits)
+    def add_active_class(self, class_name: str) -> dict:
+        """
+        Add a class to the list of classes that RACF performs access authorization checking for.
+        """
+        return self.alter(options={"base:classact": class_name})
 
-    def classact_del(self, class_name: str) -> dict:
-        """Remove a class from the "Active" list."""
-        traits = {"noclassact": class_name}
-        return self.command(traits)
+    def remove_active_class(self, class_name: str) -> dict:
+        """
+        Remove a class from the list of classes that
+        RACF performs access authorization checking for.
+        """
+        return self.alter(options={"delete:base:classact": class_name})
 
-    def classstat_add(self, class_name: str) -> dict:
-        """Add a class to the "Statistics" list."""
-        traits = {"classtat": class_name}
-        return self.command(traits)
+    def add_statistics_class(self, class_name: str) -> dict:
+        """Add a class to the list of classes that RACF collects statistics for."""
+        return self.alter(options={"base:classtat": class_name})
 
-    def classstat_del(self, class_name: str) -> dict:
-        """Remove a class from the "Statistics" list."""
-        traits = {"noclasstat": class_name}
-        return self.command(traits)
+    def remove_statistics_class(self, class_name: str) -> dict:
+        """Remove a class from the list of classes that RACF collects statistics for."""
+        return self.alter(options={"delete:base:classtat": class_name})
 
-    def gencmd_add(self, class_name: str) -> dict:
-        """Add a class to the "Generic Command Classes" list."""
-        traits = {"gencmd": class_name}
-        return self.command(traits)
+    def add_generic_command_processing_class(self, class_name: str) -> dict:
+        """
+        Add a class to the list of classes that have
+        generic profile command processing enabled.
+        """
+        return self.alter(options={"base:gencmd": class_name})
 
-    def gencmd_del(self, class_name: str) -> dict:
-        """Remove a class from the "Generic Command Classes" list."""
-        traits = {"nogencmd": class_name}
-        return self.command(traits)
+    def remove_generic_command_processing_class(self, class_name: str) -> dict:
+        """
+        Remove a class from the list of classes that
+        have generic profile command processing enabled.
+        """
+        return self.alter(options={"delete:base:gencmd": class_name})
 
-    def generic_add(self, class_name: str) -> dict:
-        """Add a class to the "Generic Profile Classes" list."""
-        traits = {"generic": class_name}
-        return self.command(traits)
+    def add_generic_profile_checking_class(self, class_name: str) -> dict:
+        """Add a class to the list of classes that have generic profile checking enabled."""
+        return self.alter(options={"base:generic": class_name})
 
-    def generic_del(self, class_name: str) -> dict:
-        """Remove a class from the "Generic Profile Classes" list."""
-        traits = {"nogeneric": class_name}
-        return self.command(traits)
+    def remove_generic_profile_checking_class(self, class_name: str) -> dict:
+        """Remove a class from the list of classes that have generic profile checking enabled."""
+        return self.alter(options={"delete:base:generic": class_name})
 
-    def genlist_add(self, class_name: str) -> dict:
-        """Add a class to the "GenList" list."""
-        traits = {"genlist": class_name}
-        return self.command(traits)
+    def add_generic_profile_sharing_class(self, class_name: str) -> dict:
+        """
+        Add a class to the list of classes that are eligible for
+        general resource profile sharing in common storage.
+        """
+        return self.alter(options={"base:genlist": class_name})
 
-    def genlist_del(self, class_name: str) -> dict:
-        """Remove a class from the "GenList" list."""
-        traits = {"nogenlist": class_name}
-        return self.command(traits)
+    def remove_generic_profile_sharing_class(self, class_name: str) -> dict:
+        """
+        Remove a class from the list of classes that are eligible
+        for general resource profile sharing in common storage.
+        """
+        return self.alter(options={"delete:base:genlist": class_name})
 
-    def global_add(self, class_name: str) -> dict:
-        """Add a class to the "Global Access Checking" list."""
-        traits = {"global": class_name}
-        return self.command(traits)
+    def add_global_access_class(self, class_name: str) -> dict:
+        """Add a class to the list of classes eligible for global access checking."""
+        return self.alter(options={"base:global": class_name})
 
-    def global_del(self, class_name: str) -> dict:
-        """Remove a class from the "Global Access Checking" list."""
-        traits = {"noglobal": class_name}
-        return self.command(traits)
+    def remove_global_access_class(self, class_name: str) -> dict:
+        """Remove a class from the list of classes eligible for global access checking."""
+        return self.alter(options={"delete:base:global": class_name})
 
-    def raclist_add(self, class_name: str) -> dict:
-        """Add a class to the "SETR Raclist" list."""
-        traits = {"raclist": class_name}
-        return self.command(traits)
+    def add_raclist_class(self, class_name: str) -> dict:
+        """Add a class to list of classes that have in-storage profile sharing activated."""
+        options = {"base:raclist": class_name}
+        return self.alter(options=options)
 
-    def raclist_del(self, class_name: str) -> dict:
-        """Remove a class from the "SETR Raclist" list."""
-        traits = {"noraclist": class_name}
-        return self.command(traits)
+    def remove_raclist_class(self, class_name: str) -> dict:
+        """
+        Remove a class from the list of classes that have in-storage profile sharing activated.
+        """
+        options = {"delete:base:raclist": class_name}
+        return self.alter(options=options)
 
-    def list_ropts(self) -> dict:
+    # ============================================================================
+    # Core Functions
+    # ============================================================================
+    def list_racf_options(self) -> dict:
         """List RACF options."""
-        self.build_segment_dictionary({"list": True})
+        self.__build_segment_dictionary({"base:list": True})
         setropts_request = SetroptsRequest()
-        self.build_segment(setropts_request)
-        return self.extract_and_check_result(
+        self.__build_segment(setropts_request)
+        return self._extract_and_check_result(
             setropts_request,
         )
 
-    def command(self, traits: dict) -> dict:
-        """Run a set RACF options command."""
-        self.build_segment_dictionary(traits)
+    def alter(self, options: dict = {}) -> dict:
+        """Update RACF options."""
+        self.__build_segment_dictionary(options)
         setropts_request = SetroptsRequest()
-        self.build_segment(setropts_request)
+        self.__build_segment(setropts_request)
         return self.make_request(setropts_request)
 
-    def build_segment_dictionary(self, traits: dict) -> None:
+    # ============================================================================
+    # Private/Protected Utility Functions
+    # ============================================================================
+    def __build_segment_dictionary(self, traits: dict) -> None:
         """Build segemnt dictionary for only base segment."""
-        self.build_segment_dictionaries(traits)
-        self.segment_traits = self.segment_traits["base"]
+        self._build_segment_dictionaries(traits)
+        self._segment_traits = self._segment_traits["base"]
 
-    def build_segment(self, profile_request: SetroptsRequest, alter=False) -> None:
+    def __build_segment(self, profile_request: SetroptsRequest, alter=False) -> None:
         """Build XML representation of segment."""
         profile_request.build_segment(
-            False, self.segment_traits, self.trait_map, alter=alter
+            False, self._segment_traits, self._trait_map, alter=alter
         )
         # Clear segments for new request
-        self.segment_traits = {}
+        self._segment_traits = {}
 
-    def format_profile(self, result: dict) -> None:
+    def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["systemsettings"]["commands"][0]["messages"]
         profile = {}
@@ -329,7 +343,7 @@ class SetroptsAdmin(SecurityAdmin):
             )
         elif ", A USERID WILL BE REVOKED." in message:
             field = "revoke"
-            profile[current_segment][field] = self.cast_from_str(
+            profile[current_segment][field] = self._cast_from_str(
                 message.split("AFTER ")[1].split(" CONSECUTIVE")[0].strip()
             )
         elif "USERIDS NOT BEING AUTOMATICALLY REVOKED." in message:
@@ -356,11 +370,11 @@ class SetroptsAdmin(SecurityAdmin):
         """Add key-value pair values to profile."""
         field = message.split(" = ")[0].strip().lower()
         if current_segment:
-            profile[current_segment][field] = self.clean_and_separate(
+            profile[current_segment][field] = self._clean_and_separate(
                 message.split(" = ")[1]
             )
         else:
-            profile[field] = self.clean_and_separate(message.split(" = ")[1])
+            profile[field] = self._clean_and_separate(message.split(" = ")[1])
         return field
 
     def __add_classes_and_rules_to_profile(
@@ -368,7 +382,7 @@ class SetroptsAdmin(SecurityAdmin):
     ) -> int:
         """Add classes and rules to profile."""
         if "classes" in field:
-            new_val = self.clean_and_separate(message.replace("  ", ""))
+            new_val = self._clean_and_separate(message.replace("  ", ""))
             if isinstance(new_val, str):
                 profile[field].append(new_val)
             else:
@@ -381,11 +395,11 @@ class SetroptsAdmin(SecurityAdmin):
         ):
             length_chars = message.lower().split("length(")[1].split(")")[0]
             if ":" in length_chars:
-                minlength = self.cast_from_str(length_chars.split(":")[0])
-                maxlength = self.cast_from_str(length_chars.split(":")[1])
+                minlength = self._cast_from_str(length_chars.split(":")[0])
+                maxlength = self._cast_from_str(length_chars.split(":")[1])
             else:
-                minlength = self.cast_from_str(length_chars)
-                maxlength = self.cast_from_str(length_chars)
+                minlength = self._cast_from_str(length_chars)
+                maxlength = self._cast_from_str(length_chars)
             chars = message[-1 * maxlength :]
             profile[current_segment][field].append(
                 {
@@ -412,11 +426,11 @@ class SetroptsAdmin(SecurityAdmin):
             .replace(" is", "")
         )
         if current_segment:
-            profile[current_segment][field] = self.clean_and_separate(
+            profile[current_segment][field] = self._clean_and_separate(
                 message.split(" : ")[1].replace(" / ", "/")
             )
         else:
-            profile[field] = self.clean_and_separate(
+            profile[field] = self._clean_and_separate(
                 message.split(" : ")[1].replace(" / ", "/")
             )
         return field
@@ -438,24 +452,24 @@ class SetroptsAdmin(SecurityAdmin):
         messages[i] = messages[i].replace(" FOR GDGS.", "")
 
         if "CURRENT OPTIONS:" in messages[i] and i < len(messages) - 1:
-            profile[field] = self.cast_from_str(
+            profile[field] = self._cast_from_str(
                 messages[i + 1].split('"')[1:2][0].strip().lower()
             )
             i += 2
             return (i, field)
         if current_segment:
-            profile[current_segment][field] = self.cast_from_str(
+            profile[current_segment][field] = self._cast_from_str(
                 messages[i].split("IS ")[1].strip().lower()
             )
         else:
             if field not in profile:
-                profile[field] = self.cast_from_str(
+                profile[field] = self._cast_from_str(
                     messages[i].split("IS ")[1].strip().lower()
                 )
             else:
                 profile[field] = [profile[field]]
                 profile[field].append(
-                    self.cast_from_str(messages[i].split("IS ")[1].strip().lower())
+                    self._cast_from_str(messages[i].split("IS ")[1].strip().lower())
                 )
         i += 1
         return (i, field)
@@ -466,11 +480,11 @@ class SetroptsAdmin(SecurityAdmin):
         """Add are field to profile"""
         field = message.split("ARE ")[0].strip().lower()
         if current_segment:
-            profile[current_segment][field] = self.cast_from_str(
+            profile[current_segment][field] = self._cast_from_str(
                 message.split("ARE ")[1].strip().lower()
             )
         else:
-            profile[field] = self.cast_from_str(
+            profile[field] = self._cast_from_str(
                 message.split("ARE ")[1].strip().lower()
             )
         return field
@@ -484,7 +498,7 @@ class SetroptsAdmin(SecurityAdmin):
         if "no password history" in cln_msg:
             profile[current_segment][field] = 0
         else:
-            profile[current_segment][field] = self.cast_from_str(cln_msg.split(" ")[0])
+            profile[current_segment][field] = self._cast_from_str(cln_msg.split(" ")[0])
         return field
 
     def __add_being_done_field_to_profile(
@@ -493,7 +507,7 @@ class SetroptsAdmin(SecurityAdmin):
         """Add being done field to profile."""
         cln_msg = message.strip().lower().replace(" for gdgs.")
         field = cln_msg.replace(" not being done", "")
-        profile[current_segment][field] = self.cast_from_str(cln_msg[len(field) :])
+        profile[current_segment][field] = self._cast_from_str(cln_msg[len(field) :])
         return field
 
     def __content_keyword_map(self, content: str) -> dict:

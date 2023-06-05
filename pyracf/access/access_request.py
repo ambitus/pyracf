@@ -17,11 +17,11 @@ class AccessRequest(SecurityRequest):
         generic: bool,
     ) -> None:
         super().__init__()
-        self.security_definition.tag = "permission"
-        (volume, generic) = self.get_volume_and_generic_security_definition_values(
+        self._security_definition.tag = "permission"
+        (volume, generic) = self._get_volume_and_generic_security_definition_values(
             volume, generic
         )
-        self.security_definition.attrib.update(
+        self._security_definition.attrib.update(
             {
                 "name": resource,
                 "class": class_name,
@@ -32,6 +32,6 @@ class AccessRequest(SecurityRequest):
             }
         )
         if volume == "":
-            del self.security_definition.attrib["volume"]
+            del self._security_definition.attrib["volume"]
         if generic == "no":
-            del self.security_definition.attrib["generic"]
+            del self._security_definition.attrib["generic"]

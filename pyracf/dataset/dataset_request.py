@@ -12,11 +12,11 @@ class DatasetRequest(SecurityRequest):
         self, data_set: str, operation: str, volume: Union[str, bool], generic: bool
     ) -> None:
         super().__init__()
-        self.security_definition.tag = "dataset"
-        (volume, generic) = self.get_volume_and_generic_security_definition_values(
+        self._security_definition.tag = "dataset"
+        (volume, generic) = self._get_volume_and_generic_security_definition_values(
             volume, generic
         )
-        self.security_definition.attrib.update(
+        self._security_definition.attrib.update(
             {
                 "name": data_set,
                 "operation": operation,
@@ -26,4 +26,4 @@ class DatasetRequest(SecurityRequest):
             }
         )
         if volume == "":
-            del self.security_definition.attrib["volume"]
+            del self._security_definition.attrib["volume"]

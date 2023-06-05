@@ -4,7 +4,7 @@
 
 {
     "base": {
-        "raclist": "ELIXTEST"
+        "base:raclist": "ELIJTEST"
     }
 }
 
@@ -14,7 +14,7 @@
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
     <systemsettings operation="set" requestid="SetroptsRequest">
-        <racf:raclist>ELIXTEST</racf:raclist>
+        <racf:raclist>ELIJTEST</racf:raclist>
     </systemsettings>
 </securityrequest>
 
@@ -26,16 +26,14 @@
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
     <systemsettings operation="set" requestid="SetroptsRequest">
         <command>
-            <safreturncode>8</safreturncode>
-            <returncode>16</returncode>
-            <reasoncode>8</reasoncode>
-            <image>SETROPTS      RACLIST     (elixtest)</image>
-            <message>IKJ56702I INVALID RACLIST, ELIXTEST</message>
-            <message>IKJ56701I MISSING CLASS NAMES FOR RACLIST+</message>
-            <message>IKJ56701I MISSING CLASS NAMES:  ANY (NON-GROUP) RESOURCE CLASS</message>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>SETROPTS      RACLIST     (elijtest)</image>
+            <message>ICH14063I SETROPTS command complete.</message>
         </command>
     </systemsettings>
-    <returncode>4</returncode>
+    <returncode>0</returncode>
     <reasoncode>0</reasoncode>
 </securityresult>
 
@@ -50,20 +48,18 @@
             "requestid": "SetroptsRequest",
             "commands": [
                 {
-                    "safreturncode": 8,
-                    "returncode": 16,
-                    "reasoncode": 8,
-                    "image": "SETROPTS      RACLIST     (elixtest)",
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "SETROPTS      RACLIST     (elijtest)",
                     "messages": [
-                        "IKJ56702I INVALID RACLIST, ELIXTEST",
-                        "IKJ56701I MISSING CLASS NAMES FOR RACLIST+",
-                        "IKJ56701I MISSING CLASS NAMES:  ANY (NON-GROUP) RESOURCE CLASS"
+                        "ICH14063I SETROPTS command complete."
                     ]
                 }
             ]
         },
-        "returncode": 4,
-        "reasoncode": 4
+        "returncode": 0,
+        "reasoncode": 0
     }
 }
 

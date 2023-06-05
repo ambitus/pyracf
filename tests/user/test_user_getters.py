@@ -164,7 +164,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
-        self.assertEqual(user_admin.get_uid("squidwrd"), 2424)
+        self.assertEqual(user_admin.get_omvs_uid("squidwrd"), 2424)
 
     def test_user_admin_get_uid_raises_an_exception_when_extract_fails(
         self,
@@ -176,7 +176,7 @@ class TestUserGetters(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            user_admin.get_uid("squidwrd"), 2424
+            user_admin.get_omvs_uid("squidwrd"), 2424
 
     # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_get_uid_returns_none_when_no_omvs_segment_exists(
@@ -188,4 +188,4 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
-        self.assertIsNone(user_admin.get_uid("squidwrd"))
+        self.assertIsNone(user_admin.get_omvs_uid("squidwrd"))
