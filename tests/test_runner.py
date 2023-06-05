@@ -8,6 +8,12 @@ import __init__
 from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
+from tests.connection.test_connection_debug_logging import TestConnectionDebugLogging
+from tests.connection.test_connection_request_builder import (
+    TestConnectionRequestBuilder,
+)
+from tests.connection.test_connection_result_parser import TestConnectionResultParser
+from tests.connection.test_connection_setters import TestConnectionSetters
 from tests.dataset.test_dataset_debug_logging import TestDatasetDebugLogging
 from tests.dataset.test_dataset_getters import TestDatasetGetters
 from tests.dataset.test_dataset_request_builder import TestDatasetRequestBuilder
@@ -18,6 +24,11 @@ from tests.genprof.test_genprof_getters import TestGenprofGetters
 from tests.genprof.test_genprof_request_builder import TestGenprofRequestBuilder
 from tests.genprof.test_genprof_result_parser import TestGenprofResultParser
 from tests.genprof.test_genprof_setters import TestGenprofSetters
+from tests.group.test_group_debug_logging import TestGroupDebugLogging
+from tests.group.test_group_getters import TestGroupGetters
+from tests.group.test_group_request_builder import TestGroupRequestBuilder
+from tests.group.test_group_result_parser import TestGroupResultParser
+from tests.group.test_group_setters import TestGroupSetters
 from tests.setropts.test_setropts_debug_logging import TestSetroptsDebugLogging
 from tests.setropts.test_setropts_getters import TestSetroptsGetters
 from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
@@ -38,29 +49,38 @@ def __test_suite() -> unittest.TestSuite:
     test_suite = unittest.TestSuite()
     test_loader = unittest.TestLoader()
     test_classes = [
-        TestUserResultParser,
-        TestUserRequestBuilder,
-        TestUserGetters,
-        TestUserSetters,
-        TestUserDebugLogging,
-        TestGenprofResultParser,
-        TestGenprofRequestBuilder,
-        TestGenprofGetters,
-        TestGenprofSetters,
-        TestGenprofDebugLogging,
+        TestAccessResultParser,
+        TestAccessRequestBuilder,
+        TestAccessDebugLogging,
+        TestConnectionResultParser,
+        TestConnectionRequestBuilder,
+        TestConnectionSetters,
+        TestConnectionDebugLogging,
         TestDatasetResultParser,
         TestDatasetRequestBuilder,
         TestDatasetGetters,
         TestDatasetSetters,
         TestDatasetDebugLogging,
-        TestAccessResultParser,
-        TestAccessRequestBuilder,
-        TestAccessDebugLogging,
+        TestGenprofResultParser,
+        TestGenprofRequestBuilder,
+        TestGenprofGetters,
+        TestGenprofSetters,
+        TestGenprofDebugLogging,
+        TestGroupResultParser,
+        TestGroupRequestBuilder,
+        TestGroupGetters,
+        TestGroupSetters,
+        TestGroupDebugLogging,
         TestSetroptsResultParser,
         TestSetroptsRequestBuilder,
         TestSetroptsGetters,
         TestSetroptsSetters,
         TestSetroptsDebugLogging,
+        TestUserResultParser,
+        TestUserRequestBuilder,
+        TestUserGetters,
+        TestUserSetters,
+        TestUserDebugLogging,
     ]
     for test_class in test_classes:
         tests = test_loader.loadTestsFromTestCase(test_class)

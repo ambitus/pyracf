@@ -1,0 +1,19 @@
+{
+    "securityresult": {
+        "group": {
+            "name": "TESTGRP0",
+            "operation": "del",
+            "requestid": "GroupRequest",
+            "commands": [
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "DELGROUP TESTGRP0"
+                }
+            ]
+        },
+        "returncode": 0,
+        "reasoncode": 0
+    }
+}
