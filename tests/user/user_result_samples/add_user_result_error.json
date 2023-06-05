@@ -1,0 +1,28 @@
+{
+    "securityresult": {
+        "user": {
+            "name": "SQUIDWRD",
+            "operation": "set",
+            "requestid": "UserRequest",
+            "commands": [
+                {
+                    "safreturncode": 8,
+                    "returncode": 16,
+                    "reasoncode": 8,
+                    "image": "ADDUSER SQUIDWRD ",
+                    "messages": [
+                        "IKJ56702I INVALID USERID, SQUIDWRD"
+                    ]
+                },
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+                }
+            ]
+        },
+        "returncode": 4,
+        "reasoncode": 4
+    }
+}

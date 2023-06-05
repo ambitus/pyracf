@@ -25,6 +25,10 @@ This will evolve over time. Currently the examples found in the __[samples](../s
 
 ### [Access Administration](samples/access_admin.md)
 
+### [Setropts Administration](samples/setropts_admin.md)
+
+### [Combination Scripts](samples/combination_scripts.md)
+
 ```json
 {
     "securityresult": {
@@ -155,7 +159,7 @@ python3 samples/user/extract_squidward.py
 ### Add a General Resource Profile
 
 ```shell
-python3 samples/genprof/add_kruskrab.py
+python3 samples/genprof/add_sample.py
 ```
 
 ```json
@@ -198,7 +202,7 @@ python3 samples/genprof/add_kruskrab.py
 ### Alter a General Resource Profile
 
 ```shell
-python3 samples/genprof/alter_kruskrab.py
+python3 samples/genprof/alter_sample.py
 ```
 
 ```json
@@ -234,7 +238,7 @@ python3 samples/genprof/alter_kruskrab.py
 ### Delete a General Resource Profile
 
 ```shell
-python3 samples/genprof/delete_kruskrab.py
+python3 samples/genprof/delete_sample.py
 ```
 
 ```json
@@ -267,7 +271,7 @@ python3 samples/genprof/delete_kruskrab.py
 ### Extract a General Resource Profile
 
 ```shell
-python3 samples/genprof/extract_kruskrab.py
+python3 samples/genprof/extract_sample.py
 ```
 
 ```json

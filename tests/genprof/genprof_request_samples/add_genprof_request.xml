@@ -1,0 +1,8 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+    <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
+        <base>
+            <racf:uacc>None</racf:uacc>
+            <racf:owner>eswift</racf:owner>
+        </base>
+    </resource>
+</securityrequest>

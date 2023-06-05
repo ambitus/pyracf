@@ -3,14 +3,15 @@
 from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.user.user_request import UserRequest
+
+from .user_request import UserRequest
 
 
 class UserAdmin(SecurityAdmin):
     """User Administration."""
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, debug=False) -> None:
+        super().__init__(debug=debug)
         self.valid_segment_traits = {
             "base": {
                 "adsp": "racf:adsp",
@@ -88,6 +89,7 @@ class UserAdmin(SecurityAdmin):
                 "tslkey": "racf:tslkey",
                 "xrfsoff": "force",
             },
+            "csdata": {"custom-keyword": "racf:custom-keyword"},
             "dce": {
                 "autolog": "autolog",
                 "dcename": "dcename",
@@ -208,60 +210,97 @@ class UserAdmin(SecurityAdmin):
     def is_special(self, userid: str) -> bool:
         """Check if a user has RACF special."""
         result = self.extract({"userid": userid})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "special" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_special(self, userid: str) -> dict:
+    def set_special(self, userid: str, generate_request_only=False) -> dict:
         """Make user RACF special."""
-        return self.alter({"userid": userid, "special": True})
+        return self.alter(
+            {"userid": userid, "special": True},
+            generate_request_only=generate_request_only,
+        )
 
-    def del_special(self, userid: str) -> dict:
+    def del_special(
+        self,
+        userid: str,
+        generate_request_only=False,
+    ) -> dict:
         """Make user not RACF special."""
-        return self.alter({"userid": userid, "special": False})
+        return self.alter(
+            {"userid": userid, "special": False},
+            generate_request_only=generate_request_only,
+        )
 
-    def is_auditor(self, userid: str) -> bool:
+    def is_auditor(self, userid: str, generate_request_only=False) -> bool:
         """Check if a user is RACF auditor."""
-        result = self.extract({"userid": userid})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        result = self.extract(
+            {"userid": userid}, generate_request_only=generate_request_only
+        )
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "auditor" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_auditor(self, userid: str) -> dict:
+    def set_auditor(self, userid: str, generate_request_only=False) -> dict:
         """Make user a RACF auditor."""
-        return self.alter({"userid": userid, "auditor": True})
+        return self.alter(
+            {"userid": userid, "auditor": True},
+            generate_request_only=generate_request_only,
+        )
 
-    def del_auditor(self, userid: str) -> dict:
+    def del_auditor(self, userid: str, generate_request_only=False) -> dict:
         """Make user not a RACF auditor."""
-        return self.alter({"userid": userid, "auditor": False})
+        return self.alter(
+            {"userid": userid, "auditor": False},
+            generate_request_only=generate_request_only,
+        )
 
-    def is_operations(self, userid: str) -> bool:
+    def is_operations(self, userid: str, generate_request_only=False) -> bool:
         """Check if a user is RACF operator."""
-        result = self.extract({"userid": userid})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
+        result = self.extract(
+            {"userid": userid}, generate_request_only=generate_request_only
+        )
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         if "operations" in profile["base"]["attributes"]:
             return True
         return False
 
-    def set_operations(self, userid: str) -> dict:
+    def set_operations(self, userid: str, generate_request_only=False) -> dict:
         """Make user a RACF operator."""
-        return self.alter({"userid": userid, "oper": True})
+        return self.alter(
+            {"userid": userid, "oper": True},
+            generate_request_only=generate_request_only,
+        )
 
-    def del_operations(self, userid: str) -> dict:
+    def del_operations(self, userid: str, generate_request_only=False) -> dict:
         """Make user not a RACF operator."""
-        return self.alter({"userid": userid, "oper": False})
+        return self.alter(
+            {"userid": userid, "oper": False},
+            generate_request_only=generate_request_only,
+        )
 
     def get_uid(self, userid: str) -> Union[str, int]:
         """Get a user's UID."""
         result = self.extract({"userid": userid, "omvs": True})
-        profile = result["securityresult"]["user"]["commands"][0]["profile"]
-        return profile["omvs"]["uid"]
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        try:
+            return profile["omvs"]["uid"]
+        except KeyError:
+            return None
 
-    def set_uid(self, userid: str, uid: int) -> dict:
+    def set_uid(
+        self,
+        userid: str,
+        uid: int,
+        generate_request_only=False,
+    ) -> dict:
         """Set a user's UID."""
-        return self.alter({"userid": userid, "uid": str(uid)})
+        return self.alter(
+            {"userid": userid, "uid": str(uid)},
+            generate_request_only=generate_request_only,
+        )
 
     def add_category(self, userid: str, category_name: str) -> str:
         """Set the category for the User Profile"""
@@ -359,34 +398,42 @@ class UserAdmin(SecurityAdmin):
         """Delete all Message Scope(s) from the User Profile"""
         return self.alter({"userid": userid, "nomscope": "N/A"})
 
-    def add(self, traits: dict) -> dict:
+    def add(self, traits: dict, generate_request_only=False) -> dict:
         """Create a new user."""
         userid = traits["userid"]
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request)
-        return self.make_request(user_request)
+        return self.make_request(
+            user_request, generate_request_only=generate_request_only
+        )
 
-    def alter(self, traits: dict) -> dict:
+    def alter(self, traits: dict, generate_request_only=False) -> dict:
         """Alter an existing user."""
         userid = traits["userid"]
         self.build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self.build_segments(user_request, alter=True)
-        return self.make_request(user_request, 3)
+        return self.make_request(
+            user_request, 3, generate_request_only=generate_request_only
+        )
 
-    def extract(self, traits: dict) -> dict:
+    def extract(self, traits: dict, generate_request_only=False) -> dict:
         """Extract a user's profile."""
         userid = traits["userid"]
         self.build_bool_segment_dictionaries(traits)
         user_request = UserRequest(userid, "listdata")
         self.build_segments(user_request, extract=True)
-        return self.extract_and_check_result(user_request)
+        return self.extract_and_check_result(
+            user_request, generate_request_only=generate_request_only
+        )
 
-    def delete(self, userid: str) -> dict:
+    def delete(self, userid: str, generate_request_only=False) -> dict:
         """Delete a user."""
         user_request = UserRequest(userid, "del")
-        return self.make_request(user_request)
+        return self.make_request(
+            user_request, generate_request_only=generate_request_only
+        )
 
     def build_segments(
         self, user_request: UserRequest, alter=False, extract=False
@@ -401,9 +448,21 @@ class UserAdmin(SecurityAdmin):
     def format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["user"]["commands"][0]["messages"]
-        profile = self.format_profile_generic(
-            messages, self.valid_segment_traits, profile_type="user"
-        )
+        indexes = [
+            i
+            for i in range(len(messages) - 1)
+            if messages[i] and "USER=" in messages[i]
+        ]
+        indexes.append(len(messages))
+        profiles = []
+        for i in range(len(indexes) - 1):
+            profile = self.format_profile_generic(
+                messages[indexes[i] : indexes[i + 1]],
+                self.valid_segment_traits,
+                profile_type="user",
+            )
+            profiles.append(profile)
+
         # Post processing
         del result["securityresult"]["user"]["commands"][0]["messages"]
-        result["securityresult"]["user"]["commands"][0]["profile"] = profile
+        result["securityresult"]["user"]["commands"][0]["profiles"] = profiles

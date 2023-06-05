@@ -1,5 +1,6 @@
 """Generic Security Request builder."""
 
+import platform
 import xml.etree.ElementTree as XMLBuilder
 
 
@@ -16,13 +17,12 @@ class SecurityRequest:
 
     def set_volid_and_generic(self, traits) -> None:
         """Set volid and generic as attributes for security definition based on traits."""
+        self.security_definition.attrib = {}
         if "generic" not in traits:
             traits["generic"] = "no"
-        if "volid" not in traits:
-            traits["volid"] = ""
         if "volid" in traits:
             if traits["volid"] != "":
-                self.security_definition.attrib["volid"] = traits["volid"]
+                self.security_definition.attrib["volume"] = traits["volid"]
         if "generic" in traits:
             if traits["generic"] != "no":
                 self.security_definition.attrib["generic"] = traits["generic"]
@@ -80,6 +80,10 @@ class SecurityRequest:
         if len(list(segment.iter())) == 1 and not extract:
             self.security_definition.remove(segment)
 
-    def dump_request_xml(self) -> bytes:
-        """Dump XML as EBCDIC encoded bytes."""
-        return XMLBuilder.tostring(self.racf_request, encoding="cp1047")
+    def dump_request_xml(self, encoding="cp1047") -> bytes:
+        """Dump XML as EBCDIC encoded bytes. (Encoding can be overridden)."""
+        if platform.system() != "OS/390" and encoding == "cp1047":
+            # If not running on z/OS EBCDIC is most likely not supported.
+            # Force utf-8 if running tests on Linux, Mac, Windows, etc...
+            encoding = "utf-8"
+        return XMLBuilder.tostring(self.racf_request, encoding=encoding)

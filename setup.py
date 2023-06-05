@@ -44,10 +44,13 @@ setup(
         "Operating System :: z/OS",
     ],
     packages=[
+        "pyracf",
         "pyracf.access",
         "pyracf.common",
+        "pyracf.connection",
         "pyracf.dataset",
         "pyracf.genprof",
+        "pyracf.group",
         "pyracf.setropts",
         "pyracf.user",
     ],

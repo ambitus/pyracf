@@ -1,17 +1,19 @@
 """Base Class for RACF Administration Interface."""
 
+import json
 from typing import List, Tuple, Union
 
-from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request import SecurityRequest
-from pyracf.common.security_request_error import SecurityRequestError
-from pyracf.common.security_result import SecurityResult
+from .irrsmo00 import IRRSMO00
+from .logger import Logger
+from .security_request import SecurityRequest
+from .security_request_error import SecurityRequestError
+from .security_result import SecurityResult
 
 
 class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
-    def __init__(self) -> None:
+    def __init__(self, debug=False) -> None:
         self.irrsmo00 = IRRSMO00()
         self.valid_segment_traits = {}
         self.common_base_traits_dataset_generic = {
@@ -45,23 +47,21 @@ class SecurityAdmin:
             "generic": "racf:generic",
         }
         self.segment_traits = {}
+        # used to preserve segment traits for debug logging.
+        self.preserved_segment_traits = {}
         self.trait_map = {}
         self.profile_type = None
+        self.logger = Logger()
+        self.debug = debug
 
-    def add_field_data(self, field_data: dict):
-        """Add additional field data to a function group."""
-        for segment in field_data:
-            if segment in self.segment_traits:
-                self.valid_segment_traits[segment].update(field_data[segment])
-            else:
-                self.valid_segment_traits[segment] = field_data[segment]
-    
-    def overwrite_field_data(self, field_data: dict):
-        """Overwrite field data to a function group."""
-        self.valid_segment_traits = field_data
-
-    def extract_and_check_result(self, security_request: SecurityRequest) -> dict:
+    def extract_and_check_result(
+        self,
+        security_request: SecurityRequest,
+        generate_request_only=False,
+    ) -> dict:
         """Extract a RACF profile."""
+        if generate_request_only:
+            return self.make_request(security_request, generate_request_only=True)
         result = self.make_request(security_request)
         if "error" in result["securityresult"][self.profile_type]:
             raise SecurityRequestError(result)
@@ -70,6 +70,10 @@ class SecurityAdmin:
             and result["securityresult"]["reasoncode"] == 0
         ):
             self.format_profile(result)
+            if self.debug:
+                self.logger.log_dictionary(
+                    "Result Dictionary (Formatted Profile)", result, None
+                )
             return result
         raise SecurityRequestError(result)
 
@@ -78,12 +82,79 @@ class SecurityAdmin:
         for trait in traits:
             if trait in self.valid_segment_traits:
                 self.segment_traits[trait] = traits[trait]
+        # preserve segment traits for debug logging.
+        self.preserved_segment_traits = self.segment_traits
 
-    def make_request(self, security_request: SecurityRequest, opts: int = 1) -> dict:
+    def make_request(
+        self,
+        security_request: SecurityRequest,
+        opts: int = 1,
+        generate_request_only=False,
+    ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
-        result_xml = self.irrsmo00.call_racf(security_request.dump_request_xml(), opts)
-        results = SecurityResult(result_xml)
-        return results.get_result_dictionary()
+        try:
+            redact_password = self.preserved_segment_traits["base"]["password"]
+        except KeyError:
+            redact_password = None
+        result = self.make_request_unredacted(
+            security_request,
+            opts=opts,
+            generate_request_only=generate_request_only,
+            redact_password=redact_password,
+        )
+        if not redact_password:
+            return result
+        if isinstance(result, dict):
+            # Dump to json string, redact password, and then load back to dictionary.
+            return json.loads(
+                self.logger.redact_string(json.dumps(result), redact_password)
+            )
+        # redact password from XML bytes (Always UTF-8).
+        return self.logger.redact_string(result, bytes(redact_password, "utf-8"))
+
+    def make_request_unredacted(
+        self,
+        security_request: SecurityRequest,
+        opts: int = 1,
+        generate_request_only=False,
+        redact_password=None,
+    ) -> Union[dict, bytes]:
+        """
+        Make request to IRRSMO00.
+        Note: Passwords are not redacted from result, but are redacted from log messages.
+        """
+        if self.debug:
+            self.logger.log_dictionary(
+                "Request Dictionary", self.preserved_segment_traits, redact_password
+            )
+            self.logger.log_xml(
+                "Request XML",
+                security_request.dump_request_xml(encoding="utf-8"),
+                redact_password,
+            )
+        if not generate_request_only:
+            result_xml = self.irrsmo00.call_racf(
+                security_request.dump_request_xml(), opts
+            )
+            if self.debug:
+                self.logger.log_xml("Result XML", result_xml, redact_password)
+            results = SecurityResult(result_xml)
+
+            if self.debug:
+                self.logger.log_dictionary(
+                    "Result Dictionary",
+                    results.get_result_dictionary(),
+                    redact_password,
+                )
+            result_dict = results.get_result_dictionary()
+            if (
+                result_dict["securityresult"]["returncode"] != 0
+                or result_dict["securityresult"]["reasoncode"] != 0
+            ):
+                raise SecurityRequestError(result_dict)
+            return result_dict
+
+        return security_request.dump_request_xml(encoding="utf-8")
 
     def format_profile(self, result: dict):
         """Placeholder for format profile function for profile extract."""
@@ -101,7 +172,11 @@ class SecurityAdmin:
         profile[current_segment] = {}
         i = 0
         while i < len(messages):
-            if messages[i] == " " or messages[i] in no_segment_information_keys:
+            if (
+                messages[i] == " "
+                or messages[i] in no_segment_information_keys
+                or messages[i] is None
+            ):
                 i += 1
                 continue
             if i < len(messages) - 1 and messages[i] in additional_segment_keys:
@@ -114,6 +189,10 @@ class SecurityAdmin:
                 )
             if profile_type == "user":
                 i = self.__format_user_profile_data(
+                    messages, profile, current_segment, i
+                )
+            if profile_type == "group":
+                i = self.__format_group_profile_data(
                     messages, profile, current_segment, i
                 )
             i += 1
@@ -135,8 +214,12 @@ class SecurityAdmin:
             and ("--" in messages[i + 1])
         ):
             self.__format_semi_tabular_data(messages, profile, current_segment, i)
-            i += 1
-        elif i < len(messages) - 2 and ("-" in messages[i + 1]):
+            i += 2
+        elif (
+            i < len(messages) - 2
+            and messages[i + 1] is not None
+            and ("-" in messages[i + 1])
+        ):
             field = " ".join(
                 [
                     txt.lower().strip()
@@ -147,6 +230,10 @@ class SecurityAdmin:
             i += 1
         elif "NO INSTALLATION DATA" in messages[i]:
             profile[current_segment]["installation data"] = None
+        if "INFORMATION FOR DATASET" in messages[i]:
+            profile[current_segment]["name"] = (
+                messages[i].split("INFORMATION FOR DATASET ")[1].lower()
+            )
         return i
 
     def __format_user_profile_data(
@@ -179,6 +266,64 @@ class SecurityAdmin:
         else:
             self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
         return i
+
+    def __format_group_profile_data(
+        self, messages: List[str], profile: dict, current_segment: str, i: int
+    ) -> int:
+        """Specialized logic for formatting user profile data."""
+        if "users" in profile[current_segment].keys() and i < len(messages) - 2:
+            self.__format_user_list_data(messages, profile, current_segment, i)
+            i += 2
+        if (
+            "USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS="
+            in messages[i]
+        ):
+            profile[current_segment]["users"] = []
+        elif "=" in messages[i]:
+            self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
+        elif "NO " in messages[i]:
+            field_name = messages[i].split("NO ")[1].strip().lower()
+            profile[current_segment][field_name] = None
+        elif "TERMUACC" in messages[i]:
+            if "NO" in messages[i]:
+                profile[current_segment]["termuacc"] = False
+            else:
+                profile[current_segment]["termuacc"] = True
+        elif "INFORMATION FOR GROUP" in messages[i]:
+            profile[current_segment]["name"] = (
+                messages[i].split("INFORMATION FOR GROUP ")[1].lower()
+            )
+        return i
+
+    def __format_user_list_data(
+        self, messages: list, profile: dict, current_segment: str, i: int
+    ) -> None:
+        profile[current_segment]["users"].append({})
+        user_index = len(profile[current_segment]["users"]) - 1
+        user_fields = [
+            field.strip() for field in messages[i].split(" ") if field.strip()
+        ]
+
+        profile[current_segment]["users"][user_index]["userid"] = self.cast_from_str(
+            user_fields[0]
+        )
+        profile[current_segment]["users"][user_index]["access"] = self.cast_from_str(
+            user_fields[1]
+        )
+        profile[current_segment]["users"][user_index][
+            "access count"
+        ] = self.cast_from_str(user_fields[2])
+        profile[current_segment]["users"][user_index][
+            "universal access"
+        ] = self.cast_from_str(user_fields[3])
+
+        self.__add_key_value_pairs_to_segment(
+            profile[current_segment]["users"][user_index], messages[i + 1]
+        )
+
+        self.__add_key_value_pairs_to_segment(
+            profile[current_segment]["users"][user_index], messages[i + 2]
+        )
 
     def __build_additional_segment_keys(
         self, valid_segment_traits: dict
@@ -221,12 +366,11 @@ class SecurityAdmin:
             for j in range(len(tmp_ind))
             if j == 0 or tmp_ind[j] - tmp_ind[j - 1] > 1
         ]
-        # print(tmp_ind,indexes)
         indexes_length = len(indexes)
         for j in range(indexes_length):
             if j < indexes_length - 1:
-                ind_e0 = indexes[j + 1]
-                ind_e1 = indexes[j + 1]
+                ind_e0 = indexes[j + 1] - 1
+                ind_e1 = indexes[j + 1] - 1
             else:
                 ind_e0 = len(messages[i])
                 ind_e1 = len(messages[i + 2])
@@ -241,7 +385,7 @@ class SecurityAdmin:
         segment: dict,
         message: str,
     ) -> None:
-        """Add a key value pair to a sgement dictionary."""
+        """Add a key value pair to a segment dictionary."""
         list_fields = ["attributes", "classauthorizations"]
         tokens = message.strip().split("=")
         key = tokens[0]
@@ -382,3 +526,5 @@ class SecurityAdmin:
                 continue
             for segment in self.valid_segment_traits:
                 self.__validate_trait(trait, segment, traits[trait])
+        # preserve segment traits for debug logging.
+        self.preserved_segment_traits = self.segment_traits

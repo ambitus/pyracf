@@ -1,0 +1,69 @@
+                                                                               
+                       [pyRACF:Debug] Request Dictionary                       
+                                                                               
+
+{
+    "base": {
+        "access": "READ",
+        "id": "ESWIFT"
+    }
+}
+
+                                                                               
+                           [pyRACF:Debug] Request XML                          
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+    <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
+        <access>READ</access>
+        <authid>ESWIFT</authid>
+    </permission>
+</securityrequest>
+
+                                                                               
+                           [pyRACF:Debug] Result XML                           
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+    <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
+        <command>
+            <safreturncode>0</safreturncode>
+            <returncode>0</returncode>
+            <reasoncode>0</reasoncode>
+            <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (READ) ID          (ESWIFT)</image>
+            <message>ICH06011I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED</message>
+        </command>
+    </permission>
+    <returncode>0</returncode>
+    <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                        [pyRACF:Debug] Result Dictionary                       
+                                                                               
+
+{
+    "securityresult": {
+        "permission": {
+            "name": "TESTING",
+            "class": "ELIJTEST",
+            "operation": "set",
+            "requestid": "AccessRequest",
+            "commands": [
+                {
+                    "safreturncode": 0,
+                    "returncode": 0,
+                    "reasoncode": 0,
+                    "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (READ) ID          (ESWIFT)",
+                    "messages": [
+                        "ICH06011I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
+                    ]
+                }
+            ]
+        },
+        "returncode": 0,
+        "reasoncode": 0
+    }
+}
+

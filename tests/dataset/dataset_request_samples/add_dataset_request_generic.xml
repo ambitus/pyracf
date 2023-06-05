@@ -1,0 +1,8 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+    <dataset generic="yes" name="ESWIFT.TEST.**" operation="set" requestid="DatasetRequest">
+        <base>
+            <racf:uacc>None</racf:uacc>
+            <racf:owner>eswift</racf:owner>
+        </base>
+    </dataset>
+</securityrequest>
