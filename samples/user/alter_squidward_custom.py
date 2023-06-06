@@ -27,7 +27,7 @@ def main():
 
     user_admin.add_field_data(update_segments)
     print("added field data")
-    result = user_admin.alter(traits)
+    user_admin.alter(traits)
 
     user_admin.extract(extract_traits)
 

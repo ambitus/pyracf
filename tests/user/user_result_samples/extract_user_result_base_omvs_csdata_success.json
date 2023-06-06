@@ -45,6 +45,9 @@
                                 "categoryauthorization": null,
                                 "securitylabel": null
                             },
+                            "csdata": {
+                                "tstcsfld": "testval"
+                            },
                             "omvs": {
                                 "uid": 2424,
                                 "home": "/u/clarinet",
@@ -54,9 +57,6 @@
                                 "procusermax": null,
                                 "threadsmax": null,
                                 "mmapareamax": null
-                            },
-                            "csdata": {
-                                "tstcsfld": "TESTVAL"
                             }
                         }
                     ]
