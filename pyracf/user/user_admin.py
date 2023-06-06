@@ -292,7 +292,7 @@ class UserAdmin(SecurityAdmin):
         removes the user's current class authorizations and then recreates
         the class authorizations list using the list that the user provides.
         """
-        remove_steps = self.delete_class_authorizaitons(self, userid)
+        remove_steps = self.delete_class_authorizaitons(userid)
         add_steps = self.add_class_authorizations(
             userid, traits={"base:clauth": class_authorizations}
         )
