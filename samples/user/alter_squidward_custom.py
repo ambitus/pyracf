@@ -14,19 +14,22 @@ def main():
         "special": False,
         "home": "/u/clarinet",
         "program": False,
-        "testcsfld": "testval",
+        "csdata:testcsfld": "testval",
+    }
+
+    extract_traits = {
+        "userid": "squidwrd",
+        "omvs": True,
+        "csdata": True,
     }
 
     update_segments = {"csdata": {"tstcsfld": "tstcsfld"}}
-
-    result = user_admin.alter(traits)
-    print(json.dumps(result, indent=4))
 
     user_admin.add_field_data(update_segments)
     print("added field data")
     result = user_admin.alter(traits)
 
-    user_admin.extract("squidwrd")
+    user_admin.extract(extract_traits)
 
 
 if __name__ == "__main__":
