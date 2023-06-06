@@ -158,7 +158,7 @@ class TestUserResultParser(unittest.TestCase):
     # Extract User with CSDATA
     # ============================================================================
 
-    def test_user_admin_can_parse_extract_user_base_omvs_success_xml(
+    def test_user_admin_can_parse_extract_user_base_omvs_csdata_success_xml(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
