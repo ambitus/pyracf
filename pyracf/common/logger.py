@@ -134,7 +134,10 @@ class Logger:
         xml_lines = xml_text.splitlines()
         for line in xml_lines:
             tokens = line.split("<")
-            tag_tokens = tokens[1].split()
+            if ">" in tokens[1] and not tokens[1][-1] == ">":
+                tag_tokens = tokens[1].split(">")[0].split()
+            else:
+                tag_tokens = tokens[1].split()
             tag_name = tag_tokens[0]
             tag_start = "<"
             tag_end = ">"
@@ -150,6 +153,8 @@ class Logger:
                 tag_tokens = []
             attributes = " ".join(tag_tokens[1:])[: -len(tag_end)]
             if len(attributes) > 0:
+                if attributes.count('"') % 2:
+                    attributes = attributes + '"'   
                 if attributes[-1] == "/":
                     attributes = attributes[:-1]
                     tag_end = "/>"
