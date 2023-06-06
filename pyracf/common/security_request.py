@@ -68,18 +68,20 @@ class SecurityRequest:
             if isinstance(traits[trait], bool) and not traits[trait] and not alter:
                 continue
             trait_element = XMLBuilder.SubElement(segment, trait_map[trait])
-            if isinstance(traits[trait], list):
-                trait_element.text = traits[trait][0]
+            value = traits[trait]["value"]
+            operation = traits[trait]["operation"]
+            if operation:
+                if operation == "delete":
+                    operation = "del"
+                trait_element.attrib = {"operation": operation}
+            if not operation and alter:
+                trait_element.attrib = {"operation": "set"}
+            if isinstance(value, list):
+                trait_element.text = " ".join(value)
                 trait_element.attrib = {"operation": traits[trait][1]}
                 continue
-            if not isinstance(traits[trait], bool):
-                trait_element.text = str(traits[trait])
-            if not alter:
-                continue
-            if isinstance(traits[trait], bool) and not traits[trait]:
-                trait_element.attrib = {"operation": "del"}
-            else:
-                trait_element.attrib = {"operation": "set"}
+            if not isinstance(value, bool):
+                trait_element.text = str(value)
         if len(list(segment.iter())) == 1 and not extract:
             self._security_definition.remove(segment)
 

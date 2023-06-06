@@ -4,7 +4,10 @@
 
 {
     "omvs": {
-        "omvs:gid": "6667"
+        "omvs:gid": {
+            "value": "6667",
+            "operation": null
+        }
     }
 }
 

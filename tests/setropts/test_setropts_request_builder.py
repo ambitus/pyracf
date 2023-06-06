@@ -30,4 +30,6 @@ class TestSetroptsRequestBuilder(unittest.TestCase):
     def test_setropts_admin_build_list_setropts_request(self, irrsmo00_init_mock: Mock):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         result = setropts_admin.list_racf_options()
+        print(result)
+        print(TestSetroptsConstants.TEST_LIST_SETROPTS_REQUEST_XML)
         self.assertEqual(result, TestSetroptsConstants.TEST_LIST_SETROPTS_REQUEST_XML)

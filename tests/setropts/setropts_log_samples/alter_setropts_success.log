@@ -4,7 +4,10 @@
 
 {
     "base": {
-        "base:raclist": "ELIJTEST"
+        "base:raclist": {
+            "value": "ELIJTEST",
+            "operation": null
+        }
     }
 }
 

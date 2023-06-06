@@ -4,8 +4,14 @@
 
 {
     "base": {
-        "uacc": "None",
-        "owner": "eswift"
+        "uacc": {
+            "value": "None",
+            "operation": null
+        },
+        "owner": {
+            "value": "eswift",
+            "operation": null
+        }
     }
 }
 

@@ -4,8 +4,14 @@
 
 {
     "base": {
-        "access": "READ",
-        "id": "ESWIFT"
+        "access": {
+            "value": "READ",
+            "operation": null
+        },
+        "id": {
+            "value": "ESWIFT",
+            "operation": null
+        }
     }
 }
 

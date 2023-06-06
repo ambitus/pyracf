@@ -94,7 +94,9 @@ class SecurityAdmin:
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         try:
-            redact_password = self.__preserved_segment_traits["base"]["base:password"]
+            redact_password = self.__preserved_segment_traits["base"]["base:password"][
+                "value"
+            ]
         except KeyError:
             redact_password = None
         result = self.__make_request_unredacted(
@@ -486,7 +488,7 @@ class SecurityAdmin:
             return value
 
     def __validate_and_add_trait(
-        self, trait: str, segment: str, value: Union[str, list]
+        self, trait: str, segment: str, value: Union[str, dict]
     ):
         """Validate the specified trait exists in the specified segment"""
         if segment not in self._valid_segment_traits:
@@ -496,14 +498,16 @@ class SecurityAdmin:
             operation = tokens[0]
             if operation not in ["add", "remove", "delete"] or len(tokens) == 1:
                 return False
-            true_trait = trait[len(operation) + 1 :]
-            if operation == "delete":
-                operation = "del"
-            self.__validate_and_add_trait(true_trait, segment, [value, operation])
-            return True
+            trait = trait[len(operation) + 1 :]
+            value_operation_dictionary = {"value": value, "operation": operation}
+        else:
+            operation = None
+            if isinstance(value, bool) and not value:
+                operation = "delete"
+            value_operation_dictionary = {"value": value, "operation": operation}
         if segment not in self._segment_traits:
             self._segment_traits[segment] = {}
-        self._segment_traits[segment][trait] = value
+        self._segment_traits[segment][trait] = value_operation_dictionary
         self._trait_map[trait] = self._valid_segment_traits[segment][trait]
         return True
 
@@ -511,10 +515,7 @@ class SecurityAdmin:
         """Build segemnt dictionaries for each segment."""
         for trait in traits:
             for segment in self._valid_segment_traits:
-                trait_value = traits[trait]
-                if isinstance(trait_value, list):
-                    trait_value = " ".join(trait_value)
-                self.__validate_and_add_trait(trait, segment, trait_value)
+                self.__validate_and_add_trait(trait, segment, traits[trait])
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 

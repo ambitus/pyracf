@@ -4,7 +4,10 @@
 
 {
     "base": {
-        "base:password": "********"
+        "base:password": {
+            "value": "********",
+            "operation": null
+        }
     }
 }
 
