@@ -14,7 +14,7 @@ def main():
         "special": False,
         "home": "/u/clarinet",
         "program": False,
-        "csdata:testcsfld": "testval",
+        "csdata:tstcsfld": "testval",
     }
 
     extract_traits = {

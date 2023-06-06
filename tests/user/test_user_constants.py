@@ -123,6 +123,7 @@ TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error
 # Custom Field Data
 # ============================================================================
 
+# Alter User Traits
 TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
     "userid": "squidwrd",
     "special": False,
@@ -131,6 +132,7 @@ TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
     "tstcsfld": "testval",
 }
 
+# Valid Segment Traits Updates
 TEST_USER_UPDATE_SEGMENTS = {"csdata": {"tstcsfld": "tstcsfld"}}
 
 TEST_USER_ALTERNATE_SEGMENTS = {
@@ -140,6 +142,7 @@ TEST_USER_ALTERNATE_SEGMENTS = {
 
 TEST_USER_OVERWRITE_SEGMENTS = {"csdata": {"tstcsfld": "tstcsfld"}}
 
+# Alter User Requests
 TEST_ALTER_USER_ALTERNATE_SEGMENTS_REQUEST_XML = get_sample(
     "alter_user_request_alternate_segments.xml"
 )
@@ -148,4 +151,12 @@ TEST_ALTER_USER_OVERWRITE_SEGMENTS_REQUEST_XML = get_sample(
 )
 TEST_ALTER_USER_UPDATE_SEGMENTS_REQUEST_XML = get_sample(
     "alter_user_request_update_segments.xml"
+)
+
+# Extract User Results
+TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML = get_sample(
+    "extract_user_result_base_omvs_csdata_success.xml"
+)
+TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
+    "extract_user_result_base_omvs_csdata_success.json"
 )

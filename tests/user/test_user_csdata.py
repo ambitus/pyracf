@@ -20,6 +20,10 @@ class TestUserCSdata(unittest.TestCase):
         irrsmo00_init_mock.return_value = None
         return UserAdmin()
 
+    # ============================================================================
+    # Generate Requests with Modified Valid_Segment_Traits
+    # ============================================================================
+
     def test_user_admin_build_alter_request_alternate_segments(
         self, irrsmo00_init_mock: Mock
     ):
@@ -57,4 +61,22 @@ class TestUserCSdata(unittest.TestCase):
         )
         self.assertEqual(
             result, TestUserConstants.TEST_ALTER_USER_UPDATE_SEGMENTS_REQUEST_XML
+        )
+
+    # ============================================================================
+    # Extract User with CSDATA 
+    # ============================================================================
+
+    def test_user_admin_can_parse_extract_user_base_omvs_success_xml(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
+        )
+        self.assertEqual(
+            user_admin.extract({"userid": "squidward", "omvs": True}),
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
         )
