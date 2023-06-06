@@ -545,3 +545,14 @@ class SecurityAdmin:
                 )
         # Clear segments for new request
         self._segment_traits = {}
+
+    def _to_steps_dictionary(self, result_dictionaries: List[dict]) -> dict:
+        """
+        Build a steps dictionary composed of each result dictionary
+        in a result dictionary list, where the result dictionary list is
+        assumed to be ordered chronologically in ascending order with respect
+        to when each corresponding request was made."""
+        steps_dictionary = {}
+        for step, result_dictionary in enumerate(result_dictionaries):
+            steps_dictionary[f"step{step}"] = result_dictionary
+        return steps_dictionary

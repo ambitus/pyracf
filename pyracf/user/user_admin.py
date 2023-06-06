@@ -287,20 +287,40 @@ class UserAdmin(SecurityAdmin):
     def set_class_authorizations(
         self, userid: str, class_authorizations: List[str]
     ) -> dict:
-        """Set a user's class authorizations."""
-        return self.alter(userid, traits={"base:clauth": class_authorizations})
+        """
+        Set a user's class authorizations.
+        removes the user's current class authorizations and then recreates
+        the class authorizations list using the list that the user provides.
+        """
+        remove_steps = self.delete_class_authorizaitons(self, userid)
+        add_steps = self.add_class_authorizations(
+            userid, traits={"base:clauth": class_authorizations}
+        )
+        return self._to_steps_dictionary(
+            list(remove_steps.values()) + list(add_steps.values())
+        )
 
-    def add_class_authorization(self, userid: str, class_authorization: str) -> dict:
+    def add_class_authorizations(
+        self, userid: str, class_authorizations: Union[str, List[str]]
+    ) -> dict:
         """Add a class to a user's class authorizations."""
-        return self.alter(userid, traits={"add:base:clauth": class_authorization})
+        result = self.alter(userid, traits={"add:base:clauth": class_authorizations})
+        return self._to_steps_dictionary([result])
 
-    def remove_class_authorization(self, userid: str, class_authorization: str) -> dict:
+    def remove_class_authorizations(
+        self, userid: str, class_authorizations: Union[str, List[str]]
+    ) -> dict:
         """Remove a class from a user's class authorizations."""
-        return self.alter(userid, traits={"remove:base:clauth": class_authorization})
+        result = self.alter(userid, traits={"remove:base:clauth": class_authorizations})
+        return self._to_steps_dictionary([result])
 
-    def delete_class_authorizaitons(self, userid: str) -> str:
-        """Remove all class authorization(s) from the User Profile"""
-        return self.alter(userid, traits={"base:clauth": False})
+    def delete_class_authorizaitons(self, userid: str) -> dict:
+        """Delete all classes from a users class authorizations."""
+        current_class_authorizations = self.get_class_authorizations(userid)
+        result = self.remove_class_authorizations(
+            userid, traits={"base:clauth": current_class_authorizations}
+        )
+        return self._to_steps_dictionary([result])
 
     def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
         """Get a user's class authorizations."""
