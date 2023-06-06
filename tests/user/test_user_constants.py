@@ -131,27 +131,21 @@ TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
     "tstcsfld": "testval",
 }
 
-TEST_USER_UPDATE_SEGMENTS = {
-        "csdata" : {
-            'tstcsfld' : 'tstcsfld'
-        }
-    }
+TEST_USER_UPDATE_SEGMENTS = {"csdata": {"tstcsfld": "tstcsfld"}}
 
 TEST_USER_ALTERNATE_SEGMENTS = {
-        "base" : {
-            'special' : 'alt:special'
-        },
-        "csdata" : {
-            'tstcsfld' : 'tstcsfld'
-        }
-    }
+    "base": {"special": "alt:special"},
+    "csdata": {"tstcsfld": "tstcsfld"},
+}
 
-TEST_USER_OVERWRITE_SEGMENTS = {
-        "csdata" : {
-            'tstcsfld' : 'tstcsfld'
-        }
-    }
+TEST_USER_OVERWRITE_SEGMENTS = {"csdata": {"tstcsfld": "tstcsfld"}}
 
-TEST_ALTER_USER_ALTERNATE_SEGMENTS_REQUEST_XML = get_sample("alter_user_request_alternate_segments.xml")
-TEST_ALTER_USER_OVERWRITE_SEGMENTS_REQUEST_XML = get_sample("alter_user_request_overwrite_segments.xml")
-TEST_ALTER_USER_UPDATE_SEGMENTS_REQUEST_XML = get_sample("alter_user_request_update_segments.xml")
+TEST_ALTER_USER_ALTERNATE_SEGMENTS_REQUEST_XML = get_sample(
+    "alter_user_request_alternate_segments.xml"
+)
+TEST_ALTER_USER_OVERWRITE_SEGMENTS_REQUEST_XML = get_sample(
+    "alter_user_request_overwrite_segments.xml"
+)
+TEST_ALTER_USER_UPDATE_SEGMENTS_REQUEST_XML = get_sample(
+    "alter_user_request_update_segments.xml"
+)

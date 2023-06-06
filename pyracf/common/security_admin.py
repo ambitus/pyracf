@@ -61,7 +61,7 @@ class SecurityAdmin:
                 self.valid_segment_traits[segment].update(field_data[segment])
             else:
                 self.valid_segment_traits[segment] = field_data[segment]
-    
+
     def overwrite_field_data(self, field_data: dict):
         """Overwrite field data to a function group."""
         self.valid_segment_traits = field_data

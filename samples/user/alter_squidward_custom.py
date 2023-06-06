@@ -7,7 +7,7 @@ from pyracf.user.user_admin import UserAdmin
 
 def main():
     """Entrypoint."""
-    user_admin = UserAdmin()
+    user_admin = UserAdmin(debug=True)
 
     traits = {
         "userid": "squidwrd",
@@ -17,21 +17,16 @@ def main():
         "testcsfld": "testval",
     }
 
-    update_segments = {
-        "csdata" : {
-            'tstcsfld' : 'tstcsfld'
-        }
-    }
+    update_segments = {"csdata": {"tstcsfld": "tstcsfld"}}
 
-    result = user_admin.alter(traits,debug=True)
+    result = user_admin.alter(traits)
     print(json.dumps(result, indent=4))
 
     user_admin.add_field_data(update_segments)
-    print('added field data')
+    print("added field data")
     result = user_admin.alter(traits)
 
     user_admin.extract("squidwrd")
-
 
 
 if __name__ == "__main__":
