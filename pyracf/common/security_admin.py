@@ -499,6 +499,8 @@ class SecurityAdmin:
             if operation not in ["add", "remove", "delete"] or len(tokens) == 1:
                 return False
             trait = trait[len(operation) + 1 :]
+            if trait not in self._valid_segment_traits[segment]:
+                return False
             value_operation_dictionary = {"value": value, "operation": operation}
         else:
             operation = None
