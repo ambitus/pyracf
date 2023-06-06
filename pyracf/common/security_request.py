@@ -78,7 +78,7 @@ class SecurityRequest:
                 trait_element.attrib = {"operation": "set"}
             if isinstance(value, list):
                 trait_element.text = " ".join(value)
-                trait_element.attrib = {"operation": traits[trait][1]}
+                # trait_element.attrib = {"operation": operation}
                 continue
             if not isinstance(value, bool):
                 trait_element.text = str(value)
