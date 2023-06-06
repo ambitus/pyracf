@@ -315,8 +315,7 @@ class UserAdmin(SecurityAdmin):
     def delete_all_class_authorizaitons(self, userid: str) -> dict:
         """Delete all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
-        result = self.remove_class_authorizations(userid, current_class_authorizations)
-        return self._to_steps_dictionary([result])
+        return self.remove_class_authorizations(userid, current_class_authorizations)
 
     def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
         """Get a user's class authorizations."""
