@@ -78,7 +78,6 @@ TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
 TEST_ALTER_USER_REQUEST_TRAITS = {
     "userid": "squidwrd",
     "special": False,
-    "operator": True,
     "home": "/u/clarinet",
     "program": False,
 }
@@ -119,3 +118,40 @@ TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG = get_sample(
     "extract_user_base_omvs_success.log"
 )
 TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error.log")
+
+# ============================================================================
+# Custom Field Data
+# ============================================================================
+
+TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
+    "userid": "squidwrd",
+    "special": False,
+    "home": "/u/clarinet",
+    "program": False,
+    "tstcsfld": "testval",
+}
+
+TEST_USER_UPDATE_SEGMENTS = {
+        "csdata" : {
+            'tstcsfld' : 'tstcsfld'
+        }
+    }
+
+TEST_USER_ALTERNATE_SEGMENTS = {
+        "base" : {
+            'special' : 'alt:special'
+        },
+        "csdata" : {
+            'tstcsfld' : 'tstcsfld'
+        }
+    }
+
+TEST_USER_OVERWRITE_SEGMENTS = {
+        "csdata" : {
+            'tstcsfld' : 'tstcsfld'
+        }
+    }
+
+TEST_ALTER_USER_ALTERNATE_SEGMENTS_REQUEST_XML = get_sample("alter_user_request_alternate_segments.xml")
+TEST_ALTER_USER_OVERWRITE_SEGMENTS_REQUEST_XML = get_sample("alter_user_request_overwrite_segments.xml")
+TEST_ALTER_USER_UPDATE_SEGMENTS_REQUEST_XML = get_sample("alter_user_request_update_segments.xml")
