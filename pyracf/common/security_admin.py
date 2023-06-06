@@ -499,8 +499,6 @@ class SecurityAdmin:
             true_trait = trait[len(operation) + 1 :]
             if operation == "delete":
                 operation = "del"
-            if isinstance(value, list):
-                value = " ".join(value)
             self.__validate_and_add_trait(true_trait, segment, [value, operation])
             return True
         if segment not in self._segment_traits:
@@ -513,7 +511,10 @@ class SecurityAdmin:
         """Build segemnt dictionaries for each segment."""
         for trait in traits:
             for segment in self._valid_segment_traits:
-                self.__validate_and_add_trait(trait, segment, traits[trait])
+                trait_value = traits[trait]
+                if isinstance(trait_value, list):
+                    trait_value = " ".join(trait_value)
+                self.__validate_and_add_trait(trait, segment, trait_value)
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 
