@@ -106,6 +106,7 @@ TEST_USER_SET_AUDITOR_XML = get_sample("user_set_auditor_request.xml")
 TEST_USER_DELETE_AUDITOR_XML = get_sample("user_delete_auditor_request.xml")
 TEST_USER_SET_OPERATOR_XML = get_sample("user_set_operations_request.xml")
 TEST_USER_DELETE_OPERATOR_XML = get_sample("user_delete_operations_request.xml")
+TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
 TEST_USER_SET_OMVS_UID_XML = get_sample("user_set_omvs_uid_request.xml")
 
 # ============================================================================

@@ -499,6 +499,8 @@ class SecurityAdmin:
             true_trait = trait[len(operation) + 1 :]
             if operation == "delete":
                 operation = "del"
+            if isinstance(value, list):
+                value = " ".join(value)
             self.__validate_and_add_trait(true_trait, segment, [value, operation])
             return True
         if segment not in self._segment_traits:

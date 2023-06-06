@@ -213,7 +213,7 @@ class SetroptsAdmin(SecurityAdmin):
         return self.alter(options=options)
 
     # ============================================================================
-    # Core Functions
+    # Base Functions
     # ============================================================================
     def list_racf_options(self) -> dict:
         """List RACF options."""

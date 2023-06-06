@@ -106,8 +106,6 @@ class TestSetroptsSetters(unittest.TestCase):
     ):
         setropts_admin = self.boilerplate(irrsmo00_init_mock)
         result = setropts_admin.remove_audit_class("elijtest")
-        print(result)
-        print(TestSetroptsConstants.TEST_SETROPTS_REMOVE_AUDIT_CLASS_XML)
         self.assertEqual(
             result, TestSetroptsConstants.TEST_SETROPTS_REMOVE_AUDIT_CLASS_XML
         )

@@ -372,7 +372,7 @@ class UserAdmin(SecurityAdmin):
         return self.alter(userid, traits={"omvs:home": str(program)})
 
     # ============================================================================
-    # Core Functions
+    # Base Functions
     # ============================================================================
     def add(self, userid: str, traits: dict = {}) -> dict:
         """Create a new user."""

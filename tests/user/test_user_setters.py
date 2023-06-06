@@ -52,6 +52,11 @@ class TestUserSetters(unittest.TestCase):
         result = user_admin.delete_operations("squidwrd")
         self.assertEqual(result, TestUserConstants.TEST_USER_DELETE_OPERATOR_XML)
 
+    def test_user_admin_build_set_password_request(self, irrsom00_init_mock: Mock):
+        user_admin = self.boilerplate(irrsom00_init_mock)
+        result = user_admin.set_password("squidwrd", "GIyTTqdF")
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_PASSWORD_XML)
+
     def test_user_admin_build_set_omvs_uid_request(self, init_mock_init_mock: Mock):
         user_admin = self.boilerplate(init_mock_init_mock)
         result = user_admin.set_omvs_uid("squidwrd", 40)
