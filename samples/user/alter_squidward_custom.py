@@ -1,7 +1,5 @@
 """Alter an existing user."""
 
-import json
-
 from pyracf.user.user_admin import UserAdmin
 
 
