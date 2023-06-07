@@ -308,13 +308,14 @@ class UserAdmin(SecurityAdmin):
         removes the user's current class authorizations and then recreates
         the class authorizations list using the list that the user provides.
         """
-        delete_result = self.delete_all_class_authorizaitons(userid)
+        delete_result = self.delete_all_class_authorizations(userid)
         add_result = self.add_class_authorizations(userid, class_authorizations)
         if not delete_result:
             return add_result
-        return self._to_steps(
-            list(delete_result.values()) + list(delete_result.values())
-        )
+        # Testing Only: When generate_requests_only mode is on, just concatenante the xml.
+        if isinstance(add_result, bytes):
+            return delete_result + add_result
+        return self._to_steps(list(delete_result.values()) + list(add_result.values()))
 
     def add_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
@@ -330,7 +331,7 @@ class UserAdmin(SecurityAdmin):
         result = self.alter(userid, traits={"remove:base:clauth": class_authorizations})
         return self._to_steps(result)
 
-    def delete_all_class_authorizaitons(self, userid: str) -> Union[dict, False]:
+    def delete_all_class_authorizations(self, userid: str) -> Union[dict, False]:
         """Delete all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
         if not current_class_authorizations:
@@ -376,7 +377,7 @@ class UserAdmin(SecurityAdmin):
         home_directory: str,
     ) -> dict:
         """Set a user's OMVS home directory."""
-        result = self.alter(userid, traits={"omvs:home": str(home_directory)})
+        result = self.alter(userid, traits={"omvs:home": home_directory})
         return self._to_steps(result)
 
     # ============================================================================
@@ -387,7 +388,7 @@ class UserAdmin(SecurityAdmin):
         result = self.extract(userid, segments={"omvs": True})
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
         try:
-            return profile["omvs"]["home"]
+            return profile["omvs"]["program"]
         except KeyError:
             return None
 
@@ -397,7 +398,7 @@ class UserAdmin(SecurityAdmin):
         program: str,
     ) -> dict:
         """Set a user's OMVS program."""
-        result = self.alter(userid, traits={"omvs:home": str(program)})
+        result = self.alter(userid, traits={"omvs:program": program})
         return self._to_steps(result)
 
     # ============================================================================

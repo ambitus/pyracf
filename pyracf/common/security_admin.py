@@ -546,7 +546,7 @@ class SecurityAdmin:
         # Clear segments for new request
         self._segment_traits = {}
 
-    def _to_steps(self, results: Union[List[dict], dict, str]) -> dict:
+    def _to_steps(self, results: Union[List[dict], dict, bytes]) -> dict:
         """
         Build a steps dictionary composed of each result dictionary
         in a result dictionary list, where the result dictionary list is
@@ -554,9 +554,9 @@ class SecurityAdmin:
         to when each corresponding request was made.
 
         Note: for generate request only mode (for testing purposes),
-        the all of the request xml strings should just be concatenated together.
+        the all of the request xml bytes should just be concatenated together.
         """
-        if isinstance(results, dict) or isinstance(results, str):
+        if isinstance(results, dict):
             results = [results]
         if self.__generate_requests_only:
             return results

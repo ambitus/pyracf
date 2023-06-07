@@ -46,6 +46,9 @@ TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
     "extract_user_result_base_only_no_omvs_success.json"
 )
+TEST_EXTRACT_USER_RESULT_WITH_CLASS_AUTHORIZATIONS = get_sample(
+    "extract_user_result_with_class_authorizations.xml"
+)
 TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML = get_sample(
     "extract_user_result_with_command_audit_trail.xml"
 )
@@ -119,7 +122,26 @@ TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML = get_sample(
     "user_remove_operations_authority_request.xml"
 )
 TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
+TEST_USER_ADD_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
+    "user_add_class_authorizations_single_class_request.xml"
+)
+TEST_USER_ADD_CLASS_AUTHORIZATIONS_MULTIPLE_CLASSES_XML = get_sample(
+    "user_add_class_authorizations_multiple_classes_request.xml"
+)
+TEST_USER_REMOVE_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
+    "user_remove_class_authorizations_single_class_request.xml"
+)
+TEST_USER_REMOVE_CLASS_AUTHORIZATIONS_MULTIPLE_CLASSES_XML = get_sample(
+    "user_remove_class_authorizations_multiple_classes_request.xml"
+)
+TEST_USER_DELETE_ALL_CLASS_AUTHORIZATIONS_XML = get_sample(
+    "user_delete_all_class_authorizations_request.xml"
+)
+TEST_USER_SET_CLASS_AUTHORIZATIONS_XML = get_sample(
+    "user_set_class_authorizations_request.xml"
+)
 TEST_USER_SET_OMVS_UID_XML = get_sample("user_set_omvs_uid_request.xml")
+TEST_USER_SET_OMVS_HOME_XML = get_sample("user_set_omvs_home_request.xml")
 
 # ============================================================================
 # Debug Logging
