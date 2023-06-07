@@ -100,12 +100,24 @@ TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
 # User Administration Setters Sample Data
 # ============================================================================
 
-TEST_USER_SET_SPECIAL_XML = get_sample("user_set_special_request.xml")
-TEST_USER_DELELETE_SPECIAL_XML = get_sample("user_delete_special_request.xml")
-TEST_USER_SET_AUDITOR_XML = get_sample("user_set_auditor_request.xml")
-TEST_USER_DELETE_AUDITOR_XML = get_sample("user_delete_auditor_request.xml")
-TEST_USER_SET_OPERATOR_XML = get_sample("user_set_operations_request.xml")
-TEST_USER_DELETE_OPERATOR_XML = get_sample("user_delete_operations_request.xml")
+TEST_USER_GIVE_SPECIAL_AUTHORITY_XML = get_sample(
+    "user_give_special_authority_request.xml"
+)
+TEST_USER_REMOVE_SPECIAL_AUTHORITY_XML = get_sample(
+    "user_remove_special_authority_request.xml"
+)
+TEST_USER_GIVE_AUDITOR_AUTHORITY_XML = get_sample(
+    "user_give_auditor_authority_request.xml"
+)
+TEST_USER_REMOVE_AUDITOR_AUTHORITY_XML = get_sample(
+    "user_remove_auditory_authority_request.xml"
+)
+TEST_USER_GIVE_OPERATIONS_AUTHORITY_XML = get_sample(
+    "user_give_operations_authority_request.xml"
+)
+TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML = get_sample(
+    "user_remove_operations_authority_request.xml"
+)
 TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
 TEST_USER_SET_OMVS_UID_XML = get_sample("user_set_omvs_uid_request.xml")
 

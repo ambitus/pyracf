@@ -23,9 +23,9 @@ class TestUserGetters(unittest.TestCase):
         return UserAdmin()
 
     # ============================================================================
-    # UserAdmin.is_special()
+    # Special Authority
     # ============================================================================
-    def test_user_admin_is_special_returns_true_when_special(
+    def test_user_admin_has_special_authority_returns_true_when_attribute_exists(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -34,9 +34,9 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
-        self.assertTrue(user_admin.is_special("squidwrd"))
+        self.assertTrue(user_admin.has_special_authority("squidwrd"))
 
-    def test_user_admin_is_special_returns_false_when_not_special(
+    def test_user_admin_has_special_authority_returns_false_when_attribute_does_not_exist(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -50,10 +50,10 @@ class TestUserGetters(unittest.TestCase):
             "<message> ATTRIBUTES=NONE</message>",
         )
         call_racf_mock.return_value = user_extract_no_special
-        self.assertFalse(user_admin.is_special("squidwrd"))
+        self.assertFalse(user_admin.has_special_authority("squidwrd"))
 
     # Error in environment, SQUIDWRD already deleted/not added
-    def test_user_admin_is_special_raises_an_exception_when_extract_fails(
+    def test_user_admin_has_special_authority_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -63,12 +63,12 @@ class TestUserGetters(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            user_admin.is_special("squidwrd")
+            user_admin.has_special_authority("squidwrd")
 
     # ============================================================================
-    # UserAdmin.is_auditor()
+    # Auditor Authority
     # ============================================================================
-    def test_user_admin_is_auditor_returns_true_when_auditor(
+    def test_user_admin_has_auditor_authority_returns_true_when_attribute_exists(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -82,9 +82,9 @@ class TestUserGetters(unittest.TestCase):
             "<message> ATTRIBUTES=AUDITOR</message>",
         )
         call_racf_mock.return_value = user_extract_auditor
-        self.assertTrue(user_admin.is_auditor("squidwrd"))
+        self.assertTrue(user_admin.has_auditor_authority("squidwrd"))
 
-    def test_user_admin_is_auditor_returns_false_when_not_auditor(
+    def test_user_admin_has_auditor_authority_returns_false_when_attribute_does_not_exist(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -94,10 +94,10 @@ class TestUserGetters(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
         call_racf_mock.return_value = user_extract_no_auditor
-        self.assertFalse(user_admin.is_auditor("squidwrd"))
+        self.assertFalse(user_admin.has_auditor_authority("squidwrd"))
 
     # Error in environment, SQUIDWRD already deleted/not added
-    def test_user_admin_is_auditor_raises_an_exception_when_extract_fails(
+    def test_user_admin_has_auditory_authority_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -107,12 +107,12 @@ class TestUserGetters(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            user_admin.is_auditor("squidwrd")
+            user_admin.has_auditor_authority("squidwrd")
 
     # ============================================================================
-    # UserAdmin.is_operations()
+    # Operations Authority
     # ============================================================================
-    def test_user_admin_is_operations_returns_true_when_operations(
+    def test_user_admin_has_operations_authority_returns_true_when_attribute_exists(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -126,9 +126,9 @@ class TestUserGetters(unittest.TestCase):
             "<message> ATTRIBUTES=OPERATIONS</message>",
         )
         call_racf_mock.return_value = user_extract_operations
-        self.assertTrue(user_admin.is_operations("squidwrd"))
+        self.assertTrue(user_admin.has_operations_authority("squidwrd"))
 
-    def test_user_admin_is_operations_returns_false_when_not_operations(
+    def test_user_admin_has_operations_authority_returns_false_when_attribute_does_not_exist(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -137,10 +137,10 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
-        self.assertFalse(user_admin.is_operations("squidwrd"))
+        self.assertFalse(user_admin.has_operations_authority("squidwrd"))
 
     # Error in environment, SQUIDWRD already deleted/not added
-    def test_user_admin_is_operations_raises_an_exception_when_extract_fails(
+    def test_user_admin_has_operations_authority_raises_an_exception_when_extract_fails(
         self,
         irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
@@ -150,10 +150,10 @@ class TestUserGetters(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            user_admin.is_operations("squidwrd")
+            user_admin.has_operations_authority("squidwrd")
 
     # ============================================================================
-    # UserAdmin.get_uid()
+    # OMVS UID
     # ============================================================================
     def test_user_admin_get_uid_works(
         self,

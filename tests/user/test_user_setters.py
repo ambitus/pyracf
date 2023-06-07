@@ -20,38 +20,70 @@ class TestUserSetters(unittest.TestCase):
         irrsmo00_init_mock.return_value = None
         return UserAdmin(generate_requests_only=True)
 
-    def test_user_admin_build_set_special_request(self, irrsmo00_init_mock: Mock):
+    # ============================================================================
+    # Special Authority
+    # ============================================================================
+    def test_user_admin_build_give_special_authority_request(
+        self, irrsmo00_init_mock: Mock
+    ):
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        result = user_admin.set_special(
+        result = user_admin.give_special_authority(
             "squidwrd",
         )
-        self.assertEqual(result, TestUserConstants.TEST_USER_SET_SPECIAL_XML)
+        self.assertEqual(result, TestUserConstants.TEST_USER_GIVE_SPECIAL_AUTHORITY_XML)
 
-    def test_user_admin_build_delete_special_request(self, irrsom00_init_mock: Mock):
+    def test_user_admin_build_remove_special_authority_request(
+        self, irrsom00_init_mock: Mock
+    ):
         user_admin = self.boilerplate(irrsom00_init_mock)
-        result = user_admin.delete_special("squidwrd")
-        self.assertEqual(result, TestUserConstants.TEST_USER_DELELETE_SPECIAL_XML)
+        result = user_admin.take_away_special_authority("squidwrd")
+        self.assertEqual(
+            result, TestUserConstants.TEST_USER_REMOVE_SPECIAL_AUTHORITY_XML
+        )
 
-    def test_user_admin_build_set_auditor_request(self, irrsmo00_init_mock: Mock):
+    # ============================================================================
+    # Auditor Authority
+    # ============================================================================
+    def test_user_admin_build_give_auditor_authority_request(
+        self, irrsmo00_init_mock: Mock
+    ):
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        result = user_admin.set_auditor("squidwrd")
-        self.assertEqual(result, TestUserConstants.TEST_USER_SET_AUDITOR_XML)
+        result = user_admin.give_auditor_authority("squidwrd")
+        self.assertEqual(result, TestUserConstants.TEST_USER_GIVE_AUDITOR_AUTHORITY_XML)
 
-    def test_user_admin_build_delete_auditor_request(self, irrsom00_init_mock: Mock):
+    def test_user_admin_build_remove_auditor_authority_request(
+        self, irrsom00_init_mock: Mock
+    ):
         user_admin = self.boilerplate(irrsom00_init_mock)
-        result = user_admin.delete_auditor("squidwrd")
-        self.assertEqual(result, TestUserConstants.TEST_USER_DELETE_AUDITOR_XML)
+        result = user_admin.remove_auditor_authority("squidwrd")
+        self.assertEqual(
+            result, TestUserConstants.TEST_USER_REMOVE_AUDITOR_AUTHORITY_XML
+        )
 
-    def test_user_admin_build_set_operations_request(self, irrsmo00_init_mock: Mock):
+    # ============================================================================
+    # Operations Authority
+    # ============================================================================
+    def test_user_admin_build_give_operations_authority_request(
+        self, irrsmo00_init_mock: Mock
+    ):
         user_admin = self.boilerplate(irrsmo00_init_mock)
-        result = user_admin.set_operations("squidwrd")
-        self.assertEqual(result, TestUserConstants.TEST_USER_SET_OPERATOR_XML)
+        result = user_admin.give_operations_authority("squidwrd")
+        self.assertEqual(
+            result, TestUserConstants.TEST_USER_GIVE_OPERATIONS_AUTHORITY_XML
+        )
 
-    def test_user_admin_build_delete_operations_request(self, irrsom00_init_mock: Mock):
+    def test_user_admin_build_remove_operations_authority_request(
+        self, irrsom00_init_mock: Mock
+    ):
         user_admin = self.boilerplate(irrsom00_init_mock)
-        result = user_admin.delete_operations("squidwrd")
-        self.assertEqual(result, TestUserConstants.TEST_USER_DELETE_OPERATOR_XML)
+        result = user_admin.remove_operations_authority("squidwrd")
+        self.assertEqual(
+            result, TestUserConstants.TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML
+        )
 
+    # ============================================================================
+    # Password
+    # ============================================================================
     def test_user_admin_build_set_password_request(self, irrsom00_init_mock: Mock):
         user_admin = self.boilerplate(irrsom00_init_mock)
         result = user_admin.set_password("squidwrd", "GIyTTqdF")

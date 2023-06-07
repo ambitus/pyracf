@@ -546,13 +546,21 @@ class SecurityAdmin:
         # Clear segments for new request
         self._segment_traits = {}
 
-    def _to_steps_dictionary(self, result_dictionaries: List[dict]) -> dict:
+    def _to_steps(self, results: Union[List[dict], dict, str]) -> dict:
         """
         Build a steps dictionary composed of each result dictionary
         in a result dictionary list, where the result dictionary list is
         assumed to be ordered chronologically in ascending order with respect
-        to when each corresponding request was made."""
+        to when each corresponding request was made.
+
+        Note: for generate request only mode (for testing purposes),
+        the all of the request xml strings should just be concatenated together.
+        """
+        if isinstance(results, dict) or isinstance(results, str):
+            results = [results]
+        if self.__generate_requests_only:
+            return results
         steps_dictionary = {}
-        for step, result_dictionary in enumerate(result_dictionaries):
-            steps_dictionary[f"step{step}"] = result_dictionary
+        for step, result_dictionary in enumerate(results):
+            steps_dictionary[f"step{step+1}"] = result_dictionary
         return steps_dictionary

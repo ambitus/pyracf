@@ -211,9 +211,9 @@ class UserAdmin(SecurityAdmin):
         }
 
     # ============================================================================
-    # Special Attribute
+    # Special Authority
     # ============================================================================
-    def is_special(self, userid: str) -> bool:
+    def has_special_authority(self, userid: str) -> bool:
         """Check if a user has RACF special authority."""
         result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
@@ -221,21 +221,23 @@ class UserAdmin(SecurityAdmin):
             return True
         return False
 
-    def set_special(self, userid: str) -> dict:
+    def give_special_authority(self, userid: str) -> dict:
         """Give a user RACF special authority."""
-        return self.alter(userid, traits={"base:special": True})
+        result = self.alter(userid, traits={"base:special": True})
+        return self._to_steps(result)
 
-    def delete_special(
+    def take_away_special_authority(
         self,
         userid: str,
     ) -> dict:
         """Remove a user's RACF special authority."""
-        return self.alter(userid, traits={"base:special": False})
+        result = self.alter(userid, traits={"base:special": False})
+        return self._to_steps(result)
 
     # ============================================================================
-    # Auditor Attribute
+    # Auditor Authority
     # ============================================================================
-    def is_auditor(self, userid: str) -> bool:
+    def has_auditor_authority(self, userid: str) -> bool:
         """Check if a user has auditor authority"""
         result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
@@ -243,18 +245,20 @@ class UserAdmin(SecurityAdmin):
             return True
         return False
 
-    def set_auditor(self, userid: str) -> dict:
+    def give_auditor_authority(self, userid: str) -> dict:
         """Give a user auditor authority."""
-        return self.alter(userid, traits={"base:auditor": True})
+        result = self.alter(userid, traits={"base:auditor": True})
+        return self._to_steps(result)
 
-    def delete_auditor(self, userid: str) -> dict:
+    def remove_auditor_authority(self, userid: str) -> dict:
         """Remove a user's auditor authority."""
-        return self.alter(userid, traits={"base:auditor": False})
+        result = self.alter(userid, traits={"base:auditor": False})
+        return self._to_steps(result)
 
     # ============================================================================
-    # Operations Attribute
+    # Operations Authority
     # ============================================================================
-    def is_operations(self, userid: str) -> bool:
+    def has_operations_authority(self, userid: str) -> bool:
         """Check if a user has operations authority."""
         result = self.extract(userid)
         profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
@@ -262,13 +266,15 @@ class UserAdmin(SecurityAdmin):
             return True
         return False
 
-    def set_operations(self, userid: str) -> dict:
+    def give_operations_authority(self, userid: str) -> dict:
         """Give a user operations authority."""
-        return self.alter(userid, traits={"base:oper": True})
+        result = self.alter(userid, traits={"base:oper": True})
+        return self._to_steps(result)
 
-    def delete_operations(self, userid: str) -> dict:
+    def remove_operations_authority(self, userid: str) -> dict:
         """Remove a user's operations authority."""
-        return self.alter(userid, traits={"base:oper": False})
+        result = self.alter(userid, traits={"base:oper": False})
+        return self._to_steps(result)
 
     # ============================================================================
     # Password
@@ -279,11 +285,21 @@ class UserAdmin(SecurityAdmin):
         password: str,
     ) -> dict:
         """Set a user's password."""
-        return self.alter(userid, traits={"base:password": password})
+        result = self.alter(userid, traits={"base:password": password})
+        return self._to_steps(result)
 
     # ============================================================================
     # Class Authorizations
     # ============================================================================
+    def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
+        """Get a user's class authorizations."""
+        result = self.extract(userid)
+        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        try:
+            return profile["base"]["classauthorizations"]
+        except KeyError:
+            return None
+
     def set_class_authorizations(
         self, userid: str, class_authorizations: List[str]
     ) -> dict:
@@ -294,37 +310,26 @@ class UserAdmin(SecurityAdmin):
         """
         remove_steps = self.delete_all_class_authorizaitons(userid)
         add_steps = self.add_class_authorizations(userid, class_authorizations)
-        return self._to_steps_dictionary(
-            list(remove_steps.values()) + list(add_steps.values())
-        )
+        return self._to_steps(list(remove_steps.values()) + list(add_steps.values()))
 
     def add_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> dict:
         """Add a class to a user's class authorizations."""
         result = self.alter(userid, traits={"add:base:clauth": class_authorizations})
-        return self._to_steps_dictionary([result])
+        return self._to_steps(result)
 
     def remove_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> dict:
         """Remove a class from a user's class authorizations."""
         result = self.alter(userid, traits={"remove:base:clauth": class_authorizations})
-        return self._to_steps_dictionary([result])
+        return self._to_steps(result)
 
     def delete_all_class_authorizaitons(self, userid: str) -> dict:
         """Delete all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
         return self.remove_class_authorizations(userid, current_class_authorizations)
-
-    def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
-        """Get a user's class authorizations."""
-        result = self.extract(userid)
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
-        try:
-            return profile["base"]["classauthorizations"]
-        except KeyError:
-            return None
 
     # ============================================================================
     # OMVS UID
@@ -344,7 +349,8 @@ class UserAdmin(SecurityAdmin):
         uid: int,
     ) -> dict:
         """Set a user's OMVS UID."""
-        return self.alter(userid, traits={"omvs:uid": uid})
+        result = self.alter(userid, traits={"omvs:uid": uid})
+        return self._to_steps(result)
 
     # ============================================================================
     # OMVS Home
@@ -364,7 +370,8 @@ class UserAdmin(SecurityAdmin):
         home_directory: str,
     ) -> dict:
         """Set a user's OMVS home directory."""
-        return self.alter(userid, traits={"omvs:home": str(home_directory)})
+        result = self.alter(userid, traits={"omvs:home": str(home_directory)})
+        return self._to_steps(result)
 
     # ============================================================================
     # OMVS Program
@@ -384,7 +391,8 @@ class UserAdmin(SecurityAdmin):
         program: str,
     ) -> dict:
         """Set a user's OMVS program."""
-        return self.alter(userid, traits={"omvs:home": str(program)})
+        result = self.alter(userid, traits={"omvs:home": str(program)})
+        return self._to_steps(result)
 
     # ============================================================================
     # Base Functions
