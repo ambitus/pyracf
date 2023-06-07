@@ -560,6 +560,7 @@ class SecurityAdmin:
             results = [results]
         if self.__generate_requests_only:
             return results
+        results = [result for result in results if result is not None]
         steps_dictionary = {}
         for step, result_dictionary in enumerate(results):
             steps_dictionary[f"step{step+1}"] = result_dictionary

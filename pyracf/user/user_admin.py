@@ -326,9 +326,11 @@ class UserAdmin(SecurityAdmin):
         result = self.alter(userid, traits={"remove:base:clauth": class_authorizations})
         return self._to_steps(result)
 
-    def delete_all_class_authorizaitons(self, userid: str) -> dict:
+    def delete_all_class_authorizaitons(self, userid: str) -> Union[dict, None]:
         """Delete all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
+        if not current_class_authorizations:
+            return None
         return self.remove_class_authorizations(userid, current_class_authorizations)
 
     # ============================================================================
