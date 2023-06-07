@@ -310,7 +310,6 @@ class UserAdmin(SecurityAdmin):
         """
         delete_result = self.delete_all_class_authorizaitons(userid)
         add_result = self.add_class_authorizations(userid, class_authorizations)
-        print(f"Delete Result: {delete_result}")
         if not delete_result:
             return add_result
         return self._to_steps(
