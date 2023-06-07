@@ -308,9 +308,14 @@ class UserAdmin(SecurityAdmin):
         removes the user's current class authorizations and then recreates
         the class authorizations list using the list that the user provides.
         """
-        remove_steps = self.delete_all_class_authorizaitons(userid)
-        add_steps = self.add_class_authorizations(userid, class_authorizations)
-        return self._to_steps(list(remove_steps.values()) + list(add_steps.values()))
+        delete_result = self.delete_all_class_authorizaitons(userid)
+        add_result = self.add_class_authorizations(userid, class_authorizations)
+        print(f"Delete Result: {delete_result}")
+        if not delete_result:
+            return add_result
+        return self._to_steps(
+            list(delete_result.values()) + list(delete_result.values())
+        )
 
     def add_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
@@ -326,11 +331,11 @@ class UserAdmin(SecurityAdmin):
         result = self.alter(userid, traits={"remove:base:clauth": class_authorizations})
         return self._to_steps(result)
 
-    def delete_all_class_authorizaitons(self, userid: str) -> Union[dict, None]:
+    def delete_all_class_authorizaitons(self, userid: str) -> Union[dict, False]:
         """Delete all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
         if not current_class_authorizations:
-            return None
+            return False
         return self.remove_class_authorizations(userid, current_class_authorizations)
 
     # ============================================================================
