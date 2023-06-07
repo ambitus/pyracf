@@ -569,7 +569,7 @@ class SecurityAdmin:
             if not result:
                 continue
             if list(result.keys())[0] == "step1":
-                for result_dictionary in results.values():
+                for result_dictionary in result.values():
                     pre_processed_results.append(result_dictionary)
                 continue
             pre_processed_results.append(result)
