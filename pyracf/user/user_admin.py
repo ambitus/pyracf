@@ -310,12 +310,7 @@ class UserAdmin(SecurityAdmin):
         """
         delete_result = self.delete_all_class_authorizations(userid)
         add_result = self.add_class_authorizations(userid, class_authorizations)
-        if not delete_result:
-            return add_result
-        # Testing Only: When generate_requests_only mode is on, just concatenante the xml.
-        if isinstance(add_result, bytes):
-            return delete_result + add_result
-        return self._to_steps(list(delete_result.values()) + list(add_result.values()))
+        return self._to_steps([delete_result, add_result])
 
     def add_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]

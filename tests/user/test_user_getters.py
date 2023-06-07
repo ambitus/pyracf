@@ -265,3 +265,40 @@ class TestUserGetters(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
         )
         self.assertIsNone(user_admin.get_omvs_home("squidwrd"))
+
+    # ============================================================================
+    # OMVS Program
+    # ============================================================================
+    def test_user_admin_get_omvs_program_works(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
+        )
+        self.assertEqual(user_admin.get_omvs_program("squidwrd"), "/bin/sh")
+
+    def test_user_admin_get_omvs_program_raises_an_exception_when_extract_fails(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
+        )
+        with self.assertRaises(SecurityRequestError):
+            user_admin.get_omvs_program("squidwrd")
+
+    def test_user_admin_get_omvs_program_returns_none_when_no_omvs_segment_exists(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+        )
+        self.assertIsNone(user_admin.get_omvs_program("squidwrd"))

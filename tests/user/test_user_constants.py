@@ -142,6 +142,7 @@ TEST_USER_SET_CLASS_AUTHORIZATIONS_XML = get_sample(
 )
 TEST_USER_SET_OMVS_UID_XML = get_sample("user_set_omvs_uid_request.xml")
 TEST_USER_SET_OMVS_HOME_XML = get_sample("user_set_omvs_home_request.xml")
+TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 
 # ============================================================================
 # Debug Logging

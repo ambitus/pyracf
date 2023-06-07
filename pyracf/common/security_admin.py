@@ -556,12 +556,24 @@ class SecurityAdmin:
         Note: for generate request only mode (for testing purposes),
         the all of the request xml bytes should just be concatenated together.
         """
-        if isinstance(results, dict):
+        if isinstance(results, dict) or isinstance(results, bytes):
             results = [results]
         if self.__generate_requests_only:
-            return results
-        results = [result for result in results if result]
+            concatenated_xml = b""
+            for request_xml in results:
+                if request_xml:
+                    concatenated_xml += request_xml
+            return concatenated_xml
+        pre_processed_results = []
+        for result in results:
+            if result is None:
+                continue
+            if result.keys()[0] == "step1":
+                for result_dictionary in results.values():
+                    pre_processed_results.append(result_dictionary)
+                continue
+            pre_processed_results.append(result)
         steps_dictionary = {}
-        for step, result_dictionary in enumerate(results):
+        for step, result_dictionary in enumerate(pre_processed_results):
             steps_dictionary[f"step{step+1}"] = result_dictionary
         return steps_dictionary

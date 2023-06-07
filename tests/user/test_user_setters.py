@@ -218,3 +218,11 @@ class TestUserSetters(unittest.TestCase):
         user_admin = self.boilerplate(init_mock_init_mock)
         result = user_admin.set_omvs_home("squidwrd", "/u/squidwrd")
         self.assertEqual(result, TestUserConstants.TEST_USER_SET_OMVS_HOME_XML)
+
+    # ============================================================================
+    # OMVS Program
+    # ============================================================================
+    def test_user_admin_build_set_omvs_program_request(self, init_mock_init_mock: Mock):
+        user_admin = self.boilerplate(init_mock_init_mock)
+        result = user_admin.set_omvs_program("squidwrd", "/bin/sh")
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_OMVS_PROGRAM_XML)
