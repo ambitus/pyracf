@@ -566,7 +566,7 @@ class SecurityAdmin:
             return concatenated_xml
         pre_processed_results = []
         for result in results:
-            if result is None:
+            if not result:
                 continue
             if list(result.keys())[0] == "step1":
                 for result_dictionary in results.values():
