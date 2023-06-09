@@ -1,6 +1,8 @@
 """Logging for pyRACF."""
 
+import inspect
 import json
+import os
 from typing import Union
 
 
@@ -46,7 +48,7 @@ class Logger:
         self, header_message: str, dictionary: dict, redact_string: Union[str, None]
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
-        dictionary_json = json.dumps(dictionary, indent=4)
+        dictionary_json = json.dumps(dictionary, indent=2)
         dictionary_json = self.redact_string(dictionary_json, redact_string)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(header_message, colorized_dictionary_json)
@@ -67,10 +69,23 @@ class Logger:
 
     def log_debug(self, header_message: str, message: str) -> None:
         """Log function to use for debug logging."""
-        header = f"[pyRACF:Debug] {header_message}"
+        stack = list(reversed(inspect.stack()))
+        admin_class_calls = [
+            (os.path.basename(stack[i].filename), stack[i].function)
+            for i in range(len(stack) - 1)
+            if os.path.basename(stack[i + 1].filename).split("_")[-1] == "admin.py"
+        ][1:]
+        user_call = admin_class_calls[0]
+        class_tokens = [
+            token.title() for token in user_call[0].split(".")[0].split("_")
+        ]
+        admin_class = "".join(class_tokens)
+        function_called_by_user = f"{admin_class}.{user_call[1]}()"
         header = (
             f"{self.__purple_background(' '*79)}\n"
-            + f"{self.__purple_background(header.center(79))}\n"
+            + f"{self.__purple_background('[pyRACF:Debug]'.center(79))}\n"
+            + f"{self.__purple_background(header_message.center(79))}\n"
+            + f"{self.__purple_background(function_called_by_user.center(79))}\n"
             + f"{self.__purple_background(' '*79)}\n"
         )
         print(f"{header}\n{message}")
@@ -207,5 +222,5 @@ class Logger:
             if current_line[0] == "/":
                 indent_level -= 1
             current_line = f"<{current_line}>"
-            indented_xml += f"{'    ' * indent_level}{current_line}\n"
+            indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]

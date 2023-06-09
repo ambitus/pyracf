@@ -26,7 +26,7 @@ class ConnectionAdmin(SecurityAdmin):
                 "base:cgljtime": "racf:cgljtime",
                 "base:group": "racf:group",
                 "base:grpacc": "racf:grpacc",
-                "base:oper": "racf:oper",
+                "base:operations": "racf:oper",
                 "base:owner": "racf:owner",
                 "base:resume": "racf:resume",
                 "base:revoke": "racf:revoke",
@@ -36,34 +36,53 @@ class ConnectionAdmin(SecurityAdmin):
             }
         }
 
-    def set_group_special(self, userid: str, group: str) -> dict:
-        return self.alter(userid, group, {"base:special": True})
+    # ============================================================================
+    # Group Special
+    # ============================================================================
+    def give_group_special_authority(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:special": True})
+        return self._to_steps(result)
 
-    def set_group_operations(self, userid: str, group: str) -> dict:
-        return self.alter(userid, group, {"base:oper": True})
+    def take_away_group_special_authority(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:special": False})
+        return self._to_steps(result)
 
-    def set_group_auditor(self, userid: str, group: str) -> dict:
-        return self.alter(userid, group, {"base:auditor": True})
+    # ============================================================================
+    # Group Operations
+    # ============================================================================
+    def give_group_operations_authority(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:operations": True})
+        return self._to_steps(result)
 
-    def set_grpacc(self, userid: str, group: str) -> dict:
-        return self.alter(userid, group, {"base:grpacc": True})
+    def take_away_group_operations_authority(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:operations": False})
+        return self._to_steps(result)
 
-    def del_group_special(self, userid: str, group: str) -> dict:
-        return self.alter(
-            userid,
-            group,
-            {"base:special": False},
-        )
+    # ============================================================================
+    # Group Auditor
+    # ============================================================================
+    def give_group_auditor_authority(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:auditor": True})
+        return self._to_steps(result)
 
-    def del_group_operations(self, userid: str, group: str) -> dict:
-        return self.alter(userid, group, {"base:oper": False})
+    def take_away_group_auditor_authority(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:auditor": False})
+        return self._to_steps(result)
 
-    def del_group_auditor(self, userid: str, group: str) -> dict:
-        return self.alter(userid, group, {"base:auditor": False})
+    # ============================================================================
+    # Group Access
+    # ============================================================================
+    def set_group_access_attribute(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:grpacc": True})
+        return self._to_steps(result)
 
-    def del_grpacc(self, userid: str, group: str) -> dict:
-        return self.alter(userid, group, {"base:grpacc": False})
+    def remove_group_access_attribute(self, userid: str, group: str) -> dict:
+        result = self.alter(userid, group, {"base:grpacc": False})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Base Functions
+    # ============================================================================
     def add(self, userid: str, group: str, traits: dict = {}) -> dict:
         """Create a new group connection."""
         self._build_segment_dictionaries(traits)

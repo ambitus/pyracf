@@ -1,21 +1,20 @@
 {
-    "securityresult": {
-        "groupconnection": {
-            "name": "ESWIFT",
-            "group": "TESTGRP0",
-            "operation": "set",
-            "requestid": "ConnectionRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "groupconnection": {
+      "name": "ESWIFT",
+      "group": "TESTGRP0",
+      "operation": "set",
+      "requestid": "ConnectionRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)"
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
-

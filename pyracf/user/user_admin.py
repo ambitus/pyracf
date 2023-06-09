@@ -22,7 +22,7 @@ class UserAdmin(SecurityAdmin):
                 "base:auditor": "racf:auditor",
                 "base:auth": "racf:auth",
                 "base:category": "racf:category",
-                "base:clauth": "racf:clauth",
+                "base:classauthority": "racf:clauth",
                 "base:connects": "racf:connects",
                 "base:cadsp": "racf:cadsp",
                 "base:cauditor": "racf:cauditor",
@@ -59,7 +59,7 @@ class UserAdmin(SecurityAdmin):
                 "base:model": "racf:model",
                 "base:name": "name",
                 "base:oidcard": "racf:oidcard",
-                "base:oper": "racf:oper",
+                "base:operations": "racf:oper",
                 "base:owner": "racf:owner",
                 "base:passdate": "racf:passdate",
                 "base:passint": "racf:passint",
@@ -215,8 +215,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def has_special_authority(self, userid: str) -> bool:
         """Check if a user has RACF special authority."""
-        result = self.extract(userid)
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        profile = self.extract(userid, profile_only=True)
         if "special" in profile["base"]["attributes"]:
             return True
         return False
@@ -239,8 +238,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def has_auditor_authority(self, userid: str) -> bool:
         """Check if a user has auditor authority"""
-        result = self.extract(userid)
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        profile = self.extract(userid, profile_only=True)
         if "auditor" in profile["base"]["attributes"]:
             return True
         return False
@@ -260,20 +258,19 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def has_operations_authority(self, userid: str) -> bool:
         """Check if a user has operations authority."""
-        result = self.extract(userid)
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        profile = self.extract(userid, profile_only=True)
         if "operations" in profile["base"]["attributes"]:
             return True
         return False
 
     def give_operations_authority(self, userid: str) -> dict:
         """Give a user operations authority."""
-        result = self.alter(userid, traits={"base:oper": True})
+        result = self.alter(userid, traits={"base:operations": True})
         return self._to_steps(result)
 
     def remove_operations_authority(self, userid: str) -> dict:
         """Remove a user's operations authority."""
-        result = self.alter(userid, traits={"base:oper": False})
+        result = self.alter(userid, traits={"base:operations": False})
         return self._to_steps(result)
 
     # ============================================================================
@@ -293,8 +290,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
         """Get a user's class authorizations."""
-        result = self.extract(userid)
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        profile = self.extract(userid, profile_only=True)
         try:
             return profile["base"]["classauthorizations"]
         except KeyError:
@@ -316,14 +312,18 @@ class UserAdmin(SecurityAdmin):
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> dict:
         """Add a class to a user's class authorizations."""
-        result = self.alter(userid, traits={"add:base:clauth": class_authorizations})
+        result = self.alter(
+            userid, traits={"add:base:classauthority": class_authorizations}
+        )
         return self._to_steps(result)
 
     def remove_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> dict:
         """Remove a class from a user's class authorizations."""
-        result = self.alter(userid, traits={"remove:base:clauth": class_authorizations})
+        result = self.alter(
+            userid, traits={"remove:base:classauthority": class_authorizations}
+        )
         return self._to_steps(result)
 
     def delete_all_class_authorizations(self, userid: str) -> Union[dict, False]:
@@ -338,8 +338,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_uid(self, userid: str) -> Union[int, None]:
         """Get a user's OMVS UID."""
-        result = self.extract(userid, segments={"omvs": True})
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
         try:
             return profile["omvs"]["uid"]
         except KeyError:
@@ -359,8 +358,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_home(self, userid: str) -> Union[str, None]:
         """Get a user's OMVS home directory."""
-        result = self.extract(userid, segments={"omvs": True})
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
         try:
             return profile["omvs"]["home"]
         except KeyError:
@@ -380,8 +378,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_program(self, userid: str) -> Union[str, None]:
         """Get a user's OMVS program."""
-        result = self.extract(userid, segments={"omvs": True})
-        profile = result["securityresult"]["user"]["commands"][0]["profiles"][0]
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
         try:
             return profile["omvs"]["program"]
         except KeyError:
@@ -413,12 +410,17 @@ class UserAdmin(SecurityAdmin):
         self._build_xml_segments(user_request, alter=True)
         return self._make_request(user_request, irrsmo00_options=3)
 
-    def extract(self, userid: str, segments: dict = {}) -> dict:
+    def extract(
+        self, userid: str, segments: dict = {}, profile_only: bool = False
+    ) -> dict:
         """Extract a user's profile."""
         self._build_bool_segment_dictionaries(segments)
         user_request = UserRequest(userid, "listdata")
         self._build_xml_segments(user_request, extract=True)
-        return self._extract_and_check_result(user_request)
+        result = self._extract_and_check_result(user_request)
+        if profile_only:
+            return self._get_profile(result)
+        return result
 
     def delete(self, userid: str) -> dict:
         """Delete a user."""

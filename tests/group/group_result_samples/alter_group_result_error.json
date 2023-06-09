@@ -1,27 +1,27 @@
 {
-    "securityresult": {
-        "group": {
-            "name": "TESTGRP0",
-            "operation": "set",
-            "requestid": "GroupRequest",
-            "info": [
-                "Definition exists. Add command skipped due  to precheck option"
-            ],
-            "commands": [
-                {
-                    "safreturncode": 8,
-                    "returncode": 16,
-                    "reasoncode": 8,
-                    "image": "ALTGROUP TESTGRP0  OMVS     (GID         (3000000000))",
-                    "messages": [
-                        "IKJ56702I INVALID GID, 3000000000",
-                        "IKJ56701I MISSING OMVS GID+",
-                        "IKJ56701I MISSING OMVS GROUP ID (GID), 1-10 NUMERIC DIGITS"
-                    ]
-                }
-            ]
-        },
-        "returncode": 4,
-        "reasoncode": 4
-    }
+  "securityresult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "set",
+      "requestid": "GroupRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safreturncode": 8,
+          "returncode": 16,
+          "reasoncode": 8,
+          "image": "ALTGROUP TESTGRP0  OMVS     (GID         (3000000000))",
+          "messages": [
+            "IKJ56702I INVALID GID, 3000000000",
+            "IKJ56701I MISSING OMVS GID+",
+            "IKJ56701I MISSING OMVS GROUP ID (GID), 1-10 NUMERIC DIGITS"
+          ]
+        }
+      ]
+    },
+    "returncode": 4,
+    "reasoncode": 4
+  }
 }

@@ -1,38 +1,37 @@
 {
-    "securityresult": {
-        "group": {
-            "name": "TESTGRP0",
-            "operation": "listdata",
-            "requestid": "GroupRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "LISTGRP TESTGRP0  OMVS    ",
-                    "profiles": [
-                        {
-                            "base": {
-                                "name": "testgrp0",
-                                "superiorgroup": "sys1",
-                                "owner": "eswift",
-                                "created": 23.151,
-                                "installation data": null,
-                                "model data set": null,
-                                "termuacc": true,
-                                "subgroups": null,
-                                "users": null
-                            },
-                            "omvs": {
-                                "gid": 1234567
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "listdata",
+      "requestid": "GroupRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "LISTGRP TESTGRP0  OMVS    ",
+          "profiles": [
+            {
+              "base": {
+                "name": "testgrp0",
+                "superiorgroup": "sys1",
+                "owner": "eswift",
+                "created": 23.151,
+                "installation data": null,
+                "model data set": null,
+                "termuacc": true,
+                "subgroups": null,
+                "users": null
+              },
+              "omvs": {
+                "gid": 1234567
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
-

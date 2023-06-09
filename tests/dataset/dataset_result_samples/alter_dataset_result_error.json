@@ -1,32 +1,32 @@
 {
-   "securityresult":{
-      "dataset":{
-         "name":"ESWIFT.TEST.T113622.P3020470",
-         "operation":"set",
-         "generic":"no",
-         "requestid":"DatasetRequest",
-         "commands":[
-            {
-               "safreturncode":8,
-               "returncode":16,
-               "reasoncode":4,
-               "image":"ADDSD                ('ESWIFT.TEST.T113622.P3020470')",
-               "messages":[
-                  "ICH09005I ESWIFT.TEST.T113622.P3020470 NOT FOUND IN CATALOG"
-               ]
-            },
-            {
-               "safreturncode":8,
-               "returncode":16,
-               "reasoncode":4,
-               "image":"ALTDSD               ('ESWIFT.TEST.T113622.P3020470')  UACC        (ALTER)",
-               "messages":[
-                  "ICH22001I ESWIFT.TEST.T113622.P3020470 NOT DEFINED TO RACF"
-               ]
-            }
-         ]
-      },
-      "returncode":4,
-      "reasoncode":4
-   }
+	"securityresult": {
+		"dataset": {
+			"name": "ESWIFT.TEST.T113622.P3020470",
+			"operation": "set",
+			"generic": "no",
+			"requestid": "DatasetRequest",
+			"commands": [
+				{
+					"safreturncode": 8,
+					"returncode": 16,
+					"reasoncode": 4,
+					"image": "ADDSD                ('ESWIFT.TEST.T113622.P3020470')",
+					"messages": [
+						"ICH09005I ESWIFT.TEST.T113622.P3020470 NOT FOUND IN CATALOG"
+					]
+				},
+				{
+					"safreturncode": 8,
+					"returncode": 16,
+					"reasoncode": 4,
+					"image": "ALTDSD               ('ESWIFT.TEST.T113622.P3020470')  UACC        (ALTER)",
+					"messages": [
+						"ICH22001I ESWIFT.TEST.T113622.P3020470 NOT DEFINED TO RACF"
+					]
+				}
+			]
+		},
+		"returncode": 4,
+		"reasoncode": 4
+	}
 }

@@ -1,7 +1,7 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidwrd" operation="set" requestid="UserRequest">
-        <base>
-            <racf:oper operation="del" />
-        </base>
-    </user>
+  <user name="squidwrd" operation="set" requestid="UserRequest">
+    <base>
+      <racf:oper operation="del" />
+    </base>
+  </user>
 </securityrequest>

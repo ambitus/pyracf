@@ -48,7 +48,7 @@ class DatasetAdmin(SecurityAdmin):
                 "base:setonly": "racf:setonly",
                 "base:stats": "racf:stats",
                 "base:tape": "racf:tape",
-                "base:uacc": "racf:uacc",
+                "base:universal-access": "racf:uacc",
                 "base:unit": "racf:unit",
                 "base:volume": "racf:volume",
                 "base:volser": "racf:volser",
@@ -63,58 +63,27 @@ class DatasetAdmin(SecurityAdmin):
         )
         del self._valid_segment_traits["base"]["generic"]
 
-    def get_uacc(self, data_set: str) -> str:
-        """Get UACC associated with a data set profile."""
-        result = self.extract(data_set)
-        profile = result["securityresult"]["dataset"]["commands"][0]["profiles"][0]
-        return profile["base"].get("universal access")
+    # ============================================================================
+    # Access
+    # ============================================================================
+    def get_universal_access(self, data_set: str) -> str:
+        """Get universal access for data set profile."""
+        profile = self.extract(data_set, profile_only=True)
+        return profile["base"]["universal access"]
 
-    def set_uacc(self, data_set: str, uacc: str) -> str:
-        """Set the UACC for a data set profile."""
-        return self.alter(data_set, {"base:uacc": uacc})
+    def set_universal_access(self, data_set: str, universal_acccess: str) -> dict:
+        """Set the universal access for a data set profile."""
+        result = self.alter(data_set, {"base:universal-access": universal_acccess})
+        return self._to_steps(result)
 
-    def get_your_acc(self, data_set: str) -> str:
-        """Get the UACC associated with your own data set profile."""
-        result = self.extract(data_set)
-        profile = result["securityresult"]["dataset"]["commands"][0]["profiles"][0]
-        return profile["base"].get("your access")
+    def get_my_access(self, data_set: str) -> str:
+        """Get the access associated with your own data set profile."""
+        profile = self.extract(data_set, profile_only=True)
+        return profile["base"]["your access"]
 
-    def add_category(self, data_set: str, category: str) -> str:
-        """Set the category for the Dataset Profile"""
-        return self.alter(data_set, {"addcategory": category})
-
-    def del_category(self, data_set: str, category: str) -> str:
-        """Delete the category from the Dataset Profile"""
-        return self.alter(data_set, {"delcategory": category})
-
-    def set_volume(self, data_set: str, volume: str) -> str:
-        """Set the volume for the Dataset Profile"""
-        return self.alter(data_set, {"setvolume": volume})
-
-    def add_volume(self, data_set: str, volume: str) -> str:
-        """Add a volume to the Dataset Profile"""
-        return self.alter(data_set, {"addvolume": volume})
-
-    def del_volume(self, data_set: str, volume: str) -> str:
-        """Delete a volume from the Dataset Profile"""
-        return self.alter(data_set, {"delvolume": volume})
-
-    def set_role(self, data_set: str, role: str) -> str:
-        """Set a role for the Dataset Profile"""
-        return self.alter(data_set, {"setroles": role})
-
-    def add_role(self, data_set: str, role: str) -> str:
-        """Add a role to the Dataset Profile"""
-        return self.alter(data_set, {"addroles": role})
-
-    def del_role(self, data_set: str, role: str) -> str:
-        """Delete a role from the Dataset Profile"""
-        return self.alter(data_set, {"delroles": role})
-
-    def no_roles(self, data_set: str) -> str:
-        """Delete all role(s) from the Dataset Profile"""
-        return self.alter(data_set, {"noroles": "N/A"})
-
+    # ============================================================================
+    # Base Functions
+    # ============================================================================
     def add(
         self,
         data_set: str,
@@ -147,12 +116,16 @@ class DatasetAdmin(SecurityAdmin):
         segments: dict = {},
         volume: Union[str, None] = None,
         generic: bool = False,
+        profile_only: bool = False,
     ) -> dict:
         """Extract a data set profile."""
         self._build_bool_segment_dictionaries(segments)
         dataset_request = DatasetRequest(data_set, "listdata", volume, generic)
         self._build_xml_segments(dataset_request, extract=True)
-        return self._extract_and_check_result(dataset_request)
+        result = self._extract_and_check_result(dataset_request)
+        if profile_only:
+            return self._get_profile(result)
+        return result
 
     def delete(
         self,
@@ -164,6 +137,9 @@ class DatasetAdmin(SecurityAdmin):
         dataset_request = DatasetRequest(data_set, "del", volume, generic)
         return self._make_request(dataset_request)
 
+    # ============================================================================
+    # Private/Protected Utility Functions
+    # ============================================================================
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["dataset"]["commands"][0]["messages"]

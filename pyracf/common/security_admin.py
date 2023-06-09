@@ -577,3 +577,8 @@ class SecurityAdmin:
         for step, result_dictionary in enumerate(pre_processed_results):
             steps_dictionary[f"step{step+1}"] = result_dictionary
         return steps_dictionary
+
+    def _get_profile(self, result: dict, index: int = 0) -> dict:
+        return result["securityresult"][self.__profile_type]["commands"][0]["profiles"][
+            index
+        ]

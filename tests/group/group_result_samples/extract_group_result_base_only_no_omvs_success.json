@@ -1,55 +1,55 @@
 {
-    "securityresult": {
-        "group": {
-            "name": "TESTGRP0",
-            "operation": "listdata",
-            "requestid": "GroupRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "LISTGRP TESTGRP0 ",
-                    "profiles": [
-                        {
-                            "base": {
-                                "name": "testgrp0",
-                                "superiorgroup": "sys1",
-                                "owner": "eswift",
-                                "created": 23.15,
-                                "installation data": null,
-                                "model data set": null,
-                                "termuacc": true,
-                                "subgroups": null,
-                                "users": [
-                                    {
-                                        "userid": "ESWIFT",
-                                        "access": "use",
-                                        "access count": 0,
-                                        "universal access": null,
-                                        "connectattributes": "special",
-                                        "revokedate": null,
-                                        "resumedate": null
-                                    },
-                                    {
-                                        "userid": "LEONARD",
-                                        "access": "use",
-                                        "access count": 0,
-                                        "universal access": null,
-                                        "connectattributes": "operations",
-                                        "revokedate": null,
-                                        "resumedate": null
-                                    }
-                                ],
-                                "revokedate": null,
-                                "resumedate": null
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "listdata",
+      "requestid": "GroupRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "LISTGRP TESTGRP0 ",
+          "profiles": [
+            {
+              "base": {
+                "name": "testgrp0",
+                "superiorgroup": "sys1",
+                "owner": "eswift",
+                "created": 23.15,
+                "installation data": null,
+                "model data set": null,
+                "termuacc": true,
+                "subgroups": null,
+                "users": [
+                  {
+                    "userid": "ESWIFT",
+                    "access": "use",
+                    "access count": 0,
+                    "universal access": null,
+                    "connectattributes": "special",
+                    "revokedate": null,
+                    "resumedate": null
+                  },
+                  {
+                    "userid": "LEONARD",
+                    "access": "use",
+                    "access count": 0,
+                    "universal access": null,
+                    "connectattributes": "operations",
+                    "revokedate": null,
+                    "resumedate": null
+                  }
+                ],
+                "revokedate": null,
+                "resumedate": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     </image>
-        </command>
-    </groupconnection>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     </image>
+    </command>
+  </groupconnection>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>

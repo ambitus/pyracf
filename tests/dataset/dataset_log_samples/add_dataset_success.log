@@ -1,85 +1,93 @@
                                                                                
-                       [pyRACF:Debug] Request Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                               DatasetAdmin.add()                              
                                                                                
 
 {
-    "base": {
-        "base:uacc": {
-            "value": "None",
-            "operation": null
-        },
-        "base:owner": {
-            "value": "eswift",
-            "operation": null
-        }
+  "base": {
+    "base:universal-access": {
+      "value": "None",
+      "operation": null
+    },
+    "base:owner": {
+      "value": "eswift",
+      "operation": null
     }
+  }
 }
 
                                                                                
-                           [pyRACF:Debug] Request XML                          
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                               DatasetAdmin.add()                              
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
-        <base>
-            <racf:uacc>None</racf:uacc>
-            <racf:owner>eswift</racf:owner>
-        </base>
-    </dataset>
+  <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+    <base>
+      <racf:uacc>None</racf:uacc>
+      <racf:owner>eswift</racf:owner>
+    </base>
+  </dataset>
 </securityrequest>
 
                                                                                
-                           [pyRACF:Debug] Result XML                           
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                               DatasetAdmin.add()                              
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>ADDSD                ('ESWIFT.TEST.T1136242.P3020470')</image>
-        </command>
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)</image>
-        </command>
-    </dataset>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ADDSD                ('ESWIFT.TEST.T1136242.P3020470')</image>
+    </command>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)</image>
+    </command>
+  </dataset>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
-                        [pyRACF:Debug] Result Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                               DatasetAdmin.add()                              
                                                                                
 
 {
-    "securityresult": {
-        "dataset": {
-            "name": "ESWIFT.TEST.T1136242.P3020470",
-            "operation": "set",
-            "generic": "no",
-            "requestid": "DatasetRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ADDSD                ('ESWIFT.TEST.T1136242.P3020470')"
-                },
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)"
-                }
-            ]
+  "securityresult": {
+    "dataset": {
+      "name": "ESWIFT.TEST.T1136242.P3020470",
+      "operation": "set",
+      "generic": "no",
+      "requestid": "DatasetRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "ADDSD                ('ESWIFT.TEST.T1136242.P3020470')"
         },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)"
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
 

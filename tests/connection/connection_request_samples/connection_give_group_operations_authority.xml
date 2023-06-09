@@ -1,0 +1,5 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+    <racf:oper operation="set" />
+  </groupconnection>
+</securityrequest>

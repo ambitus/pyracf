@@ -1,5 +1,5 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <systemsettings operation="set" requestid="SetroptsRequest">
-        <racf:generic operation="del">elijtest</racf:generic>
-    </systemsettings>
+  <systemsettings operation="set" requestid="SetroptsRequest">
+    <racf:generic operation="del">elijtest</racf:generic>
+  </systemsettings>
 </securityrequest>

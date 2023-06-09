@@ -19,16 +19,16 @@ from tests.dataset.test_dataset_getters import TestDatasetGetters
 from tests.dataset.test_dataset_request_builder import TestDatasetRequestBuilder
 from tests.dataset.test_dataset_result_parser import TestDatasetResultParser
 from tests.dataset.test_dataset_setters import TestDatasetSetters
-from tests.genprof.test_genprof_debug_logging import TestGenprofDebugLogging
-from tests.genprof.test_genprof_getters import TestGenprofGetters
-from tests.genprof.test_genprof_request_builder import TestGenprofRequestBuilder
-from tests.genprof.test_genprof_result_parser import TestGenprofResultParser
-from tests.genprof.test_genprof_setters import TestGenprofSetters
 from tests.group.test_group_debug_logging import TestGroupDebugLogging
 from tests.group.test_group_getters import TestGroupGetters
 from tests.group.test_group_request_builder import TestGroupRequestBuilder
 from tests.group.test_group_result_parser import TestGroupResultParser
 from tests.group.test_group_setters import TestGroupSetters
+from tests.resource.test_resource_debug_logging import TestResourceDebugLogging
+from tests.resource.test_resource_getters import TestResourceGetters
+from tests.resource.test_resource_request_builder import TestResourceRequestBuilder
+from tests.resource.test_resource_result_parser import TestResourceResultParser
+from tests.resource.test_resource_setters import TestResourceSetters
 from tests.setropts.test_setropts_debug_logging import TestSetroptsDebugLogging
 from tests.setropts.test_setropts_getters import TestSetroptsGetters
 from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
@@ -61,11 +61,11 @@ def __test_suite() -> unittest.TestSuite:
         TestDatasetGetters,
         TestDatasetSetters,
         TestDatasetDebugLogging,
-        TestGenprofResultParser,
-        TestGenprofRequestBuilder,
-        TestGenprofGetters,
-        TestGenprofSetters,
-        TestGenprofDebugLogging,
+        TestResourceResultParser,
+        TestResourceRequestBuilder,
+        TestResourceGetters,
+        TestResourceSetters,
+        TestResourceDebugLogging,
         TestGroupResultParser,
         TestGroupRequestBuilder,
         TestGroupGetters,

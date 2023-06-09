@@ -18,24 +18,23 @@ class SetroptsAdmin(SecurityAdmin):
         )
         self._valid_segment_traits = {
             "base": {
+                "base:active-class": "racf:classact",
                 "base:addcreat": "racf:addcreat",
                 "base:adsp": "racf:adsp",
                 "base:applaudt": "racf:applaudt",
-                "base:audit": "racf:audit",
+                "base:audit-class": "racf:audit",
                 "base:catdsns": "racf:catdsns",
-                "base:classact": "racf:classact",
-                "base:classtat": "racf:classtat",
                 "base:cmdviol": "racf:cmdviol",
                 "base:compmode": "racf:compmode",
                 "base:egn": "racf:egn",
                 "base:erase": "racf:erase",
                 "base:eraseall": "racf:eraseall",
                 "base:erasesec": "racf:erasesec",
-                "base:gencmd": "racf:gencmd",
-                "base:generic": "racf:generic",
-                "base:genlist": "racf:genlist",
+                "base:general-command-class": "racf:gencmd",
+                "base:generic-profile-checking-class": "racf:generic",
+                "base:generic-profile-sharing-class": "racf:genlist",
                 "base:genowner": "racf:genowner",
-                "base:global": "racf:global",
+                "base:global-access-class": "racf:global",
                 "base:grplist": "racf:grplist",
                 "base:history": "racf:history",
                 "base:inactive": "racf:inactive",
@@ -96,6 +95,7 @@ class SetroptsAdmin(SecurityAdmin):
                 "base:slabaudt": "racf:slabaudt",
                 "base:slbysys": "racf:slbysys",
                 "base:slevaudt": "racf:slevaudt",
+                "base:statistics-class": "racf:classtat",
                 "base:tapedsn": "racf:tapedsn",
                 "base:terminal": "racf:terminal",
                 "base:warning": "racf:warning",
@@ -103,20 +103,28 @@ class SetroptsAdmin(SecurityAdmin):
             }
         }
 
+    # ============================================================================
+    # Password Rules
+    # ============================================================================
     def get_password_rules(self) -> str:
         """Get RACF password rules."""
-        result = self.list_racf_options()
-        profile = result["securityresult"]["systemsettings"]["commands"][0]["profile"]
-        return profile["password processing options"].get("rules")
+        profile = self.list_racf_options(profile_only=True)
+        return profile["password processing options"]["rules"]
 
-    def refresh_raclist(self, class_name: str) -> str:
+    # ============================================================================
+    # Raclist Refresh
+    # ============================================================================
+    def refresh_raclist(self, class_name: str) -> dict:
         """Refresh raclist."""
-        return self.alter(options={"base:raclist": class_name, "base:refresh": True})
+        result = self.alter(options={"base:raclist": class_name, "base:refresh": True})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Class Types
+    # ============================================================================
     def get_class_types(self, class_name: str) -> list:
         """Get RACF class types."""
-        result = self.list_racf_options()
-        profile = result["securityresult"]["systemsettings"]["commands"][0]["profile"]
+        profile = self.list_racf_options(profile_only=True)
         class_info = []
         for key in profile.keys():
             if " classes" in key and profile[key] is not None:
@@ -127,102 +135,144 @@ class SetroptsAdmin(SecurityAdmin):
                     class_info.append(key.replace(" raclist only", "").strip())
         return class_info
 
+    # ============================================================================
+    # Audit Class
+    # ============================================================================
     def add_audit_class(self, class_name: str) -> dict:
         """Add a class to list of classes that RACF performs auditing for."""
-        return self.alter(options={"base:audit": class_name})
+        result = self.alter(options={"base:audit-class": class_name})
+        return self._to_steps(result)
 
     def remove_audit_class(self, class_name: str) -> dict:
         """Remove a class from the list of classes that RACF performs auditing for."""
-        return self.alter(options={"delete:base:audit": class_name})
+        result = self.alter(options={"delete:base:audit-class": class_name})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Active Class
+    # ============================================================================
     def add_active_class(self, class_name: str) -> dict:
         """
         Add a class to the list of classes that RACF performs access authorization checking for.
         """
-        return self.alter(options={"base:classact": class_name})
+        result = self.alter(options={"base:active-class": class_name})
+        return self._to_steps(result)
 
     def remove_active_class(self, class_name: str) -> dict:
         """
         Remove a class from the list of classes that
         RACF performs access authorization checking for.
         """
-        return self.alter(options={"delete:base:classact": class_name})
+        result = self.alter(options={"delete:base:active-class": class_name})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Statistics Class
+    # ============================================================================
     def add_statistics_class(self, class_name: str) -> dict:
         """Add a class to the list of classes that RACF collects statistics for."""
-        return self.alter(options={"base:classtat": class_name})
+        result = self.alter(options={"base:statistics-class": class_name})
+        return self._to_steps(result)
 
     def remove_statistics_class(self, class_name: str) -> dict:
         """Remove a class from the list of classes that RACF collects statistics for."""
-        return self.alter(options={"delete:base:classtat": class_name})
+        result = self.alter(options={"delete:base:statistics-class": class_name})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Generic Command Processing Class
+    # ============================================================================
     def add_generic_command_processing_class(self, class_name: str) -> dict:
         """
         Add a class to the list of classes that have
         generic profile command processing enabled.
         """
-        return self.alter(options={"base:gencmd": class_name})
+        result = self.alter(options={"base:general-command-class": class_name})
+        return self._to_steps(result)
 
     def remove_generic_command_processing_class(self, class_name: str) -> dict:
         """
         Remove a class from the list of classes that
         have generic profile command processing enabled.
         """
-        return self.alter(options={"delete:base:gencmd": class_name})
+        result = self.alter(options={"delete:base:general-command-class": class_name})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Generic Profile Checking Class
+    # ============================================================================
     def add_generic_profile_checking_class(self, class_name: str) -> dict:
         """Add a class to the list of classes that have generic profile checking enabled."""
-        return self.alter(options={"base:generic": class_name})
+        result = self.alter(options={"base:generic-profile-checking-class": class_name})
+        return self._to_steps(result)
 
     def remove_generic_profile_checking_class(self, class_name: str) -> dict:
         """Remove a class from the list of classes that have generic profile checking enabled."""
-        return self.alter(options={"delete:base:generic": class_name})
+        result = self.alter(
+            options={"delete:base:generic-profile-checking-class": class_name}
+        )
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Generic Profile Sharing Class
+    # ============================================================================
     def add_generic_profile_sharing_class(self, class_name: str) -> dict:
         """
         Add a class to the list of classes that are eligible for
         general resource profile sharing in common storage.
         """
-        return self.alter(options={"base:genlist": class_name})
+        result = self.alter(options={"base:generic-profile-sharing-class": class_name})
+        return self._to_steps(result)
 
     def remove_generic_profile_sharing_class(self, class_name: str) -> dict:
         """
         Remove a class from the list of classes that are eligible
         for general resource profile sharing in common storage.
         """
-        return self.alter(options={"delete:base:genlist": class_name})
+        result = self.alter(
+            options={"delete:base:generic-profile-sharing-class": class_name}
+        )
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Global Access Class
+    # ============================================================================
     def add_global_access_class(self, class_name: str) -> dict:
         """Add a class to the list of classes eligible for global access checking."""
-        return self.alter(options={"base:global": class_name})
+        return self.alter(options={"base:global-access-class": class_name})
 
     def remove_global_access_class(self, class_name: str) -> dict:
         """Remove a class from the list of classes eligible for global access checking."""
-        return self.alter(options={"delete:base:global": class_name})
+        result = self.alter(options={"delete:base:global-access-class": class_name})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Raclist Class
+    # ============================================================================
     def add_raclist_class(self, class_name: str) -> dict:
         """Add a class to list of classes that have in-storage profile sharing activated."""
-        options = {"base:raclist": class_name}
-        return self.alter(options=options)
+        result = self.alter(options={"base:raclist": class_name})
+        return self._to_steps(result)
 
     def remove_raclist_class(self, class_name: str) -> dict:
         """
         Remove a class from the list of classes that have in-storage profile sharing activated.
         """
-        options = {"delete:base:raclist": class_name}
-        return self.alter(options=options)
+        result = self.alter(options={"delete:base:raclist": class_name})
+        return self._to_steps(result)
 
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def list_racf_options(self) -> dict:
+    def list_racf_options(self, profile_only: bool = False) -> dict:
         """List RACF options."""
         self._build_segment_dictionaries({"base:list": True})
         setropts_request = SetroptsRequest()
         self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
-        return self._extract_and_check_result(
-            setropts_request,
-        )
+        result = self._extract_and_check_result(setropts_request)
+        if profile_only:
+            return self._get_profile(result)
+        return result
 
     def alter(self, options: dict = {}) -> dict:
         """Update RACF options."""
@@ -309,7 +359,9 @@ class SetroptsAdmin(SecurityAdmin):
                 ] = self.__content_keyword_map(content)
 
         del result["securityresult"]["systemsettings"]["commands"][0]["messages"]
-        result["securityresult"]["systemsettings"]["commands"][0]["profile"] = profile
+        result["securityresult"]["systemsettings"]["commands"][0]["profiles"] = [
+            profile
+        ]
 
     def __add_other_keys_to_profile(
         self,

@@ -1,21 +1,20 @@
 {
-    "securityresult": {
-        "dataset": {
-            "name": "ESWIFT.TEST.T1136242.P3020470",
-            "operation": "del",
-            "generic": "no",
-            "requestid": "DatasetRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470')"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "dataset": {
+      "name": "ESWIFT.TEST.T1136242.P3020470",
+      "operation": "del",
+      "generic": "no",
+      "requestid": "DatasetRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470')"
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
-

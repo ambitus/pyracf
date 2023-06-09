@@ -1,24 +1,24 @@
 {
-    "securityresult": {
-        "groupconnection": {
-            "name": "ESWIFT",
-            "group": "TESTGRP0",
-            "operation": "set",
-            "requestid": "ConnectionRequest",
-            "commands": [
-                {
-                    "safreturncode": 8,
-                    "returncode": 16,
-                    "reasoncode": 8,
-                    "image": "CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     ",
-                    "messages": [
-                        "ICH51003I NAME NOT FOUND IN RACF DATA SET",
-                        "ICH02003I USER(S) NOT CONNECTED."
-                    ]
-                }
-            ]
-        },
-        "returncode": 4,
-        "reasoncode": 4
-    }
+  "securityresult": {
+    "groupconnection": {
+      "name": "ESWIFT",
+      "group": "TESTGRP0",
+      "operation": "set",
+      "requestid": "ConnectionRequest",
+      "commands": [
+        {
+          "safreturncode": 8,
+          "returncode": 16,
+          "reasoncode": 8,
+          "image": "CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     ",
+          "messages": [
+            "ICH51003I NAME NOT FOUND IN RACF DATA SET",
+            "ICH02003I USER(S) NOT CONNECTED."
+          ]
+        }
+      ]
+    },
+    "returncode": 4,
+    "reasoncode": 4
+  }
 }

@@ -1,7 +1,7 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <group name="TESTGRP0" operation="set" requestid="GroupRequest">
-        <omvs>
-            <gid>6667</gid>
-        </omvs>
-    </group>
+  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+    <omvs>
+      <gid>6667</gid>
+    </omvs>
+  </group>
 </securityrequest>

@@ -46,9 +46,12 @@ class GroupAdmin(SecurityAdmin):
             "tme": {"tme:roles": "racf:roles"},
         }
 
-    def get_group_special(self, group: str, userid: str) -> dict:
-        result = self.extract(group)
-        profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+    # ============================================================================
+    # Group Special
+    # ============================================================================
+    def has_group_special_authority(self, group: str, userid: str) -> dict:
+        """Check if a user is connected to a group with group special authority."""
+        profile = self.extract(group, profile_only=True)
         if profile["base"]["users"] is None:
             return False
         connect_profile = [
@@ -61,9 +64,12 @@ class GroupAdmin(SecurityAdmin):
                 return True
         return False
 
-    def get_group_operations(self, group: str, userid: str) -> dict:
-        result = self.extract(group)
-        profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+    # ============================================================================
+    # Group Operations
+    # ============================================================================
+    def has_group_operations_authority(self, group: str, userid: str) -> dict:
+        """Check if a user is connected to a group with group operations authority."""
+        profile = self.extract(group, profile_only=True)
         if profile["base"]["users"] is None:
             return False
         connect_profile = [
@@ -76,9 +82,12 @@ class GroupAdmin(SecurityAdmin):
                 return True
         return False
 
-    def get_group_auditor(self, group: str, userid: str) -> dict:
-        result = self.extract(group)
-        profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+    # ============================================================================
+    # Group Auditor
+    # ============================================================================
+    def has_group_auditor_authority(self, group: str, userid: str) -> dict:
+        """Check if a user is connected to a group with group auditor authority."""
+        profile = self.extract(group, profile_only=True)
         if profile["base"]["users"] is None:
             return False
         connect_profile = [
@@ -91,9 +100,12 @@ class GroupAdmin(SecurityAdmin):
                 return True
         return False
 
-    def get_grpacc(self, group: str, userid: str) -> dict:
-        result = self.extract(group)
-        profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+    # ============================================================================
+    # Group Access
+    # ============================================================================
+    def has_group_access_attribute(self, group: str, userid: str) -> dict:
+        """Check if a user is connected to a group with the group access attribute."""
+        profile = self.extract(group, profile_only=True)
         if profile["base"]["users"] is None:
             return False
         connect_profile = [
@@ -106,32 +118,41 @@ class GroupAdmin(SecurityAdmin):
                 return True
         return False
 
+    # ============================================================================
+    # OMVS GID
+    # ============================================================================
     def get_omvs_gid(self, group: str) -> Union[str, int]:
-        """Get a group's GID."""
-        result = self.extract(group, {"omvs": True})
-        profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+        """Get a group's OMVS GID."""
+        profile = self.extract(group, segments={"omvs": True}, profile_only=True)
         try:
             return profile["omvs"]["gid"]
         except KeyError:
             return None
 
     def set_omvs_gid(self, group: str, gid: int) -> dict:
-        """Set a group's GID."""
-        return self.alter(group, {"omvs:gid": str(gid)})
+        """Set a group's OMVS GID."""
+        result = self.alter(group, traits={"omvs:gid": gid})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # OVM GID
+    # ============================================================================
     def get_ovm_gid(self, group: str) -> Union[str, int]:
-        """Get a group's GID."""
-        result = self.extract(group, {"ovm": True})
-        profile = result["securityresult"]["group"]["commands"][0]["profiles"][0]
+        """Get a group's OVM GID."""
+        profile = self.extract(group, segments={"ovm": True}, profile_only=True)
         try:
             return profile["ovm"]["gid"]
         except KeyError:
             return None
 
     def set_ovm_gid(self, group: str, gid: int) -> dict:
-        """Set a group's GID."""
-        return self.alter(group, {"ovm:gid": str(gid)})
+        """Set a group's OVM GID."""
+        result = self.alter(group, traits={"ovm:gid": gid})
+        return self._to_steps(result)
 
+    # ============================================================================
+    # Base Functions
+    # ============================================================================
     def add(self, group: str, traits: dict = {}) -> dict:
         """Create a new group."""
         self._build_segment_dictionaries(traits)
@@ -146,18 +167,26 @@ class GroupAdmin(SecurityAdmin):
         self._build_xml_segments(group_request, alter=True)
         return self._make_request(group_request, irrsmo00_options=3)
 
-    def extract(self, group: str, segments: dict = {}) -> dict:
+    def extract(
+        self, group: str, segments: dict = {}, profile_only: bool = False
+    ) -> dict:
         """Extract a group's profile."""
         self._build_bool_segment_dictionaries(segments)
         group_request = GroupRequest(group, "listdata")
         self._build_xml_segments(group_request, extract=True)
-        return self._extract_and_check_result(group_request)
+        result = self._extract_and_check_result(group_request)
+        if profile_only:
+            return self._get_profile(result)
+        return result
 
     def delete(self, group_name: str) -> dict:
         """Delete a group."""
         group_request = GroupRequest(group_name, "del")
         return self._make_request(group_request)
 
+    # ============================================================================
+    # Private/Protected Utility Functions
+    # ============================================================================
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["group"]["commands"][0]["messages"]

@@ -1,23 +1,20 @@
 {
-    "securityresult": {
-        "permission": {
-            "name": "TESTING",
-            "class": "ELIJTEST",
-            "operation": "set",
-            "requestid": "AccessRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "permission": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "set",
+      "requestid": "AccessRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)"
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
-
-
-

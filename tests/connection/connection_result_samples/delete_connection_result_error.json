@@ -1,24 +1,23 @@
 {
-    "securityresult": {
-        "groupconnection": {
-            "name": "ESWIFT",
-            "group": "TESTGRP0",
-            "operation": "del",
-            "requestid": "ConnectionRequest",
-            "commands": [
-                {
-                    "safreturncode": 8,
-                    "returncode": 16,
-                    "reasoncode": 4,
-                    "image": "REMOVE  ESWIFT  GROUP       (TESTGRP0)",
-                    "messages": [
-                        "ICH03002I ESWIFT   WAS NOT CONNECTED TO GROUP."
-                    ]
-                }
-            ]
-        },
-        "returncode": 4,
-        "reasoncode": 4
-    }
+  "securityresult": {
+    "groupconnection": {
+      "name": "ESWIFT",
+      "group": "TESTGRP0",
+      "operation": "del",
+      "requestid": "ConnectionRequest",
+      "commands": [
+        {
+          "safreturncode": 8,
+          "returncode": 16,
+          "reasoncode": 4,
+          "image": "REMOVE  ESWIFT  GROUP       (TESTGRP0)",
+          "messages": [
+            "ICH03002I ESWIFT   WAS NOT CONNECTED TO GROUP."
+          ]
+        }
+      ]
+    },
+    "returncode": 4,
+    "reasoncode": 4
+  }
 }
-

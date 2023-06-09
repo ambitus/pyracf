@@ -22,5 +22,9 @@ class TestDatasetSetters(unittest.TestCase):
 
     def test_dataset_admin_build_set_uacc_request(self, irrsmo00_init_mock: Mock):
         dataset_admin = self.boilerplate(irrsmo00_init_mock)
-        result = dataset_admin.set_uacc("ESWIFT.TEST.T1136242.P3020470", "ALTER")
-        self.assertEqual(result, TestDatasetConstants.TEST_DATASET_SET_UACC_XML)
+        result = dataset_admin.set_universal_access(
+            "ESWIFT.TEST.T1136242.P3020470", "ALTER"
+        )
+        self.assertEqual(
+            result, TestDatasetConstants.TEST_DATASET_SET_UNIVERSAL_ACCESS_XML
+        )

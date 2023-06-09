@@ -1,56 +1,56 @@
 {
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "listdata",
-            "requestid": "UserRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "LISTUSER SQUIDWRD  OMVS    ",
-                    "profiles": [
-                        {
-                            "base": {
-                                "user": "squidwrd",
-                                "name": "squidward",
-                                "owner": "leonard",
-                                "created": 23.094,
-                                "defaultgroup": "sys1",
-                                "passdate": 0.0,
-                                "passinterval": 186,
-                                "phrasedate": null,
-                                "attributes": [],
-                                "revokedate": null,
-                                "resumedate": null,
-                                "lastaccess": "23.094/12:55:37",
-                                "classauthorizations": [],
-                                "logonalloweddays": "anyday",
-                                "logonallowedtime": "anytime",
-                                "groups": {
-                                    "SYS1": {
-                                        "auth": "use",
-                                        "connectowner": "leonard",
-                                        "connectdate": 23.094,
-                                        "connects": 0,
-                                        "uacc": null,
-                                        "lastconnect": "unknown",
-                                        "connectattributes": null,
-                                        "revokedate": null,
-                                        "resumedate": null
-                                    }
-                                },
-                                "securitylevel": null,
-                                "categoryauthorization": null,
-                                "securitylabel": null
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "listdata",
+      "requestid": "UserRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "LISTUSER SQUIDWRD  OMVS    ",
+          "profiles": [
+            {
+              "base": {
+                "user": "squidwrd",
+                "name": "squidward",
+                "owner": "leonard",
+                "created": 23.094,
+                "defaultgroup": "sys1",
+                "passdate": 0.0,
+                "passinterval": 186,
+                "phrasedate": null,
+                "attributes": [],
+                "revokedate": null,
+                "resumedate": null,
+                "lastaccess": "23.094/12:55:37",
+                "classauthorizations": [],
+                "logonalloweddays": "anyday",
+                "logonallowedtime": "anytime",
+                "groups": {
+                  "SYS1": {
+                    "auth": "use",
+                    "connectowner": "leonard",
+                    "connectdate": 23.094,
+                    "connects": 0,
+                    "uacc": null,
+                    "lastconnect": "unknown",
+                    "connectattributes": null,
+                    "revokedate": null,
+                    "resumedate": null
+                  }
+                },
+                "securitylevel": null,
+                "categoryauthorization": null,
+                "securitylabel": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }

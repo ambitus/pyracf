@@ -1,28 +1,28 @@
 {
-    "securityresult": {
-        "group": {
-            "name": "TESTGRP0",
-            "operation": "set",
-            "requestid": "GroupRequest",
-            "commands": [
-                {
-                    "safreturncode": 8,
-                    "returncode": 16,
-                    "reasoncode": 8,
-                    "image": "ADDGROUP TESTGRP0 ",
-                    "messages": [
-                        "IKJ56702I INVALID GROUP, TESTGRP0"
-                    ]
-                },
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTGROUP TESTGRP0  OMVS     (GID         (6667))"
-                }
-            ]
+  "securityresult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "set",
+      "requestid": "GroupRequest",
+      "commands": [
+        {
+          "safreturncode": 8,
+          "returncode": 16,
+          "reasoncode": 8,
+          "image": "ADDGROUP TESTGRP0 ",
+          "messages": [
+            "IKJ56702I INVALID GROUP, TESTGRP0"
+          ]
         },
-        "returncode": 4,
-        "reasoncode": 4
-    }
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "ALTGROUP TESTGRP0  OMVS     (GID         (6667))"
+        }
+      ]
+    },
+    "returncode": 4,
+    "reasoncode": 4
+  }
 }

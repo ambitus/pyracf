@@ -1,57 +1,65 @@
                                                                                
-                       [pyRACF:Debug] Request Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                             ConnectionAdmin.add()                             
                                                                                
 
 {}
 
                                                                                
-                           [pyRACF:Debug] Request XML                          
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                             ConnectionAdmin.add()                             
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest"/>
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest"/>
 </securityrequest>
 
                                                                                
-                           [pyRACF:Debug] Result XML                           
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                             ConnectionAdmin.add()                             
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>CONNECT ESWIFT  GROUP       (TESTGRP0)</image>
-        </command>
-    </groupconnection>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>CONNECT ESWIFT  GROUP       (TESTGRP0)</image>
+    </command>
+  </groupconnection>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
-                        [pyRACF:Debug] Result Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                             ConnectionAdmin.add()                             
                                                                                
 
 {
-    "securityresult": {
-        "groupconnection": {
-            "name": "ESWIFT",
-            "group": "TESTGRP0",
-            "operation": "set",
-            "requestid": "ConnectionRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "groupconnection": {
+      "name": "ESWIFT",
+      "group": "TESTGRP0",
+      "operation": "set",
+      "requestid": "ConnectionRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)"
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
 

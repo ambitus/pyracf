@@ -1,915 +1,927 @@
                                                                                
-                       [pyRACF:Debug] Request Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                       SetroptsAdmin.list_racf_options()                       
                                                                                
 
 {
-    "base": {
-        "base:list": {
-            "value": true,
-            "operation": null
-        }
+  "base": {
+    "base:list": {
+      "value": true,
+      "operation": null
     }
+  }
 }
 
                                                                                
-                           [pyRACF:Debug] Request XML                          
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                       SetroptsAdmin.list_racf_options()                       
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <systemsettings operation="set" requestid="SetroptsRequest">
-        <racf:list/>
-    </systemsettings>
+  <systemsettings operation="set" requestid="SetroptsRequest">
+    <racf:list/>
+  </systemsettings>
 </securityrequest>
 
                                                                                
-                           [pyRACF:Debug] Result XML                           
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                       SetroptsAdmin.list_racf_options()                       
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <systemsettings operation="set" requestid="SetroptsRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>SETROPTS   LIST</image>
-            <message>ATTRIBUTES = INITSTATS WHEN(PROGRAM -- BASIC) TERMINAL(READ)</message>
-            <message>STATISTICS = NONE</message>
-            <message>ACTIVE CLASSES = DATASET USER GROUP ACCTNUM ACEECHK ACICSPCT AIMS ALCSAUTH</message>
-            <message>APPCLU APPCPORT APPCSI APPL BCICSPCT CACHECLS CBIND CCICSCMD</message>
-            <message>CDT CFIELD CIMS COMMAND CPSMOBJ CPSMXMP CRYPTOZ CSFKEYS</message>
-            <message>CSFSERV DASDVOL DASNAMES DBNFORM DCEUUIDS DCICSDCT DEVICES</message>
-            <message>DIGTCERT DIGTCRIT DIGTNMAP DIGTRING DIMS DLFCLASS DSNADM</message>
-            <message>DSNR ECICSDCT EJBROLE ELIJTEST FACILITY FCICSFCT FIELD</message>
-            <message>FIMS FSACCESS FSEXEC GCICSTRN GCPSMOBJ GCSFKEYS GDASDVOL</message>
-            <message>GDSNBP GDSNCL GDSNDB GDSNGV GDSNJR GDSNPK GDSNPN GDSNSC</message>
-            <message>GDSNSG GDSNSM GDSNSP GDSNSQ GDSNTB GDSNTS GDSNUF GDSNUT</message>
-            <message>GEJBROLE GIMS GINFOMAN GLOBAL GMBR GMQADMIN GMQNLIST</message>
-            <message>GMQPROC GMQQUEUE GSDSF GSOMDOBJ GTERMINL GXCSFKEY GXFACILI</message>
-            <message>GZMFAPLA HBRADMIN HBRCMD HBRCONN HCICSFCT HIMS IBMOPC</message>
-            <message>IDIDMAP IDTDATA IIMS ILMADMIN INFOMAN JAVA JCICSJCT JESSPOOL</message>
-            <message>JIMS KCICSJCT KERBLINK LDAP LDAPBIND LFSCLASS LIMS LOGSTRM</message>
-            <message>MCICSPPT MDSNBP MDSNCL MDSNDB MDSNGV MDSNJR MDSNPK MDSNPN</message>
-            <message>MDSNSC MDSNSG MDSNSM MDSNSP MDSNSQ MDSNTB MDSNTS MDSNUF</message>
-            <message>MDSNUT MFADEF MGMTCLAS MIMS MQADMIN MQCMDS MQCONN MQNLIST</message>
-            <message>MQPROC MQQUEUE NCICSPPT NDSLINK NETCMDS NETSPAN NODES</message>
-            <message>NODMBR NOTELINK NVASAPDT OIMS OMCANDL$ OPERCMDS PCICSPSB</message>
-            <message>PERFGRP PIMS PKISERV PMBR PRINTSRV PROGRAM PROPCNTL PTKTDATA</message>
-            <message>PTKTVAL QCICSPSB QIMS RACFEVNT RACFVARS RACGLIST RAUDITX</message>
-            <message>RCICSRES RDATALIB REALM RIMS RMTOPS RODMMGR RRSFDATA</message>
-            <message>RVARSMBR SCDMBR SCICSTST SDSF SECDATA SERVAUTH SERVER</message>
-            <message>SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM SURROGAT</message>
-            <message>SYSAUTO SYSMVIEW TAPEVOL TCICSTRN TERMINAL TIMS TSOAUTH</message>
-            <message>TSOPROC UCICSTST UIMS UNIXMAP UNIXPRIV VCICSCMD VMBATCH</message>
-            <message>VMBR VMCMD VMDEV VMEVENT VMLAN VMMDISK VMNODE VMPOSIX</message>
-            <message>VMRDR VMSEGMT VMXEVENT VTAMAPPL VXMBR WBEM WCICSRES WIMS</message>
-            <message>XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD</message>
-            <message>GENERIC PROFILE CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT</message>
-            <message>APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD</message>
-            <message>CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS</message>
-            <message>CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES</message>
-            <message>DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE</message>
-            <message>FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR</message>
-            <message>IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL</message>
-            <message>LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN</message>
-            <message>MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE</message>
-            <message>NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS</message>
-            <message>OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR</message>
-            <message>PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL</message>
-            <message>RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR</message>
-            <message>SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER</message>
-            <message>SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM</message>
-            <message>SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL</message>
-            <message>TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR</message>
-            <message>VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL</message>
-            <message>VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD</message>
-            <message>GENERIC COMMAND CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT</message>
-            <message>APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD</message>
-            <message>CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS</message>
-            <message>CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES</message>
-            <message>DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE</message>
-            <message>FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR</message>
-            <message>IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL</message>
-            <message>LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN</message>
-            <message>MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE</message>
-            <message>NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS</message>
-            <message>OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR</message>
-            <message>PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL</message>
-            <message>RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR</message>
-            <message>SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER</message>
-            <message>SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM</message>
-            <message>SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL</message>
-            <message>TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR</message>
-            <message>VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL</message>
-            <message>VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD</message>
-            <message>GENLIST CLASSES =  NONE</message>
-            <message>GLOBAL CHECKING CLASSES =  DATASET DSNR SDSF SURROGAT</message>
-            <message>SETR RACLIST CLASSES =  ACCTNUM ACEECHK APPL CBIND CDT CPSMOBJ CRYPTOZ</message>
-            <message>CSFKEYS CSFSERV DIGTCERT DIGTCRIT DIGTNMAP DIGTRING</message>
-            <message>DSNR EJBROLE ELIJTEST FACILITY JESSPOOL OPERCMDS</message>
-            <message>PERFGRP PTKTDATA PTKTVAL RACFVARS RDATALIB REALM</message>
-            <message>SDSF SERVAUTH SERVER SOMDOBJS STARTED SURROGAT</message>
-            <message>TSOAUTH TSOPROC UNIXPRIV WBEM XCSFKEY XFACILIT</message>
-            <message>ZMFAPLA ZMFCLOUD</message>
-            <message>GLOBAL=YES RACLIST ONLY =  VTAMAPPL</message>
-            <message>AUTOMATIC DATASET PROTECTION IS NOT IN EFFECT</message>
-            <message>ENHANCED GENERIC NAMING IS IN EFFECT</message>
-            <message>REAL DATA SET NAMES OPTION IS INACTIVE</message>
-            <message>JES-BATCHALLRACF OPTION IS ACTIVE</message>
-            <message>JES-XBMALLRACF OPTION IS INACTIVE</message>
-            <message>JES-EARLYVERIFY OPTION IS INACTIVE</message>
-            <message>PROTECT-ALL OPTION IS NOT IN EFFECT</message>
-            <message>TAPE DATA SET PROTECTION IS ACTIVE</message>
-            <message>SECURITY RETENTION PERIOD IN EFFECT IS     0 DAYS.</message>
-            <message>ERASE-ON-SCRATCH IS INACTIVE</message>
-            <message>SINGLE LEVEL NAMES NOT ALLOWED</message>
-            <message>LIST OF GROUPS ACCESS CHECKING IS ACTIVE.</message>
-            <message>INACTIVE USERIDS ARE BEING AUTOMATICALLY REVOKED AFTER 255 DAYS.</message>
-            <message>DATA SET MODELLING IS BEING DONE FOR GDGS.</message>
-            <message>USER DATA SET MODELLING IS BEING DONE.</message>
-            <message>GROUP DATA SET MODELLING IS BEING DONE.</message>
-            <message>PASSWORD PROCESSING OPTIONS:</message>
-            <message>THE ACTIVE PASSWORD ENCRYPTION ALGORITHM IS LEGACY</message>
-            <message>PASSWORD CHANGE INTERVAL IS 186 DAYS.</message>
-            <message>PASSWORD MINIMUM CHANGE INTERVAL IS   0 DAYS.</message>
-            <message>MIXED CASE PASSWORD SUPPORT IS NOT IN EFFECT</message>
-            <message>SPECIAL CHARACTERS ARE NOT ALLOWED.</message>
-            <message>NO PASSWORD HISTORY BEING MAINTAINED.</message>
-            <message>USERIDS NOT BEING AUTOMATICALLY REVOKED.</message>
-            <message>PASSWORD EXPIRATION WARNING LEVEL IS  10 DAYS.</message>
-            <message>INSTALLATION PASSWORD SYNTAX RULES:</message>
-            <message>RULE 1  LENGTH(4:8)   ********</message>
-            <message>LEGEND:</message>
-            <message>A-ALPHA C-CONSONANT L-ALPHANUM N-NUMERIC V-VOWEL W-NOVOWEL *-ANYTHING</message>
-            <message>c-MIXED CONSONANT m-MIXED NUMERIC v-MIXED VOWEL $-NATIONAL s-SPECIAL</message>
-            <message>x-MIXED ALL</message>
-            <message>DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE SWITCH FUNCTION.</message>
-            <message>DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE STATUS FUNCTION.</message>
-            <message>SECLABEL CONTROL IS NOT IN EFFECT</message>
-            <message>GENERIC OWNER ONLY IS NOT IN EFFECT</message>
-            <message>COMPATIBILITY MODE IS NOT IN EFFECT</message>
-            <message>MULTI-LEVEL QUIET IS NOT IN EFFECT</message>
-            <message>MULTI-LEVEL STABLE IS NOT IN EFFECT</message>
-            <message>NO WRITE-DOWN IS NOT IN EFFECT</message>
-            <message>MULTI-LEVEL ACTIVE IS NOT IN EFFECT</message>
-            <message>CATALOGUED DATA SETS ONLY, IS NOT IN EFFECT</message>
-            <message>USER-ID FOR JES NJEUSERID IS : ????????</message>
-            <message>USER-ID FOR JES UNDEFINEDUSER IS : ++++++++</message>
-            <message>PARTNER LU-VERIFICATION SESSIONKEY INTERVAL MAXIMUM/DEFAULT IS    30 DAYS.</message>
-            <message>ADDCREATOR IS IN EFFECT</message>
-            <message>KERBLVL =     0</message>
-            <message>MULTI-LEVEL FILE SYSTEM IS NOT IN EFFECT</message>
-            <message>MULTI-LEVEL INTERPROCESS COMMUNICATIONS IS NOT IN EFFECT</message>
-            <message>MULTI-LEVEL NAME HIDING IS NOT IN EFFECT</message>
-            <message>SECURITY LABEL BY SYSTEM IS NOT IN EFFECT</message>
-            <message>PRIMARY LANGUAGE DEFAULT : ENU</message>
-            <message>SECONDARY LANGUAGE DEFAULT : ENU</message>
-        </command>
-    </systemsettings>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <systemsettings operation="set" requestid="SetroptsRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>SETROPTS   LIST</image>
+      <message>ATTRIBUTES = INITSTATS WHEN(PROGRAM -- BASIC) TERMINAL(READ)</message>
+      <message>STATISTICS = NONE</message>
+      <message>ACTIVE CLASSES = DATASET USER GROUP ACCTNUM ACEECHK ACICSPCT AIMS ALCSAUTH</message>
+      <message>APPCLU APPCPORT APPCSI APPL BCICSPCT CACHECLS CBIND CCICSCMD</message>
+      <message>CDT CFIELD CIMS COMMAND CPSMOBJ CPSMXMP CRYPTOZ CSFKEYS</message>
+      <message>CSFSERV DASDVOL DASNAMES DBNFORM DCEUUIDS DCICSDCT DEVICES</message>
+      <message>DIGTCERT DIGTCRIT DIGTNMAP DIGTRING DIMS DLFCLASS DSNADM</message>
+      <message>DSNR ECICSDCT EJBROLE ELIJTEST FACILITY FCICSFCT FIELD</message>
+      <message>FIMS FSACCESS FSEXEC GCICSTRN GCPSMOBJ GCSFKEYS GDASDVOL</message>
+      <message>GDSNBP GDSNCL GDSNDB GDSNGV GDSNJR GDSNPK GDSNPN GDSNSC</message>
+      <message>GDSNSG GDSNSM GDSNSP GDSNSQ GDSNTB GDSNTS GDSNUF GDSNUT</message>
+      <message>GEJBROLE GIMS GINFOMAN GLOBAL GMBR GMQADMIN GMQNLIST</message>
+      <message>GMQPROC GMQQUEUE GSDSF GSOMDOBJ GTERMINL GXCSFKEY GXFACILI</message>
+      <message>GZMFAPLA HBRADMIN HBRCMD HBRCONN HCICSFCT HIMS IBMOPC</message>
+      <message>IDIDMAP IDTDATA IIMS ILMADMIN INFOMAN JAVA JCICSJCT JESSPOOL</message>
+      <message>JIMS KCICSJCT KERBLINK LDAP LDAPBIND LFSCLASS LIMS LOGSTRM</message>
+      <message>MCICSPPT MDSNBP MDSNCL MDSNDB MDSNGV MDSNJR MDSNPK MDSNPN</message>
+      <message>MDSNSC MDSNSG MDSNSM MDSNSP MDSNSQ MDSNTB MDSNTS MDSNUF</message>
+      <message>MDSNUT MFADEF MGMTCLAS MIMS MQADMIN MQCMDS MQCONN MQNLIST</message>
+      <message>MQPROC MQQUEUE NCICSPPT NDSLINK NETCMDS NETSPAN NODES</message>
+      <message>NODMBR NOTELINK NVASAPDT OIMS OMCANDL$ OPERCMDS PCICSPSB</message>
+      <message>PERFGRP PIMS PKISERV PMBR PRINTSRV PROGRAM PROPCNTL PTKTDATA</message>
+      <message>PTKTVAL QCICSPSB QIMS RACFEVNT RACFVARS RACGLIST RAUDITX</message>
+      <message>RCICSRES RDATALIB REALM RIMS RMTOPS RODMMGR RRSFDATA</message>
+      <message>RVARSMBR SCDMBR SCICSTST SDSF SECDATA SERVAUTH SERVER</message>
+      <message>SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM SURROGAT</message>
+      <message>SYSAUTO SYSMVIEW TAPEVOL TCICSTRN TERMINAL TIMS TSOAUTH</message>
+      <message>TSOPROC UCICSTST UIMS UNIXMAP UNIXPRIV VCICSCMD VMBATCH</message>
+      <message>VMBR VMCMD VMDEV VMEVENT VMLAN VMMDISK VMNODE VMPOSIX</message>
+      <message>VMRDR VMSEGMT VMXEVENT VTAMAPPL VXMBR WBEM WCICSRES WIMS</message>
+      <message>XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD</message>
+      <message>GENERIC PROFILE CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT</message>
+      <message>APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD</message>
+      <message>CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS</message>
+      <message>CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES</message>
+      <message>DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE</message>
+      <message>FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR</message>
+      <message>IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL</message>
+      <message>LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN</message>
+      <message>MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE</message>
+      <message>NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS</message>
+      <message>OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR</message>
+      <message>PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL</message>
+      <message>RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR</message>
+      <message>SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER</message>
+      <message>SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM</message>
+      <message>SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL</message>
+      <message>TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR</message>
+      <message>VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL</message>
+      <message>VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD</message>
+      <message>GENERIC COMMAND CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT</message>
+      <message>APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD</message>
+      <message>CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS</message>
+      <message>CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES</message>
+      <message>DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE</message>
+      <message>FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR</message>
+      <message>IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL</message>
+      <message>LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN</message>
+      <message>MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE</message>
+      <message>NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS</message>
+      <message>OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR</message>
+      <message>PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL</message>
+      <message>RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR</message>
+      <message>SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER</message>
+      <message>SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM</message>
+      <message>SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL</message>
+      <message>TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR</message>
+      <message>VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL</message>
+      <message>VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD</message>
+      <message>GENLIST CLASSES =  NONE</message>
+      <message>GLOBAL CHECKING CLASSES =  DATASET DSNR SDSF SURROGAT</message>
+      <message>SETR RACLIST CLASSES =  ACCTNUM ACEECHK APPL CBIND CDT CPSMOBJ CRYPTOZ</message>
+      <message>CSFKEYS CSFSERV DIGTCERT DIGTCRIT DIGTNMAP DIGTRING</message>
+      <message>DSNR EJBROLE ELIJTEST FACILITY JESSPOOL OPERCMDS</message>
+      <message>PERFGRP PTKTDATA PTKTVAL RACFVARS RDATALIB REALM</message>
+      <message>SDSF SERVAUTH SERVER SOMDOBJS STARTED SURROGAT</message>
+      <message>TSOAUTH TSOPROC UNIXPRIV WBEM XCSFKEY XFACILIT</message>
+      <message>ZMFAPLA ZMFCLOUD</message>
+      <message>GLOBAL=YES RACLIST ONLY =  VTAMAPPL</message>
+      <message>AUTOMATIC DATASET PROTECTION IS NOT IN EFFECT</message>
+      <message>ENHANCED GENERIC NAMING IS IN EFFECT</message>
+      <message>REAL DATA SET NAMES OPTION IS INACTIVE</message>
+      <message>JES-BATCHALLRACF OPTION IS ACTIVE</message>
+      <message>JES-XBMALLRACF OPTION IS INACTIVE</message>
+      <message>JES-EARLYVERIFY OPTION IS INACTIVE</message>
+      <message>PROTECT-ALL OPTION IS NOT IN EFFECT</message>
+      <message>TAPE DATA SET PROTECTION IS ACTIVE</message>
+      <message>SECURITY RETENTION PERIOD IN EFFECT IS     0 DAYS.</message>
+      <message>ERASE-ON-SCRATCH IS INACTIVE</message>
+      <message>SINGLE LEVEL NAMES NOT ALLOWED</message>
+      <message>LIST OF GROUPS ACCESS CHECKING IS ACTIVE.</message>
+      <message>INACTIVE USERIDS ARE BEING AUTOMATICALLY REVOKED AFTER 255 DAYS.</message>
+      <message>DATA SET MODELLING IS BEING DONE FOR GDGS.</message>
+      <message>USER DATA SET MODELLING IS BEING DONE.</message>
+      <message>GROUP DATA SET MODELLING IS BEING DONE.</message>
+      <message>PASSWORD PROCESSING OPTIONS:</message>
+      <message>THE ACTIVE PASSWORD ENCRYPTION ALGORITHM IS LEGACY</message>
+      <message>PASSWORD CHANGE INTERVAL IS 186 DAYS.</message>
+      <message>PASSWORD MINIMUM CHANGE INTERVAL IS   0 DAYS.</message>
+      <message>MIXED CASE PASSWORD SUPPORT IS NOT IN EFFECT</message>
+      <message>SPECIAL CHARACTERS ARE NOT ALLOWED.</message>
+      <message>NO PASSWORD HISTORY BEING MAINTAINED.</message>
+      <message>USERIDS NOT BEING AUTOMATICALLY REVOKED.</message>
+      <message>PASSWORD EXPIRATION WARNING LEVEL IS  10 DAYS.</message>
+      <message>INSTALLATION PASSWORD SYNTAX RULES:</message>
+      <message>RULE 1  LENGTH(4:8)   ********</message>
+      <message>LEGEND:</message>
+      <message>A-ALPHA C-CONSONANT L-ALPHANUM N-NUMERIC V-VOWEL W-NOVOWEL *-ANYTHING</message>
+      <message>c-MIXED CONSONANT m-MIXED NUMERIC v-MIXED VOWEL $-NATIONAL s-SPECIAL</message>
+      <message>x-MIXED ALL</message>
+      <message>DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE SWITCH FUNCTION.</message>
+      <message>DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE STATUS FUNCTION.</message>
+      <message>SECLABEL CONTROL IS NOT IN EFFECT</message>
+      <message>GENERIC OWNER ONLY IS NOT IN EFFECT</message>
+      <message>COMPATIBILITY MODE IS NOT IN EFFECT</message>
+      <message>MULTI-LEVEL QUIET IS NOT IN EFFECT</message>
+      <message>MULTI-LEVEL STABLE IS NOT IN EFFECT</message>
+      <message>NO WRITE-DOWN IS NOT IN EFFECT</message>
+      <message>MULTI-LEVEL ACTIVE IS NOT IN EFFECT</message>
+      <message>CATALOGUED DATA SETS ONLY, IS NOT IN EFFECT</message>
+      <message>USER-ID FOR JES NJEUSERID IS : ????????</message>
+      <message>USER-ID FOR JES UNDEFINEDUSER IS : ++++++++</message>
+      <message>PARTNER LU-VERIFICATION SESSIONKEY INTERVAL MAXIMUM/DEFAULT IS    30 DAYS.</message>
+      <message>ADDCREATOR IS IN EFFECT</message>
+      <message>KERBLVL =     0</message>
+      <message>MULTI-LEVEL FILE SYSTEM IS NOT IN EFFECT</message>
+      <message>MULTI-LEVEL INTERPROCESS COMMUNICATIONS IS NOT IN EFFECT</message>
+      <message>MULTI-LEVEL NAME HIDING IS NOT IN EFFECT</message>
+      <message>SECURITY LABEL BY SYSTEM IS NOT IN EFFECT</message>
+      <message>PRIMARY LANGUAGE DEFAULT : ENU</message>
+      <message>SECONDARY LANGUAGE DEFAULT : ENU</message>
+    </command>
+  </systemsettings>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
-                        [pyRACF:Debug] Result Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                       SetroptsAdmin.list_racf_options()                       
                                                                                
 
 {
-    "securityresult": {
-        "systemsettings": {
-            "operation": "set",
-            "requestid": "SetroptsRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "SETROPTS   LIST",
-                    "messages": [
-                        "ATTRIBUTES = INITSTATS WHEN(PROGRAM -- BASIC) TERMINAL(READ)",
-                        "STATISTICS = NONE",
-                        "ACTIVE CLASSES = DATASET USER GROUP ACCTNUM ACEECHK ACICSPCT AIMS ALCSAUTH",
-                        "APPCLU APPCPORT APPCSI APPL BCICSPCT CACHECLS CBIND CCICSCMD",
-                        "CDT CFIELD CIMS COMMAND CPSMOBJ CPSMXMP CRYPTOZ CSFKEYS",
-                        "CSFSERV DASDVOL DASNAMES DBNFORM DCEUUIDS DCICSDCT DEVICES",
-                        "DIGTCERT DIGTCRIT DIGTNMAP DIGTRING DIMS DLFCLASS DSNADM",
-                        "DSNR ECICSDCT EJBROLE ELIJTEST FACILITY FCICSFCT FIELD",
-                        "FIMS FSACCESS FSEXEC GCICSTRN GCPSMOBJ GCSFKEYS GDASDVOL",
-                        "GDSNBP GDSNCL GDSNDB GDSNGV GDSNJR GDSNPK GDSNPN GDSNSC",
-                        "GDSNSG GDSNSM GDSNSP GDSNSQ GDSNTB GDSNTS GDSNUF GDSNUT",
-                        "GEJBROLE GIMS GINFOMAN GLOBAL GMBR GMQADMIN GMQNLIST",
-                        "GMQPROC GMQQUEUE GSDSF GSOMDOBJ GTERMINL GXCSFKEY GXFACILI",
-                        "GZMFAPLA HBRADMIN HBRCMD HBRCONN HCICSFCT HIMS IBMOPC",
-                        "IDIDMAP IDTDATA IIMS ILMADMIN INFOMAN JAVA JCICSJCT JESSPOOL",
-                        "JIMS KCICSJCT KERBLINK LDAP LDAPBIND LFSCLASS LIMS LOGSTRM",
-                        "MCICSPPT MDSNBP MDSNCL MDSNDB MDSNGV MDSNJR MDSNPK MDSNPN",
-                        "MDSNSC MDSNSG MDSNSM MDSNSP MDSNSQ MDSNTB MDSNTS MDSNUF",
-                        "MDSNUT MFADEF MGMTCLAS MIMS MQADMIN MQCMDS MQCONN MQNLIST",
-                        "MQPROC MQQUEUE NCICSPPT NDSLINK NETCMDS NETSPAN NODES",
-                        "NODMBR NOTELINK NVASAPDT OIMS OMCANDL$ OPERCMDS PCICSPSB",
-                        "PERFGRP PIMS PKISERV PMBR PRINTSRV PROGRAM PROPCNTL PTKTDATA",
-                        "PTKTVAL QCICSPSB QIMS RACFEVNT RACFVARS RACGLIST RAUDITX",
-                        "RCICSRES RDATALIB REALM RIMS RMTOPS RODMMGR RRSFDATA",
-                        "RVARSMBR SCDMBR SCICSTST SDSF SECDATA SERVAUTH SERVER",
-                        "SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM SURROGAT",
-                        "SYSAUTO SYSMVIEW TAPEVOL TCICSTRN TERMINAL TIMS TSOAUTH",
-                        "TSOPROC UCICSTST UIMS UNIXMAP UNIXPRIV VCICSCMD VMBATCH",
-                        "VMBR VMCMD VMDEV VMEVENT VMLAN VMMDISK VMNODE VMPOSIX",
-                        "VMRDR VMSEGMT VMXEVENT VTAMAPPL VXMBR WBEM WCICSRES WIMS",
-                        "XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD",
-                        "GENERIC PROFILE CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT",
-                        "APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD",
-                        "CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS",
-                        "CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES",
-                        "DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE",
-                        "FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR",
-                        "IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL",
-                        "LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN",
-                        "MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE",
-                        "NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS",
-                        "OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR",
-                        "PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL",
-                        "RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR",
-                        "SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER",
-                        "SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM",
-                        "SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL",
-                        "TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR",
-                        "VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL",
-                        "VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD",
-                        "GENERIC COMMAND CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT",
-                        "APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD",
-                        "CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS",
-                        "CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES",
-                        "DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE",
-                        "FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR",
-                        "IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL",
-                        "LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN",
-                        "MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE",
-                        "NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS",
-                        "OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR",
-                        "PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL",
-                        "RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR",
-                        "SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER",
-                        "SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM",
-                        "SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL",
-                        "TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR",
-                        "VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL",
-                        "VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD",
-                        "GENLIST CLASSES =  NONE",
-                        "GLOBAL CHECKING CLASSES =  DATASET DSNR SDSF SURROGAT",
-                        "SETR RACLIST CLASSES =  ACCTNUM ACEECHK APPL CBIND CDT CPSMOBJ CRYPTOZ",
-                        "CSFKEYS CSFSERV DIGTCERT DIGTCRIT DIGTNMAP DIGTRING",
-                        "DSNR EJBROLE ELIJTEST FACILITY JESSPOOL OPERCMDS",
-                        "PERFGRP PTKTDATA PTKTVAL RACFVARS RDATALIB REALM",
-                        "SDSF SERVAUTH SERVER SOMDOBJS STARTED SURROGAT",
-                        "TSOAUTH TSOPROC UNIXPRIV WBEM XCSFKEY XFACILIT",
-                        "ZMFAPLA ZMFCLOUD",
-                        "GLOBAL=YES RACLIST ONLY =  VTAMAPPL",
-                        "AUTOMATIC DATASET PROTECTION IS NOT IN EFFECT",
-                        "ENHANCED GENERIC NAMING IS IN EFFECT",
-                        "REAL DATA SET NAMES OPTION IS INACTIVE",
-                        "JES-BATCHALLRACF OPTION IS ACTIVE",
-                        "JES-XBMALLRACF OPTION IS INACTIVE",
-                        "JES-EARLYVERIFY OPTION IS INACTIVE",
-                        "PROTECT-ALL OPTION IS NOT IN EFFECT",
-                        "TAPE DATA SET PROTECTION IS ACTIVE",
-                        "SECURITY RETENTION PERIOD IN EFFECT IS     0 DAYS.",
-                        "ERASE-ON-SCRATCH IS INACTIVE",
-                        "SINGLE LEVEL NAMES NOT ALLOWED",
-                        "LIST OF GROUPS ACCESS CHECKING IS ACTIVE.",
-                        "INACTIVE USERIDS ARE BEING AUTOMATICALLY REVOKED AFTER 255 DAYS.",
-                        "DATA SET MODELLING IS BEING DONE FOR GDGS.",
-                        "USER DATA SET MODELLING IS BEING DONE.",
-                        "GROUP DATA SET MODELLING IS BEING DONE.",
-                        "PASSWORD PROCESSING OPTIONS:",
-                        "THE ACTIVE PASSWORD ENCRYPTION ALGORITHM IS LEGACY",
-                        "PASSWORD CHANGE INTERVAL IS 186 DAYS.",
-                        "PASSWORD MINIMUM CHANGE INTERVAL IS   0 DAYS.",
-                        "MIXED CASE PASSWORD SUPPORT IS NOT IN EFFECT",
-                        "SPECIAL CHARACTERS ARE NOT ALLOWED.",
-                        "NO PASSWORD HISTORY BEING MAINTAINED.",
-                        "USERIDS NOT BEING AUTOMATICALLY REVOKED.",
-                        "PASSWORD EXPIRATION WARNING LEVEL IS  10 DAYS.",
-                        "INSTALLATION PASSWORD SYNTAX RULES:",
-                        "RULE 1  LENGTH(4:8)   ********",
-                        "LEGEND:",
-                        "A-ALPHA C-CONSONANT L-ALPHANUM N-NUMERIC V-VOWEL W-NOVOWEL *-ANYTHING",
-                        "c-MIXED CONSONANT m-MIXED NUMERIC v-MIXED VOWEL $-NATIONAL s-SPECIAL",
-                        "x-MIXED ALL",
-                        "DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE SWITCH FUNCTION.",
-                        "DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE STATUS FUNCTION.",
-                        "SECLABEL CONTROL IS NOT IN EFFECT",
-                        "GENERIC OWNER ONLY IS NOT IN EFFECT",
-                        "COMPATIBILITY MODE IS NOT IN EFFECT",
-                        "MULTI-LEVEL QUIET IS NOT IN EFFECT",
-                        "MULTI-LEVEL STABLE IS NOT IN EFFECT",
-                        "NO WRITE-DOWN IS NOT IN EFFECT",
-                        "MULTI-LEVEL ACTIVE IS NOT IN EFFECT",
-                        "CATALOGUED DATA SETS ONLY, IS NOT IN EFFECT",
-                        "USER-ID FOR JES NJEUSERID IS : ????????",
-                        "USER-ID FOR JES UNDEFINEDUSER IS : ++++++++",
-                        "PARTNER LU-VERIFICATION SESSIONKEY INTERVAL MAXIMUM/DEFAULT IS    30 DAYS.",
-                        "ADDCREATOR IS IN EFFECT",
-                        "KERBLVL =     0",
-                        "MULTI-LEVEL FILE SYSTEM IS NOT IN EFFECT",
-                        "MULTI-LEVEL INTERPROCESS COMMUNICATIONS IS NOT IN EFFECT",
-                        "MULTI-LEVEL NAME HIDING IS NOT IN EFFECT",
-                        "SECURITY LABEL BY SYSTEM IS NOT IN EFFECT",
-                        "PRIMARY LANGUAGE DEFAULT : ENU",
-                        "SECONDARY LANGUAGE DEFAULT : ENU"
-                    ]
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "systemsettings": {
+      "operation": "set",
+      "requestid": "SetroptsRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "SETROPTS   LIST",
+          "messages": [
+            "ATTRIBUTES = INITSTATS WHEN(PROGRAM -- BASIC) TERMINAL(READ)",
+            "STATISTICS = NONE",
+            "ACTIVE CLASSES = DATASET USER GROUP ACCTNUM ACEECHK ACICSPCT AIMS ALCSAUTH",
+            "APPCLU APPCPORT APPCSI APPL BCICSPCT CACHECLS CBIND CCICSCMD",
+            "CDT CFIELD CIMS COMMAND CPSMOBJ CPSMXMP CRYPTOZ CSFKEYS",
+            "CSFSERV DASDVOL DASNAMES DBNFORM DCEUUIDS DCICSDCT DEVICES",
+            "DIGTCERT DIGTCRIT DIGTNMAP DIGTRING DIMS DLFCLASS DSNADM",
+            "DSNR ECICSDCT EJBROLE ELIJTEST FACILITY FCICSFCT FIELD",
+            "FIMS FSACCESS FSEXEC GCICSTRN GCPSMOBJ GCSFKEYS GDASDVOL",
+            "GDSNBP GDSNCL GDSNDB GDSNGV GDSNJR GDSNPK GDSNPN GDSNSC",
+            "GDSNSG GDSNSM GDSNSP GDSNSQ GDSNTB GDSNTS GDSNUF GDSNUT",
+            "GEJBROLE GIMS GINFOMAN GLOBAL GMBR GMQADMIN GMQNLIST",
+            "GMQPROC GMQQUEUE GSDSF GSOMDOBJ GTERMINL GXCSFKEY GXFACILI",
+            "GZMFAPLA HBRADMIN HBRCMD HBRCONN HCICSFCT HIMS IBMOPC",
+            "IDIDMAP IDTDATA IIMS ILMADMIN INFOMAN JAVA JCICSJCT JESSPOOL",
+            "JIMS KCICSJCT KERBLINK LDAP LDAPBIND LFSCLASS LIMS LOGSTRM",
+            "MCICSPPT MDSNBP MDSNCL MDSNDB MDSNGV MDSNJR MDSNPK MDSNPN",
+            "MDSNSC MDSNSG MDSNSM MDSNSP MDSNSQ MDSNTB MDSNTS MDSNUF",
+            "MDSNUT MFADEF MGMTCLAS MIMS MQADMIN MQCMDS MQCONN MQNLIST",
+            "MQPROC MQQUEUE NCICSPPT NDSLINK NETCMDS NETSPAN NODES",
+            "NODMBR NOTELINK NVASAPDT OIMS OMCANDL$ OPERCMDS PCICSPSB",
+            "PERFGRP PIMS PKISERV PMBR PRINTSRV PROGRAM PROPCNTL PTKTDATA",
+            "PTKTVAL QCICSPSB QIMS RACFEVNT RACFVARS RACGLIST RAUDITX",
+            "RCICSRES RDATALIB REALM RIMS RMTOPS RODMMGR RRSFDATA",
+            "RVARSMBR SCDMBR SCICSTST SDSF SECDATA SERVAUTH SERVER",
+            "SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM SURROGAT",
+            "SYSAUTO SYSMVIEW TAPEVOL TCICSTRN TERMINAL TIMS TSOAUTH",
+            "TSOPROC UCICSTST UIMS UNIXMAP UNIXPRIV VCICSCMD VMBATCH",
+            "VMBR VMCMD VMDEV VMEVENT VMLAN VMMDISK VMNODE VMPOSIX",
+            "VMRDR VMSEGMT VMXEVENT VTAMAPPL VXMBR WBEM WCICSRES WIMS",
+            "XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD",
+            "GENERIC PROFILE CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT",
+            "APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD",
+            "CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS",
+            "CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES",
+            "DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE",
+            "FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR",
+            "IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL",
+            "LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN",
+            "MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE",
+            "NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS",
+            "OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR",
+            "PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL",
+            "RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR",
+            "SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER",
+            "SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM",
+            "SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL",
+            "TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR",
+            "VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL",
+            "VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD",
+            "GENERIC COMMAND CLASSES =  DATASET ACCTNUM ACICSPCT AIMS APPCLU APPCPORT",
+            "APPCSERV APPCSI APPCTP APPL CBIND CCICSCMD",
+            "CIMS COMMAND CONSOLE CPSMOBJ CPSMXMP CSFKEYS",
+            "CSFSERV DASDVOL DASNAMES DBNFORM DCICSDCT DEVICES",
+            "DIRACC DIRAUTH DIRSRCH DLFCLASS DSNR EJBROLE",
+            "FACILITY FCICSFCT FIELD FIMS FSOBJ FSSEC GMBR",
+            "IBMOPC INFOMAN JCICSJCT JESINPUT JESJOBS JESSPOOL",
+            "LDAP LFSCLASS LOGSTRM MCICSPPT MGMTCLAS MQADMIN",
+            "MQCHAN MQCMDS MQCONN MQNLIST MQPROC MQQUEUE",
+            "NETCMDS NETSPAN NODES NODMBR NVASAPDT OIMS",
+            "OMCANDL$ OPERCMDS PCICSPSB PERFGRP PIMS PMBR",
+            "PROCACT PROCESS PROPCNTL PSFMPL PTKTDATA PTKTVAL",
+            "RACFVARS RACGLIST RCICSRES RMTOPS RODMMGR RVARSMBR",
+            "SCDMBR SCICSTST SDSF SECLMBR SERVAUTH SERVER",
+            "SIMS SMESSAGE SOMDOBJS STARTED STORCLAS SUBSYSNM",
+            "SURROGAT TAPEVOL TCICSTRN TEMPDSN TERMINAL",
+            "TIMS TSOAUTH TSOPROC UNIXPRIV VMBATCH VMBR",
+            "VMCMD VMMAC VMMDISK VMNODE VMRDR VMSEGMT VTAMAPPL",
+            "VXMBR WRITER XCSFKEY XFACILIT ZMFAPLA ZMFCLOUD",
+            "GENLIST CLASSES =  NONE",
+            "GLOBAL CHECKING CLASSES =  DATASET DSNR SDSF SURROGAT",
+            "SETR RACLIST CLASSES =  ACCTNUM ACEECHK APPL CBIND CDT CPSMOBJ CRYPTOZ",
+            "CSFKEYS CSFSERV DIGTCERT DIGTCRIT DIGTNMAP DIGTRING",
+            "DSNR EJBROLE ELIJTEST FACILITY JESSPOOL OPERCMDS",
+            "PERFGRP PTKTDATA PTKTVAL RACFVARS RDATALIB REALM",
+            "SDSF SERVAUTH SERVER SOMDOBJS STARTED SURROGAT",
+            "TSOAUTH TSOPROC UNIXPRIV WBEM XCSFKEY XFACILIT",
+            "ZMFAPLA ZMFCLOUD",
+            "GLOBAL=YES RACLIST ONLY =  VTAMAPPL",
+            "AUTOMATIC DATASET PROTECTION IS NOT IN EFFECT",
+            "ENHANCED GENERIC NAMING IS IN EFFECT",
+            "REAL DATA SET NAMES OPTION IS INACTIVE",
+            "JES-BATCHALLRACF OPTION IS ACTIVE",
+            "JES-XBMALLRACF OPTION IS INACTIVE",
+            "JES-EARLYVERIFY OPTION IS INACTIVE",
+            "PROTECT-ALL OPTION IS NOT IN EFFECT",
+            "TAPE DATA SET PROTECTION IS ACTIVE",
+            "SECURITY RETENTION PERIOD IN EFFECT IS     0 DAYS.",
+            "ERASE-ON-SCRATCH IS INACTIVE",
+            "SINGLE LEVEL NAMES NOT ALLOWED",
+            "LIST OF GROUPS ACCESS CHECKING IS ACTIVE.",
+            "INACTIVE USERIDS ARE BEING AUTOMATICALLY REVOKED AFTER 255 DAYS.",
+            "DATA SET MODELLING IS BEING DONE FOR GDGS.",
+            "USER DATA SET MODELLING IS BEING DONE.",
+            "GROUP DATA SET MODELLING IS BEING DONE.",
+            "PASSWORD PROCESSING OPTIONS:",
+            "THE ACTIVE PASSWORD ENCRYPTION ALGORITHM IS LEGACY",
+            "PASSWORD CHANGE INTERVAL IS 186 DAYS.",
+            "PASSWORD MINIMUM CHANGE INTERVAL IS   0 DAYS.",
+            "MIXED CASE PASSWORD SUPPORT IS NOT IN EFFECT",
+            "SPECIAL CHARACTERS ARE NOT ALLOWED.",
+            "NO PASSWORD HISTORY BEING MAINTAINED.",
+            "USERIDS NOT BEING AUTOMATICALLY REVOKED.",
+            "PASSWORD EXPIRATION WARNING LEVEL IS  10 DAYS.",
+            "INSTALLATION PASSWORD SYNTAX RULES:",
+            "RULE 1  LENGTH(4:8)   ********",
+            "LEGEND:",
+            "A-ALPHA C-CONSONANT L-ALPHANUM N-NUMERIC V-VOWEL W-NOVOWEL *-ANYTHING",
+            "c-MIXED CONSONANT m-MIXED NUMERIC v-MIXED VOWEL $-NATIONAL s-SPECIAL",
+            "x-MIXED ALL",
+            "DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE SWITCH FUNCTION.",
+            "DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE STATUS FUNCTION.",
+            "SECLABEL CONTROL IS NOT IN EFFECT",
+            "GENERIC OWNER ONLY IS NOT IN EFFECT",
+            "COMPATIBILITY MODE IS NOT IN EFFECT",
+            "MULTI-LEVEL QUIET IS NOT IN EFFECT",
+            "MULTI-LEVEL STABLE IS NOT IN EFFECT",
+            "NO WRITE-DOWN IS NOT IN EFFECT",
+            "MULTI-LEVEL ACTIVE IS NOT IN EFFECT",
+            "CATALOGUED DATA SETS ONLY, IS NOT IN EFFECT",
+            "USER-ID FOR JES NJEUSERID IS : ????????",
+            "USER-ID FOR JES UNDEFINEDUSER IS : ++++++++",
+            "PARTNER LU-VERIFICATION SESSIONKEY INTERVAL MAXIMUM/DEFAULT IS    30 DAYS.",
+            "ADDCREATOR IS IN EFFECT",
+            "KERBLVL =     0",
+            "MULTI-LEVEL FILE SYSTEM IS NOT IN EFFECT",
+            "MULTI-LEVEL INTERPROCESS COMMUNICATIONS IS NOT IN EFFECT",
+            "MULTI-LEVEL NAME HIDING IS NOT IN EFFECT",
+            "SECURITY LABEL BY SYSTEM IS NOT IN EFFECT",
+            "PRIMARY LANGUAGE DEFAULT : ENU",
+            "SECONDARY LANGUAGE DEFAULT : ENU"
+          ]
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
 
                                                                                
-              [pyRACF:Debug] Result Dictionary (Formatted Profile)             
+                                 [pyRACF:Debug]                                
+                     Result Dictionary (Formatted Profile)                     
+                       SetroptsAdmin.list_racf_options()                       
                                                                                
 
 {
-    "securityresult": {
-        "systemsettings": {
-            "operation": "set",
-            "requestid": "SetroptsRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "SETROPTS   LIST",
-                    "profile": {
-                        "attributes": [
-                            "initstats",
-                            "when(program -- basic)",
-                            "terminal(read)"
-                        ],
-                        "statistics": null,
-                        "active classes": [
-                            "dataset",
-                            "user",
-                            "group",
-                            "acctnum",
-                            "aceechk",
-                            "acicspct",
-                            "aims",
-                            "alcsauth",
-                            "appclu",
-                            "appcport",
-                            "appcsi",
-                            "appl",
-                            "bcicspct",
-                            "cachecls",
-                            "cbind",
-                            "ccicscmd",
-                            "cdt",
-                            "cfield",
-                            "cims",
-                            "command",
-                            "cpsmobj",
-                            "cpsmxmp",
-                            "cryptoz",
-                            "csfkeys",
-                            "csfserv",
-                            "dasdvol",
-                            "dasnames",
-                            "dbnform",
-                            "dceuuids",
-                            "dcicsdct",
-                            "devices",
-                            "digtcert",
-                            "digtcrit",
-                            "digtnmap",
-                            "digtring",
-                            "dims",
-                            "dlfclass",
-                            "dsnadm",
-                            "dsnr",
-                            "ecicsdct",
-                            "ejbrole",
-                            "elijtest",
-                            "facility",
-                            "fcicsfct",
-                            "field",
-                            "fims",
-                            "fsaccess",
-                            "fsexec",
-                            "gcicstrn",
-                            "gcpsmobj",
-                            "gcsfkeys",
-                            "gdasdvol",
-                            "gdsnbp",
-                            "gdsncl",
-                            "gdsndb",
-                            "gdsngv",
-                            "gdsnjr",
-                            "gdsnpk",
-                            "gdsnpn",
-                            "gdsnsc",
-                            "gdsnsg",
-                            "gdsnsm",
-                            "gdsnsp",
-                            "gdsnsq",
-                            "gdsntb",
-                            "gdsnts",
-                            "gdsnuf",
-                            "gdsnut",
-                            "gejbrole",
-                            "gims",
-                            "ginfoman",
-                            "global",
-                            "gmbr",
-                            "gmqadmin",
-                            "gmqnlist",
-                            "gmqproc",
-                            "gmqqueue",
-                            "gsdsf",
-                            "gsomdobj",
-                            "gterminl",
-                            "gxcsfkey",
-                            "gxfacili",
-                            "gzmfapla",
-                            "hbradmin",
-                            "hbrcmd",
-                            "hbrconn",
-                            "hcicsfct",
-                            "hims",
-                            "ibmopc",
-                            "ididmap",
-                            "idtdata",
-                            "iims",
-                            "ilmadmin",
-                            "infoman",
-                            "java",
-                            "jcicsjct",
-                            "jesspool",
-                            "jims",
-                            "kcicsjct",
-                            "kerblink",
-                            "ldap",
-                            "ldapbind",
-                            "lfsclass",
-                            "lims",
-                            "logstrm",
-                            "mcicsppt",
-                            "mdsnbp",
-                            "mdsncl",
-                            "mdsndb",
-                            "mdsngv",
-                            "mdsnjr",
-                            "mdsnpk",
-                            "mdsnpn",
-                            "mdsnsc",
-                            "mdsnsg",
-                            "mdsnsm",
-                            "mdsnsp",
-                            "mdsnsq",
-                            "mdsntb",
-                            "mdsnts",
-                            "mdsnuf",
-                            "mdsnut",
-                            "mfadef",
-                            "mgmtclas",
-                            "mims",
-                            "mqadmin",
-                            "mqcmds",
-                            "mqconn",
-                            "mqnlist",
-                            "mqproc",
-                            "mqqueue",
-                            "ncicsppt",
-                            "ndslink",
-                            "netcmds",
-                            "netspan",
-                            "nodes",
-                            "nodmbr",
-                            "notelink",
-                            "nvasapdt",
-                            "oims",
-                            "omcandl$",
-                            "opercmds",
-                            "pcicspsb",
-                            "perfgrp",
-                            "pims",
-                            "pkiserv",
-                            "pmbr",
-                            "printsrv",
-                            "program",
-                            "propcntl",
-                            "ptktdata",
-                            "ptktval",
-                            "qcicspsb",
-                            "qims",
-                            "racfevnt",
-                            "racfvars",
-                            "racglist",
-                            "rauditx",
-                            "rcicsres",
-                            "rdatalib",
-                            "realm",
-                            "rims",
-                            "rmtops",
-                            "rodmmgr",
-                            "rrsfdata",
-                            "rvarsmbr",
-                            "scdmbr",
-                            "scicstst",
-                            "sdsf",
-                            "secdata",
-                            "servauth",
-                            "server",
-                            "sims",
-                            "smessage",
-                            "somdobjs",
-                            "started",
-                            "storclas",
-                            "subsysnm",
-                            "surrogat",
-                            "sysauto",
-                            "sysmview",
-                            "tapevol",
-                            "tcicstrn",
-                            "terminal",
-                            "tims",
-                            "tsoauth",
-                            "tsoproc",
-                            "ucicstst",
-                            "uims",
-                            "unixmap",
-                            "unixpriv",
-                            "vcicscmd",
-                            "vmbatch",
-                            "vmbr",
-                            "vmcmd",
-                            "vmdev",
-                            "vmevent",
-                            "vmlan",
-                            "vmmdisk",
-                            "vmnode",
-                            "vmposix",
-                            "vmrdr",
-                            "vmsegmt",
-                            "vmxevent",
-                            "vtamappl",
-                            "vxmbr",
-                            "wbem",
-                            "wcicsres",
-                            "wims",
-                            "xcsfkey",
-                            "xfacilit",
-                            "zmfapla",
-                            "zmfcloud"
-                        ],
-                        "generic profile classes": [
-                            "dataset",
-                            "acctnum",
-                            "acicspct",
-                            "aims",
-                            "appclu",
-                            "appcport",
-                            "appcserv",
-                            "appcsi",
-                            "appctp",
-                            "appl",
-                            "cbind",
-                            "ccicscmd",
-                            "cims",
-                            "command",
-                            "console",
-                            "cpsmobj",
-                            "cpsmxmp",
-                            "csfkeys",
-                            "csfserv",
-                            "dasdvol",
-                            "dasnames",
-                            "dbnform",
-                            "dcicsdct",
-                            "devices",
-                            "diracc",
-                            "dirauth",
-                            "dirsrch",
-                            "dlfclass",
-                            "dsnr",
-                            "ejbrole",
-                            "facility",
-                            "fcicsfct",
-                            "field",
-                            "fims",
-                            "fsobj",
-                            "fssec",
-                            "gmbr",
-                            "ibmopc",
-                            "infoman",
-                            "jcicsjct",
-                            "jesinput",
-                            "jesjobs",
-                            "jesspool",
-                            "ldap",
-                            "lfsclass",
-                            "logstrm",
-                            "mcicsppt",
-                            "mgmtclas",
-                            "mqadmin",
-                            "mqchan",
-                            "mqcmds",
-                            "mqconn",
-                            "mqnlist",
-                            "mqproc",
-                            "mqqueue",
-                            "netcmds",
-                            "netspan",
-                            "nodes",
-                            "nodmbr",
-                            "nvasapdt",
-                            "oims",
-                            "omcandl$",
-                            "opercmds",
-                            "pcicspsb",
-                            "perfgrp",
-                            "pims",
-                            "pmbr",
-                            "procact",
-                            "process",
-                            "propcntl",
-                            "psfmpl",
-                            "ptktdata",
-                            "ptktval",
-                            "racfvars",
-                            "racglist",
-                            "rcicsres",
-                            "rmtops",
-                            "rodmmgr",
-                            "rvarsmbr",
-                            "scdmbr",
-                            "scicstst",
-                            "sdsf",
-                            "seclmbr",
-                            "servauth",
-                            "server",
-                            "sims",
-                            "smessage",
-                            "somdobjs",
-                            "started",
-                            "storclas",
-                            "subsysnm",
-                            "surrogat",
-                            "tapevol",
-                            "tcicstrn",
-                            "tempdsn",
-                            "terminal",
-                            "tims",
-                            "tsoauth",
-                            "tsoproc",
-                            "unixpriv",
-                            "vmbatch",
-                            "vmbr",
-                            "vmcmd",
-                            "vmmac",
-                            "vmmdisk",
-                            "vmnode",
-                            "vmrdr",
-                            "vmsegmt",
-                            "vtamappl",
-                            "vxmbr",
-                            "writer",
-                            "xcsfkey",
-                            "xfacilit",
-                            "zmfapla",
-                            "zmfcloud"
-                        ],
-                        "generic command classes": [
-                            "dataset",
-                            "acctnum",
-                            "acicspct",
-                            "aims",
-                            "appclu",
-                            "appcport",
-                            "appcserv",
-                            "appcsi",
-                            "appctp",
-                            "appl",
-                            "cbind",
-                            "ccicscmd",
-                            "cims",
-                            "command",
-                            "console",
-                            "cpsmobj",
-                            "cpsmxmp",
-                            "csfkeys",
-                            "csfserv",
-                            "dasdvol",
-                            "dasnames",
-                            "dbnform",
-                            "dcicsdct",
-                            "devices",
-                            "diracc",
-                            "dirauth",
-                            "dirsrch",
-                            "dlfclass",
-                            "dsnr",
-                            "ejbrole",
-                            "facility",
-                            "fcicsfct",
-                            "field",
-                            "fims",
-                            "fsobj",
-                            "fssec",
-                            "gmbr",
-                            "ibmopc",
-                            "infoman",
-                            "jcicsjct",
-                            "jesinput",
-                            "jesjobs",
-                            "jesspool",
-                            "ldap",
-                            "lfsclass",
-                            "logstrm",
-                            "mcicsppt",
-                            "mgmtclas",
-                            "mqadmin",
-                            "mqchan",
-                            "mqcmds",
-                            "mqconn",
-                            "mqnlist",
-                            "mqproc",
-                            "mqqueue",
-                            "netcmds",
-                            "netspan",
-                            "nodes",
-                            "nodmbr",
-                            "nvasapdt",
-                            "oims",
-                            "omcandl$",
-                            "opercmds",
-                            "pcicspsb",
-                            "perfgrp",
-                            "pims",
-                            "pmbr",
-                            "procact",
-                            "process",
-                            "propcntl",
-                            "psfmpl",
-                            "ptktdata",
-                            "ptktval",
-                            "racfvars",
-                            "racglist",
-                            "rcicsres",
-                            "rmtops",
-                            "rodmmgr",
-                            "rvarsmbr",
-                            "scdmbr",
-                            "scicstst",
-                            "sdsf",
-                            "seclmbr",
-                            "servauth",
-                            "server",
-                            "sims",
-                            "smessage",
-                            "somdobjs",
-                            "started",
-                            "storclas",
-                            "subsysnm",
-                            "surrogat",
-                            "tapevol",
-                            "tcicstrn",
-                            "tempdsn",
-                            "terminal",
-                            "tims",
-                            "tsoauth",
-                            "tsoproc",
-                            "unixpriv",
-                            "vmbatch",
-                            "vmbr",
-                            "vmcmd",
-                            "vmmac",
-                            "vmmdisk",
-                            "vmnode",
-                            "vmrdr",
-                            "vmsegmt",
-                            "vtamappl",
-                            "vxmbr",
-                            "writer",
-                            "xcsfkey",
-                            "xfacilit",
-                            "zmfapla",
-                            "zmfcloud"
-                        ],
-                        "genlist classes": null,
-                        "global checking classes": [
-                            "dataset",
-                            "dsnr",
-                            "sdsf",
-                            "surrogat"
-                        ],
-                        "setr raclist classes": [
-                            "acctnum",
-                            "aceechk",
-                            "appl",
-                            "cbind",
-                            "cdt",
-                            "cpsmobj",
-                            "cryptoz",
-                            "csfkeys",
-                            "csfserv",
-                            "digtcert",
-                            "digtcrit",
-                            "digtnmap",
-                            "digtring",
-                            "dsnr",
-                            "ejbrole",
-                            "elijtest",
-                            "facility",
-                            "jesspool",
-                            "opercmds",
-                            "perfgrp",
-                            "ptktdata",
-                            "ptktval",
-                            "racfvars",
-                            "rdatalib",
-                            "realm",
-                            "sdsf",
-                            "servauth",
-                            "server",
-                            "somdobjs",
-                            "started",
-                            "surrogat",
-                            "tsoauth",
-                            "tsoproc",
-                            "unixpriv",
-                            "wbem",
-                            "xcsfkey",
-                            "xfacilit",
-                            "zmfapla",
-                            "zmfcloud"
-                        ],
-                        "global=yes raclist only": "vtamappl",
-                        "automatic dataset protection": false,
-                        "enhanced generic naming": true,
-                        "real data set names": false,
-                        "jes-batchallracf": true,
-                        "jes-xbmallracf": false,
-                        "jes-earlyverify": false,
-                        "protect-all": false,
-                        "tape data set protection": true,
-                        "security retention period": 0,
-                        "erase-on-scratch": false,
-                        "list of groups access checking": true,
-                        "inactive userids": 255,
-                        "data set modelling": true,
-                        "user data set modelling": true,
-                        "group data set modelling": true,
-                        "password processing options": {
-                            "password encryption algorithm": "legacy",
-                            "password change interval": 186,
-                            "password minimum change interval": 0,
-                            "mixed case password support": false,
-                            "special characters": false,
-                            "history": 0,
-                            "revoke": 0,
-                            "password expiration warning level": 10,
-                            "rules": [
-                                {
-                                    "minlength": 4,
-                                    "maxlength": 8,
-                                    "content": "********",
-                                    "legend": {
-                                        "*": "ANYTHING"
-                                    }
-                                }
-                            ]
-                        },
-                        "default rvary password": [
-                            "switch",
-                            "status"
-                        ],
-                        "seclabel control": false,
-                        "generic owner only": false,
-                        "compatibility mode": false,
-                        "multi-level quiet": false,
-                        "multi-level stable": false,
-                        "no write-down": false,
-                        "multi-level active": false,
-                        "catalogued data sets only,": false,
-                        "njeuserid": "????????",
-                        "undefineduser": "++++++++",
-                        "addcreator": true,
-                        "kerblvl": 0,
-                        "multi-level file system": false,
-                        "multi-level interprocess communications": false,
-                        "multi-level name hiding": false,
-                        "security label by system": false,
-                        "primary language default": "enu",
-                        "secondary language default": "enu",
-                        "sessionkey interval": 30
+  "securityresult": {
+    "systemsettings": {
+      "operation": "set",
+      "requestid": "SetroptsRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "SETROPTS   LIST",
+          "profiles": [
+            {
+              "attributes": [
+                "initstats",
+                "when(program -- basic)",
+                "terminal(read)"
+              ],
+              "statistics": null,
+              "active classes": [
+                "dataset",
+                "user",
+                "group",
+                "acctnum",
+                "aceechk",
+                "acicspct",
+                "aims",
+                "alcsauth",
+                "appclu",
+                "appcport",
+                "appcsi",
+                "appl",
+                "bcicspct",
+                "cachecls",
+                "cbind",
+                "ccicscmd",
+                "cdt",
+                "cfield",
+                "cims",
+                "command",
+                "cpsmobj",
+                "cpsmxmp",
+                "cryptoz",
+                "csfkeys",
+                "csfserv",
+                "dasdvol",
+                "dasnames",
+                "dbnform",
+                "dceuuids",
+                "dcicsdct",
+                "devices",
+                "digtcert",
+                "digtcrit",
+                "digtnmap",
+                "digtring",
+                "dims",
+                "dlfclass",
+                "dsnadm",
+                "dsnr",
+                "ecicsdct",
+                "ejbrole",
+                "elijtest",
+                "facility",
+                "fcicsfct",
+                "field",
+                "fims",
+                "fsaccess",
+                "fsexec",
+                "gcicstrn",
+                "gcpsmobj",
+                "gcsfkeys",
+                "gdasdvol",
+                "gdsnbp",
+                "gdsncl",
+                "gdsndb",
+                "gdsngv",
+                "gdsnjr",
+                "gdsnpk",
+                "gdsnpn",
+                "gdsnsc",
+                "gdsnsg",
+                "gdsnsm",
+                "gdsnsp",
+                "gdsnsq",
+                "gdsntb",
+                "gdsnts",
+                "gdsnuf",
+                "gdsnut",
+                "gejbrole",
+                "gims",
+                "ginfoman",
+                "global",
+                "gmbr",
+                "gmqadmin",
+                "gmqnlist",
+                "gmqproc",
+                "gmqqueue",
+                "gsdsf",
+                "gsomdobj",
+                "gterminl",
+                "gxcsfkey",
+                "gxfacili",
+                "gzmfapla",
+                "hbradmin",
+                "hbrcmd",
+                "hbrconn",
+                "hcicsfct",
+                "hims",
+                "ibmopc",
+                "ididmap",
+                "idtdata",
+                "iims",
+                "ilmadmin",
+                "infoman",
+                "java",
+                "jcicsjct",
+                "jesspool",
+                "jims",
+                "kcicsjct",
+                "kerblink",
+                "ldap",
+                "ldapbind",
+                "lfsclass",
+                "lims",
+                "logstrm",
+                "mcicsppt",
+                "mdsnbp",
+                "mdsncl",
+                "mdsndb",
+                "mdsngv",
+                "mdsnjr",
+                "mdsnpk",
+                "mdsnpn",
+                "mdsnsc",
+                "mdsnsg",
+                "mdsnsm",
+                "mdsnsp",
+                "mdsnsq",
+                "mdsntb",
+                "mdsnts",
+                "mdsnuf",
+                "mdsnut",
+                "mfadef",
+                "mgmtclas",
+                "mims",
+                "mqadmin",
+                "mqcmds",
+                "mqconn",
+                "mqnlist",
+                "mqproc",
+                "mqqueue",
+                "ncicsppt",
+                "ndslink",
+                "netcmds",
+                "netspan",
+                "nodes",
+                "nodmbr",
+                "notelink",
+                "nvasapdt",
+                "oims",
+                "omcandl$",
+                "opercmds",
+                "pcicspsb",
+                "perfgrp",
+                "pims",
+                "pkiserv",
+                "pmbr",
+                "printsrv",
+                "program",
+                "propcntl",
+                "ptktdata",
+                "ptktval",
+                "qcicspsb",
+                "qims",
+                "racfevnt",
+                "racfvars",
+                "racglist",
+                "rauditx",
+                "rcicsres",
+                "rdatalib",
+                "realm",
+                "rims",
+                "rmtops",
+                "rodmmgr",
+                "rrsfdata",
+                "rvarsmbr",
+                "scdmbr",
+                "scicstst",
+                "sdsf",
+                "secdata",
+                "servauth",
+                "server",
+                "sims",
+                "smessage",
+                "somdobjs",
+                "started",
+                "storclas",
+                "subsysnm",
+                "surrogat",
+                "sysauto",
+                "sysmview",
+                "tapevol",
+                "tcicstrn",
+                "terminal",
+                "tims",
+                "tsoauth",
+                "tsoproc",
+                "ucicstst",
+                "uims",
+                "unixmap",
+                "unixpriv",
+                "vcicscmd",
+                "vmbatch",
+                "vmbr",
+                "vmcmd",
+                "vmdev",
+                "vmevent",
+                "vmlan",
+                "vmmdisk",
+                "vmnode",
+                "vmposix",
+                "vmrdr",
+                "vmsegmt",
+                "vmxevent",
+                "vtamappl",
+                "vxmbr",
+                "wbem",
+                "wcicsres",
+                "wims",
+                "xcsfkey",
+                "xfacilit",
+                "zmfapla",
+                "zmfcloud"
+              ],
+              "generic profile classes": [
+                "dataset",
+                "acctnum",
+                "acicspct",
+                "aims",
+                "appclu",
+                "appcport",
+                "appcserv",
+                "appcsi",
+                "appctp",
+                "appl",
+                "cbind",
+                "ccicscmd",
+                "cims",
+                "command",
+                "console",
+                "cpsmobj",
+                "cpsmxmp",
+                "csfkeys",
+                "csfserv",
+                "dasdvol",
+                "dasnames",
+                "dbnform",
+                "dcicsdct",
+                "devices",
+                "diracc",
+                "dirauth",
+                "dirsrch",
+                "dlfclass",
+                "dsnr",
+                "ejbrole",
+                "facility",
+                "fcicsfct",
+                "field",
+                "fims",
+                "fsobj",
+                "fssec",
+                "gmbr",
+                "ibmopc",
+                "infoman",
+                "jcicsjct",
+                "jesinput",
+                "jesjobs",
+                "jesspool",
+                "ldap",
+                "lfsclass",
+                "logstrm",
+                "mcicsppt",
+                "mgmtclas",
+                "mqadmin",
+                "mqchan",
+                "mqcmds",
+                "mqconn",
+                "mqnlist",
+                "mqproc",
+                "mqqueue",
+                "netcmds",
+                "netspan",
+                "nodes",
+                "nodmbr",
+                "nvasapdt",
+                "oims",
+                "omcandl$",
+                "opercmds",
+                "pcicspsb",
+                "perfgrp",
+                "pims",
+                "pmbr",
+                "procact",
+                "process",
+                "propcntl",
+                "psfmpl",
+                "ptktdata",
+                "ptktval",
+                "racfvars",
+                "racglist",
+                "rcicsres",
+                "rmtops",
+                "rodmmgr",
+                "rvarsmbr",
+                "scdmbr",
+                "scicstst",
+                "sdsf",
+                "seclmbr",
+                "servauth",
+                "server",
+                "sims",
+                "smessage",
+                "somdobjs",
+                "started",
+                "storclas",
+                "subsysnm",
+                "surrogat",
+                "tapevol",
+                "tcicstrn",
+                "tempdsn",
+                "terminal",
+                "tims",
+                "tsoauth",
+                "tsoproc",
+                "unixpriv",
+                "vmbatch",
+                "vmbr",
+                "vmcmd",
+                "vmmac",
+                "vmmdisk",
+                "vmnode",
+                "vmrdr",
+                "vmsegmt",
+                "vtamappl",
+                "vxmbr",
+                "writer",
+                "xcsfkey",
+                "xfacilit",
+                "zmfapla",
+                "zmfcloud"
+              ],
+              "generic command classes": [
+                "dataset",
+                "acctnum",
+                "acicspct",
+                "aims",
+                "appclu",
+                "appcport",
+                "appcserv",
+                "appcsi",
+                "appctp",
+                "appl",
+                "cbind",
+                "ccicscmd",
+                "cims",
+                "command",
+                "console",
+                "cpsmobj",
+                "cpsmxmp",
+                "csfkeys",
+                "csfserv",
+                "dasdvol",
+                "dasnames",
+                "dbnform",
+                "dcicsdct",
+                "devices",
+                "diracc",
+                "dirauth",
+                "dirsrch",
+                "dlfclass",
+                "dsnr",
+                "ejbrole",
+                "facility",
+                "fcicsfct",
+                "field",
+                "fims",
+                "fsobj",
+                "fssec",
+                "gmbr",
+                "ibmopc",
+                "infoman",
+                "jcicsjct",
+                "jesinput",
+                "jesjobs",
+                "jesspool",
+                "ldap",
+                "lfsclass",
+                "logstrm",
+                "mcicsppt",
+                "mgmtclas",
+                "mqadmin",
+                "mqchan",
+                "mqcmds",
+                "mqconn",
+                "mqnlist",
+                "mqproc",
+                "mqqueue",
+                "netcmds",
+                "netspan",
+                "nodes",
+                "nodmbr",
+                "nvasapdt",
+                "oims",
+                "omcandl$",
+                "opercmds",
+                "pcicspsb",
+                "perfgrp",
+                "pims",
+                "pmbr",
+                "procact",
+                "process",
+                "propcntl",
+                "psfmpl",
+                "ptktdata",
+                "ptktval",
+                "racfvars",
+                "racglist",
+                "rcicsres",
+                "rmtops",
+                "rodmmgr",
+                "rvarsmbr",
+                "scdmbr",
+                "scicstst",
+                "sdsf",
+                "seclmbr",
+                "servauth",
+                "server",
+                "sims",
+                "smessage",
+                "somdobjs",
+                "started",
+                "storclas",
+                "subsysnm",
+                "surrogat",
+                "tapevol",
+                "tcicstrn",
+                "tempdsn",
+                "terminal",
+                "tims",
+                "tsoauth",
+                "tsoproc",
+                "unixpriv",
+                "vmbatch",
+                "vmbr",
+                "vmcmd",
+                "vmmac",
+                "vmmdisk",
+                "vmnode",
+                "vmrdr",
+                "vmsegmt",
+                "vtamappl",
+                "vxmbr",
+                "writer",
+                "xcsfkey",
+                "xfacilit",
+                "zmfapla",
+                "zmfcloud"
+              ],
+              "genlist classes": null,
+              "global checking classes": [
+                "dataset",
+                "dsnr",
+                "sdsf",
+                "surrogat"
+              ],
+              "setr raclist classes": [
+                "acctnum",
+                "aceechk",
+                "appl",
+                "cbind",
+                "cdt",
+                "cpsmobj",
+                "cryptoz",
+                "csfkeys",
+                "csfserv",
+                "digtcert",
+                "digtcrit",
+                "digtnmap",
+                "digtring",
+                "dsnr",
+                "ejbrole",
+                "elijtest",
+                "facility",
+                "jesspool",
+                "opercmds",
+                "perfgrp",
+                "ptktdata",
+                "ptktval",
+                "racfvars",
+                "rdatalib",
+                "realm",
+                "sdsf",
+                "servauth",
+                "server",
+                "somdobjs",
+                "started",
+                "surrogat",
+                "tsoauth",
+                "tsoproc",
+                "unixpriv",
+                "wbem",
+                "xcsfkey",
+                "xfacilit",
+                "zmfapla",
+                "zmfcloud"
+              ],
+              "global=yes raclist only": "vtamappl",
+              "automatic dataset protection": false,
+              "enhanced generic naming": true,
+              "real data set names": false,
+              "jes-batchallracf": true,
+              "jes-xbmallracf": false,
+              "jes-earlyverify": false,
+              "protect-all": false,
+              "tape data set protection": true,
+              "security retention period": 0,
+              "erase-on-scratch": false,
+              "list of groups access checking": true,
+              "inactive userids": 255,
+              "data set modelling": true,
+              "user data set modelling": true,
+              "group data set modelling": true,
+              "password processing options": {
+                "password encryption algorithm": "legacy",
+                "password change interval": 186,
+                "password minimum change interval": 0,
+                "mixed case password support": false,
+                "special characters": false,
+                "history": 0,
+                "revoke": 0,
+                "password expiration warning level": 10,
+                "rules": [
+                  {
+                    "minlength": 4,
+                    "maxlength": 8,
+                    "content": "********",
+                    "legend": {
+                      "*": "ANYTHING"
                     }
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+                  }
+                ]
+              },
+              "default rvary password": [
+                "switch",
+                "status"
+              ],
+              "seclabel control": false,
+              "generic owner only": false,
+              "compatibility mode": false,
+              "multi-level quiet": false,
+              "multi-level stable": false,
+              "no write-down": false,
+              "multi-level active": false,
+              "catalogued data sets only,": false,
+              "njeuserid": "????????",
+              "undefineduser": "++++++++",
+              "addcreator": true,
+              "kerblvl": 0,
+              "multi-level file system": false,
+              "multi-level interprocess communications": false,
+              "multi-level name hiding": false,
+              "security label by system": false,
+              "primary language default": "enu",
+              "secondary language default": "enu",
+              "sessionkey interval": 30
+            }
+          ]
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }
 

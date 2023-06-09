@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <group name="TESTGRP0" operation="set" requestid="GroupRequest">
-        <info>Definition exists. Add command skipped due  to precheck option</info>
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>ALTGROUP TESTGRP0  OMVS     (GID         (1234567))</image>
-        </command>
-    </group>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+    <info>Definition exists. Add command skipped due  to precheck option</info>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ALTGROUP TESTGRP0  OMVS     (GID         (1234567))</image>
+    </command>
+  </group>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>

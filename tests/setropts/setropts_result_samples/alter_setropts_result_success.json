@@ -1,21 +1,21 @@
 {
-    "securityresult": {
-        "systemsettings": {
-            "operation": "set",
-            "requestid": "SetroptsRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "SETROPTS      RACLIST     (elijtest)",
-                    "messages": [
-                        "ICH14063I SETROPTS command complete."
-                    ]
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityresult": {
+    "systemsettings": {
+      "operation": "set",
+      "requestid": "SetroptsRequest",
+      "commands": [
+        {
+          "safreturncode": 0,
+          "returncode": 0,
+          "reasoncode": 0,
+          "image": "SETROPTS      RACLIST     (elijtest)",
+          "messages": [
+            "ICH14063I SETROPTS command complete."
+          ]
+        }
+      ]
+    },
+    "returncode": 0,
+    "reasoncode": 0
+  }
 }

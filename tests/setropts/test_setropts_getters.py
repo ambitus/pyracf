@@ -23,7 +23,7 @@ class TestSetroptsGetters(unittest.TestCase):
         return SetroptsAdmin()
 
     # ============================================================================
-    # SetroptsAdmin.get_password_rules()
+    # Password Rules
     # ============================================================================
     def test_setropts_admin_get_password_rules(
         self,
@@ -53,7 +53,7 @@ class TestSetroptsGetters(unittest.TestCase):
             setropts_admin.get_password_rules()
 
     # ============================================================================
-    # SetroptsAdmin.get_class_types(class_name)
+    # Class Types
     # ============================================================================
     def test_setropts_admin_get_class_types(
         self,

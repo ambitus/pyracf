@@ -73,14 +73,30 @@ TEST_DELETE_CONNECTION_REQUEST_XML = get_sample("delete_connection_request.xml")
 # Connection Administration Setters Sample Data
 # ============================================================================
 
-TEST_CONNECTION_SET_GROUP_SPECIAL = get_sample("connection_set_group_special.xml")
-TEST_CONNECTION_DEL_GROUP_SPECIAL = get_sample("connection_del_group_special.xml")
-TEST_CONNECTION_SET_GROUP_AUDITOR = get_sample("connection_set_group_auditor.xml")
-TEST_CONNECTION_DEL_GROUP_AUDITOR = get_sample("connection_del_group_auditor.xml")
-TEST_CONNECTION_SET_GROUP_OPERATIONS = get_sample("connection_set_group_operations.xml")
-TEST_CONNECTION_DEL_GROUP_OPERATIONS = get_sample("connection_del_group_operations.xml")
-TEST_CONNECTION_SET_GRPACC = get_sample("connection_set_grpacc.xml")
-TEST_CONNECTION_DEL_GRPACC = get_sample("connection_del_grpacc.xml")
+TEST_CONNECTION_GIVE_GROUP_SPECIAL_AUTHORITY = get_sample(
+    "connection_give_group_special_authority.xml"
+)
+TEST_CONNECTION_TAKE_AWAY_GROUP_SPECIAL_AUTHORITY = get_sample(
+    "connection_take_away_group_special_authority.xml"
+)
+TEST_CONNECTION_GIVE_GROUP_AUDITOR_AUTHORITY = get_sample(
+    "connection_give_group_auditor_authority.xml"
+)
+TEST_CONNECTION_TAKE_AWAY_GROUP_AUDITOR_AUTHORITY = get_sample(
+    "connection_take_away_group_auditor_authority.xml"
+)
+TEST_CONNECTION_GIVE_GROUP_OPERATIONS_AUTHORITY = get_sample(
+    "connection_give_group_operations_authority.xml"
+)
+TEST_CONNECTION_TAKE_AWAY_GROUP_OPERATIONS_AUTHORITY = get_sample(
+    "connection_take_away_group_operations_authority.xml"
+)
+TEST_CONNECTION_SET_GROUP_ACCESS_ATTRIBUTE = get_sample(
+    "connection_set_group_access_attribute.xml"
+)
+TEST_CONNECTION_REMOVE_GROUP_ACCESS_ATTRIBUTE = get_sample(
+    "connection_remove_group_access_attribute.xml"
+)
 
 # ============================================================================
 # Debug Logging
