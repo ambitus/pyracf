@@ -153,3 +153,21 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.results,
             TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_DICTIONARY,
         )
+
+    # ============================================================================
+    # Extract User with CSDATA
+    # ============================================================================
+
+    def test_user_admin_can_parse_extract_user_base_omvs_csdata_success_xml(
+        self,
+        irrsmo00_init_mock: Mock,
+        call_racf_mock: Mock,
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
+        )
+        self.assertEqual(
+            user_admin.extract({"userid": "squidward", "omvs": True, "csdata": True}),
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
+        )

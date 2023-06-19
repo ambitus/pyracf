@@ -50,3 +50,46 @@ class TestUserRequestBuilder(unittest.TestCase):
         user_admin = self.boilerplate(irrsmo00_init_mock)
         result = user_admin.delete("squidwrd", generate_request_only=True)
         self.assertEqual(result, TestUserConstants.TEST_DELETE_USER_REQUEST_XML)
+
+    # ============================================================================
+    # Generate Requests with Modified Valid_Segment_Traits
+    # ============================================================================
+
+    def test_user_admin_build_alter_request_alternate_segments(
+        self, irrsmo00_init_mock: Mock
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        user_admin.overwrite_field_data(TestUserConstants.TEST_USER_ALTERNATE_SEGMENTS)
+        result = user_admin.alter(
+            TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS,
+            generate_request_only=True,
+        )
+        self.assertEqual(
+            result, TestUserConstants.TEST_ALTER_USER_ALTERNATE_SEGMENTS_REQUEST_XML
+        )
+
+    def test_user_admin_build_alter_request_overwrite_segments(
+        self, irrsmo00_init_mock: Mock
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        user_admin.overwrite_field_data(TestUserConstants.TEST_USER_OVERWRITE_SEGMENTS)
+        result = user_admin.alter(
+            TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS,
+            generate_request_only=True,
+        )
+        self.assertEqual(
+            result, TestUserConstants.TEST_ALTER_USER_OVERWRITE_SEGMENTS_REQUEST_XML
+        )
+
+    def test_user_admin_build_alter_request_update_segments(
+        self, irrsmo00_init_mock: Mock
+    ):
+        user_admin = self.boilerplate(irrsmo00_init_mock)
+        user_admin.add_field_data(TestUserConstants.TEST_USER_UPDATE_SEGMENTS)
+        result = user_admin.alter(
+            TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS,
+            generate_request_only=True,
+        )
+        self.assertEqual(
+            result, TestUserConstants.TEST_ALTER_USER_UPDATE_SEGMENTS_REQUEST_XML
+        )
