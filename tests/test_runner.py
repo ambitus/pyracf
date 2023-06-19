@@ -14,11 +14,11 @@ from tests.connection.test_connection_request_builder import (
 )
 from tests.connection.test_connection_result_parser import TestConnectionResultParser
 from tests.connection.test_connection_setters import TestConnectionSetters
-from tests.dataset.test_dataset_debug_logging import TestDatasetDebugLogging
-from tests.dataset.test_dataset_getters import TestDatasetGetters
-from tests.dataset.test_dataset_request_builder import TestDatasetRequestBuilder
-from tests.dataset.test_dataset_result_parser import TestDatasetResultParser
-from tests.dataset.test_dataset_setters import TestDatasetSetters
+from tests.data_set.test_data_set_debug_logging import TestDataSetDebugLogging
+from tests.data_set.test_data_set_getters import TestDataSetGetters
+from tests.data_set.test_data_set_request_builder import TestDataSetRequestBuilder
+from tests.data_set.test_data_set_result_parser import TestDataSetResultParser
+from tests.data_set.test_data_set_setters import TestDataSetSetters
 from tests.group.test_group_debug_logging import TestGroupDebugLogging
 from tests.group.test_group_getters import TestGroupGetters
 from tests.group.test_group_request_builder import TestGroupRequestBuilder
@@ -56,11 +56,11 @@ def __test_suite() -> unittest.TestSuite:
         TestConnectionRequestBuilder,
         TestConnectionSetters,
         TestConnectionDebugLogging,
-        TestDatasetResultParser,
-        TestDatasetRequestBuilder,
-        TestDatasetGetters,
-        TestDatasetSetters,
-        TestDatasetDebugLogging,
+        TestDataSetResultParser,
+        TestDataSetRequestBuilder,
+        TestDataSetGetters,
+        TestDataSetSetters,
+        TestDataSetDebugLogging,
         TestResourceResultParser,
         TestResourceRequestBuilder,
         TestResourceGetters,

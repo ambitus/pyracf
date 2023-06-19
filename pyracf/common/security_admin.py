@@ -1,7 +1,7 @@
 """Base Class for RACF Administration Interface."""
 
 import json
-from typing import List, Tuple, Union
+from typing import Any, List, Tuple, Union
 
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
@@ -21,35 +21,35 @@ class SecurityAdmin:
     ) -> None:
         self.__irrsmo00 = IRRSMO00()
         self._valid_segment_traits = {}
-        self._common_base_traits_dataset_generic = {
-            "aclcnt": "racf:aclcnt",
-            "aclacnt": "racf:aclacnt",
-            "aclacs": "racf:aclacs",
-            "aclid": "racf:aclid",
-            "acl2cnt": "racf:acl2cnt",
-            "acl2acnt": "racf:acl2acnt",
-            "acl2acs": "racf:acl2acs",
-            "acl2cond": "racf:acl2cond",
-            "acl2ent": "racf:acl2ent",
-            "acl2id": "racf:acl2id",
-            "acsaltr": "racf:acsaltr",
-            "acscntl": "racf:acscntl",
-            "acsread": "racf:acsread",
-            "acsupdt": "racf:acsupdt",
-            "all": "racf:all",
-            "audaltr": "racf:audaltr",
-            "audcntl": "racf:audcntl",
-            "audnone": "racf:audnone",
-            "audread": "racf:audread",
-            "audupdt": "racf:audupdt",
-            "authuser": "racf:authuser",
-            "fvolume": "racf:fvolume",
-            "gaudaltr": "racf:gaudaltr",
-            "gaudcntl": "racf:gaudcntl",
-            "gaudnone": "racf:gaudnone",
-            "gaudread": "racf:gaudread",
-            "gaudupdt": "racf:gaudupdt",
-            "generic": "racf:generic",
+        self._common_base_traits_data_set_generic = {
+            "base:aclcnt": "racf:aclcnt",
+            "base:aclacnt": "racf:aclacnt",
+            "base:aclacs": "racf:aclacs",
+            "base:aclid": "racf:aclid",
+            "base:acl2cnt": "racf:acl2cnt",
+            "base:acl2acnt": "racf:acl2acnt",
+            "base:acl2acs": "racf:acl2acs",
+            "base:acl2cond": "racf:acl2cond",
+            "base:acl2ent": "racf:acl2ent",
+            "base:acl2id": "racf:acl2id",
+            "base:acsaltr": "racf:acsaltr",
+            "base:acscntl": "racf:acscntl",
+            "base:acsread": "racf:acsread",
+            "base:acsupdt": "racf:acsupdt",
+            "base:all": "racf:all",
+            "base:audaltr": "racf:audaltr",
+            "base:audcntl": "racf:audcntl",
+            "base:audnone": "racf:audnone",
+            "base:audread": "racf:audread",
+            "base:audupdt": "racf:audupdt",
+            "base:authuser": "racf:authuser",
+            "base:fvolume": "racf:fvolume",
+            "base:gaudaltr": "racf:gaudaltr",
+            "base:gaudcntl": "racf:gaudcntl",
+            "base:gaudnone": "racf:gaudnone",
+            "base:gaudread": "racf:gaudread",
+            "base:gaudupdt": "racf:gaudupdt",
+            "base:generic": "racf:generic",
         }
         self._segment_traits = {}
         # used to preserve segment traits for debug logging.
@@ -579,6 +579,14 @@ class SecurityAdmin:
         return steps_dictionary
 
     def _get_profile(self, result: dict, index: int = 0) -> dict:
+        "Extract the profile section from a result dictionary"
         return result["securityresult"][self.__profile_type]["commands"][0]["profiles"][
             index
         ]
+
+    def _get_field(self, profile: dict, segment: str, field: str) -> Any:
+        """Extract the value of a field from a segment in a profile."""
+        try:
+            return profile[segment][field]
+        except KeyError:
+            return None

@@ -178,7 +178,7 @@ class ResourceAdmin(SecurityAdmin):
     def get_universal_access(self, resource: str, class_name: str) -> str:
         """Get the universal access for general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
-        return profile["base"]["universal access"]
+        return self._get_field(profile, "base", "universal access")
 
     def set_universal_access(
         self,
@@ -195,7 +195,7 @@ class ResourceAdmin(SecurityAdmin):
     def get_my_access(self, resource: str, class_name: str) -> str:
         """Get the access associated with your own general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
-        return profile["base"]["your access"]
+        return self._get_field(profile, "base", "your access")
 
     # ============================================================================
     # Base Functions
@@ -231,6 +231,9 @@ class ResourceAdmin(SecurityAdmin):
         profile_request = ResourceRequest(resource, class_name, "del")
         return self._make_request(profile_request)
 
+    # ============================================================================
+    # Private/Protected Utility Functions
+    # ============================================================================
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
         messages = result["securityresult"]["resource"]["commands"][0]["messages"]

@@ -6,11 +6,11 @@
 
 {
   "base": {
-    "access": {
+    "base:access": {
       "value": "READ",
       "operation": null
     },
-    "id": {
+    "base:id": {
       "value": "ESWIFT",
       "operation": null
     }

@@ -7,7 +7,7 @@ labels: bug
 ---
 
 **Describe the bug**
-A concise description of what the bug is.
+A description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:

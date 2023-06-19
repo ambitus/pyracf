@@ -4,11 +4,11 @@ from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
 
-from .dataset_request import DatasetRequest
+from .dataset_request import DataSetRequest
 
 
-class DatasetAdmin(SecurityAdmin):
-    """RACF DataSet Profile Administration."""
+class DataSetAdmin(SecurityAdmin):
+    """RACF Data Set Profile Administration."""
 
     def __init__(self, debug=False, generate_requests_only=False) -> None:
         super().__init__(
@@ -59,9 +59,9 @@ class DatasetAdmin(SecurityAdmin):
             "tme": {"tme:roles": "racf:roles"},
         }
         self._valid_segment_traits["base"].update(
-            self._common_base_traits_dataset_generic
+            self._common_base_traits_data_set_generic
         )
-        del self._valid_segment_traits["base"]["generic"]
+        del self._valid_segment_traits["base"]["base:generic"]
 
     # ============================================================================
     # Access
@@ -69,7 +69,7 @@ class DatasetAdmin(SecurityAdmin):
     def get_universal_access(self, data_set: str) -> str:
         """Get universal access for data set profile."""
         profile = self.extract(data_set, profile_only=True)
-        return profile["base"]["universal access"]
+        return self._get_field(profile, "base", "universal access")
 
     def set_universal_access(self, data_set: str, universal_acccess: str) -> dict:
         """Set the universal access for a data set profile."""
@@ -79,7 +79,7 @@ class DatasetAdmin(SecurityAdmin):
     def get_my_access(self, data_set: str) -> str:
         """Get the access associated with your own data set profile."""
         profile = self.extract(data_set, profile_only=True)
-        return profile["base"]["your access"]
+        return self._get_field(profile, "base", "your access")
 
     # ============================================================================
     # Base Functions
@@ -93,9 +93,9 @@ class DatasetAdmin(SecurityAdmin):
     ) -> dict:
         """Create a new data set profile."""
         self._build_segment_dictionaries(traits)
-        dataset_request = DatasetRequest(data_set, "set", volume, generic)
-        self._build_xml_segments(dataset_request)
-        return self._make_request(dataset_request)
+        data_set_request = DataSetRequest(data_set, "set", volume, generic)
+        self._build_xml_segments(data_set_request)
+        return self._make_request(data_set_request)
 
     def alter(
         self,
@@ -106,9 +106,9 @@ class DatasetAdmin(SecurityAdmin):
     ) -> dict:
         """Alter an existing data set profile."""
         self._build_segment_dictionaries(traits)
-        dataset_request = DatasetRequest(data_set, "set", volume, generic)
-        self._build_xml_segments(dataset_request, alter=True)
-        return self._make_request(dataset_request, irrsmo00_options=3)
+        data_set_request = DataSetRequest(data_set, "set", volume, generic)
+        self._build_xml_segments(data_set_request, alter=True)
+        return self._make_request(data_set_request, irrsmo00_options=3)
 
     def extract(
         self,
@@ -120,9 +120,9 @@ class DatasetAdmin(SecurityAdmin):
     ) -> dict:
         """Extract a data set profile."""
         self._build_bool_segment_dictionaries(segments)
-        dataset_request = DatasetRequest(data_set, "listdata", volume, generic)
-        self._build_xml_segments(dataset_request, extract=True)
-        result = self._extract_and_check_result(dataset_request)
+        data_set_request = DataSetRequest(data_set, "listdata", volume, generic)
+        self._build_xml_segments(data_set_request, extract=True)
+        result = self._extract_and_check_result(data_set_request)
         if profile_only:
             return self._get_profile(result)
         return result
@@ -134,8 +134,8 @@ class DatasetAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Delete a data set profile."""
-        dataset_request = DatasetRequest(data_set, "del", volume, generic)
-        return self._make_request(dataset_request)
+        data_set_request = DataSetRequest(data_set, "del", volume, generic)
+        return self._make_request(data_set_request)
 
     # ============================================================================
     # Private/Protected Utility Functions

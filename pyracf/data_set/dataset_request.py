@@ -5,7 +5,7 @@ from typing import Union
 from pyracf.common.security_request import SecurityRequest
 
 
-class DatasetRequest(SecurityRequest):
+class DataSetRequest(SecurityRequest):
     """Data Set Profile Administration Request Builder."""
 
     def __init__(

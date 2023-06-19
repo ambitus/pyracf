@@ -216,9 +216,7 @@ class UserAdmin(SecurityAdmin):
     def has_special_authority(self, userid: str) -> bool:
         """Check if a user has RACF special authority."""
         profile = self.extract(userid, profile_only=True)
-        if "special" in profile["base"]["attributes"]:
-            return True
-        return False
+        return "special" in profile["base"]["attributes"]
 
     def give_special_authority(self, userid: str) -> dict:
         """Give a user RACF special authority."""
@@ -239,9 +237,7 @@ class UserAdmin(SecurityAdmin):
     def has_auditor_authority(self, userid: str) -> bool:
         """Check if a user has auditor authority"""
         profile = self.extract(userid, profile_only=True)
-        if "auditor" in profile["base"]["attributes"]:
-            return True
-        return False
+        return "auditor" in profile["base"]["attributes"]
 
     def give_auditor_authority(self, userid: str) -> dict:
         """Give a user auditor authority."""
@@ -259,9 +255,7 @@ class UserAdmin(SecurityAdmin):
     def has_operations_authority(self, userid: str) -> bool:
         """Check if a user has operations authority."""
         profile = self.extract(userid, profile_only=True)
-        if "operations" in profile["base"]["attributes"]:
-            return True
-        return False
+        return "operations" in profile["base"]["attributes"]
 
     def give_operations_authority(self, userid: str) -> dict:
         """Give a user operations authority."""
@@ -291,10 +285,7 @@ class UserAdmin(SecurityAdmin):
     def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
         """Get a user's class authorizations."""
         profile = self.extract(userid, profile_only=True)
-        try:
-            return profile["base"]["classauthorizations"]
-        except KeyError:
-            return None
+        return self._get_field(profile, "base", "classauthorizations")
 
     def set_class_authorizations(
         self, userid: str, class_authorizations: List[str]
@@ -339,16 +330,9 @@ class UserAdmin(SecurityAdmin):
     def get_omvs_uid(self, userid: str) -> Union[int, None]:
         """Get a user's OMVS UID."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
-        try:
-            return profile["omvs"]["uid"]
-        except KeyError:
-            return None
+        return self._get_field(profile, "omvs", "uid")
 
-    def set_omvs_uid(
-        self,
-        userid: str,
-        uid: int,
-    ) -> dict:
+    def set_omvs_uid(self, userid: str, uid: int) -> dict:
         """Set a user's OMVS UID."""
         result = self.alter(userid, traits={"omvs:uid": uid})
         return self._to_steps(result)
@@ -359,10 +343,7 @@ class UserAdmin(SecurityAdmin):
     def get_omvs_home(self, userid: str) -> Union[str, None]:
         """Get a user's OMVS home directory."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
-        try:
-            return profile["omvs"]["home"]
-        except KeyError:
-            return None
+        return self._get_field(profile, "omvs", "home")
 
     def set_omvs_home(
         self,
@@ -379,10 +360,7 @@ class UserAdmin(SecurityAdmin):
     def get_omvs_program(self, userid: str) -> Union[str, None]:
         """Get a user's OMVS program."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
-        try:
-            return profile["omvs"]["program"]
-        except KeyError:
-            return None
+        return self._get_field(profile, "omvs", "program")
 
     def set_omvs_program(
         self,

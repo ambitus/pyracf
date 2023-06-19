@@ -109,7 +109,7 @@ class SetroptsAdmin(SecurityAdmin):
     def get_password_rules(self) -> str:
         """Get RACF password rules."""
         profile = self.list_racf_options(profile_only=True)
-        return profile["password processing options"]["rules"]
+        return self._get_field(profile, "password processing options", "rules")
 
     # ============================================================================
     # Raclist Refresh

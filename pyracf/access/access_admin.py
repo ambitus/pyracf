@@ -9,37 +9,40 @@ from pyracf.common.security_admin import SecurityAdmin
 class AccessAdmin(SecurityAdmin):
     """RACF Access Administration."""
 
-    def __init__(self, debug=False, generate_requests_only=False) -> None:
+    def __init__(
+        self, debug: bool = False, generate_requests_only: bool = False
+    ) -> None:
         super().__init__(
             "permission", debug=debug, generate_requests_only=generate_requests_only
         )
         self._valid_segment_traits = {
             "base": {
-                "access": "access",
-                "delete": "racf:delete",
-                "fclass": "racf:fclass",
-                "fprofile": "racf:fprofile",
-                "fgeneric": "racf:fgeneric",
-                "fvolume": "racf:fvolume",
-                "generic": "racf:generic",
-                "id": "authid",
-                "profile": "racf:profile",
-                "reset": "racf:reset",
-                "volume": "racf:volume",
-                "whenappc": "racf:whenappc",
-                "whencons": "racf:whencons",
-                "whenjes": "racf:whenjes",
-                "whenprog": "racf:whenprog",
-                "whenserv": "racf:whenserv",
-                "whensms": "racf:whensms",
-                "whensqlr": "racf:whensqlr",
-                "whensrv": "racf:whensrv",
-                "whensys": "racf:whensys",
-                "whenterm": "racf:whenterm",
+                "base:access": "access",
+                "base:delete": "racf:delete",
+                "base:fclass": "racf:fclass",
+                "base:fprofile": "racf:fprofile",
+                "base:fgeneric": "racf:fgeneric",
+                "base:fvolume": "racf:fvolume",
+                "base:id": "authid",
+                "base:profile": "racf:profile",
+                "base:reset": "racf:reset",
+                "base:volume": "racf:volume",
+                "base:whenappc": "racf:whenappc",
+                "base:whencons": "racf:whencons",
+                "base:whenjes": "racf:whenjes",
+                "base:whenprog": "racf:whenprog",
+                "base:whenserv": "racf:whenserv",
+                "base:whensms": "racf:whensms",
+                "base:whensqlr": "racf:whensqlr",
+                "base:whensrv": "racf:whensrv",
+                "base:whensys": "racf:whensys",
+                "base:whenterm": "racf:whenterm",
             }
         }
-        del self._valid_segment_traits["base"]["generic"]
 
+    # ============================================================================
+    # Base Functions
+    # ============================================================================
     def add(
         self,
         resource: str,
@@ -50,7 +53,7 @@ class AccessAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Create a new permission."""
-        traits["id"] = auth_id
+        traits["base:id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
         self._add_traits_directly_to_request_xml_with_no_segments(access_request)
@@ -66,7 +69,7 @@ class AccessAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Alter an existing permission."""
-        traits["id"] = auth_id
+        traits["base:id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
         self._add_traits_directly_to_request_xml_with_no_segments(
@@ -83,7 +86,7 @@ class AccessAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Delete a permission."""
-        traits = {"id": auth_id}
+        traits = {"base:id": auth_id}
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "del", volume, generic)
         self._add_traits_directly_to_request_xml_with_no_segments(access_request)

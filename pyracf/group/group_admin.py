@@ -52,17 +52,7 @@ class GroupAdmin(SecurityAdmin):
     def has_group_special_authority(self, group: str, userid: str) -> dict:
         """Check if a user is connected to a group with group special authority."""
         profile = self.extract(group, profile_only=True)
-        if profile["base"]["users"] is None:
-            return False
-        connect_profile = [
-            user
-            for user in profile["base"]["users"]
-            if user["userid"].lower() == userid.lower()
-        ]
-        if connect_profile:
-            if "special" in connect_profile[0]["connectattributes"]:
-                return True
-        return False
+        return self.__has_connect_attribute(userid, profile, "special")
 
     # ============================================================================
     # Group Operations
@@ -70,17 +60,7 @@ class GroupAdmin(SecurityAdmin):
     def has_group_operations_authority(self, group: str, userid: str) -> dict:
         """Check if a user is connected to a group with group operations authority."""
         profile = self.extract(group, profile_only=True)
-        if profile["base"]["users"] is None:
-            return False
-        connect_profile = [
-            user
-            for user in profile["base"]["users"]
-            if user["userid"].lower() == userid.lower()
-        ]
-        if connect_profile:
-            if "operations" in connect_profile[0]["connectattributes"]:
-                return True
-        return False
+        return self.__has_connect_attribute(userid, profile, "operations")
 
     # ============================================================================
     # Group Auditor
@@ -88,17 +68,7 @@ class GroupAdmin(SecurityAdmin):
     def has_group_auditor_authority(self, group: str, userid: str) -> dict:
         """Check if a user is connected to a group with group auditor authority."""
         profile = self.extract(group, profile_only=True)
-        if profile["base"]["users"] is None:
-            return False
-        connect_profile = [
-            user
-            for user in profile["base"]["users"]
-            if user["userid"].lower() == userid.lower()
-        ]
-        if connect_profile:
-            if "auditor" in connect_profile[0]["connectattributes"]:
-                return True
-        return False
+        return self.__has_connect_attribute(userid, profile, "auditor")
 
     # ============================================================================
     # Group Access
@@ -106,17 +76,7 @@ class GroupAdmin(SecurityAdmin):
     def has_group_access_attribute(self, group: str, userid: str) -> dict:
         """Check if a user is connected to a group with the group access attribute."""
         profile = self.extract(group, profile_only=True)
-        if profile["base"]["users"] is None:
-            return False
-        connect_profile = [
-            user
-            for user in profile["base"]["users"]
-            if user["userid"].lower() == userid.lower()
-        ]
-        if connect_profile:
-            if "grpacc" in connect_profile[0]["connectattributes"]:
-                return True
-        return False
+        return self.__has_connect_attribute(userid, profile, "grpacc")
 
     # ============================================================================
     # OMVS GID
@@ -124,10 +84,7 @@ class GroupAdmin(SecurityAdmin):
     def get_omvs_gid(self, group: str) -> Union[str, int]:
         """Get a group's OMVS GID."""
         profile = self.extract(group, segments={"omvs": True}, profile_only=True)
-        try:
-            return profile["omvs"]["gid"]
-        except KeyError:
-            return None
+        return self._get_field(profile, "omvs", "gid")
 
     def set_omvs_gid(self, group: str, gid: int) -> dict:
         """Set a group's OMVS GID."""
@@ -140,10 +97,7 @@ class GroupAdmin(SecurityAdmin):
     def get_ovm_gid(self, group: str) -> Union[str, int]:
         """Get a group's OVM GID."""
         profile = self.extract(group, segments={"ovm": True}, profile_only=True)
-        try:
-            return profile["ovm"]["gid"]
-        except KeyError:
-            return None
+        return self._get_field(profile, "ovm", "gid")
 
     def set_ovm_gid(self, group: str, gid: int) -> dict:
         """Set a group's OVM GID."""
@@ -208,3 +162,19 @@ class GroupAdmin(SecurityAdmin):
         # Post processing
         del result["securityresult"]["group"]["commands"][0]["messages"]
         result["securityresult"]["group"]["commands"][0]["profiles"] = profiles
+
+    def __has_connect_attribute(
+        self, userid: str, profile: dict, attribute: str
+    ) -> bool:
+        """check if a user has a connect attribute in a group profile."""
+        if profile["base"]["users"] is None:
+            return False
+        connect_profile = [
+            user
+            for user in profile["base"]["users"]
+            if user["userid"].lower() == userid.lower()
+        ]
+        if connect_profile:
+            if attribute in connect_profile[0]["connectattributes"]:
+                return True
+        return False

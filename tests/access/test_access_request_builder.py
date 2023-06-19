@@ -22,12 +22,18 @@ class TestAccessRequestBuilder(unittest.TestCase):
 
     def test_access_admin_build_add_access_request(self, irrsmo00_init_mock: Mock):
         access_admin = self.boilerplate(irrsmo00_init_mock)
-        result = access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"access": "READ"})
+        result = access_admin.add(
+            "TESTING", "ELIJTEST", "ESWIFT", {"base:access": "READ"}
+        )
+        print(result)
+        print(TestAccessConstants.TEST_ADD_ACCESS_REQUEST_XML)
         self.assertEqual(result, TestAccessConstants.TEST_ADD_ACCESS_REQUEST_XML)
 
     def test_access_admin_build_alter_access_request(self, irrsmo00_init_mock: Mock):
         access_admin = self.boilerplate(irrsmo00_init_mock)
-        result = access_admin.alter("TESTING", "ELIJTEST", "ESWIFT", {"access": "NONE"})
+        result = access_admin.alter(
+            "TESTING", "ELIJTEST", "ESWIFT", {"base:access": "NONE"}
+        )
         self.assertEqual(result, TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_XML)
 
     def test_access_admin_build_delete_access_request(self, irrsmo00_init_mock: Mock):

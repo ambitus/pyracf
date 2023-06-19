@@ -40,7 +40,7 @@ class TestAccessDebugLogging(unittest.TestCase):
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_XML
         )
         with contextlib.redirect_stdout(self.stdout):
-            access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"access": "READ"})
+            access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"base:access": "READ"})
         success_log = self.ansi_escape.sub("", self.stdout.getvalue())
         self.assertEqual(success_log, TestAccessConstants.TEST_ADD_ACCESS_SUCCESS_LOG)
 
@@ -55,7 +55,9 @@ class TestAccessDebugLogging(unittest.TestCase):
         )
         with contextlib.redirect_stdout(self.stdout):
             try:
-                access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"access": "READ"})
+                access_admin.add(
+                    "TESTING", "ELIJTEST", "ESWIFT", {"base:access": "READ"}
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", self.stdout.getvalue())

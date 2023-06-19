@@ -35,7 +35,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"access": "READ"}),
+            access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"base:access": "READ"}),
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -50,7 +50,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"access": "READ"})
+            access_admin.add("TESTING", "ELIJTEST", "ESWIFT", {"base:access": "READ"})
         self.assertEqual(
             exception.exception.results,
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_DICTIONARY,
@@ -69,7 +69,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            access_admin.alter("TESTING", "ELITEST", "ESWIFT", {"access": "NONE"}),
+            access_admin.alter("TESTING", "ELITEST", "ESWIFT", {"base:access": "NONE"}),
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -84,7 +84,9 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            access_admin.alter("TESTING", "ELITEST", "MCGINLEY", {"access": "NONE"})
+            access_admin.alter(
+                "TESTING", "ELITEST", "MCGINLEY", {"base:access": "NONE"}
+            )
         self.assertEqual(
             exception.exception.results,
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY,
