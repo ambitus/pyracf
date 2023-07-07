@@ -5,10 +5,10 @@ Python interface into the RACF management application programming interface.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.get_omvs_uid("squidwrd")
 2424
->>> user_admin.set_uid("squidwrd", 1919)
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.set_omvs_uid("squidwrd", 1919)
+>>> user_admin.get_omvs_uid("squidwrd")
 1919
 ```
 
