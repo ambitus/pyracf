@@ -1,12 +1,12 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                               DatasetAdmin.add()                              
+                               DataSetAdmin.add()                              
                                                                                
 
 {
   "base": {
-    "base:universal-access": {
+    "base:universal_access": {
       "value": "None",
       "operation": null
     },
@@ -20,7 +20,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                               DatasetAdmin.add()                              
+                               DataSetAdmin.add()                              
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -35,7 +35,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                               DatasetAdmin.add()                              
+                               DataSetAdmin.add()                              
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -63,30 +63,30 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                               DatasetAdmin.add()                              
+                               DataSetAdmin.add()                              
                                                                                
 
 {
-  "securityresult": {
-    "dataset": {
+  "securityResult": {
+    "dataSet": {
       "name": "ESWIFF.TEST.T1136242.P3020470",
       "operation": "set",
       "generic": "no",
-      "requestid": "DatasetRequest",
+      "requestId": "DatasetRequest",
       "commands": [
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 4,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
           "image": "ADDSD                ('ESWIFF.TEST.T1136242.P3020470')",
           "messages": [
             "ICH09006I USER OR GROUP ESWIFF   NOT DEFINED TO RACF"
           ]
         },
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 4,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
           "image": "ALTDSD               ('ESWIFF.TEST.T1136242.P3020470')  UACC        (None) OWNER       (eswift)",
           "messages": [
             "ICH22001I ESWIFF.TEST.T1136242.P3020470 NOT DEFINED TO RACF"
@@ -94,8 +94,8 @@
         }
       ]
     },
-    "returncode": 4,
-    "reasoncode": 4
+    "returnCode": 4,
+    "reasonCode": 4
   }
 }
 

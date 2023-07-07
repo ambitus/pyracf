@@ -78,7 +78,7 @@ TEST_DELETE_DATA_SET_RESULT_ERROR_DICTIONARY = get_sample(
 # Add Data Set
 TEST_ADD_DATA_SET_REQUEST_XML = get_sample("add_data_set_request.xml")
 TEST_ADD_DATA_SET_REQUEST_TRAITS = {
-    "base:universal-access": "None",
+    "base:universal_access": "None",
     "base:owner": "eswift",
 }
 
@@ -88,7 +88,7 @@ TEST_ADD_DATA_SET_REQUEST_GENERIC_XML = get_sample("add_data_set_request_generic
 # Alter Data Set
 TEST_ALTER_DATA_SET_REQUEST_XML = get_sample("alter_data_set_request.xml")
 TEST_ALTER_DATA_SET_REQUEST_TRAITS = {
-    "base:universal-access": "Read",
+    "base:universal_access": "Read",
     "base:owner": "eswift",
 }
 

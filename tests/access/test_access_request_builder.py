@@ -1,42 +1,35 @@
 """Test access request builder."""
 
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
 from pyracf import AccessAdmin
+from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
 
 
-@patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
 class TestAccessRequestBuilder(unittest.TestCase):
     maxDiff = None
+    IRRSMO00.__init__ = Mock(return_value=None)
+    access_admin = AccessAdmin(generate_requests_only=True)
 
-    def boilerplate(self, irrsmo00_init_mock: Mock) -> AccessAdmin:
-        irrsmo00_init_mock.return_value = None
-        return AccessAdmin(generate_requests_only=True)
-
-    def test_access_admin_build_add_access_request(self, irrsmo00_init_mock: Mock):
-        access_admin = self.boilerplate(irrsmo00_init_mock)
-        result = access_admin.add(
-            "TESTING", "ELIJTEST", "ESWIFT", {"base:access": "READ"}
+    def test_access_admin_build_add_access_request(self):
+        result = self.access_admin.add(
+            "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "READ"}
         )
-        print(result)
-        print(TestAccessConstants.TEST_ADD_ACCESS_REQUEST_XML)
         self.assertEqual(result, TestAccessConstants.TEST_ADD_ACCESS_REQUEST_XML)
 
-    def test_access_admin_build_alter_access_request(self, irrsmo00_init_mock: Mock):
-        access_admin = self.boilerplate(irrsmo00_init_mock)
-        result = access_admin.alter(
-            "TESTING", "ELIJTEST", "ESWIFT", {"base:access": "NONE"}
+    def test_access_admin_build_alter_access_request(self):
+        result = self.access_admin.alter(
+            "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "NONE"}
         )
         self.assertEqual(result, TestAccessConstants.TEST_ALTER_ACCESS_REQUEST_XML)
 
-    def test_access_admin_build_delete_access_request(self, irrsmo00_init_mock: Mock):
-        access_admin = self.boilerplate(irrsmo00_init_mock)
-        result = access_admin.delete("TESTING", "ELIJTEST", "ESWIFT")
+    def test_access_admin_build_delete_access_request(self):
+        result = self.access_admin.delete("TESTING", "ELIJTEST", "ESWIFT")
         self.assertEqual(result, TestAccessConstants.TEST_DELETE_ACCESS_REQUEST_XML)

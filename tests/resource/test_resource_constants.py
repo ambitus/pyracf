@@ -72,22 +72,22 @@ TEST_DELETE_RESOURCE_RESULT_ERROR_DICTIONARY = get_sample(
 # Add Resource
 TEST_ADD_RESOURCE_REQUEST_XML = get_sample("add_resource_request.xml")
 TEST_ADD_RESOURCE_REQUEST_TRAITS = {
-    "base:universal-access": "None",
+    "base:universal_access": "None",
     "base:owner": "eswift",
 }
 TEST_ADD_RESOURCE_REQUEST_ERROR_TRAITS = {
-    "base:universal-access": "None",
+    "base:universal_access": "None",
     "base:owner": "eswift",
 }
 
 # Alter Resource
 TEST_ALTER_RESOURCE_REQUEST_XML = get_sample("alter_resource_request.xml")
 TEST_ALTER_RESOURCE_REQUEST_TRAITS = {
-    "base:universal-access": "Read",
+    "base:universal_access": "Read",
     "base:owner": "eswift",
 }
 TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS = {
-    "base:universal-access": "ALL",
+    "base:universal_access": "ALL",
     "base:owner": "eswift",
 }
 

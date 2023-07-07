@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <systemsettings operation="set" requestid="SetroptsRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>SETROPTS   LIST</image>
+      <message>ATTRIBUTES = INITSTATS NOWHEN(PROGRAM) TERMINAL(READ) SAUDIT CMDVIOL NOOPERAUDIT</message>
+      <message>STATISTICS = DATASET AIMS APPL DASDVOL GCICSTRN GIMS PCICSPSB QCICSPSB TAPEVOL</message>
+      <message>TCICSTRN TERMINAL TIMS</message>
+      <message>AUDIT CLASSES = DATASET USER GROUP AIMS APPL DASDVOL GCICSTRN GIMS</message>
+      <message>PCICSPSB QCICSPSB TAPEVOL TCICSTRN TERMINAL TIMS</message>
+      <message>ACTIVE CLASSES = DATASET USER GROUP ACICSPCT AIMS APPL BCICSPCT CCICSCMD DASDVOL</message>
+      <message>DCICSDCT ECICSDCT FCICSFCT GCICSTRN GIMS GLOBAL GMBR HCICSFCT</message>
+      <message>JCICSJCT KCICSJCT MCICSPPT NCICSPPT PCICSPSB QCICSPSB RACGLIST</message>
+      <message>SCICSTST TAPEVOL TCICSTRN TERMINAL TIMS UCICSTST VCICSCMD VMRDR</message>
+      <message>VMMDISK</message>
+      <message>GENERIC PROFILE CLASSES = DATASET ACICSPCT AIMS APPL CCICSCMD DASDVOL DCICSDCT</message>
+      <message>FCICSFCT GMBR JCICSJCT MCICSPPT PCICSPSB SCICSTST</message>
+      <message>TAPEVOL TCICSTRN TERMINAL TIMS VMBATCH VMCMD VMMDISK</message>
+      <message>VMNODE VMRDR</message>
+      <message>GENERIC COMMAND CLASSES = DATASET ACICSPCT AIMS APPL CCICSCMD DASDVOL DCICSDCT</message>
+      <message>FCICSFCT GMBR JCICSJCT MCICSPPT PCICSPSB SCICSTST</message>
+      <message>TAPEVOL TCICSTRN TERMINAL TIMS VMBATCH VMCMD VMMDISK</message>
+      <message>VMNODE VMRDR</message>
+      <message>GENLIST CLASSES = NONE</message>
+      <message>GLOBAL CHECKING CLASSES = VMMDISK</message>
+      <message>SETR RACLIST CLASSES = ACCTNUM DASDVOL</message>
+      <message>GLOBAL=YES RACLIST ONLY = JCICSJCT TCICSTRN</message>
+      <message>LOGOPTIONS "ALWAYS" CLASSES = DASDVOL GDASDVOL SECLABEL</message>
+      <message>LOGOPTIONS "NEVER" CLASSES = FACILITY VMXEVENT VXMBR</message>
+      <message>LOGOPTIONS "SUCCESSES" CLASSES = APPCLU RACFVARS RVARSMBR</message>
+      <message>LOGOPTIONS "FAILURES" CLASSES = DATASET PMBR PROGRAM PROPCNTL</message>
+      <message>LOGOPTIONS "DEFAULT" CLASSES = GTERMINL TAPEVOL TERMINAL</message>
+      <message>AUTOMATIC DATASET PROTECTION IS IN EFFECT</message>
+      <message>ENHANCED GENERIC NAMING IS IN EFFECT</message>
+      <message>REAL DATA SET NAMES OPTION IS ACTIVE</message>
+      <message>JES-BATCHALLRACF OPTION IS INACTIVE</message>
+      <message>JES-XBMALLRACF OPTION IS INACTIVE</message>
+      <message>JES-EARLYVERIFY OPTION IS INACTIVE</message>
+      <message>PROTECT-ALL OPTION IS NOT IN EFFECT</message>
+      <message>TAPE DATA SET PROTECTION IS ACTIVE</message>
+      <message>SECURITY RETENTION PERIOD IN EFFECT IS 365 DAYS</message>
+      <message>ERASE-ON-SCRATCH IS INACTIVE</message>
+      <message>SINGLE LEVEL NAME PREFIX IS RDSPRFX</message>
+      <message>LIST OF GROUPS ACCESS CHECKING IS ACTIVE.</message>
+      <message>INACTIVE USERIDS ARE NOT BEING AUTOMATICALLY REVOKED.</message>
+      <message>DATA SET MODELLING NOT BEING DONE FOR GDGS.</message>
+      <message>USER DATA SET MODELLING IS BEING DONE.</message>
+      <message>GROUP DATA SET MODELLING IS BEING DONE.</message>
+      <message>PASSWORD PROCESSING OPTIONS:</message>
+      <message>THE ACTIVE PASSWORD ENCRYPTION ALGORITHM IS KDFAES</message>
+      <message>PASSWORD CHANGE INTERVAL IS 254 DAYS.</message>
+      <message>PASSWORD MINIMUM CHANGE INTERVAL IS 2 DAYS.</message>
+      <message>MIXED CASE PASSWORD SUPPORT IS IN EFFECT.</message>
+      <message>SPECIAL CHARACTERS ARE ALLOWED.</message>
+      <message>13 GENERATIONS OF PREVIOUS PASSWORDS BEING MAINTAINED.</message>
+      <message>AFTER  4 CONSECUTIVE UNSUCCESSFUL PASSWORD ATTEMPTS, A USERID WILL BE REVOKED.</message>
+      <message>PASSWORD EXPIRATION WARNING LEVEL IS 186 DAYS.</message>
+      <message>INSTALLATION PASSWORD SYNTAX RULES:</message>
+      <message>RULE 1 LENGTH(4:5)  LLLLL</message>
+      <message>RULE 2 LENGTH(5)   AAAAA</message>
+      <message>RULE 3 LENGTH(6:8)  LLLLLLLL</message>
+      <message>RULE 4 LENGTH(6:8)  NNNNNNNN</message>
+      <message>RULE 5 LENGTH(6:8)  AAAAAAAA</message>
+      <message>LEGEND:</message>
+      <message>A-ALPHA C-CONSONANT L-ALPHANUM N-NUMERIC V-VOWEL W-NOVOWEL *-ANYTHING</message>
+      <message>c-MIXED CONSONANT m-MIXED NUMERIC v-MIXED VOWEL $-NATIONAL s-SPECIAL x-MIXEDALL</message>
+      <message>DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE SWITCH FUNCTION.</message>
+      <message>DEFAULT RVARY PASSWORD IS IN EFFECT FOR THE STATUS FUNCTION.</message>
+      <message>SECLEVELAUDIT IS INACTIVE</message>
+      <message>SECLABEL AUDIT IS IN EFFECT</message>
+      <message>SECLABEL CONTROL IS IN EFFECT</message>
+      <message>GENERIC OWNER ONLY IS IN EFFECT</message>
+      <message>COMPATIBILITY MODE IS IN EFFECT</message>
+      <message>MULTI-LEVEL QUIET IS IN EFFECT</message>
+      <message>MULTI-LEVEL STABLE IS IN EFFECT</message>
+      <message>NO WRITE-DOWN IS IN EFFECT. CURRENT OPTIONS:</message>
+      <message>"MLS WARNING" OPTION IS IN EFFECT</message>
+      <message>MULTI-LEVEL SECURE IS IN EFFECT. CURRENT OPTIONS:</message>
+      <message>"MLS WARNING" OPTION IS IN EFFECT</message>
+      <message>MULTI-LEVEL ACTIVE IS IN EFFECT. CURRENT OPTIONS:</message>
+      <message>"MLACTIVE FAIL" OPTION IS IN EFFECT</message>
+      <message>CATALOGUED DATA SETS ONLY, IS IN EFFECT. CURRENT OPTIONS:</message>
+      <message>"CATDSNS WARNING" OPTION IS IN EFFECT</message>
+      <message>USER-ID FOR JES NJEUSERID IS : ????????</message>
+      <message>USER-ID FOR JES UNDEFINEDUSER IS : ++++++++</message>
+      <message>PARTNER LU-VERIFICATION SESSIONKEY INTERVAL MAXIMUM/DEFAULT IS  30 days</message>
+      <message>APPLAUDIT IS IN EFFECT</message>
+      <message>ADDCREATOR IS IN EFFECT</message>
+      <message>KERBLVL = 0</message>
+      <message>MULTI-LEVEL FILE SYSTEM IS IN EFFECT</message>
+      <message>MULTI-LEVEL INTERPROCESS COMMUNICATIONS IS IN EFFECT</message>
+      <message>MULTI-LEVEL NAME HIDING IS NOT IN EFFECT</message>
+      <message>SECURITY LABEL BY SYSTEM IS NOT IN EFFECT</message>
+      <message>PRIMARY LANGUAGE DEFAULT : ENU / AMERICAN</message>
+      <message>SECONDARY LANGUAGE DEFAULT : ENU / AMERICAN</message>
+    </command>
+  </systemsettings>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

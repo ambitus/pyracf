@@ -1,20 +1,20 @@
 {
-  "securityresult": {
-    "groupconnection": {
+  "securityResult": {
+    "groupConnection": {
       "name": "ESWIFT",
       "group": "TESTGRP0",
       "operation": "set",
-      "requestid": "ConnectionRequest",
+      "requestId": "ConnectionRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)"
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }

@@ -66,17 +66,17 @@
                                                                                
 
 {
-  "securityresult": {
+  "securityResult": {
     "resource": {
       "name": "TESTING",
       "class": "ELIJTEST",
       "operation": "listdata",
-      "requestid": "ResourceRequest",
+      "requestId": "ResourceRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "RLIST   ELIJTEST             (TESTING) ",
           "messages": [
             "CLASS      NAME",
@@ -106,8 +106,8 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 
@@ -118,17 +118,17 @@
                                                                                
 
 {
-  "securityresult": {
+  "securityResult": {
     "resource": {
       "name": "TESTING",
       "class": "ELIJTEST",
       "operation": "listdata",
-      "requestid": "ResourceRequest",
+      "requestId": "ResourceRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "RLIST   ELIJTEST             (TESTING) ",
           "profiles": [
             {
@@ -137,12 +137,14 @@
                 "name": "testing",
                 "level": 0,
                 "owner": "eswift",
-                "universal access": "read",
-                "your access": "read",
+                "universalAccess": "read",
+                "yourAccess": "read",
                 "warning": null,
-                "installation data": null,
-                "application data": null,
-                "auditing": "failures(read)",
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "failures": "read"
+                },
                 "notify": null,
                 "generic": false
               }
@@ -151,8 +153,8 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 

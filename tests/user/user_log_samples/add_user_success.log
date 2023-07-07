@@ -61,31 +61,31 @@
                                                                                
 
 {
-  "securityresult": {
+  "securityResult": {
     "user": {
       "name": "SQUIDWRD",
       "operation": "set",
-      "requestid": "UserRequest",
+      "requestId": "UserRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "ADDUSER SQUIDWRD ",
           "messages": [
             "ICH01024I User SQUIDWRD is defined as PROTECTED."
           ]
         },
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 

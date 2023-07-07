@@ -91,10 +91,6 @@ TEST_ALTER_USER_REQUEST_TRAITS = {
 TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
     "extract_user_request_base_omvs.xml"
 )
-TEST_EXTRACT_USER_REQUEST_BASE_OMVS_TRAITS = {
-    "omvs": True,
-    "mfa": False,
-}
 
 # Delete User
 TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
@@ -155,3 +151,44 @@ TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG = get_sample(
     "extract_user_base_omvs_success.log"
 )
 TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error.log")
+
+# ============================================================================
+# Custom Field Data
+# ============================================================================
+
+# Alter User Traits
+TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
+    "base:special": False,
+    "omvs:home": "/u/clarinet",
+    "omvs:program": False,
+    "csdata:tstcsfld": "testval",
+}
+
+# Valid Segment Traits Updates
+TEST_USER_UPDATE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
+
+TEST_USER_ALTERNATE_SEGMENTS = {
+    "base": {"base:special": "alt:special"},
+    "csdata": {"csdata:tstcsfld": "tstcsfld"},
+}
+
+TEST_USER_OVERWRITE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
+
+# Alter User Requests
+TEST_ALTER_USER_REQUEST_ALTERNATIVE_SEGMENTS_XML = get_sample(
+    "alter_user_request_alternative_segments.xml"
+)
+TEST_ALTER_USER_REQUEST_OVERWRITE_SEGMENTS_XML = get_sample(
+    "alter_user_request_overwrite_segments.xml"
+)
+TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML = get_sample(
+    "alter_user_request_update_segments.xml"
+)
+
+# Extract User Results
+TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML = get_sample(
+    "extract_user_result_base_omvs_csdata_success.xml"
+)
+TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
+    "extract_user_result_base_omvs_csdata_success.json"
+)

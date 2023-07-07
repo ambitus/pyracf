@@ -30,6 +30,18 @@ TEST_LIST_SETROPTS_RESULT_SUCCESS_XML = get_sample("list_setropts_result_success
 TEST_LIST_SETROPTS_RESULT_SUCCESS_DICTIONARY = get_sample(
     "list_setropts_result_success.json"
 )
+TEST_LIST_SETROPTS_RESULT_SUCCESS_2_XML = get_sample(
+    "list_setropts_result_success_2.xml"
+)
+TEST_LIST_SETROPTS_RESULT_SUCCESS_2_DICTIONARY = get_sample(
+    "list_setropts_result_success_2.json"
+)
+TEST_LIST_SETROPTS_RESULT_SUCCESS_3_XML = get_sample(
+    "list_setropts_result_success_3.xml"
+)
+TEST_LIST_SETROPTS_RESULT_SUCCESS_3_DICTIONARY = get_sample(
+    "list_setropts_result_success_3.json"
+)
 
 # ============================================================================
 # Setropts Administration Request Sample Data
@@ -85,14 +97,29 @@ TEST_SETROPTS_REFRESH_RACLIST_XML = get_sample("setropts_refresh_raclist.xml")
 # Setropts Administration Getters Comparison Data
 # ============================================================================
 
-TEST_SETROPTS_PASSWORD_RULES = [
-    {"minlength": 4, "maxlength": 8, "content": "********", "legend": {"*": "ANYTHING"}}
-]
+TEST_SETROPTS_PASSWORD_RULES = {
+    "rules": [{"minLength": 4, "maxLength": 8, "content": "********"}],
+    "legend": {
+        "A": "alpha",
+        "C": "consonant",
+        "L": "alphanum",
+        "N": "numeric",
+        "V": "vowel",
+        "W": "no vowel",
+        "*": "anything",
+        "c": "mixed consonant",
+        "m": "mixed numeric",
+        "v": "mixed vowel",
+        "$": "national",
+        "s": "special",
+        "x": "mixed all",
+    },
+}
 TEST_SETROPTS_CLASS_ATTRIBUTES = [
     "active",
-    "generic profile",
-    "generic command",
-    "setr raclist",
+    "genericProfile",
+    "genericCommand",
+    "raclist",
 ]
 
 # ============================================================================
@@ -103,3 +130,5 @@ TEST_ALTER_SETROPTS_SUCCESS_LOG = get_sample("alter_setropts_success.log")
 TEST_ALTER_SETROPTS_ERROR_LOG = get_sample("alter_setropts_error.log")
 
 TEST_LIST_SETROPTS_SUCCESS_LOG = get_sample("list_setropts_success.log")
+TEST_LIST_SETROPTS_SUCCESS_2_LOG = get_sample("list_setropts_success_2.log")
+TEST_LIST_SETROPTS_SUCCESS_3_LOG = get_sample("list_setropts_success_3.log")

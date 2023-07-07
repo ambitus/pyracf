@@ -6,6 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
+from pyracf.common.irrsmo00 import IRRSMO00
 from pyracf.common.security_request_error import SecurityRequestError
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
@@ -14,71 +15,60 @@ __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-@patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
 class TestSetroptsGetters(unittest.TestCase):
     maxDiff = None
-
-    def boilerplate(self, irrsmo00_init_mock: Mock) -> SetroptsAdmin:
-        irrsmo00_init_mock.return_value = None
-        return SetroptsAdmin()
+    IRRSMO00.__init__ = Mock(return_value=None)
+    setropts_admin = SetroptsAdmin()
 
     # ============================================================================
     # Password Rules
     # ============================================================================
     def test_setropts_admin_get_password_rules(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            setropts_admin.get_password_rules(),
+            self.setropts_admin.get_password_rules(),
             TestSetroptsConstants.TEST_SETROPTS_PASSWORD_RULES,
         )
 
     # Error in misspelled SETROPTS parameter
     def test_setropts_admin_get_password_rules_raises_an_exception_when_extract_fails(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            setropts_admin.get_password_rules()
+            self.setropts_admin.get_password_rules()
 
     # ============================================================================
     # Class Types
     # ============================================================================
     def test_setropts_admin_get_class_types(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         setropts_extract_auditor = (
             TestSetroptsConstants.TEST_LIST_SETROPTS_RESULT_SUCCESS_XML
         )
         call_racf_mock.return_value = setropts_extract_auditor
         self.assertEqual(
-            setropts_admin.get_class_types("FACILITY"),
+            self.setropts_admin.get_class_types("FACILITY"),
             TestSetroptsConstants.TEST_SETROPTS_CLASS_ATTRIBUTES,
         )
 
     # Error in misspelled SETROPTS parameter
     def test_setropts_admin_get_class_types_raises_an_exception_when_extract_fails(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        setropts_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            setropts_admin.get_class_types("FACILITY")
+            self.setropts_admin.get_class_types("FACILITY")

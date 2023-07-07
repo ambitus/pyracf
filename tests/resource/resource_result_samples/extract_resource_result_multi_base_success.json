@@ -1,30 +1,32 @@
 {
-  "securityresult": {
+  "securityResult": {
     "resource": {
       "name": "*",
       "class": "XFACILIT",
       "operation": "listdata",
-      "requestid": "ResourceRequest",
+      "requestId": "ResourceRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "RLIST   XFACILIT             (*) ",
           "profiles": [
             {
               "base": {
                 "class": "xfacilit",
                 "name": "irr.irrsmo00.precheck",
-                "group class name": "gxfacili",
+                "groupClassName": "gxfacili",
                 "level": 0,
                 "owner": "eswift",
-                "universal access": "read",
-                "your access": "alter",
+                "universalAccess": "read",
+                "yourAccess": "alter",
                 "warning": null,
-                "installation data": null,
-                "application data": null,
-                "auditing": "failures(read)",
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "failures": "read"
+                },
                 "notify": null,
                 "generic": false
               }
@@ -33,15 +35,17 @@
               "base": {
                 "class": "xfacilit",
                 "name": "hzs.**",
-                "group class name": "gxfacili",
+                "groupClassName": "gxfacili",
                 "level": 0,
                 "owner": "sys1",
-                "universal access": "read",
-                "your access": "read",
+                "universalAccess": "read",
+                "yourAccess": "read",
                 "warning": "yes",
-                "installation data": null,
-                "application data": null,
-                "auditing": "failures(read)",
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "failures": "read"
+                },
                 "notify": null,
                 "generic": true
               }
@@ -50,7 +54,7 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }

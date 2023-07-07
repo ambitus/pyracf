@@ -9,36 +9,45 @@ from pyracf.common.security_admin import SecurityAdmin
 class AccessAdmin(SecurityAdmin):
     """RACF Access Administration."""
 
+    _valid_segment_traits = {
+        "base": {
+            "base:access": "access",
+            "base:delete": "racf:delete",
+            "base:fclass": "racf:fclass",
+            "base:fprofile": "racf:fprofile",
+            "base:fgeneric": "racf:fgeneric",
+            "base:fvolume": "racf:fvolume",
+            "base:id": "authid",
+            "base:profile": "racf:profile",
+            "base:reset": "racf:reset",
+            "base:volume": "racf:volume",
+            "base:whenappc": "racf:whenappc",
+            "base:whencons": "racf:whencons",
+            "base:whenjes": "racf:whenjes",
+            "base:whenprog": "racf:whenprog",
+            "base:whenserv": "racf:whenserv",
+            "base:whensms": "racf:whensms",
+            "base:whensqlr": "racf:whensqlr",
+            "base:whensrv": "racf:whensrv",
+            "base:whensys": "racf:whensys",
+            "base:whenterm": "racf:whenterm",
+        }
+    }
+
     def __init__(
-        self, debug: bool = False, generate_requests_only: bool = False
+        self,
+        debug: bool = False,
+        generate_requests_only: bool = False,
+        add_field_data: Union[dict, None] = None,
+        overwrite_field_data: Union[dict, None] = None,
     ) -> None:
         super().__init__(
-            "permission", debug=debug, generate_requests_only=generate_requests_only
+            "permission",
+            debug=debug,
+            generate_requests_only=generate_requests_only,
+            add_field_data=add_field_data,
+            overwrite_field_data=overwrite_field_data,
         )
-        self._valid_segment_traits = {
-            "base": {
-                "base:access": "access",
-                "base:delete": "racf:delete",
-                "base:fclass": "racf:fclass",
-                "base:fprofile": "racf:fprofile",
-                "base:fgeneric": "racf:fgeneric",
-                "base:fvolume": "racf:fvolume",
-                "base:id": "authid",
-                "base:profile": "racf:profile",
-                "base:reset": "racf:reset",
-                "base:volume": "racf:volume",
-                "base:whenappc": "racf:whenappc",
-                "base:whencons": "racf:whencons",
-                "base:whenjes": "racf:whenjes",
-                "base:whenprog": "racf:whenprog",
-                "base:whenserv": "racf:whenserv",
-                "base:whensms": "racf:whensms",
-                "base:whensqlr": "racf:whensqlr",
-                "base:whensrv": "racf:whensrv",
-                "base:whensys": "racf:whensys",
-                "base:whenterm": "racf:whenterm",
-            }
-        }
 
     # ============================================================================
     # Base Functions

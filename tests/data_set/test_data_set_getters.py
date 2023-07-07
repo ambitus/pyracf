@@ -7,6 +7,7 @@ import __init__
 
 import tests.data_set.test_data_set_constants as TestDataSetConstants
 from pyracf import DataSetAdmin
+from pyracf.common.irrsmo00 import IRRSMO00
 from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
@@ -14,37 +15,30 @@ __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-@patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
 class TestDataSetGetters(unittest.TestCase):
     maxDiff = None
-
-    def boilerplate(self, irrsmo00_init_mock: Mock) -> DataSetAdmin:
-        irrsmo00_init_mock.return_value = None
-        return DataSetAdmin()
+    IRRSMO00.__init__ = Mock(return_value=None)
+    data_set_admin = DataSetAdmin()
 
     # ============================================================================
     # Access
     # ============================================================================
     def test_data_set_admin_get_universal_access_returns_valid_when_read(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        data_set_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
         )
-        self.assertTrue(
-            data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470").title()
-            == "Read"
+        self.assertEqual(
+            self.data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470"),
+            "read",
         )
 
     def test_data_set_admin_get_universal_access_returns_valid_when_none(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        data_set_admin = self.boilerplate(irrsmo00_init_mock)
         data_set_extract_no_universal_access = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
         )
@@ -55,43 +49,36 @@ class TestDataSetGetters(unittest.TestCase):
             )
         )
         call_racf_mock.return_value = data_set_extract_no_universal_access
-        self.assertTrue(
-            data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470") is None
+        self.assertIsNone(
+            self.data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470")
         )
 
     # Error in environment, ESWIFT.TEST.T1136242.P3020470 already deleted/not added
     def test_data_set_admin_get_universal_access_raises_an_exception_when_extract_fails(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        data_set_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470")
+            self.data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470")
 
     def test_data_set_admin_get_my_access_returns_valid_when_alter(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        data_set_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
         )
-        self.assertTrue(
-            data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470").title()
-            == "Alter"
+        self.assertEqual(
+            self.data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470"), "alter"
         )
 
     def test_data_set_admin_get_my_access_returns_valid_when_none(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        data_set_admin = self.boilerplate(irrsmo00_init_mock)
         data_set_extract_no_my_access = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
         )
@@ -100,19 +87,17 @@ class TestDataSetGetters(unittest.TestCase):
             "<message> NONE         SYS1           NON-VSAM</message>",
         )
         call_racf_mock.return_value = data_set_extract_no_my_access
-        self.assertTrue(
-            data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470") is None
+        self.assertIsNone(
+            self.data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470")
         )
 
     # Error in environment, ESWIFT.TEST.T1136242.P3020470 already deleted/not added
     def test_data_set_admin_get_my_access_raises_an_exception_when_extract_fails(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        data_set_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470")
+            self.data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470")

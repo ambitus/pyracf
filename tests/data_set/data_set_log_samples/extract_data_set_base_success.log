@@ -1,7 +1,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 {}
@@ -9,7 +9,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -19,7 +19,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -62,21 +62,21 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 {
-  "securityresult": {
-    "dataset": {
+  "securityResult": {
+    "dataSet": {
       "name": "ESWIFT.TEST.T1136242.P3020470",
       "operation": "listdata",
       "generic": "no",
-      "requestid": "DatasetRequest",
+      "requestId": "DatasetRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')",
           "messages": [
             "INFORMATION FOR DATASET ESWIFT.TEST.T1136242.P3020470",
@@ -106,29 +106,29 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 
                                                                                
                                  [pyRACF:Debug]                                
                      Result Dictionary (Formatted Profile)                     
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 {
-  "securityresult": {
-    "dataset": {
+  "securityResult": {
+    "dataSet": {
       "name": "ESWIFT.TEST.T1136242.P3020470",
       "operation": "listdata",
       "generic": "no",
-      "requestid": "DatasetRequest",
+      "requestId": "DatasetRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')",
           "profiles": [
             {
@@ -136,16 +136,20 @@
                 "name": "eswift.test.t1136242.p3020470",
                 "level": 0,
                 "owner": "eswift",
-                "universal access": "read",
+                "universalAccess": "read",
                 "warning": null,
                 "erase": null,
-                "auditing": "failures(read)",
+                "auditing": {
+                  "failures": "read"
+                },
                 "notify": null,
-                "your access": "alter",
-                "creation group": "sys1",
-                "dataset type": "non-vsam",
-                "volumes on which dataset resides": "usrat2",
-                "installation data": null,
+                "yourAccess": "alter",
+                "creationGroup": "sys1",
+                "dataSetType": "non-vsam",
+                "volumes": [
+                  "usrat2"
+                ],
+                "installationData": null,
                 "generic": false
               }
             }
@@ -153,8 +157,8 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 

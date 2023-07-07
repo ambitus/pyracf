@@ -1,55 +1,57 @@
 {
-  "securityresult": {
+  "securityResult": {
     "group": {
       "name": "TESTGRP0",
       "operation": "listdata",
-      "requestid": "GroupRequest",
+      "requestId": "GroupRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "LISTGRP TESTGRP0 ",
           "profiles": [
             {
               "base": {
                 "name": "testgrp0",
-                "superiorgroup": "sys1",
+                "superiorGroup": "sys1",
                 "owner": "eswift",
-                "created": 23.15,
-                "installation data": null,
-                "model data set": null,
-                "termuacc": true,
-                "subgroups": null,
+                "created": "5/30/2023",
+                "installationData": null,
+                "modelDataSet": null,
+                "terminalUniversalAccess": true,
+                "subgroups": [],
                 "users": [
                   {
-                    "userid": "ESWIFT",
+                    "userid": "eswift",
                     "access": "use",
-                    "access count": 0,
-                    "universal access": null,
-                    "connectattributes": "special",
-                    "revokedate": null,
-                    "resumedate": null
+                    "accessCount": 0,
+                    "universalAccess": null,
+                    "connectAttributes": [
+                      "special"
+                    ],
+                    "revokeDate": null,
+                    "resumeDate": null
                   },
                   {
-                    "userid": "LEONARD",
+                    "userid": "leonard",
                     "access": "use",
-                    "access count": 0,
-                    "universal access": null,
-                    "connectattributes": "operations",
-                    "revokedate": null,
-                    "resumedate": null
+                    "accessCount": 0,
+                    "universalAccess": null,
+                    "connectAttributes": [
+                      "operations"
+                    ],
+                    "revokeDate": null,
+                    "resumeDate": null
                   }
-                ],
-                "revokedate": null,
-                "resumedate": null
+                ]
               }
             }
           ]
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }

@@ -55,15 +55,15 @@
                                                                                
 
 {
-  "securityresult": {
-    "systemsettings": {
+  "securityResult": {
+    "systemSettings": {
       "operation": "set",
-      "requestid": "SetroptsRequest",
+      "requestId": "SetroptsRequest",
       "commands": [
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 8,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
           "image": "SETROPTS      RACLIST     (elixtest)",
           "messages": [
             "IKJ56702I INVALID RACLIST, ELIXTEST",
@@ -73,8 +73,8 @@
         }
       ]
     },
-    "returncode": 4,
-    "reasoncode": 4
+    "returnCode": 4,
+    "reasonCode": 4
   }
 }
 

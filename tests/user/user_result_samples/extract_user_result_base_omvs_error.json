@@ -1,14 +1,14 @@
 {
-  "securityresult": {
+  "securityResult": {
     "user": {
       "name": "SQUIDWRD",
       "operation": "listdata",
-      "requestid": "UserRequest",
+      "requestId": "UserRequest",
       "commands": [
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 4,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
           "image": "LISTUSER SQUIDWRD  OMVS    ",
           "messages": [
             "ICH30001I UNABLE TO LOCATE USER    ENTRY SQUIDWRD"
@@ -16,7 +16,7 @@
         }
       ]
     },
-    "returncode": 4,
-    "reasoncode": 4
+    "returnCode": 4,
+    "reasonCode": 4
   }
 }

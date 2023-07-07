@@ -10,41 +10,49 @@ from .group_request import GroupRequest
 class GroupAdmin(SecurityAdmin):
     """Group Administration."""
 
+    _valid_segment_traits = {
+        "base": {
+            "base:connects": "racf:connects",
+            "base:gauth": "racf:gauth",
+            "base:guserid": "racf:guserid",
+            "base:creatdat": "racf:creatdat",
+            "base:data": "racf:data",
+            "base:model": "racf:model",
+            "base:owner": "racf:owner",
+            "base:subgroup": "racf:subgroup",
+            "base:supgroup": "racf:supgroup",
+            "base:termuacc": "racf:termuacc",
+            "base:universl": "racf:universl",
+        },
+        "dfp": {
+            "dfp:dataappl": "racf:dataappl",
+            "dfp:dataclas": "racf:dataclas",
+            "dfp:mgmtclas": "racf:mgmtclas",
+            "dfp:storclas": "racf:storclas",
+        },
+        "omvs": {
+            "omvs:autogid": "racf:autogid",
+            "omvs:gid": "gid",
+            "omvs:shared": "racf:shared",
+        },
+        "ovm": {"ovm:gid": "gid"},
+        "tme": {"tme:roles": "racf:roles"},
+    }
+
     def __init__(
-        self, debug: bool = False, generate_requests_only: bool = False
+        self,
+        debug: bool = False,
+        generate_requests_only: bool = False,
+        add_field_data: Union[dict, None] = None,
+        overwrite_field_data: Union[dict, None] = None,
     ) -> None:
         super().__init__(
-            "group", debug=debug, generate_requests_only=generate_requests_only
+            "group",
+            debug=debug,
+            generate_requests_only=generate_requests_only,
+            add_field_data=add_field_data,
+            overwrite_field_data=overwrite_field_data,
         )
-        self._valid_segment_traits = {
-            "base": {
-                "base:connects": "racf:connects",
-                "base:gauth": "racf:gauth",
-                "base:guserid": "racf:guserid",
-                "base:creatdat": "racf:creatdat",
-                "base:data": "racf:data",
-                "base:model": "racf:model",
-                "base:owner": "racf:owner",
-                "base:subgroup": "racf:subgroup",
-                "base:supgroup": "racf:supgroup",
-                "base:termuacc": "racf:termuacc",
-                "base:universl": "racf:universl",
-            },
-            "csdata": {"csdata:custom-keyword": "racf:custom-keyword"},
-            "dfp": {
-                "dfp:dataappl": "racf:dataappl",
-                "dfp:dataclas": "racf:dataclas",
-                "dfp:mgmtclas": "racf:mgmtclas",
-                "dfp:storclas": "racf:storclas",
-            },
-            "omvs": {
-                "omvs:autogid": "racf:autogid",
-                "omvs:gid": "gid",
-                "omvs:shared": "racf:shared",
-            },
-            "ovm": {"ovm:gid": "gid"},
-            "tme": {"tme:roles": "racf:roles"},
-        }
 
     # ============================================================================
     # Group Special
@@ -135,6 +143,7 @@ class GroupAdmin(SecurityAdmin):
 
     def delete(self, group_name: str) -> dict:
         """Delete a group."""
+        self._clear_state()
         group_request = GroupRequest(group_name, "del")
         return self._make_request(group_request)
 
@@ -143,7 +152,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
-        messages = result["securityresult"]["group"]["commands"][0]["messages"]
+        messages = result["securityResult"]["group"]["commands"][0]["messages"]
         indexes = [
             i
             for i in range(len(messages) - 1)
@@ -160,8 +169,8 @@ class GroupAdmin(SecurityAdmin):
             profiles.append(profile)
 
         # Post processing
-        del result["securityresult"]["group"]["commands"][0]["messages"]
-        result["securityresult"]["group"]["commands"][0]["profiles"] = profiles
+        del result["securityResult"]["group"]["commands"][0]["messages"]
+        result["securityResult"]["group"]["commands"][0]["profiles"] = profiles
 
     def __has_connect_attribute(
         self, userid: str, profile: dict, attribute: str
@@ -175,6 +184,6 @@ class GroupAdmin(SecurityAdmin):
             if user["userid"].lower() == userid.lower()
         ]
         if connect_profile:
-            if attribute in connect_profile[0]["connectattributes"]:
+            if attribute in connect_profile[0]["connectAttributes"]:
                 return True
         return False

@@ -7,6 +7,7 @@ import __init__
 
 import tests.connection.test_connection_constants as TestConnectionConstants
 from pyracf import ConnectionAdmin
+from pyracf.common.irrsmo00 import IRRSMO00
 from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
@@ -14,43 +15,36 @@ __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-@patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
 class TestConnectionResultParser(unittest.TestCase):
     maxDiff = None
-
-    def boilerplate(self, irrsmo00_init_mock: Mock) -> ConnectionAdmin:
-        irrsmo00_init_mock.return_value = None
-        return ConnectionAdmin()
+    IRRSMO00.__init__ = Mock(return_value=None)
+    connection_admin = ConnectionAdmin()
 
     # ============================================================================
     # Add Connection
     # ============================================================================
     def test_connection_admin_can_parse_add_connection_success_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        connection_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            connection_admin.add("ESWIFT", "TESTGRP0"),
+            self.connection_admin.add("ESWIFT", "TESTGRP0"),
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_SUCCESS_DICTIONARY,
         )
 
     # Error in environment, TESTGRP0 group already deleted/not added
     def test_connection_admin_can_parse_add_connection_error_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        connection_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            connection_admin.add("ESWIFT", "TESTGRP0")
+            self.connection_admin.add("ESWIFT", "TESTGRP0")
         self.assertEqual(
             exception.exception.results,
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_ERROR_DICTIONARY,
@@ -61,15 +55,13 @@ class TestConnectionResultParser(unittest.TestCase):
     # ============================================================================
     def test_connection_admin_can_parse_alter_connection_success_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        connection_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_ALTER_CONNECTION_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            connection_admin.alter(
+            self.connection_admin.alter(
                 "ESWIFT",
                 "TESTGRP0",
                 traits=TestConnectionConstants.TEST_ALTER_CONNECTION_REQUEST_TRAITS,
@@ -80,15 +72,13 @@ class TestConnectionResultParser(unittest.TestCase):
     # Error in environment, TESTGRP0 group already deleted/not added
     def test_connection_admin_can_parse_alter_connection_error_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        connection_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_ALTER_CONNECTION_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            connection_admin.alter(
+            self.connection_admin.alter(
                 "ESWIFT",
                 "TESTGRP0",
                 traits=TestConnectionConstants.TEST_ALTER_CONNECTION_REQUEST_TRAITS,
@@ -103,30 +93,26 @@ class TestConnectionResultParser(unittest.TestCase):
     # ============================================================================
     def test_connection_admin_can_parse_delete_connection_success_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        connection_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            connection_admin.delete("ESWIFT", "TESTGRP0"),
+            self.connection_admin.delete("ESWIFT", "TESTGRP0"),
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_SUCCESS_DICTIONARY,
         )
 
     # Error in environment, TESTGRP0 group already deleted/not added
     def test_connection_admin_can_parse_delete_connection_error_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        connection_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            connection_admin.delete("ESWIFT", "TESTGRP0")
+            self.connection_admin.delete("ESWIFT", "TESTGRP0")
         self.assertEqual(
             exception.exception.results,
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_ERROR_DICTIONARY,

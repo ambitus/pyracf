@@ -60,28 +60,28 @@
                                                                                
 
 {
-  "securityresult": {
+  "securityResult": {
     "group": {
       "name": "TESTGRP0",
       "operation": "set",
-      "requestid": "GroupRequest",
+      "requestId": "GroupRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "ADDGROUP TESTGRP0 "
         },
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "ALTGROUP TESTGRP0  OMVS     (GID         (6667))"
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 

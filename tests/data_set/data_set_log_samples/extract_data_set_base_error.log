@@ -1,7 +1,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 {}
@@ -9,7 +9,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -19,7 +19,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -40,21 +40,21 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                             DatasetAdmin.extract()                            
+                             DataSetAdmin.extract()                            
                                                                                
 
 {
-  "securityresult": {
-    "dataset": {
+  "securityResult": {
+    "dataSet": {
       "name": "ESWIFT.TEST.T1136242.P3020470",
       "operation": "listdata",
       "generic": "no",
-      "requestid": "DatasetRequest",
+      "requestId": "DatasetRequest",
       "commands": [
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 4,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
           "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')",
           "messages": [
             "ICH35003I NO RACF DESCRIPTION FOUND FOR ESWIFT.TEST.T1136242.P3020470"
@@ -62,8 +62,8 @@
         }
       ]
     },
-    "returncode": 4,
-    "reasoncode": 4
+    "returnCode": 4,
+    "reasonCode": 4
   }
 }
 

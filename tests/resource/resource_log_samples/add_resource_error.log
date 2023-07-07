@@ -6,7 +6,7 @@
 
 {
   "base": {
-    "base:universal-access": {
+    "base:universal_access": {
       "value": "None",
       "operation": null
     },
@@ -70,17 +70,17 @@
                                                                                
 
 {
-  "securityresult": {
+  "securityResult": {
     "resource": {
       "name": "TESTING",
       "class": "ELIXTEST",
       "operation": "set",
-      "requestid": "ResourceRequest",
+      "requestId": "ResourceRequest",
       "commands": [
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 8,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
           "image": "RDEFINE ELIXTEST             (TESTING)",
           "messages": [
             "IKJ56702I INVALID CLASS, ELIXTEST",
@@ -89,9 +89,9 @@
           ]
         },
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 8,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
           "image": "RALTER  ELIXTEST             (TESTING)  UACC        (None) OWNER       (eswift)",
           "messages": [
             "IKJ56702I INVALID CLASS, ELIXTEST",
@@ -100,8 +100,8 @@
         }
       ]
     },
-    "returncode": 4,
-    "reasoncode": 4
+    "returnCode": 4,
+    "reasonCode": 4
   }
 }
 

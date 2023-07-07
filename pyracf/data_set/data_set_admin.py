@@ -4,60 +4,70 @@ from typing import Union
 
 from pyracf.common.security_admin import SecurityAdmin
 
-from .dataset_request import DataSetRequest
+from .data_set_request import DataSetRequest
 
 
 class DataSetAdmin(SecurityAdmin):
     """RACF Data Set Profile Administration."""
 
-    def __init__(self, debug=False, generate_requests_only=False) -> None:
+    _valid_segment_traits = {
+        "base": {
+            "base:altvol": "racf:altvol",
+            "base:category": "racf:category",
+            "base:creatdat": "racf:creatdat",
+            "base:data": "racf:data",
+            "base:dsns": "racf:dsns",
+            "base:dstype": "racf:dstype",
+            "base:erase": "racf:erase",
+            "base:fclass": "racf:fclass",
+            "base:fgeneric": "racf:fgeneric",
+            "base:fileseq": "racf:fileseq",
+            "base:from": "racf:from",
+            "base:groupnm": "racf:groupnm",
+            "base:history": "racf:history",
+            "base:id": "racf:id",
+            "base:lchgdat": "racf:lchgdat",
+            "base:level": "racf:level",
+            "base:lrefdat": "racf:lrefdat",
+            "base:model": "racf:model",
+            "base:noracf": "racf:noracf",
+            "base:notify": "racf:notify",
+            "base:owner": "racf:owner",
+            "base:prefix": "racf:prefix",
+            "base:profile": "racf:profile",
+            "base:raudit": "racf:raudit",
+            "base:retpd": "racf:retpd",
+            "base:rgaudit": "racf:rgaudit",
+            "base:seclabel": "racf:seclabel",
+            "base:seclevel": "racf:seclevel",
+            "base:set": "racf:set",
+            "base:setonly": "racf:setonly",
+            "base:stats": "racf:stats",
+            "base:tape": "racf:tape",
+            "base:universal_access": "racf:uacc",
+            "base:unit": "racf:unit",
+            "base:volume": "racf:volume",
+            "base:volser": "racf:volser",
+            "base:warning": "racf:warning",
+        },
+        "dfp": {"dfp:resowner": "racf:resowner", "dfp:datakey": "racf:datakey"},
+        "tme": {"tme:roles": "racf:roles"},
+    }
+
+    def __init__(
+        self,
+        debug: bool = False,
+        generate_requests_only: bool = False,
+        add_field_data: Union[dict, None] = None,
+        overwrite_field_data: Union[dict, None] = None,
+    ) -> None:
         super().__init__(
-            "dataset", debug=debug, generate_requests_only=generate_requests_only
+            "dataSet",
+            debug=debug,
+            generate_requests_only=generate_requests_only,
+            add_field_data=add_field_data,
+            overwrite_field_data=overwrite_field_data,
         )
-        self._valid_segment_traits = {
-            "base": {
-                "base:altvol": "racf:altvol",
-                "base:category": "racf:category",
-                "base:creatdat": "racf:creatdat",
-                "base:data": "racf:data",
-                "base:dsns": "racf:dsns",
-                "base:dstype": "racf:dstype",
-                "base:erase": "racf:erase",
-                "base:fclass": "racf:fclass",
-                "base:fgeneric": "racf:fgeneric",
-                "base:fileseq": "racf:fileseq",
-                "base:from": "racf:from",
-                "base:groupnm": "racf:groupnm",
-                "base:history": "racf:history",
-                "base:id": "racf:id",
-                "base:lchgdat": "racf:lchgdat",
-                "base:level": "racf:level",
-                "base:lrefdat": "racf:lrefdat",
-                "base:model": "racf:model",
-                "base:noracf": "racf:noracf",
-                "base:notify": "racf:notify",
-                "base:owner": "racf:owner",
-                "base:prefix": "racf:prefix",
-                "base:profile": "racf:profile",
-                "base:raudit": "racf:raudit",
-                "base:retpd": "racf:retpd",
-                "base:rgaudit": "racf:rgaudit",
-                "base:seclabel": "racf:seclabel",
-                "base:seclevel": "racf:seclevel",
-                "base:set": "racf:set",
-                "base:setonly": "racf:setonly",
-                "base:stats": "racf:stats",
-                "base:tape": "racf:tape",
-                "base:universal-access": "racf:uacc",
-                "base:unit": "racf:unit",
-                "base:volume": "racf:volume",
-                "base:volser": "racf:volser",
-                "base:warning": "racf:warning",
-            },
-            "csdata": {"csdata:custom-keyword": "racf:custom-keyword"},
-            "dfp": {"dfp:resowner": "racf:resowner", "dfp:datakey": "racf:datakey"},
-            "tme": {"tme:roles": "racf:roles"},
-        }
         self._valid_segment_traits["base"].update(
             self._common_base_traits_data_set_generic
         )
@@ -69,17 +79,17 @@ class DataSetAdmin(SecurityAdmin):
     def get_universal_access(self, data_set: str) -> str:
         """Get universal access for data set profile."""
         profile = self.extract(data_set, profile_only=True)
-        return self._get_field(profile, "base", "universal access")
+        return self._get_field(profile, "base", "universalAccess")
 
     def set_universal_access(self, data_set: str, universal_acccess: str) -> dict:
         """Set the universal access for a data set profile."""
-        result = self.alter(data_set, {"base:universal-access": universal_acccess})
+        result = self.alter(data_set, {"base:universal_access": universal_acccess})
         return self._to_steps(result)
 
     def get_my_access(self, data_set: str) -> str:
         """Get the access associated with your own data set profile."""
         profile = self.extract(data_set, profile_only=True)
-        return self._get_field(profile, "base", "your access")
+        return self._get_field(profile, "base", "yourAccess")
 
     # ============================================================================
     # Base Functions
@@ -134,6 +144,7 @@ class DataSetAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> dict:
         """Delete a data set profile."""
+        self._clear_state()
         data_set_request = DataSetRequest(data_set, "del", volume, generic)
         return self._make_request(data_set_request)
 
@@ -142,7 +153,7 @@ class DataSetAdmin(SecurityAdmin):
     # ============================================================================
     def _format_profile(self, result: dict) -> None:
         """Format profile extract data into a dictionary."""
-        messages = result["securityresult"]["dataset"]["commands"][0]["messages"]
+        messages = result["securityResult"]["dataSet"]["commands"][0]["messages"]
         indexes = [
             i
             for i in range(len(messages) - 1)
@@ -163,13 +174,13 @@ class DataSetAdmin(SecurityAdmin):
             else:
                 profile["base"]["generic"] = False
 
-            if profile["base"].get("installation data"):
-                profile["base"]["installation data"] = " ".join(
-                    profile["base"]["installation data"]
+            if profile["base"].get("installationData"):
+                profile["base"]["installationData"] = " ".join(
+                    profile["base"]["installationData"]
                 )
             if profile["base"].get("notify") == [None, "user", "to", "be", "notified"]:
                 profile["base"]["notify"] = None
             profiles.append(profile)
 
-        del result["securityresult"]["dataset"]["commands"][0]["messages"]
-        result["securityresult"]["dataset"]["commands"][0]["profiles"] = profiles
+        del result["securityResult"]["dataSet"]["commands"][0]["messages"]
+        result["securityResult"]["dataSet"]["commands"][0]["profiles"] = profiles

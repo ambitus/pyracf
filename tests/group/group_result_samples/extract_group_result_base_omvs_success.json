@@ -1,27 +1,27 @@
 {
-  "securityresult": {
+  "securityResult": {
     "group": {
       "name": "TESTGRP0",
       "operation": "listdata",
-      "requestid": "GroupRequest",
+      "requestId": "GroupRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "LISTGRP TESTGRP0  OMVS    ",
           "profiles": [
             {
               "base": {
                 "name": "testgrp0",
-                "superiorgroup": "sys1",
+                "superiorGroup": "sys1",
                 "owner": "eswift",
-                "created": 23.151,
-                "installation data": null,
-                "model data set": null,
-                "termuacc": true,
-                "subgroups": null,
-                "users": null
+                "created": "5/31/2023",
+                "installationData": null,
+                "modelDataSet": null,
+                "terminalUniversalAccess": true,
+                "subgroups": [],
+                "users": []
               },
               "omvs": {
                 "gid": 1234567
@@ -31,7 +31,7 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }

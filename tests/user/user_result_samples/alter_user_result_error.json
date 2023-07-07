@@ -1,19 +1,19 @@
 {
-  "securityresult": {
+  "securityResult": {
     "user": {
       "name": "squidward",
       "operation": "set",
-      "requestid": "UserRequest",
+      "requestId": "UserRequest",
       "error": {
-        "errorfunction": 10,
-        "errorcode": 2000,
-        "errorreason": 68,
-        "errormessage": "Invalid attribute value specified.",
-        "erroroffset": 149,
-        "textinerror": "name"
+        "errorFunction": 10,
+        "errorCode": 2000,
+        "errorReason": 68,
+        "errorMessage": "Invalid attribute value specified.",
+        "errorOffset": 149,
+        "textInError": "name"
       }
     },
-    "returncode": 2000,
-    "reasoncode": 2000
+    "returnCode": 2000,
+    "reasonCode": 2000
   }
 }

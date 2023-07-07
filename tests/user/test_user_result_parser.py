@@ -7,6 +7,7 @@ import __init__
 
 import tests.user.test_user_constants as TestUserConstants
 from pyracf import UserAdmin
+from pyracf.common.irrsmo00 import IRRSMO00
 from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
@@ -14,39 +15,32 @@ __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-@patch("pyracf.common.irrsmo00.IRRSMO00.__init__")
 class TestUserResultParser(unittest.TestCase):
     maxDiff = None
-
-    def boilerplate(self, irrsmo00_init_mock: Mock) -> UserAdmin:
-        irrsmo00_init_mock.return_value = None
-        return UserAdmin()
+    IRRSMO00.__init__ = Mock(return_value=None)
+    user_admin = UserAdmin()
 
     # ============================================================================
     # Add User
     # ============================================================================
     def test_user_admin_can_parse_add_user_success_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         self.assertEqual(
-            user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"}),
+            self.user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"}),
             TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
     # Error in environment, SQUIDWRD already added/exists
     def test_user_admin_can_parse_add_user_error_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"})
+            self.user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"})
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
@@ -57,15 +51,13 @@ class TestUserResultParser(unittest.TestCase):
     # ============================================================================
     def test_user_admin_can_parse_alter_user_success_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.alter(
+            self.user_admin.alter(
                 "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
             ),
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY,
@@ -74,13 +66,11 @@ class TestUserResultParser(unittest.TestCase):
     # Error: invalid parameter "name"
     def test_user_admin_can_parse_alter_user_error_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.alter(
+            self.user_admin.alter(
                 "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
             )
         self.assertEqual(
@@ -93,30 +83,38 @@ class TestUserResultParser(unittest.TestCase):
     # ============================================================================
     def test_user_admin_can_parse_extract_user_base_omvs_success_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.extract("squidwrd", {"omvs": True}),
+            self.user_admin.extract("squidwrd", segments={"omvs": True}),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
+        )
+
+    def test_user_admin_can_parse_extract_user_base_only_no_omvs_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+        )
+        self.assertEqual(
+            self.user_admin.extract("squidwrd", segments={"omvs": True}),
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON,
         )
 
     # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_can_parse_extract_user_base_omvs_error_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.extract("squidwrd", segments={"omvs": True})
+            self.user_admin.extract("squidwrd", segments={"omvs": True})
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY,
@@ -124,15 +122,13 @@ class TestUserResultParser(unittest.TestCase):
 
     def test_user_admin_can_parse_extract_user_and_ignore_command_audit_trail_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML
         )
         self.assertEqual(
-            user_admin.extract("squidwrd", {"omvs": True}),
+            self.user_admin.extract("squidwrd", segments={"omvs": True}),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
@@ -141,31 +137,45 @@ class TestUserResultParser(unittest.TestCase):
     # ============================================================================
     def test_user_admin_can_parse_delete_user_success_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_DELETE_USER_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.delete("squidwrd"),
+            self.user_admin.delete("squidwrd"),
             TestUserConstants.TEST_DELETE_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
     # Error in environment, SQUIDWRD already deleted/not added
     def test_user_admin_can_parse_delete_user_error_xml(
         self,
-        irrsmo00_init_mock: Mock,
         call_racf_mock: Mock,
     ):
-        user_admin = self.boilerplate(irrsmo00_init_mock)
         call_racf_mock.return_value = (
             TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            user_admin.delete("squidwrd")
+            self.user_admin.delete("squidwrd")
         self.assertEqual(
             exception.exception.results,
             TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_DICTIONARY,
+        )
+
+    # ============================================================================
+    # Extract User With Custom Field Data
+    # ============================================================================
+    def test_user_admin_can_parse_extract_user_base_omvs_csdata_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(
+            add_field_data=TestUserConstants.TEST_USER_UPDATE_SEGMENTS
+        )
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
+        )
+        self.assertEqual(
+            user_admin.extract("squidwrd", {"omvs": True, "csdata": True}),
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
         )

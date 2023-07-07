@@ -1,17 +1,17 @@
 {
-  "securityresult": {
+  "securityResult": {
     "group": {
       "name": "TESTGRP0",
       "operation": "set",
-      "requestid": "GroupRequest",
+      "requestId": "GroupRequest",
       "info": [
         "Definition exists. Add command skipped due  to precheck option"
       ],
       "commands": [
         {
-          "safreturncode": 8,
-          "returncode": 16,
-          "reasoncode": 8,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
           "image": "ALTGROUP TESTGRP0  OMVS     (GID         (3000000000))",
           "messages": [
             "IKJ56702I INVALID GID, 3000000000",
@@ -21,7 +21,7 @@
         }
       ]
     },
-    "returncode": 4,
-    "reasoncode": 4
+    "returnCode": 4,
+    "reasonCode": 4
   }
 }

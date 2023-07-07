@@ -78,16 +78,16 @@
                                                                                
 
 {
-  "securityresult": {
+  "securityResult": {
     "user": {
       "name": "SQUIDWRD",
       "operation": "listdata",
-      "requestid": "UserRequest",
+      "requestId": "UserRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "LISTUSER SQUIDWRD  OMVS    ",
           "messages": [
             "USER=SQUIDWRD  NAME=SQUIDWARD             OWNER=LEONARD   CREATED=23.087",
@@ -125,8 +125,8 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 
@@ -137,16 +137,16 @@
                                                                                
 
 {
-  "securityresult": {
+  "securityResult": {
     "user": {
       "name": "SQUIDWRD",
       "operation": "listdata",
-      "requestid": "UserRequest",
+      "requestId": "UserRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "LISTUSER SQUIDWRD  OMVS    ",
           "profiles": [
             {
@@ -154,36 +154,36 @@
                 "user": "squidwrd",
                 "name": "squidward",
                 "owner": "leonard",
-                "created": 23.087,
-                "defaultgroup": "sys1",
-                "passdate": 0.0,
-                "passinterval": 186,
-                "phrasedate": null,
+                "created": "3/28/2023",
+                "defaultGroup": "sys1",
+                "passwordDate": null,
+                "passwordInterval": 186,
+                "passphraseDate": null,
                 "attributes": [
                   "special"
                 ],
-                "revokedate": null,
-                "resumedate": null,
-                "lastaccess": "23.087/12:37:10",
-                "classauthorizations": [],
-                "logonalloweddays": "anyday",
-                "logonallowedtime": "anytime",
+                "revokeDate": null,
+                "resumeDate": null,
+                "lastAccess": "3/28/2023 12:37 PM",
+                "classAuthorizations": [],
+                "logonAllowedDays": "anyday",
+                "logonAllowedTime": "anytime",
                 "groups": {
                   "SYS1": {
                     "auth": "use",
-                    "connectowner": "leonard",
-                    "connectdate": 23.087,
+                    "connectOwner": "leonard",
+                    "connectDate": "3/28/2023",
                     "connects": 0,
                     "uacc": null,
-                    "lastconnect": "unknown",
-                    "connectattributes": null,
-                    "revokedate": null,
-                    "resumedate": null
+                    "lastConnect": "unknown",
+                    "connectAttributes": [],
+                    "revokeDate": null,
+                    "resumeDate": null
                   }
                 },
-                "securitylevel": null,
-                "categoryauthorization": null,
-                "securitylabel": null
+                "securityLevel": null,
+                "categoryAuthorization": null,
+                "securityLabel": null
               },
               "omvs": {
                 "uid": 2424,
@@ -201,8 +201,8 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }
 

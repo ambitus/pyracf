@@ -1,18 +1,18 @@
 {
-  "securityresult": {
+  "securityResult": {
     "resource": {
       "name": "TESTING",
       "class": "ELIJTEST",
       "operation": "set",
-      "requestid": "ResourceRequest",
+      "requestId": "ResourceRequest",
       "info": [
         "Definition exists. Add command skipped due  to precheck option"
       ],
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "RALTER  ELIJTEST             (TESTING)  UACC        (Read) OWNER       (eswift)",
           "messages": [
             "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
@@ -20,7 +20,7 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }

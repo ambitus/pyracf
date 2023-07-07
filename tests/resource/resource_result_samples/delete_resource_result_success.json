@@ -1,15 +1,15 @@
 {
-  "securityresult": {
+  "securityResult": {
     "resource": {
       "name": "TESTING",
       "class": "ELIJTEST",
       "operation": "del",
-      "requestid": "ResourceRequest",
+      "requestId": "ResourceRequest",
       "commands": [
         {
-          "safreturncode": 0,
-          "returncode": 0,
-          "reasoncode": 0,
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
           "image": "RDELETE ELIJTEST             (TESTING) ",
           "messages": [
             "ICH12002I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
@@ -17,7 +17,7 @@
         }
       ]
     },
-    "returncode": 0,
-    "reasoncode": 0
+    "returnCode": 0,
+    "reasonCode": 0
   }
 }

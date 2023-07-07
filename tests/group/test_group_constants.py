@@ -76,7 +76,6 @@ TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS = {"omvs:gid": "3000000000"}
 TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_XML = get_sample(
     "extract_group_request_base_omvs.xml"
 )
-TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS = {"omvs": True}
 
 # Delete Group
 TEST_DELETE_GROUP_REQUEST_XML = get_sample("delete_group_request.xml")
