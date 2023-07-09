@@ -1,28 +1,28 @@
 {
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "set",
-            "requestid": "UserRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ADDUSER SQUIDWRD ",
-                    "messages": [
-                        "ICH01024I User SQUIDWRD is defined as PROTECTED."
-                    ]
-                },
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
-                }
-            ]
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "set",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ADDUSER SQUIDWRD ",
+          "messages": [
+            "ICH01024I User SQUIDWRD is defined as PROTECTED."
+          ]
         },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }

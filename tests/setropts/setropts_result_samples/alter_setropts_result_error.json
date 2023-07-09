@@ -1,0 +1,23 @@
+{
+  "securityResult": {
+    "systemSettings": {
+      "operation": "set",
+      "requestId": "SetroptsRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "SETROPTS      RACLIST     (elixtest)",
+          "messages": [
+            "IKJ56702I INVALID RACLIST, ELIXTEST",
+            "IKJ56701I MISSING CLASS NAMES FOR RACLIST+",
+            "IKJ56701I MISSING CLASS NAMES:  ANY (NON-GROUP) RESOURCE CLASS"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "securityResult": {
+    "dataSet": {
+      "name": "ESWIFT.TEST.T1136242.P3020470",
+      "operation": "del",
+      "generic": "no",
+      "requestId": "DatasetRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470')",
+          "messages": [
+            "ICH09020I ESWIFT.TEST.T1136242.P3020470 NOT DEFINED TO RACF"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
+}

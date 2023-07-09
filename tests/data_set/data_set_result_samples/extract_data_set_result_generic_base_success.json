@@ -1,0 +1,41 @@
+{
+  "securityResult": {
+    "dataSet": {
+      "name": "ESWIFT.TEST.T1136242.*",
+      "operation": "listdata",
+      "generic": "no",
+      "requestId": "DatasetRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.*')",
+          "profiles": [
+            {
+              "base": {
+                "name": "eswift.test.t1136242.*",
+                "level": 0,
+                "owner": "eswift",
+                "universalAccess": null,
+                "warning": null,
+                "erase": null,
+                "auditing": {
+                  "failures": "read"
+                },
+                "notify": null,
+                "yourAccess": "alter",
+                "creationGroup": "sys1",
+                "dataSetType": "non-vsam",
+                "generic": true,
+                "installationData": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

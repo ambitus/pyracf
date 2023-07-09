@@ -1,22 +1,22 @@
 {
-    "securityresult": {
-        "group": {
-            "name": "TESTGRP0",
-            "operation": "set",
-            "requestid": "GroupRequest",
-            "info": [
-                "Definition exists. Add command skipped due  to precheck option"
-            ],
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTGROUP TESTGRP0  OMVS     (GID         (1234567))"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityResult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "set",
+      "requestId": "GroupRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTGROUP TESTGRP0  OMVS     (GID         (1234567))"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }

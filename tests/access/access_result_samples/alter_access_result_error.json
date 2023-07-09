@@ -1,23 +1,23 @@
 {
-   "securityresult":{
-       "permission":{
-           "name":"TESTING",
-           "class":"ELIJTEST",
-           "operation":"set",
-           "requestid":"AccessRequest",
-           "commands":[
-               {
-                   "safreturncode":8,
-                   "returncode":16,
-                   "reasoncode":4,
-                   "image":"PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)",
-                   "messages":[
-                       "ICH06007I MCGINLEY NOT DEFINED TO RACF"
-                   ]
-               }
-           ]
-       },
-       "returncode":4,
-       "reasoncode":4
-   }
+  "securityResult": {
+    "permission": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "set",
+      "requestId": "AccessRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)",
+          "messages": [
+            "ICH06007I MCGINLEY NOT DEFINED TO RACF"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
 }

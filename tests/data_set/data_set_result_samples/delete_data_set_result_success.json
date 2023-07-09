@@ -1,0 +1,20 @@
+{
+  "securityResult": {
+    "dataSet": {
+      "name": "ESWIFT.TEST.T1136242.P3020470",
+      "operation": "del",
+      "generic": "no",
+      "requestId": "DatasetRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "DELDSD               ('ESWIFT.TEST.T1136242.P3020470')"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

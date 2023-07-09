@@ -1,0 +1,21 @@
+{
+  "securityResult": {
+    "systemSettings": {
+      "operation": "set",
+      "requestId": "SetroptsRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "SETROPTS      RACLIST     (elijtest)",
+          "messages": [
+            "ICH14063I SETROPTS command complete."
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

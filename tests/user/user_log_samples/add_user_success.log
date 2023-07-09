@@ -1,80 +1,91 @@
                                                                                
-                       [pyRACF:Debug] Request Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                                UserAdmin.add()                                
                                                                                
 
 {
-    "base": {
-        "password": "********"
+  "base": {
+    "base:password": {
+      "value": "********",
+      "operation": null
     }
+  }
 }
 
                                                                                
-                           [pyRACF:Debug] Request XML                          
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                                UserAdmin.add()                                
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <user name="squidward" operation="set" requestid="UserRequest">
-        <base>
-            <racf:password>********</racf:password>
-        </base>
-    </user>
+  <user name="squidwrd" operation="set" requestid="UserRequest">
+    <base>
+      <racf:password>********</racf:password>
+    </base>
+  </user>
 </securityrequest>
 
                                                                                
-                           [pyRACF:Debug] Result XML                           
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                                UserAdmin.add()                                
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <user name="SQUIDWRD" operation="set" requestid="UserRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>ADDUSER SQUIDWRD </image>
-            <message>ICH01024I User SQUIDWRD is defined as PROTECTED.</message>
-        </command>
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))</image>
-        </command>
-    </user>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <user name="SQUIDWRD" operation="set" requestid="UserRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ADDUSER SQUIDWRD </image>
+      <message>ICH01024I User SQUIDWRD is defined as PROTECTED.</message>
+    </command>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))</image>
+    </command>
+  </user>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
-                        [pyRACF:Debug] Result Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                                UserAdmin.add()                                
                                                                                
 
 {
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "set",
-            "requestid": "UserRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ADDUSER SQUIDWRD ",
-                    "messages": [
-                        "ICH01024I User SQUIDWRD is defined as PROTECTED."
-                    ]
-                },
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
-                }
-            ]
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "set",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ADDUSER SQUIDWRD ",
+          "messages": [
+            "ICH01024I User SQUIDWRD is defined as PROTECTED."
+          ]
         },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }
 

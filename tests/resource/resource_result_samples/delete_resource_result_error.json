@@ -1,0 +1,23 @@
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "del",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "RDELETE ELIJTEST             (TESTING)",
+          "messages": [
+            "ICH12102I TESTING NOT DEFINED TO CLASS ELIJTEST."
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
+}

@@ -1,22 +1,22 @@
 {
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "set",
-            "requestid": "UserRequest",
-            "info": [
-                "Definition exists. Add command skipped due  to precheck option"
-            ],
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTUSER SQUIDWRD  NOSPECIAL      OMVS     (HOME        ('/u/clarinet') NOPROGRAM     )"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "set",
+      "requestId": "UserRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTUSER SQUIDWRD  NOSPECIAL      OMVS     (HOME        ('/u/clarinet') NOPROGRAM     )"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }

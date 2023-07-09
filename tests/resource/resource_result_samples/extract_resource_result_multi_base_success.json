@@ -1,0 +1,60 @@
+{
+  "securityResult": {
+    "resource": {
+      "name": "*",
+      "class": "XFACILIT",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   XFACILIT             (*) ",
+          "profiles": [
+            {
+              "base": {
+                "class": "xfacilit",
+                "name": "irr.irrsmo00.precheck",
+                "groupClassName": "gxfacili",
+                "level": 0,
+                "owner": "eswift",
+                "universalAccess": "read",
+                "yourAccess": "alter",
+                "warning": null,
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "failures": "read"
+                },
+                "notify": null,
+                "generic": false
+              }
+            },
+            {
+              "base": {
+                "class": "xfacilit",
+                "name": "hzs.**",
+                "groupClassName": "gxfacili",
+                "level": 0,
+                "owner": "sys1",
+                "universalAccess": "read",
+                "yourAccess": "read",
+                "warning": "yes",
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "failures": "read"
+                },
+                "notify": null,
+                "generic": true
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIXTEST",
+      "operation": "set",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "RDEFINE ELIXTEST             (TESTING)",
+          "messages": [
+            "IKJ56702I INVALID CLASS, ELIXTEST",
+            "IKJ56701I MISSING ENTITY NAME+",
+            "IKJ56701I MISSING NAME OF ENTITY IN SPECIFIED CLASS"
+          ]
+        },
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "RALTER  ELIXTEST             (TESTING)  UACC        (None) OWNER       (eswift)",
+          "messages": [
+            "IKJ56702I INVALID CLASS, ELIXTEST",
+            "IKJ56712I INVALID KEYWORD, )"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
+}

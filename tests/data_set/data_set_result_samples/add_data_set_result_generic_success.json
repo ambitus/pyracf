@@ -1,0 +1,26 @@
+{
+  "securityResult": {
+    "dataSet": {
+      "generic": "yes",
+      "name": "ESWIFT.TEST.T1136242.*",
+      "operation": "set",
+      "requestId": "DatasetRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ADDSD                ('ESWIFT.TEST.T1136242.*')  GENERIC     "
+        },
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTDSD               ('ESWIFT.TEST.T1136242.*')  GENERIC      UACC        (None) OWNER       (eswift)"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

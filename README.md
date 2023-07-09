@@ -1,14 +1,14 @@
-# pyRACF
+![pyRACF Logo](logo.png)
 
 Python interface into the RACF management application programming interface.
 
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.get_omvs_uid("squidwrd")
 2424
->>> user_admin.set_uid("squidwrd", 1919)
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.set_omvs_uid("squidwrd", 1919)
+>>> user_admin.get_omvs_uid("squidwrd")
 1919
 ```
 
@@ -49,7 +49,6 @@ Questions, comments, and bugs can be discussed on the __[#pyracf](https://ibm-sy
 * Leonard Carcaramo: lcarcaramo@ibm.com
 * Elijah Swift: Elijah.Swift@ibm.com
 * Joseph Bostian: jbostian@us.ibm.com
-* Melissa Chodziutko: mchodziutko@ibm.com
 
 ## Version History
 

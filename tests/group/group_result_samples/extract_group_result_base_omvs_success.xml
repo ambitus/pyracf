@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>LISTGRP TESTGRP0  OMVS    </image>
-            <message>INFORMATION FOR GROUP TESTGRP0</message>
-            <message>    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.151</message>
-            <message>    NO INSTALLATION DATA</message>
-            <message>    NO MODEL DATA SET</message>
-            <message>    TERMUACC</message>
-            <message>    NO SUBGROUPS</message>
-            <message>    NO USERS</message>
-            <message> </message>
-            <message>OMVS INFORMATION</message>
-            <message>----------------</message>
-            <message>GID= 0001234567</message>
-        </command>
-    </group>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>LISTGRP TESTGRP0  OMVS    </image>
+      <message>INFORMATION FOR GROUP TESTGRP0</message>
+      <message>    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.151</message>
+      <message>    NO INSTALLATION DATA</message>
+      <message>    NO MODEL DATA SET</message>
+      <message>    TERMUACC</message>
+      <message>    NO SUBGROUPS</message>
+      <message>    NO USERS</message>
+      <message> </message>
+      <message>OMVS INFORMATION</message>
+      <message>----------------</message>
+      <message>GID= 0001234567</message>
+    </command>
+  </group>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>

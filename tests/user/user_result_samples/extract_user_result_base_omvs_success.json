@@ -1,69 +1,69 @@
 {
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "listdata",
-            "requestid": "UserRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "LISTUSER SQUIDWRD  OMVS    ",
-                    "profiles": [
-                        {
-                            "base": {
-                                "user": "squidwrd",
-                                "name": "squidward",
-                                "owner": "leonard",
-                                "created": 23.087,
-                                "defaultgroup": "sys1",
-                                "passdate": 0.0,
-                                "passinterval": 186,
-                                "phrasedate": null,
-                                "attributes": [
-                                    "special"
-                                ],
-                                "revokedate": null,
-                                "resumedate": null,
-                                "lastaccess": "23.087/12:37:10",
-                                "classauthorizations": [],
-                                "logonalloweddays": "anyday",
-                                "logonallowedtime": "anytime",
-                                "groups": {
-                                    "SYS1": {
-                                        "auth": "use",
-                                        "connectowner": "leonard",
-                                        "connectdate": 23.087,
-                                        "connects": 0,
-                                        "uacc": null,
-                                        "lastconnect": "unknown",
-                                        "connectattributes": null,
-                                        "revokedate": null,
-                                        "resumedate": null
-                                    }
-                                },
-                                "securitylevel": null,
-                                "categoryauthorization": null,
-                                "securitylabel": null
-                            },
-                            "omvs": {
-                                "uid": 2424,
-                                "home": "/u/squidwrd",
-                                "program": "/bin/sh",
-                                "cputimemax": null,
-                                "assizemax": null,
-                                "fileprocmax": null,
-                                "procusermax": null,
-                                "threadsmax": null,
-                                "mmapareamax": null
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "listdata",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTUSER SQUIDWRD  OMVS    ",
+          "profiles": [
+            {
+              "base": {
+                "user": "squidwrd",
+                "name": "squidward",
+                "owner": "leonard",
+                "created": "3/28/2023",
+                "defaultGroup": "sys1",
+                "passwordDate": null,
+                "passwordInterval": 186,
+                "passphraseDate": null,
+                "attributes": [
+                  "special"
+                ],
+                "revokeDate": null,
+                "resumeDate": null,
+                "lastAccess": "3/28/2023 12:37 PM",
+                "classAuthorizations": [],
+                "logonAllowedDays": "anyday",
+                "logonAllowedTime": "anytime",
+                "groups": {
+                  "SYS1": {
+                    "auth": "use",
+                    "connectOwner": "leonard",
+                    "connectDate": "3/28/2023",
+                    "connects": 0,
+                    "uacc": null,
+                    "lastConnect": "unknown",
+                    "connectAttributes": [],
+                    "revokeDate": null,
+                    "resumeDate": null
+                  }
+                },
+                "securityLevel": null,
+                "categoryAuthorization": null,
+                "securityLabel": null
+              },
+              "omvs": {
+                "uid": 2424,
+                "home": "/u/squidwrd",
+                "program": "/bin/sh",
+                "cputimemax": null,
+                "assizemax": null,
+                "fileprocmax": null,
+                "procusermax": null,
+                "threadsmax": null,
+                "mmapareamax": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }

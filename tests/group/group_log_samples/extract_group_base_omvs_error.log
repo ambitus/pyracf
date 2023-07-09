@@ -1,64 +1,72 @@
                                                                                
-                       [pyRACF:Debug] Request Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                              GroupAdmin.extract()                             
                                                                                
 
 {
-    "omvs": true
+  "omvs": true
 }
 
                                                                                
-                           [pyRACF:Debug] Request XML                          
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                              GroupAdmin.extract()                             
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
-        <omvs/>
-    </group>
+  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+    <omvs/>
+  </group>
 </securityrequest>
 
                                                                                
-                           [pyRACF:Debug] Result XML                           
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                              GroupAdmin.extract()                             
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
-        <command>
-            <safreturncode>8</safreturncode>
-            <returncode>16</returncode>
-            <reasoncode>4</reasoncode>
-            <image>LISTGRP TESTGRP0  OMVS    </image>
-            <message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>
-        </command>
-    </group>
-    <returncode>4</returncode>
-    <reasoncode>0</reasoncode>
+  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>LISTGRP TESTGRP0  OMVS    </image>
+      <message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>
+    </command>
+  </group>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
-                        [pyRACF:Debug] Result Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                              GroupAdmin.extract()                             
                                                                                
 
 {
-    "securityresult": {
-        "group": {
-            "name": "TESTGRP0",
-            "operation": "listdata",
-            "requestid": "GroupRequest",
-            "commands": [
-                {
-                    "safreturncode": 8,
-                    "returncode": 16,
-                    "reasoncode": 4,
-                    "image": "LISTGRP TESTGRP0  OMVS    ",
-                    "messages": [
-                        "ICH51003I NAME NOT FOUND IN RACF DATA SET"
-                    ]
-                }
-            ]
-        },
-        "returncode": 4,
-        "reasoncode": 4
-    }
+  "securityResult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "listdata",
+      "requestId": "GroupRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "LISTGRP TESTGRP0  OMVS    ",
+          "messages": [
+            "ICH51003I NAME NOT FOUND IN RACF DATA SET"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
 }
 

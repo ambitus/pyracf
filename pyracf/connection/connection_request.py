@@ -8,13 +8,13 @@ class ConnectionRequest(SecurityRequest):
 
     def __init__(
         self,
-        userid,
-        groupname,
+        userid: str,
+        groupname: str,
         operation: str,
     ) -> None:
         super().__init__()
-        self.security_definition.tag = "groupconnection"
-        self.security_definition.attrib.update(
+        self._security_definition.tag = "groupconnection"
+        self._security_definition.attrib.update(
             {
                 "name": userid,
                 "group": groupname,

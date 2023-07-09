@@ -1,19 +1,19 @@
 {
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "del",
-            "requestid": "UserRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "DELUSER SQUIDWRD"
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "del",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "DELUSER SQUIDWRD"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }

@@ -46,6 +46,12 @@ TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
     "extract_user_result_base_only_no_omvs_success.json"
 )
+TEST_EXTRACT_USER_RESULT_WITH_CLASS_AUTHORIZATIONS = get_sample(
+    "extract_user_result_with_class_authorizations.xml"
+)
+TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML = get_sample(
+    "extract_user_result_with_command_audit_trail.xml"
+)
 
 # Delete User
 TEST_DELETE_USER_RESULT_SUCCESS_XML = get_sample("delete_user_result_success.xml")
@@ -62,35 +68,29 @@ TEST_DELETE_USER_RESULT_ERROR_DICTIONARY = get_sample("delete_user_result_error.
 # Add User
 TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
 TEST_ADD_USER_REQUEST_TRAITS = {
-    "name": "Squidward",
-    "userid": "squidwrd",
-    "password": "GIyTTqdF",
-    "owner": "leonard",
-    "special": True,
-    "operator": False,
-    "uid": "2424",
-    "home": "/u/squidwrd",
-    "program": "/bin/sh",
+    "base:name": "Squidward",
+    "base:password": "GIyTTqdF",
+    "base:owner": "leonard",
+    "base:special": True,
+    "base:operator": False,
+    "omvs:uid": "2424",
+    "omvs:home": "/u/squidwrd",
+    "omvs:program": "/bin/sh",
 }
 
 # Alter User
 TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
 TEST_ALTER_USER_REQUEST_TRAITS = {
-    "userid": "squidwrd",
-    "special": False,
-    "home": "/u/clarinet",
-    "program": False,
+    "base:special": False,
+    "base:operator": True,
+    "omvs:home": "/u/clarinet",
+    "omvs:program": False,
 }
 
 # Extract User
 TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
     "extract_user_request_base_omvs.xml"
 )
-TEST_EXTRACT_USER_REQUEST_BASE_OMVS_TRAITS = {
-    "userid": "squidwrd",
-    "omvs": True,
-    "mfa": False,
-}
 
 # Delete User
 TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
@@ -99,13 +99,46 @@ TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")
 # User Administration Setters Sample Data
 # ============================================================================
 
-TEST_USER_SET_SPECIAL_XML = get_sample("user_set_special.xml")
-TEST_USER_DEL_SPECIAL_XML = get_sample("user_del_special.xml")
-TEST_USER_SET_AUDITOR_XML = get_sample("user_set_auditor.xml")
-TEST_USER_DEL_AUDITOR_XML = get_sample("user_del_auditor.xml")
-TEST_USER_SET_OPER_XML = get_sample("user_set_operations.xml")
-TEST_USER_DEL_OPER_XML = get_sample("user_del_operations.xml")
-TEST_USER_SET_UID_XML = get_sample("user_set_uid.xml")
+TEST_USER_GIVE_SPECIAL_AUTHORITY_XML = get_sample(
+    "user_give_special_authority_request.xml"
+)
+TEST_USER_REMOVE_SPECIAL_AUTHORITY_XML = get_sample(
+    "user_remove_special_authority_request.xml"
+)
+TEST_USER_GIVE_AUDITOR_AUTHORITY_XML = get_sample(
+    "user_give_auditor_authority_request.xml"
+)
+TEST_USER_REMOVE_AUDITOR_AUTHORITY_XML = get_sample(
+    "user_remove_auditory_authority_request.xml"
+)
+TEST_USER_GIVE_OPERATIONS_AUTHORITY_XML = get_sample(
+    "user_give_operations_authority_request.xml"
+)
+TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML = get_sample(
+    "user_remove_operations_authority_request.xml"
+)
+TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
+TEST_USER_ADD_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
+    "user_add_class_authorizations_single_class_request.xml"
+)
+TEST_USER_ADD_CLASS_AUTHORIZATIONS_MULTIPLE_CLASSES_XML = get_sample(
+    "user_add_class_authorizations_multiple_classes_request.xml"
+)
+TEST_USER_REMOVE_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
+    "user_remove_class_authorizations_single_class_request.xml"
+)
+TEST_USER_REMOVE_CLASS_AUTHORIZATIONS_MULTIPLE_CLASSES_XML = get_sample(
+    "user_remove_class_authorizations_multiple_classes_request.xml"
+)
+TEST_USER_DELETE_ALL_CLASS_AUTHORIZATIONS_XML = get_sample(
+    "user_delete_all_class_authorizations_request.xml"
+)
+TEST_USER_SET_CLASS_AUTHORIZATIONS_XML = get_sample(
+    "user_set_class_authorizations_request.xml"
+)
+TEST_USER_SET_OMVS_UID_XML = get_sample("user_set_omvs_uid_request.xml")
+TEST_USER_SET_OMVS_HOME_XML = get_sample("user_set_omvs_home_request.xml")
+TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 
 # ============================================================================
 # Debug Logging
@@ -125,31 +158,30 @@ TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error
 
 # Alter User Traits
 TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
-    "userid": "squidwrd",
-    "special": False,
-    "home": "/u/clarinet",
-    "program": False,
-    "tstcsfld": "testval",
+    "base:special": False,
+    "omvs:home": "/u/clarinet",
+    "omvs:program": False,
+    "csdata:tstcsfld": "testval",
 }
 
 # Valid Segment Traits Updates
-TEST_USER_UPDATE_SEGMENTS = {"csdata": {"tstcsfld": "tstcsfld"}}
+TEST_USER_UPDATE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
 
 TEST_USER_ALTERNATE_SEGMENTS = {
-    "base": {"special": "alt:special"},
-    "csdata": {"tstcsfld": "tstcsfld"},
+    "base": {"base:special": "alt:special"},
+    "csdata": {"csdata:tstcsfld": "tstcsfld"},
 }
 
-TEST_USER_OVERWRITE_SEGMENTS = {"csdata": {"tstcsfld": "tstcsfld"}}
+TEST_USER_OVERWRITE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
 
 # Alter User Requests
-TEST_ALTER_USER_ALTERNATE_SEGMENTS_REQUEST_XML = get_sample(
-    "alter_user_request_alternate_segments.xml"
+TEST_ALTER_USER_REQUEST_ALTERNATIVE_SEGMENTS_XML = get_sample(
+    "alter_user_request_alternative_segments.xml"
 )
-TEST_ALTER_USER_OVERWRITE_SEGMENTS_REQUEST_XML = get_sample(
+TEST_ALTER_USER_REQUEST_OVERWRITE_SEGMENTS_XML = get_sample(
     "alter_user_request_overwrite_segments.xml"
 )
-TEST_ALTER_USER_UPDATE_SEGMENTS_REQUEST_XML = get_sample(
+TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML = get_sample(
     "alter_user_request_update_segments.xml"
 )
 

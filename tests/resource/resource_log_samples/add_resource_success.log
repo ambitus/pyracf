@@ -1,0 +1,101 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                              ResourceAdmin.add()                              
+                                                                               
+
+{
+  "base": {
+    "base:universal_access": {
+      "value": "None",
+      "operation": null
+    },
+    "base:owner": {
+      "value": "eswift",
+      "operation": null
+    }
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                              ResourceAdmin.add()                              
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
+    <base>
+      <racf:uacc>None</racf:uacc>
+      <racf:owner>eswift</racf:owner>
+    </base>
+  </resource>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                              ResourceAdmin.add()                              
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RDEFINE ELIJTEST             (TESTING) </image>
+      <message>ICH10006I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.</message>
+    </command>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RALTER  ELIJTEST             (TESTING)  UACC        (None) OWNER       (eswift)</image>
+      <message>ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                              ResourceAdmin.add()                              
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "set",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RDEFINE ELIJTEST             (TESTING) ",
+          "messages": [
+            "ICH10006I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+          ]
+        },
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RALTER  ELIJTEST             (TESTING)  UACC        (None) OWNER       (eswift)",
+          "messages": [
+            "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+

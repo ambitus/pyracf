@@ -1,0 +1,40 @@
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   ELIJTEST             (TESTING) ",
+          "profiles": [
+            {
+              "base": {
+                "class": "elijtest",
+                "name": "testing",
+                "level": 0,
+                "owner": "eswift",
+                "universalAccess": "read",
+                "yourAccess": "read",
+                "warning": null,
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "failures": "read"
+                },
+                "notify": null,
+                "generic": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

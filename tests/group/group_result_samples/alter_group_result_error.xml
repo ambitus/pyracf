@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <group name="TESTGRP0" operation="set" requestid="GroupRequest">
-        <info>Definition exists. Add command skipped due  to precheck option</info>
-        <command>
-            <safreturncode>8</safreturncode>
-            <returncode>16</returncode>
-            <reasoncode>8</reasoncode>
-            <image>ALTGROUP TESTGRP0  OMVS     (GID         (3000000000))</image>
-            <message>IKJ56702I INVALID GID, 3000000000</message>
-            <message>IKJ56701I MISSING OMVS GID+</message>
-            <message>IKJ56701I MISSING OMVS GROUP ID (GID), 1-10 NUMERIC DIGITS</message>
-        </command>
-    </group>
-    <returncode>4</returncode>
-    <reasoncode>0</reasoncode>
+  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+    <info>Definition exists. Add command skipped due  to precheck option</info>
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>8</reasoncode>
+      <image>ALTGROUP TESTGRP0  OMVS     (GID         (3000000000))</image>
+      <message>IKJ56702I INVALID GID, 3000000000</message>
+      <message>IKJ56701I MISSING OMVS GID+</message>
+      <message>IKJ56701I MISSING OMVS GROUP ID (GID), 1-10 NUMERIC DIGITS</message>
+    </command>
+  </group>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>

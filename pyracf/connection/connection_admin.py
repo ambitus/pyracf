@@ -1,5 +1,7 @@
 """RACF Connection Administration."""
 
+from typing import Union
+
 from pyracf.common.security_admin import SecurityAdmin
 from pyracf.connection.connection_request import ConnectionRequest
 
@@ -7,134 +9,122 @@ from pyracf.connection.connection_request import ConnectionRequest
 class ConnectionAdmin(SecurityAdmin):
     """RACF Connection Administration."""
 
-    def __init__(self, debug=False) -> None:
-        super().__init__(debug=debug)
-        self.valid_segment_traits = {
-            "base": {
-                "adsp": "racf:adsp",
-                "auditor": "racf:auditor",
-                "auth": "racf:auth",
-                "cgauthda": "racf:cgauthda",
-                "cginitct": "racf:cginitct",
-                "cgljdate": "racf:cgljdate",
-                "cgljtime": "racf:cgljtime",
-                "group": "racf:group",
-                "grpacc": "racf:grpacc",
-                "oper": "racf:oper",
-                "owner": "racf:owner",
-                "resume": "racf:resume",
-                "revoke": "racf:revoke",
-                "revokefl": "racf:revokefl",
-                "special": "racf:special",
-                "uacc": "racf:uacc",
-            }
+    _valid_segment_traits = {
+        "base": {
+            "base:adsp": "racf:adsp",
+            "base:auditor": "racf:auditor",
+            "base:auth": "racf:auth",
+            "base:cgauthda": "racf:cgauthda",
+            "base:cginitct": "racf:cginitct",
+            "base:cgljdate": "racf:cgljdate",
+            "base:cgljtime": "racf:cgljtime",
+            "base:group": "racf:group",
+            "base:group_access": "racf:grpacc",
+            "base:operations": "racf:oper",
+            "base:owner": "racf:owner",
+            "base:resume": "racf:resume",
+            "base:revoke": "racf:revoke",
+            "base:revokefl": "racf:revokefl",
+            "base:special": "racf:special",
+            "base:uacc": "racf:uacc",
         }
+    }
 
-    def set_group_special(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "special": True},
-            generate_request_only=generate_request_only,
-        )
-
-    def set_group_operations(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "oper": True},
-            generate_request_only=generate_request_only,
-        )
-
-    def set_group_auditor(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "auditor": True},
-            generate_request_only=generate_request_only,
-        )
-
-    def set_grpacc(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "grpacc": True},
-            generate_request_only=generate_request_only,
-        )
-
-    def del_group_special(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "special": False},
-            generate_request_only=generate_request_only,
-        )
-
-    def del_group_operations(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "oper": False},
-            generate_request_only=generate_request_only,
-        )
-
-    def del_group_auditor(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "auditor": False},
-            generate_request_only=generate_request_only,
-        )
-
-    def del_grpacc(
-        self, userid: str, group_name: str, generate_request_only=False
-    ) -> dict:
-        return self.alter(
-            {"userid": userid, "groupname": group_name, "grpacc": False},
-            generate_request_only=generate_request_only,
-        )
-
-    def add(self, traits: dict, generate_request_only=False) -> dict:
-        """Create a new group connection."""
-        userid = traits["userid"]
-        groupname = traits["groupname"]
-        self.build_segment_dictionaries(traits)
-        connection_request = ConnectionRequest(userid, groupname, "set")
-        self.build_segments(connection_request)
-        return self.make_request(
-            connection_request, generate_request_only=generate_request_only
-        )
-
-    def alter(self, traits: dict, generate_request_only=False) -> dict:
-        """Alter an existing group connection."""
-        userid = traits["userid"]
-        groupname = traits["groupname"]
-        self.build_segment_dictionaries(traits)
-        connection_request = ConnectionRequest(userid, groupname, "set")
-        self.build_segments(connection_request, alter=True)
-        return self.make_request(
-            connection_request, generate_request_only=generate_request_only
-        )
-
-    def delete(self, traits: dict, generate_request_only=False) -> dict:
-        """Delete a group connection."""
-        userid = traits["userid"]
-        groupname = traits["groupname"]
-        self.build_segment_dictionaries(traits)
-        connection_request = ConnectionRequest(userid, groupname, "del")
-        self.build_segments(connection_request)
-        return self.make_request(
-            connection_request, generate_request_only=generate_request_only
-        )
-
-    def build_segments(
-        self, connection_request: ConnectionRequest, alter=False
+    def __init__(
+        self,
+        debug: bool = False,
+        generate_requests_only: bool = False,
+        add_field_data: Union[dict, None] = None,
+        overwrite_field_data: Union[dict, None] = None,
     ) -> None:
-        """Build XML representation of segments."""
-        for segment, traits in self.segment_traits.items():
-            if segment == "base":
-                connection_request.build_segment(
-                    "", traits, self.trait_map, alter=alter
-                )
-        # Clear segments for new request
-        self.segment_traits = {}
+        super().__init__(
+            "groupConnection",
+            debug=debug,
+            generate_requests_only=generate_requests_only,
+            add_field_data=add_field_data,
+            overwrite_field_data=overwrite_field_data,
+        )
+
+    # ============================================================================
+    # Group Special
+    # ============================================================================
+    def give_group_special_authority(self, userid: str, group: str) -> dict:
+        """Give a user RACF special authority within a group."""
+        result = self.alter(userid, group, {"base:special": True})
+        return self._to_steps(result)
+
+    def take_away_group_special_authority(self, userid: str, group: str) -> dict:
+        """Remove a user's RACF special authoritiy within a group."""
+        result = self.alter(userid, group, {"base:special": False})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Group Operations
+    # ============================================================================
+    def give_group_operations_authority(self, userid: str, group: str) -> dict:
+        """Give a user operations authority within a group."""
+        result = self.alter(userid, group, {"base:operations": True})
+        return self._to_steps(result)
+
+    def take_away_group_operations_authority(self, userid: str, group: str) -> dict:
+        """Remove a user's operations authority within a group."""
+        result = self.alter(userid, group, {"base:operations": False})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Group Auditor
+    # ============================================================================
+    def give_group_auditor_authority(self, userid: str, group: str) -> dict:
+        """Give a user auditor authority within a group."""
+        result = self.alter(userid, group, {"base:auditor": True})
+        return self._to_steps(result)
+
+    def take_away_group_auditor_authority(self, userid: str, group: str) -> dict:
+        """Remove a user's auditor authority within a group."""
+        result = self.alter(userid, group, {"base:auditor": False})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Group Access
+    # ============================================================================
+    def set_group_access_attribute(self, userid: str, group: str) -> dict:
+        """
+        Automatically make group data set profiles that a user
+        creates accessible to all members of the group.
+        """
+        result = self.alter(userid, group, {"base:group_access": True})
+        return self._to_steps(result)
+
+    def remove_group_access_attribute(self, userid: str, group: str) -> dict:
+        """
+        Don't automatically make group data set profiles that
+        a user creates accessible to all members of the group.
+        """
+        result = self.alter(userid, group, {"base:group_access": False})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Base Functions
+    # ============================================================================
+    def add(self, userid: str, group: str, traits: dict = {}) -> dict:
+        """Create a new group connection."""
+        self._build_segment_dictionaries(traits)
+        connection_request = ConnectionRequest(userid, group, "set")
+        self._add_traits_directly_to_request_xml_with_no_segments(connection_request)
+        return self._make_request(connection_request)
+
+    def alter(self, userid: str, group: str, traits: dict = {}) -> dict:
+        """Alter an existing group connection."""
+        self._build_segment_dictionaries(traits)
+        connection_request = ConnectionRequest(userid, group, "set")
+        self._add_traits_directly_to_request_xml_with_no_segments(
+            connection_request, alter=True
+        )
+        return self._make_request(connection_request)
+
+    def delete(self, userid: str, group: str) -> dict:
+        """Delete a group connection."""
+        self._clear_state()
+        connection_request = ConnectionRequest(userid, group, "del")
+        self._add_traits_directly_to_request_xml_with_no_segments(connection_request)
+        return self._make_request(connection_request)

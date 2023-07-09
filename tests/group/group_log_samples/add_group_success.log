@@ -1,76 +1,87 @@
                                                                                
-                       [pyRACF:Debug] Request Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                                GroupAdmin.add()                               
                                                                                
 
 {
-    "omvs": {
-        "gid": "6667"
+  "omvs": {
+    "omvs:gid": {
+      "value": "6667",
+      "operation": null
     }
+  }
 }
 
                                                                                
-                           [pyRACF:Debug] Request XML                          
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                                GroupAdmin.add()                               
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <group name="TESTGRP0" operation="set" requestid="GroupRequest">
-        <omvs>
-            <gid>6667</gid>
-        </omvs>
-    </group>
+  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+    <omvs>
+      <gid>6667</gid>
+    </omvs>
+  </group>
 </securityrequest>
 
                                                                                
-                           [pyRACF:Debug] Result XML                           
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                                GroupAdmin.add()                               
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <group name="TESTGRP0" operation="set" requestid="GroupRequest">
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>ADDGROUP TESTGRP0 </image>
-        </command>
-        <command>
-            <safreturncode>0</safreturncode>
-            <returncode>0</returncode>
-            <reasoncode>0</reasoncode>
-            <image>ALTGROUP TESTGRP0  OMVS     (GID         (6667))</image>
-        </command>
-    </group>
-    <returncode>0</returncode>
-    <reasoncode>0</reasoncode>
+  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ADDGROUP TESTGRP0 </image>
+    </command>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ALTGROUP TESTGRP0  OMVS     (GID         (6667))</image>
+    </command>
+  </group>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
-                        [pyRACF:Debug] Result Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                                GroupAdmin.add()                               
                                                                                
 
 {
-    "securityresult": {
-        "group": {
-            "name": "TESTGRP0",
-            "operation": "set",
-            "requestid": "GroupRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ADDGROUP TESTGRP0 "
-                },
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "ALTGROUP TESTGRP0  OMVS     (GID         (6667))"
-                }
-            ]
+  "securityResult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "set",
+      "requestId": "GroupRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ADDGROUP TESTGRP0 "
         },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTGROUP TESTGRP0  OMVS     (GID         (6667))"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }
 

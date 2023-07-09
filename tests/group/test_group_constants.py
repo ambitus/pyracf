@@ -64,32 +64,18 @@ TEST_DELETE_GROUP_RESULT_ERROR_DICTIONARY = get_sample("delete_group_result_erro
 # Add Group
 TEST_ADD_GROUP_REQUEST_XML = get_sample("add_group_request.xml")
 TEST_ADD_GROUP_REQUEST_TRAITS = {
-    "groupname": "TESTGRP0",
     "omvs:gid": "6667",
 }
 
 # Alter Group
 TEST_ALTER_GROUP_REQUEST_XML = get_sample("alter_group_request.xml")
-TEST_ALTER_GROUP_REQUEST_TRAITS = {
-    "groupname": "TESTGRP0",
-    "omvs:gid": "1234567",
-}
-TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS = {
-    "groupname": "TESTGRP0",
-    "omvs:gid": "3000000000",
-}
+TEST_ALTER_GROUP_REQUEST_TRAITS = {"omvs:gid": "1234567"}
+TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS = {"omvs:gid": "3000000000"}
 
 # Extract Group
 TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_XML = get_sample(
     "extract_group_request_base_omvs.xml"
 )
-TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_TRAITS = {
-    "groupname": "TESTGRP0",
-    "omvs": True,
-}
-TEST_EXTRACT_GROUP_REQUEST_BASE_TRAITS = {
-    "groupname": "TESTGRP0",
-}
 
 # Delete Group
 TEST_DELETE_GROUP_REQUEST_XML = get_sample("delete_group_request.xml")

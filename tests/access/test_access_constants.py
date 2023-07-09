@@ -46,27 +46,10 @@ TEST_DELETE_ACCESS_RESULT_ERROR_DICTIONARY = get_sample(
 
 # Add Access
 TEST_ADD_ACCESS_REQUEST_XML = get_sample("add_access_request.xml")
-TEST_ADD_ACCESS_REQUEST_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-    "access": "READ",
-    "id": "ESWIFT",
-}
 
 # Alter Access
 TEST_ALTER_ACCESS_REQUEST_XML = get_sample("alter_access_request.xml")
-TEST_ALTER_ACCESS_REQUEST_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-    "access": "NONE",
-    "id": "ESWIFT",
-}
-TEST_ALTER_ACCESS_REQUEST_ERROR_TRAITS = {
-    "resourcename": "TESTING",
-    "classname": "ELIJTEST",
-    "access": "NONE",
-    "id": "MCGINLEY",
-}
+
 # Delete Access
 TEST_DELETE_ACCESS_REQUEST_XML = get_sample("delete_access_request.xml")
 

@@ -6,11 +6,11 @@ from pyracf.common.security_request import SecurityRequest
 class UserRequest(SecurityRequest):
     """User Administration Request Builder."""
 
-    def __init__(self, userid: str, function: str) -> None:
+    def __init__(self, userid: str, operation: str) -> None:
         super().__init__()
-        self.security_definition.tag = "user"
-        self.security_definition.attrib = {
+        self._security_definition.tag = "user"
+        self._security_definition.attrib = {
             "name": userid,
-            "operation": function,
+            "operation": operation,
             "requestid": "UserRequest",
         }

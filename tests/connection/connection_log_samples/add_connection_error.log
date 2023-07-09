@@ -1,63 +1,71 @@
                                                                                
-                       [pyRACF:Debug] Request Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                             ConnectionAdmin.add()                             
                                                                                
 
 {}
 
                                                                                
-                           [pyRACF:Debug] Request XML                          
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                             ConnectionAdmin.add()                             
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-    <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest"/>
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest"/>
 </securityrequest>
 
                                                                                
-                           [pyRACF:Debug] Result XML                           
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                             ConnectionAdmin.add()                             
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-    <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
-        <command>
-            <safreturncode>8</safreturncode>
-            <returncode>16</returncode>
-            <reasoncode>8</reasoncode>
-            <image>CONNECT ESWIFT  GROUP       (TESTGRP0)</image>
-            <message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>
-            <message>ICH02003I USER(S) NOT CONNECTED.</message>
-        </command>
-    </groupconnection>
-    <returncode>4</returncode>
-    <reasoncode>0</reasoncode>
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>8</reasoncode>
+      <image>CONNECT ESWIFT  GROUP       (TESTGRP0)</image>
+      <message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>
+      <message>ICH02003I USER(S) NOT CONNECTED.</message>
+    </command>
+  </groupconnection>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
-                        [pyRACF:Debug] Result Dictionary                       
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                             ConnectionAdmin.add()                             
                                                                                
 
 {
-    "securityresult": {
-        "groupconnection": {
-            "name": "ESWIFT",
-            "group": "TESTGRP0",
-            "operation": "set",
-            "requestid": "ConnectionRequest",
-            "commands": [
-                {
-                    "safreturncode": 8,
-                    "returncode": 16,
-                    "reasoncode": 8,
-                    "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)",
-                    "messages": [
-                        "ICH51003I NAME NOT FOUND IN RACF DATA SET",
-                        "ICH02003I USER(S) NOT CONNECTED."
-                    ]
-                }
-            ]
-        },
-        "returncode": 4,
-        "reasoncode": 4
-    }
+  "securityResult": {
+    "groupConnection": {
+      "name": "ESWIFT",
+      "group": "TESTGRP0",
+      "operation": "set",
+      "requestId": "ConnectionRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "CONNECT ESWIFT  GROUP       (TESTGRP0)",
+          "messages": [
+            "ICH51003I NAME NOT FOUND IN RACF DATA SET",
+            "ICH02003I USER(S) NOT CONNECTED."
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
 }
 

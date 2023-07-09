@@ -1,69 +1,69 @@
 {
-    "securityresult": {
-        "user": {
-            "name": "SQUIDWRD",
-            "operation": "listdata",
-            "requestid": "UserRequest",
-            "commands": [
-                {
-                    "safreturncode": 0,
-                    "returncode": 0,
-                    "reasoncode": 0,
-                    "image": "LISTUSER SQUIDWRD  OMVS     CSDATA  ",
-                    "profiles": [
-                        {
-                            "base": {
-                                "user": "squidwrd",
-                                "name": "squidward",
-                                "owner": "leonard",
-                                "created": 23.157,
-                                "defaultgroup": "sys1",
-                                "passdate": 0.0,
-                                "passinterval": 186,
-                                "phrasedate": null,
-                                "attributes": [],
-                                "revokedate": null,
-                                "resumedate": null,
-                                "lastaccess": "23.157/10:54:34",
-                                "classauthorizations": [],
-                                "logonalloweddays": "anyday",
-                                "logonallowedtime": "anytime",
-                                "groups": {
-                                    "SYS1": {
-                                        "auth": "use",
-                                        "connectowner": "eswift",
-                                        "connectdate": 23.157,
-                                        "connects": 0,
-                                        "uacc": null,
-                                        "lastconnect": "unknown",
-                                        "connectattributes": null,
-                                        "revokedate": null,
-                                        "resumedate": null
-                                    }
-                                },
-                                "securitylevel": null,
-                                "categoryauthorization": null,
-                                "securitylabel": null
-                            },
-                            "csdata": {
-                                "tstcsfld": "testval"
-                            },
-                            "omvs": {
-                                "uid": 2424,
-                                "home": "/u/clarinet",
-                                "cputimemax": null,
-                                "assizemax": null,
-                                "fileprocmax": null,
-                                "procusermax": null,
-                                "threadsmax": null,
-                                "mmapareamax": null
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        "returncode": 0,
-        "reasoncode": 0
-    }
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "listdata",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTUSER SQUIDWRD  OMVS     CSDATA  ",
+          "profiles": [
+            {
+              "base": {
+                "user": "squidwrd",
+                "name": "squidward",
+                "owner": "leonard",
+                "created": "6/6/2023",
+                "defaultGroup": "sys1",
+                "passwordDate": null,
+                "passwordInterval": 186,
+                "passphraseDate": null,
+                "attributes": [],
+                "revokeDate": null,
+                "resumeDate": null,
+                "lastAccess": "6/6/2023 10:54 AM",
+                "classAuthorizations": [],
+                "logonAllowedDays": "anyday",
+                "logonAllowedTime": "anytime",
+                "groups": {
+                  "SYS1": {
+                    "auth": "use",
+                    "connectOwner": "eswift",
+                    "connectDate": "6/6/2023",
+                    "connects": 0,
+                    "uacc": null,
+                    "lastConnect": "unknown",
+                    "connectAttributes": [],
+                    "revokeDate": null,
+                    "resumeDate": null
+                  }
+                },
+                "securityLevel": null,
+                "categoryAuthorization": null,
+                "securityLabel": null
+              },
+              "csdata": {
+                "tstcsfld": "testval"
+              },
+              "omvs": {
+                "uid": 2424,
+                "home": "/u/clarinet",
+                "cputimemax": null,
+                "assizemax": null,
+                "fileprocmax": null,
+                "procusermax": null,
+                "threadsmax": null,
+                "mmapareamax": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
 }

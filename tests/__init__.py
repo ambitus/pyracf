@@ -5,7 +5,7 @@ Ensure that test classes can import pyRACF classes.
 import os
 import sys
 
-if os.getcwd()[-6:] == "pyRACF":
+if os.getcwd()[-5:] != "tests":
     os.chdir("tests")
 
 sys.path.append("..")

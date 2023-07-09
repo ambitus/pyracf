@@ -1,0 +1,323 @@
+{
+  "securityResult": {
+    "systemSettings": {
+      "operation": "set",
+      "requestId": "SetroptsRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "SETROPTS   LIST",
+          "profiles": [
+            {
+              "attributes": {
+                "initializationStatistics": true,
+                "programControl": false,
+                "terminalAccess": "read",
+                "specialAudit": true,
+                "logCommandViolations": true,
+                "operationsAudit": false
+              },
+              "classes": {
+                "statistics": [
+                  "dataset",
+                  "aims",
+                  "appl",
+                  "dasdvol",
+                  "gcicstrn",
+                  "gims",
+                  "pcicspsb",
+                  "qcicspsb",
+                  "tapevol",
+                  "tcicstrn",
+                  "terminal",
+                  "tims"
+                ],
+                "audit": [
+                  "dataset",
+                  "user",
+                  "group",
+                  "aims",
+                  "appl",
+                  "dasdvol",
+                  "gcicstrn",
+                  "gims",
+                  "pcicspsb",
+                  "qcicspsb",
+                  "tapevol",
+                  "tcicstrn",
+                  "terminal",
+                  "tims"
+                ],
+                "active": [
+                  "dataset",
+                  "user",
+                  "group",
+                  "acicspct",
+                  "aims",
+                  "appl",
+                  "bcicspct",
+                  "ccicscmd",
+                  "dasdvol",
+                  "dcicsdct",
+                  "ecicsdct",
+                  "fcicsfct",
+                  "gcicstrn",
+                  "gims",
+                  "global",
+                  "gmbr",
+                  "hcicsfct",
+                  "jcicsjct",
+                  "kcicsjct",
+                  "mcicsppt",
+                  "ncicsppt",
+                  "pcicspsb",
+                  "qcicspsb",
+                  "racglist",
+                  "scicstst",
+                  "tapevol",
+                  "tcicstrn",
+                  "terminal",
+                  "tims",
+                  "ucicstst",
+                  "vcicscmd",
+                  "vmrdr",
+                  "vmmdisk"
+                ],
+                "genericProfile": [
+                  "dataset",
+                  "acicspct",
+                  "aims",
+                  "appl",
+                  "ccicscmd",
+                  "dasdvol",
+                  "dcicsdct",
+                  "fcicsfct",
+                  "gmbr",
+                  "jcicsjct",
+                  "mcicsppt",
+                  "pcicspsb",
+                  "scicstst",
+                  "tapevol",
+                  "tcicstrn",
+                  "terminal",
+                  "tims",
+                  "vmbatch",
+                  "vmcmd",
+                  "vmmdisk",
+                  "vmnode",
+                  "vmrdr"
+                ],
+                "genericCommand": [
+                  "dataset",
+                  "acicspct",
+                  "aims",
+                  "appl",
+                  "ccicscmd",
+                  "dasdvol",
+                  "dcicsdct",
+                  "fcicsfct",
+                  "gmbr",
+                  "jcicsjct",
+                  "mcicsppt",
+                  "pcicspsb",
+                  "scicstst",
+                  "tapevol",
+                  "tcicstrn",
+                  "terminal",
+                  "tims",
+                  "vmbatch",
+                  "vmcmd",
+                  "vmmdisk",
+                  "vmnode",
+                  "vmrdr"
+                ],
+                "genericProfileSharing": [],
+                "globalChecking": [
+                  "vmmdisk"
+                ],
+                "raclist": [
+                  "acctnum",
+                  "dasdvol"
+                ],
+                "globalRaclistOnly": [
+                  "jcicsjct",
+                  "tcicstrn"
+                ],
+                "logAlways": [
+                  "dasdvol",
+                  "gdasdvol",
+                  "seclabel"
+                ],
+                "logNever": [
+                  "facility",
+                  "vmxevent",
+                  "vxmbr"
+                ],
+                "logSuccess": [
+                  "appclu",
+                  "racfvars",
+                  "rvarsmbr"
+                ],
+                "logFailure": [
+                  "dataset",
+                  "pmbr",
+                  "program",
+                  "propcntl"
+                ],
+                "logDefault": [
+                  "gterminl",
+                  "tapevol",
+                  "terminal"
+                ]
+              },
+              "dataSets": {
+                "automaticProtection": true,
+                "enhancedGenericNaming": true,
+                "realNamesLogging": true,
+                "protectAll": false,
+                "tapeProtection": true,
+                "securityRetentionPeriod": 365,
+                "eraseOnScratch": {
+                  "enabled": false,
+                  "options": {}
+                },
+                "singleLevelNamePrefix": "rdsprfx",
+                "generationDataGroupModelling": false,
+                "userModelling": true,
+                "groupModelling": true,
+                "cataloguedAccessOnly": {
+                  "enabled": true,
+                  "options": {
+                    "warning": true
+                  }
+                },
+                "addCreator": true
+              },
+              "jes": {
+                "batchAll": false,
+                "executionBatchMonitorAll": false,
+                "earlyVerify": false,
+                "networkUser": "????????",
+                "undefinedUser": "++++++++"
+              },
+              "groupRules": {
+                "listOfGroupsAccessChecking": true
+              },
+              "revokeUserids": {
+                "revokeAfter": null
+              },
+              "passwordProcessingOptions": {
+                "activePasswordEncryptionAlgorithm": "kdfaes",
+                "passwordChangeInterval": 254,
+                "passwordMinimumChangeInterval": 2,
+                "mixedCasePasswordSupport": true,
+                "specialCharactersAllowed": true,
+                "passwordHistoryGenerations": 13,
+                "maxUnsuccessfulPasswordAttempts": 4,
+                "passwordExpirationWarningLevel": 186,
+                "syntaxRules": {
+                  "rules": [
+                    {
+                      "minLength": 4,
+                      "maxLength": 5,
+                      "content": "LLLL"
+                    },
+                    {
+                      "minLength": 5,
+                      "maxLength": 5,
+                      "content": "AAAA"
+                    },
+                    {
+                      "minLength": 6,
+                      "maxLength": 8,
+                      "content": "LLLLLLL"
+                    },
+                    {
+                      "minLength": 6,
+                      "maxLength": 8,
+                      "content": "NNNNNNN"
+                    },
+                    {
+                      "minLength": 6,
+                      "maxLength": 8,
+                      "content": "AAAAAAAA"
+                    }
+                  ],
+                  "legend": {
+                    "A": "alpha",
+                    "C": "consonant",
+                    "L": "alphanum",
+                    "N": "numeric",
+                    "V": "vowel",
+                    "W": "no vowel",
+                    "*": "anything",
+                    "c": "mixed consonant",
+                    "m": "mixed numeric",
+                    "v": "mixed vowel",
+                    "$": "national",
+                    "s": "special",
+                    "x": "mixedall"
+                  }
+                }
+              },
+              "defaultRvaryPassword": [
+                "switch",
+                "status"
+              ],
+              "securityLabels": {
+                "levelAuditing": null,
+                "labelAuditing": true,
+                "allowControlForReadAccess": true,
+                "compatibilityMode": true,
+                "bySystem": false
+              },
+              "genericRules": {
+                "restrictGenericOwner": true
+              },
+              "multiLevelSecurity": {
+                "quiet": true,
+                "stable": true,
+                "noWriteDown": {
+                  "enabled": true,
+                  "options": {
+                    "warning": true
+                  }
+                },
+                "secure": {
+                  "enabled": true,
+                  "options": {
+                    "warning": true
+                  }
+                },
+                "active": {
+                  "enabled": true,
+                  "options": {
+                    "fail": true
+                  }
+                },
+                "fileSystem": true,
+                "interprocessCommunications": true,
+                "nameHiding": false
+              },
+              "vtam": {
+                "sessionKeyVerificationInterval": 30,
+                "appcTransactionAudit": true
+              },
+              "kerberos": {
+                "encryptionLevel": 0
+              },
+              "languageDefaults": {
+                "primary": "enu_american",
+                "secondary": "enu_american"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

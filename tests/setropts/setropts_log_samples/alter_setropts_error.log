@@ -1,0 +1,80 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                             SetroptsAdmin.alter()                             
+                                                                               
+
+{
+  "base": {
+    "base:raclist": {
+      "value": "ELIXTEST",
+      "operation": null
+    }
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                             SetroptsAdmin.alter()                             
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <systemsettings operation="set" requestid="SetroptsRequest">
+    <racf:raclist>ELIXTEST</racf:raclist>
+  </systemsettings>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                             SetroptsAdmin.alter()                             
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <systemsettings operation="set" requestid="SetroptsRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>8</reasoncode>
+      <image>SETROPTS      RACLIST     (elixtest)</image>
+      <message>IKJ56702I INVALID RACLIST, ELIXTEST</message>
+      <message>IKJ56701I MISSING CLASS NAMES FOR RACLIST+</message>
+      <message>IKJ56701I MISSING CLASS NAMES:  ANY (NON-GROUP) RESOURCE CLASS</message>
+    </command>
+  </systemsettings>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                             SetroptsAdmin.alter()                             
+                                                                               
+
+{
+  "securityResult": {
+    "systemSettings": {
+      "operation": "set",
+      "requestId": "SetroptsRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "SETROPTS      RACLIST     (elixtest)",
+          "messages": [
+            "IKJ56702I INVALID RACLIST, ELIXTEST",
+            "IKJ56701I MISSING CLASS NAMES FOR RACLIST+",
+            "IKJ56701I MISSING CLASS NAMES:  ANY (NON-GROUP) RESOURCE CLASS"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 4
+  }
+}
+
