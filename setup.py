@@ -12,7 +12,9 @@ class Build(build_py):
     """Build irrsmo00.dll."""
 
     def run(self):
-        subprocess.Popen("py3 setup.py", cwd = f"{os.path.dirname(__file__)}/pyracf/common")
+        subprocess.Popen(
+            "py3 setup.py", cwd=f"{os.path.dirname(__file__)}/pyracf/common"
+        )
         build_py.run(self)
 
 

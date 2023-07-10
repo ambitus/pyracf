@@ -18,7 +18,7 @@ class IRRSMO00:
         # Initialize bytes object for output buffer
         rsp = bytes(10000)
         # Make call to pyobject to call SMO
-        rsp = call_smo(xml_str = request_xml, xml_len = len(request_xml), opts = options)
+        rsp = call_smo(xml_str=request_xml, xml_len=len(request_xml), opts=options)
 
         # Decode result bytes from pyobject
         return rsp.decode("cp1047")
