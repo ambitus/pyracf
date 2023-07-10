@@ -1,7 +1,7 @@
 """PyRACF setup/build configuration."""
 
 import os
-from subprocess import run
+import subprocess
 from typing import List
 
 from setuptools import setup
@@ -12,15 +12,7 @@ class Build(build_py):
     """Build irrsmo00.dll."""
 
     def run(self):
-        os.chdir(f"{os.path.dirname(__file__)}/pyracf/common")
-        command = (
-            "c89 -c -D_XOPEN_SOURCE_EXTENDED "
-            + "-Wc,lp64,langlvl\\(extended\\),STACKPROTECT\\(ALL\\) "
-            + "-I../../safCommon -I irrsmo00.so irrsmo00.c "
-            + '&& c89 -Wl,"DLL,LP64,XPLINK" -o irrsmo00.dll irrsmo00.o'
-        )
-        run(command, shell=True, text=True, check=True)
-        os.chdir(f"{os.path.dirname(__file__)}")
+        subprocess.Popen("py3 setup.py", cwd = f"{os.path.dirname(__file__)}/pyracf/common")
         build_py.run(self)
 
 
