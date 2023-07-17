@@ -7,5 +7,5 @@ has_toc: false
 
 # Access Administration
 
-Documentation for Access Administration functions provided with pyRACF.
+Access Administration functions.
 {: .fs-6 .fw-300 }

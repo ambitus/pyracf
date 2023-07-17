@@ -7,5 +7,5 @@ has_toc: false
 
 # Group Administration
 
-Documentation for Group Administration functions provided with pyRACF.
+Group Administration functions.
 {: .fs-6 .fw-300 }

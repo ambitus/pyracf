@@ -13,6 +13,11 @@ Python interface into the RACF management application programming interface.
 &nbsp;
 
 {: .warning }
+> _**pyRACF** is still in **Alpha**, meaning that it is not yet considered ready for production use and existing functionality and interfaces are still subject to change._
+
+&nbsp;
+
+{: .warning }
 > _The following **dependencies** are required in order to use pyRACF:_
 > * _z/OS **2.4** and higher._
 > * _**R_SecMgtOper (IRRSMO00)**: Security Management Operations._

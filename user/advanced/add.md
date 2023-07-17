@@ -1,0 +1,90 @@
+---
+layout: default
+grand_parent: User Admin
+parent: Advanced
+---
+
+# Add
+
+Create a new z/OS userid.
+{: .fs-6 .fw-300 }
+
+## `UserAdmin.add()`
+
+```python
+def add(self, userid: str, traits: dict = {}) -> dict:
+```
+
+#### 📄 Description
+
+Create a new **z/OS userid**.
+
+#### 📥 Parameters
+* `userid`<br>
+  The **z/OS userid** being created.
+
+* `traits`<br>
+  A dictionary of **traits/attributes** that should be given to the user on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **User Traits** are.
+
+#### 📤 Returns
+* `Union[dict,str]`<br>
+  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+
+#### ❌ Raises
+* `SecurityRequestError`<br>
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+
+#### 💻 Example
+
+The following example **creates** a **new user** with a userid of `squidwrd` and serveral **traits/attributes** as defined in the `traits` dictionary.
+
+###### Python Script
+```python
+from pyracf import UserAdmin
+user_admin = UserAdmin()
+
+traits = {
+    "base:name": "Squidward",
+    "base:password": "K29521IO",
+    "base:owner": "leonard",
+    "base:special": True,
+    "base:operations": False,
+    "omvs:uid": 2424,
+    "omvs:home": "/u/squidwrd",
+    "omvs:program": "/bin/sh",
+}
+
+user_admin.add("squidwrd", traits=traits)
+```
+
+###### Security Result Dictionary as JSON
+```json
+{
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "set",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ADDUSER SQUIDWRD ",
+          "messages": [
+            "ICH01024I User SQUIDWRD is defined as PROTECTED."
+          ]
+        },
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTUSER SQUIDWRD  PASSWORD    (********) OWNER       (leonard) SPECIAL      NOOPERATIONS   OMVS     (HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+```
