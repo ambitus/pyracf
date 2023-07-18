@@ -19,6 +19,16 @@ class custom_build_ext(build_ext):
 setup(
     name="call_smo",
     version="1.0",
+    description="Python wrapper for IRRSMO00 RACF Callable Service",
+    author="IBM",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "Topic :: RACF Administration",
+        "License :: IBM Internal For Now...",
+        "Operating System :: z/OS",
+    ],
     ext_modules=[
         Extension(
             "call_smo",
@@ -31,5 +41,7 @@ setup(
             extra_link_args=["-Wl,INFO"],
         )
     ],
+    python_requires=">=3.9",
+    license_files=("LICENSE"),
     cmdclass={"build_ext": custom_build_ext},
 )

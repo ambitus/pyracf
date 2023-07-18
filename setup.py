@@ -5,17 +5,15 @@ import subprocess
 from typing import List
 
 from setuptools import setup
-from setuptools.command.build_py import build_py
+from setuptools.command.install import install
 
-
-class Build(build_py):
-    """Build irrsmo00.dll."""
+class InstallSMOPackage(install):
+    """Install irrsmo00 python package"""
 
     def run(self):
-        subprocess.Popen(
-            "py3 setup.py", cwd=f"{os.path.dirname(__file__)}/pyracf/common"
-        )
-        build_py.run(self)
+        command = ("python -m pip install ./pyracf/common")
+        subprocess.run(command, shell=True, text=True, check=True)
+        install.run(self)
 
 
 def get_requirements() -> List[str]:
@@ -53,5 +51,5 @@ setup(
     python_requires=">=3.9",
     license_files=("LICENSE"),
     install_requires=get_requirements(),
-    cmdclass={"build_py": Build},
+    cmdclass={"install": InstallSMOPackage},
 )
