@@ -60,7 +60,7 @@ class AccessAdmin(SecurityAdmin):
         traits: dict,
         volume: Union[str, None] = None,
         generic: bool = False,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Create a new permission."""
         traits["base:id"] = auth_id
         self._build_segment_dictionaries(traits)
@@ -76,7 +76,7 @@ class AccessAdmin(SecurityAdmin):
         traits: dict,
         volume: Union[str, None] = None,
         generic: bool = False,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Alter an existing permission."""
         traits["base:id"] = auth_id
         self._build_segment_dictionaries(traits)
@@ -93,7 +93,7 @@ class AccessAdmin(SecurityAdmin):
         auth_id: str,
         volume: Union[str, None] = None,
         generic: bool = False,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Delete a permission."""
         traits = {"base:id": auth_id}
         self._build_segment_dictionaries(traits)

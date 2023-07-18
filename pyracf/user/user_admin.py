@@ -16,7 +16,7 @@ class UserAdmin(SecurityAdmin):
             "base:auditor": "racf:auditor",
             "base:auth": "racf:auth",
             "base:category": "racf:category",
-            "base:class_authority": "racf:clauth",
+            "base:class_authorizations": "racf:clauth",
             "base:connects": "racf:connects",
             "base:cadsp": "racf:cadsp",
             "base:cauditor": "racf:cauditor",
@@ -221,12 +221,12 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # Special Authority
     # ============================================================================
-    def has_special_authority(self, userid: str) -> bool:
+    def has_special_authority(self, userid: str) -> Union[bool, bytes]:
         """Check if a user has RACF special authority."""
         profile = self.extract(userid, profile_only=True)
         return "special" in profile["base"]["attributes"]
 
-    def give_special_authority(self, userid: str) -> dict:
+    def give_special_authority(self, userid: str) -> Union[dict, bytes]:
         """Give a user RACF special authority."""
         result = self.alter(userid, traits={"base:special": True})
         return self._to_steps(result)
@@ -234,7 +234,7 @@ class UserAdmin(SecurityAdmin):
     def take_away_special_authority(
         self,
         userid: str,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Remove a user's RACF special authority."""
         result = self.alter(userid, traits={"base:special": False})
         return self._to_steps(result)
@@ -242,17 +242,17 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # Operations Authority
     # ============================================================================
-    def has_operations_authority(self, userid: str) -> bool:
+    def has_operations_authority(self, userid: str) -> Union[bool, bytes]:
         """Check if a user has operations authority."""
         profile = self.extract(userid, profile_only=True)
         return "operations" in profile["base"]["attributes"]
 
-    def give_operations_authority(self, userid: str) -> dict:
+    def give_operations_authority(self, userid: str) -> Union[dict, bytes]:
         """Give a user operations authority."""
         result = self.alter(userid, traits={"base:operations": True})
         return self._to_steps(result)
 
-    def remove_operations_authority(self, userid: str) -> dict:
+    def take_away_operations_authority(self, userid: str) -> Union[dict, bytes]:
         """Remove a user's operations authority."""
         result = self.alter(userid, traits={"base:operations": False})
         return self._to_steps(result)
@@ -260,17 +260,17 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # Auditor Authority
     # ============================================================================
-    def has_auditor_authority(self, userid: str) -> bool:
+    def has_auditor_authority(self, userid: str) -> Union[bool, bytes]:
         """Check if a user has auditor authority"""
         profile = self.extract(userid, profile_only=True)
         return "auditor" in profile["base"]["attributes"]
 
-    def give_auditor_authority(self, userid: str) -> dict:
+    def give_auditor_authority(self, userid: str) -> Union[dict, bytes]:
         """Give a user auditor authority."""
         result = self.alter(userid, traits={"base:auditor": True})
         return self._to_steps(result)
 
-    def remove_auditor_authority(self, userid: str) -> dict:
+    def take_away_auditor_authority(self, userid: str) -> Union[dict, bytes]:
         """Remove a user's auditor authority."""
         result = self.alter(userid, traits={"base:auditor": False})
         return self._to_steps(result)
@@ -282,7 +282,7 @@ class UserAdmin(SecurityAdmin):
         self,
         userid: str,
         password: str,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Set a user's password."""
         result = self.alter(userid, traits={"base:password": password})
         return self._to_steps(result)
@@ -290,14 +290,14 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # Class Authorizations
     # ============================================================================
-    def get_class_authorizations(self, userid: str) -> Union[List[str], None]:
+    def get_class_authorizations(self, userid: str) -> Union[List[str], None, bytes]:
         """Get a user's class authorizations."""
         profile = self.extract(userid, profile_only=True)
         return self._get_field(profile, "base", "classAuthorizations")
 
     def set_class_authorizations(
         self, userid: str, class_authorizations: List[str]
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """
         Set a user's class authorizations.
         removes the user's current class authorizations and then recreates
@@ -309,23 +309,23 @@ class UserAdmin(SecurityAdmin):
 
     def add_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Add a class to a user's class authorizations."""
         result = self.alter(
-            userid, traits={"add:base:class_authority": class_authorizations}
+            userid, traits={"add:base:class_authorizations": class_authorizations}
         )
         return self._to_steps(result)
 
     def remove_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Remove a class from a user's class authorizations."""
         result = self.alter(
-            userid, traits={"remove:base:class_authority": class_authorizations}
+            userid, traits={"remove:base:class_authorizations": class_authorizations}
         )
         return self._to_steps(result)
 
-    def delete_all_class_authorizations(self, userid: str) -> Union[dict, False]:
+    def delete_all_class_authorizations(self, userid: str) -> Union[dict, False, bytes]:
         """Delete all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
         if not current_class_authorizations:
@@ -335,12 +335,12 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # OMVS UID
     # ============================================================================
-    def get_omvs_uid(self, userid: str) -> Union[int, None]:
+    def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS UID."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
         return self._get_field(profile, "omvs", "uid")
 
-    def set_omvs_uid(self, userid: str, uid: int) -> dict:
+    def set_omvs_uid(self, userid: str, uid: int) -> Union[dict, bytes]:
         """Set a user's OMVS UID."""
         result = self.alter(userid, traits={"omvs:uid": uid})
         return self._to_steps(result)
@@ -348,7 +348,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # OMVS Home
     # ============================================================================
-    def get_omvs_home(self, userid: str) -> Union[str, None]:
+    def get_omvs_home(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's OMVS home directory."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
         return self._get_field(profile, "omvs", "home")
@@ -357,7 +357,7 @@ class UserAdmin(SecurityAdmin):
         self,
         userid: str,
         home_directory: str,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Set a user's OMVS home directory."""
         result = self.alter(userid, traits={"omvs:home": home_directory})
         return self._to_steps(result)
@@ -365,7 +365,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # OMVS Program
     # ============================================================================
-    def get_omvs_program(self, userid: str) -> Union[str, None]:
+    def get_omvs_program(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's OMVS program."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
         return self._get_field(profile, "omvs", "program")
@@ -374,7 +374,7 @@ class UserAdmin(SecurityAdmin):
         self,
         userid: str,
         program: str,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Set a user's OMVS program."""
         result = self.alter(userid, traits={"omvs:program": program})
         return self._to_steps(result)
@@ -382,14 +382,14 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def add(self, userid: str, traits: dict = {}) -> dict:
+    def add(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
         """Create a new user."""
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request)
         return self._make_request(user_request)
 
-    def alter(self, userid: str, traits: dict = {}) -> dict:
+    def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
         """Alter an existing user."""
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
@@ -398,7 +398,7 @@ class UserAdmin(SecurityAdmin):
 
     def extract(
         self, userid: str, segments: dict = {}, profile_only: bool = False
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Extract a user's profile."""
         self._build_bool_segment_dictionaries(segments)
         user_request = UserRequest(userid, "listdata")
@@ -408,7 +408,7 @@ class UserAdmin(SecurityAdmin):
             return self._get_profile(result)
         return result
 
-    def delete(self, userid: str) -> dict:
+    def delete(self, userid: str) -> Union[dict, bytes]:
         """Delete a user."""
         self._clear_state()
         user_request = UserRequest(userid, "del")

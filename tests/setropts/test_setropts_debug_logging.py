@@ -9,9 +9,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
-from pyracf import SetroptsAdmin
+from pyracf import SecurityRequestError, SetroptsAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__

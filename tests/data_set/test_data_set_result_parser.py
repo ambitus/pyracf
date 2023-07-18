@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.data_set.test_data_set_constants as TestDataSetConstants
-from pyracf import DataSetAdmin
+from pyracf import DataSetAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -52,7 +51,7 @@ class TestDataSetResultParser(unittest.TestCase):
                 traits=TestDataSetConstants.TEST_ADD_DATA_SET_REQUEST_TRAITS,
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestDataSetConstants.TEST_ADD_DATA_SET_RESULT_ERROR_DICTIONARY,
         )
 
@@ -88,7 +87,7 @@ class TestDataSetResultParser(unittest.TestCase):
                 traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_DICTIONARY,
         )
 
@@ -130,7 +129,7 @@ class TestDataSetResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.data_set_admin.extract("ESWIFT.TEST.T1136242.P3020470")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_DICTIONARY,
         )
 
@@ -160,6 +159,6 @@ class TestDataSetResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.data_set_admin.delete("ESWIFT.TEST.T1136242.P3020470")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestDataSetConstants.TEST_DELETE_DATA_SET_RESULT_ERROR_DICTIONARY,
         )

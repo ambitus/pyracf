@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.group.test_group_constants as TestGroupConstants
-from pyracf import GroupAdmin
+from pyracf import GroupAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -48,7 +47,7 @@ class TestGroupResultParser(unittest.TestCase):
                 "TESTGRP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_DICTIONARY,
         )
 
@@ -83,7 +82,7 @@ class TestGroupResultParser(unittest.TestCase):
                 traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS,
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_DICTIONARY,
         )
 
@@ -125,7 +124,7 @@ class TestGroupResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.group_admin.extract("TESTGRP0", segments={"omvs": True})
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_DICTIONARY,
         )
 
@@ -155,6 +154,6 @@ class TestGroupResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.group_admin.delete("TESTGRP0")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestGroupConstants.TEST_DELETE_GROUP_RESULT_ERROR_DICTIONARY,
         )

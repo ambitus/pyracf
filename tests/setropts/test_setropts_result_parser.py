@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
+from pyracf import SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 # Resolves F401
@@ -46,7 +46,7 @@ class TestSetroptsResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.setropts_admin.alter(options={"base:raclist": "elixtest"})
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_DICTIONARY,
         )
 
@@ -101,6 +101,6 @@ class TestSetroptsResultParser(unittest.TestCase):
             # Not valid error for this request, but good test
             self.setropts_admin.list_racf_options()
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_DICTIONARY,
         )

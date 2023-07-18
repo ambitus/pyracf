@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import ResourceAdmin
+from pyracf import ResourceAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -46,7 +45,7 @@ class TestResourceResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.add("TESTING", "ELIXTEST")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_DICTIONARY,
         )
 
@@ -84,7 +83,7 @@ class TestResourceResultParser(unittest.TestCase):
                 traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS,
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_DICTIONARY,
         )
 
@@ -127,7 +126,7 @@ class TestResourceResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.extract("TESTING", "ELIJTEST")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_DICTIONARY,
         )
 
@@ -157,6 +156,6 @@ class TestResourceResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.delete("TESTING", "ELIJTEST")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestResourceConstants.TEST_DELETE_RESOURCE_RESULT_ERROR_DICTIONARY,
         )
