@@ -7,5 +7,5 @@ has_toc: false
 
 # Group Connection Administration
 
-Documentation for Group Connection Administration functions provided with pyRACF.
+Group Connection Administration functions.
 {: .fs-6 .fw-300 }

@@ -1,0 +1,183 @@
+---
+layout: default
+grand_parent: User Admin
+parent: Standard
+---
+
+# Special Authority
+
+User administration functions for accessing and modifying a user's RACF Special Authority. 
+{: .fs-6 .fw-300 }
+
+## `UserAdmin.has_special_authority()`
+
+```python
+def has_special_authority(self, userid: str) -> bool:
+```
+
+#### 📄 Description
+
+&nbsp;
+
+{: .note }
+> _Having **RACF Special** authority is analogous to having **Root** authority on Linux._
+
+&nbsp;
+
+Check if a user has **RACF Special** authority.
+
+#### 📥 Parameters
+* `userid`<br>
+  The userid of the user who's authority is being checked.
+
+#### 📤 Returns
+* `bool`<br>
+  Returns `True` when the user has **RACF Special** authority and `False` otherwise.
+
+#### ❌ Raises
+* `SecurityRequestError`<br>
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+
+#### 💻 Example
+
+###### Python REPL
+```python
+>>> from pyracf import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.has_special_authority("squidwrd")
+False
+```
+
+## `UserAdmin.give_special_authority()`
+
+```python
+def give_special_authority(self, userid: str) -> dict:
+```
+
+#### 📄 Description
+
+&nbsp;
+
+{: .note }
+> _Having **RACF Special** authority is analogous to having **Root** authority on Linux._
+
+&nbsp;
+
+Give a user **RACF Special** authority.
+
+#### 📥 Parameters
+* `userid`<br>
+  The userid of the user to give **RACF Special** authority.
+
+#### 📤 Returns
+* `Union[dict,str]`<br>
+  Returns a **Security Result Steps dictionary** or a **concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+
+#### ❌ Raises
+* `SecurityRequestError`<br>
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+
+#### 💻 Example
+
+###### Python REPL
+```python
+>>> from pyracf import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.give_special_authority("squidwrd")
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  SPECIAL     '}]}, 'returnCode': 0, 'reasonCode': 0}}}
+```
+
+###### Security Result Steps Dictionary as JSON
+```json
+{
+  "step1": {
+    "securityResult": {
+      "user": {
+        "name": "SQUIDWRD",
+        "operation": "set",
+        "requestId": "UserRequest",
+        "info": [
+          "Definition exists. Add command skipped due  to precheck option"
+        ],
+        "commands": [
+          {
+            "safReturnCode": 0,
+            "returnCode": 0,
+            "reasonCode": 0,
+            "image": "ALTUSER SQUIDWRD  SPECIAL     "
+          }
+        ]
+      },
+      "returnCode": 0,
+      "reasonCode": 0
+    }
+  }
+}
+```
+
+## `UserAdmin.take_away_special_authority()`
+
+```python
+def take_away_special_authority(self, userid: str) -> dict:
+```
+
+#### 📄 Description
+
+&nbsp;
+
+{: .note }
+> _Having **RACF Special** authority is analogous to having **Root** authority on Linux._
+
+&nbsp;
+
+Take away a user's **RACF Special** authority.
+
+#### 📥 Parameters
+* `userid`<br>
+  The userid of the user to take RACF **Special** authority away from.
+
+#### 📤 Returns
+* `Union[dict,str]`<br>
+  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+
+#### ❌ Raises
+* `SecurityRequestError`<br>
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+
+#### 💻 Example
+
+###### Python REPL
+```python
+>>> from pyracf import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.take_away_special_authority("squidwrd")
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  NOSPECIAL     '}]}, 'returnCode': 0, 'reasonCode': 0}}}
+```
+
+###### Security Result Steps Dictionary as JSON
+```json
+{
+  "step1": {
+    "securityResult": {
+      "user": {
+        "name": "SQUIDWRD",
+        "operation": "set",
+        "requestId": "UserRequest",
+        "info": [
+          "Definition exists. Add command skipped due  to precheck option"
+        ],
+        "commands": [
+          {
+            "safReturnCode": 0,
+            "returnCode": 0,
+            "reasonCode": 0,
+            "image": "ALTUSER SQUIDWRD  NOSPECIAL     "
+          }
+        ]
+      },
+      "returnCode": 0,
+      "reasonCode": 0
+    }
+  }
+}
+```

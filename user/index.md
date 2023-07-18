@@ -7,5 +7,5 @@ has_toc: false
 
 # User Administration
 
-Documentation for User Administration functions provided with pyRACF.
+User Administration functions.
 {: .fs-6 .fw-300 }

@@ -7,5 +7,5 @@ has_toc: false
 
 # Data Set Administration
 
-Documentation for Data Set Administration functions provided with pyRACF.
+Data Set Administration functions.
 {: .fs-6 .fw-300 }

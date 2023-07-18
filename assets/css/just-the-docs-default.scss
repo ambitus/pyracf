@@ -83,7 +83,12 @@ a:not([class]):hover, a:not([class]):focus-visible {
     border: none;
 }
 
-.site-nav > .nav-list > li.nav-list-item.active:last-child > .nav-list-link {
+.site-nav > .nav-list > li.nav-list-item.active:last-child > .nav-list-link,
+.site-nav > .nav-list > li.nav-list-item.active:last-child > .nav-list > li.nav-list-item.active:last-child > .nav-list-link,
+.site-nav > .nav-list > li.nav-list-item.active:not(:last-child) > .nav-list > li.nav-list-item.active > .nav-list > li.nav-list-item.active:last-child > .nav-list-link,
+.site-nav > .nav-list > li.nav-list-item.active:not(:last-child) > .nav-list > li.nav-list-item.active > .nav-list > li.nav-list-item:last-child > .nav-list-link:hover,
+.site-nav > .nav-list > li.nav-list-item.active > .nav-list > li.nav-list-item.active:not(:last-child) > .nav-list > li.nav-list-item.active:last-child > .nav-list-link,
+.site-nav > .nav-list > li.nav-list-item.active > .nav-list > li.nav-list-item.active:not(:last-child) > .nav-list > li.nav-list-item:last-child > .nav-list-link:hover {
     border-radius: 0;
 }
 
@@ -93,6 +98,14 @@ a:not([class]):hover, a:not([class]):focus-visible {
 
 .nav-list .nav-list-item > .nav-list .nav-list-item {
     border: none;
+}
+
+.nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-expander {
+    top: -8px;
+}
+
+.nav-list .nav-list-item > .nav-list .nav-list-item.active .nav-list-expander {
+    top: -9px;
 }
 
 .nav-list .nav-list-item:last-child > .nav-list .nav-list-item:last-child {
@@ -112,6 +125,14 @@ a:not([class]):hover, a:not([class]):focus-visible {
 
 a.nav-list-link {
     color: #eee;
+}
+
+.nav-list .nav-list-item > .nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link {
+    font-weight: lighter;
+    font-size: 12px;
+    text-indent: 15px;
+    padding-bottom: 2px;
+    padding-top: 2px;
 }
 
 .nav-list .nav-list-item > .nav-list .nav-list-item .nav-list-link {
@@ -204,14 +225,19 @@ blockquote.note::before, p.note::before {
     color: #99f;
 }
 
-blockquote.note > p > em > code.highlighter-rouge,
-p.note > p > em > code.highlighter-rouge {
+blockquote.note code.highlighter-rouge {
     background-color: #557;
-    color: #ccc
+    color: #ccc;
 }
 
-blockquote.warning > p > em > code.highlighter-rouge {
+blockquote.warning code.highlighter-rouge {
     background-color: #553;
+    color: #ccc;
+}
+
+blockquote.note a > code.highlighter-rouge,
+blockquote.warning a > code.highlighter-rouge {
+    color: #abf;
 }
 
 .main-content {
@@ -303,7 +329,11 @@ img {
 
 @media only screen and (max-width: 1066px) {
     .site-nav > .nav-list > li.nav-list-item:first-child, 
-    .site-nav > .nav-list > li.nav-list-item:last-child {
+    .site-nav > .nav-list > li.nav-list-item:last-child,
+    .nav-list .nav-list-item:last-child > .nav-list .nav-list-item:last-child > .nav-list-link:active,
+    .nav-list .nav-list-item:last-child > .nav-list .nav-list-item:last-child > .nav-list-link.active,
+    .nav-list .nav-list-item:last-child > .nav-list .nav-list-item:last-child > .nav-list-link:hover,
+    .nav-list .nav-list-item:last-child > .nav-list .nav-list-item:last-child > .nav-list-link:focus-visible {
         border-radius: 0;
     }
 }
@@ -349,4 +379,8 @@ div.highlighter-rouge > button, div.listingblock > div.content > button, figure.
     border-radius: 5px;
     background-color: #334;
     border-color: #334;
+}
+
+h6 {
+    top: 10px;
 }

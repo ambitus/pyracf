@@ -7,5 +7,5 @@ has_toc: false
 
 # Setropts Administration
 
-Documentation for Setropts Administration functions provided with pyRACF.
+Setropts Administration functions.
 {: .fs-6 .fw-300 }

@@ -7,5 +7,5 @@ has_toc: false
 
 # General Resource Administration
 
-Documentation for General Resource Administration functions provided with pyRACF.
+General Resource Administration functions.
 {: .fs-6 .fw-300 }
