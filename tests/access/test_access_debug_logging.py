@@ -9,9 +9,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf import AccessAdmin
+from pyracf import AccessAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__

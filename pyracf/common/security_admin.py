@@ -171,15 +171,17 @@ class SecurityAdmin:
                 results.get_result_dictionary(),
                 redact_password,
             )
-        result_dict = results.get_result_dictionary()
-        if (
-            result_dict["securityResult"]["returnCode"] != 0
-            or result_dict["securityResult"]["reasonCode"] != 0
-        ):
-            raise SecurityRequestError(result_dict)
-        return result_dict
+        result_dictionary = results.get_result_dictionary()
+        if result_dictionary["securityResult"]["returnCode"] != 0:
+            # All non-zero return codes should cause a SecurityRequestError to be raised.
+            # Even if a return code of 4 is not indicative of a problem, it it is
+            # up to the user to interogate the result dictionary attached to the
+            # SecurityRequestError and decided whether or not the return code 4 is
+            # indicative of a problem.
+            raise SecurityRequestError(result_dictionary)
+        return result_dictionary
 
-    def _to_steps(self, results: Union[List[dict], dict, bytes]) -> dict:
+    def _to_steps(self, results: Union[List[dict], dict, bytes]) -> Union[dict, bytes]:
         """
         Build a steps dictionary composed of each result dictionary
         in a result dictionary list, where the result dictionary list is
@@ -187,7 +189,7 @@ class SecurityAdmin:
         to when each corresponding request was made.
 
         Note: for generate request only mode (for testing purposes),
-        the all of the request xml bytes should just be concatenated together.
+        all of the request xml bytes should just be concatenated together.
         """
         if isinstance(results, dict) or isinstance(results, bytes):
             results = [results]
@@ -291,14 +293,24 @@ class SecurityAdmin:
     # ============================================================================
     # Profile Dictionary Building
     # ============================================================================
-    def _get_profile(self, result: dict, index: int = 0) -> dict:
+    def _get_profile(
+        self, result: Union[dict, bytes], index: int = 0
+    ) -> Union[dict, bytes]:
         "Extract the profile section from a result dictionary"
+        if self.__generate_requests_only:
+            # Allows this function to work with "self.__generate_requests_only" mode.
+            return result
         return result["securityResult"][self.__profile_type]["commands"][0]["profiles"][
             index
         ]
 
-    def _get_field(self, profile: dict, segment: str, field: str) -> Any:
+    def _get_field(
+        self, profile: Union[dict, bytes], segment: str, field: str
+    ) -> Union[bytes, Any, None]:
         """Extract the value of a field from a segment in a profile."""
+        if self.__generate_requests_only:
+            # Allows this function to work with "self.__generate_requests_only" mode.
+            return profile
         try:
             return profile[segment][field]
         except KeyError:

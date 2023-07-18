@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.connection.test_connection_constants as TestConnectionConstants
-from pyracf import ConnectionAdmin
+from pyracf import ConnectionAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -46,7 +45,7 @@ class TestConnectionResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.connection_admin.add("ESWIFT", "TESTGRP0")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_ERROR_DICTIONARY,
         )
 
@@ -84,7 +83,7 @@ class TestConnectionResultParser(unittest.TestCase):
                 traits=TestConnectionConstants.TEST_ALTER_CONNECTION_REQUEST_TRAITS,
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestConnectionConstants.TEST_ALTER_CONNECTION_RESULT_ERROR_DICTIONARY,
         )
 
@@ -114,6 +113,6 @@ class TestConnectionResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.connection_admin.delete("ESWIFT", "TESTGRP0")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_ERROR_DICTIONARY,
         )

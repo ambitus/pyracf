@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf import AccessAdmin
+from pyracf import AccessAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -50,7 +49,7 @@ class TestAccessResultParser(unittest.TestCase):
                 "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "READ"}
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_DICTIONARY,
         )
 
@@ -84,7 +83,7 @@ class TestAccessResultParser(unittest.TestCase):
                 "TESTING", "ELITEST", "MCGINLEY", traits={"base:access": "NONE"}
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY,
         )
 
@@ -114,6 +113,6 @@ class TestAccessResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.access_admin.delete("TESTING", "ELIJTEST", "ESWIFT")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_ERROR_DICTIONARY,
         )

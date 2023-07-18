@@ -9,9 +9,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.connection.test_connection_constants as TestConnectionConstants
-from pyracf import ConnectionAdmin
+from pyracf import ConnectionAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__

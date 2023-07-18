@@ -187,7 +187,7 @@ class ResourceAdmin(SecurityAdmin):
     # ============================================================================
     # Universal Access
     # ============================================================================
-    def get_universal_access(self, resource: str, class_name: str) -> str:
+    def get_universal_access(self, resource: str, class_name: str) -> Union[str, bytes]:
         """Get the universal access for general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
         return self._get_field(profile, "base", "universalAccess")
@@ -197,14 +197,14 @@ class ResourceAdmin(SecurityAdmin):
         resource: str,
         class_name: str,
         universal_access: str,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Set the universal access for a general resource profile."""
         result = self.alter(
             resource, class_name, {"base:universal_access": universal_access}
         )
         return self._to_steps(result)
 
-    def get_my_access(self, resource: str, class_name: str) -> str:
+    def get_my_access(self, resource: str, class_name: str) -> Union[str, bytes]:
         """Get the access associated with your own general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
         return self._get_field(profile, "base", "yourAccess")
@@ -212,14 +212,18 @@ class ResourceAdmin(SecurityAdmin):
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def add(self, resource: str, class_name: str, traits: dict = {}) -> dict:
+    def add(
+        self, resource: str, class_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
         """Create a new general resource profile."""
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request)
         return self._make_request(profile_request)
 
-    def alter(self, resource: str, class_name: str, traits: dict = {}) -> dict:
+    def alter(
+        self, resource: str, class_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
         """Alter an existing general resource profile."""
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
@@ -228,7 +232,7 @@ class ResourceAdmin(SecurityAdmin):
 
     def extract(
         self, resource: str, class_name: str, segments={}, profile_only: bool = False
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Extract a general resource profile."""
         self._build_bool_segment_dictionaries(segments)
         resource_request = ResourceRequest(resource, class_name, "listdata")
@@ -238,7 +242,7 @@ class ResourceAdmin(SecurityAdmin):
             return self._get_profile(result)
         return result
 
-    def delete(self, resource: str, class_name: str) -> dict:
+    def delete(self, resource: str, class_name: str) -> Union[dict, bytes]:
         """Delete a general resource profile."""
         self._clear_state()
         profile_request = ResourceRequest(resource, class_name, "del")
