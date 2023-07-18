@@ -1,17 +1,16 @@
 """PyRACF setup/build configuration."""
-
-import os
 import subprocess
 from typing import List
 
 from setuptools import setup
 from setuptools.command.install import install
 
+
 class InstallSMOPackage(install):
     """Install irrsmo00 python package"""
 
     def run(self):
-        command = ("python -m pip install ./pyracf/common")
+        command = "python -m pip install ./pyracf/common"
         subprocess.run(command, shell=True, text=True, check=True)
         install.run(self)
 
@@ -47,7 +46,7 @@ setup(
         "pyracf.user",
     ],
     package_dir={"": "."},
-    package_data={"pyracf.common": ["irrsmo00.c", "irrsmo00.x", "irrsmo00.dll"]},
+    package_data={"pyracf.common": ["call_smo.c", "irrsmo00.x", "irrsmo00.dll"]},
     python_requires=">=3.9",
     license_files=("LICENSE"),
     install_requires=get_requirements(),

@@ -1,9 +1,11 @@
 """Interface to irrsmo00.dll."""
 
-import ctypes
-import os
+try:
+    from call_smo import call_smo
+except ImportError:
 
-from call_smo import call_smo
+    def call_smo(xml_str, xml_len, opts):
+        return "SERIOUS ERROR".encode("cp1047")
 
 
 class IRRSMO00:
