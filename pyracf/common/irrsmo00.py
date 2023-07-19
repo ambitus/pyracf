@@ -1,8 +1,11 @@
 """Interface to irrsmo00.dll."""
+import platform
 
 try:
     from call_smo import call_smo
-except ImportError:
+except ImportError as import_error:
+    if platform.system() == "OS/390":
+        raise import_error
 
     def call_smo(xml_str, xml_len, opts):
         return "SERIOUS ERROR".encode("cp1047")
@@ -18,9 +21,11 @@ class IRRSMO00:
     def call_racf(self, request_xml: bytes, options: int = 1) -> str:
         """Make request to IRRSMO00."""
         # Initialize bytes object for output buffer
-        rsp = bytes(10000)
+        # rsp = b''
         # Make call to pyobject to call SMO
-        rsp = call_smo(xml_str=request_xml, xml_len=len(request_xml), opts=options)
+        rsp = call_smo(
+            xml_str=request_xml, xml_len=len(request_xml), opts=options
+        ).decode("cp1047")
 
         # Decode result bytes from pyobject
-        return rsp.decode("cp1047")
+        return rsp
