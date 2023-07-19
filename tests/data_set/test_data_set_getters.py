@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.data_set.test_data_set_constants as TestDataSetConstants
-from pyracf import DataSetAdmin
+from pyracf import DataSetAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__

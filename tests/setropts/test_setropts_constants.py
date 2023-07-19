@@ -102,7 +102,7 @@ TEST_SETROPTS_PASSWORD_RULES = {
     "legend": {
         "A": "alpha",
         "C": "consonant",
-        "L": "alphanum",
+        "L": "alphanumeric",
         "N": "numeric",
         "V": "vowel",
         "W": "no vowel",

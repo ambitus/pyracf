@@ -41,7 +41,7 @@ class TestUserSetters(unittest.TestCase):
         self.assertEqual(result, TestUserConstants.TEST_USER_GIVE_AUDITOR_AUTHORITY_XML)
 
     def test_user_admin_build_remove_auditor_authority_request(self):
-        result = self.user_admin.remove_auditor_authority("squidwrd")
+        result = self.user_admin.take_away_auditor_authority("squidwrd")
         self.assertEqual(
             result, TestUserConstants.TEST_USER_REMOVE_AUDITOR_AUTHORITY_XML
         )
@@ -56,7 +56,7 @@ class TestUserSetters(unittest.TestCase):
         )
 
     def test_user_admin_build_remove_operations_authority_request(self):
-        result = self.user_admin.remove_operations_authority("squidwrd")
+        result = self.user_admin.take_away_operations_authority("squidwrd")
         self.assertEqual(
             result, TestUserConstants.TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML
         )

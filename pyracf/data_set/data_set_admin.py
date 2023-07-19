@@ -76,17 +76,19 @@ class DataSetAdmin(SecurityAdmin):
     # ============================================================================
     # Access
     # ============================================================================
-    def get_universal_access(self, data_set: str) -> str:
+    def get_universal_access(self, data_set: str) -> Union[str, bytes]:
         """Get universal access for data set profile."""
         profile = self.extract(data_set, profile_only=True)
         return self._get_field(profile, "base", "universalAccess")
 
-    def set_universal_access(self, data_set: str, universal_acccess: str) -> dict:
+    def set_universal_access(
+        self, data_set: str, universal_acccess: str
+    ) -> Union[dict, bytes]:
         """Set the universal access for a data set profile."""
         result = self.alter(data_set, {"base:universal_access": universal_acccess})
         return self._to_steps(result)
 
-    def get_my_access(self, data_set: str) -> str:
+    def get_my_access(self, data_set: str) -> Union[str, bytes]:
         """Get the access associated with your own data set profile."""
         profile = self.extract(data_set, profile_only=True)
         return self._get_field(profile, "base", "yourAccess")
@@ -100,7 +102,7 @@ class DataSetAdmin(SecurityAdmin):
         traits: dict,
         volume: Union[str, None] = None,
         generic: bool = False,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Create a new data set profile."""
         self._build_segment_dictionaries(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)
@@ -113,7 +115,7 @@ class DataSetAdmin(SecurityAdmin):
         traits: dict,
         volume: Union[str, None] = None,
         generic: bool = False,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Alter an existing data set profile."""
         self._build_segment_dictionaries(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)
@@ -127,7 +129,7 @@ class DataSetAdmin(SecurityAdmin):
         volume: Union[str, None] = None,
         generic: bool = False,
         profile_only: bool = False,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Extract a data set profile."""
         self._build_bool_segment_dictionaries(segments)
         data_set_request = DataSetRequest(data_set, "listdata", volume, generic)
@@ -142,7 +144,7 @@ class DataSetAdmin(SecurityAdmin):
         data_set: str,
         volume: Union[str, None] = None,
         generic: bool = False,
-    ) -> dict:
+    ) -> Union[dict, bytes]:
         """Delete a data set profile."""
         self._clear_state()
         data_set_request = DataSetRequest(data_set, "del", volume, generic)

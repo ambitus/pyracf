@@ -9,9 +9,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import ResourceAdmin
+from pyracf import ResourceAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__

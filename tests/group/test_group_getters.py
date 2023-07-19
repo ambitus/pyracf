@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.group.test_group_constants as TestGroupConstants
-from pyracf import GroupAdmin
+from pyracf import GroupAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__

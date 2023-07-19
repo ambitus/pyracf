@@ -3,15 +3,15 @@
 
 class SecurityRequestError(Exception):
     """
-    Raised when IRRSMO0 request fails and result contains an "error" section.
+    Raised when the return code of a security result returned by IRRSMO00 is NOT equal to 0.
     """
 
-    def __init__(self, results: dict) -> None:
+    def __init__(self, result: dict) -> None:
         self.message = "Security request made to IRRSMO00 failed."
-        self.results = results
+        self.result = result
         self.message += (
             "\n\nSee results dictionary "
-            + f"'{self.__class__.__name__}.results' for more details."
+            + f"'{self.__class__.__name__}.result' for more details."
         )
         self.message = f"({self.__class__.__name__}) {self.message}"
 

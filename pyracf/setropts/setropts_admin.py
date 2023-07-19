@@ -115,7 +115,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Password Rules
     # ============================================================================
-    def get_password_rules(self) -> str:
+    def get_password_rules(self) -> Union[dict, bytes]:
         """Get RACF password rules."""
         profile = self.list_racf_options(profile_only=True)
         return self._get_field(profile, "passwordProcessingOptions", "syntaxRules")
@@ -123,7 +123,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Raclist Refresh
     # ============================================================================
-    def refresh_raclist(self, class_name: str) -> dict:
+    def refresh_raclist(self, class_name: str) -> Union[dict, bytes]:
         """Refresh raclist."""
         result = self.alter(options={"base:raclist": class_name, "base:refresh": True})
         return self._to_steps(result)
@@ -131,9 +131,12 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Class Types
     # ============================================================================
-    def get_class_types(self, class_name: str) -> list:
+    def get_class_types(self, class_name: str) -> Union[list, bytes]:
         """Get RACF class types."""
         profile = self.list_racf_options(profile_only=True)
+        if not isinstance(profile, dict):
+            # Allows this function to work with "self.__generate_requests_only" mode.
+            return profile
         return [
             class_type
             for class_type in profile["classes"].keys()
@@ -143,12 +146,12 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Audit Class
     # ============================================================================
-    def add_audit_class(self, class_name: str) -> dict:
+    def add_audit_class(self, class_name: str) -> Union[dict, bytes]:
         """Add a class to list of classes that RACF performs auditing for."""
         result = self.alter(options={"base:audit_class": class_name})
         return self._to_steps(result)
 
-    def remove_audit_class(self, class_name: str) -> dict:
+    def remove_audit_class(self, class_name: str) -> Union[dict, bytes]:
         """Remove a class from the list of classes that RACF performs auditing for."""
         result = self.alter(options={"delete:base:audit_class": class_name})
         return self._to_steps(result)
@@ -156,14 +159,14 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Active Class
     # ============================================================================
-    def add_active_class(self, class_name: str) -> dict:
+    def add_active_class(self, class_name: str) -> Union[dict, bytes]:
         """
         Add a class to the list of classes that RACF performs access authorization checking for.
         """
         result = self.alter(options={"base:active_class": class_name})
         return self._to_steps(result)
 
-    def remove_active_class(self, class_name: str) -> dict:
+    def remove_active_class(self, class_name: str) -> Union[dict, bytes]:
         """
         Remove a class from the list of classes that
         RACF performs access authorization checking for.
@@ -174,12 +177,12 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Statistics Class
     # ============================================================================
-    def add_statistics_class(self, class_name: str) -> dict:
+    def add_statistics_class(self, class_name: str) -> Union[dict, bytes]:
         """Add a class to the list of classes that RACF collects statistics for."""
         result = self.alter(options={"base:statistics_class": class_name})
         return self._to_steps(result)
 
-    def remove_statistics_class(self, class_name: str) -> dict:
+    def remove_statistics_class(self, class_name: str) -> Union[dict, bytes]:
         """Remove a class from the list of classes that RACF collects statistics for."""
         result = self.alter(options={"delete:base:statistics_class": class_name})
         return self._to_steps(result)
@@ -187,7 +190,9 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Generic Command Processing Class
     # ============================================================================
-    def add_generic_command_processing_class(self, class_name: str) -> dict:
+    def add_generic_command_processing_class(
+        self, class_name: str
+    ) -> Union[dict, bytes]:
         """
         Add a class to the list of classes that have
         generic profile command processing enabled.
@@ -195,7 +200,9 @@ class SetroptsAdmin(SecurityAdmin):
         result = self.alter(options={"base:general_command_class": class_name})
         return self._to_steps(result)
 
-    def remove_generic_command_processing_class(self, class_name: str) -> dict:
+    def remove_generic_command_processing_class(
+        self, class_name: str
+    ) -> Union[dict, bytes]:
         """
         Remove a class from the list of classes that
         have generic profile command processing enabled.
@@ -206,12 +213,14 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Generic Profile Checking Class
     # ============================================================================
-    def add_generic_profile_checking_class(self, class_name: str) -> dict:
+    def add_generic_profile_checking_class(self, class_name: str) -> Union[dict, bytes]:
         """Add a class to the list of classes that have generic profile checking enabled."""
         result = self.alter(options={"base:generic_profile_checking_class": class_name})
         return self._to_steps(result)
 
-    def remove_generic_profile_checking_class(self, class_name: str) -> dict:
+    def remove_generic_profile_checking_class(
+        self, class_name: str
+    ) -> Union[dict, bytes]:
         """Remove a class from the list of classes that have generic profile checking enabled."""
         result = self.alter(
             options={"delete:base:generic_profile_checking_class": class_name}
@@ -221,7 +230,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Generic Profile Sharing Class
     # ============================================================================
-    def add_generic_profile_sharing_class(self, class_name: str) -> dict:
+    def add_generic_profile_sharing_class(self, class_name: str) -> Union[dict, bytes]:
         """
         Add a class to the list of classes that are eligible for
         general resource profile sharing in common storage.
@@ -229,7 +238,9 @@ class SetroptsAdmin(SecurityAdmin):
         result = self.alter(options={"base:generic_profile_sharing_class": class_name})
         return self._to_steps(result)
 
-    def remove_generic_profile_sharing_class(self, class_name: str) -> dict:
+    def remove_generic_profile_sharing_class(
+        self, class_name: str
+    ) -> Union[dict, bytes]:
         """
         Remove a class from the list of classes that are eligible
         for general resource profile sharing in common storage.
@@ -242,11 +253,11 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Global Access Class
     # ============================================================================
-    def add_global_access_class(self, class_name: str) -> dict:
+    def add_global_access_class(self, class_name: str) -> Union[dict, bytes]:
         """Add a class to the list of classes eligible for global access checking."""
         return self.alter(options={"base:global_access_class": class_name})
 
-    def remove_global_access_class(self, class_name: str) -> dict:
+    def remove_global_access_class(self, class_name: str) -> Union[dict, bytes]:
         """Remove a class from the list of classes eligible for global access checking."""
         result = self.alter(options={"delete:base:global_access_class": class_name})
         return self._to_steps(result)
@@ -254,12 +265,12 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Raclist Class
     # ============================================================================
-    def add_raclist_class(self, class_name: str) -> dict:
+    def add_raclist_class(self, class_name: str) -> Union[dict, bytes]:
         """Add a class to list of classes that have in-storage profile sharing activated."""
         result = self.alter(options={"base:raclist": class_name})
         return self._to_steps(result)
 
-    def remove_raclist_class(self, class_name: str) -> dict:
+    def remove_raclist_class(self, class_name: str) -> Union[dict, bytes]:
         """
         Remove a class from the list of classes that have in-storage profile sharing activated.
         """
@@ -269,7 +280,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def list_racf_options(self, profile_only: bool = False) -> dict:
+    def list_racf_options(self, profile_only: bool = False) -> Union[dict, bytes]:
         """List RACF options."""
         self._build_segment_dictionaries({"base:list": True})
         setropts_request = SetroptsRequest()
@@ -279,7 +290,7 @@ class SetroptsAdmin(SecurityAdmin):
             return self._get_profile(result)
         return result
 
-    def alter(self, options: dict = {}) -> dict:
+    def alter(self, options: dict = {}) -> Union[dict, bytes]:
         """Update RACF options."""
         self._build_segment_dictionaries(options)
         setropts_request = SetroptsRequest()
@@ -395,6 +406,7 @@ class SetroptsAdmin(SecurityAdmin):
             )
             .replace("INSTALLATION PASSWORD SYNTAX RULES", "SYNTAX RULES")
             .replace("W-NOVOWEL", "W-NO VOWEL")
+            .replace("L-ALPHANUM", "L-ALPHANUMERIC")
             .replace("GLOBAL=YES RACLIST ONLY", "GLOBAL RACLIST ONLY CLASSES")
             .replace("GENLIST CLASSES =", "GENERIC PROFILE SHARING CLASSES =")
             .replace("SETR RACLIST CLASSES =", "RACLIST CLASSES =")

@@ -6,9 +6,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
-from pyracf import UserAdmin
+from pyracf import SecurityRequestError, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
-from pyracf.common.security_request_error import SecurityRequestError
 
 # Resolves F401
 __init__
@@ -42,7 +41,7 @@ class TestUserResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"})
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
         )
 
@@ -74,7 +73,7 @@ class TestUserResultParser(unittest.TestCase):
                 "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
             )
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_DICTIONARY,
         )
 
@@ -116,7 +115,7 @@ class TestUserResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.extract("squidwrd", segments={"omvs": True})
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY,
         )
 
@@ -158,7 +157,7 @@ class TestUserResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.delete("squidwrd")
         self.assertEqual(
-            exception.exception.results,
+            exception.exception.result,
             TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_DICTIONARY,
         )
 
