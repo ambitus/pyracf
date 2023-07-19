@@ -10,7 +10,7 @@ class InstallSMOPackage(install):
     """Install irrsmo00 python package"""
 
     def run(self):
-        command = "python -m pip install ./pyracf/common"
+        command = "CC=xlc CXX=xlc++ python -m pip install ./pyracf/common"
         subprocess.run(command, shell=True, text=True, check=True)
         install.run(self)
 
