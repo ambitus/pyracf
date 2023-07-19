@@ -2,12 +2,12 @@
 import platform
 
 try:
-    from call_smo import call_smo
+    from call_irrsmo import call_irrsmo
 except ImportError as import_error:
     if platform.system() == "OS/390":
         raise import_error
 
-    def call_smo(xml_str, xml_len, opts):
+    def call_irrsmo(xml_str, xml_len, opts):
         return "SERIOUS ERROR".encode("cp1047")
 
 
@@ -20,12 +20,10 @@ class IRRSMO00:
 
     def call_racf(self, request_xml: bytes, options: int = 1) -> str:
         """Make request to IRRSMO00."""
-        # Initialize bytes object for output buffer
-        # rsp = b''
-        # Make call to pyobject to call SMO
-        rsp = call_smo(
+        # Make call to pyobject to call SMO and decode result bytes
+        rsp = call_irrsmo(
             xml_str=request_xml, xml_len=len(request_xml), opts=options
         ).decode("cp1047")
 
-        # Decode result bytes from pyobject
+        # Return the decoded string
         return rsp
