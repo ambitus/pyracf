@@ -1,18 +1,26 @@
 """PyRACF setup/build configuration."""
-import subprocess
+import os
 from typing import List
 
-from setuptools import setup
-from setuptools.command.install import install
+from setuptools import Extension, setup
+from setuptools.command.build_ext import build_ext
 
 
-class InstallSMOPackage(install):
-    """Install irrsmo00 python package"""
+class CustomBuildExt(build_ext):
+    """Environment staging to build call_irrsmo00 extension"""
 
-    def run(self):
-        command = "CC=xlc CXX=xlc++ python -m pip install ./pyracf/common"
-        subprocess.run(command, shell=True, text=True, check=True)
-        install.run(self)
+    def build_extensions(self):
+        os.environ["_CC_CCMODE"] = "1"
+        os.environ["_CXX_CCMODE"] = "1"
+        os.environ["_C89_CCMODE"] = "1"
+        os.environ["_CC_EXTRA_ARGS"] = "1"
+        os.environ["_CXX_EXTRA_ARGS"] = "1"
+        os.environ["_C89_EXTRA_ARGS"] = "1"
+
+        os.environ["CC"] = "xlc"
+        os.environ["CXX"] = "xlc++"
+
+        build_ext.build_extensions(self)
 
 
 def get_requirements() -> List[str]:
@@ -46,9 +54,21 @@ setup(
         "pyracf.user",
     ],
     package_dir={"": "."},
+    ext_modules=[
+        Extension(
+            "call_irrsmo00",
+            sources=["pyracf/common/call_irrsmo00.c"],
+            extra_compile_args=[
+                "-D_XOPEN_SOURCE_EXTENDED",
+                "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL),",
+                "-qcpluscmt",
+            ],
+            extra_link_args=["-Wl,INFO"],
+        )
+    ],
     package_data={"pyracf.common": ["call_irrsmo00.c", "irrsmo00.x", "irrsmo00.dll"]},
     python_requires=">=3.9",
     license_files=("LICENSE"),
     install_requires=get_requirements(),
-    cmdclass={"install": InstallSMOPackage},
+    cmdclass={"build_ext": CustomBuildExt},
 )
