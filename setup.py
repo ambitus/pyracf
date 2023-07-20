@@ -25,6 +25,7 @@ def get_requirements() -> List[str]:
     with open("requirements.txt", "r", encoding="utf-8") as requirements_file:
         return [line.strip() for line in requirements_file.readlines()]
 
+
 os.environ["CC"] = "xlc"
 os.environ["CXX"] = "xlc++"
 
