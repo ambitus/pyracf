@@ -17,7 +17,7 @@ class custom_build_ext(build_ext):
 
 
 setup(
-    name="call_irrsmo",
+    name="call_irrsmo00",
     version="1.0",
     description="Python wrapper for IRRSMO00 RACF Callable Service",
     author="IBM",
@@ -31,8 +31,8 @@ setup(
     ],
     ext_modules=[
         Extension(
-            "call_irrsmo",
-            sources=["call_irrsmo.c"],
+            "call_irrsmo00",
+            sources=["call_irrsmo00.c"],
             extra_compile_args=[
                 "-D_XOPEN_SOURCE_EXTENDED",
                 "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL)," + "INFO(ALL),NOOPT",

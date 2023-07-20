@@ -46,7 +46,7 @@ setup(
         "pyracf.user",
     ],
     package_dir={"": "."},
-    package_data={"pyracf.common": ["call_irrsmo.c", "irrsmo00.x", "irrsmo00.dll"]},
+    package_data={"pyracf.common": ["call_irrsmo00.c", "irrsmo00.x", "irrsmo00.dll"]},
     python_requires=">=3.9",
     license_files=("LICENSE"),
     install_requires=get_requirements(),
