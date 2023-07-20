@@ -25,17 +25,17 @@ class GroupAdmin(SecurityAdmin):
             "base:universl": "racf:universl",
         },
         "dfp": {
-            "dfp:dataappl": "racf:dataappl",
-            "dfp:dataclas": "racf:dataclas",
-            "dfp:mgmtclas": "racf:mgmtclas",
-            "dfp:storclas": "racf:storclas",
+            "dfp:dataappl": "dataappl",
+            "dfp:dataclas": "dataclas",
+            "dfp:mgmtclas": "mgmtclas",
+            "dfp:storclas": "storclas",
         },
         "omvs": {
             "omvs:autogid": "racf:autogid",
             "omvs:gid": "gid",
             "omvs:shared": "racf:shared",
         },
-        "ovm": {"ovm:gid": "gid"},
+        "ovm": {"ovm:gid": "racf:gid"},
         "tme": {"tme:roles": "racf:roles"},
     }
 
