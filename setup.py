@@ -17,9 +17,6 @@ class CustomBuildExt(build_ext):
         os.environ["_CXX_EXTRA_ARGS"] = "1"
         os.environ["_C89_EXTRA_ARGS"] = "1"
 
-        os.environ["CC"] = "xlc"
-        os.environ["CXX"] = "xlc++"
-
         build_ext.build_extensions(self)
 
 
@@ -28,6 +25,8 @@ def get_requirements() -> List[str]:
     with open("requirements.txt", "r", encoding="utf-8") as requirements_file:
         return [line.strip() for line in requirements_file.readlines()]
 
+os.environ["CC"] = "xlc"
+os.environ["CXX"] = "xlc++"
 
 setup(
     name="pyRACF",
@@ -66,7 +65,6 @@ setup(
             extra_link_args=["-Wl,INFO"],
         )
     ],
-    package_data={"pyracf.common": ["call_irrsmo00.c", "irrsmo00.x", "irrsmo00.dll"]},
     python_requires=">=3.9",
     license_files=("LICENSE"),
     install_requires=get_requirements(),
