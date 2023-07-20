@@ -32,7 +32,7 @@ os.environ["CXX"] = "xlc++"
 setup(
     name="pyRACF",
     version="1.0",
-    description="Python wrapper for zEnterprise Data Compression (zEDC).",
+    description="Python interface to RACF using RACF Callable Service IRRSMO00",
     author="IBM",
     classifiers=[
         "Development Status :: 4 - Beta",
