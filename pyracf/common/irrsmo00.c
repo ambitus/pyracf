@@ -58,26 +58,26 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
    return Py_BuildValue("y", rsp);
 }
 
-static char pyracf_call_irrsmo00_docs[] =
-   "pyracf_call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint): Returns XML response from RACF Callable Service IRRSMO00.\n";
+static char call_irrsmo00_docs[] =
+   "call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint): Returns XML response from RACF Callable Service IRRSMO00.\n";
 
-static PyMethodDef pyracf_call_irrsmo00_methods[] = {
-   {"pyracf_call_irrsmo00", (PyCFunction)pyracf_call_irrsmo00,
-      METH_VARARGS | METH_KEYWORDS, pyracf_call_irrsmo00_docs},
+static PyMethodDef call_irrsmo00_methods[] = {
+   {"call_irrsmo00", (PyCFunction)call_irrsmo00,
+      METH_VARARGS | METH_KEYWORDS, call_irrsmo00_docs},
       {NULL}
 };
 
-static struct PyModuleDef pyracf_call_irrsmo00_module_def =
+static struct PyModuleDef call_irrsmo00_module_def =
 {
         PyModuleDef_HEAD_INIT,
-        "pyracf_call_irrsmo00", 
-        "usage: pyracf_call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint) -> resp: bytes \n",
+        "call_irrsmo00", 
+        "usage: call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint) -> resp: bytes \n",
         -1,
-        pyracf_call_irrsmo00_methods
+        call_irrsmo00_methods
 };
 
-PyMODINIT_FUNC PyInit_pyracf_call_irrsmo00(void)
+PyMODINIT_FUNC PyInit_call_irrsmo00(void)
 {
         Py_Initialize();
-        return PyModule_Create(&pyracf_call_irrsmo00_module_def);
+        return PyModule_Create(&call_irrsmo00_module_def);
 }
