@@ -12,7 +12,7 @@ Create a new z/OS userid.
 ## `UserAdmin.add()`
 
 ```python
-def add(self, userid: str, traits: dict = {}) -> dict:
+def add(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -27,8 +27,8 @@ Create a new **z/OS userid**.
   A dictionary of **traits/attributes** that should be given to the user on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **User Traits** are.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

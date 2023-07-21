@@ -12,7 +12,7 @@ User administration functions for accessing and modifying a user's z/OS Unix Sys
 ## `UserAdmin.get_omvs_home()`
 
 ```python
-def get_omvs_home(self, userid: str) -> Union[str, None]:
+def get_omvs_home(self, userid: str) -> Union[str, None, bytes]:
 ```
 
 #### 📄 Description
@@ -21,11 +21,11 @@ Get a user's **z/OS Unix System Services Home Directory**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **z/OS Unix System Services Home Directory** is being requested.
+  The **z/OS userid** of the user who's **z/OS Unix System Services Home Directory** is being requested.
 
 #### 📤 Returns
-* `Union[str, None]`<br>
-  Returns the user's **z/OS Unix System Services Home Directory** or `None` if the user does not have an **OMVS segment**.
+* `Union[str, None, bytes]`<br>
+  Returns the user's **z/OS Unix System Services Home Directory** or `None` if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -44,7 +44,7 @@ Get a user's **z/OS Unix System Services Home Directory**.
 ## `UserAdmin.set_omvs_home()`
 
 ```python
-def set_omvs_home(self, userid: str, home_directory: str) -> dict:
+def set_omvs_home(self, userid: str, home_directory: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -53,14 +53,14 @@ Change a user's **z/OS Unix System Services Home Directory**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **z/OS Unix System Services Home Directory** is being changed.
+  The **z/OS userid** of the user who's **z/OS Unix System Services Home Directory** is being changed.
 
 * `home_directory`<br>
   The **z/OS Unix System Services Home Directory** to assign to the specified user.
 
 #### 📤 Returns
-* `Union[dict, str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

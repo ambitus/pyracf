@@ -12,7 +12,7 @@ User administration functions for accessing and modifying a user's z/OS Unix Sys
 ## `UserAdmin.get_omvs_program()`
 
 ```python
-def get_omvs_program(self, userid: str) -> Union[str, None]:
+def get_omvs_program(self, userid: str) -> Union[str, None, bytes]:
 ```
 
 #### 📄 Description
@@ -21,11 +21,11 @@ Get a user's **z/OS Unix System Services Program/Default Shell**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **z/OS Unix System Services Program/Default Shell** is being requested.
+  The **z/OS userid** of the user who's **z/OS Unix System Services Program/Default Shell** is being requested.
 
 #### 📤 Returns
-* `Union[str, None]`<br>
-  Returns the user's **z/OS Unix System Services Program/Default Shell** or `None` if the user does not have an **OMVS segment**.
+* `Union[str, None, bytes]`<br>
+  Returns the user's **z/OS Unix System Services Program/Default Shell** or `None` if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -44,7 +44,7 @@ Get a user's **z/OS Unix System Services Program/Default Shell**.
 ## `UserAdmin.set_omvs_program()`
 
 ```python
-def set_omvs_program(self, userid: str, program: str) -> Union[dict, str]:
+def set_omvs_program(self, userid: str, program: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -53,14 +53,14 @@ Change a user's **z/OS Unix System Services Program/Default Shell**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **z/OS Unix System Services Program/Default Shell** is being changed.
+  The **z/OS userid** of the user who's **z/OS Unix System Services Program/Default Shell** is being changed.
 
 * `program`<br>
   The filesystem path to the **z/OS Unix System Services Program/Default Shell** to assign to the specified user.
 
 #### 📤 Returns
-* `Union[dict, str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

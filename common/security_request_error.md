@@ -25,9 +25,9 @@ from pyracf import SecurityRequestError
 try:
     user_admin.alter("squidwrd", traits={"base:password": "passwordtoolong"})
 except SecurityRequestError as e
-    return_code = e.results["securityResult"]["user"]["returnCode"]
-    reason_code = e.results["securityResult"]["user"]["reasonCode"]
-    error_message = "\n".join(e.results["securityResult"]["user"]["commands"][0]["messages"])
+    return_code = e.result["securityResult"]["user"]["returnCode"]
+    reason_code = e.result["securityResult"]["user"]["reasonCode"]
+    error_message = "\n".join(e.result["securityResult"]["user"]["commands"][0]["messages"])
     print(f"Return Code: {return_code}")
     print(f"Reason Code: {reason_code}")
     print(f"Error Message: {error_mesage}")

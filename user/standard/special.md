@@ -12,7 +12,7 @@ User administration functions for accessing and modifying a user's RACF Special 
 ## `UserAdmin.has_special_authority()`
 
 ```python
-def has_special_authority(self, userid: str) -> bool:
+def has_special_authority(self, userid: str) -> Union[bool, bytes]:
 ```
 
 #### 📄 Description
@@ -28,11 +28,11 @@ Check if a user has **RACF Special** authority.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's authority is being checked.
+  The **z/OS userid** of the user who's authority is being checked.
 
 #### 📤 Returns
-* `bool`<br>
-  Returns `True` when the user has **RACF Special** authority and `False` otherwise.
+* `Union[bool, bytes]`<br>
+  Returns `True` when the user has **RACF Special** authority and `False` otherwise. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -51,7 +51,7 @@ False
 ## `UserAdmin.give_special_authority()`
 
 ```python
-def give_special_authority(self, userid: str) -> dict:
+def give_special_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -67,11 +67,11 @@ Give a user **RACF Special** authority.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user to give **RACF Special** authority.
+  The **z/OS userid** of the user to give **RACF Special** authority.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary** or a **concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -118,7 +118,7 @@ Give a user **RACF Special** authority.
 ## `UserAdmin.take_away_special_authority()`
 
 ```python
-def take_away_special_authority(self, userid: str) -> dict:
+def take_away_special_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -134,11 +134,11 @@ Take away a user's **RACF Special** authority.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user to take RACF **Special** authority away from.
+  The **z/OS userid** of the user to take **RACF Special** authority away from.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
