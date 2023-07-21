@@ -61,23 +61,23 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
 static char call_irrsmo00_docs[] =
    "call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint): Returns XML response from RACF Callable Service IRRSMO00.\n";
 
-static PyMethodDef call_irrsmo00_methods[] = {
+static PyMethodDef pyracf_backend_methods[] = {
    {"call_irrsmo00", (PyCFunction)call_irrsmo00,
       METH_VARARGS | METH_KEYWORDS, call_irrsmo00_docs},
       {NULL}
 };
 
-static struct PyModuleDef call_irrsmo00_module_def =
+static struct PyModuleDef pyracf_backend_module_def =
 {
         PyModuleDef_HEAD_INIT,
-        "call_irrsmo00", 
-        "usage: call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint) -> resp: bytes \n",
+        "pyracf_backend", 
+        NULL,
         -1,
-        call_irrsmo00_methods
+        pyracf_backend_methods
 };
 
-PyMODINIT_FUNC PyInit_call_irrsmo00(void)
+PyMODINIT_FUNC PyInit_pyracf_backend(void)
 {
         Py_Initialize();
-        return PyModule_Create(&call_irrsmo00_module_def);
+        return PyModule_Create(&pyracf_backend_module_def);
 }
