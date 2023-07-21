@@ -12,7 +12,7 @@ Alter an existing z/OS userid.
 ## `UserAdmin.alter()`
 
 ```python
-def alter(self, userid: str, traits: dict = {}) -> dict:
+def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -27,8 +27,8 @@ Alter an existing **z/OS userid**.
   A dictionary of **traits/attributes** that should be altered. See [Traits](../segments_traits_operators#traits) to see what all of the valid **User Traits** are.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_request_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_request_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

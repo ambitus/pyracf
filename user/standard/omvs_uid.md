@@ -12,7 +12,7 @@ User administration functions for accessing and modifying a user's z/OS Unix Sys
 ## `UserAdmin.get_omvs_uid()`
 
 ```python
-def get_omvs_uid(self, userid: str) -> Union[int,None]:
+def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
 ```
 
 #### 📄 Description
@@ -21,11 +21,11 @@ Get a user's **z/OS Unix System Services UID**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **z/OS Unix System Services UID** is being requested.
+  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being requested.
 
 #### 📤 Returns
-* `Union[int,None]`<br>
-  Returns the user's **z/OS Unix System Services UID** or `None` if the user does not have an **OMVS segment**.
+* `Union[int, None, bytes]`<br>
+  Returns the user's **z/OS Unix System Services UID** or `None` if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -44,7 +44,7 @@ Get a user's **z/OS Unix System Services UID**.
 ## `UserAdmin.set_omvs_uid()`
 
 ```python
-def set_omvs_uid(self, userid: str, uid: int) -> dict:
+def set_omvs_uid(self, userid: str, uid: int) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -53,14 +53,14 @@ Change a user's **z/OS Unix System Services UID**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **z/OS Unix System Services UID** is being changed.
+  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being changed.
 
 * `uid`<br>
   The **z/OS Unix System Services UID** to assign to the specified user.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

@@ -13,12 +13,12 @@ User administration functions for modifying a user's password.
 <br>
 
 {: .warning }
-> * _All occurances of the specified password in the returned **Security Result Steps dictionary** or **Concatenated Security Request XML string** are redacted._
+> * _All occurances of the specified password in the returned **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** are redacted._
 > * _When the `debug` class attribute is `True`, all occurances of the specified password will be redacted in debug messages produced by this function._
 
 <br>
 ```python
-def set_password(self, userid: str, password: str) -> dict:
+def set_password(self, userid: str, password: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -27,15 +27,15 @@ Change a user's **password**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **password** is being changed.
+  The **z/OS userid** of the user who's **password** is being changed.
 
 * `password`<br>
   The **password** to assigned to the specified user.
 
 #### 📤 Returns
 
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

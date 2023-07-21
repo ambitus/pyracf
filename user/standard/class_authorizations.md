@@ -12,7 +12,7 @@ User administration functions for accessing and modifying a user's Class Authori
 ## `UserAdmin.get_class_authorizations()`
 
 ```python
-  def get_class_authorizations(self, userid: str) -> List[str]:
+  def get_class_authorizations(self, userid: str) -> Union[List[str], bytes]:
 ```
 
 #### 📄 Description
@@ -21,11 +21,11 @@ Get a user's **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **Class Authorizations** is being requested.
+  The **z/OS userid** of the user who's **Class Authorizations** is being requested.
 
 #### 📤 Returns
-* `List[str]`<br>
-  Returns the user's **Class Authorizations**.
+* `Union[List[str], bytes]`<br>
+  Returns the user's **Class Authorizations**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -46,7 +46,7 @@ Get a user's **Class Authorizations**.
 ```python
 def set_class_authorizations(
     self, userid: str, class_authorizations: List[str]
-) -> dict:
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -55,14 +55,14 @@ Overwrite a user's existing **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's **Class Authorizations** are being overwritten.
+  The **z/OS userid** of the user who's **Class Authorizations** are being overwritten.
 
 * `class_authorizations`<br>
   A list of one or more **Class Authorizations** that will become the user's new **Class Authorizations**.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -133,7 +133,7 @@ Overwrite a user's existing **Class Authorizations**.
 ```python
 def add_class_authorizations(
     self, userid: str, class_authorizations: Union[str, List[str]]
-) -> dict:
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -142,7 +142,7 @@ Add new **Class Authorizations** to a user's existing **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user to add **Class Authorizations** to.
+  The **z/OS userid** of the user to add **Class Authorizations** to.
 
 * `class_authorizations`<br>
   <br>
@@ -154,8 +154,8 @@ Add new **Class Authorizations** to a user's existing **Class Authorizations**.
   One or more **Class Authorazitons** to add. 
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -204,7 +204,7 @@ Add new **Class Authorizations** to a user's existing **Class Authorizations**.
 ```python
 def remove_class_authorizations(
     self, userid: str, class_authorizations: Union[str, List[str]]
-) -> dict:
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -213,7 +213,7 @@ Remove **Class Authorizations** to a user's existing **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user to remove **Class Authorizations** from.
+  The **z/OS userid** of the user to remove **Class Authorizations** from.
 
 * `class_authorizations`<br>
   <br>
@@ -225,8 +225,8 @@ Remove **Class Authorizations** to a user's existing **Class Authorizations**.
   One or more **Class Authorazitons** to remove.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary** or a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -273,7 +273,7 @@ Remove **Class Authorizations** to a user's existing **Class Authorizations**.
 ## `UserAdmin.delete_all_class_authorizations()`
 
 ```python
-def delete_all_class_authorizations(self, userid: str) -> Union[dict, False]:
+def delete_all_class_authorizations(self, userid: str) -> Union[dict, False, bytes]:
 ```
 
 #### 📄 Description
@@ -282,11 +282,11 @@ Delete all of a user's **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The userid of the user who's class authorizations will be deleted.
+  The **z/OS userid** of the user who's class authorizations will be deleted.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result Steps dictionary**, a **Concatenated Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`, or `False` if the user has no **Class Authorizations** to delete.
+* `Union[dict, False, bytes]`<br>
+  Returns a **Security Result Steps dictionary**, **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is `True`, or `False` if the user has no **Class Authorizations** to delete.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

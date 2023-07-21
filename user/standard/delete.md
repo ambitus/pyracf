@@ -12,7 +12,7 @@ Delete a z/OS userid.
 ## `UserAdmin.delete()`
 
 ```python
-def delete(self, userid: str) -> Union[dict,str]:
+def delete(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -24,8 +24,8 @@ Delete a **z/OS userid**.
   The **z/OS userid** to delete.
 
 #### 📤 Returns
-* `Union[dict,str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_requests_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -35,9 +35,9 @@ Delete a **z/OS userid**.
 
 ###### Python REPL
 ```python
-from pyracf import UserAdmin
-user_admin = UserAdmin()
-user_admin.delete("squdwrd")
+>>> from pyracf import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.delete("squdwrd")
 {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'del', 'requestId': 'UserRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'DELUSER SQUIDWRD'}]}, 'returnCode': 0, 'reasonCode': 0}}
 ```
 

@@ -12,7 +12,9 @@ Functions for extracting a user's profile data.
 ## `UserAdmin.extract()`
 
 ```python
-def extract(self, userid: str, segments: dict = {}) -> Union[dict, str]:
+def extract(
+    self, userid: str, segments: dict = {}, profile_only: bool = False
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -26,9 +28,12 @@ Extract a user's profile data.
 * `segments`<br>
   A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
 
+* `profile_only`<br>
+  When set to `True`, only the extracted profile will be returned instead of returning the entire **Security Result dictionary**.
+
 #### 📤 Returns
-* `Union[dict, str]`<br>
-  Returns a **Security Result dictionary** or a **Security Request XML string** if the `UserAdmin.generate_request_only` class attribute is `True`.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_request_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -40,9 +45,9 @@ The following example **extracts** userid `squidwrd`'s **base segment** and **OM
 
 ###### Python REPL
 ```python
-from pyracf import UserAdmin
-user_admin = UserAdmin()
-user_admin.extract("squidwrd", segments={"omvs": True})
+>>> from pyracf import UserAdmin
+>>> user_admin = UserAdmin()
+>>> user_admin.extract("squidwrd", segments={"omvs": True})
 {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'listdata', 'requestId': 'UserRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'LISTUSER SQUIDWRD  OMVS    ', 'profiles': [{'base': {'user': 'squidwrd', 'name': 'unknown', 'owner': 'leonard', 'created': '7/11/2023', 'defaultGroup': 'sys1', 'passwordDate': None, 'passwordInterval': 186, 'passphraseDate': None, 'attributes': [], 'revokeDate': None, 'resumeDate': None, 'lastAccess': '7/11/2023 10:27 AM', 'classAuthorizations': [], 'logonAllowedDays': 'anyday', 'logonAllowedTime': 'anytime', 'groups': {'SYS1': {'auth': 'use', 'connectOwner': 'leonard', 'connectDate': '7/11/2023', 'connects': 0, 'uacc': None, 'lastConnect': 'unknown', 'connectAttributes': [], 'revokeDate': None, 'resumeDate': None}}, 'securityLevel': None, 'categoryAuthorization': None, 'securityLabel': None}, 'omvs': {'uid': None, 'home': '/u/squidwrd', 'program': '/bin/sh', 'cputimemax': None, 'assizemax': None, 'fileprocmax': None, 'procusermax': None, 'threadsmax': None, 'mmapareamax': None}}]}]}, 'returnCode': 0, 'reasonCode': 0}}
 ```
 

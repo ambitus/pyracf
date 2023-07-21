@@ -1,0 +1,105 @@
+---
+layout: default
+grand_parent: Group Admin
+parent: Standard
+---
+
+# z/OS Unix System Services GID
+
+Group administration functions for accessing and modifying a group's z/OS Unix System Services GID. 
+{: .fs-6 .fw-300 }
+
+## `GroupAdmin.get_omvs_gid()`
+
+```python
+def get_omvs_gid(self, group: str) -> Union[int, None, bytes]:
+```
+
+#### 📄 Description
+
+Get a group's **z/OS Unix System Services GID**.
+
+#### 📥 Parameters
+* `group`<br>
+  The group who's **z/OS Unix System Services GID** is being requested.
+
+#### 📤 Returns
+* `Union[int, None, bytes]`<br>
+  Returns the group's **z/OS Unix System Services GID** or `None` if the group does not have an **OMVS segment**. If the `GroupAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+
+#### ❌ Raises
+* `SecurityRequestError`<br>
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+
+#### 💻 Example
+
+###### Python REPL
+```python
+>>> from pyracf import GroupAdmin
+>>> group_admin = GroupAdmin()
+>>> group_admin.get_omvs_gid("testgrp0")
+3434
+```
+
+## `GroupAdmin.set_omvs_gid()`
+
+```python
+def set_omvs_uid(self, group: str, gid: int) -> Union[dict, bytes]:
+```
+
+#### 📄 Description
+
+Change a group's **z/OS Unix System Services GID**.
+
+#### 📥 Parameters
+* `group`<br>
+  The group who's **z/OS Unix System Services GID** is being changed.
+
+* `gid`<br>
+  The **z/OS Unix System Services GID** to assign to the specified group.
+
+#### 📤 Returns
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `GroupAdmin.generate_requests_only` class attribute is set to `True`.
+
+#### ❌ Raises
+* `SecurityRequestError`<br>
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+
+#### 💻 Example
+
+###### Python REPL
+```python
+>>> from pyracf import GroupAdmin
+>>> group_admin = GroupAdmin()
+>>> group_admin.set_omvs_gid("testgrp0", 4545)
+{'step1': {'securityResult': {'group': {'name': 'TESTGRP0', 'operation': 'set', 'requestId': 'GroupRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTGROUP TESTGRP0  OMVS     (GID         (4545))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+```
+
+###### Security Result Steps Dictionary as JSON
+```json
+{
+  "step1": {
+    "securityResult": {
+      "group": {
+        "name": "TESTGRP0",
+        "operation": "set",
+        "requestId": "GroupRequest",
+        "info": [
+          "Definition exists. Add command skipped due  to precheck option"
+        ],
+        "commands": [
+          {
+            "safReturnCode": 0,
+            "returnCode": 0,
+            "reasonCode": 0,
+            "image": "ALTGROUP TESTGRP0  OMVS     (GID         (4545))"
+          }
+        ]
+      },
+      "returnCode": 0,
+      "reasonCode": 0
+    }
+  }
+}
+```
