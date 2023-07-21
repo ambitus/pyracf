@@ -90,7 +90,7 @@ If you want to improve the current documentation, that includes adding new docum
 
 ## Style Guidelines
 
-:bulb: _These steps can be performed automatically using the [pre-commit Hooks](#pre-commit-hooks)._
+:bulb: _These steps can be done automatically using the [pre-commit Hooks](#pre-commit-hooks)._
 
 * When adding code to pyRACF, follow the PEP8 style guide for Python
 * The use of Flake8, Black, and pydocstyle as helpers is recommended
@@ -100,12 +100,11 @@ If you want to improve the current documentation, that includes adding new docum
 
 When contributing to pyRACF, think about the following:
 
-* Make any necessary updates to setup file
-* Make any necessary updates to README file
+* Make any necessary updates to `setup.py`.
+* Make any necessary updates to `README.md`.
 * Make any necessary updates to the gitHub pages documentation in the `gh-pages` branch.
-  * Add / modify any documentation here
-* Add any available test cases to /tests
-* Verify **init** files are updated properly
+* Add any available test cases to `/tests``
+* Verify `__init__.py` files are updated properly.
 * Ensure that you have __pre-commit Hooks__ setup to ensure that **isort**, **black**, **flake8**, and **pylint** are run against the code for every commit you make.
 * Run unit test suite by executing `python3 tests/test_runner.py`.
 * Install pyRACF on a z/OS system and do a smoke test to make sure no regressions have been introduced with the C code that interfaces with IRRSOM00.
