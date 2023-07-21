@@ -21,10 +21,8 @@ class IRRSMO00:
 
     def call_racf(self, request_xml: bytes, options: int = 1) -> str:
         """Make request to IRRSMO00."""
+
         # Make call to pyobject to call SMO and decode result bytes
-        rsp = pyracf_call_irrsmo00(
+        return pyracf_call_irrsmo00(
             xml_str=request_xml, xml_len=len(request_xml), opts=options
         ).decode("cp1047")
-
-        # Return the decoded string
-        return rsp

@@ -26,48 +26,54 @@ def get_requirements() -> List[str]:
         return [line.strip() for line in requirements_file.readlines()]
 
 
-os.environ["CC"] = "xlc"
-os.environ["CXX"] = "xlc++"
+def main():
+    """Main function for Setup of Pyracf module and inline commands"""
+    os.environ["CC"] = "xlc"
+    os.environ["CXX"] = "xlc++"
 
-setup(
-    name="pyRACF",
-    version="1.0",
-    description="Python interface to RACF using RACF Callable Service IRRSMO00",
-    author="IBM",
-    classifiers=[
-        "Development Status :: 4 - Beta",
-        "Environment :: Console",
-        "Intended Audience :: Developers",
-        "Topic :: RACF Administration",
-        "License :: IBM Internal For Now...",
-        "Operating System :: z/OS",
-    ],
-    packages=[
-        "pyracf",
-        "pyracf.access",
-        "pyracf.common",
-        "pyracf.connection",
-        "pyracf.data_set",
-        "pyracf.group",
-        "pyracf.resource",
-        "pyracf.setropts",
-        "pyracf.user",
-    ],
-    package_dir={"": "."},
-    ext_modules=[
-        Extension(
-            "pyracf_call_irrsmo00",
-            sources=["pyracf/common/call_irrsmo00.c"],
-            extra_compile_args=[
-                "-D_XOPEN_SOURCE_EXTENDED",
-                "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL),",
-                "-qcpluscmt",
-            ],
-            extra_link_args=["-Wl,INFO"],
-        )
-    ],
-    python_requires=">=3.9",
-    license_files=("LICENSE"),
-    install_requires=get_requirements(),
-    cmdclass={"build_ext": CustomBuildExt},
-)
+    setup(
+        name="pyRACF",
+        version="1.0",
+        description="Python interface to RACF using RACF Callable Service IRRSMO00",
+        author="IBM",
+        classifiers=[
+            "Development Status :: 4 - Beta",
+            "Environment :: Console",
+            "Intended Audience :: Developers",
+            "Topic :: RACF Administration",
+            "License :: IBM Internal For Now...",
+            "Operating System :: z/OS",
+        ],
+        packages=[
+            "pyracf",
+            "pyracf.access",
+            "pyracf.common",
+            "pyracf.connection",
+            "pyracf.data_set",
+            "pyracf.group",
+            "pyracf.resource",
+            "pyracf.setropts",
+            "pyracf.user",
+        ],
+        package_dir={"": "."},
+        ext_modules=[
+            Extension(
+                "pyracf_call_irrsmo00",
+                sources=["pyracf/common/pyracf_call_irrsmo00.c"],
+                extra_compile_args=[
+                    "-D_XOPEN_SOURCE_EXTENDED",
+                    "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL),",
+                    "-qcpluscmt",
+                ],
+                extra_link_args=["-Wl,INFO"],
+            )
+        ],
+        python_requires=">=3.9",
+        license_files=("LICENSE"),
+        install_requires=get_requirements(),
+        cmdclass={"build_ext": CustomBuildExt},
+    )
+
+
+if __name__ == "__main__":
+    main()
