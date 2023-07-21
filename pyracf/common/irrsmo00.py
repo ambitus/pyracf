@@ -6,9 +6,9 @@ try:
 except ImportError as import_error:
     if platform.system() == "OS/390":
         raise import_error
-
-    def pyracf_call_irrsmo00(xml_str, xml_len, opts):
-        return "SERIOUS ERROR".encode("cp1047")
+    # Ignore import of Python extension on non-z/OS platforms to allow for unit testing off platform.
+    def call_irrsmo00() -> None:
+        return None
 
 
 class IRRSMO00:
