@@ -290,7 +290,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # Class Authorizations
     # ============================================================================
-    def get_class_authorizations(self, userid: str) -> Union[List[str], None, bytes]:
+    def get_class_authorizations(self, userid: str) -> Union[List[str], bytes]:
         """Get a user's class authorizations."""
         profile = self.extract(userid, profile_only=True)
         return self._get_field(profile, "base", "classAuthorizations")

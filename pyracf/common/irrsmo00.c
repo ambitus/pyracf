@@ -13,7 +13,7 @@ typedef struct {
         char str[8];
 } VarStr_T;
 
-static PyObject* pyracf_call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs) {
+static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs) {
    const unsigned int xml_len;
    const unsigned int input_opts;
    const char *input_xml;

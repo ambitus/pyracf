@@ -59,7 +59,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def has_group_special_authority(
         self, group: str, userid: str
-    ) -> Union[dict, bytes]:
+    ) -> Union[bool, bytes]:
         """Check if a user is connected to a group with group special authority."""
         profile = self.extract(group, profile_only=True)
         return self.__has_connect_attribute(userid, profile, "special")
@@ -69,7 +69,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def has_group_operations_authority(
         self, group: str, userid: str
-    ) -> Union[dict, bytes]:
+    ) -> Union[bool, bytes]:
         """Check if a user is connected to a group with group operations authority."""
         profile = self.extract(group, profile_only=True)
         return self.__has_connect_attribute(userid, profile, "operations")
@@ -79,7 +79,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def has_group_auditor_authority(
         self, group: str, userid: str
-    ) -> Union[dict, bytes]:
+    ) -> Union[bool, bytes]:
         """Check if a user is connected to a group with group auditor authority."""
         profile = self.extract(group, profile_only=True)
         return self.__has_connect_attribute(userid, profile, "auditor")
@@ -87,7 +87,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     # Group Access
     # ============================================================================
-    def has_group_access_attribute(self, group: str, userid: str) -> Union[dict, bytes]:
+    def has_group_access_attribute(self, group: str, userid: str) -> Union[bool, bytes]:
         """Check if a user is connected to a group with the group access attribute."""
         profile = self.extract(group, profile_only=True)
         return self.__has_connect_attribute(userid, profile, "grpacc")
@@ -95,7 +95,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     # OMVS GID
     # ============================================================================
-    def get_omvs_gid(self, group: str) -> Union[str, int, bytes]:
+    def get_omvs_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OMVS GID."""
         profile = self.extract(group, segments={"omvs": True}, profile_only=True)
         return self._get_field(profile, "omvs", "gid")
@@ -108,7 +108,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     # OVM GID
     # ============================================================================
-    def get_ovm_gid(self, group: str) -> Union[str, int, bytes]:
+    def get_ovm_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OVM GID."""
         profile = self.extract(group, segments={"ovm": True}, profile_only=True)
         return self._get_field(profile, "ovm", "gid")
@@ -147,10 +147,10 @@ class GroupAdmin(SecurityAdmin):
             return self._get_profile(result)
         return result
 
-    def delete(self, group_name: str) -> Union[dict, bytes]:
+    def delete(self, group: str) -> Union[dict, bytes]:
         """Delete a group."""
         self._clear_state()
-        group_request = GroupRequest(group_name, "del")
+        group_request = GroupRequest(group, "del")
         return self._make_request(group_request)
 
     # ============================================================================
