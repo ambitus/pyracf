@@ -7,7 +7,7 @@ from setuptools.command.build_ext import build_ext
 
 
 class CustomBuildExt(build_ext):
-    """Environment staging to build call_irrsmo00 extension"""
+    """Environment staging to build pyracf_call_irrsmo00 extension"""
 
     def build_extensions(self):
         os.environ["_CC_CCMODE"] = "1"
@@ -56,7 +56,7 @@ setup(
     package_dir={"": "."},
     ext_modules=[
         Extension(
-            "call_irrsmo00",
+            "pyracf_call_irrsmo00",
             sources=["pyracf/common/call_irrsmo00.c"],
             extra_compile_args=[
                 "-D_XOPEN_SOURCE_EXTENDED",
