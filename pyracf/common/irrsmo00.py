@@ -6,8 +6,9 @@ try:
 except ImportError as import_error:
     if platform.system() == "OS/390":
         raise import_error
-    # Ignore import of Python extension on non-z/OS platforms to allow for unit testing off platform.
-    def call_irrsmo00() -> None:
+
+    # Ignore import of extension on non-z/OS platforms to allow for unit testing off platform.
+    def pyracf_call_irrsmo00() -> None:
         return None
 
 
