@@ -33,23 +33,19 @@ As automation becomes more and more prevalent, the need to manage the security e
 ### Installation
 
 ```shell
-python3 -m pip install git+ssh://git@github.ibm.com/z-innersource/pyRACF@<tag version/branch name>
+python3 -m pip install pyracf
 ```
 
 ### Usage
 
-In the samples directory you will find examples of user, group, and resource profile management. Additionally there is more information in the [index.md](./docs/index.md) file.
+* [pyRACF Documentation]()
 
 ## Help
 
-Questions, comments, and bugs can be discussed on the __[#pyracf](https://ibm-systems-z.slack.com/archives/C0455P33BS4)__ __Slack channel__ in the __IBMZ Slack organization__.
+Github Conversations ???
 
 ## Authors
 
 * Leonard Carcaramo: lcarcaramo@ibm.com
 * Elijah Swift: Elijah.Swift@ibm.com
 * Joseph Bostian: jbostian@us.ibm.com
-
-## Version History
-
-* 0.9 Initial release with IRRSmo00

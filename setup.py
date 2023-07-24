@@ -7,7 +7,7 @@ from setuptools.command.build_ext import build_ext
 
 
 class CustomBuildExt(build_ext):
-    """Environment staging to build pyracf_call_irrsmo00 extension"""
+    """Build cpyracf python extension."""
 
     def build_extensions(self):
         os.environ["_CC_CCMODE"] = "1"
@@ -16,7 +16,6 @@ class CustomBuildExt(build_ext):
         os.environ["_CC_EXTRA_ARGS"] = "1"
         os.environ["_CXX_EXTRA_ARGS"] = "1"
         os.environ["_C89_EXTRA_ARGS"] = "1"
-
         build_ext.build_extensions(self)
 
 
@@ -27,22 +26,26 @@ def get_requirements() -> List[str]:
 
 
 def main():
-    """Main function for Setup of Pyracf module and inline commands"""
+    """Entrypoint for pyRACF package setup."""
     os.environ["CC"] = "xlc"
     os.environ["CXX"] = "xlc++"
-
     setup(
         name="pyRACF",
         version="1.0",
-        description="Python interface to RACF using RACF Callable Service IRRSMO00",
+        description="Python interface to RACF using IRRSMO00 RACF Callable Service.",
         author="IBM",
         classifiers=[
-            "Development Status :: 4 - Beta",
-            "Environment :: Console",
+            "Development Status :: 3 - Alpha",
             "Intended Audience :: Developers",
-            "Topic :: RACF Administration",
             "License :: IBM Internal For Now...",
             "Operating System :: z/OS",
+            "Programming Language :: Python :: 3",
+            "Programming Language :: Python :: 3.11",
+            "Programming Language :: Python :: Implementation :: CPython",
+            "Programming Language :: Python :: Implementation :: PyPy",
+            "Topic :: Security",
+            "Topic :: System :: Hardware :: Mainframes",
+            "Topic :: System :: Systems Administration",
         ],
         packages=[
             "pyracf",
@@ -58,8 +61,8 @@ def main():
         package_dir={"": "."},
         ext_modules=[
             Extension(
-                "pyracf_call_irrsmo00",
-                sources=["pyracf/common/pyracf_call_irrsmo00.c"],
+                "cpyracf",
+                sources=["pyracf/common/irrsmo00.c"],
                 extra_compile_args=[
                     "-D_XOPEN_SOURCE_EXTENDED",
                     "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL),",
@@ -68,7 +71,7 @@ def main():
                 extra_link_args=["-Wl,INFO"],
             )
         ],
-        python_requires=">=3.9",
+        python_requires="==3.11",
         license_files=("LICENSE"),
         install_requires=get_requirements(),
         cmdclass={"build_ext": CustomBuildExt},
