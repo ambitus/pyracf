@@ -61,7 +61,7 @@ def main():
         package_dir={"": "."},
         ext_modules=[
             Extension(
-                "pyracf_backend",
+                "cpyracf",
                 sources=["pyracf/common/irrsmo00.c"],
                 extra_compile_args=[
                     "-D_XOPEN_SOURCE_EXTENDED",

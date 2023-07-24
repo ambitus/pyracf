@@ -2,7 +2,7 @@
 import platform
 
 try:
-    from pyracf_backend import call_irrsmo00
+    from cpyracf import call_irrsmo00
 except ImportError as import_error:
     if platform.system() == "OS/390":
         raise import_error
