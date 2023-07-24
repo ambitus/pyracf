@@ -7,7 +7,7 @@ from setuptools.command.build_ext import build_ext
 
 
 class CustomBuildExt(build_ext):
-    """Build pyracf_backend python extension."""
+    """Build cpyracf python extension."""
 
     def build_extensions(self):
         os.environ["_CC_CCMODE"] = "1"

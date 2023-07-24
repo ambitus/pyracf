@@ -103,7 +103,7 @@ When contributing to pyRACF, think about the following:
 * Make any necessary updates to `setup.py`.
 * Make any necessary updates to `README.md`.
 * Make any necessary updates to the gitHub pages documentation in the `gh-pages` branch.
-* Add any available test cases to `/tests``
+* Add any available test cases to `/tests`.
 * Verify `__init__.py` files are updated properly.
 * Ensure that you have __pre-commit Hooks__ setup to ensure that **isort**, **black**, **flake8**, and **pylint** are run against the code for every commit you make.
 * Run unit test suite by executing `python3 tests/test_runner.py`.

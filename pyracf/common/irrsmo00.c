@@ -71,7 +71,7 @@ static struct PyModuleDef cpyracf_module_def =
 {
         PyModuleDef_HEAD_INIT,
         "cpyracf", 
-        "C code that enables pyRACF to call the IRRSMO00 RACF callable service.",
+        "C code that enables pyRACF to call the IRRSMO00 RACF callable service.\n",
         -1,
         cpyracf_methods
 };
