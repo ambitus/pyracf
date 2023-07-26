@@ -47,9 +47,9 @@ class TestSetroptsGetters(unittest.TestCase):
             self.setropts_admin.get_password_rules()
 
     # ============================================================================
-    # Class Types
+    # Get attributes
     # ============================================================================
-    def test_setropts_admin_get_class_types(
+    def test_setropts_admin_get_class_attributes(
         self,
         call_racf_mock: Mock,
     ):
@@ -58,12 +58,12 @@ class TestSetroptsGetters(unittest.TestCase):
         )
         call_racf_mock.return_value = setropts_extract_auditor
         self.assertEqual(
-            self.setropts_admin.get_class_types("FACILITY"),
+            self.setropts_admin.get_class_attributes("FACILITY"),
             TestSetroptsConstants.TEST_SETROPTS_CLASS_ATTRIBUTES,
         )
 
     # Error in misspelled SETROPTS parameter
-    def test_setropts_admin_get_class_types_raises_an_exception_when_extract_fails(
+    def test_setropts_admin_get_class_attributes_raises_an_exception_when_extract_fails(
         self,
         call_racf_mock: Mock,
     ):
@@ -71,4 +71,4 @@ class TestSetroptsGetters(unittest.TestCase):
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
-            self.setropts_admin.get_class_types("FACILITY")
+            self.setropts_admin.get_class_attributes("FACILITY")
