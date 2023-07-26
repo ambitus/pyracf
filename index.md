@@ -49,6 +49,13 @@ As automation becomes more and more prevalent, the need to manage the security e
 
 While there are a number of languages that can be used to manage RACF, _(from low level lnaguages like Assembler to higher level languages like REXX)_, the need to have it in a language that is used to manage other platforms is paramount. The pyRACF project is focused on making the RACF management tasks available to Python programmers. This will make it easier to manage RACF from management tools like Ansible and Tekton.
 
+&nbsp;
+
+{: .warning }
+> * _pyRACF encodes the data it passes to RACF in Code Page IBM-1047._
+> * _If you are entering information with special or national characters, users viewing or altering this information from terminals using differnt or international codepages may see unexpected data._
+> * _Please consult a list of invariant characters to use for such information if this applies to you._
+
 ### Architecture
 
 &nbsp;

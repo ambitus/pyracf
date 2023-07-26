@@ -15,7 +15,7 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 {: .warning }
 > _There are no additional segments for **Group Connection** administartion._
-> _Also, not that there is no **Profile Extract** function for **Group Connection** administration. Group connections can be extracted using **[`GroupAdmin.extract()`](../../../group/standard/extract#groupadminextract)**._
+> _Also, note that there is no **Profile Extract** function for **Group Connection** administration. Group connections can be extracted using **[`GroupAdmin.extract()`](../../../group/standard/extract#groupadminextract)**._
 
 &nbsp;
 

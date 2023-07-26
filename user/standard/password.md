@@ -32,6 +32,11 @@ Change a user's **password**.
 * `password`<br>
   The **password** to assigned to the specified user.
 
+{: .warning }
+> * _pyRACF encodes the data it passes to RACF in Code Page IBM-1047._
+> * _If you are entering a password with special or national characters, users logging on from terminals using differnt or international codepages may experience errors._
+> * _Please consult a list of invariant characters to use for such passwords or phrases if this applies to you._
+
 #### 📤 Returns
 
 * `Union[dict, bytes]`<br>
