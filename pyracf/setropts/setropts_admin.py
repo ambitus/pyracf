@@ -129,10 +129,10 @@ class SetroptsAdmin(SecurityAdmin):
         return self._to_steps(result)
 
     # ============================================================================
-    # Class Types
+    # Get attributes
     # ============================================================================
-    def get_class_types(self, class_name: str) -> Union[list, bytes]:
-        """Get RACF class types."""
+    def get_class_attributes(self, class_name: str) -> Union[list, bytes]:
+        """Get RACF get attributes."""
         profile = self.list_racf_options(profile_only=True)
         if not isinstance(profile, dict):
             # Allows this function to work with "self.__generate_requests_only" mode.
