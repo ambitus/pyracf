@@ -17,7 +17,7 @@ def extract(self,  profile_only: bool = False) -> Union[dict, bytes]:
 
 #### 📄 Description
 
-List the system's RACF Options
+List the system's **RACF Options**
 
 #### 📥 Parameters
 

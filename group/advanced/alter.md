@@ -42,7 +42,7 @@ The following example **alters** a group called `testgrp0` with **traits/attribu
 ###### Python Script
 
 ```python
-from pyracf import GrouAdmin
+from pyracf import GroupAdmin
 group_admin = GroupAdmin()
 
 traits = {
