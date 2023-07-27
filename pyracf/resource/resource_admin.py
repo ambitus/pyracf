@@ -187,7 +187,7 @@ class ResourceAdmin(SecurityAdmin):
     # ============================================================================
     # Universal Access
     # ============================================================================
-    def get_universal_access(self, resource: str, class_name: str) -> Union[str, bytes]:
+    def get_universal_access(self, resource: str, class_name: str) -> Union[str, bytes, None]:
         """Get the universal access for general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
         return self._get_field(profile, "base", "universalAccess")
@@ -204,7 +204,7 @@ class ResourceAdmin(SecurityAdmin):
         )
         return self._to_steps(result)
 
-    def get_my_access(self, resource: str, class_name: str) -> Union[str, bytes]:
+    def get_my_access(self, resource: str, class_name: str) -> Union[str, bytes, None]:
         """Get the access associated with your own general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
         return self._get_field(profile, "base", "yourAccess")

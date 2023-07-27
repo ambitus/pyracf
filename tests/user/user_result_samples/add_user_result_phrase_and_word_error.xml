@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <user name="SQUIDWRD" operation="set" requestid="UserRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>8</reasoncode>
+      <image>ADDUSER SQUIDWRD </image>
+      <message>IKJ56702I INVALID USERID, SQUIDWRD</message>
+    </command>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      PHRASE      (*******************) OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))</image>
+    </command>
+  </user>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

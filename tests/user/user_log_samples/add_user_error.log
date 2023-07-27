@@ -6,8 +6,34 @@
 
 {
   "base": {
+    "base:name": {
+      "value": "Squidward",
+      "operation": null
+    },
+    "base:owner": {
+      "value": "leonard",
+      "operation": null
+    },
+    "base:special": {
+      "value": true,
+      "operation": null
+    },
     "base:password": {
       "value": "********",
+      "operation": null
+    }
+  },
+  "omvs": {
+    "omvs:uid": {
+      "value": "2424",
+      "operation": null
+    },
+    "omvs:home": {
+      "value": "/u/squidwrd",
+      "operation": null
+    },
+    "omvs:program": {
+      "value": "/bin/sh",
       "operation": null
     }
   }
@@ -22,8 +48,16 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
   <user name="squidwrd" operation="set" requestid="UserRequest">
     <base>
+      <name>Squidward</name>
+      <racf:owner>leonard</racf:owner>
+      <racf:special/>
       <racf:password>********</racf:password>
     </base>
+    <omvs>
+      <uid>2424</uid>
+      <home>/u/squidwrd</home>
+      <pgm>/bin/sh</pgm>
+    </omvs>
   </user>
 </securityrequest>
 

@@ -76,7 +76,7 @@ class DataSetAdmin(SecurityAdmin):
     # ============================================================================
     # Access
     # ============================================================================
-    def get_universal_access(self, data_set: str) -> Union[str, bytes]:
+    def get_universal_access(self, data_set: str) -> Union[str, bytes, None]:
         """Get universal access for data set profile."""
         profile = self.extract(data_set, profile_only=True)
         return self._get_field(profile, "base", "universalAccess")
@@ -88,7 +88,7 @@ class DataSetAdmin(SecurityAdmin):
         result = self.alter(data_set, {"base:universal_access": universal_acccess})
         return self._to_steps(result)
 
-    def get_my_access(self, data_set: str) -> Union[str, bytes]:
+    def get_my_access(self, data_set: str) -> Union[str, bytes, None]:
         """Get the access associated with your own data set profile."""
         profile = self.extract(data_set, profile_only=True)
         return self._get_field(profile, "base", "yourAccess")

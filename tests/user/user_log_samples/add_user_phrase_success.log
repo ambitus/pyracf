@@ -18,7 +18,7 @@
       "value": true,
       "operation": null
     },
-    "base:password": {
+    "base:phrase": {
       "value": "********",
       "operation": null
     }
@@ -51,7 +51,7 @@
       <name>Squidward</name>
       <racf:owner>leonard</racf:owner>
       <racf:special/>
-      <racf:password>********</racf:password>
+      <racf:phrase>********</racf:phrase>
     </base>
     <omvs>
       <uid>2424</uid>
@@ -81,7 +81,7 @@
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
       <reasoncode>0</reasoncode>
-      <image>ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))</image>
+      <image>ALTUSER SQUIDWRD     NAME        ('Squidward') OWNER       (leonard) SPECIAL      PHRASE    (*******************) OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))</image>
     </command>
   </user>
   <returncode>0</returncode>
@@ -114,7 +114,7 @@
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') OWNER       (leonard) SPECIAL      PHRASE    (*******************) OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
         }
       ]
     },
