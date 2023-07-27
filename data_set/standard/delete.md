@@ -6,7 +6,7 @@ parent: Standard
 
 # Delete
 
-Delete a dataset.
+Delete a dataset profile.
 {: .fs-6 .fw-300 }
 
 ## `DatasetAdmin.delete()`

@@ -4,9 +4,9 @@ grand_parent: Dataset Admin
 parent: Standard
 ---
 
-# Dataset Access Attribute
+# Dataset Universal Access Attribute
 
-Dataset administration functions for checking a user's Dataset Access Attribute. 
+Resource administration functions for checking a Dataset Profile's Universal Access Attribute. 
 {: .fs-6 .fw-300 }
 
 ## `DatasetAdmin.get_universal_access()`
@@ -21,7 +21,7 @@ Check the **Universal Access Attribute** for a dataset profile.
 
 #### 📥 Parameters
 * `dataset`<br>
-  The **Dataset Profile** for which RACF should check the universal access attribute.
+  The **Dataset** profile for which RACF should check the universal access attribute.
 
 #### 📤 Returns
 * `Union[str,bytes,None]`<br>
@@ -53,7 +53,7 @@ Set the **Universal Access Attribute** for a dataset profile.
 
 #### 📥 Parameters
 * `dataset`<br>
-  The **Dataset Profile** for which RACF should set the universal access attribute.
+  The **Dataset** profile for which RACF should set the universal access attribute.
 
 * `universal_access`<br>
   The **Universal Access** level to assign to the specified dataset profile.
@@ -78,26 +78,28 @@ Set the **Universal Access Attribute** for a dataset profile.
 
 ```json
 {
-  "securityResult": {
-    "dataSet": {
-      "name": "ESWIFT.TEST.T1136242.P3020470",
-      "operation": "set",
-      "generic": "no",
-      "requestId": "DatasetRequest",
-      "info": [
-        "Definition exists. Add command skipped due  to precheck option"
-      ],
-      "commands": [
-        {
-          "safReturnCode": 0,
-          "returnCode": 0,
-          "reasonCode": 0,
-          "image": "ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (Alter)"
-        }
-      ]
-    },
-    "returnCode": 0,
-    "reasonCode": 0
+  "step1":{
+    "securityResult": {
+      "dataSet": {
+        "name": "ESWIFT.TEST.T1136242.P3020470",
+        "operation": "set",
+        "generic": "no",
+        "requestId": "DatasetRequest",
+        "info": [
+          "Definition exists. Add command skipped due  to precheck option"
+        ],
+        "commands": [
+          {
+            "safReturnCode": 0,
+            "returnCode": 0,
+            "reasonCode": 0,
+            "image": "ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (Alter)"
+          }
+        ]
+      },
+      "returnCode": 0,
+      "reasonCode": 0
+    }
   }
 }
 ```

@@ -53,7 +53,7 @@ The following example **alters** a dataset profile called `ESWIFT.TEST.T1136242.
 from pyracf import DatasetAdmin
 dataset_admin = DatasetAdmin()
 
-TEST_ALTER_DATA_SET_REQUEST_TRAITS = {
+traits = {
     "base:universal_access": "Read",
     "base:owner": "eswift",
 }

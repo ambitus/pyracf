@@ -22,8 +22,8 @@ def extract(
 Extract a **dataset** profile's data.
 
 #### 📥 Parameters
-* `userid`<br>
-  The **dataset** to extract segment data from.
+* `data_set`<br>
+  The **dataset** profile to extract segment data from.
 
 * `segments`<br>
   A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.

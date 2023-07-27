@@ -4,9 +4,9 @@ grand_parent: Dataset Admin
 parent: Standard
 ---
 
-# Dataset Access Attribute
+# Dataset Your Access Attribute
 
-Dataset administration functions for checking a user's Dataset Access Attribute. 
+Dataset administration functions for checking the user's access to a Dataset Profile. 
 {: .fs-6 .fw-300 }
 
 ## `DatasetAdmin.get_your_access()`
@@ -21,7 +21,7 @@ Check **Your Access** for a dataset profile.
 
 #### 📥 Parameters
 * `dataset`<br>
-  The **Dataset Profile** for which RACF should check the current user's access level.
+  The **Dataset** profile for which RACF should check the current user's access level.
 
 #### 📤 Returns
 * `Union[str,bytes,None]`<br>
