@@ -39,9 +39,7 @@ class TestUserDebugLogging(unittest.TestCase):
             if "base:phrase" in self.traits:
                 del self.traits["base:phrase"]
             self.traits["base:password"] = self.test_password
-            self.user_admin.add(
-                "squidwrd", traits=self.traits
-            )
+            self.user_admin.add("squidwrd", traits=self.traits)
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_SUCCESS_LOG)
         self.assertNotIn(self.test_password, success_log)
@@ -57,37 +55,39 @@ class TestUserDebugLogging(unittest.TestCase):
                 del self.traits["base:phrase"]
             self.traits["base:password"] = self.test_password
             try:
-                self.user_admin.add(
-                    "squidwrd", traits=self.traits
-                )
+                self.user_admin.add("squidwrd", traits=self.traits)
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_ERROR_LOG)
         self.assertNotIn(self.test_password, error_log)
-    
+
     def test_add_user_request_debug_log_passphrases_get_redacted_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PHRASE_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_ADD_USER_PHRASE_RESULT_SUCCESS_XML
+        )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             if "base:password" in self.traits:
                 del self.traits["base:password"]
             self.traits["base:phrase"] = self.test_passphrase
-            self.user_admin.add(
-                "squidwrd", traits=self.traits
-            )
+            self.user_admin.add("squidwrd", traits=self.traits)
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_PHRASE_SUCCESS_LOG)
+        self.assertEqual(
+            success_log, TestUserConstants.TEST_ADD_USER_PHRASE_SUCCESS_LOG
+        )
         self.assertNotIn(self.test_passphrase, success_log)
 
     def test_add_user_request_debug_log_passphrases_get_redacted_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PHRASE_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_ADD_USER_PHRASE_RESULT_ERROR_XML
+        )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             if "base:password" in self.traits:
@@ -105,16 +105,18 @@ class TestUserDebugLogging(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_RESULT_SUCCESS_XML
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_RESULT_SUCCESS_XML
+        )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             self.traits["base:password"] = self.test_password
             self.traits["base:phrase"] = self.test_passphrase
-            self.user_admin.add(
-                    "squidwrd", traits=self.traits
-            )
+            self.user_admin.add("squidwrd", traits=self.traits)
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_SUCCESS_LOG)
+        self.assertEqual(
+            success_log, TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_SUCCESS_LOG
+        )
         self.assertNotIn(self.test_passphrase, success_log)
         self.assertNotIn(self.test_password, success_log)
 
@@ -122,19 +124,21 @@ class TestUserDebugLogging(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_RESULT_ERROR_XML
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_RESULT_ERROR_XML
+        )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             self.traits["base:password"] = self.test_password
             self.traits["base:phrase"] = self.test_passphrase
             try:
-                self.user_admin.add(
-                        "squidwrd", traits=self.traits
-                )
+                self.user_admin.add("squidwrd", traits=self.traits)
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_ERROR_LOG)
+        self.assertEqual(
+            error_log, TestUserConstants.TEST_ADD_USER_PHRASE_AND_WORD_ERROR_LOG
+        )
         self.assertNotIn(self.test_passphrase, error_log)
         self.assertNotIn(self.test_password, error_log)
 
