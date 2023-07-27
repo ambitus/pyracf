@@ -1,10 +1,10 @@
 ---
 layout: default
-grand_parent: Resource Admin
+grand_parent: General Resource Admin
 parent: Standard
 ---
 
-# Resource Universal Access Attribute
+# Universal Access
 
 Resource administration functions for checking a General Resource Profile's Universal Access Attribute. 
 {: .fs-6 .fw-300 }

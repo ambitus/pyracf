@@ -1,6 +1,6 @@
 ---
 layout: default
-grand_parent: Dataset Admin
+grand_parent: Data Set Admin
 parent: Standard
 ---
 

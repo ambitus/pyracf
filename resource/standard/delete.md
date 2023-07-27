@@ -1,6 +1,6 @@
 ---
 layout: default
-grand_parent: Resource Admin
+grand_parent: General Resource Admin
 parent: Standard
 ---
 

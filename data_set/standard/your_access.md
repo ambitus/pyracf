@@ -1,10 +1,10 @@
 ---
 layout: default
-grand_parent: Dataset Admin
+grand_parent: Data Set Admin
 parent: Standard
 ---
 
-# Dataset Your Access Attribute
+# Your Access
 
 Dataset administration functions for checking the user's access to a Dataset Profile. 
 {: .fs-6 .fw-300 }

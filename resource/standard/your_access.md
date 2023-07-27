@@ -1,10 +1,10 @@
 ---
 layout: default
-grand_parent: Resource Admin
+grand_parent: General Resource Admin
 parent: Standard
 ---
 
-# Resource Your Access Attribute
+# Your Access
 
 Resource administration functions for checking the user's access to a General Resource Profile. 
 {: .fs-6 .fw-300 }

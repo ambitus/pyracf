@@ -1,10 +1,10 @@
 ---
 layout: default
-grand_parent: Dataset Admin
+grand_parent: Data Set Admin
 parent: Standard
 ---
 
-# Dataset Universal Access Attribute
+# Universal Access
 
 Resource administration functions for checking a Dataset Profile's Universal Access Attribute. 
 {: .fs-6 .fw-300 }
