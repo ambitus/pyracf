@@ -31,7 +31,7 @@ def main():
     os.environ["CXX"] = "xlc++"
     setup(
         name="pyRACF",
-        version="1.0",
+        version="1.0a1",
         description="Python interface to RACF using IRRSMO00 RACF Callable Service.",
         author="IBM",
         classifiers=[
@@ -71,7 +71,7 @@ def main():
                 extra_link_args=["-Wl,INFO"],
             )
         ],
-        python_requires="==3.11",
+        python_requires="~=3.11",
         license_files=("LICENSE"),
         install_requires=get_requirements(),
         cmdclass={"build_ext": CustomBuildExt},
