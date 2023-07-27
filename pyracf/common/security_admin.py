@@ -144,8 +144,12 @@ class SecurityAdmin:
                 )
             )
         # redact password from XML bytes (Always UTF-8).
-        redact_password = None if redact_password is None else bytes(redact_password, "utf-8")
-        redact_passphrase = None if redact_passphrase is None else bytes(redact_passphrase, "utf-8")
+        redact_password = (
+            None if redact_password is None else bytes(redact_password, "utf-8")
+        )
+        redact_passphrase = (
+            None if redact_passphrase is None else bytes(redact_passphrase, "utf-8")
+        )
         return self.__logger.redact_strings(
             result, [redact_password, redact_passphrase]
         )
