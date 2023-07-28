@@ -45,7 +45,7 @@ class Logger:
         return f"{ansi_color}{string}{self.__ansi_reset}"
 
     def log_dictionary(
-        self, header_message: str, dictionary: dict, redact_strings: Union[list, None]
+        self, header_message: str, dictionary: dict, redact_strings: Union[list[Union[str, bytes, None]], None]
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
         dictionary_json = json.dumps(dictionary, indent=2)
@@ -57,7 +57,7 @@ class Logger:
         self,
         header_message: str,
         xml_string: Union[str, bytes],
-        redact_strings: Union[list, None],
+        redact_strings: Union[list[Union[str, bytes, None]], None],
     ) -> None:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
@@ -91,7 +91,7 @@ class Logger:
         print(f"{header}\n{message}")
 
     def redact_strings(
-        self, string: Union[str, bytes], redact_strings: Union[list, None]
+        self, string: Union[str, bytes], redact_strings: Union[list[Union[str, bytes, None]], None]
     ) -> str:
         """Redact a list of strings or sequences of bytes in a string or bytes object"""
         if not redact_strings:

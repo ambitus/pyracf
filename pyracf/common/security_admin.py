@@ -158,8 +158,8 @@ class SecurityAdmin:
         self,
         security_request: SecurityRequest,
         irrsmo00_options: int = 1,
-        redact_password: str = None,
-        redact_passphrase: str = None,
+        redact_password: Union[str, None] = None,
+        redact_passphrase: Union[str, None] = None,
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.

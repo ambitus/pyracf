@@ -21,15 +21,15 @@ TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY = get_sample("add_user_result_success.js
 TEST_ADD_USER_RESULT_ERROR_XML = get_sample("add_user_result_error.xml")
 TEST_ADD_USER_RESULT_ERROR_DICTIONARY = get_sample("add_user_result_error.json")
 
-TEST_ADD_USER_PHRASE_RESULT_SUCCESS_XML = get_sample(
-    "add_user_result_phrase_success.xml"
+TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML = get_sample(
+    "add_user_result_passphrase_success.xml"
 )
-TEST_ADD_USER_PHRASE_AND_WORD_RESULT_SUCCESS_XML = get_sample(
-    "add_user_result_phrase_and_word_success.xml"
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML = get_sample(
+    "add_user_result_passphrase_and_password_success.xml"
 )
-TEST_ADD_USER_PHRASE_RESULT_ERROR_XML = get_sample("add_user_result_phrase_error.xml")
-TEST_ADD_USER_PHRASE_AND_WORD_RESULT_ERROR_XML = get_sample(
-    "add_user_result_phrase_and_word_error.xml"
+TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML = get_sample("add_user_result_passphrase_error.xml")
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML = get_sample(
+    "add_user_result_passphrase_and_password_error.xml"
 )
 
 # Alter User
@@ -158,14 +158,14 @@ TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 TEST_ADD_USER_SUCCESS_LOG = get_sample("add_user_success.log")
 TEST_ADD_USER_ERROR_LOG = get_sample("add_user_error.log")
 
-TEST_ADD_USER_PHRASE_SUCCESS_LOG = get_sample("add_user_phrase_success.log")
-TEST_ADD_USER_PHRASE_ERROR_LOG = get_sample("add_user_phrase_error.log")
+TEST_ADD_USER_PASSPHRASE_SUCCESS_LOG = get_sample("add_user_passphrase_success.log")
+TEST_ADD_USER_PASSPHRASE_ERROR_LOG = get_sample("add_user_passphrase_error.log")
 
-TEST_ADD_USER_PHRASE_AND_WORD_SUCCESS_LOG = get_sample(
-    "add_user_phrase_and_word_success.log"
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG = get_sample(
+    "add_user_passphrase_and_password_success.log"
 )
-TEST_ADD_USER_PHRASE_AND_WORD_ERROR_LOG = get_sample(
-    "add_user_phrase_and_word_error.log"
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_ERROR_LOG = get_sample(
+    "add_user_passphrase_and_password_error.log"
 )
 
 TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG = get_sample(
