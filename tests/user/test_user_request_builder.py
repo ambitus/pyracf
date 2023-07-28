@@ -55,28 +55,33 @@ class TestUserRequestBuilder(unittest.TestCase):
         self,
     ):
         result = self.user_admin.add(
-            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD
+            "squidwrd",
+            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD,
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSWORD_XML)
-        self.assertNotIn(self.test_password, result.decode('utf-8'))
+        self.assertNotIn(self.test_password, result.decode("utf-8"))
 
     def test_user_admin_build_add_user_request_passphrase_redacted(
         self,
     ):
         result = self.user_admin.add(
-            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE
+            "squidwrd",
+            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE,
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_XML)
-        self.assertNotIn(self.test_password, result.decode('utf-8'))
-    
+        self.assertNotIn(self.test_password, result.decode("utf-8"))
+
     def test_user_admin_build_add_user_request_passphrase_and_password_redacted(
         self,
     ):
         result = self.user_admin.add(
-            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD
+            "squidwrd",
+            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD,
         )
-        self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML)
-        self.assertNotIn(self.test_password, result.decode('utf-8'))
+        self.assertEqual(
+            result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML
+        )
+        self.assertNotIn(self.test_password, result.decode("utf-8"))
 
     # ============================================================================
     # Custom Field Data

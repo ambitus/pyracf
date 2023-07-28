@@ -94,7 +94,9 @@ TEST_DELETE_USER_RESULT_ERROR_DICTIONARY = get_sample("delete_user_result_error.
 TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
 TEST_ADD_USER_REQUEST_PASSWORD_XML = get_sample("add_user_request_password.xml")
 TEST_ADD_USER_REQUEST_PASSPHRASE_XML = get_sample("add_user_request_passphrase.xml")
-TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML = get_sample("add_user_request_passphrase_and_password.xml")
+TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML = get_sample(
+    "add_user_request_passphrase_and_password.xml"
+)
 TEST_ADD_USER_REQUEST_TRAITS = {
     "base:name": "Squidward",
     "base:owner": "leonard",
@@ -108,9 +110,13 @@ TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD["base:password"] = "GIyTTqdF"
 TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE["base:passphrase"] = "PassPhrasesAreCool!"
-TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD = dict(
+    TEST_ADD_USER_REQUEST_TRAITS
+)
 TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD["base:password"] = "GIyTTqdF"
-TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD["base:passphrase"] = "PassPhrasesAreCool!"
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD[
+    "base:passphrase"
+] = "PassPhrasesAreCool!"
 
 # Alter User
 TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")

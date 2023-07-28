@@ -121,13 +121,13 @@ class SecurityAdmin:
                 "value"
             ]
         except KeyError:
-            redact_password = ''
+            redact_password = ""
         try:
             redact_passphrase = self.__preserved_segment_traits["base"][
                 "base:passphrase"
             ]["value"]
         except KeyError:
-            redact_passphrase = ''
+            redact_passphrase = ""
         result = self.__make_request_unredacted(
             security_request,
             irrsmo00_options=irrsmo00_options,
@@ -152,8 +152,8 @@ class SecurityAdmin:
         self,
         security_request: SecurityRequest,
         irrsmo00_options: int = 1,
-        redact_password: str = '',
-        redact_passphrase: str = '',
+        redact_password: str = "",
+        redact_passphrase: str = "",
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
@@ -179,7 +179,11 @@ class SecurityAdmin:
             self.__logger.log_xml(
                 "Result XML", result_xml, [redact_password, redact_passphrase]
             )
-        results = SecurityResult(self.__logger.redact_strings(result_xml,[redact_password, redact_passphrase]))
+        results = SecurityResult(
+            self.__logger.redact_strings(
+                result_xml, [redact_password, redact_passphrase]
+            )
+        )
 
         if self.__debug:
             self.__logger.log_dictionary(

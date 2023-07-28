@@ -35,7 +35,10 @@ class TestUserDebugLogging(unittest.TestCase):
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD)
+            self.user_admin.add(
+                "squidwrd",
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD,
+            )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_SUCCESS_LOG)
         self.assertNotIn(self.test_password, success_log)
@@ -48,7 +51,10 @@ class TestUserDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD)
+                self.user_admin.add(
+                    "squidwrd",
+                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD,
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
@@ -64,7 +70,10 @@ class TestUserDebugLogging(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE)
+            self.user_admin.add(
+                "squidwrd",
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE,
+            )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_SUCCESS_LOG
@@ -81,7 +90,10 @@ class TestUserDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE)
+                self.user_admin.add(
+                    "squidwrd",
+                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE,
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
@@ -99,7 +111,10 @@ class TestUserDebugLogging(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD)
+            self.user_admin.add(
+                "squidwrd",
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD,
+            )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log,
@@ -118,7 +133,10 @@ class TestUserDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD)
+                self.user_admin.add(
+                    "squidwrd",
+                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD,
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
