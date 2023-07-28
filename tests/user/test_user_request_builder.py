@@ -17,6 +17,8 @@ class TestUserRequestBuilder(unittest.TestCase):
     maxDiff = None
     IRRSMO00.__init__ = Mock(return_value=None)
     user_admin = UserAdmin(generate_requests_only=True)
+    test_password = "GIyTTqdF"
+    test_passphrase = "PassPhrasesAreCool!"
 
     # ============================================================================
     # Default Fields
@@ -44,6 +46,37 @@ class TestUserRequestBuilder(unittest.TestCase):
     def test_user_admin_build_delete_user_request(self):
         result = self.user_admin.delete("squidwrd")
         self.assertEqual(result, TestUserConstants.TEST_DELETE_USER_REQUEST_XML)
+
+    # ============================================================================
+    # Password and Password Phrase Redaction
+    # ============================================================================
+
+    def test_user_admin_build_add_user_request_password_redacted(
+        self,
+    ):
+        result = self.user_admin.add(
+            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD
+        )
+        self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSWORD_XML)
+        self.assertNotIn(self.test_password, result.decode('utf-8'))
+
+    def test_user_admin_build_add_user_request_passphrase_redacted(
+        self,
+    ):
+        result = self.user_admin.add(
+            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE
+        )
+        self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_XML)
+        self.assertNotIn(self.test_password, result.decode('utf-8'))
+    
+    def test_user_admin_build_add_user_request_passphrase_and_password_redacted(
+        self,
+    ):
+        result = self.user_admin.add(
+            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD
+        )
+        self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML)
+        self.assertNotIn(self.test_password, result.decode('utf-8'))
 
     # ============================================================================
     # Custom Field Data

@@ -6,23 +6,23 @@
       "requestId": "UserRequest",
       "commands": [
         {
-          "safReturnCode": 0,
-          "returnCode": 0,
-          "reasonCode": 0,
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
           "image": "ADDUSER SQUIDWRD ",
           "messages": [
-            "ICH01024I User SQUIDWRD is defined as PROTECTED."
+            "IKJ56702I INVALID USERID, SQUIDWRD"
           ]
         },
         {
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') OWNER       (leonard) SPECIAL      PASSWORD    (********) OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') OWNER       (leonard) SPECIAL      PHRASE    ('********') OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
         }
       ]
     },
-    "returnCode": 0,
+    "returnCode": 4,
     "reasonCode": 0
   }
 }

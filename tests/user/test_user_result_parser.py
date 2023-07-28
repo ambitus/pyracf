@@ -18,6 +18,8 @@ class TestUserResultParser(unittest.TestCase):
     maxDiff = None
     IRRSMO00.__init__ = Mock(return_value=None)
     user_admin = UserAdmin()
+    test_password = "GIyTTqdF"
+    test_passphrase = "PassPhrasesAreCool!"
 
     # ============================================================================
     # Add User
@@ -28,7 +30,7 @@ class TestUserResultParser(unittest.TestCase):
     ):
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         self.assertEqual(
-            self.user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"}),
+            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD),
             TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -39,7 +41,7 @@ class TestUserResultParser(unittest.TestCase):
     ):
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         with self.assertRaises(SecurityRequestError) as exception:
-            self.user_admin.add("squidwrd", traits={"base:password": "GIyTTqdF"})
+            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD)
         self.assertEqual(
             exception.exception.result,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
@@ -130,6 +132,89 @@ class TestUserResultParser(unittest.TestCase):
             self.user_admin.extract("squidwrd", segments={"omvs": True}),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
+
+    # ============================================================================
+    # Password and Password Phrase Redaction
+    # ============================================================================
+    def test_user_admin_password_redacted_add_user_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
+        result = self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD)
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
+        )
+        self.assertNotIn(str(result),self.test_password)
+
+    # Error in environment, SQUIDWRD already added/exists
+    def test_user_admin_password_redacted_add_user_error_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD)
+        self.assertEqual(
+            exception.exception.result,
+            TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
+        )
+        self.assertNotIn(str(exception.exception.result),self.test_password)
+
+    def test_user_admin_passphrase_redacted_add_user_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML
+        result = self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE)
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY,
+        )
+        self.assertNotIn(str(result),self.test_passphrase)
+
+    # Error in environment, SQUIDWRD already added/exists
+    def test_user_admin_passphrase_redacted_add_user_error_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE)
+        self.assertEqual(
+            exception.exception.result,
+            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY,
+        )
+        self.assertNotIn(str(exception.exception.result),self.test_passphrase)
+
+    def test_user_admin_passphrase_and_password_redacted_add_user_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML
+        result = self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD)
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY,
+        )
+        self.assertNotIn(str(result),self.test_passphrase)
+        self.assertNotIn(str(result),self.test_password)
+
+    # Error in environment, SQUIDWRD already added/exists
+    def test_user_admin_passphrase_and_password_redacted_add_user_error_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.user_admin.add("squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD)
+        self.assertEqual(
+            exception.exception.result,
+            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY,
+        )
+        self.assertNotIn(str(exception.exception.result),self.test_passphrase)
+        self.assertNotIn(str(exception.exception.result),self.test_password)
 
     # ============================================================================
     # Delete User

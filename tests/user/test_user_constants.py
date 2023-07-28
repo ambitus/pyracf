@@ -33,6 +33,18 @@ TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML = get_sample(
 TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML = get_sample(
     "add_user_result_passphrase_and_password_error.xml"
 )
+TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "add_user_result_passphrase_success.json"
+)
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "add_user_result_passphrase_and_password_success.json"
+)
+TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY = get_sample(
+    "add_user_result_passphrase_error.json"
+)
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
+    "add_user_result_passphrase_and_password_error.json"
+)
 
 # Alter User
 TEST_ALTER_USER_RESULT_SUCCESS_XML = get_sample("alter_user_result_success.xml")
@@ -80,9 +92,11 @@ TEST_DELETE_USER_RESULT_ERROR_DICTIONARY = get_sample("delete_user_result_error.
 
 # Add User
 TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
+TEST_ADD_USER_REQUEST_PASSWORD_XML = get_sample("add_user_request_password.xml")
+TEST_ADD_USER_REQUEST_PASSPHRASE_XML = get_sample("add_user_request_passphrase.xml")
+TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML = get_sample("add_user_request_passphrase_and_password.xml")
 TEST_ADD_USER_REQUEST_TRAITS = {
     "base:name": "Squidward",
-    "base:password": "GIyTTqdF",
     "base:owner": "leonard",
     "base:special": True,
     "base:operator": False,
@@ -90,6 +104,13 @@ TEST_ADD_USER_REQUEST_TRAITS = {
     "omvs:home": "/u/squidwrd",
     "omvs:program": "/bin/sh",
 }
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD["base:password"] = "GIyTTqdF"
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE = dict(TEST_ADD_USER_REQUEST_TRAITS)
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE["base:passphrase"] = "PassPhrasesAreCool!"
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD["base:password"] = "GIyTTqdF"
+TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD["base:passphrase"] = "PassPhrasesAreCool!"
 
 # Alter User
 TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")

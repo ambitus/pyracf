@@ -179,7 +179,7 @@ class SecurityAdmin:
             self.__logger.log_xml(
                 "Result XML", result_xml, [redact_password, redact_passphrase]
             )
-        results = SecurityResult(result_xml)
+        results = SecurityResult(self.__logger.redact_strings(result_xml,[redact_password, redact_passphrase]))
 
         if self.__debug:
             self.__logger.log_dictionary(

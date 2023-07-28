@@ -4,6 +4,7 @@
       <name>Squidward</name>
       <racf:owner>leonard</racf:owner>
       <racf:special />
+      <racf:phrase>********</racf:phrase>
     </base>
     <omvs>
       <uid>2424</uid>
