@@ -32,10 +32,10 @@ pipeline {
         stage('Smoke Test') {
             steps {
                 sh """
-                    python3 -m pip uninstall pyracf
-                    python3 setup.py install
+                    python3 -m pip uninstall pyracf -y
+                    python3 setup.py install --user
                     cd tests/function_test
-                    python3 smoke_test.py
+                    python3 function_test.py
                 """
             }
         }
