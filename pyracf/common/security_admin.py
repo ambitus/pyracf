@@ -121,13 +121,13 @@ class SecurityAdmin:
                 "value"
             ]
         except KeyError:
-            redact_password = None
+            redact_password = ''
         try:
             redact_passphrase = self.__preserved_segment_traits["base"][
                 "base:passphrase"
             ]["value"]
         except KeyError:
-            redact_passphrase = None
+            redact_passphrase = ''
         result = self.__make_request_unredacted(
             security_request,
             irrsmo00_options=irrsmo00_options,
@@ -144,12 +144,6 @@ class SecurityAdmin:
                 )
             )
         # redact password from XML bytes (Always UTF-8).
-        redact_password = (
-            None if redact_password is None else bytes(redact_password, "utf-8")
-        )
-        redact_passphrase = (
-            None if redact_passphrase is None else bytes(redact_passphrase, "utf-8")
-        )
         return self.__logger.redact_strings(
             result, [redact_password, redact_passphrase]
         )
@@ -158,8 +152,8 @@ class SecurityAdmin:
         self,
         security_request: SecurityRequest,
         irrsmo00_options: int = 1,
-        redact_password: Union[str, None] = None,
-        redact_passphrase: Union[str, None] = None,
+        redact_password: str = '',
+        redact_passphrase: str = '',
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.

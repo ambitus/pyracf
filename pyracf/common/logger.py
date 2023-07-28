@@ -48,7 +48,7 @@ class Logger:
         self,
         header_message: str,
         dictionary: dict,
-        redact_strings: Union[list[Union[str, bytes, None]], None],
+        redact_strings: list[Union[str, bytes]],
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
         dictionary_json = json.dumps(dictionary, indent=2)
@@ -60,7 +60,7 @@ class Logger:
         self,
         header_message: str,
         xml_string: Union[str, bytes],
-        redact_strings: Union[list[Union[str, bytes, None]], None],
+        redact_strings: list[Union[str, bytes]],
     ) -> None:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
@@ -96,17 +96,22 @@ class Logger:
     def redact_strings(
         self,
         string: Union[str, bytes],
-        redact_strings: Union[list[Union[str, bytes, None]], None],
+        redact_strings: list[Union[str, bytes]],
     ) -> str:
         """Redact a list of strings or sequences of bytes in a string or bytes object"""
         if not redact_strings:
             return string
         for to_redact in redact_strings:
-            string = self.redact_string(string, redact_string=to_redact)
+            if isinstance(string, bytes):
+                string = self.redact_string(string, redact_string=bytes(to_redact, "utf-8"))
+            if isinstance(string, str):
+                string = self.redact_string(string, redact_string=to_redact)
+            else:
+                return string
         return string
 
     def redact_string(
-        self, string: Union[str, bytes], redact_string: Union[str, bytes, None]
+        self, string: Union[str, bytes], redact_string: Union[str, bytes]
     ) -> str:
         """Redact a string or sequence of byte in a bytes object."""
         if not redact_string:
