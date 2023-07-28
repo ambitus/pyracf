@@ -32,7 +32,7 @@ class TestUserResultParser(unittest.TestCase):
         self.assertEqual(
             self.user_admin.add(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD,
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
             ),
             TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
         )
@@ -46,7 +46,7 @@ class TestUserResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD,
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
             )
         self.assertEqual(
             exception.exception.result,
@@ -149,7 +149,7 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD,
+            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
         )
         self.assertEqual(
             result,
@@ -166,7 +166,7 @@ class TestUserResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSWORD,
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
             )
         self.assertEqual(
             exception.exception.result,
@@ -183,7 +183,7 @@ class TestUserResultParser(unittest.TestCase):
         )
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE,
+            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
         )
         self.assertEqual(
             result,
@@ -202,7 +202,7 @@ class TestUserResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE,
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
             )
         self.assertEqual(
             exception.exception.result,
@@ -219,7 +219,7 @@ class TestUserResultParser(unittest.TestCase):
         )
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD,
+            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
         )
         self.assertEqual(
             result,
@@ -239,7 +239,7 @@ class TestUserResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_WITH_PASSPHRASE_AND_PASSWORD,
+                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
             )
         self.assertEqual(
             exception.exception.result,
