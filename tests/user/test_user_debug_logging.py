@@ -98,7 +98,9 @@ class TestUserDebugLogging(unittest.TestCase):
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_ERROR_LOG)
+        self.assertEqual(
+            error_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_ERROR_LOG
+        )
         self.assertNotIn(self.test_passphrase, error_log)
 
     def test_add_user_request_debug_log_passphrases_and_passwords_get_redacted_on_success(
@@ -115,7 +117,8 @@ class TestUserDebugLogging(unittest.TestCase):
             self.user_admin.add("squidwrd", traits=self.traits)
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            success_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG
+            success_log,
+            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG,
         )
         self.assertNotIn(self.test_passphrase, success_log)
         self.assertNotIn(self.test_password, success_log)

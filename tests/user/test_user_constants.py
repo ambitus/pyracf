@@ -27,7 +27,9 @@ TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML = get_sample(
 TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML = get_sample(
     "add_user_result_passphrase_and_password_success.xml"
 )
-TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML = get_sample("add_user_result_passphrase_error.xml")
+TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML = get_sample(
+    "add_user_result_passphrase_error.xml"
+)
 TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML = get_sample(
     "add_user_result_passphrase_and_password_error.xml"
 )

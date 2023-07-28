@@ -123,9 +123,9 @@ class SecurityAdmin:
         except KeyError:
             redact_password = None
         try:
-            redact_passphrase = self.__preserved_segment_traits["base"]["base:passphrase"][
-                "value"
-            ]
+            redact_passphrase = self.__preserved_segment_traits["base"][
+                "base:passphrase"
+            ]["value"]
         except KeyError:
             redact_passphrase = None
         result = self.__make_request_unredacted(
