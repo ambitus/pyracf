@@ -18,7 +18,7 @@
       "value": true,
       "operation": null
     },
-    "base:phrase": {
+    "base:passphrase": {
       "value": "********",
       "operation": null
     }

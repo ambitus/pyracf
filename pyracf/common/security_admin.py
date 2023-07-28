@@ -123,7 +123,7 @@ class SecurityAdmin:
         except KeyError:
             redact_password = None
         try:
-            redact_passphrase = self.__preserved_segment_traits["base"]["base:phrase"][
+            redact_passphrase = self.__preserved_segment_traits["base"]["base:passphrase"][
                 "value"
             ]
         except KeyError:

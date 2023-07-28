@@ -36,8 +36,8 @@ class TestUserDebugLogging(unittest.TestCase):
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            if "base:phrase" in self.traits:
-                del self.traits["base:phrase"]
+            if "base:passphrase" in self.traits:
+                del self.traits["base:passphrase"]
             self.traits["base:password"] = self.test_password
             self.user_admin.add("squidwrd", traits=self.traits)
         success_log = self.ansi_escape.sub("", stdout.getvalue())
@@ -51,8 +51,8 @@ class TestUserDebugLogging(unittest.TestCase):
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            if "base:phrase" in self.traits:
-                del self.traits["base:phrase"]
+            if "base:passphrase" in self.traits:
+                del self.traits["base:passphrase"]
             self.traits["base:password"] = self.test_password
             try:
                 self.user_admin.add("squidwrd", traits=self.traits)
@@ -73,7 +73,7 @@ class TestUserDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             if "base:password" in self.traits:
                 del self.traits["base:password"]
-            self.traits["base:phrase"] = self.test_passphrase
+            self.traits["base:passphrase"] = self.test_passphrase
             self.user_admin.add("squidwrd", traits=self.traits)
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -92,7 +92,7 @@ class TestUserDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             if "base:password" in self.traits:
                 del self.traits["base:password"]
-            self.traits["base:phrase"] = self.test_passphrase
+            self.traits["base:passphrase"] = self.test_passphrase
             try:
                 self.user_admin.add("squidwrd", self.traits)
             except SecurityRequestError:
@@ -111,7 +111,7 @@ class TestUserDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             self.traits["base:password"] = self.test_password
-            self.traits["base:phrase"] = self.test_passphrase
+            self.traits["base:passphrase"] = self.test_passphrase
             self.user_admin.add("squidwrd", traits=self.traits)
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -130,7 +130,7 @@ class TestUserDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             self.traits["base:password"] = self.test_password
-            self.traits["base:phrase"] = self.test_passphrase
+            self.traits["base:passphrase"] = self.test_passphrase
             try:
                 self.user_admin.add("squidwrd", traits=self.traits)
             except SecurityRequestError:
