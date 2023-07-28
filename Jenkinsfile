@@ -29,7 +29,7 @@ pipeline {
                 """
             }
         }
-        stage('Smoke Test') {
+        stage('Function Test') {
             steps {
                 sh """
                     python3 -m pip uninstall pyracf -y
