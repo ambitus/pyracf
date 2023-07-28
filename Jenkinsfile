@@ -42,7 +42,7 @@ pipeline {
         stage('Publish') {
             when { tag "*" }
             steps {
-                sh "python3 setup.py bdist_wheel upload -r pypi"
+                sh "python3 setup.py bdist_wheel upload -r test"
             }
         }
     }
