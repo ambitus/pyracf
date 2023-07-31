@@ -12,7 +12,14 @@ Delete a user's access to a group
 ## `AccessAdmin.delete()`
 
 ```python
-def delete(self, userid: str, group: str) -> Union[dict, bytes]:
+    def delete(
+        self,
+        resource: str,
+        class_name: str,
+        auth_id: str,
+        volume: Union[str, None] = None,
+        generic: bool = False,
+    ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -21,16 +28,11 @@ Delete a specified **permission**
 
 #### 📥 Parameters
 * `resource`<br>
-  The **resource profile** to grant this permission to.
-* `class`<br>
+  The **resource profile** to delete this permission from.
+* `class_name`<br>
   The **class** that the specified resource profile belongs to.
 * `auth_id`<br>
   The **z/OS userid or group name** of the user or group to receive the permission.
-
-
-* `traits`<br>
-  A dictionary of **traits/attributes** that should be assigned to this permission for the specified user to the specified resource. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Access Traits** are.
-
 * `volume`<br>
   The **volume** that the specified dataset resides on (ignored unless the **class** is `DATASET`).
 * `generic`<br>

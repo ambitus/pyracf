@@ -15,7 +15,7 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 {: .warning }
 > _There are no additional segments for **Access** administartion._
-> _Also, note that there is no **Profile Extract** function for **Access** administration. Some access information can be extracted using **[`ResourceAdmin.extract()`](../../../resource/standard/extract#resourceadminextract)** or **[`DataSetAdmin.extract()`](../../../dataset/standard/extract#datasetadminextract)** depending on the type of profile in question._
+> _Also, note that there is no **Profile Extract** function for **Access** administration. Some access information can be extracted using **[`ResourceAdmin.extract()`](../../../resource/standard/extract#resourceadminextract)** or **[`DataSetAdmin.extract()`](../../../data_set/standard/extract#datasetadminextract)** depending on the type of profile in question._
 
 &nbsp;
 
@@ -28,7 +28,7 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 &nbsp;
 
-When using the **[`AccessAdmin.add()`](../add#accessadminadd)** and **[`AccessAdmin.alter()`](../alter#accessadminalter)** functions, the following are valid group traits. Feel free to experiment with any of the other traits defined in `pyracf/access/access_admin.py` in the pyRACF source code.
+When using the **[`AccessAdmin.add()`](../add#accessadminadd)** and **[`AccessAdmin.alter()`](../alter#accessadminalter)** functions, the following are valid access traits. Feel free to experiment with any of the other traits defined in `pyracf/access/access_admin.py` in the pyRACF source code.
 
 &nbsp;
 

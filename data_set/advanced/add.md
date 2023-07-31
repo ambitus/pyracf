@@ -29,10 +29,10 @@ Create a new **dataset** profile.
   A dictionary of **traits/attributes** that should be given to the dataset on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Dataset Traits** are.
 
 * `volume`<br>
-  A single **volume** name for this dataset. This argument is optional. If generic=True is specified, volume is ignored.
+  A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
 
 * `generic`<br>
-  A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `no`.
+  A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `False`.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

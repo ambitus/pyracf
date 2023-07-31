@@ -12,9 +12,14 @@ Functions for extracting a dataset profile's data.
 ## `DataSetAdmin.extract()`
 
 ```python
-def extract(
-    self, data_set: str, segments: dict = {}, volume: Union[str, None] = None, generic: bool = False, profile_only: bool = False
-) -> Union[dict, bytes]:
+    def extract(
+        self,
+        data_set: str,
+        segments: dict = {},
+        volume: Union[str, None] = None,
+        generic: bool = False,
+        profile_only: bool = False,
+    ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -29,10 +34,10 @@ Extract a **dataset** profile's data.
   A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
 
 * `volume`<br>
-  A single **volume** name for this dataset. This argument is optional. If generic=True is specified, volume is ignored.
+  A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
 
 * `generic`<br>
-  A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `no`.
+  A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `False`.
 
 * `profile_only`<br>
   When set to `True`, only the extracted profile will be returned instead of returning the entire **Security Result dictionary**.
@@ -47,7 +52,7 @@ Extract a **dataset** profile's data.
 
 #### 💻 Example
 
-The following example **extracts** the **base segment** of the dataset profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default no other segments are specified or extracted. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
+The following example **extracts** the **base segment** of the dataset profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default when no other segments are specified or extracted. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
 
 ###### Python REPL
 ```python

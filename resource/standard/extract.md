@@ -44,7 +44,7 @@ Extract a **general resource** profile's data.
 
 #### 💻 Example
 
-The following example **extracts** the **base segment** of the general resource profile `TESTING` in the `ELIJTEST` class. The base segment is extracted by default no other segments are specified or extracted. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
+The following example **extracts** the **base segment** of the general resource profile `TESTING` in the `ELIJTEST` class. The base segment is extracted by default when no other segments are specified or extracted. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
 
 ###### Python REPL
 ```python

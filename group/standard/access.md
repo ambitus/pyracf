@@ -1,4 +1,4 @@
-----
+---
 layout: default
 grand_parent: Group Admin
 parent: Standard

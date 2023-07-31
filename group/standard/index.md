@@ -1,4 +1,4 @@
-----
+---
 layout: default
 title: Standard
 parent: Group Admin

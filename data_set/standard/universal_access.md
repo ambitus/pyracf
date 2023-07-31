@@ -76,6 +76,7 @@ Set the **Universal Access Attribute** for a dataset profile.
 {"securityResult":{"dataSet":{"name":"ESWIFT.TEST.T1136242.P3020470","operation":"set","generic":"no","requestId":"DatasetRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (Alter)"}]},"returnCode":0,"reasonCode":0}}
 ```
 
+###### Security Result Steps Dictionary as JSON
 ```json
 {
   "step1":{

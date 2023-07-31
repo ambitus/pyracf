@@ -26,10 +26,10 @@ Delete a **dataset** profile.
   The name of the **dataset** profile being deleted.
 
 * `volume`<br>
-  A single **volume** name for this dataset. This argument is optional. If generic=True is specified, volume is ignored.
+  A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
 
 * `generic`<br>
-  A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `no`.
+  A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `False`.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

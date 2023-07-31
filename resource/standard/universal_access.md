@@ -47,12 +47,12 @@ Check the **Universal Access Attribute** for a general resource profile.
 ## `ResourceAdmin.set_universal_access()`
 
 ```python
-def set_universal_access(
-    self,
-    resource: str,
-    class_name: str,
-    universal_access: str,
-) -> Union[dict, bytes]:
+    def set_universal_access(
+        self,
+        resource: str,
+        class_name: str,
+        universal_access: str,
+    ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -87,6 +87,7 @@ Set the **Universal Access Attribute** for a general resource profile.
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  UACC        (Alter)","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
+###### Security Result Steps Dictionary as JSON
 ```json
 {
   "step1":{

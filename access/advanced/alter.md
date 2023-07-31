@@ -12,7 +12,15 @@ Create a new permission.
 ## `AccessAdmin.alter()`
 
 ```python
-def alter(self, resource: str, class_name: str, auth_id: str, traits: dict = {}, volume: Union[str, None] = None, generic: bool = False) -> Union[dict, bytes]:
+    def alter(
+        self,
+        resource: str,
+        class_name: str,
+        auth_id: str,
+        traits: dict,
+        volume: Union[str, None] = None,
+        generic: bool = False,
+    ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -21,7 +29,7 @@ Alter an existing **permission**.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **resource profile** to grant this permission to.
+  The **resource profile** to alter this permission to.
 * `class`<br>
   The **class** that the specified resource profile belongs to.
 * `auth_id`<br>
@@ -45,7 +53,7 @@ Alter an existing **permission**.
 
 #### 💻 Example
 
-The following example **creates** a **new permission** for the **z/OS userid** `eswift` to the **resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
+The following example **alters** an existing **permission** for the **z/OS userid** `eswift` to the **resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
 
 ###### Python Script
 ```python
