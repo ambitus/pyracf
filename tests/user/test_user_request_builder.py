@@ -69,7 +69,7 @@ class TestUserRequestBuilder(unittest.TestCase):
             traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_XML)
-        self.assertNotIn(self.test_password, result.decode("utf-8"))
+        self.assertNotIn(self.test_passphrase, result.decode("utf-8"))
 
     def test_user_admin_build_add_user_request_passphrase_and_password_redacted(
         self,
@@ -82,6 +82,7 @@ class TestUserRequestBuilder(unittest.TestCase):
             result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML
         )
         self.assertNotIn(self.test_password, result.decode("utf-8"))
+        self.assertNotIn(self.test_passphrase, result.decode("utf-8"))
 
     # ============================================================================
     # Custom Field Data

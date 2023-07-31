@@ -117,7 +117,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     def get_password_rules(self) -> Union[dict, bytes]:
         """Get RACF password rules."""
-        profile = self.list_racf_options(profile_only=True)
+        profile = self.list_racf_options(options_only=True)
         return self._get_field(profile, "passwordProcessingOptions", "syntaxRules")
 
     # ============================================================================
@@ -133,7 +133,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     def get_class_attributes(self, class_name: str) -> Union[list, bytes]:
         """Get RACF get attributes."""
-        profile = self.list_racf_options(profile_only=True)
+        profile = self.list_racf_options(options_only=True)
         if not isinstance(profile, dict):
             # Allows this function to work with "self.__generate_requests_only" mode.
             return profile
@@ -280,13 +280,13 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def list_racf_options(self, profile_only: bool = False) -> Union[dict, bytes]:
+    def list_racf_options(self, options_only: bool = False) -> Union[dict, bytes]:
         """List RACF options."""
         self._build_segment_dictionaries({"base:list": True})
         setropts_request = SetroptsRequest()
         self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
         result = self._extract_and_check_result(setropts_request)
-        if profile_only:
+        if options_only:
             return self._get_profile(result)
         return result
 

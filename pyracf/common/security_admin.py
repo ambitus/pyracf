@@ -116,18 +116,16 @@ class SecurityAdmin:
         irrsmo00_options: int = 1,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
-        try:
-            redact_password = self.__preserved_segment_traits["base"]["base:password"][
-                "value"
-            ]
-        except KeyError:
-            redact_password = ""
-        try:
-            redact_passphrase = self.__preserved_segment_traits["base"][
-                "base:passphrase"
-            ]["value"]
-        except KeyError:
-            redact_passphrase = ""
+        redact_password = (
+            self.__preserved_segment_traits.get("base", {})
+            .get("base:password", {})
+            .get("value", "")
+        )
+        redact_passphrase = (
+            self.__preserved_segment_traits.get("base", {})
+            .get("base:passphrase", {})
+            .get("value", "")
+        )
         result = self.__make_request_unredacted(
             security_request,
             irrsmo00_options=irrsmo00_options,
