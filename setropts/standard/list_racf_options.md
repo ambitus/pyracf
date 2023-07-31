@@ -12,7 +12,7 @@ Functions for extracting the system's RACF Options.
 ## `SetroptsAdmin.list_racf_options()`
 
 ```python
-def extract(self,  profile_only: bool = False) -> Union[dict, bytes]:
+def list_racf_options(self,  options_only: bool = False) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -22,7 +22,7 @@ List the system's **RACF Options**
 #### 📥 Parameters
 
 * `profile_only`<br>
-  When set to `True`, only the extracted profile will be returned instead of returning the entire **Security Result dictionary**.
+  When set to `True`, only the racf options will be returned instead of returning the entire **Security Result dictionary**.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

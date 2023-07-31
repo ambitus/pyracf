@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Delete
+# Raclist Refresh
 
 Refresh a RACLISTed class.
 {: .fs-6 .fw-300 }

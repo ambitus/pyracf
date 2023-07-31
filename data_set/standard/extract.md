@@ -9,7 +9,7 @@ parent: Standard
 Functions for extracting a dataset profile's data. 
 {: .fs-6 .fw-300 }
 
-## `DatasetAdmin.extract()`
+## `DataSetAdmin.extract()`
 
 ```python
 def extract(
@@ -29,7 +29,7 @@ Extract a **dataset** profile's data.
   A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
 
 * `volume`<br>
-  A single **volume** name for this dataset. This argument is optional. If generic=`yes` is specified, volume is ignored.
+  A single **volume** name for this dataset. This argument is optional. If generic=True is specified, volume is ignored.
 
 * `generic`<br>
   A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `no`.
@@ -51,8 +51,8 @@ The following example **extracts** the **base segment** of the dataset profile `
 
 ###### Python REPL
 ```python
->>> from pyracf import DatasetAdmin
->>> dataset_admin = DatasetAdmin()
+>>> from pyracf import DataSetAdmin
+>>> dataset_admin = DataSetAdmin()
 >>> dataset_admin.extract("ESWIFT.TEST.T1136242.P3020470")
 {"securityResult":{"dataSet":{"name":"ESWIFT.TEST.T1136242.P3020470","operation":"listdata","generic":"no","requestId":"DatasetRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')","profiles":[{"base":{"name":"eswift.test.t1136242.p3020470","level":0,"owner":"eswift","universalAccess":"read","warning":null,"erase":null,"auditing":{"failures":"read"},"notify":null,"yourAccess":"alter","creationGroup":"sys1","dataSetType":"non-vsam","volumes":["usrat2"],"installationData":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}}
 ```

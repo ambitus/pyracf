@@ -12,7 +12,7 @@ Create a new general resource profile.
 ## `ResourceAdmin.add()`
 
 ```python
-def add(self, resource: str, class_name:str, traits: dict) -> Union[dict, bytes]:
+def add(self, resource: str, class_name: str, traits: dict) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

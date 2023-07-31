@@ -12,7 +12,7 @@ Setropts administration functions for modifying if a class has the Generic RACLI
 ## `SetroptsAdmin.remove_generic_profile_sharing_class()`
 
 ```python
-def remove_generic_profile_sharing_classself, class_name: str) -> Union[dict, bytes]:
+def remove_generic_profile_sharing_class(self, class_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

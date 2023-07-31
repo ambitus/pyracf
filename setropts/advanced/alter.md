@@ -33,7 +33,7 @@ Alter the current **RACF Options**.
 
 #### 💻 Example
 
-The following example **alters** the RACF Options with **traits/attributes** to alter specified in the `options` dictionary.
+The following example **alters** the RACF Options with **options** to alter specified in the `options` dictionary.
 
 
 ###### Python Script

@@ -27,7 +27,7 @@ Check **Your Access** for a general resource profile.
   The name of the **class** the resource profile being checked belongs to.
 
 #### 📤 Returns
-* `Union[str,bytes,None]`<br>
+* `Union[str, bytes, None]`<br>
   Returns `None` when the resource profile has no **Your Access** defined, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises

@@ -27,7 +27,7 @@ Check the **Universal Access Attribute** for a general resource profile.
   The name of the **class** the resource profile being checked belongs to.
 
 #### 📤 Returns
-* `Union[str,bytes,None]`<br>
+* `Union[str, bytes, None]`<br>
   Returns `None` when the general resource profile has no **Universal Access** defined, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
@@ -47,7 +47,12 @@ Check the **Universal Access Attribute** for a general resource profile.
 ## `ResourceAdmin.set_universal_access()`
 
 ```python
-def set_universal_access(self, resource: str, class_name: str, universal_access: str) -> Union[str, bytes, None]:
+def set_universal_access(
+    self,
+    resource: str,
+    class_name: str,
+    universal_access: str,
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -65,8 +70,8 @@ Set the **Universal Access Attribute** for a general resource profile.
   The **Universal Access** level to assign to the specified general resource profile.
 
 #### 📤 Returns
-* `Union[str,bytes,None]`<br>
-  Returns `None` when the resource profile has no **Universal Access** defined, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+* `Union[dict, bytes]`<br>
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

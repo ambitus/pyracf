@@ -9,7 +9,7 @@ parent: Standard
 Setropts administration functions for modifying if a class has the Generic Command attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.add_generic_command_processing_class_()`
+## `SetroptsAdmin.add_generic_command_processing_class()`
 
 ```python
 def add_generic_command_processing_class(self, class_name: str) -> Union[dict, bytes]:

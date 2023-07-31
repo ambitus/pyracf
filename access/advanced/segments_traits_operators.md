@@ -15,7 +15,7 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 {: .warning }
 > _There are no additional segments for **Access** administartion._
-> _Also, note that there is no **Profile Extract** function for **Access** administration. Some access information can be extracted using **[`ResourceAdmin.extract()`](../../../resource/standard/extract#resourceadminextract)** or **[`DatasetAdmin.extract()`](../../../dataset/standard/extract#datasetadminextract)** depending on the type of profile in question._
+> _Also, note that there is no **Profile Extract** function for **Access** administration. Some access information can be extracted using **[`ResourceAdmin.extract()`](../../../resource/standard/extract#resourceadminextract)** or **[`DataSetAdmin.extract()`](../../../dataset/standard/extract#datasetadminextract)** depending on the type of profile in question._
 
 &nbsp;
 

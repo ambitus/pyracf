@@ -39,3 +39,31 @@ Obtain the **Password Rules** for a system.
 >>> setropts_admin.get_password_rules()
 {"rules":[{"minLength":4,"maxLength":8,"content":"********"}],"legend":{"A":"alpha","C":"consonant","L":"alphanumeric","N":"numeric","V":"vowel","W":"no vowel","*":"anything","c":"mixed consonant","m":"mixed numeric","v":"mixed vowel","$":"national","s":"special","x":"mixed all"}}
 ```
+
+###### Password Rules Dictionary as JSON
+```json
+{
+  "rules": [
+    {
+      "minLength": 4,
+      "maxLength": 8,
+      "content": "********"
+    }
+  ],
+  "legend": {
+    "A": "alpha",
+    "C": "consonant",
+    "L": "alphanumeric",
+    "N": "numeric",
+    "V": "vowel",
+    "W": "no vowel",
+    "*": "anything",
+    "c": "mixed consonant",
+    "m": "mixed numeric",
+    "v": "mixed vowel",
+    "$": "national",
+    "s": "special",
+    "x": "mixed all"
+  }
+}
+```

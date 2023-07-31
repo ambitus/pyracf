@@ -9,7 +9,7 @@ parent: Standard
 Setropts administration functions for modifying if a class has the Active attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.has_activeor_authority()`
+## `SetroptsAdmin.has_active_authority()`
 
 ```python
 def add_active_class(self, class_name: str) -> Union[dict, bytes]:

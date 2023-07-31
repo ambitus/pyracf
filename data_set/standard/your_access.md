@@ -9,7 +9,7 @@ parent: Standard
 Dataset administration functions for checking the user's access to a Dataset Profile. 
 {: .fs-6 .fw-300 }
 
-## `DatasetAdmin.get_your_access()`
+## `DataSetAdmin.get_your_access()`
 
 ```python
 def get_your_access(self, dataset: str) -> Union[str, bytes, None]:
@@ -24,8 +24,8 @@ Check **Your Access** for a dataset profile.
   The **Dataset** profile for which RACF should check the current user's access level.
 
 #### 📤 Returns
-* `Union[str,bytes,None]`<br>
-  Returns `None` when the dataset profile has no **Your Access** defined, otherwise returns the access level as a string. If the `DatasetAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+* `Union[str, bytes, None]`<br>
+  Returns `None` when the dataset profile has no **Your Access** defined, otherwise returns the access level as a string. If the `DataSetAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -35,8 +35,8 @@ Check **Your Access** for a dataset profile.
 
 ###### Python REPL
 ```python
->>> from pyracf import DatasetAdmin
->>> dataset_admin = DatasetAdmin()
+>>> from pyracf import DataSetAdmin
+>>> dataset_admin = DataSetAdmin()
 >>> dataset_admin.get_your_access("ESWIFT.TEST.T1136242.P3020470")
 "read"
 ```
