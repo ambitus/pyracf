@@ -50,7 +50,6 @@ class TestUserRequestBuilder(unittest.TestCase):
     # ============================================================================
     # Password and Password Phrase Redaction
     # ============================================================================
-
     def test_user_admin_build_add_user_request_password_redacted(
         self,
     ):
