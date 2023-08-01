@@ -25,7 +25,7 @@ Alter the current **RACF Options**.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `SetroptsAdmin.generate_request_only` class attribute is set to `True`.
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `SetroptsAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

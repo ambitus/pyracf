@@ -6,7 +6,7 @@ parent: Advanced
 
 # Add
 
-Create a new dataset profile.
+Create a new data set profile.
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.add()`
@@ -19,14 +19,14 @@ def add(
 
 #### 📄 Description
 
-Create a new **dataset** profile.
+Create a new **data set** profile.
 
 #### 📥 Parameters
 * `data_set`<br>
-  The name of the **dataset** profile being created.
+  The name of the **data set** profile being created.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the dataset on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Dataset Traits** are.
+  A dictionary of **traits/attributes** that should be given to the data set on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Data Set Traits** are.
 
 * `volume`<br>
   A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
@@ -44,7 +44,7 @@ Create a new **dataset** profile.
 
 #### 💻 Example
 
-The following example **creates** a **new dataset** profile called `ESWIFT.TEST.T1136242.P3020470` with two **traits/attributes** as defined in the `traits` dictionary.
+The following example **creates** a **new data set** profile called `ESWIFT.TEST.T1136242.P3020470` with two **traits/attributes** as defined in the `traits` dictionary.
 
 ###### Python Script
 ```python
@@ -91,7 +91,7 @@ dataset_admin.add("ESWIFT.TEST.T1136242.P3020470", traits=traits)
 
 #### 💻 Example
 
-The following example **creates** a **new generic dataset** profile called `ESWIFT.TEST.**` with two **traits/attributes** as defined in the `traits` dictionary.
+The following example **creates** a **new generic data set** profile called `ESWIFT.TEST.**` with two **traits/attributes** as defined in the `traits` dictionary.
 
 ###### Python Script
 ```python

@@ -6,7 +6,7 @@ parent: Standard
 
 # Universal Access
 
-Resource administration functions for checking a Dataset Profile's Universal Access Attribute. 
+Resource administration functions for checking a Data Set Profile's Universal Access Attribute. 
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.get_universal_access()`
@@ -17,7 +17,7 @@ def get_universal_access(self, dataset: str) -> Union[str, bytes, None]:
 
 #### 📄 Description
 
-Check the **Universal Access Attribute** for a dataset profile.
+Check the **Universal Access Attribute** for a data set profile.
 
 #### 📥 Parameters
 * `dataset`<br>
@@ -25,7 +25,7 @@ Check the **Universal Access Attribute** for a dataset profile.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
-  Returns `None` when the dataset profile has no **Universal Access** defined, otherwise returns the access level as a string. If the `DataSetAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the data set profile has no **Universal Access** defined, otherwise returns the access level as a string. If the `DataSetAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -49,14 +49,14 @@ def set_universal_access(self, dataset: str, universal_access: str) -> Union[dic
 
 #### 📄 Description
 
-Set the **Universal Access Attribute** for a dataset profile.
+Set the **Universal Access Attribute** for a data set profile.
 
 #### 📥 Parameters
 * `dataset`<br>
   The **Dataset** profile for which RACF should set the universal access attribute.
 
 * `universal_access`<br>
-  The **Universal Access** level to assign to the specified dataset profile.
+  The **Universal Access** level to assign to the specified data set profile.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

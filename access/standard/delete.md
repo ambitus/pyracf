@@ -34,7 +34,7 @@ Delete a specified **permission**
 * `auth_id`<br>
   The **z/OS userid or group name** of the user or group to receive the permission.
 * `volume`<br>
-  The **volume** that the specified dataset resides on (ignored unless the **class** is `DATASET`).
+  The **volume** that the specified data set resides on (ignored unless the **class** is `DATASET`).
 * `generic`<br>
   Specifies whether the resource is **generic** or not (ignored unless the **class** is `DATASET`).
 

@@ -6,7 +6,7 @@ parent: Standard
 
 # Profile Extract
 
-Functions for extracting a dataset profile's data. 
+Functions for extracting a data set profile's data. 
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.extract()`
@@ -24,11 +24,11 @@ def extract(
 
 #### 📄 Description
 
-Extract a **dataset** profile's data.
+Extract a **data set** profile's data.
 
 #### 📥 Parameters
 * `data_set`<br>
-  The **dataset** profile to extract segment data from.
+  The **data set** profile to extract segment data from.
 
 * `segments`<br>
   A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
@@ -44,7 +44,7 @@ Extract a **dataset** profile's data.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `ResourceAdmin.generate_request_only` class attribute is set to `True`.
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `DataSetAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -52,7 +52,7 @@ Extract a **dataset** profile's data.
 
 #### 💻 Example
 
-The following example **extracts** the **base segment** of the dataset profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default whether or not other segments are specified. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
+The following example **extracts** the **base segment** of the data set profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default whether or not other segments are specified. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
 
 ###### Python REPL
 ```python

@@ -6,7 +6,7 @@ parent: Advanced
 
 # Alter
 
-Alter an existing dataset profile.
+Alter an existing data set profile.
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.alter()`
@@ -17,20 +17,21 @@ def alter(
 ) -> Union[dict, bytes]:
 ```
 
+
+#### 📄 Description
+
 {: .warning }
 > _Alter operations in pyracf require READ access to IRR.IRRSMO00.PRECHECK in the XFACILIT class_
 > _This function will not produce output unless the user running the command has this access._
 
-#### 📄 Description
-
-Alter an existing **dataset** profile.
+Alter an existing **data set** profile.
 
 #### 📥 Parameters
 * `data_set`<br>
-  The name of the **dataset** profile being altered.
+  The name of the **data set** profile being altered.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the dataset on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Dataset Traits** are.
+  A dictionary of **traits/attributes** that should be given to the data set on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Data Set Traits** are.
 
 * `volume`<br>
   A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
@@ -48,7 +49,7 @@ Alter an existing **dataset** profile.
 
 #### 💻 Example
 
-The following example **alters** a dataset profile called `ESWIFT.TEST.T1136242.P3020470` with **traits/attributes** to alter specified in the `traits` dictionary.
+The following example **alters** a data set profile called `ESWIFT.TEST.T1136242.P3020470` with **traits/attributes** to alter specified in the `traits` dictionary.
 
 
 ###### Python Script

@@ -6,7 +6,7 @@ parent: Standard
 
 # Your Access
 
-Dataset administration functions for checking the user's access to a Dataset Profile. 
+Data Set administration functions for checking the user's access to a Data Set Profile. 
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.get_your_access()`
@@ -17,7 +17,7 @@ def get_your_access(self, dataset: str) -> Union[str, bytes, None]:
 
 #### 📄 Description
 
-Check **Your Access** for a dataset profile.
+Check **Your Access** for a data set profile.
 
 #### 📥 Parameters
 * `dataset`<br>
@@ -25,7 +25,7 @@ Check **Your Access** for a dataset profile.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
-  Returns `None` when the dataset profile has no **Your Access** defined, otherwise returns the access level as a string. If the `DataSetAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the data set profile has no **Your Access** defined, otherwise returns the access level as a string. If the `DataSetAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

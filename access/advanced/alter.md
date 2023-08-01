@@ -23,11 +23,11 @@ def alter(
 ) -> Union[dict, bytes]:
 ```
 
+#### 📄 Description
+
 {: .warning }
 > _Alter operations in pyracf require READ access to IRR.IRRSMO00.PRECHECK in the XFACILIT class_
 > _This function will not produce output unless the user running the command has this access._
-
-#### 📄 Description
 
 Alter an existing **permission**.
 
@@ -43,7 +43,7 @@ Alter an existing **permission**.
   A dictionary of **traits/attributes** that should be assigned to this permission for the specified user to the specified resource. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Access Traits** are.
 
 * `volume`<br>
-  The **volume** that the specified dataset resides on (ignored unless the **class** is `DATASET`).
+  The **volume** that the specified data set resides on (ignored unless the **class** is `DATASET`).
 * `generic`<br>
   Specifies whether the resource is **generic** or not (ignored unless the **class** is `DATASET`).
 

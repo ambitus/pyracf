@@ -34,7 +34,7 @@ When using the **[`DataSetAdmin.extract()`](../../standard/extract#datasetadmine
 
 &nbsp;
 
-When using the **[`DataSetAdmin.add()`](../add#datasetadminadd)** and **[`DataSetAdmin.alter()`](../alter#datasetadminalter)** functions, the following are valid dataset traits. Feel free to experiment with any of the other traits defined in `pyracf/data_set/data_set_admin.py` in the pyRACF source code.
+When using the **[`DataSetAdmin.add()`](../add#datasetadminadd)** and **[`DataSetAdmin.alter()`](../alter#datasetadminalter)** functions, the following are valid data set traits. Feel free to experiment with any of the other traits defined in `pyracf/data_set/data_set_admin.py` in the pyRACF source code.
 
 &nbsp;
 
