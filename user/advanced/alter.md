@@ -15,6 +15,10 @@ Alter an existing z/OS userid.
 def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
+{: .warning }
+> _Alter operations in pyracf require READ access to IRR.IRRSMO00.PRECHECK in the XFACILIT class_
+> _This function will not produce output unless the user running the command has this access._
+
 #### 📄 Description
 
 Alter an existing **z/OS userid**.
