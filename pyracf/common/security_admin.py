@@ -1,6 +1,5 @@
 """Base Class for RACF Administration Interface."""
 
-import json
 import platform
 import re
 from datetime import datetime
@@ -103,7 +102,6 @@ class SecurityAdmin:
             )
         return result
 
-
     def _make_request(
         self,
         security_request: SecurityRequest,
@@ -123,15 +121,14 @@ class SecurityAdmin:
         return self.__make_request_and_redact_secrets(
             security_request,
             irrsmo00_options=irrsmo00_options,
-            redact_strings=[redact_password,redact_passphrase]
+            redact_strings=[redact_password, redact_passphrase],
         )
-
 
     def __make_request_and_redact_secrets(
         self,
         security_request: SecurityRequest,
         irrsmo00_options: int = 1,
-        redact_strings: List[str] = []
+        redact_strings: List[str] = [],
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
@@ -150,26 +147,20 @@ class SecurityAdmin:
             )
         if self.__generate_requests_only:
             return self.__logger.redact_strings(
-                security_request.dump_request_xml(encoding="utf-8"),
-                redact_strings
+                security_request.dump_request_xml(encoding="utf-8"), redact_strings
             )
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options
         )
         if self.__debug:
-            self.__logger.log_xml(
-                "Result XML", result_xml, redact_strings
-            )
+            self.__logger.log_xml("Result XML", result_xml, redact_strings)
         results = SecurityResult(
-            self.__logger.redact_strings(
-                result_xml, redact_strings
-            )
+            self.__logger.redact_strings(result_xml, redact_strings)
         )
 
         if self.__debug:
             self.__logger.log_dictionary(
-                "Result Dictionary",
-                results.get_result_dictionary()
+                "Result Dictionary", results.get_result_dictionary()
             )
         result_dictionary = results.get_result_dictionary()
         if result_dictionary["securityResult"]["returnCode"] != 0:

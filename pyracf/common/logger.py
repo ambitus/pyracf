@@ -3,7 +3,7 @@
 import inspect
 import json
 import os
-from typing import Union, List
+from typing import List, Union
 
 
 class Logger:
