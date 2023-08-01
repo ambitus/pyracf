@@ -96,19 +96,13 @@ class SecurityAdmin:
         result = self._make_request(security_request)
         if self.__generate_requests_only:
             return result
-        if "error" in result["securityResult"][self.__profile_type]:
-            raise SecurityRequestError(result)
-        if (
-            result["securityResult"]["returnCode"] == 0
-            and result["securityResult"]["reasonCode"] == 0
-        ):
-            self._format_profile(result)
-            if self.__debug:
-                self.__logger.log_dictionary(
-                    "Result Dictionary (Formatted Profile)", result, None
-                )
-            return result
-        raise SecurityRequestError(result)
+        self._format_profile(result)
+        if self.__debug:
+            self.__logger.log_dictionary(
+                "Result Dictionary (Formatted Profile)", result, None
+            )
+        return result
+
 
     def _make_request(
         self,
@@ -126,68 +120,56 @@ class SecurityAdmin:
             .get("base:passphrase", {})
             .get("value", "")
         )
-        result = self.__make_request_unredacted(
+        return self.__make_request_and_redact_secrets(
             security_request,
             irrsmo00_options=irrsmo00_options,
-            redact_password=redact_password,
-            redact_passphrase=redact_passphrase,
-        )
-        if not redact_password and not redact_passphrase:
-            return result
-        if isinstance(result, dict):
-            # Dump to json string, redact password, and then load back to dictionary.
-            return json.loads(
-                self.__logger.redact_strings(
-                    json.dumps(result), [redact_password, redact_passphrase]
-                )
-            )
-        # redact password from XML bytes (Always UTF-8).
-        return self.__logger.redact_strings(
-            result, [redact_password, redact_passphrase]
+            redact_strings=[redact_password,redact_passphrase]
         )
 
-    def __make_request_unredacted(
+
+    def __make_request_and_redact_secrets(
         self,
         security_request: SecurityRequest,
         irrsmo00_options: int = 1,
-        redact_password: str = "",
-        redact_passphrase: str = "",
+        redact_strings: List[str] = []
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
-        Note: Passwords are not redacted from result, but are redacted from log messages.
+        Note: Passwords are redacted from result and from log messages.
         """
         if self.__debug:
             self.__logger.log_dictionary(
                 "Request Dictionary",
                 self.__preserved_segment_traits,
-                [redact_password, redact_passphrase],
+                redact_strings,
             )
             self.__logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
-                [redact_password, redact_passphrase],
+                redact_strings,
             )
         if self.__generate_requests_only:
-            return security_request.dump_request_xml(encoding="utf-8")
+            return self.__logger.redact_strings(
+                security_request.dump_request_xml(encoding="utf-8"),
+                redact_strings
+            )
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options
         )
         if self.__debug:
             self.__logger.log_xml(
-                "Result XML", result_xml, [redact_password, redact_passphrase]
+                "Result XML", result_xml, redact_strings
             )
         results = SecurityResult(
             self.__logger.redact_strings(
-                result_xml, [redact_password, redact_passphrase]
+                result_xml, redact_strings
             )
         )
 
         if self.__debug:
             self.__logger.log_dictionary(
                 "Result Dictionary",
-                results.get_result_dictionary(),
-                [redact_password, redact_passphrase],
+                results.get_result_dictionary()
             )
         result_dictionary = results.get_result_dictionary()
         if result_dictionary["securityResult"]["returnCode"] != 0:

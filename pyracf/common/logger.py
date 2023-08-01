@@ -3,7 +3,7 @@
 import inspect
 import json
 import os
-from typing import Union
+from typing import Union, List
 
 
 class Logger:
@@ -48,7 +48,7 @@ class Logger:
         self,
         header_message: str,
         dictionary: dict,
-        redact_strings: list[Union[str, bytes]],
+        redact_strings: List[str] = [],
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
         dictionary_json = json.dumps(dictionary, indent=2)
@@ -60,7 +60,7 @@ class Logger:
         self,
         header_message: str,
         xml_string: Union[str, bytes],
-        redact_strings: list[Union[str, bytes]],
+        redact_strings: List[str] = [],
     ) -> None:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
@@ -96,7 +96,7 @@ class Logger:
     def redact_strings(
         self,
         string: Union[str, bytes],
-        redact_strings: list[Union[str, bytes]],
+        redact_strings: List[str],
     ) -> str:
         """Redact a list of strings or sequences of bytes in a string or bytes object"""
         if not redact_strings:
