@@ -19,7 +19,7 @@ def extract(
 
 #### 📄 Description
 
-Extract a user's profile data.
+Extract a **user's** profile data.
 
 #### 📥 Parameters
 * `userid`<br>

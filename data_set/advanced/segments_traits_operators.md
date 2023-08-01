@@ -18,7 +18,7 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 &nbsp;
 
-When using the **[`DataSetAdmin.extract()`](../../standard/extract#datasetadminextract)** function, the following is the current list of additional segments that have been tested and validated. Feel free to experiment with any of the segments defined in `pyracf/dataset/data_set_admin.py` in the pyRACF source code.
+When using the **[`DataSetAdmin.extract()`](../../standard/extract#datasetadminextract)** function, the following is the current list of additional segments that have been tested and validated. Feel free to experiment with any of the segments defined in `pyracf/data_set/data_set_admin.py` in the pyRACF source code.
 
 &nbsp;
 
@@ -34,7 +34,7 @@ When using the **[`DataSetAdmin.extract()`](../../standard/extract#datasetadmine
 
 &nbsp;
 
-When using the **[`DataSetAdmin.add()`](../add#datasetadminadd)** and **[`DataSetAdmin.alter()`](../alter#datasetadminalter)** functions, the following are valid dataset traits. Feel free to experiment with any of the other traits defined in `pyracf/dataset/data_set_admin.py` in the pyRACF source code.
+When using the **[`DataSetAdmin.add()`](../add#datasetadminadd)** and **[`DataSetAdmin.alter()`](../alter#datasetadminalter)** functions, the following are valid dataset traits. Feel free to experiment with any of the other traits defined in `pyracf/data_set/data_set_admin.py` in the pyRACF source code.
 
 &nbsp;
 

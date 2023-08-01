@@ -12,7 +12,7 @@ Setropts administration function for accessing the RACF Options Lists that a spe
 ## `SetroptsAdmin.get_class_attributes()`
 
 ```python
-  def get_class_attributes(self, class_name: str) -> Union[List[str], bytes]:
+def get_class_attributes(self, class_name: str) -> Union[List[str], bytes]:
 ```
 
 #### 📄 Description

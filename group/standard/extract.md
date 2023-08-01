@@ -33,7 +33,7 @@ Extract a **group's** profile data.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_request_only` class attribute is set to `True`.
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `ResourceAdmin.generate_request_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

@@ -13,7 +13,7 @@ Functions for extracting a general resource profile's data.
 
 ```python
 def extract(
-    self, data_set: str, resource: str, class_name:str, segments: dict = {}, profile_only: bool = False
+    self, data_set: str, resource: str, class_name: str, segments: dict = {}, profile_only: bool = False
 ) -> Union[dict, bytes]:
 ```
 
@@ -36,7 +36,7 @@ Extract a **general resource** profile's data.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_request_only` class attribute is set to `True`.
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `ResourceAdmin.generate_request_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -44,7 +44,7 @@ Extract a **general resource** profile's data.
 
 #### 💻 Example
 
-The following example **extracts** the **base segment** of the general resource profile `TESTING` in the `ELIJTEST` class. The base segment is extracted by default when no other segments are specified or extracted. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
+The following example **extracts** the **base segment** of the general resource profile `TESTING` in the `ELIJTEST` class. The base segment is extracted by default whether or not other segments are specified. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
 
 ###### Python REPL
 ```python

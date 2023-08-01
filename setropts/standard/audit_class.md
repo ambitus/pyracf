@@ -25,7 +25,7 @@ Add a class to the list of classes that RACF will **Audit**.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ConnectionAdmin.generate_requests_only` class attribute is set to `True`.
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `SetroptsAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -82,7 +82,7 @@ Remove a class from the list of classes that RACF will **Audit**.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ConnectionAdmin.generate_requests_only` class attribute is set to `True`.
+  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `SetroptsAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

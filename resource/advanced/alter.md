@@ -12,7 +12,7 @@ Alter an existing general resource profile.
 ## `ResourceAdmin.alter()`
 
 ```python
-def alter(self, resource: str, class_name:str, traits: dict) -> Union[dict, bytes]:
+def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

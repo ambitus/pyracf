@@ -12,14 +12,14 @@ Functions for extracting a dataset profile's data.
 ## `DataSetAdmin.extract()`
 
 ```python
-    def extract(
-        self,
-        data_set: str,
-        segments: dict = {},
-        volume: Union[str, None] = None,
-        generic: bool = False,
-        profile_only: bool = False,
-    ) -> Union[dict, bytes]:
+def extract(
+    self,
+    data_set: str,
+    segments: dict = {},
+    volume: Union[str, None] = None,
+    generic: bool = False,
+    profile_only: bool = False,
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -44,7 +44,7 @@ Extract a **dataset** profile's data.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_request_only` class attribute is set to `True`.
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `ResourceAdmin.generate_request_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -52,7 +52,7 @@ Extract a **dataset** profile's data.
 
 #### 💻 Example
 
-The following example **extracts** the **base segment** of the dataset profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default when no other segments are specified or extracted. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
+The following example **extracts** the **base segment** of the dataset profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default whether or not other segments are specified. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
 
 ###### Python REPL
 ```python

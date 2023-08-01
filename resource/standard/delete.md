@@ -12,7 +12,7 @@ Delete a general resource profile.
 ## `ResourceAdmin.delete()`
 
 ```python
-def delete(self, resource: str, class_name:str) -> Union[dict, bytes]:
+def delete(self, resource: str, class_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

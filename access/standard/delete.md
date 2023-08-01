@@ -12,14 +12,14 @@ Delete a user's access to a group
 ## `AccessAdmin.delete()`
 
 ```python
-    def delete(
-        self,
-        resource: str,
-        class_name: str,
-        auth_id: str,
-        volume: Union[str, None] = None,
-        generic: bool = False,
-    ) -> Union[dict, bytes]:
+def delete(
+    self,
+    resource: str,
+    class_name: str,
+    auth_id: str,
+    volume: Union[str, None] = None,
+    generic: bool = False,
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

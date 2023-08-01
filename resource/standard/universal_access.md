@@ -47,12 +47,12 @@ Check the **Universal Access Attribute** for a general resource profile.
 ## `ResourceAdmin.set_universal_access()`
 
 ```python
-    def set_universal_access(
-        self,
-        resource: str,
-        class_name: str,
-        universal_access: str,
-    ) -> Union[dict, bytes]:
+def set_universal_access(
+    self,
+    resource: str,
+    class_name: str,
+    universal_access: str,
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

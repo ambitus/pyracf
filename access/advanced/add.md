@@ -12,15 +12,15 @@ Create a new permission.
 ## `AccessAdmin.add()`
 
 ```python
-    def add(
-        self,
-        resource: str,
-        class_name: str,
-        auth_id: str,
-        traits: dict,
-        volume: Union[str, None] = None,
-        generic: bool = False,
-    ) -> Union[dict, bytes]:
+def add(
+    self,
+    resource: str,
+    class_name: str,
+    auth_id: str,
+    traits: dict,
+    volume: Union[str, None] = None,
+    generic: bool = False,
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
