@@ -19,7 +19,7 @@ def extract(
 
 #### 📄 Description
 
-Extract a user's profile data.
+Extract a **user's** profile data.
 
 #### 📥 Parameters
 * `userid`<br>
@@ -33,7 +33,7 @@ Extract a user's profile data.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_request_only` class attribute is set to `True`.
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

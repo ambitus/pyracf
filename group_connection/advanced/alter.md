@@ -17,6 +17,14 @@ def alter(self, userid: str, group: str, traits: dict = {}) -> Union[dict, bytes
 
 #### 📄 Description
 
+&nbsp;
+
+{: .warning }
+> _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
+> _This function will not produce output unless the user running the command has this access._
+
+&nbsp;
+
 Alter an existing **group connection**.
 
 #### 📥 Parameters

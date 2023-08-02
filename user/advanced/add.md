@@ -17,6 +17,15 @@ def add(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
 
 #### 📄 Description
 
+&nbsp;
+
+{: .warning }
+> * _pyRACF encodes the data it passes to RACF in Code Page `IBM-1047`._
+> * _If you are entering a password or phrase with special or national characters, users logging on from terminals using differnt or international codepages may experience errors._
+> * _Please consult a list of invariant characters to use for such passwords or phrases if this applies to you._
+
+&nbsp;
+
 Create a new **z/OS userid**.
 
 #### 📥 Parameters

@@ -17,6 +17,14 @@ def alter(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
 
 #### 📄 Description
 
+&nbsp;
+
+{: .warning }
+> _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
+> _This function will not produce output unless the user running the command has this access._
+
+&nbsp;
+
 Alter an existing **group**.
 
 #### 📥 Parameters
@@ -28,7 +36,7 @@ Alter an existing **group**.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
-  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `GroupAdmin.generate_request_only` class attribute is set to `True`.
+  Returns a **Security Result dictionary** or **Security Request XML bytes** if the `GroupAdmin.generate_requests_only` class attribute is set to `True`.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -42,7 +50,7 @@ The following example **alters** a group called `testgrp0` with **traits/attribu
 ###### Python Script
 
 ```python
-from pyracf import GrouAdmin
+from pyracf import GroupAdmin
 group_admin = GroupAdmin()
 
 traits = {
