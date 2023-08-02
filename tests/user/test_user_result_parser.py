@@ -172,7 +172,7 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.result,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
         )
-        self.assertNotIn(str(exception.exception.result), self.test_password)
+        self.assertNotIn(self.test_password, str(exception.exception.result))
 
     def test_user_admin_passphrase_redacted_add_user_success_xml(
         self,
@@ -189,7 +189,7 @@ class TestUserResultParser(unittest.TestCase):
             result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY,
         )
-        self.assertNotIn(str(result), self.test_passphrase)
+        self.assertNotIn(self.test_passphrase, str(result))
 
     # Error in environment, SQUIDWRD already added/exists
     def test_user_admin_passphrase_redacted_add_user_error_xml(
@@ -208,7 +208,7 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY,
         )
-        self.assertNotIn(str(exception.exception.result), self.test_passphrase)
+        self.assertNotIn(self.test_passphrase, str(exception.exception.result))
 
     def test_user_admin_passphrase_and_password_redacted_add_user_success_xml(
         self,
@@ -225,7 +225,7 @@ class TestUserResultParser(unittest.TestCase):
             result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY,
         )
-        self.assertNotIn(str(result), self.test_passphrase)
+        self.assertNotIn(self.test_passphrase, str(result))
         self.assertNotIn(self.test_password, str(result))
 
     # Error in environment, SQUIDWRD already added/exists
@@ -245,8 +245,8 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY,
         )
-        self.assertNotIn(str(exception.exception.result), self.test_passphrase)
-        self.assertNotIn(str(exception.exception.result), self.test_password)
+        self.assertNotIn(self.test_passphrase, str(exception.exception.result))
+        self.assertNotIn(self.test_password, str(exception.exception.result))
 
     # ============================================================================
     # Delete User
