@@ -106,10 +106,8 @@ class Logger:
                 string = self.redact_string(
                     string, redact_string=bytes(to_redact, "utf-8")
                 )
-            elif isinstance(string, str):
-                string = self.redact_string(string, redact_string=to_redact)
             else:
-                return string
+                string = self.redact_string(string, redact_string=to_redact)
         return string
 
     def redact_string(

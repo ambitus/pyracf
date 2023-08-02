@@ -98,7 +98,7 @@ class SecurityAdmin:
         self._format_profile(result)
         if self.__debug:
             self.__logger.log_dictionary(
-                "Result Dictionary (Formatted Profile)", result, None
+                "Result Dictionary (Formatted Profile)", result
             )
         return result
 
@@ -138,24 +138,27 @@ class SecurityAdmin:
             self.__logger.log_dictionary(
                 "Request Dictionary",
                 self.__preserved_segment_traits,
-                redact_strings,
+                redact_strings=redact_strings,
             )
             self.__logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
-                redact_strings,
+                redact_strings=redact_strings,
             )
         if self.__generate_requests_only:
             return self.__logger.redact_strings(
-                security_request.dump_request_xml(encoding="utf-8"), redact_strings
+                security_request.dump_request_xml(encoding="utf-8"),
+                redact_strings=redact_strings,
             )
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options
         )
         if self.__debug:
-            self.__logger.log_xml("Result XML", result_xml, redact_strings)
+            self.__logger.log_xml(
+                "Result XML", result_xml, redact_strings=redact_strings
+            )
         results = SecurityResult(
-            self.__logger.redact_strings(result_xml, redact_strings)
+            self.__logger.redact_strings(result_xml, redact_strings=redact_strings)
         )
 
         if self.__debug:
