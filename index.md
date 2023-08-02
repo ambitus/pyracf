@@ -52,9 +52,10 @@ While there are a number of languages that can be used to manage RACF, _(from lo
 &nbsp;
 
 {: .warning }
-> * _pyRACF encodes the data it passes to RACF in Code Page IBM-1047._
+> * _pyRACF encodes the data it passes to RACF in Code Page `IBM-1047`._
 > * _If you are entering information with special or national characters, users viewing or altering this information from terminals using differnt or international codepages may see unexpected data._
 > * _Please consult a list of invariant characters to use for such information if this applies to you._
+
 
 ### Architecture
 
