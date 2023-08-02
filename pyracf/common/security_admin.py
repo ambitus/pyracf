@@ -160,8 +160,9 @@ class SecurityAdmin:
         results = SecurityResult(
             self.__logger.redact_strings(result_xml, redact_strings=redact_strings)
         )
-
         if self.__debug:
+            # No need to redact any specified strings from the results dictionary log
+            # Actual results dictionary should already be redacted from XML processing
             self.__logger.log_dictionary(
                 "Result Dictionary", results.get_result_dictionary()
             )

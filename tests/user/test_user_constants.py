@@ -24,23 +24,23 @@ TEST_ADD_USER_RESULT_ERROR_DICTIONARY = get_sample("add_user_result_error.json")
 TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML = get_sample(
     "add_user_result_passphrase_success.xml"
 )
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML = get_sample(
-    "add_user_result_passphrase_and_password_success.xml"
+TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "add_user_result_passphrase_success.json"
 )
 TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML = get_sample(
     "add_user_result_passphrase_error.xml"
 )
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML = get_sample(
-    "add_user_result_passphrase_and_password_error.xml"
+TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY = get_sample(
+    "add_user_result_passphrase_error.json"
 )
-TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "add_user_result_passphrase_success.json"
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML = get_sample(
+    "add_user_result_passphrase_and_password_success.xml"
 )
 TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY = get_sample(
     "add_user_result_passphrase_and_password_success.json"
 )
-TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY = get_sample(
-    "add_user_result_passphrase_error.json"
+TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML = get_sample(
+    "add_user_result_passphrase_and_password_error.xml"
 )
 TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
     "add_user_result_passphrase_and_password_error.json"
