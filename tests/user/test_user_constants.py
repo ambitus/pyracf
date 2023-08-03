@@ -20,7 +20,18 @@ TEST_ADD_USER_RESULT_SUCCESS_XML = get_sample("add_user_result_success.xml")
 TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY = get_sample("add_user_result_success.json")
 TEST_ADD_USER_RESULT_ERROR_XML = get_sample("add_user_result_error.xml")
 TEST_ADD_USER_RESULT_ERROR_DICTIONARY = get_sample("add_user_result_error.json")
-
+TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_XML = get_sample(
+    "add_user_result_password_success.xml"
+)
+TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "add_user_result_password_success.json"
+)
+TEST_ADD_USER_PASSWORD_RESULT_ERROR_XML = get_sample(
+    "add_user_result_password_error.xml"
+)
+TEST_ADD_USER_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
+    "add_user_result_password_error.json"
+)
 TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML = get_sample(
     "add_user_result_passphrase_success.xml"
 )
@@ -186,6 +197,9 @@ TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 
 TEST_ADD_USER_SUCCESS_LOG = get_sample("add_user_success.log")
 TEST_ADD_USER_ERROR_LOG = get_sample("add_user_error.log")
+
+TEST_ADD_USER_PASSWORD_SUCCESS_LOG = get_sample("add_user_password_success.log")
+TEST_ADD_USER_PASSWORD_ERROR_LOG = get_sample("add_user_password_error.log")
 
 TEST_ADD_USER_PASSPHRASE_SUCCESS_LOG = get_sample("add_user_passphrase_success.log")
 TEST_ADD_USER_PASSPHRASE_ERROR_LOG = get_sample("add_user_passphrase_error.log")
