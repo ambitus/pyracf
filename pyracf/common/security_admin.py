@@ -1,6 +1,5 @@
 """Base Class for RACF Administration Interface."""
 
-import json
 import platform
 import re
 from datetime import datetime
@@ -96,19 +95,12 @@ class SecurityAdmin:
         result = self._make_request(security_request)
         if self.__generate_requests_only:
             return result
-        if "error" in result["securityResult"][self.__profile_type]:
-            raise SecurityRequestError(result)
-        if (
-            result["securityResult"]["returnCode"] == 0
-            and result["securityResult"]["reasonCode"] == 0
-        ):
-            self._format_profile(result)
-            if self.__debug:
-                self.__logger.log_dictionary(
-                    "Result Dictionary (Formatted Profile)", result, None
-                )
-            return result
-        raise SecurityRequestError(result)
+        self._format_profile(result)
+        if self.__debug:
+            self.__logger.log_dictionary(
+                "Result Dictionary (Formatted Profile)", result
+            )
+        return result
 
     def _make_request(
         self,
@@ -116,60 +108,63 @@ class SecurityAdmin:
         irrsmo00_options: int = 1,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
-        try:
-            redact_password = self.__preserved_segment_traits["base"]["base:password"][
-                "value"
-            ]
-        except KeyError:
-            redact_password = None
-        result = self.__make_request_unredacted(
+        redact_password = (
+            self.__preserved_segment_traits.get("base", {})
+            .get("base:password", {})
+            .get("value", "")
+        )
+        redact_passphrase = (
+            self.__preserved_segment_traits.get("base", {})
+            .get("base:passphrase", {})
+            .get("value", "")
+        )
+        return self.__make_request_and_redact_secrets(
             security_request,
             irrsmo00_options=irrsmo00_options,
-            redact_password=redact_password,
+            redact_strings=[redact_password, redact_passphrase],
         )
-        if not redact_password:
-            return result
-        if isinstance(result, dict):
-            # Dump to json string, redact password, and then load back to dictionary.
-            return json.loads(
-                self.__logger.redact_string(json.dumps(result), redact_password)
-            )
-        # redact password from XML bytes (Always UTF-8).
-        return self.__logger.redact_string(result, bytes(redact_password, "utf-8"))
 
-    def __make_request_unredacted(
+    def __make_request_and_redact_secrets(
         self,
         security_request: SecurityRequest,
         irrsmo00_options: int = 1,
-        redact_password: str = None,
+        redact_strings: List[str] = [],
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
-        Note: Passwords are not redacted from result, but are redacted from log messages.
+        Note: Passwords are redacted from result and from log messages.
         """
         if self.__debug:
             self.__logger.log_dictionary(
-                "Request Dictionary", self.__preserved_segment_traits, redact_password
+                "Request Dictionary",
+                self.__preserved_segment_traits,
+                redact_strings=redact_strings,
             )
             self.__logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
-                redact_password,
+                redact_strings=redact_strings,
             )
         if self.__generate_requests_only:
-            return security_request.dump_request_xml(encoding="utf-8")
+            return self.__logger.redact_strings(
+                security_request.dump_request_xml(encoding="utf-8"),
+                redact_strings=redact_strings,
+            )
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options
         )
         if self.__debug:
-            self.__logger.log_xml("Result XML", result_xml, redact_password)
-        results = SecurityResult(result_xml)
-
+            self.__logger.log_xml(
+                "Result XML", result_xml, redact_strings=redact_strings
+            )
+        results = SecurityResult(
+            self.__logger.redact_strings(result_xml, redact_strings=redact_strings)
+        )
         if self.__debug:
+            # No need to redact any specified strings from the results dictionary log
+            # Actual results dictionary should already be redacted from XML processing
             self.__logger.log_dictionary(
-                "Result Dictionary",
-                results.get_result_dictionary(),
-                redact_password,
+                "Result Dictionary", results.get_result_dictionary()
             )
         result_dictionary = results.get_result_dictionary()
         if result_dictionary["securityResult"]["returnCode"] != 0:

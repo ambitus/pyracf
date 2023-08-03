@@ -6,8 +6,30 @@
 
 {
   "base": {
-    "base:password": {
-      "value": "********",
+    "base:name": {
+      "value": "Squidward",
+      "operation": null
+    },
+    "base:owner": {
+      "value": "leonard",
+      "operation": null
+    },
+    "base:special": {
+      "value": true,
+      "operation": null
+    }
+  },
+  "omvs": {
+    "omvs:uid": {
+      "value": "2424",
+      "operation": null
+    },
+    "omvs:home": {
+      "value": "/u/squidwrd",
+      "operation": null
+    },
+    "omvs:program": {
+      "value": "/bin/sh",
       "operation": null
     }
   }
@@ -22,8 +44,15 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
   <user name="squidwrd" operation="set" requestid="UserRequest">
     <base>
-      <racf:password>********</racf:password>
+      <name>Squidward</name>
+      <racf:owner>leonard</racf:owner>
+      <racf:special/>
     </base>
+    <omvs>
+      <uid>2424</uid>
+      <home>/u/squidwrd</home>
+      <pgm>/bin/sh</pgm>
+    </omvs>
   </user>
 </securityrequest>
 
@@ -47,7 +76,7 @@
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
       <reasoncode>0</reasoncode>
-      <image>ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))</image>
+      <image>ALTUSER SQUIDWRD     NAME        ('Squidward') OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))</image>
     </command>
   </user>
   <returncode>4</returncode>
@@ -80,12 +109,12 @@
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') PASSWORD    (********) OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
         }
       ]
     },
     "returnCode": 4,
-    "reasonCode": 4
+    "reasonCode": 0
   }
 }
 

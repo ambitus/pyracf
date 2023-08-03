@@ -58,7 +58,7 @@ class UserAdmin(SecurityAdmin):
             "base:passdate": "racf:passdate",
             "base:passint": "racf:passint",
             "base:password": "racf:password",
-            "base:phrase": "racf:phrase",
+            "base:passphrase": "racf:phrase",
             "base:phrdate": "racf:phrdate",
             "base:phrint": "racf:phrint",
             "base:pphenv": "racf:pphenv",

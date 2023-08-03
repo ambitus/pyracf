@@ -3,7 +3,7 @@
 import inspect
 import json
 import os
-from typing import Union
+from typing import List, Union
 
 
 class Logger:
@@ -45,11 +45,14 @@ class Logger:
         return f"{ansi_color}{string}{self.__ansi_reset}"
 
     def log_dictionary(
-        self, header_message: str, dictionary: dict, redact_string: Union[str, None]
+        self,
+        header_message: str,
+        dictionary: dict,
+        redact_strings: List[str] = [],
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
         dictionary_json = json.dumps(dictionary, indent=2)
-        dictionary_json = self.redact_string(dictionary_json, redact_string)
+        dictionary_json = self.redact_strings(dictionary_json, redact_strings)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(header_message, colorized_dictionary_json)
 
@@ -57,12 +60,12 @@ class Logger:
         self,
         header_message: str,
         xml_string: Union[str, bytes],
-        redact_string: Union[str, None],
+        redact_strings: List[str] = [],
     ) -> None:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
-        xml_string = self.redact_string(xml_string, redact_string)
+        xml_string = self.redact_strings(xml_string, redact_strings)
         indented_xml_string = self.__indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
@@ -90,8 +93,25 @@ class Logger:
         )
         print(f"{header}\n{message}")
 
+    def redact_strings(
+        self,
+        string: Union[str, bytes],
+        redact_strings: List[str],
+    ) -> str:
+        """Redact a list of strings or sequences of bytes in a string or bytes object"""
+        if not redact_strings:
+            return string
+        for to_redact in redact_strings:
+            if isinstance(string, bytes):
+                string = self.redact_string(
+                    string, redact_string=bytes(to_redact, "utf-8")
+                )
+            else:
+                string = self.redact_string(string, redact_string=to_redact)
+        return string
+
     def redact_string(
-        self, string: Union[str, bytes], redact_string: Union[str, bytes, None]
+        self, string: Union[str, bytes], redact_string: Union[str, bytes]
     ) -> str:
         """Redact a string or sequence of byte in a bytes object."""
         if not redact_string:
