@@ -1,2 +1,1 @@
 defusedxml>=0.7.1
-wheel>=0.41.0
