@@ -12,8 +12,11 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
+                // uninstall pyRACF to clean environment.
+                // install wheel to build and publish pyRACF as a python wheel.
                 sh """
                     python3 --version
+                    python3 -m pip uninstall pyracf -y
                     python3 -m pip install -r requirements.txt
                     python3 -m pip install -r requirements-development.txt
                     python3 -m pip install wheel>=0.41.0
@@ -33,7 +36,6 @@ pipeline {
         stage('Function Test') {
             steps {
                 sh """
-                    python3 -m pip uninstall pyracf -y
                     python3 setup.py install --user
                     cd tests/function_test
                     python3 function_test.py
