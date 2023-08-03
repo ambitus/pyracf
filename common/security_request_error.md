@@ -11,7 +11,7 @@ Understanding the `SecurityRequestError` exception.
 &nbsp;
 
 {: .warning }
-> _A **Return Code** of anything other than `0` from IRRSMO00 is indicitave of a failure with one or more of the operations performed by IRRSMO00, and pyracf will always raise a `SecurityRequestError` to bring attention to these failures._
+> _A **Return Code** of anything other than `0` from IRRSMO00 is indicative of a failure with one or more of the operations performed by IRRSMO00, and pyracf will always raise a `SecurityRequestError` to bring attention to these failures._
 
 &nbsp;
 
