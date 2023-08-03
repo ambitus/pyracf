@@ -30,6 +30,7 @@ The following are a set of guidelines to help you contribute.
 ## Before Getting Started
 
 > :warning: _All code contributed must be made under an Apache 2 license._
+>
 > :warning: _All contributions must be accompanied by a [Developer Certification of Origin (DCO) signoff](https://github.com/openmainframeproject/tsc/blob/master/process/contribution_guidelines.md#developer-certificate-of-origin)._
 
 pyRACF is focused on making it easy for people to managed z/OS security definitions. It is not focused on providing in the moment RACF decisions.
