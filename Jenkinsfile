@@ -12,8 +12,8 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                // uninstall pyRACF to clean environment.
-                // install wheel to build and publish pyRACF as a python wheel.
+                // Uninstall pyRACF to clean environment.
+                // Install wheel to build and publish pyRACF as a python wheel.
                 sh """
                     python3 --version
                     python3 -m pip uninstall pyracf -y
