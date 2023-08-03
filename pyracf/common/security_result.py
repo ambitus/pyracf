@@ -38,7 +38,7 @@ class SecurityResult:
             pass
         return_code = self.__result[1]
         self.__result_dictionary["securityResult"]["returnCode"] = int(return_code.text)
-        reason_code = self.__result[1]
+        reason_code = self.__result[2]
         self.__result_dictionary["securityResult"]["reasonCode"] = int(reason_code.text)
 
     def __extract_info(self) -> None:

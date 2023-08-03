@@ -2,7 +2,6 @@
   <user name="squidwrd" operation="set" requestid="UserRequest">
     <base>
       <name>Squidward</name>
-      <racf:password>********</racf:password>
       <racf:owner>leonard</racf:owner>
       <racf:special />
     </base>
