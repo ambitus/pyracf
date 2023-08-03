@@ -11,7 +11,7 @@ Understanding the `SecurityRequestError` exception.
 &nbsp;
 
 {: .warning }
-> _Note that even though a **Return Code** of `4` is generally indicatidve of a warning that in many cases can be ignored, pyRACF will still raise a `SecurityRequestError` to bring attention to the warning since a **Return Code** of `4` is sometimes indicative of a problem._
+> _A **Return Code** of anything other than `0` from IRRSMO00 is indicative of a failure with one or more of the operations performed by IRRSMO00, and pyracf will always raise a `SecurityRequestError` to bring attention to these failures._
 
 &nbsp;
 
@@ -22,22 +22,26 @@ When the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT*
 from pyracf import UserAdmin
 from pyracf import SecurityRequestError
 
+user_admin = UserAdmin()
+
 try:
     user_admin.alter("squidwrd", traits={"base:password": "passwordtoolong"})
 except SecurityRequestError as e
     return_code = e.result["securityResult"]["user"]["returnCode"]
     reason_code = e.result["securityResult"]["user"]["reasonCode"]
-    error_message = "\n".join(e.result["securityResult"]["user"]["commands"][0]["messages"])
+    messages = "\n".join(e.result["securityResult"]["user"]["commands"][0]["messages"])
     print(f"Return Code: {return_code}")
     print(f"Reason Code: {reason_code}")
-    print(f"Error Message: {error_mesage}")
+    print(f"Messages:\n\n{messages}")
 ```
 
 ###### Console Output
 ```console
 Return Code: 4
-Reason Code: 4
-Error Message: IKJ56717I INVALID PASSWORD
+Reason Code: 0
+Messages: 
+
+IKJ56717I INVALID PASSWORD
 ```
 
 ###### Security Result Dictionary as JSON
@@ -64,7 +68,7 @@ Error Message: IKJ56717I INVALID PASSWORD
       ]
     },
     "returnCode": 4,
-    "reasonCode": 4
+    "reasonCode": 0
   }
 }
 ```
