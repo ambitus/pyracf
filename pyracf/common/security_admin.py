@@ -97,6 +97,9 @@ class SecurityAdmin:
             return result
         self._format_profile(result)
         if self.__debug:
+            # No need to redact anything here since the result dictionary
+            # already has secrets redacted when it is built, and profile
+            # extract doesn't return any secrets anyways.
             self.__logger.log_dictionary(
                 "Result Dictionary (Formatted Profile)", result
             )
@@ -161,8 +164,8 @@ class SecurityAdmin:
             self.__logger.redact_strings(result_xml, redact_strings=redact_strings)
         )
         if self.__debug:
-            # No need to redact any specified strings from the results dictionary log
-            # Actual results dictionary should already be redacted from XML processing
+            # No need to redact anything here since the result dictionary
+            # already has secrets redacted when it is built.
             self.__logger.log_dictionary(
                 "Result Dictionary", results.get_result_dictionary()
             )

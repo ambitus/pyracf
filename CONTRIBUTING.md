@@ -29,6 +29,10 @@ The following are a set of guidelines to help you contribute.
 
 ## Before Getting Started
 
+> :warning: _All code contributed must be made under an Apache 2 license._
+>
+> :warning: _All contributions must be accompanied by a [Developer Certification of Origin (DCO) signoff](https://github.com/openmainframeproject/tsc/blob/master/process/contribution_guidelines.md#developer-certificate-of-origin)._
+
 pyRACF is focused on making it easy for people to managed z/OS security definitions. It is not focused on providing in the moment RACF decisions.
 
 Contributions should be focused not only in creating functionality but also creating something that provides abstraction from the underlying interface.
@@ -64,12 +68,8 @@ If you have a new functionality that can be added to the package, open a GitHub 
 
 ### Testing
 
-There are two different ways to support the testing effort. The first way pyRACF can be tested is by creating sample scripts in the [`samples`](samples) folder which requires that the user logon to a **z/OS system** and run the scripts to **manually validate** a piece of functionality. The other method, is to write **unit tests** in the [`tests`](tests) folder which **mock** the real **IRRSMO00 API** to enable **XML generation** and **XML parsing** logic to be validated in a **fast** and **automated** way. It is recommended to implement **both** since the sample scripts help validate that **real API calls** work and provides examples of how pyRACF can be used, and the automated unit testing helps ensure that the majority of the functionality provided can be validated **quickly** and **easily** by just running the [`test_runner.py`](tests/test_runner.py).
+The main way to test pyRACF is to write **unit tests** in the [`tests`](tests) folder which **mock** the real **IRRSMO00 API** to enable **XML generation** and **XML parsing** logic to be validated in a **fast** and **automated** way. The unit test suite can be run by just executing [`test_runner.py`](tests/test_runner.py). It is also recommended to do manual tests on a **z/OS system** for **new functionality** and **bug fixes** to test the real calls to **IRRSMO00**.
 
-* **Samples:**
-  * Sample scripts should be placed in the the **subfolder** corresponding to the **class** you are providing a sample for. 
-
-    > _**Example:** An **Add User** sample should go in the [`user`](samples/user) subfolder._
 * **Unit Tests:**
 
   > :bulb: _See the Python [`unittest`](https://docs.python.org/3/library/unittest.html) and [`unittest.mock`](https://docs.python.org/3/library/unittest.mock.html) documentation for more details on writing test cases._

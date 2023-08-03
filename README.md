@@ -42,7 +42,7 @@ python3 -m pip install pyracf
 
 ## Help
 
-Github Conversations ???
+* [Github Discussions]()
 
 ## Authors
 
