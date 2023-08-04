@@ -36,11 +36,11 @@ python3 -m pip install pyracf
 
 ### Usage
 
-* [pyRACF Documentation]()
+* [pyRACF Documentation](https://ambitus.github.io/pyracf/)
 
 ## Help
 
-* [Github Discussions]()
+* [Github Discussions](https://github.com/ambitus/pyracf/discussions)
 
 ## Authors
 

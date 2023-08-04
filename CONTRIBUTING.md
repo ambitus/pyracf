@@ -64,7 +64,7 @@ To ensure that **code formatters _(isort and black)_**, **linters _(flake8 and p
 
 ### Adding New Functionality
 
-If you have a new functionality that can be added to the package, open a GitHub pull request with the code. In the PR, make sure to clearly document the new functionality including why it is valuable.
+If you have a new functionality that can be added to the package, open a GitHub pull request against the `dev` branch with your changes. In the PR, make sure to clearly document the new functionality including why it is valuable.
 
 ### Testing
 
@@ -82,7 +82,7 @@ The main way to test pyRACF is to write **unit tests** in the [`tests`](tests) f
 
 ### Fixing Bugs
 
-If you fix a bug, open a GitHub pull request with the fix. In the PR, make sure to clearly described the problem and the solution approach.
+If you fix a bug, open a GitHub pull request against the `dev` branch with the fix. In the PR, make sure to clearly describe the problem and the solution approach.
 
 ### Adding or Fixing Documentation
 
