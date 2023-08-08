@@ -1,0 +1,68 @@
+[build-system]
+    build-backend = "setuptools.build_meta"
+    requires = ["setuptools>=61"]
+
+[project]
+    name="pyRACF"
+    version="1.0a1"
+    description="Python interface to RACF using IRRSMO00 RACF Callable Service."
+    authors = [
+        {name = "Joe Bostian", email = "jbostian@ibm.com"},
+        {name = "Frank De Gilio", email = "degilio@us.ibm.com"},
+        {name = "Leonard J. Carcaramo Jr", email = "lcarcaramo@ibm.com"},
+        {name = "Elijah Swift", email = "elijah.swift@ibm.com"},  
+    ]
+    readme = "README.md"
+    requires-python = "~=3.11"
+    classifiers=[
+                "Development Status :: 3 - Alpha",
+                "Intended Audience :: Developers",
+                "License :: IBM Internal For Now...",
+                "Operating System :: z/OS",
+                "Programming Language :: Python :: 3",
+                "Programming Language :: Python :: 3.11",
+                "Programming Language :: Python :: Implementation :: CPython",
+                "Programming Language :: Python :: Implementation :: PyPy",
+                "Topic :: Security",
+                "Topic :: System :: Hardware :: Mainframes",
+                "Topic :: System :: Systems Administration",
+            ]
+    dependencies = [
+        "defusedxml>=0.7.1",
+    ]
+
+[tool.setuptools]
+    packages=[
+                "pyracf",
+                "pyracf.access",
+                "pyracf.common",
+                "pyracf.connection",
+                "pyracf.data_set",
+                "pyracf.group",
+                "pyracf.resource",
+                "pyracf.setropts",
+                "pyracf.user",
+            ]
+    license-files=["LICENSE"]
+
+[tool.isort]
+    profile = "black"
+[tool.flake8]
+    ignore = """"
+        W503,
+        E122,
+        E203
+    """
+    max-line-length = 99
+    per-file-ignores = "__init__.py:F401"
+[tool.pylint.FORMAT]
+    max-args = 6
+    max-returns = 7
+    max-attributes = 10
+[tool.pylint.'MESSAGES CONTROL']
+    disable = """
+        too-few-public-methods,
+        too-many-public-methods,
+        import-error,
+        pointless-statement
+    """
