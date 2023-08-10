@@ -133,7 +133,7 @@ class GroupAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)
-        return self._make_request(group_request, irrsmo00_options=3)
+        return self._make_request(group_request, irrsmo00_options=11)
 
     def extract(
         self, group: str, segments: dict = {}, profile_only: bool = False

@@ -120,7 +120,7 @@ class DataSetAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)
         self._build_xml_segments(data_set_request, alter=True)
-        return self._make_request(data_set_request, irrsmo00_options=3)
+        return self._make_request(data_set_request, irrsmo00_options=11)
 
     def extract(
         self,

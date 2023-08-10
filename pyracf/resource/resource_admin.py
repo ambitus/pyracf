@@ -230,7 +230,7 @@ class ResourceAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request, alter=True)
-        return self._make_request(profile_request, irrsmo00_options=3)
+        return self._make_request(profile_request, irrsmo00_options=11)
 
     def extract(
         self, resource: str, class_name: str, segments={}, profile_only: bool = False

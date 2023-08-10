@@ -108,7 +108,7 @@ class SecurityAdmin:
     def _make_request(
         self,
         security_request: SecurityRequest,
-        irrsmo00_options: int = 1,
+        irrsmo00_options: int = 9,
     ) -> Union[dict, bytes]:
         """Make request to IRRSMO00."""
         redact_password = (
@@ -130,7 +130,7 @@ class SecurityAdmin:
     def __make_request_and_redact_secrets(
         self,
         security_request: SecurityRequest,
-        irrsmo00_options: int = 1,
+        irrsmo00_options: int = 9,
         redact_strings: List[str] = [],
     ) -> Union[dict, bytes]:
         """
@@ -156,6 +156,8 @@ class SecurityAdmin:
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options
         )
+        self._reset_state()
+        security_request.reset_request_xml()
         if self.__debug:
             self.__logger.log_xml(
                 "Result XML", result_xml, redact_strings=redact_strings
@@ -163,6 +165,7 @@ class SecurityAdmin:
         results = SecurityResult(
             self.__logger.redact_strings(result_xml, redact_strings=redact_strings)
         )
+        del result_xml
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
@@ -218,6 +221,15 @@ class SecurityAdmin:
         """Clear state for new request."""
         self._segment_traits = {}
         self._trait_map = {}
+
+    def _reset_state(self) -> None:
+        """Reset state once requests are done."""
+        del self._segment_traits
+        del self._trait_map
+        del self.__preserved_segment_traits
+        self._segment_traits = {}
+        self._trait_map = {}
+        self.__preserved_segment_traits = {}
 
     def __validate_and_add_trait(
         self, trait: str, segment: str, value: Union[str, dict]

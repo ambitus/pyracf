@@ -394,7 +394,7 @@ class UserAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request, alter=True)
-        return self._make_request(user_request, irrsmo00_options=3)
+        return self._make_request(user_request, irrsmo00_options=11)
 
     def extract(
         self, userid: str, segments: dict = {}, profile_only: bool = False
