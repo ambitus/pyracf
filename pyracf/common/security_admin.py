@@ -156,15 +156,12 @@ class SecurityAdmin:
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options
         )
+        result_xml = re.sub(r"\( +\)", "(********)", result_xml)
         self._reset_state()
         security_request.reset_request_xml()
         if self.__debug:
-            self.__logger.log_xml(
-                "Result XML", result_xml, redact_strings=redact_strings
-            )
-        results = SecurityResult(
-            self.__logger.redact_strings(result_xml, redact_strings=redact_strings)
-        )
+            self.__logger.log_xml("Result XML", result_xml)
+        results = SecurityResult(result_xml)
         del result_xml
         if self.__debug:
             # No need to redact anything here since the result dictionary

@@ -157,7 +157,9 @@ class TestUserResultParser(unittest.TestCase):
             result,
             TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY,
         )
-        self.assertNotIn(self.test_password, str(result))
+        result_str = str(result)
+        self.assertNotIn(self.test_password, result_str)
+        self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
     # Error in environment, SQUIDWRD already added/exists
     def test_user_admin_password_redacted_add_user_error_xml(
@@ -176,7 +178,9 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.result,
             TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_ERROR_DICTIONARY,
         )
-        self.assertNotIn(self.test_password, str(exception.exception.result))
+        result_str = str(exception.exception.result)
+        self.assertNotIn(self.test_password, result_str)
+        self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
     def test_user_admin_passphrase_redacted_add_user_success_xml(
         self,
@@ -193,7 +197,9 @@ class TestUserResultParser(unittest.TestCase):
             result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY,
         )
-        self.assertNotIn(self.test_passphrase, str(result))
+        result_str = str(result)
+        self.assertNotIn(self.test_passphrase, result_str)
+        self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
 
     # Error in environment, SQUIDWRD already added/exists
     def test_user_admin_passphrase_redacted_add_user_error_xml(
@@ -212,7 +218,9 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY,
         )
-        self.assertNotIn(self.test_passphrase, str(exception.exception.result))
+        result_str = str(exception.exception.result)
+        self.assertNotIn(self.test_passphrase, result_str)
+        self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
 
     def test_user_admin_passphrase_and_password_redacted_add_user_success_xml(
         self,
@@ -229,8 +237,11 @@ class TestUserResultParser(unittest.TestCase):
             result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY,
         )
-        self.assertNotIn(self.test_passphrase, str(result))
-        self.assertNotIn(self.test_password, str(result))
+        result_str = str(result)
+        self.assertNotIn(self.test_passphrase, result_str)
+        self.assertNotIn(self.test_password, result_str)
+        self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
+        self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
     # Error in environment, SQUIDWRD already added/exists
     def test_user_admin_passphrase_and_password_redacted_add_user_error_xml(
@@ -249,8 +260,11 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.result,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY,
         )
-        self.assertNotIn(self.test_passphrase, str(exception.exception.result))
-        self.assertNotIn(self.test_password, str(exception.exception.result))
+        result_str = str(exception.exception.result)
+        self.assertNotIn(self.test_passphrase, result_str)
+        self.assertNotIn(self.test_password, result_str)
+        self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
+        self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
     # ============================================================================
     # Delete User
