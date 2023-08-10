@@ -46,6 +46,12 @@ class SecurityAdmin:
         "base:gaudupdt": "racf:gaudupdt",
         "base:generic": "racf:generic",
     }
+
+    _secret_traits = {
+        "base:password": "racf:password",
+        "base:passphrase": "racf:phrase",
+    }
+
     __logger = Logger()
 
     def __init__(
@@ -110,29 +116,6 @@ class SecurityAdmin:
         security_request: SecurityRequest,
         irrsmo00_options: int = 9,
     ) -> Union[dict, bytes]:
-        """Make request to IRRSMO00."""
-        redact_password = (
-            self.__preserved_segment_traits.get("base", {})
-            .get("base:password", {})
-            .get("value", "")
-        )
-        redact_passphrase = (
-            self.__preserved_segment_traits.get("base", {})
-            .get("base:passphrase", {})
-            .get("value", "")
-        )
-        return self.__make_request_and_redact_secrets(
-            security_request,
-            irrsmo00_options=irrsmo00_options,
-            redact_strings=[redact_password, redact_passphrase],
-        )
-
-    def __make_request_and_redact_secrets(
-        self,
-        security_request: SecurityRequest,
-        irrsmo00_options: int = 9,
-        redact_strings: List[str] = [],
-    ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
         Note: Passwords are redacted from result and from log messages.
@@ -141,17 +124,17 @@ class SecurityAdmin:
             self.__logger.log_dictionary(
                 "Request Dictionary",
                 self.__preserved_segment_traits,
-                redact_strings=redact_strings,
+                secret_traits=self._secret_traits,
             )
             self.__logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
-                redact_strings=redact_strings,
+                secret_traits=self._secret_traits,
             )
         if self.__generate_requests_only:
-            return self.__logger.redact_strings(
+            return self.__logger.redact_xml(
                 security_request.dump_request_xml(encoding="utf-8"),
-                redact_strings=redact_strings,
+                secret_traits=self._secret_traits,
             )
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options

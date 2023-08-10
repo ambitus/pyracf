@@ -3,7 +3,8 @@
 import inspect
 import json
 import os
-from typing import List, Union
+import re
+from typing import Union
 
 
 class Logger:
@@ -48,11 +49,11 @@ class Logger:
         self,
         header_message: str,
         dictionary: dict,
-        redact_strings: List[str] = [],
+        secret_traits: dict = {},
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
-        dictionary_json = json.dumps(dictionary, indent=2)
-        dictionary_json = self.redact_strings(dictionary_json, redact_strings)
+        redacted_dict = self.__redact_dict(dictionary, secret_traits)
+        dictionary_json = json.dumps(redacted_dict, indent=2)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(header_message, colorized_dictionary_json)
 
@@ -60,12 +61,12 @@ class Logger:
         self,
         header_message: str,
         xml_string: Union[str, bytes],
-        redact_strings: List[str] = [],
+        secret_traits: dict = {},
     ) -> None:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
-        xml_string = self.redact_strings(xml_string, redact_strings)
+        xml_string = self.redact_xml(xml_string, secret_traits)
         indented_xml_string = self.__indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
@@ -93,33 +94,46 @@ class Logger:
         )
         print(f"{header}\n{message}")
 
-    def redact_strings(
+    def __redact_dict(
         self,
-        string: Union[str, bytes],
-        redact_strings: List[str],
-    ) -> str:
-        """Redact a list of strings or sequences of bytes in a string or bytes object"""
-        if not redact_strings:
-            return string
-        for to_redact in redact_strings:
-            if isinstance(string, bytes):
-                string = self.redact_string(
-                    string, redact_string=bytes(to_redact, "utf-8")
-                )
-            else:
-                string = self.redact_string(string, redact_string=to_redact)
-        return string
+        dictionary: dict,
+        secret_traits: dict,
+    ) -> dict:
+        """Redact a list of specified secret traits in a dictionary"""
+        for seg_trait in secret_traits:
+            segment = seg_trait.split(":")[0]
+            if not dictionary.get(segment, {}).get(seg_trait, {}).get("value", ""):
+                continue
+            dictionary[segment][seg_trait]["value"] = "********"
+        return dictionary
 
-    def redact_string(
-        self, string: Union[str, bytes], redact_string: Union[str, bytes]
-    ) -> str:
-        """Redact a string or sequence of byte in a bytes object."""
-        if not redact_string:
-            return string
-        redacted_string = "********"
-        if isinstance(redact_string, bytes):
-            redacted_string = b"********"
-        return string.replace(redact_string, redacted_string)
+    def __redact_string(
+        self,
+        input_string: Union[str, bytes],
+        start_ind: int,
+    ):
+        pre_keyword = input_string[:start_ind]
+        post_keyword = "</".join(input_string[start_ind:].split("</")[1:])
+        return pre_keyword + "********</" + post_keyword
+
+    def redact_xml(
+        self,
+        xml_string: Union[str, bytes],
+        secret_traits: dict,
+    ) -> Union[str, bytes]:
+        """Redact a list of specifid secret traits in a request xml string or bytes object"""
+        is_bytes = False
+        if isinstance(xml_string, bytes):
+            is_bytes = True
+            xml_string = xml_string.decode("utf-8")
+        for xml_key in secret_traits.values():
+            match = re.search(r"\<{}+[^>]*\>".format(xml_key), xml_string)
+            if not match:
+                continue
+            xml_string = self.__redact_string(xml_string, match.end())
+        if is_bytes:
+            xml_string = xml_string.encode("utf-8")
+        return xml_string
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""
