@@ -90,6 +90,12 @@ class SecurityAdmin:
         """Overwrite field data in valid segment traits dictionary"""
         self._valid_segment_traits = field_data
 
+    def __add_more_secrets(self, new_secrets: dict):
+        """Add additional fields to be redacted in logger output"""
+        for secret in new_secrets:
+            if secret not in self._secret_traits:
+                self.secret_traits[secret] = new_secrets[secret]
+
     # ============================================================================
     # Request Execution
     # ============================================================================
