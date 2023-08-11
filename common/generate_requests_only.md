@@ -10,7 +10,7 @@ Generate request XML that is used to make security requests to IRRSMO00.
 
 &nbsp;
 
-**Generate Requests Only** mode can be enabled on any "Admin" object by setting the `generate_requests_only` class attribute to `True` through the class constructor. When enable, IRRSMO00 request XML will be generated and returned to the user in the form of a **bytes object** without attempting to make a request to IRRSMO00.
+**Generate Requests Only** mode can be enabled on any "Admin" object by setting the `generate_requests_only` class attribute to `True` through the class constructor. When enabled, IRRSMO00 request XML will be generated and returned to the user in the form of a **bytes object** without attempting to make a request to IRRSMO00.
 
 ## Example
 
