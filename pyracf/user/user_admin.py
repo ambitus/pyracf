@@ -209,6 +209,7 @@ class UserAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
+        add_more_secrets: Union[dict, None] = None,
     ) -> None:
         super().__init__(
             "user",
@@ -216,6 +217,7 @@ class UserAdmin(SecurityAdmin):
             generate_requests_only=generate_requests_only,
             add_field_data=add_field_data,
             overwrite_field_data=overwrite_field_data,
+            add_more_secrets=add_more_secrets,
         )
 
     # ============================================================================

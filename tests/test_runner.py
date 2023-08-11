@@ -34,6 +34,7 @@ from tests.setropts.test_setropts_getters import TestSetroptsGetters
 from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
 from tests.setropts.test_setropts_result_parser import TestSetroptsResultParser
 from tests.setropts.test_setropts_setters import TestSetroptsSetters
+from tests.user.test_user_added_secret_redact import TestUserAddedSecretRedact
 from tests.user.test_user_debug_logging import TestUserDebugLogging
 from tests.user.test_user_getters import TestUserGetters
 from tests.user.test_user_request_builder import TestUserRequestBuilder
@@ -81,6 +82,7 @@ def __test_suite() -> unittest.TestSuite:
         TestUserGetters,
         TestUserSetters,
         TestUserDebugLogging,
+        TestUserAddedSecretRedact,  # It will break if this is not the last user test case run
     ]
     for test_class in test_classes:
         tests = test_loader.loadTestsFromTestCase(test_class)

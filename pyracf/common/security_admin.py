@@ -61,6 +61,7 @@ class SecurityAdmin:
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
+        add_more_secrets: Union[dict, None] = None,
     ) -> None:
         self.__irrsmo00 = IRRSMO00()
         self.__profile_type = profile_type
@@ -74,6 +75,8 @@ class SecurityAdmin:
             self.__add_field_data(add_field_data)
         if overwrite_field_data is not None:
             self.__overwrite_field_data(overwrite_field_data)
+        if add_more_secrets is not None:
+            self.__add_more_secrets(add_more_secrets)
 
     # ============================================================================
     # Custom Fields
@@ -94,7 +97,7 @@ class SecurityAdmin:
         """Add additional fields to be redacted in logger output"""
         for secret in new_secrets:
             if secret not in self._secret_traits:
-                self.secret_traits[secret] = new_secrets[secret]
+                self._secret_traits[secret] = new_secrets[secret]
 
     # ============================================================================
     # Request Execution
@@ -138,14 +141,14 @@ class SecurityAdmin:
                 secret_traits=self._secret_traits,
             )
         if self.__generate_requests_only:
-            return self.__logger.redact_xml(
+            return self.__logger.redact_request_xml(
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self._secret_traits,
             )
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_options
         )
-        result_xml = re.sub(r"\( +\)", "(********)", result_xml)
+        result_xml = self.__logger.redact_result_xml(result_xml, self._secret_traits)
         self._reset_state()
         security_request.reset_request_xml()
         if self.__debug:

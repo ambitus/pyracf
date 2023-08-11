@@ -66,7 +66,7 @@ class Logger:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
-        xml_string = self.redact_xml(xml_string, secret_traits)
+        xml_string = self.redact_request_xml(xml_string, secret_traits)
         indented_xml_string = self.__indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
@@ -102,21 +102,25 @@ class Logger:
         """Redact a list of specified secret traits in a dictionary"""
         for seg_trait in secret_traits:
             segment = seg_trait.split(":")[0]
-            if not dictionary.get(segment, {}).get(seg_trait, {}).get("value", ""):
+            try:
+                if not dictionary.get(segment, {}).get(seg_trait, {}).get("value", ""):
+                    continue
+                dictionary[segment][seg_trait]["value"] = "********"
+            except AttributeError:
                 continue
-            dictionary[segment][seg_trait]["value"] = "********"
         return dictionary
 
     def __redact_string(
         self,
         input_string: Union[str, bytes],
         start_ind: int,
+        end_pattern: str,
     ):
         pre_keyword = input_string[:start_ind]
-        post_keyword = "</".join(input_string[start_ind:].split("</")[1:])
-        return pre_keyword + "********</" + post_keyword
+        post_keyword = end_pattern.join(input_string[start_ind:].split(end_pattern)[1:])
+        return pre_keyword + "********" + end_pattern + post_keyword
 
-    def redact_xml(
+    def redact_request_xml(
         self,
         xml_string: Union[str, bytes],
         secret_traits: dict,
@@ -130,9 +134,22 @@ class Logger:
             match = re.search(r"\<{}+[^>]*\>".format(xml_key), xml_string)
             if not match:
                 continue
-            xml_string = self.__redact_string(xml_string, match.end())
+            xml_string = self.__redact_string(xml_string, match.end(), "</")
         if is_bytes:
             xml_string = xml_string.encode("utf-8")
+        return xml_string
+
+    def redact_result_xml(
+        self,
+        xml_string: str,
+        secret_traits: dict,
+    ) -> str:
+        for xml_key in secret_traits.values():
+            racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
+            match = re.search(r"{} +\(".format(racf_key.upper()), xml_string)
+            if not match:
+                continue
+            xml_string = self.__redact_string(xml_string, match.end(), ") ")
         return xml_string
 
     def __colorize_json(self, json_text: str) -> str:

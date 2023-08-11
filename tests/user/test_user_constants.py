@@ -199,6 +199,9 @@ TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 TEST_ADD_USER_SUCCESS_LOG = get_sample("add_user_success.log")
 TEST_ADD_USER_ERROR_LOG = get_sample("add_user_error.log")
 
+TEST_ADD_USER_ADDED_SECRET_SUCCESS_LOG = get_sample("add_user_added_secret_success.log")
+TEST_ADD_USER_ADDED_SECRET_ERROR_LOG = get_sample("add_user_added_secret_error.log")
+
 TEST_ADD_USER_PASSWORD_SUCCESS_LOG = get_sample("add_user_password_success.log")
 TEST_ADD_USER_PASSWORD_ERROR_LOG = get_sample("add_user_password_error.log")
 
