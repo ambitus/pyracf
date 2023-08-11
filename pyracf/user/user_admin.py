@@ -288,6 +288,18 @@ class UserAdmin(SecurityAdmin):
         return self._to_steps(result)
 
     # ============================================================================
+    # Passphrase
+    # ============================================================================
+    def set_passphrase(
+        self,
+        userid: str,
+        passphrase: str,
+    ) -> Union[dict, bytes]:
+        """Set a user's passphrase."""
+        result = self.alter(userid, traits={"base:passphrase": passphrase})
+        return self._to_steps(result)
+
+    # ============================================================================
     # Class Authorizations
     # ============================================================================
     def get_class_authorizations(self, userid: str) -> Union[List[str], bytes]:

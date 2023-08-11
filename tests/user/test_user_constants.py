@@ -169,6 +169,7 @@ TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML = get_sample(
     "user_remove_operations_authority_request.xml"
 )
 TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
+TEST_USER_SET_PASSPHRASE_XML = get_sample("user_set_passphrase_request.xml")
 TEST_USER_ADD_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
     "user_add_class_authorizations_single_class_request.xml"
 )
