@@ -100,7 +100,7 @@ If you want to improve the current documentation, that includes adding new docum
 
 When contributing to pyRACF, think about the following:
 
-* Make any necessary updates to `setup.py`.
+* Make any necessary updates to `pyproject.toml`.
 * Make any necessary updates to `README.md`.
 * Make any necessary updates to the gitHub pages documentation in the `gh-pages` branch.
 * Add any available test cases to `/tests`.
