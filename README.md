@@ -26,7 +26,7 @@ As automation becomes more and more prevalent, the need to manage the security e
 
 * z/OS 2.4 and higher.
 * R_SecMgtOper (IRRSMO00): Security Management Operations.
-* The appropriate RACF authorizations. Detail can be found at: <https://www.ibm.com/docs/en/zos/2.3.0?topic=operations-racf-authorization>
+* The appropriate RACF authorizations. Detail can be found at: <https://www.ibm.com/docs/en/zos/2.5.0?topic=operations-racf-authorization>
 
 ### Installation
 
@@ -41,6 +41,10 @@ python3 -m pip install pyracf
 ## Help
 
 * [Github Discussions](https://github.com/ambitus/pyracf/discussions)
+
+## Build Status
+
+![GitHub Actions Build Status](https://github.com/ambitus/pyracf/actions/workflows/.github-actions.yml/badge.svg?branch=dev)
 
 ## Authors
 
