@@ -30,7 +30,7 @@ class TestUserAddedSecretRedact(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         self.user_admin_local = UserAdmin(
-            debug=True, add_more_secrets={"omvs:uid": "uid"}
+            debug=True, additional_secret_traits={"omvs:uid": "uid"}
         )
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         stdout = io.StringIO()
@@ -53,7 +53,7 @@ class TestUserAddedSecretRedact(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         self.user_admin_local = UserAdmin(
-            debug=True, add_more_secrets={"omvs:uid": "uid"}
+            debug=True, additional_secret_traits={"omvs:uid": "uid"}
         )
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         stdout = io.StringIO()

@@ -60,7 +60,7 @@ class DataSetAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        add_more_secrets: Union[dict, None] = None,
+        additional_secret_traits: Union[dict, None] = None,
     ) -> None:
         super().__init__(
             "dataSet",
@@ -68,7 +68,7 @@ class DataSetAdmin(SecurityAdmin):
             generate_requests_only=generate_requests_only,
             add_field_data=add_field_data,
             overwrite_field_data=overwrite_field_data,
-            add_more_secrets=add_more_secrets,
+            additional_secret_traits=additional_secret_traits,
         )
         self._valid_segment_traits["base"].update(
             self._common_base_traits_data_set_generic
@@ -122,7 +122,7 @@ class DataSetAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)
         self._build_xml_segments(data_set_request, alter=True)
-        return self._make_request(data_set_request, irrsmo00_options=11)
+        return self._make_request(data_set_request, irrsmo00_precheck=True)
 
     def extract(
         self,

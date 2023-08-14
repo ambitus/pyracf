@@ -209,7 +209,7 @@ class UserAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        add_more_secrets: Union[dict, None] = None,
+        additional_secret_traits: Union[dict, None] = None,
     ) -> None:
         super().__init__(
             "user",
@@ -217,7 +217,7 @@ class UserAdmin(SecurityAdmin):
             generate_requests_only=generate_requests_only,
             add_field_data=add_field_data,
             overwrite_field_data=overwrite_field_data,
-            add_more_secrets=add_more_secrets,
+            additional_secret_traits=additional_secret_traits,
         )
 
     # ============================================================================
@@ -408,7 +408,7 @@ class UserAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request, alter=True)
-        return self._make_request(user_request, irrsmo00_options=11)
+        return self._make_request(user_request, irrsmo00_precheck=True)
 
     def extract(
         self, userid: str, segments: dict = {}, profile_only: bool = False

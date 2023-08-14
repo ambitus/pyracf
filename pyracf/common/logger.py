@@ -52,8 +52,9 @@ class Logger:
         secret_traits: dict = {},
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
-        redacted_dict = self.__redact_dict(dictionary, secret_traits)
-        dictionary_json = json.dumps(redacted_dict, indent=2)
+        if secret_traits:
+            dictionary = self.__redact_request_dictionary(dictionary, secret_traits)
+        dictionary_json = json.dumps(dictionary, indent=2)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(header_message, colorized_dictionary_json)
 
@@ -94,7 +95,7 @@ class Logger:
         )
         print(f"{header}\n{message}")
 
-    def __redact_dict(
+    def __redact_request_dictionary(
         self,
         dictionary: dict,
         secret_traits: dict,

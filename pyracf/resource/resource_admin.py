@@ -175,7 +175,7 @@ class ResourceAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        add_more_secrets: Union[dict, None] = None,
+        additional_secret_traits: Union[dict, None] = None,
     ) -> None:
         super().__init__(
             "resource",
@@ -183,7 +183,7 @@ class ResourceAdmin(SecurityAdmin):
             generate_requests_only=generate_requests_only,
             add_field_data=add_field_data,
             overwrite_field_data=overwrite_field_data,
-            add_more_secrets=add_more_secrets,
+            additional_secret_traits=additional_secret_traits,
         )
 
     # ============================================================================
@@ -232,7 +232,7 @@ class ResourceAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request, alter=True)
-        return self._make_request(profile_request, irrsmo00_options=11)
+        return self._make_request(profile_request, irrsmo00_precheck=True)
 
     def extract(
         self, resource: str, class_name: str, segments={}, profile_only: bool = False

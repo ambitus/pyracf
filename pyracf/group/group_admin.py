@@ -45,7 +45,7 @@ class GroupAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        add_more_secrets: Union[dict, None] = None,
+        additional_secret_traits: Union[dict, None] = None,
     ) -> None:
         super().__init__(
             "group",
@@ -53,7 +53,7 @@ class GroupAdmin(SecurityAdmin):
             generate_requests_only=generate_requests_only,
             add_field_data=add_field_data,
             overwrite_field_data=overwrite_field_data,
-            add_more_secrets=add_more_secrets,
+            additional_secret_traits=additional_secret_traits,
         )
 
     # ============================================================================
@@ -135,7 +135,7 @@ class GroupAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)
-        return self._make_request(group_request, irrsmo00_options=11)
+        return self._make_request(group_request, irrsmo00_precheck=True)
 
     def extract(
         self, group: str, segments: dict = {}, profile_only: bool = False

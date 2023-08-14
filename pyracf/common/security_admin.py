@@ -61,7 +61,7 @@ class SecurityAdmin:
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        add_more_secrets: Union[dict, None] = None,
+        additional_secret_traits: Union[dict, None] = None,
     ) -> None:
         self.__irrsmo00 = IRRSMO00()
         self.__profile_type = profile_type
@@ -75,8 +75,8 @@ class SecurityAdmin:
             self.__add_field_data(add_field_data)
         if overwrite_field_data is not None:
             self.__overwrite_field_data(overwrite_field_data)
-        if add_more_secrets is not None:
-            self.__add_more_secrets(add_more_secrets)
+        if additional_secret_traits is not None:
+            self.__add_additional_secret_traits(additional_secret_traits)
 
     # ============================================================================
     # Custom Fields
@@ -93,7 +93,7 @@ class SecurityAdmin:
         """Overwrite field data in valid segment traits dictionary"""
         self._valid_segment_traits = field_data
 
-    def __add_more_secrets(self, new_secrets: dict):
+    def __add_additional_secret_traits(self, new_secrets: dict):
         """Add additional fields to be redacted in logger output"""
         for secret in new_secrets:
             if secret not in self._secret_traits:
@@ -123,7 +123,7 @@ class SecurityAdmin:
     def _make_request(
         self,
         security_request: SecurityRequest,
-        irrsmo00_options: int = 9,
+        irrsmo00_precheck: bool = False,
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
@@ -146,7 +146,7 @@ class SecurityAdmin:
                 secret_traits=self._secret_traits,
             )
         result_xml = self.__irrsmo00.call_racf(
-            security_request.dump_request_xml(), irrsmo00_options
+            security_request.dump_request_xml(), irrsmo00_precheck
         )
         result_xml = self.__logger.redact_result_xml(result_xml, self._secret_traits)
         self._reset_state()
