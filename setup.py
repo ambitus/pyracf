@@ -5,8 +5,7 @@ from setuptools import Extension, setup
 
 
 def main():
-    """Entrypoint for pyRACF package setup."""
-
+    """Entrypoint for pyRACF extension build process."""
     setup_args = {
         "ext_modules": [
             Extension(
@@ -16,12 +15,10 @@ def main():
                     "-D_XOPEN_SOURCE_EXTENDED",
                     "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL),",
                     "-qcpluscmt",
-                ],
-                extra_link_args=["-Wl,INFO"],
+                ]
             )
         ]
     }
-
     os.environ["_CC_CCMODE"] = "1"
     os.environ["_CXX_CCMODE"] = "1"
     os.environ["_C89_CCMODE"] = "1"
