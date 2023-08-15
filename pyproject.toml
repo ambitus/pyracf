@@ -47,10 +47,12 @@
 
 [tool.isort]
     profile = "black"
+
 [tool.pylint.FORMAT]
     max-args = 6
     max-returns = 7
     max-attributes = 10
+
 [tool.pylint.'MESSAGES CONTROL']
     disable = """
         too-few-public-methods,

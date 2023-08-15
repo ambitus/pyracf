@@ -8,7 +8,7 @@ def main():
     """Entrypoint for pyRACF package setup."""
 
     setup_args = {
-        'ext_modules': [
+        "ext_modules": [
             Extension(
                 "cpyracf",
                 sources=["pyracf/common/irrsmo00.c"],
