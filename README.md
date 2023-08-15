@@ -44,7 +44,6 @@ python3 -m pip install pyracf
 
 * [Github Discussions](https://github.com/ambitus/pyracf/discussions)
 
-
 ## Authors
 
 * Leonard Carcaramo: lcarcaramo@ibm.com
