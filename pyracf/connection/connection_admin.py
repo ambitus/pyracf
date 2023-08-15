@@ -36,7 +36,7 @@ class ConnectionAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        additional_secret_traits: Union[dict, None] = None,
+        additional_secret_traits: Union[list, None] = None,
     ) -> None:
         super().__init__(
             "groupConnection",
@@ -140,7 +140,6 @@ class ConnectionAdmin(SecurityAdmin):
 
     def delete(self, userid: str, group: str) -> Union[dict, bytes]:
         """Delete a group connection."""
-        self._clear_state()
         connection_request = ConnectionRequest(userid, group, "del")
         self._add_traits_directly_to_request_xml_with_no_segments(connection_request)
         return self._make_request(connection_request)

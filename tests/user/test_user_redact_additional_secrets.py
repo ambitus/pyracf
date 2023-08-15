@@ -17,7 +17,7 @@ __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-class TestUserAddedSecretRedact(unittest.TestCase):
+class TestUserRedactAdditionalSecrets(unittest.TestCase):
     maxDiff = None
     IRRSMO00.__init__ = Mock(return_value=None)
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
@@ -30,7 +30,7 @@ class TestUserAddedSecretRedact(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         self.user_admin_local = UserAdmin(
-            debug=True, additional_secret_traits={"omvs:uid": "uid"}
+            debug=True, additional_secret_traits=["omvs:uid"]
         )
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         stdout = io.StringIO()
@@ -53,7 +53,7 @@ class TestUserAddedSecretRedact(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         self.user_admin_local = UserAdmin(
-            debug=True, additional_secret_traits={"omvs:uid": "uid"}
+            debug=True, additional_secret_traits=["omvs:uid"]
         )
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         stdout = io.StringIO()

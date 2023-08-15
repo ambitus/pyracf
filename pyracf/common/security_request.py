@@ -92,15 +92,3 @@ class SecurityRequest:
             # Force utf-8 if running tests on Linux, Mac, Windows, etc...
             encoding = "utf-8"
         return XMLBuilder.tostring(self.__racf_request, encoding=encoding)
-
-    def reset_request_xml(self) -> None:
-        """Delete the security request xml string"""
-        del self.__racf_request
-        self.__racf_request = XMLBuilder.Element("securityrequest")
-        self.__racf_request.attrib = {
-            "xmlns": "http://www.ibm.com/systems/zos/saf",
-            "xmlns:racf": "http://www.ibm.com/systems/zos/racf",
-        }
-        self._security_definition = XMLBuilder.SubElement(
-            self.__racf_request, "undefined"
-        )

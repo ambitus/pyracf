@@ -60,7 +60,7 @@ class DataSetAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        additional_secret_traits: Union[dict, None] = None,
+        additional_secret_traits: Union[list, None] = None,
     ) -> None:
         super().__init__(
             "dataSet",
@@ -148,7 +148,6 @@ class DataSetAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> Union[dict, bytes]:
         """Delete a data set profile."""
-        self._clear_state()
         data_set_request = DataSetRequest(data_set, "del", volume, generic)
         return self._make_request(data_set_request)
 

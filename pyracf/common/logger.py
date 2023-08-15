@@ -103,12 +103,11 @@ class Logger:
         """Redact a list of specified secret traits in a dictionary"""
         for seg_trait in secret_traits:
             segment = seg_trait.split(":")[0]
-            try:
-                if not dictionary.get(segment, {}).get(seg_trait, {}).get("value", ""):
-                    continue
-                dictionary[segment][seg_trait]["value"] = "********"
-            except AttributeError:
+            if not isinstance(dictionary.get(segment, {}).get(seg_trait, {}), dict):
+                return dictionary
+            if not dictionary.get(segment, {}).get(seg_trait, {}).get("value", ""):
                 continue
+            dictionary[segment][seg_trait]["value"] = "********"
         return dictionary
 
     def __redact_string(
@@ -117,6 +116,7 @@ class Logger:
         start_ind: int,
         end_pattern: str,
     ):
+        """Redacts characters in a string between a starting index and ending pattern"""
         pre_keyword = input_string[:start_ind]
         post_keyword = end_pattern.join(input_string[start_ind:].split(end_pattern)[1:])
         return pre_keyword + "********" + end_pattern + post_keyword
@@ -126,13 +126,13 @@ class Logger:
         xml_string: Union[str, bytes],
         secret_traits: dict,
     ) -> Union[str, bytes]:
-        """Redact a list of specifid secret traits in a request xml string or bytes object"""
+        """Redact a list of specific secret traits in a request xml string or bytes object"""
         is_bytes = False
         if isinstance(xml_string, bytes):
             is_bytes = True
             xml_string = xml_string.decode("utf-8")
         for xml_key in secret_traits.values():
-            match = re.search(r"\<{}+[^>]*\>".format(xml_key), xml_string)
+            match = re.search(rf"\<{xml_key}+[^>]*\>", xml_string)
             if not match:
                 continue
             xml_string = self.__redact_string(xml_string, match.end(), "</")
@@ -145,9 +145,10 @@ class Logger:
         xml_string: str,
         secret_traits: dict,
     ) -> str:
+        """Redacts a list of specific secret traits in a result xml string"""
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            match = re.search(r"{} +\(".format(racf_key.upper()), xml_string)
+            match = re.search(rf"{racf_key.upper()} +\(", xml_string)
             if not match:
                 continue
             xml_string = self.__redact_string(xml_string, match.end(), ") ")

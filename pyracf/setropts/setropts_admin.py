@@ -103,7 +103,7 @@ class SetroptsAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        additional_secret_traits: Union[dict, None] = None,
+        additional_secret_traits: Union[list, None] = None,
     ) -> None:
         super().__init__(
             "systemSettings",

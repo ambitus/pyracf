@@ -61,7 +61,7 @@ class SecurityAdmin:
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        additional_secret_traits: Union[dict, None] = None,
+        additional_secret_traits: Union[list, None] = None,
     ) -> None:
         self.__irrsmo00 = IRRSMO00()
         self.__profile_type = profile_type
@@ -93,11 +93,19 @@ class SecurityAdmin:
         """Overwrite field data in valid segment traits dictionary"""
         self._valid_segment_traits = field_data
 
-    def __add_additional_secret_traits(self, new_secrets: dict):
+    def __add_additional_secret_traits(self, new_secrets: list):
         """Add additional fields to be redacted in logger output"""
         for secret in new_secrets:
-            if secret not in self._secret_traits:
-                self._secret_traits[secret] = new_secrets[secret]
+            if secret in self._secret_traits:
+                continue
+            if ":" not in secret:
+                continue
+            segment = secret.split(":")[0]
+            if segment not in self._valid_segment_traits:
+                continue
+            if secret not in self._valid_segment_traits[segment]:
+                continue
+            self._secret_traits[secret] = self._valid_segment_traits[segment][secret]
 
     # ============================================================================
     # Request Execution
@@ -149,8 +157,8 @@ class SecurityAdmin:
             security_request.dump_request_xml(), irrsmo00_precheck
         )
         result_xml = self.__logger.redact_result_xml(result_xml, self._secret_traits)
-        self._reset_state()
-        security_request.reset_request_xml()
+        self.__clear_state(clear_preserved_segment_traits=True)
+        del security_request
         if self.__debug:
             self.__logger.log_xml("Result XML", result_xml)
         results = SecurityResult(result_xml)
@@ -206,19 +214,12 @@ class SecurityAdmin:
     # ============================================================================
     # Request Dictionary Building
     # ============================================================================
-    def _clear_state(self) -> None:
+    def __clear_state(self, clear_preserved_segment_traits: bool = False) -> None:
         """Clear state for new request."""
         self._segment_traits = {}
         self._trait_map = {}
-
-    def _reset_state(self) -> None:
-        """Reset state once requests are done."""
-        del self._segment_traits
-        del self._trait_map
-        del self.__preserved_segment_traits
-        self._segment_traits = {}
-        self._trait_map = {}
-        self.__preserved_segment_traits = {}
+        if clear_preserved_segment_traits:
+            self.__preserved_segment_traits = {}
 
     def __validate_and_add_trait(
         self, trait: str, segment: str, value: Union[str, dict]
@@ -249,7 +250,7 @@ class SecurityAdmin:
     def _build_bool_segment_dictionaries(self, segments: dict) -> None:
         """Build segment dictionaries for profile extract."""
         # Clear state for new request
-        self._clear_state()
+        self.__clear_state()
         for segment in segments:
             if segment in self._valid_segment_traits:
                 self._segment_traits[segment] = segments[segment]
@@ -259,7 +260,7 @@ class SecurityAdmin:
     def _build_segment_dictionaries(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
         # Clear state for new request
-        self._clear_state()
+        self.__clear_state()
         for trait in traits:
             for segment in self._valid_segment_traits:
                 self.__validate_and_add_trait(trait, segment, traits[trait])
@@ -287,7 +288,7 @@ class SecurityAdmin:
                     None, traits, self._trait_map, alter=alter
                 )
         # Clear state for subsequent requests
-        self._clear_state()
+        self.__clear_state()
 
     # ============================================================================
     # Profile Dictionary Building
