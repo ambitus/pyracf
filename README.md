@@ -1,5 +1,7 @@
 ![pyRACF Logo](logo.png)
 
+![GitHub Actions Build Status](https://github.com/ambitus/pyracf/actions/workflows/.github-actions.yml/badge.svg?branch=dev)
+
 Python interface into the RACF management application programming interface.
 
 ```python
@@ -42,9 +44,6 @@ python3 -m pip install pyracf
 
 * [Github Discussions](https://github.com/ambitus/pyracf/discussions)
 
-## Build Status
-
-![GitHub Actions Build Status](https://github.com/ambitus/pyracf/actions/workflows/.github-actions.yml/badge.svg?branch=dev)
 
 ## Authors
 

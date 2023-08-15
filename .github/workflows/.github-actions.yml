@@ -1,4 +1,4 @@
-name: pyRACF package
+name: pyRACF Linting & Unit Test
 
 on: [push, pull_request]
 
@@ -8,11 +8,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
+    - name: Python Setup
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    - name: Install dependencies
+    - name: Install Dependencies
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install -r requirements.txt
@@ -21,10 +21,9 @@ jobs:
       run: |
         flake8 .
         pylint --recursive=y .
-    - name: Unit test
-      run: |
-        python3 tests/test_runner.py
-    - name: Coverage report
+    - name: Unit Test
       run: |
         coverage run tests/test_runner.py
+    - name: Code Coverage
+      run: |
         coverage report -m
