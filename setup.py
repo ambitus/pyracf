@@ -1,11 +1,11 @@
-"""PyRACF setup/build configuration."""
+"""Build python extension for pyRACF."""
 import os
 
 from setuptools import Extension, setup
 
 
 def main():
-    """Entrypoint for pyRACF extension build process."""
+    """Entrypoint for pyRACF python extension build process."""
     setup_args = {
         "ext_modules": [
             Extension(
