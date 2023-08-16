@@ -16,41 +16,8 @@ class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
     _valid_segment_traits = {}
-    _common_base_traits_data_set_generic = {
-        "base:aclcnt": "racf:aclcnt",
-        "base:aclacnt": "racf:aclacnt",
-        "base:aclacs": "racf:aclacs",
-        "base:aclid": "racf:aclid",
-        "base:acl2cnt": "racf:acl2cnt",
-        "base:acl2acnt": "racf:acl2acnt",
-        "base:acl2acs": "racf:acl2acs",
-        "base:acl2cond": "racf:acl2cond",
-        "base:acl2ent": "racf:acl2ent",
-        "base:acl2id": "racf:acl2id",
-        "base:acsaltr": "racf:acsaltr",
-        "base:acscntl": "racf:acscntl",
-        "base:acsread": "racf:acsread",
-        "base:acsupdt": "racf:acsupdt",
-        "base:all": "racf:all",
-        "base:audaltr": "racf:audaltr",
-        "base:audcntl": "racf:audcntl",
-        "base:audnone": "racf:audnone",
-        "base:audread": "racf:audread",
-        "base:audupdt": "racf:audupdt",
-        "base:authuser": "racf:authuser",
-        "base:fvolume": "racf:fvolume",
-        "base:gaudaltr": "racf:gaudaltr",
-        "base:gaudcntl": "racf:gaudcntl",
-        "base:gaudnone": "racf:gaudnone",
-        "base:gaudread": "racf:gaudread",
-        "base:gaudupdt": "racf:gaudupdt",
-        "base:generic": "racf:generic",
-    }
-
-    __secret_traits = {
-        "base:password": "racf:password",
-        "base:passphrase": "racf:phrase",
-    }
+    _common_base_traits_data_set_generic = {}
+    __secret_traits = {}
 
     __logger = Logger()
 
@@ -63,6 +30,40 @@ class SecurityAdmin:
         overwrite_field_data: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
+        self._common_base_traits_data_set_generic = {
+            "base:aclcnt": "racf:aclcnt",
+            "base:aclacnt": "racf:aclacnt",
+            "base:aclacs": "racf:aclacs",
+            "base:aclid": "racf:aclid",
+            "base:acl2cnt": "racf:acl2cnt",
+            "base:acl2acnt": "racf:acl2acnt",
+            "base:acl2acs": "racf:acl2acs",
+            "base:acl2cond": "racf:acl2cond",
+            "base:acl2ent": "racf:acl2ent",
+            "base:acl2id": "racf:acl2id",
+            "base:acsaltr": "racf:acsaltr",
+            "base:acscntl": "racf:acscntl",
+            "base:acsread": "racf:acsread",
+            "base:acsupdt": "racf:acsupdt",
+            "base:all": "racf:all",
+            "base:audaltr": "racf:audaltr",
+            "base:audcntl": "racf:audcntl",
+            "base:audnone": "racf:audnone",
+            "base:audread": "racf:audread",
+            "base:audupdt": "racf:audupdt",
+            "base:authuser": "racf:authuser",
+            "base:fvolume": "racf:fvolume",
+            "base:gaudaltr": "racf:gaudaltr",
+            "base:gaudcntl": "racf:gaudcntl",
+            "base:gaudnone": "racf:gaudnone",
+            "base:gaudread": "racf:gaudread",
+            "base:gaudupdt": "racf:gaudupdt",
+            "base:generic": "racf:generic",
+        }
+        self.__secret_traits = {
+            "base:password": "racf:password",
+            "base:passphrase": "racf:phrase",
+        }
         self.__irrsmo00 = IRRSMO00()
         self.__profile_type = profile_type
         self._segment_traits = {}
@@ -93,9 +94,9 @@ class SecurityAdmin:
         """Overwrite field data in valid segment traits dictionary"""
         self._valid_segment_traits = field_data
 
-    def __add_additional_secret_traits(self, new_secrets: list):
+    def __add_additional_secret_traits(self, additional_secret_traits: list):
         """Add additional fields to be redacted in logger output"""
-        for secret in new_secrets:
+        for secret in additional_secret_traits:
             if secret in self.__secret_traits:
                 continue
             if ":" not in secret:
@@ -149,10 +150,13 @@ class SecurityAdmin:
                 secret_traits=self.__secret_traits,
             )
         if self.__generate_requests_only:
-            return self.__logger.redact_request_xml(
+            request = self.__logger.redact_request_xml(
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
+            self.__clear_state(clear_preserved_segment_traits=True)
+            del security_request
+            return request
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_precheck
         )
@@ -249,8 +253,6 @@ class SecurityAdmin:
 
     def _build_bool_segment_dictionaries(self, segments: dict) -> None:
         """Build segment dictionaries for profile extract."""
-        # Clear state for new request
-        self.__clear_state()
         for segment in segments:
             if segment in self._valid_segment_traits:
                 self._segment_traits[segment] = segments[segment]
@@ -259,8 +261,6 @@ class SecurityAdmin:
 
     def _build_segment_dictionaries(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
-        # Clear state for new request
-        self.__clear_state()
         for trait in traits:
             for segment in self._valid_segment_traits:
                 self.__validate_and_add_trait(trait, segment, traits[trait])
@@ -287,8 +287,6 @@ class SecurityAdmin:
                 security_request._build_segment(
                     None, traits, self._trait_map, alter=alter
                 )
-        # Clear state for subsequent requests
-        self.__clear_state()
 
     # ============================================================================
     # Profile Dictionary Building

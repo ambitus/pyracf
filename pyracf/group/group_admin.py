@@ -10,35 +10,6 @@ from .group_request import GroupRequest
 class GroupAdmin(SecurityAdmin):
     """Group Administration."""
 
-    _valid_segment_traits = {
-        "base": {
-            "base:connects": "racf:connects",
-            "base:gauth": "racf:gauth",
-            "base:guserid": "racf:guserid",
-            "base:creatdat": "racf:creatdat",
-            "base:data": "racf:data",
-            "base:model": "racf:model",
-            "base:owner": "racf:owner",
-            "base:subgroup": "racf:subgroup",
-            "base:supgroup": "racf:supgroup",
-            "base:termuacc": "racf:termuacc",
-            "base:universl": "racf:universl",
-        },
-        "dfp": {
-            "dfp:dataappl": "dataappl",
-            "dfp:dataclas": "dataclas",
-            "dfp:mgmtclas": "mgmtclas",
-            "dfp:storclas": "storclas",
-        },
-        "omvs": {
-            "omvs:autogid": "racf:autogid",
-            "omvs:gid": "gid",
-            "omvs:shared": "racf:shared",
-        },
-        "ovm": {"ovm:gid": "racf:gid"},
-        "tme": {"tme:roles": "racf:roles"},
-    }
-
     def __init__(
         self,
         debug: bool = False,
@@ -47,6 +18,34 @@ class GroupAdmin(SecurityAdmin):
         overwrite_field_data: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
+        self._valid_segment_traits = {
+            "base": {
+                "base:connects": "racf:connects",
+                "base:gauth": "racf:gauth",
+                "base:guserid": "racf:guserid",
+                "base:creatdat": "racf:creatdat",
+                "base:data": "racf:data",
+                "base:model": "racf:model",
+                "base:owner": "racf:owner",
+                "base:subgroup": "racf:subgroup",
+                "base:supgroup": "racf:supgroup",
+                "base:termuacc": "racf:termuacc",
+                "base:universl": "racf:universl",
+            },
+            "dfp": {
+                "dfp:dataappl": "dataappl",
+                "dfp:dataclas": "dataclas",
+                "dfp:mgmtclas": "mgmtclas",
+                "dfp:storclas": "storclas",
+            },
+            "omvs": {
+                "omvs:autogid": "racf:autogid",
+                "omvs:gid": "gid",
+                "omvs:shared": "racf:shared",
+            },
+            "ovm": {"ovm:gid": "racf:gid"},
+            "tme": {"tme:roles": "racf:roles"},
+        }
         super().__init__(
             "group",
             debug=debug,

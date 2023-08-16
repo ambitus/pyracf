@@ -303,13 +303,13 @@ class TestUserResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        user_admin = UserAdmin(
+        user_admin_local = UserAdmin(
             add_field_data=TestUserConstants.TEST_USER_UPDATE_SEGMENTS
         )
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.extract("squidwrd", {"omvs": True, "csdata": True}),
+            user_admin_local.extract("squidwrd", {"omvs": True, "csdata": True}),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
         )

@@ -9,31 +9,6 @@ from pyracf.common.security_admin import SecurityAdmin
 class AccessAdmin(SecurityAdmin):
     """RACF Access Administration."""
 
-    _valid_segment_traits = {
-        "base": {
-            "base:access": "access",
-            "base:delete": "racf:delete",
-            "base:fclass": "racf:fclass",
-            "base:fprofile": "racf:fprofile",
-            "base:fgeneric": "racf:fgeneric",
-            "base:fvolume": "racf:fvolume",
-            "base:id": "authid",
-            "base:profile": "racf:profile",
-            "base:reset": "racf:reset",
-            "base:volume": "racf:volume",
-            "base:whenappc": "racf:whenappc",
-            "base:whencons": "racf:whencons",
-            "base:whenjes": "racf:whenjes",
-            "base:whenprog": "racf:whenprog",
-            "base:whenserv": "racf:whenserv",
-            "base:whensms": "racf:whensms",
-            "base:whensqlr": "racf:whensqlr",
-            "base:whensrv": "racf:whensrv",
-            "base:whensys": "racf:whensys",
-            "base:whenterm": "racf:whenterm",
-        }
-    }
-
     def __init__(
         self,
         debug: bool = False,
@@ -42,6 +17,30 @@ class AccessAdmin(SecurityAdmin):
         overwrite_field_data: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
+        self._valid_segment_traits = {
+            "base": {
+                "base:access": "access",
+                "base:delete": "racf:delete",
+                "base:fclass": "racf:fclass",
+                "base:fprofile": "racf:fprofile",
+                "base:fgeneric": "racf:fgeneric",
+                "base:fvolume": "racf:fvolume",
+                "base:id": "authid",
+                "base:profile": "racf:profile",
+                "base:reset": "racf:reset",
+                "base:volume": "racf:volume",
+                "base:whenappc": "racf:whenappc",
+                "base:whencons": "racf:whencons",
+                "base:whenjes": "racf:whenjes",
+                "base:whenprog": "racf:whenprog",
+                "base:whenserv": "racf:whenserv",
+                "base:whensms": "racf:whensms",
+                "base:whensqlr": "racf:whensqlr",
+                "base:whensrv": "racf:whensrv",
+                "base:whensys": "racf:whensys",
+                "base:whenterm": "racf:whenterm",
+            }
+        }
         super().__init__(
             "permission",
             debug=debug,
