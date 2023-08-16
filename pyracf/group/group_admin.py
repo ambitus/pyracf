@@ -1,6 +1,6 @@
 """Group Administration."""
 
-from typing import Union
+from typing import List, Union
 
 from pyracf.common.security_admin import SecurityAdmin
 
@@ -45,7 +45,7 @@ class GroupAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        additional_secret_traits: Union[list, None] = None,
+        additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         super().__init__(
             "group",
@@ -151,7 +151,6 @@ class GroupAdmin(SecurityAdmin):
 
     def delete(self, group: str) -> Union[dict, bytes]:
         """Delete a group."""
-
         group_request = GroupRequest(group, "del")
         return self._make_request(group_request)
 

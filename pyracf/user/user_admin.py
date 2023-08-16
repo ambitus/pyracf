@@ -209,7 +209,7 @@ class UserAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        additional_secret_traits: Union[list, None] = None,
+        additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         super().__init__(
             "user",
@@ -424,7 +424,6 @@ class UserAdmin(SecurityAdmin):
 
     def delete(self, userid: str) -> Union[dict, bytes]:
         """Delete a user."""
-
         user_request = UserRequest(userid, "del")
         return self._make_request(user_request)
 

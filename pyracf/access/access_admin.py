@@ -1,6 +1,6 @@
 """RACF Access Administration."""
 
-from typing import Union
+from typing import List, Union
 
 from pyracf.access.access_request import AccessRequest
 from pyracf.common.security_admin import SecurityAdmin
@@ -40,7 +40,7 @@ class AccessAdmin(SecurityAdmin):
         generate_requests_only: bool = False,
         add_field_data: Union[dict, None] = None,
         overwrite_field_data: Union[dict, None] = None,
-        additional_secret_traits: Union[list, None] = None,
+        additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         super().__init__(
             "permission",
