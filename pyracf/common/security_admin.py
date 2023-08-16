@@ -47,7 +47,7 @@ class SecurityAdmin:
         "base:generic": "racf:generic",
     }
 
-    _secret_traits = {
+    __secret_traits = {
         "base:password": "racf:password",
         "base:passphrase": "racf:phrase",
     }
@@ -96,7 +96,7 @@ class SecurityAdmin:
     def __add_additional_secret_traits(self, new_secrets: list):
         """Add additional fields to be redacted in logger output"""
         for secret in new_secrets:
-            if secret in self._secret_traits:
+            if secret in self.__secret_traits:
                 continue
             if ":" not in secret:
                 continue
@@ -105,7 +105,7 @@ class SecurityAdmin:
                 continue
             if secret not in self._valid_segment_traits[segment]:
                 continue
-            self._secret_traits[secret] = self._valid_segment_traits[segment][secret]
+            self.__secret_traits[secret] = self._valid_segment_traits[segment][secret]
 
     # ============================================================================
     # Request Execution
@@ -135,28 +135,28 @@ class SecurityAdmin:
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
-        Note: Passwords are redacted from result and from log messages.
+        Note: Secrets are redacted from all data returned to the user and log messages.
         """
         if self.__debug:
             self.__logger.log_dictionary(
                 "Request Dictionary",
                 self.__preserved_segment_traits,
-                secret_traits=self._secret_traits,
+                secret_traits=self.__secret_traits,
             )
             self.__logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
-                secret_traits=self._secret_traits,
+                secret_traits=self.__secret_traits,
             )
         if self.__generate_requests_only:
             return self.__logger.redact_request_xml(
                 security_request.dump_request_xml(encoding="utf-8"),
-                secret_traits=self._secret_traits,
+                secret_traits=self.__secret_traits,
             )
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_precheck
         )
-        result_xml = self.__logger.redact_result_xml(result_xml, self._secret_traits)
+        result_xml = self.__logger.redact_result_xml(result_xml, self.__secret_traits)
         self.__clear_state(clear_preserved_segment_traits=True)
         del security_request
         if self.__debug:
