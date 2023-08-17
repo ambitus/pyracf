@@ -16,9 +16,6 @@ class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
     _valid_segment_traits = {}
-    _common_base_traits_data_set_generic = {}
-    __secret_traits = {}
-
     __logger = Logger()
 
     def __init__(
@@ -150,12 +147,12 @@ class SecurityAdmin:
                 secret_traits=self.__secret_traits,
             )
         if self.__generate_requests_only:
-            request = self.__logger.redact_request_xml(
+            request_xml = self.__logger.redact_request_xml(
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
             self.__clear_state(security_request)
-            return request
+            return request_xml
         result_xml = self.__logger.redact_result_xml(
             self.__irrsmo00.call_racf(
                 security_request.dump_request_xml(), irrsmo00_precheck
@@ -164,6 +161,8 @@ class SecurityAdmin:
         )
         self.__clear_state(security_request)
         if self.__debug:
+            # No need to redact anything here since the raw result dictionary
+            # already has secrets redacted when passed to logger
             self.__logger.log_xml("Result XML", result_xml)
         results = SecurityResult(result_xml)
         if self.__debug:

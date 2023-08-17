@@ -67,7 +67,8 @@ class Logger:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
-        xml_string = self.redact_request_xml(xml_string, secret_traits)
+        if secret_traits:
+            xml_string = self.redact_request_xml(xml_string, secret_traits)
         indented_xml_string = self.__indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
