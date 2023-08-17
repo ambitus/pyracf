@@ -205,11 +205,10 @@ class TestUserDebugLogging(unittest.TestCase):
         self.assertEqual(
             success_log, TestUserConstants.TEST_ADD_USER_PASSWORD_SUCCESS_LOG
         )
-        self.assertNotIn('('+self.simple_password+')', success_log)
-        self.assertNotIn('"'+self.simple_password+'"', success_log)
-        self.assertNotIn('>'+self.simple_password+'<', success_log)
-        self.assertIn(self.simple_password,success_log)
-
+        self.assertNotIn("(" + self.simple_password + ")", success_log)
+        self.assertNotIn('"' + self.simple_password + '"', success_log)
+        self.assertNotIn(">" + self.simple_password + "<", success_log)
+        self.assertIn(self.simple_password, success_log)
 
     def test_add_user_request_debug_log_password_xml_tags_not_redacted_on_error(
         self,
@@ -229,11 +228,10 @@ class TestUserDebugLogging(unittest.TestCase):
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_PASSWORD_ERROR_LOG)
-        self.assertNotIn('('+self.simple_password+')', error_log)
-        self.assertNotIn('"'+self.simple_password+'"', error_log)
-        self.assertNotIn('>'+self.simple_password+'<', error_log)
-        self.assertIn(self.simple_password,error_log)
-
+        self.assertNotIn("(" + self.simple_password + ")", error_log)
+        self.assertNotIn('"' + self.simple_password + '"', error_log)
+        self.assertNotIn(">" + self.simple_password + "<", error_log)
+        self.assertIn(self.simple_password, error_log)
 
     # ============================================================================
     # Add Additional Secrets
@@ -242,9 +240,7 @@ class TestUserDebugLogging(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        user_admin = UserAdmin(
-            debug=True, additional_secret_traits=["omvs:uid"]
-        )
+        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
@@ -265,9 +261,7 @@ class TestUserDebugLogging(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        user_admin = UserAdmin(
-            debug=True, additional_secret_traits=["omvs:uid"]
-        )
+        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
         call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
