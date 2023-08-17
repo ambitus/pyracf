@@ -154,17 +154,18 @@ class SecurityAdmin:
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
-            self.__clear_state(security_request=security_request)
+            self.__clear_state(security_request)
             return request
-        result_xml = self.__irrsmo00.call_racf(
-            security_request.dump_request_xml(), irrsmo00_precheck
+        result_xml = self.__logger.redact_result_xml(
+            self.__irrsmo00.call_racf(
+                security_request.dump_request_xml(), irrsmo00_precheck
+            ),
+            self.__secret_traits,
         )
-        result_xml = self.__logger.redact_result_xml(result_xml, self.__secret_traits)
-        self.__clear_state(security_request=security_request)
+        self.__clear_state(security_request)
         if self.__debug:
             self.__logger.log_xml("Result XML", result_xml)
         results = SecurityResult(result_xml)
-        del result_xml
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.

@@ -134,7 +134,7 @@ class Logger:
         Redact a list of specific secret traits in a request xml string or bytes object.
         Based the following xml pattern:
             '<xmltag attribute="any">xml value</xmltag>'
-        This function also accounts for varied amounts of variation in the xml attributes.
+        This function also accounts for any number of arbitrary xml attributes.
         """
         is_bytes = False
         if isinstance(xml_string, bytes):
