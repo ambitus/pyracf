@@ -101,11 +101,11 @@ class Logger:
         secret_traits: dict,
     ) -> dict:
         """Redact a list of specified secret traits in a request dictionary"""
-        for seg_trait in secret_traits:
-            segment = seg_trait.split(":")[0]
-            if not dictionary.get(segment, {}).get(seg_trait, {}).get("value", None):
+        for trait in secret_traits:
+            segment = trait.split(":")[0]
+            if not dictionary.get(segment, {}).get(trait, {}).get("value", None):
                 continue
-            dictionary[segment][seg_trait]["value"] = "********"
+            dictionary[segment][trait]["value"] = "********"
         return dictionary
 
     def __redact_string(
@@ -114,8 +114,10 @@ class Logger:
         start_ind: int,
         end_pattern: str,
     ):
-        """Redacts characters in a string between a starting index and ending pattern"""
-        """Replaces the identified characters with ******** (regardless of length)"""
+        """
+        Redacts characters in a string between a starting index and ending pattern.
+        Replaces the identified characters with '********' regardless of the original length.
+        """
         pre_keyword = input_string[:start_ind]
         post_keyword = end_pattern.join(input_string[start_ind:].split(end_pattern)[1:])
         return pre_keyword + "********" + end_pattern + post_keyword
@@ -125,8 +127,12 @@ class Logger:
         xml_string: Union[str, bytes],
         secret_traits: dict,
     ) -> Union[str, bytes]:
-        """Redact a list of specific secret traits in a request xml string or bytes object"""
-        """Bases this on xml pattern <xml_key any-operation>xml_value</xml_key>"""
+        """
+        Redact a list of specific secret traits in a request xml string or bytes object.
+        Based the following xml pattern:
+            '<xmltag attribute="any">xml value</xmltag>'
+        This function also accounts for varied amounts of variation in the xml attributes.
+        """
         is_bytes = False
         if isinstance(xml_string, bytes):
             is_bytes = True
@@ -145,8 +151,12 @@ class Logger:
         xml_string: str,
         secret_traits: dict,
     ) -> str:
-        """Redacts a list of specific secret traits in a result xml string"""
-        """Bases this on RACF command pattern RACF_KEY( value ) """
+        """
+        Redacts a list of specific secret traits in a result xml string.
+        Based on the following RACF command pattern:
+            'TRAIT (value)'
+        This function also accounts for varied amounts of whitespace in the pattern.
+        """
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
             match = re.search(rf"{racf_key.upper()} +\(", xml_string)

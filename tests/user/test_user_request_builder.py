@@ -87,11 +87,11 @@ class TestUserRequestBuilder(unittest.TestCase):
     # Custom Field Data
     # ============================================================================
     def test_user_admin_build_alter_request_alternate_segments(self):
-        user_admin_local = UserAdmin(
+        user_admin = UserAdmin(
             generate_requests_only=True,
             overwrite_field_data=TestUserConstants.TEST_USER_ALTERNATE_SEGMENTS,
         )
-        result = user_admin_local.alter(
+        result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
         )
         self.assertEqual(
@@ -99,11 +99,11 @@ class TestUserRequestBuilder(unittest.TestCase):
         )
 
     def test_user_admin_build_alter_request_overwrite_segments(self):
-        user_admin_local = UserAdmin(
+        user_admin = UserAdmin(
             generate_requests_only=True,
             overwrite_field_data=TestUserConstants.TEST_USER_OVERWRITE_SEGMENTS,
         )
-        result = user_admin_local.alter(
+        result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
         )
         self.assertEqual(
@@ -111,11 +111,11 @@ class TestUserRequestBuilder(unittest.TestCase):
         )
 
     def test_user_admin_build_alter_request_update_segments(self):
-        user_admin_local = UserAdmin(
+        user_admin = UserAdmin(
             generate_requests_only=True,
             add_field_data=TestUserConstants.TEST_USER_UPDATE_SEGMENTS,
         )
-        result = user_admin_local.alter(
+        result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
         )
         self.assertEqual(
