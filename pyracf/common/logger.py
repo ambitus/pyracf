@@ -100,7 +100,10 @@ class Logger:
         dictionary: dict,
         secret_traits: dict,
     ) -> dict:
-        """Redact a list of specified secret traits in a request dictionary"""
+        """
+        Redact a list of specified secret traits in a request dictionary.
+        While this flow is technically used in extract functions, there are no traits to redact.
+        """
         for trait in secret_traits:
             segment = trait.split(":")[0]
             if not dictionary.get(segment, {}).get(trait, {}).get("value", None):

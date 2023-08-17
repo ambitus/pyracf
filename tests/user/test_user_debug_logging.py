@@ -236,7 +236,7 @@ class TestUserDebugLogging(unittest.TestCase):
     # ============================================================================
     # Add Additional Secrets
     # ============================================================================
-    def test_add_user_request_debug_log_additional_secret_addeds_get_redacted_on_success(
+    def test_add_user_request_debug_log_additional_secret_added_get_redacted_on_success(
         self,
         call_racf_mock: Mock,
     ):
@@ -257,7 +257,7 @@ class TestUserDebugLogging(unittest.TestCase):
             TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS["omvs:uid"], success_log
         )
 
-    def test_add_user_request_debug_log_additional_secret_addeds_get_redacted_on_error(
+    def test_add_user_request_debug_log_additional_secret_added_get_redacted_on_error(
         self,
         call_racf_mock: Mock,
     ):

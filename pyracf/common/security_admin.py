@@ -154,15 +154,13 @@ class SecurityAdmin:
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
-            self.__clear_state(clear_preserved_segment_traits=True)
-            del security_request
+            self.__clear_state(security_request=security_request)
             return request
         result_xml = self.__irrsmo00.call_racf(
             security_request.dump_request_xml(), irrsmo00_precheck
         )
         result_xml = self.__logger.redact_result_xml(result_xml, self.__secret_traits)
-        self.__clear_state(clear_preserved_segment_traits=True)
-        del security_request
+        self.__clear_state(security_request=security_request)
         if self.__debug:
             self.__logger.log_xml("Result XML", result_xml)
         results = SecurityResult(result_xml)
@@ -218,12 +216,12 @@ class SecurityAdmin:
     # ============================================================================
     # Request Dictionary Building
     # ============================================================================
-    def __clear_state(self, clear_preserved_segment_traits: bool = False) -> None:
+    def __clear_state(self, security_request: SecurityRequest) -> None:
         """Clear state for new request."""
         self._segment_traits = {}
         self._trait_map = {}
-        if clear_preserved_segment_traits:
-            self.__preserved_segment_traits = {}
+        self.__preserved_segment_traits = {}
+        del security_request
 
     def __validate_and_add_trait(
         self, trait: str, segment: str, value: Union[str, dict]
