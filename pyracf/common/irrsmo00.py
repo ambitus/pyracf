@@ -13,7 +13,7 @@ except ImportError as import_error:
 
 
 class IRRSMO00:
-    """Interface to irrsmo00 callable service through cpyracf Python extension"""
+    """Interface to irrsmo00 callable service through cpyracf Python extension."""
 
     def __init__(self) -> None:
         # Initialize size of output buffer

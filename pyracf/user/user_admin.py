@@ -262,7 +262,7 @@ class UserAdmin(SecurityAdmin):
     # Auditor Authority
     # ============================================================================
     def has_auditor_authority(self, userid: str) -> Union[bool, bytes]:
-        """Check if a user has auditor authority"""
+        """Check if a user has auditor authority."""
         profile = self.extract(userid, profile_only=True)
         return "auditor" in profile["base"]["attributes"]
 

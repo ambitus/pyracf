@@ -88,11 +88,11 @@ class SecurityAdmin:
                 self._valid_segment_traits[segment] = field_data[segment]
 
     def __overwrite_field_data(self, field_data: dict):
-        """Overwrite field data in valid segment traits dictionary"""
+        """Overwrite field data in valid segment traits dictionary."""
         self._valid_segment_traits = field_data
 
     def __add_additional_secret_traits(self, additional_secret_traits: list):
-        """Add additional fields to be redacted in logger output"""
+        """Add additional fields to be redacted in logger output."""
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
                 continue
@@ -161,8 +161,8 @@ class SecurityAdmin:
         )
         self.__clear_state(security_request)
         if self.__debug:
-            # No need to redact anything here since the raw result dictionary
-            # already has secrets redacted when passed to logger
+            # No need to redact anything here since the raw result XML
+            # already has secrets redacted when it is built.
             self.__logger.log_xml("Result XML", result_xml)
         results = SecurityResult(result_xml)
         if self.__debug:
@@ -226,7 +226,7 @@ class SecurityAdmin:
     def __validate_and_add_trait(
         self, trait: str, segment: str, value: Union[str, dict]
     ):
-        """Validate the specified trait exists in the specified segment"""
+        """Validate the specified trait exists in the specified segment."""
         if segment not in self._valid_segment_traits:
             return False
         if trait not in self._valid_segment_traits[segment]:
@@ -292,7 +292,7 @@ class SecurityAdmin:
     def _get_profile(
         self, result: Union[dict, bytes], index: int = 0
     ) -> Union[dict, bytes]:
-        "Extract the profile section from a result dictionary"
+        """Extract the profile section from a result dictionary."""
         if self.__generate_requests_only:
             # Allows this function to work with "self.__generate_requests_only" mode.
             return result

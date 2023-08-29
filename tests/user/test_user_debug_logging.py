@@ -80,6 +80,7 @@ class TestUserDebugLogging(unittest.TestCase):
         self.assertEqual(
             success_log, TestUserConstants.TEST_ADD_USER_PASSWORD_SUCCESS_LOG
         )
+        self.assertNotIn(self.test_password, success_log)
 
     def test_add_user_request_debug_log_passwords_get_redacted_on_error(
         self,
@@ -99,6 +100,7 @@ class TestUserDebugLogging(unittest.TestCase):
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_PASSWORD_ERROR_LOG)
+        self.assertNotIn(self.test_password, error_log)
 
     def test_add_user_request_debug_log_passphrases_get_redacted_on_success(
         self,
@@ -117,6 +119,7 @@ class TestUserDebugLogging(unittest.TestCase):
         self.assertEqual(
             success_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_SUCCESS_LOG
         )
+        self.assertNotIn(self.test_passphrase, success_log)
 
     def test_add_user_request_debug_log_passphrases_get_redacted_on_error(
         self,
@@ -138,6 +141,7 @@ class TestUserDebugLogging(unittest.TestCase):
         self.assertEqual(
             error_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_ERROR_LOG
         )
+        self.assertNotIn(self.test_passphrase, error_log)
 
     def test_add_user_request_debug_log_passphrases_and_passwords_get_redacted_on_success(
         self,
@@ -157,6 +161,8 @@ class TestUserDebugLogging(unittest.TestCase):
             success_log,
             TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG,
         )
+        self.assertNotIn(self.test_passphrase, success_log)
+        self.assertNotIn(self.test_password, success_log)
 
     def test_add_user_request_debug_log_passphrases_and_passwords_get_redacted_on_error(
         self,
@@ -178,6 +184,8 @@ class TestUserDebugLogging(unittest.TestCase):
         self.assertEqual(
             error_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_ERROR_LOG
         )
+        self.assertNotIn(self.test_passphrase, error_log)
+        self.assertNotIn(self.test_password, error_log)
 
     def test_add_user_request_debug_log_password_xml_tags_not_redacted_on_success(
         self,
@@ -196,6 +204,8 @@ class TestUserDebugLogging(unittest.TestCase):
         self.assertEqual(
             success_log, TestUserConstants.TEST_ADD_USER_PASSWORD_SUCCESS_LOG
         )
+        self.assertEqual(success_log.count("********"), 4)
+        self.assertIn(self.simple_password, success_log)
 
     def test_add_user_request_debug_log_password_xml_tags_not_redacted_on_error(
         self,
@@ -215,6 +225,8 @@ class TestUserDebugLogging(unittest.TestCase):
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_PASSWORD_ERROR_LOG)
+        self.assertEqual(error_log.count("********"), 4)
+        self.assertIn(self.simple_password, error_log)
 
     # ============================================================================
     # Add Additional Secrets
