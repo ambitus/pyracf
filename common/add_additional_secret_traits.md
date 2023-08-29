@@ -5,12 +5,12 @@ parent: Common
 
 # Add Additional Secret Traits
 
-Define additional "secrets" to be redacted in pyracf output.
+Add additional secrets to be redacted in debug log output and any returned result dictionaries or request xml.
 {: .fs-6 .fw-300 }
 
 &nbsp;
 
-**Add additional secret traits**  allows pyracf to redact values beyond passwords and password phrases. When these traits are specified on input, the values will appear redacted in logger output as well as output xml and json objects. This can be specified on any "Admin" object by setting the `generate_requests_only` class attribute to a list containing the `valid_segment_traits` keys for the chosen attributes through the class constructor.
+The `add_additional_secrets` class attribute allows values beyond passwords and password phrases to be redacted. When the `add_additional_secrets` class attribute is set through the class constructor of any "Admin" object, the values that correspond to the trait keys provided will be redacted in debug log output as well as any returned result dictionaries or request xml.
 
 ## Example
 

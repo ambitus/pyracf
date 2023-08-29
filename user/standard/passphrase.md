@@ -4,7 +4,7 @@ grand_parent: User Admin
 parent: Standard
 ---
 
-# passphrase
+# Passphrase
 
 User administration functions for modifying a user's passphrase. 
 {: .fs-6 .fw-300 }
@@ -41,7 +41,7 @@ Change a user's **passphrase**.
   The **z/OS userid** of the user who's **passphrase** is being changed.
 
 * `passphrase`<br>
-  The **passphrase** to assigned to the specified user.
+  The **passphrase** to assign to the specified user.
 
 #### 📤 Returns
 
