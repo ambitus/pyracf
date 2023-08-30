@@ -347,7 +347,7 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         user_admin = UserAdmin(
-            add_field_data=TestUserConstants.TEST_USER_UPDATE_SEGMENTS
+            update_existing_segment_traits=TestUserConstants.TEST_USER_UPDATE_SEGMENTS
         )
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
