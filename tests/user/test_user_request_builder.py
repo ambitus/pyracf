@@ -89,7 +89,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     def test_user_admin_build_alter_request_alternate_segments(self):
         user_admin = UserAdmin(
             generate_requests_only=True,
-            overwrite_segment_traits=TestUserConstants.TEST_USER_ALTERNATE_SEGMENTS,
+            overwrite_existing_segment_traits=TestUserConstants.TEST_USER_ALTERNATE_SEGMENTS,
         )
         result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
@@ -101,7 +101,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     def test_user_admin_build_alter_request_overwrite_segments(self):
         user_admin = UserAdmin(
             generate_requests_only=True,
-            overwrite_segment_traits=TestUserConstants.TEST_USER_OVERWRITE_SEGMENTS,
+            overwrite_existing_segment_traits=TestUserConstants.TEST_USER_OVERWRITE_SEGMENTS,
         )
         result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS

@@ -54,7 +54,7 @@ class SecurityAdmin:
         debug: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
-        overwrite_segment_traits: Union[dict, None] = None,
+        overwrite_existing_segment_traits: Union[dict, None] = None,
     ) -> None:
         self.__irrsmo00 = IRRSMO00()
         self.__profile_type = profile_type
@@ -66,8 +66,8 @@ class SecurityAdmin:
         self.__generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
             self.__add_additional_valid_segment_traits(update_existing_segment_traits)
-        if overwrite_segment_traits is not None:
-            self.__overwrite_valid_segment_traits(overwrite_segment_traits)
+        if overwrite_existing_segment_traits is not None:
+            self.__overwrite_valid_segment_traits(overwrite_existing_segment_traits)
 
     # ============================================================================
     # Custom Fields

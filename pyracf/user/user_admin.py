@@ -208,14 +208,14 @@ class UserAdmin(SecurityAdmin):
         debug: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
-        overwrite_segment_traits: Union[dict, None] = None,
+        overwrite_existing_segment_traits: Union[dict, None] = None,
     ) -> None:
         super().__init__(
             "user",
             debug=debug,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
-            overwrite_segment_traits=overwrite_segment_traits,
+            overwrite_existing_segment_traits=overwrite_existing_segment_traits,
         )
 
     # ============================================================================

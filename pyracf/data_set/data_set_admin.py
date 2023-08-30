@@ -59,14 +59,14 @@ class DataSetAdmin(SecurityAdmin):
         debug: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
-        overwrite_segment_traits: Union[dict, None] = None,
+        overwrite_existing_segment_traits: Union[dict, None] = None,
     ) -> None:
         super().__init__(
             "dataSet",
             debug=debug,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
-            overwrite_segment_traits=overwrite_segment_traits,
+            overwrite_existing_segment_traits=overwrite_existing_segment_traits,
         )
         self._valid_segment_traits["base"].update(
             self._common_base_traits_data_set_generic
