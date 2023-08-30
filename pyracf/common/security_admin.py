@@ -24,8 +24,8 @@ class SecurityAdmin:
         debug: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
-        overwrite_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
+        overwrite_existing_segment_traits: Union[dict, None] = None,
     ) -> None:
         self._common_base_traits_data_set_generic = {
             "base:aclcnt": "racf:aclcnt",
@@ -71,8 +71,8 @@ class SecurityAdmin:
         self.__generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
             self.__add_additional_valid_segment_traits(update_existing_segment_traits)
-        if overwrite_segment_traits is not None:
-            self.__overwrite_valid_segment_traits(overwrite_segment_traits)
+        if overwrite_existing_segment_traits is not None:
+            self.__overwrite_valid_segment_traits(overwrite_existing_segment_traits)
         if additional_secret_traits is not None:
             self.__add_additional_secret_traits(additional_secret_traits)
 
