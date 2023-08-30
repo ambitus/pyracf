@@ -114,7 +114,7 @@ class Logger:
 
     def __redact_string(
         self,
-        input_string: Union[str, bytes],
+        input_string: str,
         start_ind: int,
         end_pattern: str,
     ):

@@ -248,6 +248,9 @@ class TestUserDebugLogging(unittest.TestCase):
             success_log,
             TestUserConstants.TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
         )
+        self.assertNotIn(
+            TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS["omvs:uid"], success_log
+        )
 
     def test_add_user_request_debug_log_additional_secret_added_get_redacted_on_error(
         self,
@@ -267,6 +270,9 @@ class TestUserDebugLogging(unittest.TestCase):
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             error_log, TestUserConstants.TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG
+        )
+        self.assertNotIn(
+            TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS["omvs:uid"], error_log
         )
 
     # ============================================================================
