@@ -53,8 +53,8 @@ class SecurityAdmin:
         profile_type: str,
         debug: bool = False,
         generate_requests_only: bool = False,
-        add_field_data: Union[dict, None] = None,
-        overwrite_field_data: Union[dict, None] = None,
+        update_existing_segment_traits: Union[dict, None] = None,
+        overwrite_segment_traits: Union[dict, None] = None,
     ) -> None:
         self.__irrsmo00 = IRRSMO00()
         self.__profile_type = profile_type
@@ -64,25 +64,31 @@ class SecurityAdmin:
         self._trait_map = {}
         self.__debug = debug
         self.__generate_requests_only = generate_requests_only
-        if add_field_data is not None:
-            self.__add_field_data(add_field_data)
-        if overwrite_field_data is not None:
-            self.__overwrite_field_data(overwrite_field_data)
+        if update_existing_segment_traits is not None:
+            self.__add_additional_valid_segment_traits(update_existing_segment_traits)
+        if overwrite_segment_traits is not None:
+            self.__overwrite_valid_segment_traits(overwrite_segment_traits)
 
     # ============================================================================
     # Custom Fields
     # ============================================================================
-    def __add_field_data(self, field_data: dict):
+    def __add_additional_valid_segment_traits(
+        self, additional_valid_segment_traits: dict
+    ):
         """Add additional fields to valid segment traits dictionary."""
-        for segment in field_data:
+        for segment in additional_valid_segment_traits:
             if segment in self._valid_segment_traits:
-                self._valid_segment_traits[segment].update(field_data[segment])
+                self._valid_segment_traits[segment].update(
+                    additional_valid_segment_traits[segment]
+                )
             else:
-                self._valid_segment_traits[segment] = field_data[segment]
+                self._valid_segment_traits[segment] = additional_valid_segment_traits[
+                    segment
+                ]
 
-    def __overwrite_field_data(self, field_data: dict):
+    def __overwrite_valid_segment_traits(self, new_valid_segment_traits: dict):
         """Overwrite field data in valid segment traits dictionary"""
-        self._valid_segment_traits = field_data
+        self._valid_segment_traits = new_valid_segment_traits
 
     # ============================================================================
     # Request Execution
