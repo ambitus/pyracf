@@ -119,6 +119,8 @@ TEST_ADD_USER_REQUEST_TRAITS = {
 }
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD["base:password"] = "GIyTTqdF"
+TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE = dict(TEST_ADD_USER_REQUEST_TRAITS)
+TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE["base:password"] = "PASSWORD"
 TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE["base:passphrase"] = "PassPhrasesAreCool!"
 TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD = dict(
@@ -169,6 +171,7 @@ TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML = get_sample(
     "user_remove_operations_authority_request.xml"
 )
 TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
+TEST_USER_SET_PASSPHRASE_XML = get_sample("user_set_passphrase_request.xml")
 TEST_USER_ADD_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
     "user_add_class_authorizations_single_class_request.xml"
 )
@@ -197,6 +200,13 @@ TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 
 TEST_ADD_USER_SUCCESS_LOG = get_sample("add_user_success.log")
 TEST_ADD_USER_ERROR_LOG = get_sample("add_user_error.log")
+
+TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "add_user_additional_secret_added_success.log"
+)
+TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "add_user_additional_secret_added_error.log"
+)
 
 TEST_ADD_USER_PASSWORD_SUCCESS_LOG = get_sample("add_user_password_success.log")
 TEST_ADD_USER_PASSWORD_ERROR_LOG = get_sample("add_user_password_error.log")

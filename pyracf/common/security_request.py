@@ -21,7 +21,7 @@ class SecurityRequest:
     def _get_volume_and_generic_security_definition_values(
         self, volume: Union[str, None], generic: bool
     ) -> None:
-        """Get volid and generic xml values for security definition"""
+        """Get volid and generic xml values for security definition."""
         security_definition_volume = ""
         security_definition_generic = "no"
         if volume:
