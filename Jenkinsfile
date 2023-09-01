@@ -92,6 +92,7 @@ pipeline {
             }
             steps {
                 publish(
+                    env.PYTHON_310,
                     params.releaseTag, 
                     env.BRANCH_NAME, 
                     params.gitHubMilestoneLink,
