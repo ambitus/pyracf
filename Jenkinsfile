@@ -196,8 +196,6 @@ def publish(
             )
         ).trim()
 
-        echo "Release Id: ${release_id}"
-
         echo "Cleaning repo and building ${wheel}..."
 
         sh """
@@ -216,7 +214,7 @@ def publish(
             + '-H "X-GitHub-Api-Version: 2022-11-28" \\'
             + '-H "Content-Type: application/octet-stream" \\'
             + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" \\"
-            + "--data-binary \"@${wheel}\""
+            + "--data-binary \"${wheel}\""
         )
 
         sh(
