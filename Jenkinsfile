@@ -118,8 +118,8 @@ def build_virtual_environment(python) {
 def lint_and_unit_test(python) {
     sh """
         . venv_${python}/bin/activate
-        ${python} -m flake8 .
-        ${python} -m pylint --recursive=y .
+        ${python} -m flake8 . --exclude venv_*
+        ${python} -m pylint --recursive=y --ignore venv_* .
         ${python} -m coverage run tests/test_runner.py
         ${python} -m coverage report -m
     """
