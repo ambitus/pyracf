@@ -5,6 +5,7 @@ pipeline {
         }
     }
 
+    /*
     parameters {
         booleanParam(
             name: "createRelease",
@@ -27,6 +28,7 @@ pipeline {
             description: "Toggle whether or not this is a pre-release."
         )
     }
+    */
 
     options {
         ansiColor('css')
