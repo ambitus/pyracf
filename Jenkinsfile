@@ -36,7 +36,7 @@ pipeline {
         OS = sh(
             returnStdout: true, 
             script: "uname"
-        ).trim()
+        ).trim().replace("/", "")
         RELEASE = sh(
             returnStdout: true, 
             script: "uname -r"
