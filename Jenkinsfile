@@ -12,7 +12,7 @@ pipeline {
             description: "Toggle whether or not to create a release from this revision."
         )
         string {
-            name:"releaseTag",
+            name: "release",
             defaultValue: "",
             description: "When creating a new release, this will be the git tag and version number of the release.",
         }
@@ -61,8 +61,8 @@ pipeline {
             steps {
                 script {
                     if (params.createRelease) {
-                        if (params.releaseTag == "") {
-                            error("'releaseTag' is required when creating a release.")
+                        if (params.release == "") {
+                            error("'release' is required when creating a release.")
                         }
                         if (params.gitHubMilestoneLink) {
                             error("'gitHubMilestoneLink' is required when creating a release.")
@@ -92,7 +92,7 @@ pipeline {
             }
             steps {
                 publish(
-                    params.releaseTag, 
+                    params.release, 
                     env.BRANCH_NAME, 
                     params.gitHubMilestoneLink,
                     params.preRelease,
