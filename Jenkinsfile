@@ -6,7 +6,7 @@ pipeline {
     }
 
     parameters {
-        booleanParm(
+        booleanParam(
             name: "createRelease",
             defaultValue: false,
             description: "Toggle whether or not to create a release from this revision."
@@ -21,7 +21,7 @@ pipeline {
             defaultValue: "",
             description: "When creating a new release, this is the GitHub Milestore URL that coresponds to the release."
         }
-        booleanParm(
+        booleanParam(
             name: "preRelease",
             defaultValue: true,
             description: "Toggle whether or not this is a pre-release."
