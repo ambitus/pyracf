@@ -5,30 +5,28 @@ pipeline {
         }
     }
 
-    /*
     parameters {
         booleanParam(
             name: "createRelease",
             defaultValue: false,
             description: "Toggle whether or not to create a release from this revision."
         )
-        string {
+        string(
             name: "releaseTag",
             defaultValue: "",
             description: "When creating a new release, this will be the git tag and version number of the release."
-        }
-        string {
+        )
+        string(
             name: "gitHubMilestoneLink",
             defaultValue: "",
             description: "When creating a new release, this is the GitHub Milestore URL that coresponds to the release."
-        }
+        )
         booleanParam(
             name: "preRelease",
             defaultValue: true,
             description: "Toggle whether or not this is a pre-release."
         )
     }
-    */
 
     options {
         ansiColor('css')
