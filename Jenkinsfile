@@ -196,6 +196,8 @@ def publish(
             )
         ).trim()
 
+        echo "Release Id: ${release_id}"
+
         echo "Cleaning repo and building ${wheel}..."
 
         sh """
