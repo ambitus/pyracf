@@ -7,22 +7,22 @@ pipeline {
 
     parameters {
         booleanParm(
-            name: "createRelease",
+            name:"createRelease",
             defaultValue: false,
             description: "Toggle whether or not to create a release from this revision."
         )
         string {
-            name: "releaseTag",
+            name:"releaseTag",
             defaultValue: "",
             description: "When creating a new release, this will be the git tag and version number of the release.",
         }
         string {
-            name: "gitHubMilestoneLink",
+            name:"gitHubMilestoneLink",
             defaultValue: "",
             description: "When creating a new release, this is the GitHub Milestore URL that coresponds to the release."
         }
         booleanParm(
-            name: "preRelease",
+            name:"preRelease",
             defaultValue: true,
             description: "Toggle whether or not this is a pre-release."
         )
@@ -51,9 +51,9 @@ pipeline {
         ).trim()
 
         PYHTON_310 = "python3.10"
-        PYTHON_310_WHEEL = "pyRACF-${env.PYRACF_VERSION}-cp310-cp310-${OS}_${RELEASE}_${PROCESSOR}.whl"
+        PYTHON_310_WHEEL = "pyRACF-${env.PYRACF_VERSION}-cp310-cp310-${env.OS}_${env.RELEASE}_${env.PROCESSOR}.whl"
         PYTHON_311 = "python3.11"
-        PYTHON_311_WHEEL = "pyRACF-${env.PYRACF_VERSION}-cp311-cp311-${OS}_${RELEASE}_${PROCESSOR}.whl"
+        PYTHON_311_WHEEL = "pyRACF-${env.PYRACF_VERSION}-cp311-cp311-${env.OS}_${env.RELEASE}_${env.PROCESSOR}.whl"
     }
 
     stages {
