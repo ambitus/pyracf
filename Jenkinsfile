@@ -204,6 +204,8 @@ def publish(
             ${python} -m pip wheel .
         """
 
+        echo "Release ID: '${release_id}'"
+
         echo "Uploading ${wheel} as an asset to ${release} GitHub release..."
 
         sh(
