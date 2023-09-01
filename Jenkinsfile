@@ -64,7 +64,7 @@ pipeline {
                         if (params.releaseTag == "") {
                             error("'releaseTag' is required when creating a release.")
                         }
-                        if (params.gitHubMilestoneLink) {
+                        if (params.gitHubMilestoneLink == "") {
                             error("'gitHubMilestoneLink' is required when creating a release.")
                         }
                     }
