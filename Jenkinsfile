@@ -193,8 +193,8 @@ def publish(
                 + "     \"prerelease\": ${pre_release},"
                 + "     \"generate_release_notes\":false"
                 + "}' | grep '\"id\": ' | head -n1 | cut -d':' -f2 | cut -d',' -f1"
-            ).trim()
-        )
+            )
+        ).trim()
 
         echo "Cleaning repo and building ${wheel}..."
 
@@ -203,8 +203,6 @@ def publish(
             . venv_${python}/bin/activate
             ${python} -m pip wheel .
         """
-
-        echo "Release ID: '${release_id}'"
 
         echo "Uploading ${wheel} as an asset to ${release} GitHub release..."
 
