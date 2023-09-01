@@ -13,13 +13,14 @@
         {name = "Elijah Swift", email = "elijah.swift@ibm.com"},  
     ]
     readme = "README.md"
-    requires-python = "~=3.11"
+    requires-python = ">=3.10"
     classifiers=[
                 "Development Status :: 3 - Alpha",
                 "Intended Audience :: Developers",
                 "License :: IBM Internal For Now...",
                 "Operating System :: z/OS",
                 "Programming Language :: Python :: 3",
+                "Programming Language :: Python :: 3.10",
                 "Programming Language :: Python :: 3.11",
                 "Programming Language :: Python :: Implementation :: CPython",
                 "Programming Language :: Python :: Implementation :: PyPy",
