@@ -178,12 +178,12 @@ def publish(
         def release_id = sh(
             returnStdout: true,
             script: (
-                'curl -f -v -L \\'
-                + '-X POST \\'
-                + '-H "Accept: application/vnd.github+json" \\'
-                + '-H "Authorization: Bearer ${github_access_token}" \\'
-                + '-H "X-GitHub-Api-Version: 2022-11-28" \\'
-                + 'https://api.github.com/repos/ambitus/pyracf/releases \\'
+                'curl -f -v -L '
+                + '-X POST '
+                + '-H "Accept: application/vnd.github+json" '
+                + '-H "Authorization: Bearer ${github_access_token}" '
+                + '-H "X-GitHub-Api-Version: 2022-11-28" '
+                + 'https://api.github.com/repos/ambitus/pyracf/releases '
                 + "-d '{"
                 + "     \"tag_name\": \"${release}\","
                 + "     \"target_commitish\": \"${git_branch}\","
@@ -207,16 +207,14 @@ def publish(
         echo "Uploading ${wheel} as an asset to ${release} GitHub release..."
 
         sh(
-            script: (
-                'curl -f -v -L \\'
-                + '-X POST \\'
-                + '-H "Accept: application/vnd.github+json" \\'
-                + '-H "Authorization: Bearer ${github_access_token}" \\'
-                + '-H "X-GitHub-Api-Version: 2022-11-28" \\'
-                + '-H "Content-Type: application/octet-stream" \\'
-                + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" \\"
-                + "--data-binary \"${wheel}\""
-            )
+            'curl -f -v -L '
+            + '-X POST '
+            + '-H "Accept: application/vnd.github+json" '
+            + '-H "Authorization: Bearer ${github_access_token}" '
+            + '-H "X-GitHub-Api-Version: 2022-11-28" '
+            + '-H "Content-Type: application/octet-stream" '
+            + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" "
+            + "--data-binary \"${wheel}\""
         )
 
         sh(
