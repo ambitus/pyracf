@@ -193,7 +193,7 @@ def publish(
                 + "     \"prerelease\": ${pre_release},"
                 + "     \"generate_release_notes\":false"
                 + "}' | grep '\"id\": ' | head -n1 | cut -d':' -f2 | cut -d',' -f1"
-            ).trim()
+            ).trim().replaceAll("\\s", "")
         )
 
         echo "Cleaning repo and building ${wheel}..."
