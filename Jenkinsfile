@@ -92,7 +92,7 @@ pipeline {
             }
             steps {
                 publish(
-                    env.PYTHON_310,
+                    env.PYTHON_311,
                     params.releaseTag, 
                     env.BRANCH_NAME, 
                     params.gitHubMilestoneLink,
@@ -178,7 +178,7 @@ def publish(
         def release_id = sh(
             returnStdout: true,
             script: (
-                'curl -L \\'
+                'curl -f -v -L \\'
                 + '-X POST \\'
                 + '-H "Accept: application/vnd.github+json" \\'
                 + '-H "Authorization: Bearer ${github_access_token}" \\'
@@ -207,7 +207,7 @@ def publish(
         echo "Uploading ${wheel} as an asset to ${release} GitHub release..."
 
         sh(
-            'curl -L \\'
+            'curl -f -v -L \\'
             + '-X POST \\'
             + '-H "Accept: application/vnd.github+json" \\'
             + '-H "Authorization: Bearer ${github_access_token}" \\'
