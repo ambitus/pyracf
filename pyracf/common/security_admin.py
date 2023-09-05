@@ -24,8 +24,8 @@ class SecurityAdmin:
         debug: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
-        additional_secret_traits: Union[List[str], None] = None,
         overwrite_existing_segment_traits: Union[dict, None] = None,
+        additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         self._common_base_traits_data_set_generic = {
             "base:aclcnt": "racf:aclcnt",
