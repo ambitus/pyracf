@@ -166,7 +166,7 @@ def publish(
             )
         ]
     ) {
-        def gh_pyracf_base_url = "https://api.github.com/repos/ambitus/pyracf/releases"
+        def github_pyracf_base_url = "https://api.github.com/repos/ambitus/pyracf/releases"
 
         // Creating GitHub releases: 
         // https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release
@@ -186,7 +186,7 @@ def publish(
                 + '-H "Accept: application/vnd.github+json" '
                 + '-H "Authorization: Bearer ${github_access_token}" '
                 + '-H "X-GitHub-Api-Version: 2022-11-28" '
-                + "${base_url} "
+                + "${github_pyracf_base_url} "
                 + "| grep '${wheel}'"
             )
         )
@@ -205,7 +205,7 @@ def publish(
                 + '-H "Accept: application/vnd.github+json" '
                 + '-H "Authorization: Bearer ${github_access_token}" '
                 + '-H "X-GitHub-Api-Version: 2022-11-28" '
-                + "${base_url} "
+                + "${github_pyracf_base_url} "
                 + "-d '{"
                 + "     \"tag_name\": \"${release}\","
                 + "     \"target_commitish\": \"${git_branch}\","
@@ -235,7 +235,7 @@ def publish(
             + '-H "Authorization: Bearer ${github_access_token}" '
             + '-H "X-GitHub-Api-Version: 2022-11-28" '
             + '-H "Content-Type: application/octet-stream" '
-            + "\"${base_url}/${release_id}/assets?name=${wheel}\" "
+            + "\"${github_pyracf_base_url}/${release_id}/assets?name=${wheel}\" "
             + "--data-binary \"@${wheel}\""
         )
 
