@@ -169,9 +169,27 @@ def publish(
         // Creating GitHub releases: https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release
         // Uploading release assets: https://docs.github.com/en/rest/releases/assets?apiVersion=2022-11-28#upload-a-release-asset
 
-        // Use single quotes for access token since it is the most secure
+        // Use single quotes for credentials since it is the most secure
         // method for interpolating secrets according to the Jenkins docs:
         // https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#string-interpolation
+
+        echo "Checking to make sure release '${release}' doesn't exist already..."
+
+        def release_exists = sh(
+            returnStatus: true,
+            script: (
+                'curl -f -v '
+                + '-H "Accept: application/vnd.github+json" '
+                + '-H "Authorization: Bearer ${github_access_token}" '
+                + '-H "X-GitHub-Api-Version: 2022-11-28" '
+                + 'https://api.github.com/repos/ambitus/pyracf/releases '
+                + "| grep '${wheel}'"
+            )
+        )
+
+        if (release_exists == true) {
+            error("Release '${release}' exists. Refusing to overwrite existing release.")
+        }
 
         echo "Creating ${release} GitHub release..."
 
@@ -214,7 +232,7 @@ def publish(
             + '-H "X-GitHub-Api-Version: 2022-11-28" '
             + '-H "Content-Type: application/octet-stream" '
             + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" "
-            + "--data-binary \"${wheel}\""
+            + "--data-binary \"@${wheel}\""
         )
 
         sh(
