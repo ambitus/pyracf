@@ -177,24 +177,6 @@ def publish(
         // method for interpolating secrets according to the Jenkins docs:
         // https://www.jenkins.io/doc/book/pipeline/jenkinsfile/#string-interpolation
 
-        echo "Checking to make sure release '${release}' doesn't exist already..."
-
-        def status_code = sh(
-            returnStatus: true,
-            script: (
-                'curl -f -v '
-                + '-H "Accept: application/vnd.github+json" '
-                + '-H "Authorization: Bearer ${github_access_token}" '
-                + '-H "X-GitHub-Api-Version: 2022-11-28" '
-                + "${github_pyracf_base_url} "
-                + "| grep '${wheel}'"
-            )
-        )
-
-        if (status_code == 0) {
-            error("Release '${release}' exists. Refusing to overwrite existing release.")
-        }
-
         echo "Creating '${release}' GitHub release..."
 
         def release_id = sh(
