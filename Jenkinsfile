@@ -166,8 +166,12 @@ def publish(
             )
         ]
     ) {
-        // Creating GitHub releases: https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release
-        // Uploading release assets: https://docs.github.com/en/rest/releases/assets?apiVersion=2022-11-28#upload-a-release-asset
+        def gh_pyracf_base_url = "https://api.github.com/repos/ambitus/pyracf/releases"
+
+        // Creating GitHub releases: 
+        // https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release
+        // Uploading release assets: 
+        // https://docs.github.com/en/rest/releases/assets?apiVersion=2022-11-28#upload-a-release-asset
 
         // Use single quotes for credentials since it is the most secure
         // method for interpolating secrets according to the Jenkins docs:
@@ -175,23 +179,23 @@ def publish(
 
         echo "Checking to make sure release '${release}' doesn't exist already..."
 
-        def release_exists = sh(
+        def status_code = sh(
             returnStatus: true,
             script: (
                 'curl -f -v '
                 + '-H "Accept: application/vnd.github+json" '
                 + '-H "Authorization: Bearer ${github_access_token}" '
                 + '-H "X-GitHub-Api-Version: 2022-11-28" '
-                + 'https://api.github.com/repos/ambitus/pyracf/releases '
+                + "${base_url} "
                 + "| grep '${wheel}'"
             )
         )
 
-        if (release_exists == true) {
+        if (status_code == 0) {
             error("Release '${release}' exists. Refusing to overwrite existing release.")
         }
 
-        echo "Creating ${release} GitHub release..."
+        echo "Creating '${release}' GitHub release..."
 
         def release_id = sh(
             returnStdout: true,
@@ -201,7 +205,7 @@ def publish(
                 + '-H "Accept: application/vnd.github+json" '
                 + '-H "Authorization: Bearer ${github_access_token}" '
                 + '-H "X-GitHub-Api-Version: 2022-11-28" '
-                + 'https://api.github.com/repos/ambitus/pyracf/releases '
+                + "${base_url} "
                 + "-d '{"
                 + "     \"tag_name\": \"${release}\","
                 + "     \"target_commitish\": \"${git_branch}\","
@@ -214,7 +218,7 @@ def publish(
             )
         ).trim()
 
-        echo "Cleaning repo and building ${wheel}..."
+        echo "Cleaning repo and building '${wheel}'..."
 
         sh """
             git clean -f -d -e venv_*
@@ -222,7 +226,7 @@ def publish(
             ${python} -m pip wheel .
         """
 
-        echo "Uploading ${wheel} as an asset to ${release} GitHub release..."
+        echo "Uploading '${wheel}' as an asset to '${release}' GitHub release..."
 
         sh(
             'curl -f -v -L '
@@ -231,14 +235,16 @@ def publish(
             + '-H "Authorization: Bearer ${github_access_token}" '
             + '-H "X-GitHub-Api-Version: 2022-11-28" '
             + '-H "Content-Type: application/octet-stream" '
-            + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" "
+            + "\"${base_url}/${release_id}/assets?name=${wheel}\" "
             + "--data-binary \"@${wheel}\""
         )
 
         sh(
             ". venv_${python}/bin/activate && "
             + "${python} -m twine upload --repository test ${wheel} " 
-            + '-u ${pypi_username} -p ${pypi_password}'
+            + '--non-interactive '
+            + '-u ${pypi_username} '
+            + '-p ${pypi_password}'
         )
     }
 }
