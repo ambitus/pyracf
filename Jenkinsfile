@@ -1,99 +1,107 @@
-node {
-    // Example:
-    // If we want to build wheels for Python 3.10 and Python 3.11, 
-    // 'python_versions' should be '["10", "11"]'.
+def python_versions
+def python_executables_and_wheels_map
 
-    def python_versions = ["10", "11"]
-    def python_executables_and_wheels_map = create_python_executables_and_wheels_map(python_versions)
-
-    pipeline {
-        agent { label 'zOS_pyRACF' }
-
-        parameters {
-            booleanParam(
-                name: "createRelease",
-                defaultValue: false,
-                description: "Toggle whether or not to create a release from this revision."
-            )
-            string(
-                name: "releaseTag",
-                defaultValue: "",
-                description: "When creating a new release, this will be the git tag and version number of the release."
-            )
-            string(
-                name: "gitHubMilestoneLink",
-                defaultValue: "",
-                description: "When creating a new release, this is the GitHub Milestore URL that coresponds to the release."
-            )
-            booleanParam(
-                name: "preRelease",
-                defaultValue: true,
-                description: "Toggle whether or not this is a pre-release."
-            )
+pipeline {
+    agent {
+        node {
+            label 'zOS_pyRACF'
         }
+    }
 
-        options {
-            ansiColor('css')
+    parameters {
+        booleanParam(
+            name: "createRelease",
+            defaultValue: false,
+            description: "Toggle whether or not to create a release from this revision."
+        )
+        string(
+            name: "releaseTag",
+            defaultValue: "",
+            description: "When creating a new release, this will be the git tag and version number of the release."
+        )
+        string(
+            name: "gitHubMilestoneLink",
+            defaultValue: "",
+            description: "When creating a new release, this is the GitHub Milestore URL that coresponds to the release."
+        )
+        booleanParam(
+            name: "preRelease",
+            defaultValue: true,
+            description: "Toggle whether or not this is a pre-release."
+        )
+    }
+
+    options {
+        ansiColor('css')
+    }
+
+    stages {
+        stage('Parameter Validation') {
+            steps {
+                script {
+                    if (params.createRelease) {
+                        if (params.releaseTag == "") {
+                            error("'releaseTag' is required when creating a release.")
+                        }
+                        if (params.gitHubMilestoneLink == "") {
+                            error("'gitHubMilestoneLink' is required when creating a release.")
+                        }
+                    }
+                }
+            }
         }
-
-        stages {
-            stage('Parameter Validation') {
-                steps {
-                    script {
-                        if (params.createRelease) {
-                            if (params.releaseTag == "") {
-                                error("'releaseTag' is required when creating a release.")
-                            }
-                            if (params.gitHubMilestoneLink == "") {
-                                error("'gitHubMilestoneLink' is required when creating a release.")
-                            }
-                        }
-                    }
-                }
-            }
-            stage('Build Virtual Environments') {
-                steps {
-                    script {
-                        for (python in python_executables_and_wheels_map.keySet()) {
-                            build_virtual_environment(python)
-                        }
-                    }
-                }
-            }
-            stage('Lint & Unit Test') {
-                steps {
-                    script {
-                        for (python in python_executables_and_wheels_map.keySet()) {
-                            lint_and_unit_test(python)
-                        }
-                    }
-                }
-            }
-            stage('Function Test') {
-                steps {
-                    script {
-                        for (python in python_executables_and_wheels_map.keySet()) {
-                            function_test(
-                                python, 
-                                python_executables_and_wheels_map[python]
-                            )
-                        }
-                    }
-                }
-            }
-            stage('Publish') {
-                when { 
-                    expression { params.createRelease == true }    
-                }
-                steps {
-                    publish(
-                        python_executables_and_wheels_map,
-                        params.releaseTag, 
-                        env.BRANCH_NAME, 
-                        params.gitHubMilestoneLink,
-                        params.preRelease
+        stage('Build Python Executables & Wheels Map') {
+            steps {
+                script {
+                    python_versions = ["10", "11"]
+                    python_executables_and_wheels_map = (
+                        create_python_executables_and_wheels_map(python_versions)
                     )
                 }
+            }
+        }
+        stage('Build Virtual Environments') {
+            steps {
+                script {
+                    for (python in python_executables_and_wheels_map.keySet()) {
+                        build_virtual_environment(python)
+                    }
+                }
+            }
+        }
+        stage('Lint & Unit Test') {
+            steps {
+                script {
+                    for (python in python_executables_and_wheels_map.keySet()) {
+                        lint_and_unit_test(python)
+                    }
+                }
+            }
+        }
+        stage('Function Test') {
+            steps {
+                script {
+                    for (python in python_executables_and_wheels_map.keySet()) {
+                        function_test(
+                            python, 
+                            python_executables_and_wheels_map[python]
+                        )
+                    }
+                }
+            }
+        }
+        stage('Publish') {
+            when { 
+                expression { params.createRelease == true }    
+            }
+            steps {
+                publish(
+                    python_executables_and_wheels_map,
+                    params.releaseTag, 
+                    env.BRANCH_NAME, 
+                    params.gitHubMilestoneLink,
+                    params.preRelease
+                )
             }
         }
     }
