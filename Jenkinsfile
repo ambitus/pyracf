@@ -1,3 +1,10 @@
+// Example:
+// If we want to build wheels for Python 3.10 and Python 3.11, 
+// 'python_versions' should be '["10", "11"]'.
+
+def python_versions = ["10", "11"]
+def python_executables_and_wheels_map = create_python_executables_and_wheels_map(python_versions)
+
 pipeline {
     agent {
         node {
@@ -33,27 +40,7 @@ pipeline {
     }
 
     environment {
-        OS = sh(
-            returnStdout: true, 
-            script: "uname"
-        ).trim().replace("/", "").toLowerCase()
-        RELEASE = sh(
-            returnStdout: true, 
-            script: "uname -r"
-        ).trim().replace(".", "_")
-        PROCESSOR = sh(
-            returnStdout: true, 
-            script: "uname -m"
-        ).trim()
-        PYRACF_VERSION = sh(
-            returnStdout: true, 
-            script: "cat pyproject.toml | grep version | cut -d'=' -f2 | cut -d'\"' -f2"
-        ).trim()
-
-        PYHTON_310 = "python3.10"
-        PYTHON_310_WHEEL = "pyRACF-${env.PYRACF_VERSION}-cp310-cp310-${env.OS}_${env.RELEASE}_${env.PROCESSOR}.whl"
-        PYTHON_311 = "python3.11"
-        PYTHON_311_WHEEL = "pyRACF-${env.PYRACF_VERSION}-cp311-cp311-${env.OS}_${env.RELEASE}_${env.PROCESSOR}.whl"
+        
     }
 
     stages {
@@ -71,19 +58,34 @@ pipeline {
                 }
             }
         }
-        stage('Build Virtual Environment v3.11') {
+        stage('Build Virtual Environments') {
             steps {
-                build_virtual_environment(env.PYTHON_311)
+                script {
+                    for (python in python_executables_and_wheels_map.keySet()) {
+                        build_virtual_environment(python)
+                    }
+                }
             }
         }
-        stage('Lint & Unit Test Python v3.11') {
+        stage('Lint & Unit Test') {
             steps {
-                lint_and_unit_test(env.PYTHON_311)
+                script {
+                    for (python in python_executables_and_wheels_map.keySet()) {
+                        lint_and_unit_test(python)
+                    }
+                }
             }
         }
-        stage('Function Test Python v3.11') {
+        stage('Function Test') {
             steps {
-                function_test(env.PYTHON_311, env.PYTHON_311_WHEEL)
+                script {
+                    for (python in python_executables_and_wheels_map.keySet()) {
+                        function_test(
+                            python, 
+                            python_executables_and_wheels_map[python]
+                        )
+                    }
+                }
             }
         }
         stage('Publish') {
@@ -92,19 +94,49 @@ pipeline {
             }
             steps {
                 publish(
-                    env.PYTHON_311,
+                    python_executables_and_wheels_map,
                     params.releaseTag, 
                     env.BRANCH_NAME, 
                     params.gitHubMilestoneLink,
-                    params.preRelease,
-                    env.PYTHON_311_WHEEL
+                    params.preRelease
                 )
             }
         }
     }
 }
 
+def create_python_executables_and_wheels_map(python_versions) {
+    def os = sh(
+        returnStdout: true, 
+        script: "uname"
+    ).trim().replace("/", "").toLowerCase()
+    def zos_release = sh(
+        returnStdout: true, 
+        script: "uname -r"
+    ).trim().replace(".", "_")
+    def processor = sh(
+        returnStdout: true, 
+        script: "uname -m"
+    ).trim()
+    def pyracf_version = sh(
+        returnStdout: true, 
+        script: "cat pyproject.toml | grep version | cut -d'=' -f2 | cut -d'\"' -f2"
+    ).trim()
+
+    python_executables_and_wheels_map = [:]
+
+    for (version in python_versions) {
+        python_executables_and_wheels_map["python3.${version}"] = (
+            "pyRACF-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
+        )
+    }
+
+    return python_executables_and_wheels_map
+}
+
 def build_virtual_environment(python) {
+    echo "Building virtual environment for '${python}'..."
+
     sh """
         ${python} --version
         rm -rf venv_${python}
@@ -116,6 +148,8 @@ def build_virtual_environment(python) {
 }
 
 def lint_and_unit_test(python) {
+    echo "Running linters and unit tests for '${python}'..."
+
     sh """
         . venv_${python}/bin/activate
         ${python} -m flake8 . --exclude venv_*
@@ -126,6 +160,8 @@ def lint_and_unit_test(python) {
 }
 
 def function_test(python, wheel) {
+    echo "Running function test for '${python}'..."
+
     sh """
         git clean -f -d -e venv_*
         . venv_${python}/bin/activate
@@ -137,12 +173,11 @@ def function_test(python, wheel) {
 }
 
 def publish(
-        python, 
+        python_executables_and_wheels_map, 
         release, 
         git_branch, 
         milestone, 
-        pre_release, 
-        wheel
+        pre_release,
 ) {
     if (pre_release == true) {
         pre_release = "true"
@@ -199,33 +234,37 @@ def publish(
             )
         ).trim()
 
-        echo "Cleaning repo and building '${wheel}'..."
+        for (python in python_executables_and_wheels_map.keySet()) {
+            def wheel = python_executables_and_wheels_map[python]
 
-        sh """
-            git clean -f -d -e venv_*
-            . venv_${python}/bin/activate
-            ${python} -m pip wheel .
-        """
+            echo "Cleaning repo and building '${wheel}'..."
 
-        echo "Uploading '${wheel}' as an asset to '${release}' GitHub release..."
+            sh """
+                git clean -f -d -e venv_*
+                . venv_${python}/bin/activate
+                ${python} -m pip wheel .
+            """
 
-        sh(
-            'curl -f -v -L '
-            + '-X POST '
-            + '-H "Accept: application/vnd.github+json" '
-            + '-H "Authorization: Bearer ${github_access_token}" '
-            + '-H "X-GitHub-Api-Version: 2022-11-28" '
-            + '-H "Content-Type: application/octet-stream" '
-            + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" "
-            + "--data-binary \"@${wheel}\""
-        )
+            echo "Uploading '${wheel}' as an asset to '${release}' GitHub release..."
 
-        sh(
-            ". venv_${python}/bin/activate && "
-            + "${python} -m twine upload --repository test ${wheel} " 
-            + '--non-interactive '
-            + '-u ${pypi_username} '
-            + '-p ${pypi_password}'
-        )
+            sh(
+                'curl -f -v -L '
+                + '-X POST '
+                + '-H "Accept: application/vnd.github+json" '
+                + '-H "Authorization: Bearer ${github_access_token}" '
+                + '-H "X-GitHub-Api-Version: 2022-11-28" '
+                + '-H "Content-Type: application/octet-stream" '
+                + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" "
+                + "--data-binary \"@${wheel}\""
+            )
+
+            sh(
+                ". venv_${python}/bin/activate && "
+                + "${python} -m twine upload --repository test ${wheel} " 
+                + '--non-interactive '
+                + '-u ${pypi_username} '
+                + '-p ${pypi_password}'
+            )
+        }
     }
 }
