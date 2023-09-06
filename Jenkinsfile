@@ -173,7 +173,7 @@ def publish(
         release, 
         git_branch, 
         milestone, 
-        pre_release,
+        pre_release
 ) {
     if (pre_release == true) {
         pre_release = "true"
