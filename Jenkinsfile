@@ -39,10 +39,6 @@ pipeline {
         ansiColor('css')
     }
 
-    environment {
-        
-    }
-
     stages {
         stage('Parameter Validation') {
             steps {
