@@ -70,7 +70,7 @@ class SecurityAdmin:
         self.__debug = debug
         self.__generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
-            self.__add_additional_valid_segment_traits(update_existing_segment_traits)
+            self.__update_valid_segment_traits(update_existing_segment_traits)
         if overwrite_existing_segment_traits is not None:
             self.__overwrite_valid_segment_traits(overwrite_existing_segment_traits)
         if additional_secret_traits is not None:
@@ -79,9 +79,7 @@ class SecurityAdmin:
     # ============================================================================
     # Custom Fields
     # ============================================================================
-    def __add_additional_valid_segment_traits(
-        self, additional_valid_segment_traits: dict
-    ):
+    def __update_valid_segment_traits(self, additional_valid_segment_traits: dict):
         """Add additional fields to valid segment traits dictionary."""
         for segment in additional_valid_segment_traits:
             if segment in self._valid_segment_traits:
