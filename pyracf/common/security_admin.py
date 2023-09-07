@@ -77,7 +77,7 @@ class SecurityAdmin:
             self.__add_additional_secret_traits(additional_secret_traits)
 
     # ============================================================================
-    # Custom Fields
+    # Customize Segment Traits
     # ============================================================================
     def __update_valid_segment_traits(self, update_valid_segment_traits: dict):
         """Update fields to valid segment traits dictionary."""
@@ -95,6 +95,9 @@ class SecurityAdmin:
         """Replace field data in valid segment traits dictionary"""
         self._valid_segment_traits = new_valid_segment_traits
 
+    # ============================================================================
+    # Secrets Redaction
+    # ============================================================================
     def __add_additional_secret_traits(self, additional_secret_traits: list):
         """Add additional fields to be redacted in logger output."""
         for secret in additional_secret_traits:
