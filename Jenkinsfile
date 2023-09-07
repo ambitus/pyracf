@@ -244,7 +244,7 @@ def publish(
             echo "Cleaning repo and building '${wheel}'..."
 
             sh """
-                git clean -f -d -e venv_*
+                git clean -f -d -e 'venv_*'
                 . venv_${python}/bin/activate
                 ${python} -m pip wheel .
             """
