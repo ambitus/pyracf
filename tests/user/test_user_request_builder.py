@@ -86,16 +86,16 @@ class TestUserRequestBuilder(unittest.TestCase):
     # ============================================================================
     # Custom Field Data
     # ============================================================================
-    def test_user_admin_build_alter_request_overwrite_existing_segment_traits(self):
+    def test_user_admin_build_alter_request_replace_existing_segment_traits(self):
         user_admin = UserAdmin(
             generate_requests_only=True,
-            overwrite_existing_segment_traits=TestUserConstants.TEST_USER_OVERWRITE_SEGMENT_TRAITS,
+            replace_existing_segment_traits=TestUserConstants.TEST_USER_REPLACE_SEGMENT_TRAITS,
         )
         result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
         )
         self.assertEqual(
-            result, TestUserConstants.TEST_ALTER_USER_REQUEST_OVERWRITE_SEGMENTS_XML
+            result, TestUserConstants.TEST_ALTER_USER_REQUEST_REPLACE_SEGMENTS_XML
         )
 
     def test_user_admin_build_alter_request_update_existing_segment_traits(self):
@@ -108,5 +108,5 @@ class TestUserRequestBuilder(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestUserConstants.TEST_ALTER_USER_REQUEST_ADD_ADDITIONAL_SEGMENTS_XML,
+            TestUserConstants.TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML,
         )

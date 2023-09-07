@@ -24,7 +24,7 @@ class SecurityAdmin:
         debug: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
-        overwrite_existing_segment_traits: Union[dict, None] = None,
+        replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         self._common_base_traits_data_set_generic = {
@@ -71,10 +71,10 @@ class SecurityAdmin:
         self.__generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
             self.__update_valid_segment_traits(update_existing_segment_traits)
-        if overwrite_existing_segment_traits is not None:
-            self.__overwrite_valid_segment_traits(overwrite_existing_segment_traits)
+        if replace_existing_segment_traits is not None:
+            self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
-            self.__add_additional_secret_traits(additional_secret_traits)
+            self.__update_secret_traits(additional_secret_traits)
 
     # ============================================================================
     # Custom Fields
@@ -91,11 +91,11 @@ class SecurityAdmin:
                     segment
                 ]
 
-    def __overwrite_valid_segment_traits(self, new_valid_segment_traits: dict):
+    def __replace_valid_segment_traits(self, new_valid_segment_traits: dict):
         """Overwrite field data in valid segment traits dictionary"""
         self._valid_segment_traits = new_valid_segment_traits
 
-    def __add_additional_secret_traits(self, additional_secret_traits: list):
+    def __update_secret_traits(self, additional_secret_traits: list):
         """Add additional fields to be redacted in logger output."""
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:

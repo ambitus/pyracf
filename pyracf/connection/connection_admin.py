@@ -14,7 +14,7 @@ class ConnectionAdmin(SecurityAdmin):
         debug: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
-        overwrite_existing_segment_traits: Union[dict, None] = None,
+        replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         self._valid_segment_traits = {
@@ -42,7 +42,7 @@ class ConnectionAdmin(SecurityAdmin):
             debug=debug,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
-            overwrite_existing_segment_traits=overwrite_existing_segment_traits,
+            replace_existing_segment_traits=replace_existing_segment_traits,
             additional_secret_traits=additional_secret_traits,
         )
 

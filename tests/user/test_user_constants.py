@@ -239,7 +239,7 @@ TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
 }
 
 # Valid Segment Traits Updates
-TEST_USER_OVERWRITE_SEGMENT_TRAITS = {
+TEST_USER_REPLACE_SEGMENT_TRAITS = {
     "base": {"base:special": "alt:special"},
     "csdata": {"csdata:tstcsfld": "tstcsfld"},
 }
@@ -247,11 +247,11 @@ TEST_USER_OVERWRITE_SEGMENT_TRAITS = {
 TEST_USER_ADDITIONAL_SEGMENT_TRAITS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
 
 # Alter User Requests
-TEST_ALTER_USER_REQUEST_OVERWRITE_SEGMENTS_XML = get_sample(
-    "alter_user_request_overwrite_segments.xml"
+TEST_ALTER_USER_REQUEST_REPLACE_SEGMENTS_XML = get_sample(
+    "alter_user_request_replace_segments.xml"
 )
-TEST_ALTER_USER_REQUEST_ADD_ADDITIONAL_SEGMENTS_XML = get_sample(
-    "alter_user_request_add_additional_segments.xml"
+TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML = get_sample(
+    "alter_user_request_update_segments.xml"
 )
 
 # Extract User Results
