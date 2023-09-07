@@ -340,7 +340,7 @@ class TestUserResultParser(unittest.TestCase):
         )
 
     # ============================================================================
-    # Extract User With Custom Field Data
+    # Extract User with Customized Segment Traits
     # ============================================================================
     def test_user_admin_can_parse_extract_user_base_omvs_csdata_success_xml(
         self,

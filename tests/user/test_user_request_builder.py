@@ -84,7 +84,7 @@ class TestUserRequestBuilder(unittest.TestCase):
         self.assertNotIn(self.test_passphrase, result.decode("utf-8"))
 
     # ============================================================================
-    # Custom Field Data
+    # Customize Segment Traits
     # ============================================================================
     def test_user_admin_build_alter_request_replace_existing_segment_traits(self):
         user_admin = UserAdmin(

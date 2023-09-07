@@ -227,7 +227,7 @@ TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG = get_sample(
 TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error.log")
 
 # ============================================================================
-# Custom Field Data
+# Customize Segment Traits
 # ============================================================================
 
 # Alter User Traits

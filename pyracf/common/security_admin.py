@@ -74,28 +74,28 @@ class SecurityAdmin:
         if replace_existing_segment_traits is not None:
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
-            self.__update_secret_traits(additional_secret_traits)
+            self.__add_additional_secret_traits(additional_secret_traits)
 
     # ============================================================================
     # Custom Fields
     # ============================================================================
-    def __update_valid_segment_traits(self, additional_valid_segment_traits: dict):
-        """Add additional fields to valid segment traits dictionary."""
-        for segment in additional_valid_segment_traits:
+    def __update_valid_segment_traits(self, update_valid_segment_traits: dict):
+        """Update fields to valid segment traits dictionary."""
+        for segment in update_valid_segment_traits:
             if segment in self._valid_segment_traits:
                 self._valid_segment_traits[segment].update(
-                    additional_valid_segment_traits[segment]
+                    update_valid_segment_traits[segment]
                 )
             else:
-                self._valid_segment_traits[segment] = additional_valid_segment_traits[
+                self._valid_segment_traits[segment] = update_valid_segment_traits[
                     segment
                 ]
 
     def __replace_valid_segment_traits(self, new_valid_segment_traits: dict):
-        """Overwrite field data in valid segment traits dictionary"""
+        """Replace field data in valid segment traits dictionary"""
         self._valid_segment_traits = new_valid_segment_traits
 
-    def __update_secret_traits(self, additional_secret_traits: list):
+    def __add_additional_secret_traits(self, additional_secret_traits: list):
         """Add additional fields to be redacted in logger output."""
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
