@@ -15,35 +15,35 @@
     readme = "README.md"
     requires-python = ">=3.10"
     classifiers=[
-                "Development Status :: 3 - Alpha",
-                "Intended Audience :: Developers",
-                "License :: IBM Internal For Now...",
-                "Operating System :: z/OS",
-                "Programming Language :: Python :: 3",
-                "Programming Language :: Python :: 3.10",
-                "Programming Language :: Python :: 3.11",
-                "Programming Language :: Python :: Implementation :: CPython",
-                "Programming Language :: Python :: Implementation :: PyPy",
-                "Topic :: Security",
-                "Topic :: System :: Hardware :: Mainframes",
-                "Topic :: System :: Systems Administration",
-            ]
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "License :: IBM Internal For Now...",
+        "Operating System :: z/OS",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Topic :: Security",
+        "Topic :: System :: Hardware :: Mainframes",
+        "Topic :: System :: Systems Administration",
+    ]
     dependencies = [
         "defusedxml>=0.7.1",
     ]
 
 [tool.setuptools]
     packages=[
-                "pyracf",
-                "pyracf.access",
-                "pyracf.common",
-                "pyracf.connection",
-                "pyracf.data_set",
-                "pyracf.group",
-                "pyracf.resource",
-                "pyracf.setropts",
-                "pyracf.user",
-            ]
+        "pyracf",
+        "pyracf.access",
+        "pyracf.common",
+        "pyracf.connection",
+        "pyracf.data_set",
+        "pyracf.group",
+        "pyracf.resource",
+        "pyracf.setropts",
+        "pyracf.user",
+    ]
     license-files=["LICENSE"]
 
 [tool.isort]

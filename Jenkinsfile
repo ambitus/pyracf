@@ -167,7 +167,7 @@ def function_test(python, wheel) {
     echo "Running function test for '${python}'..."
 
     sh """
-        git clean -f -d -e venv_*
+        git clean -f -d -e 'venv_*'
         . venv_${python}/bin/activate
         ${python} -m pip wheel .
         ${python} -m pip install ${wheel}
