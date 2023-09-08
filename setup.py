@@ -15,7 +15,7 @@ def main():
                     "-D_XOPEN_SOURCE_EXTENDED",
                     "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL),",
                     "-qcpluscmt",
-                ]
+                ],
             )
         ]
     }

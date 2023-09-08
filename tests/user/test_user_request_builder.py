@@ -84,40 +84,29 @@ class TestUserRequestBuilder(unittest.TestCase):
         self.assertNotIn(self.test_passphrase, result.decode("utf-8"))
 
     # ============================================================================
-    # Custom Field Data
+    # Customize Segment Traits
     # ============================================================================
-    def test_user_admin_build_alter_request_alternate_segments(self):
+    def test_user_admin_build_alter_request_replace_existing_segment_traits(self):
         user_admin = UserAdmin(
             generate_requests_only=True,
-            overwrite_field_data=TestUserConstants.TEST_USER_ALTERNATE_SEGMENTS,
+            replace_existing_segment_traits=TestUserConstants.TEST_USER_REPLACE_SEGMENT_TRAITS,
         )
         result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
         )
         self.assertEqual(
-            result, TestUserConstants.TEST_ALTER_USER_REQUEST_ALTERNATIVE_SEGMENTS_XML
+            result, TestUserConstants.TEST_ALTER_USER_REQUEST_REPLACE_SEGMENTS_XML
         )
 
-    def test_user_admin_build_alter_request_overwrite_segments(self):
+    def test_user_admin_build_alter_request_update_existing_segment_traits(self):
         user_admin = UserAdmin(
             generate_requests_only=True,
-            overwrite_field_data=TestUserConstants.TEST_USER_OVERWRITE_SEGMENTS,
+            update_existing_segment_traits=TestUserConstants.TEST_USER_ADDITIONAL_SEGMENT_TRAITS,
         )
         result = user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
         )
         self.assertEqual(
-            result, TestUserConstants.TEST_ALTER_USER_REQUEST_OVERWRITE_SEGMENTS_XML
-        )
-
-    def test_user_admin_build_alter_request_update_segments(self):
-        user_admin = UserAdmin(
-            generate_requests_only=True,
-            add_field_data=TestUserConstants.TEST_USER_UPDATE_SEGMENTS,
-        )
-        result = user_admin.alter(
-            "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
-        )
-        self.assertEqual(
-            result, TestUserConstants.TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML
+            result,
+            TestUserConstants.TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML,
         )

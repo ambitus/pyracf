@@ -23,8 +23,8 @@ class SecurityAdmin:
         profile_type: str,
         debug: bool = False,
         generate_requests_only: bool = False,
-        add_field_data: Union[dict, None] = None,
-        overwrite_field_data: Union[dict, None] = None,
+        update_existing_segment_traits: Union[dict, None] = None,
+        replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         self._common_base_traits_data_set_generic = {
@@ -69,28 +69,35 @@ class SecurityAdmin:
         self._trait_map = {}
         self.__debug = debug
         self.__generate_requests_only = generate_requests_only
-        if add_field_data is not None:
-            self.__add_field_data(add_field_data)
-        if overwrite_field_data is not None:
-            self.__overwrite_field_data(overwrite_field_data)
+        if update_existing_segment_traits is not None:
+            self.__update_valid_segment_traits(update_existing_segment_traits)
+        if replace_existing_segment_traits is not None:
+            self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
             self.__add_additional_secret_traits(additional_secret_traits)
 
     # ============================================================================
-    # Custom Fields
+    # Customize Segment Traits
     # ============================================================================
-    def __add_field_data(self, field_data: dict):
-        """Add additional fields to valid segment traits dictionary."""
-        for segment in field_data:
+    def __update_valid_segment_traits(self, update_valid_segment_traits: dict):
+        """Update fields to valid segment traits dictionary."""
+        for segment in update_valid_segment_traits:
             if segment in self._valid_segment_traits:
-                self._valid_segment_traits[segment].update(field_data[segment])
+                self._valid_segment_traits[segment].update(
+                    update_valid_segment_traits[segment]
+                )
             else:
-                self._valid_segment_traits[segment] = field_data[segment]
+                self._valid_segment_traits[segment] = update_valid_segment_traits[
+                    segment
+                ]
 
-    def __overwrite_field_data(self, field_data: dict):
-        """Overwrite field data in valid segment traits dictionary."""
-        self._valid_segment_traits = field_data
+    def __replace_valid_segment_traits(self, new_valid_segment_traits: dict):
+        """Replace field data in valid segment traits dictionary"""
+        self._valid_segment_traits = new_valid_segment_traits
 
+    # ============================================================================
+    # Secrets Redaction
+    # ============================================================================
     def __add_additional_secret_traits(self, additional_secret_traits: list):
         """Add additional fields to be redacted in logger output."""
         for secret in additional_secret_traits:

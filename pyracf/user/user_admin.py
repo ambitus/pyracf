@@ -14,8 +14,8 @@ class UserAdmin(SecurityAdmin):
         self,
         debug: bool = False,
         generate_requests_only: bool = False,
-        add_field_data: Union[dict, None] = None,
-        overwrite_field_data: Union[dict, None] = None,
+        update_existing_segment_traits: Union[dict, None] = None,
+        replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
         self._valid_segment_traits = {
@@ -214,8 +214,8 @@ class UserAdmin(SecurityAdmin):
             "user",
             debug=debug,
             generate_requests_only=generate_requests_only,
-            add_field_data=add_field_data,
-            overwrite_field_data=overwrite_field_data,
+            update_existing_segment_traits=update_existing_segment_traits,
+            replace_existing_segment_traits=replace_existing_segment_traits,
             additional_secret_traits=additional_secret_traits,
         )
 

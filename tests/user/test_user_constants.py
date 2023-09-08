@@ -227,7 +227,7 @@ TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG = get_sample(
 TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error.log")
 
 # ============================================================================
-# Custom Field Data
+# Customize Segment Traits
 # ============================================================================
 
 # Alter User Traits
@@ -239,21 +239,16 @@ TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
 }
 
 # Valid Segment Traits Updates
-TEST_USER_UPDATE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
-
-TEST_USER_ALTERNATE_SEGMENTS = {
+TEST_USER_REPLACE_SEGMENT_TRAITS = {
     "base": {"base:special": "alt:special"},
     "csdata": {"csdata:tstcsfld": "tstcsfld"},
 }
 
-TEST_USER_OVERWRITE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
+TEST_USER_ADDITIONAL_SEGMENT_TRAITS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
 
 # Alter User Requests
-TEST_ALTER_USER_REQUEST_ALTERNATIVE_SEGMENTS_XML = get_sample(
-    "alter_user_request_alternative_segments.xml"
-)
-TEST_ALTER_USER_REQUEST_OVERWRITE_SEGMENTS_XML = get_sample(
-    "alter_user_request_overwrite_segments.xml"
+TEST_ALTER_USER_REQUEST_REPLACE_SEGMENTS_XML = get_sample(
+    "alter_user_request_replace_segments.xml"
 )
 TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML = get_sample(
     "alter_user_request_update_segments.xml"
