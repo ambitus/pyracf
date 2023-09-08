@@ -273,7 +273,7 @@ Remove **Class Authorizations** to a user's existing **Class Authorizations**.
 ## `UserAdmin.delete_all_class_authorizations()`
 
 ```python
-def delete_all_class_authorizations(self, userid: str) -> Union[dict, False, bytes]:
+def delete_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
 ```
 
 #### 📄 Description
@@ -285,7 +285,7 @@ Delete all of a user's **Class Authorizations**.
   The **z/OS userid** of the user who's class authorizations will be deleted.
 
 #### 📤 Returns
-* `Union[dict, False, bytes]`<br>
+* `Union[dict, bool, bytes]`<br>
   Returns a **Security Result Steps dictionary**, **Concatenated Security Request XML bytes** if the `UserAdmin.generate_requests_only` class attribute is `True`, or `False` if the user has no **Class Authorizations** to delete.
 
 #### ❌ Raises
