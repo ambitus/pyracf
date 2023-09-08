@@ -9,6 +9,11 @@ pipeline {
     }
 
     parameters {
+        string (
+            name: "pythonVersions",
+            defaultValue: "",
+            description: "(Required Always) Comma separated list of Python versions to build wheels for (i.e., Use '10,11' for Python 3.10 and Python 3.11)."
+        )
         booleanParam(
             name: "createRelease",
             defaultValue: false,
@@ -17,12 +22,12 @@ pipeline {
         string(
             name: "releaseTag",
             defaultValue: "",
-            description: "When creating a new release, this will be the git tag and version number of the release."
+            description: "(Required When Creating Releases) This will be the git tag and version number of the release."
         )
         string(
             name: "gitHubMilestoneLink",
             defaultValue: "",
-            description: "When creating a new release, this is the GitHub Milestore URL that coresponds to the release."
+            description: "(Required When Creating Releases) This is the GitHub Milestore URL that coresponds to the release."
         )
         booleanParam(
             name: "preRelease",
@@ -39,12 +44,15 @@ pipeline {
         stage('Parameter Validation') {
             steps {
                 script {
+                    if (params.pythonVersions == "") {
+                        error("'pythonVersions' is required parameter.")
+                    }
                     if (params.createRelease) {
                         if (params.releaseTag == "") {
-                            error("'releaseTag' is required when creating a release.")
+                            error("'releaseTag' is a required parameter when creating a release.")
                         }
                         if (params.gitHubMilestoneLink == "") {
-                            error("'gitHubMilestoneLink' is required when creating a release.")
+                            error("'gitHubMilestoneLink' is a required parameter when creating a release.")
                         }
                     }
                 }
@@ -53,7 +61,7 @@ pipeline {
         stage('Build Python Executables & Wheels Map') {
             steps {
                 script {
-                    python_versions = ["10", "11"]
+                    python_versions = params.pythonVersions.split(",")
                     python_executables_and_wheels_map = (
                         create_python_executables_and_wheels_map(python_versions)
                     )
