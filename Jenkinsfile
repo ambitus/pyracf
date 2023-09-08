@@ -174,7 +174,7 @@ def lint_and_unit_test(python) {
     sh """
         . venv_${python}/bin/activate
         ${python} -m flake8 .
-        ${python} -m pylint --recursive=y --ignore-patterns 'venv_*' .
+        ${python} -m pylint --recursive=y .
         cd tests
         ${python} -m coverage run test_runner.py
         ${python} -m coverage report -m

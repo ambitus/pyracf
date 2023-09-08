@@ -53,6 +53,7 @@
     max-args = 6
     max-returns = 7
     max-attributes = 10
+    ignore-patterns = "venv_*"
 
 [tool.pylint.'MESSAGES CONTROL']
     disable = """
