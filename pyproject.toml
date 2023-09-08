@@ -4,7 +4,7 @@
 
 [project]
     name="pyRACF"
-    version="1.0a1"
+    version="1.0a2"
     description="Python interface to RACF using IRRSMO00 RACF Callable Service."
     authors = [
         {name = "Joe Bostian", email = "jbostian@ibm.com"},
@@ -13,14 +13,13 @@
         {name = "Elijah Swift", email = "elijah.swift@ibm.com"},  
     ]
     readme = "README.md"
-    requires-python = ">=3.9"
+    requires-python = ">=3.10"
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: IBM Internal For Now...",
         "Operating System :: z/OS",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: Implementation :: CPython",
