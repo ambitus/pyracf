@@ -338,7 +338,7 @@ class UserAdmin(SecurityAdmin):
         )
         return self._to_steps(result)
 
-    def delete_all_class_authorizations(self, userid: str) -> Union[dict, False, bytes]:
+    def delete_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
         """Delete all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
         if not current_class_authorizations:
