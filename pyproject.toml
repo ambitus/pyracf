@@ -28,9 +28,10 @@
         "Topic :: System :: Hardware :: Mainframes",
         "Topic :: System :: Systems Administration",
     ]
-    dependencies = [
-        "defusedxml>=0.7.1",
-    ]
+    dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+    dependencies = { file = "requirements.txt" }
 
 [tool.setuptools]
     packages=[

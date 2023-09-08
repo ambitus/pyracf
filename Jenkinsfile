@@ -296,7 +296,7 @@ def publish(
 }
 
 def build_description(python_executables_and_wheels_map, release, milestone) {
-    def description = "Release Milestone: ${milestone}\\n&nbsp;&nbsp;\\n"
+    def description = "Release Milestone: ${milestone}\\n&nbsp;\\n&nbsp;\\n"
 
     for (python in python_executables_and_wheels_map.keySet()) {
         def wheel = python_executables_and_wheels_map[python]["publishName"]
