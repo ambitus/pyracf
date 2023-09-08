@@ -9,6 +9,8 @@ pipeline {
     }
 
     parameters {
+        // Note: Each Python version listed must be installed on the 
+        // build agent and must be added to '$PATH' and '$LIBPATH'.
         string (
             name: "pythonVersions",
             defaultValue: "",
@@ -111,6 +113,12 @@ pipeline {
                     params.preRelease
                 )
             }
+        }
+    }
+    post {
+        always {
+            echo "Cleaning up workspace..."
+            cleanWs()
         }
     }
 }
