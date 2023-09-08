@@ -174,7 +174,6 @@ def lint_and_unit_test(python) {
         ${python} -m pylint --recursive=y --ignore-patterns 'venv_*' .
         cd tests
         ${python} -m coverage run test_runner.py
-        cd ..
         ${python} -m coverage report -m
     """
 }
