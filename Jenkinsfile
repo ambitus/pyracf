@@ -270,7 +270,7 @@ def publish(
                 ${python} -m pip wheel .
             """
 
-            echo "Uploading '${wheel_default}' as '${wheel_publish}' as an asset to '${release}' GitHub release..."
+            echo "Uploading '${wheel_default}' as '${wheel_publish}' to '${release}' GitHub release..."
 
             sh(
                 'curl -f -v -L '
@@ -282,6 +282,8 @@ def publish(
                 + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel_publish}\" "
                 + "--data-binary \"@${wheel_default}\""
             )
+
+            echo "Uploading '${wheel_default}' as '${wheel_publish}' to pypi repository..."
 
             sh(
                 ". venv_${python}/bin/activate && "
