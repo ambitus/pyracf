@@ -145,10 +145,10 @@ def create_python_executables_and_wheels_map(python_versions) {
 
     for (version in python_versions) {
         python_executables_and_wheels_map["python3.${version}"] = [
-            defaultName: (
+            "defaultName": (
                 "pyRACF-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
             ),
-            publishName: "pyRACF-${pyracf_version}-cp3${version}-none-any.whl"
+            "publishName": "pyRACF-${pyracf_version}-cp3${version}-none-any.whl"
         ]
     }
 
@@ -173,7 +173,7 @@ def lint_and_unit_test(python) {
 
     sh """
         . venv_${python}/bin/activate
-        ${python} -m flake8 . --exclude 'venv_*'
+        ${python} -m flake8 .
         ${python} -m pylint --recursive=y --ignore-patterns 'venv_*' .
         cd tests
         ${python} -m coverage run test_runner.py
@@ -285,7 +285,7 @@ def publish(
 
             sh(
                 ". venv_${python}/bin/activate && "
-                + "mv ${wheel_default} ${wheel_publish}"
+                + "mv ${wheel_default} ${wheel_publish} && "
                 + "${python} -m twine upload --repository test ${wheel_publish} " 
                 + '--non-interactive '
                 + '-u ${pypi_username} '
@@ -296,15 +296,15 @@ def publish(
 }
 
 def build_description(python_executables_and_wheels_map, release, milestone) {
-    def description = "Release Milestone: ${milestone}\n\n"
+    def description = "Release Milestone: ${milestone}\\n&nbsp;&nbsp;\\n"
 
     for (python in python_executables_and_wheels_map.keySet()) {
-        python = python.replace("python", "Python ")
         def wheel = python_executables_and_wheels_map[python]["publishName"]
+        python = python.replace("python", "Python ")
         description += (
-            "Install for ${python}:\n"
-            + "```\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
-            + "&& python3 -m pip install ${wheel}\n```\n"
+            "Install for ${python}:\\n"
+            + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
+            + "&& python3 -m pip install ${wheel}\\n```\\n"
         )
     }
 
