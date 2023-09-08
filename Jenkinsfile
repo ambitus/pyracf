@@ -94,7 +94,7 @@ pipeline {
                     for (python in python_executables_and_wheels_map.keySet()) {
                         function_test(
                             python, 
-                            python_executables_and_wheels_map[python]
+                            python_executables_and_wheels_map[python]["defaultName"]
                         )
                     }
                 }
@@ -144,9 +144,12 @@ def create_python_executables_and_wheels_map(python_versions) {
     python_executables_and_wheels_map = [:]
 
     for (version in python_versions) {
-        python_executables_and_wheels_map["python3.${version}"] = (
-            "pyRACF-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
-        )
+        python_executables_and_wheels_map["python3.${version}"] = [
+            defaultName: (
+                "pyRACF-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
+            ),
+            publishName: "pyRACF-${pyracf_version}-cp3${version}-none-any.whl"
+        ]
     }
 
     return python_executables_and_wheels_map
@@ -232,6 +235,8 @@ def publish(
 
         echo "Creating '${release}' GitHub release..."
 
+        def description = build_description(python_executables_and_wheels_map, release, milestone)
+
         def release_id = sh(
             returnStdout: true,
             script: (
@@ -245,7 +250,7 @@ def publish(
                 + "     \"tag_name\": \"${release}\","
                 + "     \"target_commitish\": \"${git_branch}\","
                 + "     \"name\": \"${release}\","
-                + "     \"body\": \"Release Milestone: ${milestone}\","
+                + "     \"body\": \"${description}\","
                 + "     \"draft\": false,"
                 + "     \"prerelease\": ${pre_release},"
                 + "     \"generate_release_notes\":false"
@@ -254,9 +259,10 @@ def publish(
         ).trim()
 
         for (python in python_executables_and_wheels_map.keySet()) {
-            def wheel = python_executables_and_wheels_map[python]
+            def wheel_default = python_executables_and_wheels_map[python]["defaultName"]
+            def wheel_publish = python_executables_and_wheels_map[python]["publishName"]
 
-            echo "Cleaning repo and building '${wheel}'..."
+            echo "Cleaning repo and building '${wheel_default}'..."
 
             sh """
                 git clean -f -d -e 'venv_*'
@@ -264,7 +270,7 @@ def publish(
                 ${python} -m pip wheel .
             """
 
-            echo "Uploading '${wheel}' as an asset to '${release}' GitHub release..."
+            echo "Uploading '${wheel_default}' as '${wheel_publish}' as an asset to '${release}' GitHub release..."
 
             sh(
                 'curl -f -v -L '
@@ -273,17 +279,34 @@ def publish(
                 + '-H "Authorization: Bearer ${github_access_token}" '
                 + '-H "X-GitHub-Api-Version: 2022-11-28" '
                 + '-H "Content-Type: application/octet-stream" '
-                + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel}\" "
-                + "--data-binary \"@${wheel}\""
+                + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel_publish}\" "
+                + "--data-binary \"@${wheel_default}\""
             )
 
             sh(
                 ". venv_${python}/bin/activate && "
-                + "${python} -m twine upload --repository test ${wheel} " 
+                + "mv ${wheel_default} ${wheel_publish}"
+                + "${python} -m twine upload --repository test ${wheel_publish} " 
                 + '--non-interactive '
                 + '-u ${pypi_username} '
                 + '-p ${pypi_password}'
             )
         }
     }
+}
+
+def build_description(python_executables_and_wheels_map, release, milestone) {
+    def description = "Release Milestone: ${milestone}\n\n"
+
+    for (python in python_executables_and_wheels_map.keySet()) {
+        python = python.replace("python", "Python ")
+        def wheel = python_executables_and_wheels_map[python]["publishName"]
+        description += (
+            "Install for ${python}:\n"
+            + "```\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
+            + "&& python3 -m pip install ${wheel}\n```\n"
+        )
+    }
+
+    return description
 }
