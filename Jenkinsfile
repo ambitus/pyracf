@@ -283,11 +283,12 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
 
     for (python in python_executables_and_wheels_map.keySet()) {
         def wheel = python_executables_and_wheels_map[python]["publishName"]
-        python = python.replace("python", "Python ")
+        def python_executable = python
+        def python_label = python.replace("python", "Python ")
         description += (
-            "Install for ${python}:\\n"
+            "Install for ${python_label}:\\n"
             + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
-            + "&& python3 -m pip install ${wheel}\\n```\\n"
+            + "&& ${python_executable} -m pip install ${wheel}\\n```\\n"
         )
     }
 
