@@ -25,9 +25,14 @@ Python interface into the RACF management application programming interface.
 
 ### Install
 
-```shell
-python3 -m pip install pyRACF
-```
+&nbsp;
+
+{: .note}
+ > _pyRACF will eventually be made available on [pypi.org](https://pypi.org/), but currently python wheel distributions for pyRACF are only available for manual download and installation via GitHub._
+
+&nbsp;
+
+[Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
 
 ### Use
 
