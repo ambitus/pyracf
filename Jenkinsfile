@@ -146,9 +146,9 @@ def create_python_executables_and_wheels_map(python_versions) {
     for (version in python_versions) {
         python_executables_and_wheels_map["python3.${version}"] = [
             "defaultName": (
-                "pyRACF-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
+                "pyracf-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
             ),
-            "publishName": "pyRACF-${pyracf_version}-cp3${version}-none-any.whl"
+            "publishName": "pyracf-${pyracf_version}-cp3${version}-none-any.whl"
         ]
     }
 
