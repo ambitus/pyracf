@@ -3,7 +3,7 @@
     requires = ["setuptools>=61"]
 
 [project]
-    name="pyRACF"
+    name="pyracf"
     version="1.0a2"
     description="Python interface to RACF using IRRSMO00 RACF Callable Service."
     authors = [
@@ -17,8 +17,8 @@
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
-        "License :: IBM Internal For Now...",
-        "Operating System :: z/OS",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: POSIX :: Other",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",

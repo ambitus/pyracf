@@ -32,9 +32,9 @@ As automation becomes more and more prevalent, the need to manage the security e
 
 ### Installation
 
-```shell
-python3 -m pip install pyracf
-```
+:warning: _pyRACF will eventually be made available on [pypi.org](https://pypi.org/), but currently python wheel distributions for pyRACF are only available for manual download and installation via GitHub._
+
+* [Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
 
 ### Usage
 

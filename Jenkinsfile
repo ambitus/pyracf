@@ -146,9 +146,9 @@ def create_python_executables_and_wheels_map(python_versions) {
     for (version in python_versions) {
         python_executables_and_wheels_map["python3.${version}"] = [
             "defaultName": (
-                "pyRACF-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
+                "pyracf-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
             ),
-            "publishName": "pyRACF-${pyracf_version}-cp3${version}-none-any.whl"
+            "publishName": "pyracf-${pyracf_version}-cp3${version}-none-any.whl"
         ]
     }
 
@@ -212,14 +212,6 @@ def publish(
             string(
                 credentialsId: 'pyracf-github-access-token',
                 variable: 'github_access_token'
-            ),
-            string(
-                credentialsId: 'pyracf-pypi-username',
-                variable: 'pypi_username'
-            ),
-            string(
-                credentialsId: 'pyracf-pypi-password',
-                variable: 'pypi_password'
             )
         ]
     ) {
@@ -282,17 +274,6 @@ def publish(
                 + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel_publish}\" "
                 + "--data-binary \"@${wheel_default}\""
             )
-
-            echo "Uploading '${wheel_default}' as '${wheel_publish}' to pypi repository..."
-
-            sh(
-                ". venv_${python}/bin/activate && "
-                + "mv ${wheel_default} ${wheel_publish} && "
-                + "${python} -m twine upload --repository test ${wheel_publish} " 
-                + '--non-interactive '
-                + '-u ${pypi_username} '
-                + '-p ${pypi_password}'
-            )
         }
     }
 }
@@ -302,11 +283,12 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
 
     for (python in python_executables_and_wheels_map.keySet()) {
         def wheel = python_executables_and_wheels_map[python]["publishName"]
-        python = python.replace("python", "Python ")
+        def python_executable = python
+        def python_label = python.replace("python", "Python ")
         description += (
-            "Install for ${python}:\\n"
+            "Install for ${python_label}:\\n"
             + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
-            + "&& python3 -m pip install ${wheel}\\n```\\n"
+            + "&& ${python_executable} -m pip install ${wheel}\\n```\\n"
         )
     }
 

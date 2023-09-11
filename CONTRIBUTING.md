@@ -86,7 +86,7 @@ If you fix a bug, open a GitHub pull request against the `dev` branch with the f
 
 ### Adding or Fixing Documentation
 
-If you want to improve the current documentation, that includes adding new documentation, fixing grammar, spelling, and format errors open a GitHub pull request against the `gh-pages` branch with your changes.
+If any updates need to be made to the pyRACF documentation, open a GitHub pull request against the `gh-pages-dev` branch with your changes. This may include updates to document new functionality or updates to correct errors or mistakes in the existing documentation.
 
 ## Style Guidelines
 
@@ -102,7 +102,7 @@ When contributing to pyRACF, think about the following:
 
 * Make any necessary updates to `pyproject.toml`.
 * Make any necessary updates to `README.md`.
-* Make any necessary updates to the gitHub pages documentation in the `gh-pages` branch.
+* Make any necessary updates to the gitHub pages documentation in the `gh-pages` branch _(Pull requests should be opened against the `gh-pages-dev` branch)_.
 * Add any available test cases to `/tests`.
 * Verify `__init__.py` files are updated properly.
 * Ensure that you have __pre-commit Hooks__ setup to ensure that **isort**, **black**, **flake8**, and **pylint** are run against the code for every commit you make.
