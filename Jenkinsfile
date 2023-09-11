@@ -212,14 +212,6 @@ def publish(
             string(
                 credentialsId: 'pyracf-github-access-token',
                 variable: 'github_access_token'
-            ),
-            string(
-                credentialsId: 'pyracf-pypi-username',
-                variable: 'pypi_username'
-            ),
-            string(
-                credentialsId: 'pyracf-pypi-password',
-                variable: 'pypi_password'
             )
         ]
     ) {
@@ -281,17 +273,6 @@ def publish(
                 + '-H "Content-Type: application/octet-stream" '
                 + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel_publish}\" "
                 + "--data-binary \"@${wheel_default}\""
-            )
-
-            echo "Uploading '${wheel_default}' as '${wheel_publish}' to pypi repository..."
-
-            sh(
-                ". venv_${python}/bin/activate && "
-                + "mv ${wheel_default} ${wheel_publish} && "
-                + "${python} -m twine upload --repository test ${wheel_publish} " 
-                + '--non-interactive '
-                + '-u ${pypi_username} '
-                + '-p ${pypi_password}'
             )
         }
     }
