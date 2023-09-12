@@ -5,7 +5,7 @@ parent: Common
 
 # Replace Existing Segment Traits
 
-Replace existing valid secret traits dictionary.
+Replace existing valid segment traits dictionary.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -24,5 +24,5 @@ segment_traits = {
     }
 }
 
-user_admin = UserAdmin(replace_segment_traits=segment_traits)
+user_admin = UserAdmin(replace_existing_segment_traits=segment_traits)
 ```
