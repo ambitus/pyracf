@@ -41,7 +41,7 @@ Change a user's **password**.
   The **z/OS userid** of the user who's **password** is being changed.
 
 * `password`<br>
-  The **password** to assigned to the specified user.
+  The **password** to assign to the specified user.
 
 #### 📤 Returns
 

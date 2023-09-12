@@ -26,7 +26,7 @@ user_admin = UserAdmin()
 
 try:
     user_admin.alter("squidwrd", traits={"base:password": "passwordtoolong"})
-except SecurityRequestError as e
+except SecurityRequestError as e:
     return_code = e.result["securityResult"]["user"]["returnCode"]
     reason_code = e.result["securityResult"]["user"]["reasonCode"]
     messages = "\n".join(e.result["securityResult"]["user"]["commands"][0]["messages"])

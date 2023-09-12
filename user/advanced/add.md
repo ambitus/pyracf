@@ -56,8 +56,8 @@ traits = {
     "base:name": "Squidward",
     "base:password": "K29521IO",
     "base:owner": "leonard",
-    "base:special": True,
-    "base:operations": False,
+    "base:special": False,
+    "base:operations": True,
     "omvs:uid": 2424,
     "omvs:home": "/u/squidwrd",
     "omvs:program": "/bin/sh",
@@ -88,7 +88,7 @@ user_admin.add("squidwrd", traits=traits)
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "ALTUSER SQUIDWRD  PASSWORD    (********) OWNER       (leonard) SPECIAL      NOOPERATIONS   OMVS     (HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
+          "image": "ALTUSER SQUIDWRD  PASSWORD    (********) OWNER       (leonard) NOSPECIAL      OPERATIONS   OMVS     (HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
         }
       ]
     },

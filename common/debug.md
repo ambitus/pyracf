@@ -10,6 +10,11 @@ How to enable debug logging
 
 &nbsp;
 
+{: .note}
+> _Changes made using the functionality described here are scoped to the target "Admin" object instance._
+
+&nbsp;
+
 {: .note }
 > _Whenever a user password is set using the `base:password` trait in the `UserAdmin` class, all instances of the specified password will be redacted from debug log messages._
 
