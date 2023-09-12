@@ -3,7 +3,8 @@
 import inspect
 import json
 import os
-from typing import List, Union
+import re
+from typing import Union
 
 
 class Logger:
@@ -48,11 +49,12 @@ class Logger:
         self,
         header_message: str,
         dictionary: dict,
-        redact_strings: List[str] = [],
+        secret_traits: dict = {},
     ) -> None:
         """JSONify and colorize a dictionary and log it to the console."""
+        if secret_traits:
+            dictionary = self.__redact_request_dictionary(dictionary, secret_traits)
         dictionary_json = json.dumps(dictionary, indent=2)
-        dictionary_json = self.redact_strings(dictionary_json, redact_strings)
         colorized_dictionary_json = self.__colorize_json(dictionary_json)
         self.log_debug(header_message, colorized_dictionary_json)
 
@@ -60,12 +62,13 @@ class Logger:
         self,
         header_message: str,
         xml_string: Union[str, bytes],
-        redact_strings: List[str] = [],
+        secret_traits: dict = {},
     ) -> None:
         """Indent and colorize XML string and log it to the console."""
         if isinstance(xml_string, bytes):
             xml_string = xml_string.decode(encoding="utf-8")
-        xml_string = self.redact_strings(xml_string, redact_strings)
+        if secret_traits:
+            xml_string = self.redact_request_xml(xml_string, secret_traits)
         indented_xml_string = self.__indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
@@ -93,33 +96,78 @@ class Logger:
         )
         print(f"{header}\n{message}")
 
-    def redact_strings(
+    def __redact_request_dictionary(
         self,
-        string: Union[str, bytes],
-        redact_strings: List[str],
-    ) -> str:
-        """Redact a list of strings or sequences of bytes in a string or bytes object"""
-        if not redact_strings:
-            return string
-        for to_redact in redact_strings:
-            if isinstance(string, bytes):
-                string = self.redact_string(
-                    string, redact_string=bytes(to_redact, "utf-8")
-                )
-            else:
-                string = self.redact_string(string, redact_string=to_redact)
-        return string
+        dictionary: dict,
+        secret_traits: dict,
+    ) -> dict:
+        """
+        Redact a list of specified secret traits in a request dictionary.
+        While this flow is technically used in extract functions, there are no traits to redact.
+        """
+        for trait in secret_traits:
+            segment = trait.split(":")[0]
+            if not dictionary.get(segment, {}).get(trait, {}).get("value", None):
+                continue
+            dictionary[segment][trait]["value"] = "********"
+        return dictionary
 
-    def redact_string(
-        self, string: Union[str, bytes], redact_string: Union[str, bytes]
+    def __redact_string(
+        self,
+        input_string: str,
+        start_ind: int,
+        end_pattern: str,
+    ):
+        """
+        Redacts characters in a string between a starting index and ending pattern.
+        Replaces the identified characters with '********' regardless of the original length.
+        """
+        pre_keyword = input_string[:start_ind]
+        post_keyword = end_pattern.join(input_string[start_ind:].split(end_pattern)[1:])
+        return pre_keyword + "********" + end_pattern + post_keyword
+
+    def redact_request_xml(
+        self,
+        xml_string: Union[str, bytes],
+        secret_traits: dict,
+    ) -> Union[str, bytes]:
+        """
+        Redact a list of specific secret traits in a request xml string or bytes object.
+        Based the following xml pattern:
+            '<xmltag attribute="any">xml value</xmltag>'
+        This function also accounts for any number of arbitrary xml attributes.
+        """
+        is_bytes = False
+        if isinstance(xml_string, bytes):
+            is_bytes = True
+            xml_string = xml_string.decode("utf-8")
+        for xml_key in secret_traits.values():
+            match = re.search(rf"\<{xml_key}+[^>]*\>", xml_string)
+            if not match:
+                continue
+            xml_string = self.__redact_string(xml_string, match.end(), f"</{xml_key}")
+        if is_bytes:
+            xml_string = xml_string.encode("utf-8")
+        return xml_string
+
+    def redact_result_xml(
+        self,
+        xml_string: str,
+        secret_traits: dict,
     ) -> str:
-        """Redact a string or sequence of byte in a bytes object."""
-        if not redact_string:
-            return string
-        redacted_string = "********"
-        if isinstance(redact_string, bytes):
-            redacted_string = b"********"
-        return string.replace(redact_string, redacted_string)
+        """
+        Redacts a list of specific secret traits in a result xml string.
+        Based on the following RACF command pattern:
+            'TRAIT (value)'
+        This function also accounts for varied amounts of whitespace in the pattern.
+        """
+        for xml_key in secret_traits.values():
+            racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
+            match = re.search(rf"{racf_key.upper()} +\(", xml_string)
+            if not match:
+                continue
+            xml_string = self.__redact_string(xml_string, match.end(), ") ")
+        return xml_string
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""

@@ -16,36 +16,6 @@ class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
     _valid_segment_traits = {}
-    _common_base_traits_data_set_generic = {
-        "base:aclcnt": "racf:aclcnt",
-        "base:aclacnt": "racf:aclacnt",
-        "base:aclacs": "racf:aclacs",
-        "base:aclid": "racf:aclid",
-        "base:acl2cnt": "racf:acl2cnt",
-        "base:acl2acnt": "racf:acl2acnt",
-        "base:acl2acs": "racf:acl2acs",
-        "base:acl2cond": "racf:acl2cond",
-        "base:acl2ent": "racf:acl2ent",
-        "base:acl2id": "racf:acl2id",
-        "base:acsaltr": "racf:acsaltr",
-        "base:acscntl": "racf:acscntl",
-        "base:acsread": "racf:acsread",
-        "base:acsupdt": "racf:acsupdt",
-        "base:all": "racf:all",
-        "base:audaltr": "racf:audaltr",
-        "base:audcntl": "racf:audcntl",
-        "base:audnone": "racf:audnone",
-        "base:audread": "racf:audread",
-        "base:audupdt": "racf:audupdt",
-        "base:authuser": "racf:authuser",
-        "base:fvolume": "racf:fvolume",
-        "base:gaudaltr": "racf:gaudaltr",
-        "base:gaudcntl": "racf:gaudcntl",
-        "base:gaudnone": "racf:gaudnone",
-        "base:gaudread": "racf:gaudread",
-        "base:gaudupdt": "racf:gaudupdt",
-        "base:generic": "racf:generic",
-    }
     __logger = Logger()
 
     def __init__(
@@ -53,9 +23,44 @@ class SecurityAdmin:
         profile_type: str,
         debug: bool = False,
         generate_requests_only: bool = False,
-        add_field_data: Union[dict, None] = None,
-        overwrite_field_data: Union[dict, None] = None,
+        update_existing_segment_traits: Union[dict, None] = None,
+        replace_existing_segment_traits: Union[dict, None] = None,
+        additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
+        self._common_base_traits_data_set_generic = {
+            "base:aclcnt": "racf:aclcnt",
+            "base:aclacnt": "racf:aclacnt",
+            "base:aclacs": "racf:aclacs",
+            "base:aclid": "racf:aclid",
+            "base:acl2cnt": "racf:acl2cnt",
+            "base:acl2acnt": "racf:acl2acnt",
+            "base:acl2acs": "racf:acl2acs",
+            "base:acl2cond": "racf:acl2cond",
+            "base:acl2ent": "racf:acl2ent",
+            "base:acl2id": "racf:acl2id",
+            "base:acsaltr": "racf:acsaltr",
+            "base:acscntl": "racf:acscntl",
+            "base:acsread": "racf:acsread",
+            "base:acsupdt": "racf:acsupdt",
+            "base:all": "racf:all",
+            "base:audaltr": "racf:audaltr",
+            "base:audcntl": "racf:audcntl",
+            "base:audnone": "racf:audnone",
+            "base:audread": "racf:audread",
+            "base:audupdt": "racf:audupdt",
+            "base:authuser": "racf:authuser",
+            "base:fvolume": "racf:fvolume",
+            "base:gaudaltr": "racf:gaudaltr",
+            "base:gaudcntl": "racf:gaudcntl",
+            "base:gaudnone": "racf:gaudnone",
+            "base:gaudread": "racf:gaudread",
+            "base:gaudupdt": "racf:gaudupdt",
+            "base:generic": "racf:generic",
+        }
+        self.__secret_traits = {
+            "base:password": "racf:password",
+            "base:passphrase": "racf:phrase",
+        }
         self.__irrsmo00 = IRRSMO00()
         self.__profile_type = profile_type
         self._segment_traits = {}
@@ -64,25 +69,48 @@ class SecurityAdmin:
         self._trait_map = {}
         self.__debug = debug
         self.__generate_requests_only = generate_requests_only
-        if add_field_data is not None:
-            self.__add_field_data(add_field_data)
-        if overwrite_field_data is not None:
-            self.__overwrite_field_data(overwrite_field_data)
+        if update_existing_segment_traits is not None:
+            self.__update_valid_segment_traits(update_existing_segment_traits)
+        if replace_existing_segment_traits is not None:
+            self.__replace_valid_segment_traits(replace_existing_segment_traits)
+        if additional_secret_traits is not None:
+            self.__add_additional_secret_traits(additional_secret_traits)
 
     # ============================================================================
-    # Custom Fields
+    # Customize Segment Traits
     # ============================================================================
-    def __add_field_data(self, field_data: dict):
-        """Add additional fields to valid segment traits dictionary."""
-        for segment in field_data:
+    def __update_valid_segment_traits(self, update_valid_segment_traits: dict):
+        """Update fields to valid segment traits dictionary."""
+        for segment in update_valid_segment_traits:
             if segment in self._valid_segment_traits:
-                self._valid_segment_traits[segment].update(field_data[segment])
+                self._valid_segment_traits[segment].update(
+                    update_valid_segment_traits[segment]
+                )
             else:
-                self._valid_segment_traits[segment] = field_data[segment]
+                self._valid_segment_traits[segment] = update_valid_segment_traits[
+                    segment
+                ]
 
-    def __overwrite_field_data(self, field_data: dict):
-        """Overwrite field data in valid segment traits dictionary"""
-        self._valid_segment_traits = field_data
+    def __replace_valid_segment_traits(self, new_valid_segment_traits: dict):
+        """Replace field data in valid segment traits dictionary"""
+        self._valid_segment_traits = new_valid_segment_traits
+
+    # ============================================================================
+    # Secrets Redaction
+    # ============================================================================
+    def __add_additional_secret_traits(self, additional_secret_traits: list):
+        """Add additional fields to be redacted in logger output."""
+        for secret in additional_secret_traits:
+            if secret in self.__secret_traits:
+                continue
+            if ":" not in secret:
+                continue
+            segment = secret.split(":")[0]
+            if segment not in self._valid_segment_traits:
+                continue
+            if secret not in self._valid_segment_traits[segment]:
+                continue
+            self.__secret_traits[secret] = self._valid_segment_traits[segment][secret]
 
     # ============================================================================
     # Request Execution
@@ -108,61 +136,42 @@ class SecurityAdmin:
     def _make_request(
         self,
         security_request: SecurityRequest,
-        irrsmo00_options: int = 1,
-    ) -> Union[dict, bytes]:
-        """Make request to IRRSMO00."""
-        redact_password = (
-            self.__preserved_segment_traits.get("base", {})
-            .get("base:password", {})
-            .get("value", "")
-        )
-        redact_passphrase = (
-            self.__preserved_segment_traits.get("base", {})
-            .get("base:passphrase", {})
-            .get("value", "")
-        )
-        return self.__make_request_and_redact_secrets(
-            security_request,
-            irrsmo00_options=irrsmo00_options,
-            redact_strings=[redact_password, redact_passphrase],
-        )
-
-    def __make_request_and_redact_secrets(
-        self,
-        security_request: SecurityRequest,
-        irrsmo00_options: int = 1,
-        redact_strings: List[str] = [],
+        irrsmo00_precheck: bool = False,
     ) -> Union[dict, bytes]:
         """
         Make request to IRRSMO00.
-        Note: Passwords are redacted from result and from log messages.
+        Note: Secrets are redacted from all data returned to the user and log messages.
         """
         if self.__debug:
             self.__logger.log_dictionary(
                 "Request Dictionary",
                 self.__preserved_segment_traits,
-                redact_strings=redact_strings,
+                secret_traits=self.__secret_traits,
             )
             self.__logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
-                redact_strings=redact_strings,
+                secret_traits=self.__secret_traits,
             )
         if self.__generate_requests_only:
-            return self.__logger.redact_strings(
+            request_xml = self.__logger.redact_request_xml(
                 security_request.dump_request_xml(encoding="utf-8"),
-                redact_strings=redact_strings,
+                secret_traits=self.__secret_traits,
             )
-        result_xml = self.__irrsmo00.call_racf(
-            security_request.dump_request_xml(), irrsmo00_options
+            self.__clear_state(security_request)
+            return request_xml
+        result_xml = self.__logger.redact_result_xml(
+            self.__irrsmo00.call_racf(
+                security_request.dump_request_xml(), irrsmo00_precheck
+            ),
+            self.__secret_traits,
         )
+        self.__clear_state(security_request)
         if self.__debug:
-            self.__logger.log_xml(
-                "Result XML", result_xml, redact_strings=redact_strings
-            )
-        results = SecurityResult(
-            self.__logger.redact_strings(result_xml, redact_strings=redact_strings)
-        )
+            # No need to redact anything here since the raw result XML
+            # already has secrets redacted when it is built.
+            self.__logger.log_xml("Result XML", result_xml)
+        results = SecurityResult(result_xml)
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
@@ -214,15 +223,17 @@ class SecurityAdmin:
     # ============================================================================
     # Request Dictionary Building
     # ============================================================================
-    def _clear_state(self) -> None:
+    def __clear_state(self, security_request: SecurityRequest) -> None:
         """Clear state for new request."""
         self._segment_traits = {}
         self._trait_map = {}
+        self.__preserved_segment_traits = {}
+        del security_request
 
     def __validate_and_add_trait(
         self, trait: str, segment: str, value: Union[str, dict]
     ):
-        """Validate the specified trait exists in the specified segment"""
+        """Validate the specified trait exists in the specified segment."""
         if segment not in self._valid_segment_traits:
             return False
         if trait not in self._valid_segment_traits[segment]:
@@ -247,8 +258,6 @@ class SecurityAdmin:
 
     def _build_bool_segment_dictionaries(self, segments: dict) -> None:
         """Build segment dictionaries for profile extract."""
-        # Clear state for new request
-        self._clear_state()
         for segment in segments:
             if segment in self._valid_segment_traits:
                 self._segment_traits[segment] = segments[segment]
@@ -257,8 +266,6 @@ class SecurityAdmin:
 
     def _build_segment_dictionaries(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
-        # Clear state for new request
-        self._clear_state()
         for trait in traits:
             for segment in self._valid_segment_traits:
                 self.__validate_and_add_trait(trait, segment, traits[trait])
@@ -285,8 +292,6 @@ class SecurityAdmin:
                 security_request._build_segment(
                     None, traits, self._trait_map, alter=alter
                 )
-        # Clear state for subsequent requests
-        self._clear_state()
 
     # ============================================================================
     # Profile Dictionary Building
@@ -294,7 +299,7 @@ class SecurityAdmin:
     def _get_profile(
         self, result: Union[dict, bytes], index: int = 0
     ) -> Union[dict, bytes]:
-        "Extract the profile section from a result dictionary"
+        """Extract the profile section from a result dictionary."""
         if self.__generate_requests_only:
             # Allows this function to work with "self.__generate_requests_only" mode.
             return result

@@ -20,8 +20,6 @@ class TestConnectionRequestBuilder(unittest.TestCase):
 
     def test_connection_admin_build_add_connection_request(self):
         result = self.connection_admin.add("ESWIFT", "TESTGRP0")
-        print(result)
-        print(TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_XML)
         self.assertEqual(
             result, TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_XML
         )

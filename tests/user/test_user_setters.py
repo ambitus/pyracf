@@ -69,6 +69,13 @@ class TestUserSetters(unittest.TestCase):
         self.assertEqual(result, TestUserConstants.TEST_USER_SET_PASSWORD_XML)
 
     # ============================================================================
+    # Passphrase
+    # ============================================================================
+    def test_user_admin_build_set_passphrase_request(self):
+        result = self.user_admin.set_passphrase("squidwrd", "PassPhrasesAreCool!")
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_PASSPHRASE_XML)
+
+    # ============================================================================
     # Class Authorizations
     # ============================================================================
     def test_user_admin_build_add_class_authorizations_single_class_request(self):

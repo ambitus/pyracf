@@ -119,6 +119,8 @@ TEST_ADD_USER_REQUEST_TRAITS = {
 }
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD["base:password"] = "GIyTTqdF"
+TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE = dict(TEST_ADD_USER_REQUEST_TRAITS)
+TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE["base:password"] = "PASSWORD"
 TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE["base:passphrase"] = "PassPhrasesAreCool!"
 TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD = dict(
@@ -169,6 +171,7 @@ TEST_USER_REMOVE_OPERATIONS_AUTHORITY_XML = get_sample(
     "user_remove_operations_authority_request.xml"
 )
 TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
+TEST_USER_SET_PASSPHRASE_XML = get_sample("user_set_passphrase_request.xml")
 TEST_USER_ADD_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
     "user_add_class_authorizations_single_class_request.xml"
 )
@@ -198,6 +201,13 @@ TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 TEST_ADD_USER_SUCCESS_LOG = get_sample("add_user_success.log")
 TEST_ADD_USER_ERROR_LOG = get_sample("add_user_error.log")
 
+TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "add_user_additional_secret_added_success.log"
+)
+TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "add_user_additional_secret_added_error.log"
+)
+
 TEST_ADD_USER_PASSWORD_SUCCESS_LOG = get_sample("add_user_password_success.log")
 TEST_ADD_USER_PASSWORD_ERROR_LOG = get_sample("add_user_password_error.log")
 
@@ -217,7 +227,7 @@ TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG = get_sample(
 TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error.log")
 
 # ============================================================================
-# Custom Field Data
+# Customize Segment Traits
 # ============================================================================
 
 # Alter User Traits
@@ -229,21 +239,16 @@ TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
 }
 
 # Valid Segment Traits Updates
-TEST_USER_UPDATE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
-
-TEST_USER_ALTERNATE_SEGMENTS = {
+TEST_USER_REPLACE_SEGMENT_TRAITS = {
     "base": {"base:special": "alt:special"},
     "csdata": {"csdata:tstcsfld": "tstcsfld"},
 }
 
-TEST_USER_OVERWRITE_SEGMENTS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
+TEST_USER_ADDITIONAL_SEGMENT_TRAITS = {"csdata": {"csdata:tstcsfld": "tstcsfld"}}
 
 # Alter User Requests
-TEST_ALTER_USER_REQUEST_ALTERNATIVE_SEGMENTS_XML = get_sample(
-    "alter_user_request_alternative_segments.xml"
-)
-TEST_ALTER_USER_REQUEST_OVERWRITE_SEGMENTS_XML = get_sample(
-    "alter_user_request_overwrite_segments.xml"
+TEST_ALTER_USER_REQUEST_REPLACE_SEGMENTS_XML = get_sample(
+    "alter_user_request_replace_segments.xml"
 )
 TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML = get_sample(
     "alter_user_request_update_segments.xml"

@@ -1,6 +1,6 @@
 """Group Administration."""
 
-from typing import Union
+from typing import List, Union
 
 from pyracf.common.security_admin import SecurityAdmin
 
@@ -10,48 +10,49 @@ from .group_request import GroupRequest
 class GroupAdmin(SecurityAdmin):
     """Group Administration."""
 
-    _valid_segment_traits = {
-        "base": {
-            "base:connects": "racf:connects",
-            "base:gauth": "racf:gauth",
-            "base:guserid": "racf:guserid",
-            "base:creatdat": "racf:creatdat",
-            "base:data": "racf:data",
-            "base:model": "racf:model",
-            "base:owner": "racf:owner",
-            "base:subgroup": "racf:subgroup",
-            "base:supgroup": "racf:supgroup",
-            "base:termuacc": "racf:termuacc",
-            "base:universl": "racf:universl",
-        },
-        "dfp": {
-            "dfp:dataappl": "dataappl",
-            "dfp:dataclas": "dataclas",
-            "dfp:mgmtclas": "mgmtclas",
-            "dfp:storclas": "storclas",
-        },
-        "omvs": {
-            "omvs:autogid": "racf:autogid",
-            "omvs:gid": "gid",
-            "omvs:shared": "racf:shared",
-        },
-        "ovm": {"ovm:gid": "racf:gid"},
-        "tme": {"tme:roles": "racf:roles"},
-    }
-
     def __init__(
         self,
         debug: bool = False,
         generate_requests_only: bool = False,
-        add_field_data: Union[dict, None] = None,
-        overwrite_field_data: Union[dict, None] = None,
+        update_existing_segment_traits: Union[dict, None] = None,
+        replace_existing_segment_traits: Union[dict, None] = None,
+        additional_secret_traits: Union[List[str], None] = None,
     ) -> None:
+        self._valid_segment_traits = {
+            "base": {
+                "base:connects": "racf:connects",
+                "base:gauth": "racf:gauth",
+                "base:guserid": "racf:guserid",
+                "base:creatdat": "racf:creatdat",
+                "base:data": "racf:data",
+                "base:model": "racf:model",
+                "base:owner": "racf:owner",
+                "base:subgroup": "racf:subgroup",
+                "base:supgroup": "racf:supgroup",
+                "base:termuacc": "racf:termuacc",
+                "base:universl": "racf:universl",
+            },
+            "dfp": {
+                "dfp:dataappl": "dataappl",
+                "dfp:dataclas": "dataclas",
+                "dfp:mgmtclas": "mgmtclas",
+                "dfp:storclas": "storclas",
+            },
+            "omvs": {
+                "omvs:autogid": "racf:autogid",
+                "omvs:gid": "gid",
+                "omvs:shared": "racf:shared",
+            },
+            "ovm": {"ovm:gid": "racf:gid"},
+            "tme": {"tme:roles": "racf:roles"},
+        }
         super().__init__(
             "group",
             debug=debug,
             generate_requests_only=generate_requests_only,
-            add_field_data=add_field_data,
-            overwrite_field_data=overwrite_field_data,
+            update_existing_segment_traits=update_existing_segment_traits,
+            replace_existing_segment_traits=replace_existing_segment_traits,
+            additional_secret_traits=additional_secret_traits,
         )
 
     # ============================================================================
@@ -133,7 +134,7 @@ class GroupAdmin(SecurityAdmin):
         self._build_segment_dictionaries(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)
-        return self._make_request(group_request, irrsmo00_options=3)
+        return self._make_request(group_request, irrsmo00_precheck=True)
 
     def extract(
         self, group: str, segments: dict = {}, profile_only: bool = False
@@ -149,7 +150,6 @@ class GroupAdmin(SecurityAdmin):
 
     def delete(self, group: str) -> Union[dict, bytes]:
         """Delete a group."""
-        self._clear_state()
         group_request = GroupRequest(group, "del")
         return self._make_request(group_request)
 
