@@ -1,19 +1,18 @@
 [build-system]
-    build-backend = "setuptools.build_meta"
-    requires = ["setuptools>=61"]
+    build-backend = "poetry.masonry.api"
+    requires = ["poetry-core>=1.7.0", "setuptools>=61"]
 
-[project]
+[tool.poetry]
     name="pyracf"
-    version="1.0a2"
+    version="1.0a3"
     description="Python interface to RACF using IRRSMO00 RACF Callable Service."
     authors = [
-        {name = "Joe Bostian", email = "jbostian@ibm.com"},
-        {name = "Frank De Gilio", email = "degilio@us.ibm.com"},
-        {name = "Leonard J. Carcaramo Jr", email = "lcarcaramo@ibm.com"},
-        {name = "Elijah Swift", email = "elijah.swift@ibm.com"},  
+        "Joe Bostian <jbostian@ibm.com>",
+        "Frank De Gilio <degilio@us.ibm.com>",
+        "Leonard J. Carcaramo Jr <lcarcaramo@ibm.com>",
+        "Elijah Swift <elijah.swift@ibm.com>",
     ]
     readme = "README.md"
-    requires-python = ">=3.10"
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -28,24 +27,23 @@
         "Topic :: System :: Hardware :: Mainframes",
         "Topic :: System :: Systems Administration",
     ]
-    dynamic = ["dependencies"]
 
-[tool.setuptools.dynamic]
-    dependencies = { file = "requirements.txt" }
+[tool.poetry.build]
+    script = "build_extension.py"
+    generate-setup-file = true
 
-[tool.setuptools]
-    packages=[
-        "pyracf",
-        "pyracf.access",
-        "pyracf.common",
-        "pyracf.connection",
-        "pyracf.data_set",
-        "pyracf.group",
-        "pyracf.resource",
-        "pyracf.setropts",
-        "pyracf.user",
-    ]
-    license-files=["LICENSE"]
+[tool.poetry.dependencies]
+    python = ">=3.10"
+    defusedxml = ">=0.7.1"
+
+[tool.poetry.group.dev.dependencies]
+    isort = ">=5.12.0"
+    pre-commit = ">=3.4.0"
+    black = ">=23.7.0"
+    flake8 = ">=6.1.0"
+    pylint = ">=2.17.5"
+    coverage = ">=7.3.1"
+    wheel = ">=0.41.2"
 
 [tool.isort]
     profile = "black"
