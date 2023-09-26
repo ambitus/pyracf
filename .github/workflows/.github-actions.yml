@@ -17,6 +17,7 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         poetry env info
+        poetry config virtualenvs.in-project true
         poetry install --no-root
     - name: Flake8
       run: poetry flake8 .
