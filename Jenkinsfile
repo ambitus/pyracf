@@ -309,8 +309,8 @@ def publish(
             sh (
                 'poetry publish \\'
                 + '--repository=test \\'
-                + '--username=${pyracf_username} \\'
-                + '--password=${pyracf_password}'
+                + '--username=${pypi_username} \\'
+                + '--password=${pypi_password}'
             )
         }
     }
@@ -339,12 +339,12 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
         def python_label = python.replace("python", "Python ")
         description += (
             "### Install for ${python_label}:\\n\\n"
-            + "* Wheel *(pre-built)*:\\n\\n  "
-            + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
-            + "&& ${python_executable} -m pip install ${wheel}\\n```\\n"
+            + "* Wheel *(pre-built)*:\\n\\n"
+            + "```\\n  curl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
+            + "&& ${python_executable} -m pip install ${wheel}\\n  ```\\n"
             + "* Source Tar *(build on install)*:\\n\\n  "
-            + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
-            + "&& ${python_executable} -m pip install ${tar}\\n```\\n\\n"
+            + "```\\n  curl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
+            + "&& ${python_executable} -m pip install ${tar}\\n  ```\\n\\n"
         )
     }
 
