@@ -340,7 +340,7 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
 
     for (python in python_executables_and_wheels_map.keySet()) {
         def wheel = python_executables_and_wheels_map[python]["wheelPublish"]
-        def tar = python_executables_and_wheels_map[python]["tarPublish"]
+        tar = python_executables_and_wheels_map[python]["tarPublish"]
         def python_executable = python
         def python_label = python.replace("python", "Python ")
         description += (
