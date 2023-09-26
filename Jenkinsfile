@@ -351,7 +351,7 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
         )
     }
 
-    def python = python_executables_and_wheels_map.keySet[-1]
+    def python = python_executables_and_wheels_map.keySet()[-1]
     def tar = python_executables_and_wheels_map[python]["tarPublish"]
     description += (
         "Install From Source Distribution *(build on install)*:\\n"
