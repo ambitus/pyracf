@@ -282,7 +282,7 @@ def publish(
             )
         ).trim()
 
-        sh 'poetry config repository.test ${pypi_repository}'
+        sh 'poetry config repositories.test ${pypi_repository}'
 
         for (python in python_executables_and_wheels_map.keySet()) {
             def wheel_default = python_executables_and_wheels_map[python]["defaultName"]
@@ -299,18 +299,10 @@ def publish(
 
             echo "Uploading '${wheel_default}' as '${wheel_publish}' to '${release}' GitHub release..."
 
-            sh(
-                'curl -f -v -L '
-                + '-X POST '
-                + '-H "Accept: application/vnd.github+json" '
-                + '-H "Authorization: Bearer ${github_access_token}" '
-                + '-H "X-GitHub-Api-Version: 2022-11-28" '
-                + '-H "Content-Type: application/octet-stream" '
-                + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel_publish}\" "
-                + "--data-binary \"@dist/${wheel_publish}\""
-            )
+            upload_asset(wheel_publish)
+            upload_asset("pyracf-${release}.tar.gz")
 
-            echo "Uploading '${wheel_default}' as '${wheel_publish}' and pyracf-${reasese}.tar.gz to PyPi repository..."
+            echo "Uploading '${wheel_default}' as '${wheel_publish}' and 'pyracf-${release}.tar.gz' to PyPi repository..."
 
             sh (
                 'poetry publish \\'
@@ -320,6 +312,19 @@ def publish(
             )
         }
     }
+}
+
+def upload_asset(asset) {
+    sh(
+        'curl -f -v -L '
+        + '-X POST '
+        + '-H "Accept: application/vnd.github+json" '
+        + '-H "Authorization: Bearer ${github_access_token}" '
+        + '-H "X-GitHub-Api-Version: 2022-11-28" '
+        + '-H "Content-Type: application/octet-stream" '
+        + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${asset}\" "
+        + "--data-binary \"@dist/${asset}\""
+    )
 }
 
 def build_description(python_executables_and_wheels_map, release, milestone) {
