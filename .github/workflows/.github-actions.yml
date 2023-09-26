@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   build:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         python-versions: ["3.10", "3.11"]
     runs-on: ubuntu-latest
@@ -15,8 +15,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
-        python3 -m pip install poetry
-        poetry env use ${{ matrix.python-version }}
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry env info
         poetry install --no-root
     - name: Flake8
       run: poetry flake8 .
