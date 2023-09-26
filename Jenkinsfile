@@ -205,7 +205,7 @@ def function_test(python, wheel) {
     echo "Running function test for '${python}'..."
 
     sh """
-        git clean -f -d
+        git clean -fdx
         poetry env use ${python} 
         poetry env info
         poetry build
@@ -295,7 +295,7 @@ def publish(
             echo "Cleaning repo and building '${wheel_default}'..."
 
             sh """
-                git clean -f -d
+                git clean -fdx
                 poetry env use ${python} && poetry env info
                 poetry build
                 mv dist/${wheel_default} dist/${wheel_publish}
@@ -337,21 +337,23 @@ def upload_asset(release_id, release_asset) {
 def build_description(python_executables_and_wheels_map, release, milestone) {
     def description = "Release Milestone: ${milestone}\\n&nbsp;\\n&nbsp;\\n"
 
+    def tar = python_executables_and_wheels_map.keySet()[-1]["tarPublish"]
     for (python in python_executables_and_wheels_map.keySet()) {
         def wheel = python_executables_and_wheels_map[python]["wheelPublish"]
-        def tar = python_executables_and_wheels_map[python]["tarPublish"]
         def python_executable = python
         def python_label = python.replace("python", "Python ")
         description += (
-            "### Install for ${python_label}:\\n\\n"
-            + "* Wheel *(pre-built)*:\\n\\n  "
-            + "```\\n  curl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
-            + "&& ${python_executable} -m pip install ${wheel}\\n  ```\\n"
-            + "* Source Tar *(build on install)*:\\n\\n  "
-            + "```\\n  curl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
-            + "&& ${python_executable} -m pip install ${tar}\\n  ```\\n\\n"
+            "### Install From ${python_label} Wheel Distribution *(pre-built)*:\\n"
+            + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
+            + "&& ${python_executable} -m pip install ${wheel}\\n```\\n"
         )
     }
+
+    description += (
+        "### Install From Source Distribution *(build on install)*:\\n"
+        + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
+        + "&& python3 -m pip install ${tar}\\n```\\n"
+    )
 
     return description
 }
