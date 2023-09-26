@@ -285,6 +285,8 @@ def publish(
 
         sh 'poetry config repositories.test ${pypi_repository}'
 
+        def tar_published = false
+
         for (python in python_executables_and_wheels_map.keySet()) {
             def wheel_default = python_executables_and_wheels_map[python]["wheelDefault"]
             def wheel_publish = python_executables_and_wheels_map[python]["wheelPublish"]
@@ -302,7 +304,10 @@ def publish(
             echo "Uploading '${wheel_default}' as '${wheel_publish}' to '${release}' GitHub release..."
 
             upload_asset(release_id, wheel_publish)
-            upload_asset(release_id, tar_publish)
+            if (tar_published == false) {
+                upload_asset(release_id, tar_publish)
+                tar_published = true
+            }
 
             echo "Uploading '${wheel_default}' as '${wheel_publish}' and 'pyracf-${release}.tar.gz' to PyPi repository..."
 
@@ -339,7 +344,7 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
         def python_label = python.replace("python", "Python ")
         description += (
             "### Install for ${python_label}:\\n\\n"
-            + "* Wheel *(pre-built)*:\\n\\n"
+            + "* Wheel *(pre-built)*:\\n\\n  "
             + "```\\n  curl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
             + "&& ${python_executable} -m pip install ${wheel}\\n  ```\\n"
             + "* Source Tar *(build on install)*:\\n\\n  "
