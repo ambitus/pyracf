@@ -100,7 +100,7 @@ pipeline {
                     for (python in python_executables_and_wheels_map.keySet()) {
                         function_test(
                             python, 
-                            python_executables_and_wheels_map[python]["defaultName"]
+                            python_executables_and_wheels_map[python]["wheelDefault"]
                         )
                     }
                 }
@@ -152,10 +152,11 @@ def create_python_executables_and_wheels_map(python_versions) {
 
     for (version in python_versions) {
         python_executables_and_wheels_map["python3.${version}"] = [
-            "defaultName": (
+            "wheelDefault": (
                 "pyracf-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
             ),
-            "publishName": "pyracf-${pyracf_version}-cp3${version}-none-any.whl"
+            "wheelPublish": "pyracf-${pyracf_version}-cp3${version}-none-any.whl",
+            "tarPublish": "pyracf-${pyracf_version}.tar.gz"
         ]
     }
 
@@ -285,8 +286,9 @@ def publish(
         sh 'poetry config repositories.test ${pypi_repository}'
 
         for (python in python_executables_and_wheels_map.keySet()) {
-            def wheel_default = python_executables_and_wheels_map[python]["defaultName"]
-            def wheel_publish = python_executables_and_wheels_map[python]["publishName"]
+            def wheel_default = python_executables_and_wheels_map[python]["wheelDefault"]
+            def wheel_publish = python_executables_and_wheels_map[python]["wheelPublish"]
+            def tar_publish = python_executables_and_wheels_map[python]["tarPublish"]
 
             echo "Cleaning repo and building '${wheel_default}'..."
 
@@ -299,8 +301,8 @@ def publish(
 
             echo "Uploading '${wheel_default}' as '${wheel_publish}' to '${release}' GitHub release..."
 
-            upload_asset(wheel_publish)
-            upload_asset("pyracf-${release}.tar.gz")
+            upload_asset(release_id, wheel_publish)
+            upload_asset(release_id, tar_publish)
 
             echo "Uploading '${wheel_default}' as '${wheel_publish}' and 'pyracf-${release}.tar.gz' to PyPi repository..."
 
@@ -314,7 +316,7 @@ def publish(
     }
 }
 
-def upload_asset(asset) {
+def upload_asset(release_id, release_asset) {
     sh(
         'curl -f -v -L '
         + '-X POST '
@@ -322,8 +324,8 @@ def upload_asset(asset) {
         + '-H "Authorization: Bearer ${github_access_token}" '
         + '-H "X-GitHub-Api-Version: 2022-11-28" '
         + '-H "Content-Type: application/octet-stream" '
-        + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${asset}\" "
-        + "--data-binary \"@dist/${asset}\""
+        + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${release_asset}\" "
+        + "--data-binary \"@dist/${release_asset}\""
     )
 }
 
@@ -331,13 +333,18 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
     def description = "Release Milestone: ${milestone}\\n&nbsp;\\n&nbsp;\\n"
 
     for (python in python_executables_and_wheels_map.keySet()) {
-        def wheel = python_executables_and_wheels_map[python]["publishName"]
+        def wheel = python_executables_and_wheels_map[python]["wheelPublish"]
+        def tar = python_executables_and_wheels_map[python]["tarPublish"]
         def python_executable = python
         def python_label = python.replace("python", "Python ")
         description += (
-            "Install for ${python_label}:\\n"
+            "### Install for ${python_label}:\\n\\n"
+            + "* Wheel *(pre-built)*:\\n\\n  "
             + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
             + "&& ${python_executable} -m pip install ${wheel}\\n```\\n"
+            + "* Source Tar *(build on install)*:\\n\\n  "
+            + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
+            + "&& ${python_executable} -m pip install ${tar}\\n```\\n\\n"
         )
     }
 
