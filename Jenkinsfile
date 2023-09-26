@@ -165,13 +165,16 @@ def create_python_executables_and_wheels_map(python_versions) {
 def clean_python_environment() {
     echo "Cleaning Python environment..."
 
-    sh "rm -rf ~/.cache && rm -rf ~/.local"
+    sh """
+        rm -rf ~/.cache
+        rm -rf ~/.local
+    """
 }
 
 def install_poetry(python) {
     echo "Installing Poetry..."
 
-    sh "curl -sSL https://install.python-poetry.org | ${python} -"
+    sh "bash -c 'curl -sSL https://install.python-poetry.org | ${python} -'"
 }
 
 def build_poetry_environment(python) {
@@ -180,7 +183,7 @@ def build_poetry_environment(python) {
     sh """
         poetry env use ${python}
         poetry install --no-root
-        poetry env show
+        poetry env info
     """
 }
 
@@ -188,7 +191,8 @@ def lint_and_unit_test(python) {
     echo "Running linters and unit tests for '${python}'..."
 
     sh """
-        poetry env use ${python} && poetry env show
+        poetry env use ${python}
+        poetry env info
         poetry run flake8 .
         poetry run pylint --recursive=y .
         poetry run coverage run tests/test_runner.py
@@ -201,7 +205,8 @@ def function_test(python, wheel) {
 
     sh """
         git clean -f -d
-        poetry env use ${python} && poetry env show
+        poetry env use ${python} 
+        poetry env info
         poetry build
         ${python} -m pip install dist/${wheel}
         cd tests/function_test
