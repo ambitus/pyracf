@@ -231,7 +231,7 @@ def publish(
             string(
                 credentialsId: 'pyracf-pypi-repository',
                 variable: 'pypi_repository'
-            )
+            ),
             string(
                 credentialsId: 'pyracf-pypi-username',
                 variable: 'pypi_username'
