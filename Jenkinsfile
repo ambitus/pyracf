@@ -70,11 +70,17 @@ pipeline {
                 }
             }
         }
+         stage('Install Poetry') {
+            steps {
+                clean_python_environment()
+                install_poetry(python_executables_and_wheels_map.keySet()[-1])
+            }
+         }
         stage('Build Virtual Environments') {
             steps {
                 script {
                     for (python in python_executables_and_wheels_map.keySet()) {
-                        build_virtual_environment(python)
+                        build_poetry_environment(python)
                     }
                 }
             }
@@ -119,6 +125,7 @@ pipeline {
         always {
             echo "Cleaning up workspace..."
             cleanWs()
+            clean_python_environment()
         }
     }
 }
@@ -155,16 +162,25 @@ def create_python_executables_and_wheels_map(python_versions) {
     return python_executables_and_wheels_map
 }
 
-def build_virtual_environment(python) {
-    echo "Building virtual environment for '${python}'..."
+def clean_python_environment() {
+    echo "Cleaning Python environment..."
+
+    sh "rm -rf ~/.cache && rm -rf ~/.local"
+}
+
+def install_poetry(python) {
+    echo "Installing Poetry..."
+
+    sh "curl -sSL https://install.python-poetry.org | ${python} -"
+}
+
+def build_poetry_environment(python) {
+    echo "Building Poetry environment for '${python}'..."
 
     sh """
-        ${python} --version
-        rm -rf venv_${python}
-        ${python} -m venv venv_${python}
-        . venv_${python}/bin/activate
-        ${python} -m pip install -r requirements.txt
-        ${python} -m pip install -r requirements-development.txt
+        poetry env use ${python}
+        poetry install --no-root
+        poetry env show
     """
 }
 
@@ -172,12 +188,11 @@ def lint_and_unit_test(python) {
     echo "Running linters and unit tests for '${python}'..."
 
     sh """
-        . venv_${python}/bin/activate
-        ${python} -m flake8 .
-        ${python} -m pylint --recursive=y .
-        cd tests
-        ${python} -m coverage run test_runner.py
-        ${python} -m coverage report -m
+        poetry env use ${python} && poetry env show
+        poetry run flake8 .
+        poetry run pylint --recursive=y .
+        poetry run coverage run tests/test_runner.py
+        poetry run coverage report -m
     """
 }
 
@@ -185,10 +200,10 @@ def function_test(python, wheel) {
     echo "Running function test for '${python}'..."
 
     sh """
-        git clean -f -d -e 'venv_*'
-        . venv_${python}/bin/activate
-        ${python} -m pip wheel .
-        ${python} -m pip install ${wheel}
+        git clean -f -d
+        poetry env use ${python} && poetry env show
+        poetry build
+        ${python} -m pip install dist/${wheel}
         cd tests/function_test
         ${python} function_test.py
     """
@@ -212,6 +227,18 @@ def publish(
             string(
                 credentialsId: 'pyracf-github-access-token',
                 variable: 'github_access_token'
+            ),
+            string(
+                credentialsId: 'pyracf-pypi-repository',
+                variable: 'pypi_repository'
+            )
+            string(
+                credentialsId: 'pyracf-pypi-username',
+                variable: 'pypi_username'
+            ),
+            string(
+                credentialsId: 'pyracf-pypi-password',
+                variable: 'pypi_password'
             )
         ]
     ) {
@@ -250,6 +277,8 @@ def publish(
             )
         ).trim()
 
+        sh 'poetry config repository.test ${pypi_repository}'
+
         for (python in python_executables_and_wheels_map.keySet()) {
             def wheel_default = python_executables_and_wheels_map[python]["defaultName"]
             def wheel_publish = python_executables_and_wheels_map[python]["publishName"]
@@ -257,9 +286,10 @@ def publish(
             echo "Cleaning repo and building '${wheel_default}'..."
 
             sh """
-                git clean -f -d -e 'venv_*'
-                . venv_${python}/bin/activate
-                ${python} -m pip wheel .
+                git clean -f -d
+                poetry env use ${python} && poetry env info
+                poetry build
+                mv dist/${wheel_default} dist/${wheel_publish}
             """
 
             echo "Uploading '${wheel_default}' as '${wheel_publish}' to '${release}' GitHub release..."
@@ -272,7 +302,16 @@ def publish(
                 + '-H "X-GitHub-Api-Version: 2022-11-28" '
                 + '-H "Content-Type: application/octet-stream" '
                 + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel_publish}\" "
-                + "--data-binary \"@${wheel_default}\""
+                + "--data-binary \"@dist/${wheel_publish}\""
+            )
+
+            echo "Uploading '${wheel_default}' as '${wheel_publish}' and pyracf-${reasese}.tar.gz to PyPi repository..."
+
+            sh (
+                'poetry publish \\'
+                + '--repository=test \\'
+                + '--username=${pyracf_username} \\'
+                + '--password=${pyracf_password}'
             )
         }
     }
