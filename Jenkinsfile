@@ -308,6 +308,9 @@ def publish(
                 upload_asset(release_id, tar_publish)
                 tar_published = true
             }
+            else {
+                sh "rm dist/${tar_publish}"
+            }
 
             echo "Uploading '${wheel_default}' as '${wheel_publish}' and 'pyracf-${release}.tar.gz' to PyPi repository..."
 
