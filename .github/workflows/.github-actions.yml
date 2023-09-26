@@ -17,13 +17,12 @@ jobs:
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
         poetry env info
-        poetry config virtualenvs.in-project true
         poetry install --no-root
     - name: Flake8
-      run: poetry flake8 .
+      run: poetry run flake8 .
     - name: Pylint
-      run: poetry pylint --recursive=y .
+      run: poetry run pylint --recursive=y .
     - name: Unit Test
-      run: poetry coverage run tests/test_runner.py
+      run: poetry run coverage run tests/test_runner.py
     - name: Code Coverage
-      run: poetry coverage report -m
+      run: poetry run coverage report -m
