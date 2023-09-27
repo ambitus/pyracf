@@ -6,13 +6,20 @@
     name="pyracf"
     version="1.0a3"
     description="Python interface to RACF using IRRSMO00 RACF Callable Service."
+    license = "Apache-2.0"
     authors = [
         "Joe Bostian <jbostian@ibm.com>",
         "Frank De Gilio <degilio@us.ibm.com>",
         "Leonard J. Carcaramo Jr <lcarcaramo@ibm.com>",
         "Elijah Swift <elijah.swift@ibm.com>",
     ]
+    maintainers = [
+        "Leonard J. Carcaramo Jr <lcarcaramo@ibm.com>",
+        "Elijah Swift <elijah.swift@ibm.com>",
+    ]
     readme = "README.md"
+    repository = "https://github.com/ambitus/pyracf"
+    documentation = "https://ambitus.github.io/pyracf/"
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
@@ -52,7 +59,6 @@
     max-args = 6
     max-returns = 7
     max-attributes = 10
-    ignore-patterns = "venv_*"
 
 [tool.pylint.'MESSAGES CONTROL']
     disable = """

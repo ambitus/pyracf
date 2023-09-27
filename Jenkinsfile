@@ -345,7 +345,7 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
         def python_executable = python
         def python_label = python.replace("python", "Python ")
         description += (
-            "Install From ${python_label} Wheel Distribution *(pre-built)*:\\n"
+            "Install From **${python_label} Wheel Distribution** *(pre-built)*:\\n"
             + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
             + "&& ${python_executable} -m pip install ${wheel}\\n```\\n"
         )
@@ -354,7 +354,7 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
     def python = python_executables_and_wheels_map.keySet()[-1]
     def tar = python_executables_and_wheels_map[python]["tarPublish"]
     description += (
-        "Install From Source Distribution *(build on install)*:\\n"
+        "Install From **Source Distribution** *(build on install)*:\\n"
         + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
         + "&& python3 -m pip install ${tar}\\n```\\n"
     )

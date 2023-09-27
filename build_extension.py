@@ -1,4 +1,4 @@
-"""Build IRRSMO00 Python extesion."""
+"""Build IRRSMO00 (cpyracf) Python extesion."""
 
 import os
 
