@@ -355,6 +355,7 @@ def build_description(python_executables_and_wheels_map, release, milestone) {
     def tar = python_executables_and_wheels_map[python]["tarPublish"]
     description += (
         "Install From **Source Distribution** *(build on install)*:\\n"
+        + "> :warning: _Requires z/OS XLC compiler._\\n"
         + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
         + "&& python3 -m pip install ${tar}\\n```\\n"
     )

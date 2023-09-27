@@ -46,6 +46,7 @@ As automation becomes more and more prevalent, the need to manage the security e
 
 ## Authors
 
+* Joe Bostian: jbostian@ibm.com
+* Frank De Gilio: degilio@us.ibm.com
 * Leonard Carcaramo: lcarcaramo@ibm.com
 * Elijah Swift: Elijah.Swift@ibm.com
-* Joseph Bostian: jbostian@us.ibm.com
