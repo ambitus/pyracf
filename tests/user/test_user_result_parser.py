@@ -61,9 +61,10 @@ class TestUserResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.user_admin.alter(
                 "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
@@ -76,7 +77,10 @@ class TestUserResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.alter(
                 "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS

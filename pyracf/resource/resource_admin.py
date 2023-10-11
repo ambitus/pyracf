@@ -2,7 +2,9 @@
 
 from typing import List, Union
 
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .resource_request import ResourceRequest
 
@@ -228,6 +230,10 @@ class ResourceAdmin(SecurityAdmin):
         self, resource: str, class_name: str, traits: dict = {}
     ) -> Union[dict, bytes]:
         """Alter an existing general resource profile."""
+        try:
+            self.extract(resource, class_name)
+        except SecurityRequestError:
+            raise AlterOperationError(resource, class_name)
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request, alter=True)

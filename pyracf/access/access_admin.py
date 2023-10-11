@@ -2,8 +2,9 @@
 
 from typing import List, Union
 
-from pyracf.access.access_request import AccessRequest
 from pyracf.common.security_admin import SecurityAdmin
+
+from .access_request import AccessRequest
 
 
 class AccessAdmin(SecurityAdmin):

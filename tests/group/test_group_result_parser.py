@@ -58,9 +58,10 @@ class TestGroupResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML,
+            TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.group_admin.alter(
                 "TESTGRP0", traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS
@@ -73,9 +74,10 @@ class TestGroupResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML,
+            TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.group_admin.alter(
                 "TESTGRP0",

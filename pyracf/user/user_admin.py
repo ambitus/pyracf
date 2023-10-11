@@ -2,7 +2,9 @@
 
 from typing import List, Union
 
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .user_request import UserRequest
 
@@ -404,6 +406,10 @@ class UserAdmin(SecurityAdmin):
 
     def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
         """Alter an existing user."""
+        try:
+            self.extract(userid)
+        except SecurityRequestError:
+            raise AlterOperationError(userid, "USER")
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request, alter=True)

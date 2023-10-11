@@ -112,7 +112,6 @@ TEST_ADD_USER_REQUEST_TRAITS = {
     "base:name": "Squidward",
     "base:owner": "leonard",
     "base:special": True,
-    "base:operator": False,
     "omvs:uid": "2424",
     "omvs:home": "/u/squidwrd",
     "omvs:program": "/bin/sh",
@@ -135,7 +134,6 @@ TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD[
 TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
 TEST_ALTER_USER_REQUEST_TRAITS = {
     "base:special": False,
-    "base:operator": True,
     "omvs:home": "/u/clarinet",
     "omvs:program": False,
 }

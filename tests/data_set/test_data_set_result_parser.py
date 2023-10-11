@@ -62,9 +62,10 @@ class TestDataSetResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML,
+            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.data_set_admin.alter(
                 "ESWIFT.TEST.T1136242.P3020470",
@@ -78,9 +79,10 @@ class TestDataSetResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML,
+            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.data_set_admin.alter(
                 "ESWIFT.TEST.T1136242.P3020470",

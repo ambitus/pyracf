@@ -56,9 +56,10 @@ class TestResourceResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.resource_admin.alter(
                 "TESTING",
@@ -73,9 +74,10 @@ class TestResourceResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.alter(
                 "TESTING",

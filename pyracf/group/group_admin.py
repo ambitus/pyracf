@@ -2,7 +2,9 @@
 
 from typing import List, Union
 
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .group_request import GroupRequest
 
@@ -131,6 +133,10 @@ class GroupAdmin(SecurityAdmin):
 
     def alter(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
         """Alter an existing group."""
+        try:
+            self.extract(group)
+        except SecurityRequestError:
+            raise AlterOperationError(group, "GROUP")
         self._build_segment_dictionaries(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)

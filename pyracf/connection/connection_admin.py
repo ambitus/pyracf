@@ -3,7 +3,8 @@
 from typing import List, Union
 
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.connection.connection_request import ConnectionRequest
+
+from .connection_request import ConnectionRequest
 
 
 class ConnectionAdmin(SecurityAdmin):

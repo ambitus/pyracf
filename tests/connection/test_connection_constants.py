@@ -62,7 +62,7 @@ TEST_ADD_CONNECTION_REQUEST_XML = get_sample("add_connection_request.xml")
 # Alter Connection
 TEST_ALTER_CONNECTION_REQUEST_XML = get_sample("alter_connection_request.xml")
 TEST_ALTER_CONNECTION_REQUEST_TRAITS = {
-    "base:operator": False,
+    "base:operations": False,
     "base:special": True,
 }
 

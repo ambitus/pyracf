@@ -2,7 +2,9 @@
 
 from typing import List, Union
 
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .data_set_request import DataSetRequest
 
@@ -117,6 +119,10 @@ class DataSetAdmin(SecurityAdmin):
         volume: Union[str, None] = None,
         generic: bool = False,
     ) -> Union[dict, bytes]:
+        try:
+            self.extract(data_set)
+        except SecurityRequestError:
+            raise AlterOperationError(data_set, "DATASET")
         """Alter an existing data set profile."""
         self._build_segment_dictionaries(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)
