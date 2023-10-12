@@ -1,13 +1,13 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                               AccessAdmin.add()                               
+                              AccessAdmin.alter()                              
                                                                                
 
 {
   "base": {
     "base:access": {
-      "value": "READ",
+      "value": "NONE",
       "operation": null
     },
     "base:id": {
@@ -20,12 +20,12 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                               AccessAdmin.add()                               
+                              AccessAdmin.alter()                              
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
   <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
-    <access>READ</access>
+    <access>NONE</access>
     <authid>ESWIFT</authid>
   </permission>
 </securityrequest>
@@ -33,28 +33,27 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                               AccessAdmin.add()                               
+                              AccessAdmin.alter()                              
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
   <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
     <command>
-      <safreturncode>8</safreturncode>
-      <returncode>16</returncode>
-      <reasoncode>8</reasoncode>
-      <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (READ) ID          (ESWIFT)</image>
-      <message>ICH06004I TESTING NOT DEFINED TO RACF</message>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)</image>
     </command>
   </permission>
-  <returncode>4</returncode>
+  <returncode>0</returncode>
   <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                               AccessAdmin.add()                               
+                              AccessAdmin.alter()                              
                                                                                
 
 {
@@ -66,17 +65,14 @@
       "requestId": "AccessRequest",
       "commands": [
         {
-          "safReturnCode": 8,
-          "returnCode": 16,
-          "reasonCode": 8,
-          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (READ) ID          (ESWIFT)",
-          "messages": [
-            "ICH06004I TESTING NOT DEFINED TO RACF"
-          ]
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)"
         }
       ]
     },
-    "returnCode": 4,
+    "returnCode": 0,
     "reasonCode": 0
   }
 }

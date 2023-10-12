@@ -122,20 +122,11 @@ class ConnectionAdmin(SecurityAdmin):
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def add(self, userid: str, group: str, traits: dict = {}) -> Union[dict, bytes]:
-        """Create a new group connection."""
-        self._build_segment_dictionaries(traits)
-        connection_request = ConnectionRequest(userid, group, "set")
-        self._add_traits_directly_to_request_xml_with_no_segments(connection_request)
-        return self._make_request(connection_request)
-
     def alter(self, userid: str, group: str, traits: dict = {}) -> Union[dict, bytes]:
         """Alter an existing group connection."""
         self._build_segment_dictionaries(traits)
         connection_request = ConnectionRequest(userid, group, "set")
-        self._add_traits_directly_to_request_xml_with_no_segments(
-            connection_request, alter=True
-        )
+        self._add_traits_directly_to_request_xml_with_no_segments(connection_request)
         return self._make_request(connection_request)
 
     def delete(self, userid: str, group: str) -> Union[dict, bytes]:

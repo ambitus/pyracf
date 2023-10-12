@@ -20,40 +20,6 @@ class TestAccessResultParser(unittest.TestCase):
     access_admin = AccessAdmin()
 
     # ============================================================================
-    # Add Access
-    # ============================================================================
-    def test_access_admin_can_parse_add_access_success_xml(
-        self,
-        call_racf_mock: Mock,
-    ):
-        call_racf_mock.return_value = (
-            TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_XML
-        )
-        self.assertEqual(
-            self.access_admin.add(
-                "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "READ"}
-            ),
-            TestAccessConstants.TEST_ADD_ACCESS_RESULT_SUCCESS_DICTIONARY,
-        )
-
-    # Error in environment, TESTING resource already deleted/not added
-    def test_access_admin_can_parse_add_access_error_xml(
-        self,
-        call_racf_mock: Mock,
-    ):
-        call_racf_mock.return_value = (
-            TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_XML
-        )
-        with self.assertRaises(SecurityRequestError) as exception:
-            self.access_admin.add(
-                "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "READ"}
-            )
-        self.assertEqual(
-            exception.exception.result,
-            TestAccessConstants.TEST_ADD_ACCESS_RESULT_ERROR_DICTIONARY,
-        )
-
-    # ============================================================================
     # Alter Access
     # ============================================================================
     def test_access_admin_can_parse_alter_access_success_xml(
@@ -65,7 +31,7 @@ class TestAccessResultParser(unittest.TestCase):
         )
         self.assertEqual(
             self.access_admin.alter(
-                "TESTING", "ELITEST", "ESWIFT", traits={"base:access": "NONE"}
+                "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "NONE"}
             ),
             TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
@@ -80,7 +46,7 @@ class TestAccessResultParser(unittest.TestCase):
         )
         with self.assertRaises(SecurityRequestError) as exception:
             self.access_admin.alter(
-                "TESTING", "ELITEST", "MCGINLEY", traits={"base:access": "NONE"}
+                "TESTING", "ELIJTEST", "MCGINLEY", traits={"base:access": "ALTER"}
             )
         self.assertEqual(
             exception.exception.result,

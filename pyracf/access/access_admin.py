@@ -54,22 +54,6 @@ class AccessAdmin(SecurityAdmin):
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def add(
-        self,
-        resource: str,
-        class_name: str,
-        auth_id: str,
-        traits: dict,
-        volume: Union[str, None] = None,
-        generic: bool = False,
-    ) -> Union[dict, bytes]:
-        """Create a new permission."""
-        traits["base:id"] = auth_id
-        self._build_segment_dictionaries(traits)
-        access_request = AccessRequest(resource, class_name, "set", volume, generic)
-        self._add_traits_directly_to_request_xml_with_no_segments(access_request)
-        return self._make_request(access_request)
-
     def alter(
         self,
         resource: str,
@@ -79,13 +63,11 @@ class AccessAdmin(SecurityAdmin):
         volume: Union[str, None] = None,
         generic: bool = False,
     ) -> Union[dict, bytes]:
-        """Alter an existing permission."""
+        """Change a permission (or add a new one)"""
         traits["base:id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
-        self._add_traits_directly_to_request_xml_with_no_segments(
-            access_request, alter=True
-        )
+        self._add_traits_directly_to_request_xml_with_no_segments(access_request)
         return self._make_request(access_request)
 
     def delete(

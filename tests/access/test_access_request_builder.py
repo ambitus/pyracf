@@ -18,12 +18,6 @@ class TestAccessRequestBuilder(unittest.TestCase):
     IRRSMO00.__init__ = Mock(return_value=None)
     access_admin = AccessAdmin(generate_requests_only=True)
 
-    def test_access_admin_build_add_access_request(self):
-        result = self.access_admin.add(
-            "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "READ"}
-        )
-        self.assertEqual(result, TestAccessConstants.TEST_ADD_ACCESS_REQUEST_XML)
-
     def test_access_admin_build_alter_access_request(self):
         result = self.access_admin.alter(
             "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "NONE"}
