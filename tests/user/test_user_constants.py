@@ -88,6 +88,12 @@ TEST_EXTRACT_USER_RESULT_WITH_CLASS_AUTHORIZATIONS = get_sample(
 TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML = get_sample(
     "extract_user_result_with_command_audit_trail.xml"
 )
+TEST_EXTRACT_USER_RESULT_BASE_OVMS_TSO_REVOKE_RESUME_XML = get_sample(
+    "extract_user_result_base_omvs_tso_revoke_resume.xml"
+)
+TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_DICTIONARY = get_sample(
+    "extract_user_result_base_omvs_tso_revoke_resume.json"
+)
 
 # Delete User
 TEST_DELETE_USER_RESULT_SUCCESS_XML = get_sample("delete_user_result_success.xml")
@@ -103,6 +109,9 @@ TEST_DELETE_USER_RESULT_ERROR_DICTIONARY = get_sample("delete_user_result_error.
 
 # Add User
 TEST_ADD_USER_REQUEST_XML = get_sample("add_user_request.xml")
+TEST_ADD_USER_BASE_OMVS_TSO_REVOKE_RESUME_REQUEST_XML = get_sample(
+    "add_user_request_base_omvs_tso_revoke_resume.xml"
+)
 TEST_ADD_USER_REQUEST_PASSWORD_XML = get_sample("add_user_request_password.xml")
 TEST_ADD_USER_REQUEST_PASSPHRASE_XML = get_sample("add_user_request_passphrase.xml")
 TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML = get_sample(
@@ -116,6 +125,35 @@ TEST_ADD_USER_REQUEST_TRAITS = {
     "omvs:uid": "2424",
     "omvs:home_directory": "/u/squidwrd",
     "omvs:default_shell": "/bin/sh",
+}
+TEST_ADD_USER_BASE_OMVS_TSO_REVOKE_RESUME_REQUEST_TRAITS = {
+    "base:name": "Squidward",
+    "base:password": "PASSWORD",
+    "base:owner": "LEONARD",
+    "base:revoke_date": "10/22/23",
+    "base:resume_date": "11/2/23",
+    "omvs:max_address_space_size": 10485760,
+    "omvs:max_cpu_time": 1500,
+    "omvs:max_files_per_process": 50,
+    "omvs:max_non_shared_memory": "4g",
+    "omvs:max_file_mapping_pages": 350,
+    "omvs:max_processes": 128,
+    "omvs:shared": True,
+    "omvs:max_shared_memory": "2g",
+    "omvs:max_therads": 48,
+    "omvs:uid": 1919,
+    "omvs:home_directory": "/u/squidward",
+    "omvs:default_shell": "/bin/sh",
+    "tso:account_number": "D999",
+    "tso:logon_command": "ISPF",
+    "tso:hold_class": "A",
+    "tso:max_region_size": 2048,
+    "tso:message_class": "O",
+    "tso:logon_procedure": "PROC",
+    "tso:region_size": 1024,
+    "tso:sysout_class": "O",
+    "tso:user_data": "ABCD",
+    "tso:data_set_allocation_unit": "SYSDA",
 }
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD["base:password"] = "GIyTTqdF"

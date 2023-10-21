@@ -309,14 +309,21 @@ class SecurityAdmin:
         ]
 
     def _get_field(
-        self, profile: Union[dict, bytes], segment: str, field: str
+        self,
+        profile: Union[dict, bytes],
+        segment: str,
+        field: str,
+        string: bool = False,
     ) -> Union[bytes, Any, None]:
         """Extract the value of a field from a segment in a profile."""
         if self.__generate_requests_only:
             # Allows this function to work with "self.__generate_requests_only" mode.
             return profile
         try:
-            return profile[segment][field]
+            field = profile[segment][field]
+            if string and field is not None:
+                return str(field)
+            return field
         except KeyError:
             return None
 
@@ -611,7 +618,7 @@ class SecurityAdmin:
                 if current_key not in segment:
                     segment[current_key] = []
                 values = [
-                    self._cast_from_str(value)
+                    str(self._cast_from_str(value))
                     for value in value.split()
                     if value != "NONE"
                 ]

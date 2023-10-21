@@ -29,6 +29,17 @@ class TestUserRequestBuilder(unittest.TestCase):
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_XML)
 
+    def test_user_admin_build_add_user_base_omvs_tso_revoke_resume_request(self):
+        result = self.user_admin.add(
+            "squidwrd",
+            traits=TestUserConstants.TEST_ADD_USER_BASE_OMVS_TSO_REVOKE_RESUME_REQUEST_TRAITS,
+        )
+        print(result)
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_ADD_USER_BASE_OMVS_TSO_REVOKE_RESUME_REQUEST_XML,
+        )
+
     def test_user_admin_build_alter_user_request(self):
         result = self.user_admin.alter(
             "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS

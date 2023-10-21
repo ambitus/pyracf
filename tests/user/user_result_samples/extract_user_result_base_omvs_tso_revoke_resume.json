@@ -1,0 +1,81 @@
+{
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "listdata",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTUSER SQUIDWRD  OMVS     TSO     ",
+          "profiles": [
+            {
+              "base": {
+                "user": "squidwrd",
+                "name": "squidwrd",
+                "owner": "leonard",
+                "created": "10/21/2023",
+                "defaultGroup": "sys1",
+                "passwordDate": null,
+                "passwordInterval": 186,
+                "passphraseDate": null,
+                "attributes": [],
+                "revokeDate": "10/22/2023",
+                "resumeDate": "11/2/2023",
+                "lastAccess": "10/21/2023 12:20 PM",
+                "classAuthorizations": [],
+                "logonAllowedDays": "anyday",
+                "logonAllowedTime": "anytime",
+                "groups": {
+                  "SYS1": {
+                    "auth": "use",
+                    "connectOwner": "leonard",
+                    "connectDate": "10/21/2023",
+                    "connects": 0,
+                    "uacc": null,
+                    "lastConnect": "unknown",
+                    "connectAttributes": [],
+                    "revokeDate": null,
+                    "resumeDate": null
+                  }
+                },
+                "securityLevel": null,
+                "categoryAuthorization": null,
+                "securityLabel": null
+              },
+              "omvs": {
+                "uid": 1919,
+                "homeDirectory": "/u/squidward",
+                "defaultShell": "/bin/sh",
+                "maxCpuTime": 1500,
+                "maxAddressSpaceSize": 10485760,
+                "maxFilesPerProcess": 50,
+                "maxProcesses": 128,
+                "maxThreads": null,
+                "maxFileMappingPages": 350,
+                "maxNonSharedMemory": "4g",
+                "maxSharedMemory": "2g"
+              },
+              "tso": {
+                "accountNumber": "d999",
+                "holdclass": "a",
+                "messageClass": "o",
+                "logonProcedure": "proc",
+                "regionSize": 1024,
+                "maxRegionSize": 2048,
+                "sysoutClass": "o",
+                "dataSetAllocationUnit": "sysda",
+                "userData": "abcd",
+                "logonCommand": "ispf"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

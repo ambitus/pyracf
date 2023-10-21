@@ -336,6 +336,58 @@ class UserAdmin(SecurityAdmin):
         return self.remove_class_authorizations(userid, current_class_authorizations)
 
     # ============================================================================
+    # Revoke Date
+    # ============================================================================
+    def get_revoke_date(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's revoke date."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "revokeDate", string=True)
+
+    def set_revoke_date(self, userid: str, revoke_date: str) -> Union[dict, bytes]:
+        """Set a user's revoke date."""
+        result = self.alter(userid, traits={"base:revoke_date": revoke_date})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Resume Date
+    # ============================================================================
+    def get_resume_date(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's resume date."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "resumeDate", string=True)
+
+    def set_resume_date(self, userid: str, resume_date: str) -> Union[dict, bytes]:
+        """Set a user's resume date."""
+        result = self.alter(userid, traits={"base:resume_date": resume_date})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Owner
+    # ============================================================================
+    def get_owner(self, userid: str) -> Union[str, bytes]:
+        """Get a user's owner."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "owner", string=True)
+
+    def set_owner(self, userid: str, owner: str) -> Union[dict, bytes]:
+        """Set a user's owner."""
+        result = self.alter(userid, traits={"base:owner": owner})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Name
+    # ============================================================================
+    def get_name(self, userid: str) -> Union[str, bytes]:
+        """Get a user's name."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "name", string=True)
+
+    def set_name(self, userid: str, name: Union[str, bool]) -> Union[dict, bytes]:
+        """Set a user's name."""
+        result = self.alter(userid, traits={"base:name": name})
+        return self._to_steps(result)
+
+    # ============================================================================
     # OMVS UID
     # ============================================================================
     def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
@@ -343,43 +395,361 @@ class UserAdmin(SecurityAdmin):
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
         return self._get_field(profile, "omvs", "uid")
 
-    def set_omvs_uid(self, userid: str, uid: int) -> Union[dict, bytes]:
+    def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]:
         """Set a user's OMVS UID."""
         result = self.alter(userid, traits={"omvs:uid": uid})
         return self._to_steps(result)
 
     # ============================================================================
-    # OMVS Home
+    # OMVS Max Address Space Size
+    # ============================================================================
+    def get_omvs_max_address_space_size(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max address space size."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxAddressSpaceSize")
+
+    def set_omvs_max_address_space_size(
+        self,
+        userid: str,
+        max_address_space_size: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max address space size."""
+        result = self.alter(
+            userid, traits={"omvs:max_address_space_size": max_address_space_size}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max CPU Time
+    # ============================================================================
+    def get_omvs_max_cpu_time(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max cpu time."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxCpuTime")
+
+    def set_omvs_max_cpu_time(
+        self,
+        userid: str,
+        max_cpu_time: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max cpu time."""
+        result = self.alter(userid, traits={"omvs:max_cpu_time": max_cpu_time})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Files Per Process
+    # ============================================================================
+    def get_omvs_max_files_per_process(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max files per process."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxFilesPerProcess")
+
+    def set_omvs_max_files_per_process(
+        self,
+        userid: str,
+        max_files_per_process: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max files per process."""
+        result = self.alter(
+            userid, traits={"omvs:max_files_per_process": max_files_per_process}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Non-Shared Memory
+    # ============================================================================
+    def get_omvs_max_non_shared_memory(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's OMVS max non-shared memory."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxNonSharedMemory", string=True)
+
+    def set_omvs_max_non_shared_memory(
+        self,
+        userid: str,
+        max_non_shared_memory: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max non-shared memory."""
+        result = self.alter(
+            userid, traits={"omvs:max_non_shared_memory": max_non_shared_memory}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max File Mapping Pages
+    # ============================================================================
+    def get_omvs_max_file_mapping_pages(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max file mapping pages."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxFileMappingPages")
+
+    def set_omvs_max_file_mapping_pages(
+        self,
+        userid: str,
+        max_file_mapping_pages: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max file mapping pages."""
+        result = self.alter(
+            userid, traits={"omvs:max_file_mapping_pages": max_file_mapping_pages}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Processes
+    # ============================================================================
+    def get_omvs_max_processes(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max processes."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxProcesses")
+
+    def set_omvs_max_processes(
+        self,
+        userid: str,
+        max_processes: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max processes."""
+        result = self.alter(userid, traits={"omvs:max_processes": max_processes})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Shared Memory
+    # ============================================================================
+    def get_omvs_max_shared_memory(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's OMVS max shared memory."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxSharedMemory", string=True)
+
+    def set_omvs_max_shared_memory(
+        self,
+        userid: str,
+        max_shared_memory: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max shared memory."""
+        result = self.alter(
+            userid, traits={"omvs:max_shared_memory": max_shared_memory}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Threads
+    # ============================================================================
+    def get_omvs_max_threads(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max threads."""
+        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        return self._get_field(profile, "omvs", "maxThreads")
+
+    def set_omvs_max_threads(
+        self,
+        userid: str,
+        max_threads: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max threads."""
+        result = self.alter(userid, traits={"omvs:max_threads": max_threads})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Home Directory
     # ============================================================================
     def get_omvs_home_directory(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's OMVS home directory."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
-        return self._get_field(profile, "omvs", "homeDirectory")
+        return self._get_field(profile, "omvs", "homeDirectory", string=True)
 
     def set_omvs_home_directory(
         self,
         userid: str,
-        home_directory: str,
+        home_directory: Union[str, bool],
     ) -> Union[dict, bytes]:
         """Set a user's OMVS home directory."""
         result = self.alter(userid, traits={"omvs:home_directory": home_directory})
         return self._to_steps(result)
 
     # ============================================================================
-    # OMVS Program
+    # OMVS Default Shell
     # ============================================================================
     def get_omvs_default_shell(self, userid: str) -> Union[str, None, bytes]:
-        """Get a user's OMVS program."""
+        """Get a user's OMVS default shell."""
         profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
-        return self._get_field(profile, "omvs", "defaultShell")
+        return self._get_field(profile, "omvs", "defaultShell", string=True)
 
     def set_omvs_default_shell(
         self,
         userid: str,
-        program: str,
+        program: Union[str, bool],
     ) -> Union[dict, bytes]:
-        """Set a user's OMVS program."""
+        """Set a user's OMVS default shell."""
         result = self.alter(userid, traits={"omvs:default_shell": program})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Account Number
+    # ============================================================================
+    def get_tso_account_number(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO account number."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "accountNumber", string=True)
+
+    def set_tso_account_number(
+        self,
+        userid: str,
+        account_number: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO account number."""
+        result = self.alter(userid, traits={"tso:account_number": account_number})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Logon Command
+    # ============================================================================
+    def get_tso_logon_command(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO logon command."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "logonCommand", string=True)
+
+    def set_tso_logon_command(
+        self,
+        userid: str,
+        logon_command: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO logon command."""
+        result = self.alter(userid, traits={"tso:logon_command": logon_command})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Hold Class
+    # ============================================================================
+    def get_tso_hold_class(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO hold class."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "holdClass", string=True)
+
+    def set_tso_hold_class(
+        self,
+        userid: str,
+        hold_class: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO hold class."""
+        result = self.alter(userid, traits={"tso:hold_class": hold_class})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Max Region Size
+    # ============================================================================
+    def get_tso_max_region_size(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's TSO max region size."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "maxRegionSize")
+
+    def set_tso_max_region_size(
+        self,
+        userid: str,
+        max_region_size: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO max region size."""
+        result = self.alter(userid, traits={"tso:max_region_size": max_region_size})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Message Class
+    # ============================================================================
+    def get_tso_message_class(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO message class."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "messageClass", string=True)
+
+    def set_tso_message_class(
+        self,
+        userid: str,
+        message_class: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO message class."""
+        result = self.alter(userid, traits={"tso:message_class": message_class})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Logon Procedure
+    # ============================================================================
+    def get_tso_logon_procedure(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO logon procedure."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "logonProcedure", string=True)
+
+    def set_tso_logon_procedure(
+        self,
+        userid: str,
+        logon_procedure: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO logon procedure."""
+        result = self.alter(userid, traits={"tso:logon_procedure": logon_procedure})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Region Size
+    # ============================================================================
+    def get_tso_region_size(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's TSO region size."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "regionSize")
+
+    def set_tso_region_size(
+        self,
+        userid: str,
+        region_size: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO region size."""
+        result = self.alter(userid, traits={"tso:region_size": region_size})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Sysout Class
+    # ============================================================================
+    def get_tso_sysout_class(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO sysout class."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "sysoutClass", string=True)
+
+    def set_tso_sysout_class(
+        self,
+        userid: str,
+        sysout_class: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO sysout class."""
+        result = self.alter(userid, traits={"tso:sysout_class": sysout_class})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO User Data
+    # ============================================================================
+    def get_tso_user_data(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO user data."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "userData", string=True)
+
+    def set_tso_user_data(
+        self,
+        userid: str,
+        user_data: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO user data."""
+        result = self.alter(userid, traits={"tso:user_data": user_data})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Data Set Allocation Unit
+    # ============================================================================
+    def get_tso_data_set_allocation_unit(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO data set allocation unit."""
+        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        return self._get_field(profile, "tso", "dataSetAllocationUnit", string=True)
+
+    def set_tso_data_set_allocation_unit(
+        self,
+        userid: str,
+        data_set_allocation_unit: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO data set allocation unit."""
+        result = self.alter(
+            userid, traits={"tso:data_set_allocation_unit": data_set_allocation_unit}
+        )
         return self._to_steps(result)
 
     # ============================================================================
