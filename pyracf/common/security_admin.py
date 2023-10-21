@@ -703,25 +703,30 @@ class SecurityAdmin:
 
     def __cast_num(self, value: str) -> Union[int, float, str]:
         value = value.strip()
-        if "." in value:
+        if "." in value or "," in value:
             try:
                 # Convert Julian timestamps to standard date format.
                 t = "-"
                 if platform.system() == "Windows":
                     # Allows unit tests to be run on Windows.
                     t = "#"
+                build_standard_date = f"%{t}m/%{t}d/%Y"
+                build_standard_date_with_time = f"%{t}m/%{t}d/%Y %{t}I:%M %p"
                 julian_regex = r"\d\d.\d\d\d$"
                 julian_with_time_regex = r"\d\d.\d\d\d/\d\d:\d\d:\d\d$"
+                expanded_non_julian_date_regex = r"[a-z]* (\d\d|\d), \d\d\d\d$"
                 if re.match(julian_regex, value):
                     read_julian_date = "%y.%j"
-                    build_standard_date = f"%{t}m/%{t}d/%Y"
                     date = datetime.strptime(value, read_julian_date)
                     return date.strftime(build_standard_date)
                 elif re.match(julian_with_time_regex, value):
                     read_julian_date_with_time = "%y.%j/%H:%M:%S"
-                    build_standard_date_with_time = f"%{t}m/%{t}d/%Y %{t}I:%M %p"
                     date = datetime.strptime(value, read_julian_date_with_time)
                     return date.strftime(build_standard_date_with_time)
+                elif re.match(expanded_non_julian_date_regex, value):
+                    read_expanded_non_julian_date = "%B %d, %Y"
+                    date = datetime.strptime(value, read_expanded_non_julian_date)
+                    return date.strftime(build_standard_date)
             except ValueError:
                 return None
             try:
