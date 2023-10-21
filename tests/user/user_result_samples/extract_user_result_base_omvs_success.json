@@ -49,14 +49,14 @@
               },
               "omvs": {
                 "uid": 2424,
-                "home": "/u/squidwrd",
-                "program": "/bin/sh",
-                "cputimemax": null,
-                "assizemax": null,
-                "fileprocmax": null,
-                "procusermax": null,
-                "threadsmax": null,
-                "mmapareamax": null
+                "homeDirectory": "/u/squidwrd",
+                "defaultShell": "/bin/sh",
+                "maxCpuTime": null,
+                "maxAddressSpaceSize": null,
+                "maxFilesPerProcess": null,
+                "maxProcesses": null,
+                "maxThreads": null,
+                "maxFileMappingPages": null
               }
             }
           ]

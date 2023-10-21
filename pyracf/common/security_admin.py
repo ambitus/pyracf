@@ -16,6 +16,7 @@ class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
     _valid_segment_traits = {}
+    _extracted_key_value_pair_segment_traits_map = {}
     __logger = Logger()
 
     def __init__(
@@ -393,11 +394,13 @@ class SecurityAdmin:
                     for txt in list(filter(None, messages[i].split(" ")))
                 ]
             )
-            field = self._profile_field_to_camel_case(field)
+            field = self._profile_field_to_camel_case(current_segment, field)
             value = messages[i + 2]
             if "(" in value:
                 value_tokens = value.split("(")
-                subfield = self._profile_field_to_camel_case(value_tokens[0].lower())
+                subfield = self._profile_field_to_camel_case(
+                    current_segment, value_tokens[0].lower()
+                )
                 profile[current_segment][field] = {
                     subfield: self._clean_and_separate(value_tokens[-1].rstrip(")"))
                 }
@@ -432,7 +435,7 @@ class SecurityAdmin:
         ):
             semi_tabular_data = messages[i : i + 3]
             self.__add_semi_tabular_data_to_segment(
-                profile[current_segment], semi_tabular_data
+                current_segment, profile[current_segment], semi_tabular_data
             )
             i += 2
         elif messages[i][:8] == "  GROUP=":
@@ -442,15 +445,19 @@ class SecurityAdmin:
             profile[current_segment]["groups"][group] = {}
             message = messages[i] + messages[i + 1] + messages[i + 2] + messages[i + 3]
             self.__add_key_value_pairs_to_segment(
-                profile[current_segment]["groups"][group], message[17:]
+                current_segment, profile[current_segment]["groups"][group], message[17:]
             )
             i += 3
         elif "=" not in messages[i] and messages[i].strip()[:3] != "NO-":
             messages[i] = f"{messages[i]}={messages[i+1]}"
-            self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
+            self.__add_key_value_pairs_to_segment(
+                current_segment, profile[current_segment], messages[i]
+            )
             i += 1
         else:
-            self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
+            self.__add_key_value_pairs_to_segment(
+                current_segment, profile[current_segment], messages[i]
+            )
         return i
 
     def __format_group_profile_data(
@@ -467,10 +474,12 @@ class SecurityAdmin:
         ):
             profile[current_segment]["users"] = []
         elif "=" in messages[i]:
-            self.__add_key_value_pairs_to_segment(profile[current_segment], messages[i])
+            self.__add_key_value_pairs_to_segment(
+                current_segment, profile[current_segment], messages[i]
+            )
         elif "NO " in messages[i]:
             field_name = self._profile_field_to_camel_case(
-                messages[i].split("NO ")[1].strip().lower()
+                current_segment, messages[i].split("NO ")[1].strip().lower()
             )
             if field_name in list_fields:
                 profile[current_segment][field_name] = []
@@ -510,11 +519,15 @@ class SecurityAdmin:
         ] = self._cast_from_str(user_fields[3])
 
         self.__add_key_value_pairs_to_segment(
-            profile[current_segment]["users"][user_index], messages[i + 1]
+            current_segment,
+            profile[current_segment]["users"][user_index],
+            messages[i + 1],
         )
 
         self.__add_key_value_pairs_to_segment(
-            profile[current_segment]["users"][user_index], messages[i + 2]
+            current_segment,
+            profile[current_segment]["users"][user_index],
+            messages[i + 2],
         )
 
     def __build_additional_segment_keys(self) -> Tuple[str, str]:
@@ -530,7 +543,7 @@ class SecurityAdmin:
         return (additional_segment_keys, no_segment_information_keys)
 
     def __add_semi_tabular_data_to_segment(
-        self, segment: dict, semi_tabular_data: List[str]
+        self, segment_name: str, segment: dict, semi_tabular_data: List[str]
     ) -> None:
         """Add semi-tabular data as key-value pairs to segment dictionary."""
         heading_tokens = list(filter(("").__ne__, semi_tabular_data[0].split("  ")))
@@ -539,7 +552,9 @@ class SecurityAdmin:
         values = semi_tabular_data[-1].split()
         keys_length = len(keys)
         for i in range(keys_length):
-            key = self._profile_field_to_camel_case(keys[i].strip().lower())
+            key = self._profile_field_to_camel_case(
+                segment_name, keys[i].strip().lower()
+            )
             segment[key] = self._cast_from_str(values[i])
 
     def __format_semi_tabular_data(
@@ -566,7 +581,7 @@ class SecurityAdmin:
                 ind_e1 = len(messages[i + 2])
 
             field = self._profile_field_to_camel_case(
-                messages[i][indexes[j] : ind_e0].strip().lower()
+                current_segment, messages[i][indexes[j] : ind_e0].strip().lower()
             )
             profile[current_segment][field] = self._clean_and_separate(
                 messages[i + 2][indexes[j] : ind_e1]
@@ -574,6 +589,7 @@ class SecurityAdmin:
 
     def __add_key_value_pairs_to_segment(
         self,
+        segment_name: str,
         segment: dict,
         message: str,
     ) -> None:
@@ -583,11 +599,14 @@ class SecurityAdmin:
         key = tokens[0]
         for i in range(1, len(tokens)):
             sub_tokens = list(filter(("").__ne__, tokens[i].split("  ")))
-            value = sub_tokens[0].strip()
+            if not sub_tokens:
+                value = "NONE"
+            else:
+                value = sub_tokens[0].strip()
             if key[:3] == "NO-":
                 key = key[3:]
                 value = "N/A"
-            current_key = self._profile_field_to_camel_case(key.lower())
+            current_key = self._profile_field_to_camel_case(segment_name, key.lower())
             if current_key in list_fields:
                 if current_key not in segment:
                     segment[current_key] = []
@@ -612,7 +631,9 @@ class SecurityAdmin:
         self, message: str, profile: dict, current_segment: str
     ) -> None:
         """Generic function for extracting key-value pair from RACF profile data."""
-        field = self._profile_field_to_camel_case(message.split("=")[0].strip().lower())
+        field = self._profile_field_to_camel_case(
+            current_segment, message.split("=")[0].strip().lower()
+        )
         profile[current_segment][field] = self._clean_and_separate(
             message.split("=")[1]
         )
@@ -712,8 +733,11 @@ class SecurityAdmin:
         except ValueError:
             return value
 
-    def _profile_field_to_camel_case(self, field: str) -> str:
+    def _profile_field_to_camel_case(self, segment: str, field: str) -> str:
         """Convert a space delimited profile field to camel case."""
+        if segment in self._extracted_key_value_pair_segment_traits_map:
+            if field in self._extracted_key_value_pair_segment_traits_map[segment]:
+                return self._extracted_key_value_pair_segment_traits_map[segment][field]
         field_tokens = field.replace("-", " ").replace(",", "").split()
         return field_tokens[0] + "".join(
             [field_token.title() for field_token in field_tokens[1:]]

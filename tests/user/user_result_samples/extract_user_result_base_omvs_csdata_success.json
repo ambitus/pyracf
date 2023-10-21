@@ -50,13 +50,13 @@
               },
               "omvs": {
                 "uid": 2424,
-                "home": "/u/clarinet",
-                "cputimemax": null,
-                "assizemax": null,
-                "fileprocmax": null,
-                "procusermax": null,
-                "threadsmax": null,
-                "mmapareamax": null
+                "homeDirectory": "/u/clarinet",
+                "maxCpuTime": null,
+                "maxAddressSpaceSize": null,
+                "maxFilesPerProcess": null,
+                "maxProcesses": null,
+                "maxThreads": null,
+                "maxFileMappingPages": null
               }
             }
           ]

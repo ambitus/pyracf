@@ -114,8 +114,8 @@ TEST_ADD_USER_REQUEST_TRAITS = {
     "base:special": True,
     "base:operator": False,
     "omvs:uid": "2424",
-    "omvs:home": "/u/squidwrd",
-    "omvs:program": "/bin/sh",
+    "omvs:home_directory": "/u/squidwrd",
+    "omvs:default_shell": "/bin/sh",
 }
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_TRAITS_PASSWORD["base:password"] = "GIyTTqdF"
@@ -136,8 +136,8 @@ TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
 TEST_ALTER_USER_REQUEST_TRAITS = {
     "base:special": False,
     "base:operator": True,
-    "omvs:home": "/u/clarinet",
-    "omvs:program": False,
+    "omvs:home_directory": "/u/clarinet",
+    "omvs:default_shell": False,
 }
 
 # Extract User
@@ -191,8 +191,12 @@ TEST_USER_SET_CLASS_AUTHORIZATIONS_XML = get_sample(
     "user_set_class_authorizations_request.xml"
 )
 TEST_USER_SET_OMVS_UID_XML = get_sample("user_set_omvs_uid_request.xml")
-TEST_USER_SET_OMVS_HOME_XML = get_sample("user_set_omvs_home_request.xml")
-TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
+TEST_USER_SET_OMVS_HOME_DIRECTORY_XML = get_sample(
+    "user_set_omvs_home_directory_request.xml"
+)
+TEST_USER_SET_OMVS_DEFAULT_SHELL_XML = get_sample(
+    "user_set_omvs_default_shell_request.xml"
+)
 
 # ============================================================================
 # Debug Logging
@@ -233,8 +237,8 @@ TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error
 # Alter User Traits
 TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
     "base:special": False,
-    "omvs:home": "/u/clarinet",
-    "omvs:program": False,
+    "omvs:home_directory": "/u/clarinet",
+    "omvs:default_shell": False,
     "csdata:tstcsfld": "testval",
 }
 

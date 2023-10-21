@@ -180,13 +180,15 @@ class TestUserSetters(unittest.TestCase):
     # ============================================================================
     # OMVS Home
     # ============================================================================
-    def test_user_admin_build_set_omvs_home_request(self):
-        result = self.user_admin.set_omvs_home("squidwrd", "/u/squidwrd")
-        self.assertEqual(result, TestUserConstants.TEST_USER_SET_OMVS_HOME_XML)
+    def test_user_admin_build_set_omvs_home_directory_request(self):
+        result = self.user_admin.set_omvs_home_directory("squidwrd", "/u/squidwrd")
+        self.assertEqual(
+            result, TestUserConstants.TEST_USER_SET_OMVS_HOME_DIRECTORY_XML
+        )
 
     # ============================================================================
     # OMVS Program
     # ============================================================================
-    def test_user_admin_build_set_omvs_program_request(self):
-        result = self.user_admin.set_omvs_program("squidwrd", "/bin/sh")
-        self.assertEqual(result, TestUserConstants.TEST_USER_SET_OMVS_PROGRAM_XML)
+    def test_user_admin_build_set_omvs_default_shell_request(self):
+        result = self.user_admin.set_omvs_default_shell("squidwrd", "/bin/sh")
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_OMVS_DEFAULT_SHELL_XML)
