@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
-from pyracf import SecurityRequestError, UserAdmin
+from pyracf import AlterOperationError, SecurityRequestError, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -70,6 +70,27 @@ class TestUserResultParser(unittest.TestCase):
                 "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
             ),
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY,
+        )
+
+    def test_user_admin_throws_error_on_alter_new_user(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "squidwrd"
+        admin_name = "USER"
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.user_admin.alter(
+                profile_name, traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Security request made to IRRSMO00 failed."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' does not exist as a {admin_name} profile.",
         )
 
     # Error: invalid parameter "name"

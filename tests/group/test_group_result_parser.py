@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.group.test_group_constants as TestGroupConstants
-from pyracf import GroupAdmin, SecurityRequestError
+from pyracf import AlterOperationError, GroupAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -67,6 +67,27 @@ class TestGroupResultParser(unittest.TestCase):
                 "TESTGRP0", traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS
             ),
             TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_DICTIONARY,
+        )
+
+    def test_group_admin_throws_error_on_alter_new_group(
+        self,
+        call_racf_mock: Mock,
+    ):
+        group_name = "TESTGRP0"
+        admin_name = "GROUP"
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML,
+            TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.group_admin.alter(
+                group_name, traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Security request made to IRRSMO00 failed."
+            + "\n\nTarget profile "
+            + f"'{group_name}' does not exist as a {admin_name} profile.",
         )
 
     # Error: invalid gid "3000000000"

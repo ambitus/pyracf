@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.data_set.test_data_set_constants as TestDataSetConstants
-from pyracf import DataSetAdmin, SecurityRequestError
+from pyracf import AlterOperationError, DataSetAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -72,6 +72,28 @@ class TestDataSetResultParser(unittest.TestCase):
                 traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
             ),
             TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_DICTIONARY,
+        )
+
+    def test_data_set_admin_thows_error_on_alter_new_data_set_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "ESWIFT.TEST.T1136242.P3020470"
+        class_name = "DATASET"
+        call_racf_mock.side_effect = [
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_XML,
+            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.data_set_admin.alter(
+                profile_name,
+                traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Security request made to IRRSMO00 failed."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' does not exist as a {class_name} profile.",
         )
 
     # Error in environment, ESWIFT.TEST.T1136242.P3020470 data set does not exist

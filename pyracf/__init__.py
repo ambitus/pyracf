@@ -1,5 +1,7 @@
 """Make security admin subclasses available from package root."""
 from .access.access_admin import AccessAdmin
+from .common.alter_operation_error import AlterOperationError
+from .common.invalid_segment_trait_error import InvalidSegmentTraitError
 from .common.security_request_error import SecurityRequestError
 from .connection.connection_admin import ConnectionAdmin
 from .data_set.data_set_admin import DataSetAdmin

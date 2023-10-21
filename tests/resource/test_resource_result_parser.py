@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import ResourceAdmin, SecurityRequestError
+from pyracf import AlterOperationError, ResourceAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -67,6 +67,29 @@ class TestResourceResultParser(unittest.TestCase):
                 traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
             ),
             TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_DICTIONARY,
+        )
+
+    def test_resource_admin_throws_error_on_alter_new_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "TESTING"
+        class_name = "ELIJTEST"
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.resource_admin.alter(
+                profile_name,
+                class_name,
+                traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Security request made to IRRSMO00 failed."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' does not exist as a profile in the {class_name} class.",
         )
 
     # Error: Invalid Universal Access ALL
