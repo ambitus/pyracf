@@ -229,10 +229,14 @@ TEST_EXTRACT_USER_BASE_OMVS_ERROR_LOG = get_sample("extract_user_base_omvs_error
 # ============================================================================
 
 # Alter User Traits
-TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
+TEST_ALTER_USER_CSDATA_AND_OMVS_REQUEST_TRAITS = {
     "base:special": False,
     "omvs:home": "/u/clarinet",
     "omvs:program": False,
+    "csdata:tstcsfld": "testval",
+}
+TEST_ALTER_USER_CSDATA_REQUEST_TRAITS = {
+    "base:special": False,
     "csdata:tstcsfld": "testval",
 }
 

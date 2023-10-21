@@ -104,7 +104,8 @@ class TestUserRequestBuilder(unittest.TestCase):
             update_existing_segment_traits=TestUserConstants.TEST_USER_ADDITIONAL_SEGMENT_TRAITS,
         )
         result = user_admin.alter(
-            "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
+            "squidwrd",
+            traits=TestUserConstants.TEST_ALTER_USER_CSDATA_AND_OMVS_REQUEST_TRAITS,
         )
         self.assertEqual(
             result,
