@@ -101,16 +101,16 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
-    def test_user_admin_can_parse_extract_user_base_only_no_omvs_success_xml(
+    def test_user_admin_can_parse_extract_user_base_only_success_xml(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertEqual(
             self.user_admin.extract("squidwrd", segments={"omvs": True}),
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_JSON,
         )
 
     # Error in environment, SQUIDWRD already deleted/not added
@@ -145,7 +145,7 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OVMS_TSO_REVOKE_RESUME_XML
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML
         )
         self.assertEqual(
             self.user_admin.extract("squidwrd", segments={"omvs": True, "tso": True}),

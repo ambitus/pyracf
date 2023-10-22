@@ -14,7 +14,7 @@
             {
               "base": {
                 "user": "squidwrd",
-                "name": "squidwrd",
+                "name": "squidward",
                 "owner": "leonard",
                 "created": "10/21/2023",
                 "defaultGroup": "sys1",
@@ -53,17 +53,17 @@
                 "maxAddressSpaceSize": 10485760,
                 "maxFilesPerProcess": 50,
                 "maxProcesses": 128,
-                "maxThreads": null,
+                "maxThreads": 48,
                 "maxFileMappingPages": 350,
                 "maxNonSharedMemory": "4g",
                 "maxSharedMemory": "2g"
               },
               "tso": {
-                "accountNumber": "d999",
-                "holdclass": "a",
-                "messageClass": "o",
+                "accountNumber": "sb29",
+                "holdClass": "a",
+                "messageClass": "b",
                 "logonProcedure": "proc",
-                "regionSize": 1024,
+                "defaultRegionSize": 1024,
                 "maxRegionSize": 2048,
                 "sysoutClass": "o",
                 "dataSetAllocationUnit": "sysda",

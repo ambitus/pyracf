@@ -1,0 +1,7 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <user name="squidwrd" operation="set" requestid="UserRequest">
+    <base>
+      <racf:owner operation="set">leonard</racf:owner>
+    </base>
+  </user>
+</securityrequest>

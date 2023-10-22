@@ -16,16 +16,17 @@
       <procmax>128</procmax>
       <racf:shared />
       <shmemmax>2g</shmemmax>
+      <threads>48</threads>
       <uid>1919</uid>
       <home>/u/squidward</home>
       <pgm>/bin/sh</pgm>
     </omvs>
     <tso>
-      <acctnum>D999</acctnum>
+      <acctnum>SB29</acctnum>
       <command>ISPF</command>
       <holdclass>A</holdclass>
       <maxsize>2048</maxsize>
-      <msgclass>O</msgclass>
+      <msgclass>B</msgclass>
       <proc>PROC</proc>
       <size>1024</size>
       <sysclass>O</sysclass>

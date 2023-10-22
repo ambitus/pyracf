@@ -17,6 +17,7 @@ class SecurityAdmin:
 
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
+    _case_sensitive_extracted_values = []
     __logger = Logger()
 
     def __init__(
@@ -624,7 +625,12 @@ class SecurityAdmin:
                 ]
                 segment[current_key] += values
             else:
-                segment[current_key] = self._cast_from_str(value)
+                case_sensitive = False
+                if current_key in self._case_sensitive_extracted_values:
+                    case_sensitive = True
+                segment[current_key] = self._cast_from_str(
+                    value, case_sensitive=case_sensitive
+                )
             key = "".join(sub_tokens[1:])
             if len(sub_tokens) == 1:
                 if i < len(tokens) - 1 and " " in sub_tokens[0] and i != 0:
@@ -677,9 +683,14 @@ class SecurityAdmin:
 
         return out
 
-    def _cast_from_str(self, value: str) -> Union[None, bool, int, float, str]:
+    def _cast_from_str(
+        self,
+        value: str,
+        case_sensitive: bool = False,
+    ) -> Union[None, bool, int, float, str]:
         """Cast null values floats and integers."""
-        value = value.lower()
+        if not case_sensitive:
+            value = value.lower()
         if value in ("n/a", "none", "none specified", "no", "None"):
             return None
         if value in (

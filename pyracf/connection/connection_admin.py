@@ -28,8 +28,7 @@ class ConnectionAdmin(SecurityAdmin):
                 "base:owner": "racf:owner",
                 "base:resume": "racf:resume",
                 "base:revoke": "racf:revoke",
-                "base:revokefl": "racf:revokefl",  # What is the point of this.
-                "base:special": "racf:special",  # Just need 'base:revoke', no?
+                "base:special": "racf:special",
                 "base:universal_access": "racf:uacc",
             }
         }

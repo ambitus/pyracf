@@ -156,7 +156,7 @@ class UserAdmin(SecurityAdmin):
                 "tso:message_class": "msgclass",
                 "tso:logon_procedure": "proc",
                 "tso:security_label": "seclabel",
-                "tso:region_size": "size",
+                "tso:default_region_size": "size",
                 "tso:sysout_class": "sysclass",
                 "tso:data_set_allocation_unit": "unit",
                 "tso:user_data": "userdata",
@@ -189,10 +189,11 @@ class UserAdmin(SecurityAdmin):
             },
             "tso": {
                 "acctnum": "accountNumber",
+                "holdclass": "holdClass",
                 "jobclass": "jobClass",
                 "msgclass": "messageClass",
                 "proc": "logonProcedure",
-                "size": "regionSize",
+                "size": "defaultRegionSize",
                 "maxsize": "maxRegionSize",
                 "sysoutclass": "sysoutClass",
                 "unit": "dataSetAllocationUnit",
@@ -200,6 +201,7 @@ class UserAdmin(SecurityAdmin):
                 "command": "logonCommand",
             },
         }
+        self._case_sensitive_extracted_values = ["homeDirectory", "defaultShell"]
         super().__init__(
             "user",
             debug=debug,
@@ -272,7 +274,7 @@ class UserAdmin(SecurityAdmin):
     def set_password(
         self,
         userid: str,
-        password: str,
+        password: Union[str, bool],
     ) -> Union[dict, bytes]:
         """Set a user's password."""
         result = self.alter(userid, traits={"base:password": password})
@@ -284,7 +286,7 @@ class UserAdmin(SecurityAdmin):
     def set_passphrase(
         self,
         userid: str,
-        passphrase: str,
+        passphrase: Union[str, bool],
     ) -> Union[dict, bytes]:
         """Set a user's passphrase."""
         result = self.alter(userid, traits={"base:passphrase": passphrase})
@@ -574,10 +576,10 @@ class UserAdmin(SecurityAdmin):
     def set_omvs_default_shell(
         self,
         userid: str,
-        program: Union[str, bool],
+        default_shell: Union[str, bool],
     ) -> Union[dict, bytes]:
         """Set a user's OMVS default shell."""
-        result = self.alter(userid, traits={"omvs:default_shell": program})
+        result = self.alter(userid, traits={"omvs:default_shell": default_shell})
         return self._to_steps(result)
 
     # ============================================================================
@@ -685,18 +687,20 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # TSO Region Size
     # ============================================================================
-    def get_tso_region_size(self, userid: str) -> Union[int, None, bytes]:
+    def get_tso_default_region_size(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's TSO region size."""
         profile = self.extract(userid, segments={"tso": True}, profile_only=True)
-        return self._get_field(profile, "tso", "regionSize")
+        return self._get_field(profile, "tso", "defaultRegionSize")
 
-    def set_tso_region_size(
+    def set_tso_default_region_size(
         self,
         userid: str,
-        region_size: Union[int, bool],
+        default_region_size: Union[int, bool],
     ) -> Union[dict, bytes]:
         """Set a user's TSO region size."""
-        result = self.alter(userid, traits={"tso:region_size": region_size})
+        result = self.alter(
+            userid, traits={"tso:default_region_size": default_region_size}
+        )
         return self._to_steps(result)
 
     # ============================================================================
