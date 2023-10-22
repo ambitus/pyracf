@@ -121,7 +121,7 @@ class TestUserSetters(unittest.TestCase):
         )
 
     @patch("pyracf.user.user_admin.UserAdmin.get_class_authorizations")
-    def test_user_admin_build_delete_all_class_authorizations_request(
+    def test_user_admin_build_remove_all_class_authorizations_request(
         self,
         get_class_authorizations_mock: Mock,
     ):
@@ -130,18 +130,18 @@ class TestUserSetters(unittest.TestCase):
             "terminal",
             "xfacilit",
         ]
-        result = self.user_admin.delete_all_class_authorizations("squidwrd")
+        result = self.user_admin.remove_all_class_authorizations("squidwrd")
         self.assertEqual(
-            result, TestUserConstants.TEST_USER_DELETE_ALL_CLASS_AUTHORIZATIONS_XML
+            result, TestUserConstants.TEST_USER_REMOVE_ALL_CLASS_AUTHORIZATIONS_XML
         )
 
     @patch("pyracf.user.user_admin.UserAdmin.get_class_authorizations")
-    def test_user_admin_build_delete_all_class_authorizations_request_returns_false_if_none(
+    def test_user_admin_build_remove_all_class_authorizations_request_returns_false_if_none(
         self,
         get_class_authorizations_mock: Mock,
     ):
         get_class_authorizations_mock.return_value = []
-        result = self.user_admin.delete_all_class_authorizations("squidwrd")
+        result = self.user_admin.remove_all_class_authorizations("squidwrd")
         self.assertFalse(result)
 
     @patch("pyracf.user.user_admin.UserAdmin.get_class_authorizations")
@@ -160,7 +160,7 @@ class TestUserSetters(unittest.TestCase):
         self.assertEqual(
             result,
             (
-                TestUserConstants.TEST_USER_DELETE_ALL_CLASS_AUTHORIZATIONS_XML
+                TestUserConstants.TEST_USER_REMOVE_ALL_CLASS_AUTHORIZATIONS_XML
                 + TestUserConstants.TEST_USER_SET_CLASS_AUTHORIZATIONS_XML
             ),
         )
@@ -458,7 +458,7 @@ class TestUserSetters(unittest.TestCase):
         )
 
     # ============================================================================
-    # TSO Region Size
+    # TSO Default Region Size
     # ============================================================================
     def test_user_admin_build_set_tso_default_region_size_request(self):
         result = self.user_admin.set_tso_default_region_size("squidwrd", 2048)

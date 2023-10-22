@@ -691,7 +691,7 @@ class SecurityAdmin:
         """Cast null values floats and integers."""
         if not case_sensitive:
             value = value.lower()
-        if value in ("n/a", "none", "none specified", "no", "None"):
+        if value in ("n/a", "none", "none specified", "no", "None", "unknown"):
             return None
         if value in (
             "in effect",

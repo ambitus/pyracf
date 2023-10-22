@@ -308,14 +308,14 @@ class UserAdmin(SecurityAdmin):
         removes the user's current class authorizations and then recreates
         the class authorizations list using the list that the user provides.
         """
-        delete_result = self.delete_all_class_authorizations(userid)
+        delete_result = self.remove_all_class_authorizations(userid)
         add_result = self.add_class_authorizations(userid, class_authorizations)
         return self._to_steps([delete_result, add_result])
 
     def add_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> Union[dict, bytes]:
-        """Add a class to a user's class authorizations."""
+        """Add one or more classes to a user's class authorizations."""
         result = self.alter(
             userid, traits={"add:base:class_authorizations": class_authorizations}
         )
@@ -324,14 +324,14 @@ class UserAdmin(SecurityAdmin):
     def remove_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> Union[dict, bytes]:
-        """Remove a class from a user's class authorizations."""
+        """Remove one or more classes from a user's class authorizations."""
         result = self.alter(
             userid, traits={"remove:base:class_authorizations": class_authorizations}
         )
         return self._to_steps(result)
 
-    def delete_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
-        """Delete all classes from a users class authorizations."""
+    def remove_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
+        """Remove all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
         if not current_class_authorizations:
             return False
@@ -345,7 +345,9 @@ class UserAdmin(SecurityAdmin):
         profile = self.extract(userid, profile_only=True)
         return self._get_field(profile, "base", "revokeDate", string=True)
 
-    def set_revoke_date(self, userid: str, revoke_date: str) -> Union[dict, bytes]:
+    def set_revoke_date(
+        self, userid: str, revoke_date: Union[str, bool]
+    ) -> Union[dict, bytes]:
         """Set a user's revoke date."""
         result = self.alter(userid, traits={"base:revoke_date": revoke_date})
         return self._to_steps(result)
@@ -358,7 +360,9 @@ class UserAdmin(SecurityAdmin):
         profile = self.extract(userid, profile_only=True)
         return self._get_field(profile, "base", "resumeDate", string=True)
 
-    def set_resume_date(self, userid: str, resume_date: str) -> Union[dict, bytes]:
+    def set_resume_date(
+        self, userid: str, resume_date: Union[str, bool]
+    ) -> Union[dict, bytes]:
         """Set a user's resume date."""
         result = self.alter(userid, traits={"base:resume_date": resume_date})
         return self._to_steps(result)
@@ -685,10 +689,10 @@ class UserAdmin(SecurityAdmin):
         return self._to_steps(result)
 
     # ============================================================================
-    # TSO Region Size
+    # TSO Default Region Size
     # ============================================================================
     def get_tso_default_region_size(self, userid: str) -> Union[int, None, bytes]:
-        """Get a user's TSO region size."""
+        """Get a user's TSO default region size."""
         profile = self.extract(userid, segments={"tso": True}, profile_only=True)
         return self._get_field(profile, "tso", "defaultRegionSize")
 
@@ -697,7 +701,7 @@ class UserAdmin(SecurityAdmin):
         userid: str,
         default_region_size: Union[int, bool],
     ) -> Union[dict, bytes]:
-        """Set a user's TSO region size."""
+        """Set a user's TSO default region size."""
         result = self.alter(
             userid, traits={"tso:default_region_size": default_region_size}
         )

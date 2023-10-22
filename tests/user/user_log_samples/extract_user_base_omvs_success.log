@@ -175,7 +175,7 @@
                     "connectDate": "3/28/2023",
                     "connects": 0,
                     "uacc": null,
-                    "lastConnect": "unknown",
+                    "lastConnect": null,
                     "connectAttributes": [],
                     "revokeDate": null,
                     "resumeDate": null

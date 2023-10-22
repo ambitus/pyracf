@@ -227,8 +227,8 @@ TEST_USER_REMOVE_CLASS_AUTHORIZATIONS_SINGLE_CLASS_XML = get_sample(
 TEST_USER_REMOVE_CLASS_AUTHORIZATIONS_MULTIPLE_CLASSES_XML = get_sample(
     "user_remove_class_authorizations_multiple_classes_request.xml"
 )
-TEST_USER_DELETE_ALL_CLASS_AUTHORIZATIONS_XML = get_sample(
-    "user_delete_all_class_authorizations_request.xml"
+TEST_USER_REMOVE_ALL_CLASS_AUTHORIZATIONS_XML = get_sample(
+    "user_remove_all_class_authorizations_request.xml"
 )
 TEST_USER_SET_CLASS_AUTHORIZATIONS_XML = get_sample(
     "user_set_class_authorizations_request.xml"
