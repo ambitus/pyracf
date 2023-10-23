@@ -4,15 +4,15 @@ grand_parent: User Admin
 parent: Standard
 ---
 
-# z/OS Unix System Services UID
+# Resume Date
 
-User administration functions for accessing and modifying a user's z/OS Unix System Services UID. 
+User administration functions for accessing and modifying a user's Resume Date. 
 {: .fs-6 .fw-300 }
 
-## `UserAdmin.get_omvs_uid()`
+## `UserAdmin.get_resume_date()`
 
 ```python
-def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
+def get_resume_date(self, userid: str) -> Union[str, None, bytes]:
 ```
 
 #### 📄 Description
@@ -24,15 +24,15 @@ def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
 
 &nbsp;
 
-Get a user's **z/OS Unix System Services UID**.
+Get a user's **Resume Date**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being requested.
+  The **z/OS userid** of the user who's **Resume Date** is being requested.
 
 #### 📤 Returns
-* `Union[int, None, bytes]`<br>
-  Returns the user's **z/OS Unix System Services UID** or `None` if it is not set or if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+* `Union[str, None, bytes]`<br>
+  Returns the user's **Resume Date** or `None` if it is not set. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -44,14 +44,14 @@ Get a user's **z/OS Unix System Services UID**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_omvs_uid("squidwrd")
-2424
+>>> user_admin.get_resume_date("squidwrd")
+'11/2/2023'
 ```
 
-## `UserAdmin.set_omvs_uid()`
+## `UserAdmin.set_resume_date()`
 
 ```python
-def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]:
+def set_resume_date(self, userid: str, resume_date: Union[str, bool]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -63,14 +63,14 @@ def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]
 
 &nbsp;
 
-Change a user's **z/OS Unix System Services UID**.
+Set a user's **Resume Date**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being set.
+  The **z/OS userid** of the user who's **Resume Date** is being set.
 
-* `uid`<br>
-  The **z/OS Unix System Services UID** to set for the specified user or `False` to delete the current value.
+* `revoke_date`<br>
+  The **Resume Date** to set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -86,8 +86,8 @@ Change a user's **z/OS Unix System Services UID**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.set_omvs_uid("squidwrd", 1919)
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (UID         (1919))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> user_admin.set_resume_date("squidwrd", "11/13/23")
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  REVOKE      (10/23/23)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -107,7 +107,7 @@ Change a user's **z/OS Unix System Services UID**.
             "safReturnCode": 0,
             "returnCode": 0,
             "reasonCode": 0,
-            "image": "ALTUSER SQUIDWRD  OMVS     (UID         (1919))"
+            "image": "ALTUSER SQUIDWRD  RESUME      (11/13/23)"
           }
         ]
       },

@@ -17,6 +17,13 @@ def has_operations_authority(self, userid: str) -> Union[bool, bytes]:
 
 #### 📄 Description
 
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
+
 Check if a user has **Operations** authority.
 
 #### 📥 Parameters
@@ -48,6 +55,13 @@ def give_operations_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
+
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
 
 Give a user **Operations** authority.
 
@@ -108,6 +122,13 @@ def take_away_operations_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
+
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
 
 Remove a user's **Operations** authority.
 

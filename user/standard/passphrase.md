@@ -21,6 +21,11 @@ def set_passphrase(self, userid: str, passphrase: str) -> Union[dict, bytes]:
 
 &nbsp;
 
+{: .stable }
+> 
+
+&nbsp;
+
 {: .warning }
 > * _pyRACF encodes the data it passes to RACF in Code Page `IBM-1047`._
 > * _If you are entering a passphrase with special or national characters, users logging on from terminals using differnt or international codepages may experience errors._
@@ -34,14 +39,14 @@ def set_passphrase(self, userid: str, passphrase: str) -> Union[dict, bytes]:
 
 &nbsp;
 
-Change a user's **passphrase**.
+Set a user's **passphrase**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **passphrase** is being changed.
+  The **z/OS userid** of the user who's **passphrase** is being set.
 
 * `passphrase`<br>
-  The **passphrase** to assign to the specified user.
+  The **passphrase** to set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 

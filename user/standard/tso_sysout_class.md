@@ -4,28 +4,35 @@ grand_parent: User Admin
 parent: Standard
 ---
 
-# z/OS Unix System Services Program
+# TSO Sysout Class
 
-User administration functions for accessing and modifying a user's z/OS Unix System Services Program/Default Shell. 
+User administration functions for accessing and modifying a user's TSO Sysout Class. 
 {: .fs-6 .fw-300 }
 
-## `UserAdmin.get_omvs_program()`
+## `UserAdmin.get_tso_sysout_class()`
 
 ```python
-def get_omvs_program(self, userid: str) -> Union[str, None, bytes]:
+def get_tso_sysout_class(self, userid: str) -> Union[str, None, bytes]:
 ```
 
 #### 📄 Description
 
-Get a user's **z/OS Unix System Services Program/Default Shell**.
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
+
+Get a user's **TSO Sysout Class**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Program/Default Shell** is being requested.
+  The **z/OS userid** of the user who's **TSO  Class** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
-  Returns the user's **z/OS Unix System Services Program/Default Shell** or `None` if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns the user's **TSO Sysout Class** or `None` if it is not set or if the user does not have a **TSO segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -37,26 +44,35 @@ Get a user's **z/OS Unix System Services Program/Default Shell**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_omvs_program("squidwrd")
-'/bin/sh'
+>>> user_admin.get_tso_sysout_class("squidwrd")
+'O'
 ```
 
-## `UserAdmin.set_omvs_program()`
+## `UserAdmin.set_tso_sysout_class()`
 
 ```python
-def set_omvs_program(self, userid: str, program: str) -> Union[dict, bytes]:
+def set_tso_sysout_class(
+    self, userid: str, sysout_class: Union[str, bool]
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Change a user's **z/OS Unix System Services Program/Default Shell**.
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
+
+Change a user's **TSO Sysout Class**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Program/Default Shell** is being changed.
+  The **z/OS userid** of the user who's **TSO Sysotu Class** is being changed.
 
-* `program`<br>
-  The filesystem path to the **z/OS Unix System Services Program/Default Shell** to assign to the specified user.
+* `sysout_class`<br>
+  The **TSO Sysout Class** to set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -72,8 +88,8 @@ Change a user's **z/OS Unix System Services Program/Default Shell**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.set_omvs_program("squidwrd", "/bin/sh")
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': "ALTUSER SQUIDWRD  OMVS     (PROGRAM     ('/bin/sh'))"}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> user_admin.set_tso_sysout_class("squidwrd", "I")
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  TSO      (SYSOUTCLASS (I))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -93,7 +109,7 @@ Change a user's **z/OS Unix System Services Program/Default Shell**.
             "safReturnCode": 0,
             "returnCode": 0,
             "reasonCode": 0,
-            "image": "ALTUSER SQUIDWRD  OMVS     (PROGRAM     ('/bin/sh'))"
+            "image": "ALTUSER SQUIDWRD  TSO      (SYSOUTCLASS (I))"
           }
         ]
       },

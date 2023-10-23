@@ -4,15 +4,15 @@ grand_parent: User Admin
 parent: Standard
 ---
 
-# z/OS Unix System Services UID
+# TSO User Data
 
-User administration functions for accessing and modifying a user's z/OS Unix System Services UID. 
+User administration functions for accessing and modifying a user's TSO User Data. 
 {: .fs-6 .fw-300 }
 
-## `UserAdmin.get_omvs_uid()`
+## `UserAdmin.get_tso_user_data()`
 
 ```python
-def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
+def get_tso_user_data(self, userid: str) -> Union[str, None, bytes]:
 ```
 
 #### 📄 Description
@@ -24,15 +24,15 @@ def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
 
 &nbsp;
 
-Get a user's **z/OS Unix System Services UID**.
+Get a user's **TSO User Data**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being requested.
+  The **z/OS userid** of the user who's **TSO User Data** is being requested.
 
 #### 📤 Returns
-* `Union[int, None, bytes]`<br>
-  Returns the user's **z/OS Unix System Services UID** or `None` if it is not set or if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+* `Union[str, None, bytes]`<br>
+  Returns the user's **TSO User Data** or `None` if the user does not have a **TSO segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -44,14 +44,16 @@ Get a user's **z/OS Unix System Services UID**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_omvs_uid("squidwrd")
-2424
+>>> user_admin.get_tso_user_data("squidwrd")
+'abcd'
 ```
 
-## `UserAdmin.set_omvs_uid()`
+## `UserAdmin.set_tso_user_data()`
 
 ```python
-def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]:
+def set_tso_user_data(
+    self, userid: str, user_data: Union[str, bool]
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -63,14 +65,14 @@ def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]
 
 &nbsp;
 
-Change a user's **z/OS Unix System Services UID**.
+Change a user's **TSO User Data**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being set.
+  The **z/OS userid** of the user who's **TSO User Data** is being changed.
 
-* `uid`<br>
-  The **z/OS Unix System Services UID** to set for the specified user or `False` to delete the current value.
+* `user_data`<br>
+  The **User Data** to set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -86,8 +88,8 @@ Change a user's **z/OS Unix System Services UID**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.set_omvs_uid("squidwrd", 1919)
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (UID         (1919))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> user_admin.set_tso_user_data("squidwrd", "DCBA")
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  TSO      (USERDATA    (DCBA))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -107,7 +109,7 @@ Change a user's **z/OS Unix System Services UID**.
             "safReturnCode": 0,
             "returnCode": 0,
             "reasonCode": 0,
-            "image": "ALTUSER SQUIDWRD  OMVS     (UID         (1919))"
+            "image": "ALTUSER SQUIDWRD  TSO      (USERDATA    (DCBA))"
           }
         ]
       },

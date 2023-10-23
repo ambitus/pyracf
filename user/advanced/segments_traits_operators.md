@@ -13,8 +13,23 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 &nbsp;
 
+{: .stable }
+> _**Segments** documented in the table below are considered **Stable**._
+
+&nbsp;
+
+{: .experimental }
+> _**Segments** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
 {: .note }
 > _The `base` segment is **always included** in **[`UserAdmin.extract()`](../../standard/extract#useradminextract)** by default._
+
+&nbsp;
+
+{: .warning }
+> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
 
 &nbsp;
 
@@ -24,13 +39,24 @@ When using the **[`UserAdmin.extract()`](../../standard/extract#useradminextract
 
 | **Segment** | **Description** |
 | `omvs` | Describes a user's **z/OS Unix System Services** attributes. |
+| `tso` | Describes a user's **TSO** attributes. |
 
 ### Traits
 
 &nbsp;
 
+{: .stable }
+> _**Traits** documented in the table below are considered **Stable**._
+
+&nbsp;
+
+{: .experimental }
+> _**Traits** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
 {: .note }
-> _All **key-value pair traits** can be set to `False` in **[`UserAdmin.alter()`](../alter#useradminalter)** to indicate that they should be removed or unset._
+> _Some **Traits** can be set to `False` to delete their existing values._
 
 &nbsp;
 
@@ -43,18 +69,45 @@ Traits use the following syntax: `<segment>:<trait>`
 &nbsp;
 
 | **Trait** | **Description** | **Valid Types** |
-| `base:special` | Set to `True` to give a user **RACF Special** authority or `False` otherwise. | Add: `bool`<br>Alter: `bool` |
-| `base:auditor` | Set to `True` to give a user **Auditor** authority or `False` otherwise. | Add: `bool`<br>Alter: `bool` |
-| `base:operations` | Set to `True` to give a user **Operator** authority or `False` otherwise. | Add: `bool`<br>Alter: `bool` |
-| `base:name` | Set a name of the person that the **z/OS userid** belongs to. | Add: `str`<br>Alter: `str`, `False` |
-| `base:owner` | Set a **z/OS userid** as the owner of the **z/OS userid** being altered/created. | Add: `str`<br>Alter: `str`, `False` |
-| `base:password` | Set a user's password. | Add: `str`<br>Alter: `str`, `False` |
-| `base:class_authorizations` | Modify a user's **Class Authorizations**. | Add: `str`, `List[str]`<br>Alter: `str`, `List[str]` |
-| `omvs:uid` | Set a user's **z/OS Unix System Services UID**. | Add: `int`, `str`<br>Alter: `int`, `str`, `False` |
-| `omvs:home` | Set a user's **z/OS Unix System Services Home Directory**. | Add: `str`<br>Alter: `str`, `False` |
-| `omvs:program` | Set the user's **z/OS Unix System Services Program/Default Shell**. | Add: `str`<br>Alter: `str`, `False` |
+| `base:special` | Set to `True` to give a user **RACF Special** authority or `False` otherwise. | `bool` |
+| `base:operations` | Set to `True` to give a user **Operator** authority or `False` otherwise. | `bool` |
+| `base:auditor` | Set to `True` to give a user **Auditor** authority or `False` otherwise. | `bool` |
+| `base:password` | Set a user's **Password**. | `str`, `False` |
+| `base:passphrase` | Set a user's **Passphrase**. | `str`, `False` |
+| `base:class_authorizations` | Modify a user's **Class Authorizations**. | `str`, `List[str]` |
+| `base:revoke_date` | Set a user's **Revoke Date**. | `str`, `False` |
+| `base:resume_date` | Set a user's **Resume Date**. | `str`, `False` |
+| `base:name` | Set a user's **Name**. | `str`, `False` |
+| `base:owner` | Set a **z/OS userid** as the owner of the **z/OS userid** being altered/created. | `str` |
+| `omvs:uid` | Set a user's **z/OS Unix System Services UID**. | `int`, `False` |
+| `omvs:max_address_space_size` | Set a user's **z/OS Unix System Services Max Address Space Size**. | `int`, `False` |
+| `omvs:max_cpu_time` | Set a user's **z/OS Unix System Services Max CPU Time**. | `int`, `False` |
+| `omvs:max_files_per_process` | Set a user's **z/OS Unix System Services Max Files Per Process**. | `int`, `False` |
+| `omvs:max_non_shared_memory` | Set a user's **z/OS Unix System Services Max Non-Shared Memory**. | `str`, `False` |
+| `omvs:max_file_mapping_pages` | Set a user's **z/OS Unix System Services Max File Mapping Pages**. | `int`, `False` |
+| `omvs:max_processes` | Set a user's **z/OS Unix System Services Max Processes**. | `int`, `False` |
+| `omvs:max_shared_memory` | Set a user's **z/OS Unix System Services Max Shared Memory**. | `str`, `False` |
+| `omvs:home_directory` | Set a user's **z/OS Unix System Services Home Directory**. | `str`, `False` |
+| `omvs:default_shell` | Set the user's **z/OS Unix System Services Default Shell**. | `str`, `False` |
+| `tso:account_number` | Set a user's **TSO Account Number**. | `str`, `False` |
+| `tso:logon_command` | Set a user's **TSO Logon Command**. | `str`, `False` |
+| `tso:hold_class` | Set a user's **TSO Hold Class**. | `str`, `False` |
+| `tso:max_region_size` | Set a user's **TSO Max Region Size**. | `int`, `False` |
+| `tso:message_class` | Set a user's **TSO Message Class**. | `str`, `False` |
+| `tso:logon_procedure` | Set a user's **TSO Logon Procedure**. | `str`, `False` |
+| `tso:default_region_size` | Set a user's **TSO Default Region Size**. | `int`, `False` |
+| `tso:sysout_class` | Set a user's **TSO Sysout Class**. | `str`, `False` |
+| `tso:user_data` | Set a user's **TSO User Data**. | `str`, `False` |
+| `tso:data_set_allocation_unit` | Set a user's **TSO Data Set Allocation Unit**. | `str`, `False` |
 
 ### Operators
+
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
 
 Operators can be prepended to traits using the following syntax: `<operator>:<segment>:<trait>`
 
@@ -64,9 +117,23 @@ Operators can be prepended to traits using the following syntax: `<operator>:<se
 
 ### Key-Value Pair Traits
 
-Operators are generally not needed for **key-value pair traits**. For key-value pair traits, setting the value to a non-`False` value with no operator will generally set or overwrite the trait and setting the value to `False` will generally unset or disable the trait.
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
+
+Operators are generally not needed for **key-value pair traits**. For key-value pair traits, setting the value to a non-`False` value with no operator will generally set or overwrite the trait and setting the value to `False` will generally delete its existing value.
 
 ### List Traits
+
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
 
 | **Trait** | **Operator Usage** |
 | `base:class_authorizations` | Use the `add` operator to add new **Class Authorizations** and `remove` to remove **Class Authorizations**. |

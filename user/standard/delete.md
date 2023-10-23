@@ -17,6 +17,13 @@ def delete(self, userid: str) -> Union[dict, bytes]:
 
 #### 📄 Description
 
+&nbsp;
+
+{: .stable }
+> 
+
+&nbsp;
+
 Delete a **z/OS userid**.
 
 #### 📥 Parameters

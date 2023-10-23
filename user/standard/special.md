@@ -19,6 +19,11 @@ def has_special_authority(self, userid: str) -> Union[bool, bytes]:
 
 &nbsp;
 
+{: .stable }
+> 
+
+&nbsp;
+
 {: .note }
 > _Having **RACF Special** authority is analogous to having **Root** authority on Linux._
 
@@ -55,6 +60,11 @@ def give_special_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
+
+&nbsp;
+
+{: .stable }
+> 
 
 &nbsp;
 
@@ -122,6 +132,11 @@ def take_away_special_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
+
+&nbsp;
+
+{: .stable }
+> 
 
 &nbsp;
 
