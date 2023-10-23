@@ -5,6 +5,7 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
+from .invalid_segment_name_error import InvalidSegmentNameError
 from .invalid_segment_trait_error import InvalidSegmentTraitError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
@@ -259,9 +260,15 @@ class SecurityAdmin:
 
     def _build_bool_segment_dictionaries(self, segments: dict) -> None:
         """Build segment dictionaries for profile extract."""
+        invalid_segments = []
         for segment in segments:
             if segment in self._valid_segment_traits:
                 self._segment_traits[segment] = segments[segment]
+            else:
+                invalid_segments.append(segment)
+
+        if invalid_segments:
+            raise InvalidSegmentNameError(invalid_segments)
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 

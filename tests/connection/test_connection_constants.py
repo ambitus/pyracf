@@ -16,15 +16,17 @@ def get_sample(sample_file: str) -> Union[str, bytes]:
 # ============================================================================
 
 # Alter Connection
-TEST_ALTER_CONNECTION_RESULT_SUCCESS_XML = get_sample(
-    "alter_connection_result_success.xml"
+TEST_CONNECT_CONNECTION_RESULT_SUCCESS_XML = get_sample(
+    "connect_connection_result_success.xml"
 )
-TEST_ALTER_CONNECTION_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "alter_connection_result_success.json"
+TEST_CONNECT_CONNECTION_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "connect_connection_result_success.json"
 )
-TEST_ALTER_CONNECTION_RESULT_ERROR_XML = get_sample("alter_connection_result_error.xml")
-TEST_ALTER_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
-    "alter_connection_result_error.json"
+TEST_CONNECT_CONNECTION_RESULT_ERROR_XML = get_sample(
+    "connect_connection_result_error.xml"
+)
+TEST_CONNECT_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
+    "connect_connection_result_error.json"
 )
 
 
@@ -47,8 +49,8 @@ TEST_DELETE_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
 # ============================================================================
 
 # Alter Connection
-TEST_ALTER_CONNECTION_REQUEST_XML = get_sample("alter_connection_request.xml")
-TEST_ALTER_CONNECTION_REQUEST_TRAITS = {
+TEST_CONNECT_CONNECTION_REQUEST_XML = get_sample("connect_connection_request.xml")
+TEST_CONNECT_CONNECTION_REQUEST_TRAITS = {
     "base:operations": False,
     "base:special": True,
 }
@@ -89,5 +91,5 @@ TEST_CONNECTION_REMOVE_GROUP_ACCESS_ATTRIBUTE = get_sample(
 # Debug Logging
 # ============================================================================
 
-TEST_ALTER_CONNECTION_SUCCESS_LOG = get_sample("alter_connection_success.log")
-TEST_ALTER_CONNECTION_ERROR_LOG = get_sample("alter_connection_error.log")
+TEST_CONNECT_CONNECTION_SUCCESS_LOG = get_sample("connect_connection_success.log")
+TEST_CONNECT_CONNECTION_ERROR_LOG = get_sample("connect_connection_error.log")

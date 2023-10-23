@@ -1,7 +1,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                            ConnectionAdmin.alter()                            
+                           ConnectionAdmin.connect()                           
                                                                                
 
 {
@@ -20,7 +20,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                            ConnectionAdmin.alter()                            
+                           ConnectionAdmin.connect()                           
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -33,7 +33,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                            ConnectionAdmin.alter()                            
+                           ConnectionAdmin.connect()                           
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -55,7 +55,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                            ConnectionAdmin.alter()                            
+                           ConnectionAdmin.connect()                           
                                                                                
 
 {

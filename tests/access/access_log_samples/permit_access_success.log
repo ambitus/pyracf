@@ -1,17 +1,17 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                            ConnectionAdmin.alter()                            
+                              AccessAdmin.permit()                             
                                                                                
 
 {
   "base": {
-    "base:operations": {
-      "value": false,
-      "operation": "delete"
+    "base:access": {
+      "value": "NONE",
+      "operation": null
     },
-    "base:special": {
-      "value": true,
+    "base:id": {
+      "value": "ESWIFT",
       "operation": null
     }
   }
@@ -20,32 +20,32 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                            ConnectionAdmin.alter()                            
+                              AccessAdmin.permit()                             
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
-    <racf:oper operation="del"/>
-    <racf:special/>
-  </groupconnection>
+  <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
+    <access>NONE</access>
+    <authid>ESWIFT</authid>
+  </permission>
 </securityrequest>
 
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                            ConnectionAdmin.alter()                            
+                              AccessAdmin.permit()                             
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+  <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
     <command>
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
       <reasoncode>0</reasoncode>
-      <image>CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     </image>
+      <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)</image>
     </command>
-  </groupconnection>
+  </permission>
   <returncode>0</returncode>
   <reasoncode>0</reasoncode>
 </securityresult>
@@ -53,22 +53,22 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                            ConnectionAdmin.alter()                            
+                              AccessAdmin.permit()                             
                                                                                
 
 {
   "securityResult": {
-    "groupConnection": {
-      "name": "ESWIFT",
-      "group": "TESTGRP0",
+    "permission": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
       "operation": "set",
-      "requestId": "ConnectionRequest",
+      "requestId": "AccessRequest",
       "commands": [
         {
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     "
+          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)"
         }
       ]
     },

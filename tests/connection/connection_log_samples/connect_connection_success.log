@@ -1,17 +1,17 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                              AccessAdmin.alter()                              
+                           ConnectionAdmin.connect()                           
                                                                                
 
 {
   "base": {
-    "base:access": {
-      "value": "ALTER",
-      "operation": null
+    "base:operations": {
+      "value": false,
+      "operation": "delete"
     },
-    "base:id": {
-      "value": "MCGINLEY",
+    "base:special": {
+      "value": true,
       "operation": null
     }
   }
@@ -20,63 +20,59 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                              AccessAdmin.alter()                              
+                           ConnectionAdmin.connect()                           
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-  <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
-    <access>ALTER</access>
-    <authid>MCGINLEY</authid>
-  </permission>
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+    <racf:oper operation="del"/>
+    <racf:special/>
+  </groupconnection>
 </securityrequest>
 
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                              AccessAdmin.alter()                              
+                           ConnectionAdmin.connect()                           
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
     <command>
-      <safreturncode>8</safreturncode>
-      <returncode>16</returncode>
-      <reasoncode>4</reasoncode>
-      <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)</image>
-      <message>ICH06007I MCGINLEY NOT DEFINED TO RACF</message>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     </image>
     </command>
-  </permission>
-  <returncode>4</returncode>
+  </groupconnection>
+  <returncode>0</returncode>
   <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                              AccessAdmin.alter()                              
+                           ConnectionAdmin.connect()                           
                                                                                
 
 {
   "securityResult": {
-    "permission": {
-      "name": "TESTING",
-      "class": "ELIJTEST",
+    "groupConnection": {
+      "name": "ESWIFT",
+      "group": "TESTGRP0",
       "operation": "set",
-      "requestId": "AccessRequest",
+      "requestId": "ConnectionRequest",
       "commands": [
         {
-          "safReturnCode": 8,
-          "returnCode": 16,
-          "reasonCode": 4,
-          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)",
-          "messages": [
-            "ICH06007I MCGINLEY NOT DEFINED TO RACF"
-          ]
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     "
         }
       ]
     },
-    "returnCode": 4,
+    "returnCode": 0,
     "reasonCode": 0
   }
 }

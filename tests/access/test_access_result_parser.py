@@ -22,35 +22,35 @@ class TestAccessResultParser(unittest.TestCase):
     # ============================================================================
     # Alter Access
     # ============================================================================
-    def test_access_admin_can_parse_alter_access_success_xml(
+    def test_access_admin_can_parse_permit_access_success_xml(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_XML
+            TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            self.access_admin.alter(
+            self.access_admin.permit(
                 "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "NONE"}
             ),
-            TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_DICTIONARY,
+            TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
     # Error, UserID MCGINLEY not defined to RACF
-    def test_access_admin_can_parse_alter_access_error_xml(
+    def test_access_admin_can_parse_permit_access_error_xml(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_XML
+            TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            self.access_admin.alter(
+            self.access_admin.permit(
                 "TESTING", "ELIJTEST", "MCGINLEY", traits={"base:access": "ALTER"}
             )
         self.assertEqual(
             exception.exception.result,
-            TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_DICTIONARY,
+            TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_ERROR_DICTIONARY,
         )
 
     # ============================================================================

@@ -26,35 +26,37 @@ class TestAccessDebugLogging(unittest.TestCase):
     # ============================================================================
     # Alter Access
     # ============================================================================
-    def test_alter_access_request_debug_log_works_on_success(
+    def test_permit_access_request_debug_log_works_on_success(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestAccessConstants.TEST_ALTER_ACCESS_RESULT_SUCCESS_XML
+            TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_SUCCESS_XML
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.access_admin.alter(
+            self.access_admin.permit(
                 "TESTING", "ELIJTEST", "ESWIFT", traits={"base:access": "NONE"}
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(success_log, TestAccessConstants.TEST_ALTER_ACCESS_SUCCESS_LOG)
+        self.assertEqual(
+            success_log, TestAccessConstants.TEST_PERMIT_ACCESS_SUCCESS_LOG
+        )
 
-    def test_alter_access_request_debug_log_works_on_error(
+    def test_permit_access_request_debug_log_works_on_error(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestAccessConstants.TEST_ALTER_ACCESS_RESULT_ERROR_XML
+            TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_ERROR_XML
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.access_admin.alter(
+                self.access_admin.permit(
                     "TESTING", "ELIJTEST", "MCGINLEY", traits={"base:access": "ALTER"}
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestAccessConstants.TEST_ALTER_ACCESS_ERROR_LOG)
+        self.assertEqual(error_log, TestAccessConstants.TEST_PERMIT_ACCESS_ERROR_LOG)

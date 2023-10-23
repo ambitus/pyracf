@@ -1,17 +1,17 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                              AccessAdmin.alter()                              
+                              AccessAdmin.permit()                             
                                                                                
 
 {
   "base": {
     "base:access": {
-      "value": "NONE",
+      "value": "ALTER",
       "operation": null
     },
     "base:id": {
-      "value": "ESWIFT",
+      "value": "MCGINLEY",
       "operation": null
     }
   }
@@ -20,40 +20,41 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                              AccessAdmin.alter()                              
+                              AccessAdmin.permit()                             
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
   <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
-    <access>NONE</access>
-    <authid>ESWIFT</authid>
+    <access>ALTER</access>
+    <authid>MCGINLEY</authid>
   </permission>
 </securityrequest>
 
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                              AccessAdmin.alter()                              
+                              AccessAdmin.permit()                             
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
   <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
     <command>
-      <safreturncode>0</safreturncode>
-      <returncode>0</returncode>
-      <reasoncode>0</reasoncode>
-      <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)</image>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)</image>
+      <message>ICH06007I MCGINLEY NOT DEFINED TO RACF</message>
     </command>
   </permission>
-  <returncode>0</returncode>
+  <returncode>4</returncode>
   <reasoncode>0</reasoncode>
 </securityresult>
 
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                              AccessAdmin.alter()                              
+                              AccessAdmin.permit()                             
                                                                                
 
 {
@@ -65,14 +66,17 @@
       "requestId": "AccessRequest",
       "commands": [
         {
-          "safReturnCode": 0,
-          "returnCode": 0,
-          "reasonCode": 0,
-          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)"
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)",
+          "messages": [
+            "ICH06007I MCGINLEY NOT DEFINED TO RACF"
+          ]
         }
       ]
     },
-    "returnCode": 0,
+    "returnCode": 4,
     "reasonCode": 0
   }
 }

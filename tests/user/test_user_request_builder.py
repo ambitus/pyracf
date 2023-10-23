@@ -6,7 +6,7 @@ from unittest.mock import Mock
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
-from pyracf import UserAdmin
+from pyracf import InvalidSegmentNameError, InvalidSegmentTraitError, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -110,4 +110,37 @@ class TestUserRequestBuilder(unittest.TestCase):
         self.assertEqual(
             result,
             TestUserConstants.TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML,
+        )
+
+    # ============================================================================
+    # Request Builder Errors
+    # ============================================================================
+    def test_user_admin_build_add_request_with_invalid_segment_traits(self):
+        invalid_trait = "omvs:invalid_trait"
+        user_admin = UserAdmin(
+            generate_requests_only=True,
+        )
+        with self.assertRaises(InvalidSegmentTraitError) as exception:
+            user_admin.add(
+                "squidwrd", TestUserConstants.TEST_ADD_USER_REQUEST_INVALID_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Building of Security Request failed.\n\n"
+            + "Could not find "
+            + f"'{invalid_trait}' in valid segment traits for the requested operation.\n",
+        )
+
+    def test_user_admin_build_extract_request_with_invalid_segment_name(self):
+        invalid_segment = "test_segment"
+        user_admin = UserAdmin(
+            generate_requests_only=True,
+        )
+        with self.assertRaises(InvalidSegmentNameError) as exception:
+            user_admin.extract("squidwrd", {invalid_segment: True})
+        self.assertEqual(
+            exception.exception.message,
+            "Building of Security Request failed.\n\n"
+            + "Could not find "
+            + f"'{invalid_segment}' in valid segments for the requested operation.\n",
         )

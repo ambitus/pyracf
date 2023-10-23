@@ -54,14 +54,14 @@ class ConnectionAdmin(SecurityAdmin):
         self, userid: str, group: str
     ) -> Union[dict, bytes]:
         """Give a user RACF special authority within a group."""
-        result = self.alter(userid, group, {"base:special": True})
+        result = self.connect(userid, group, {"base:special": True})
         return self._to_steps(result)
 
     def take_away_group_special_authority(
         self, userid: str, group: str
     ) -> Union[dict, bytes]:
         """Remove a user's RACF special authoritiy within a group."""
-        result = self.alter(userid, group, {"base:special": False})
+        result = self.connect(userid, group, {"base:special": False})
         return self._to_steps(result)
 
     # ============================================================================
@@ -71,14 +71,14 @@ class ConnectionAdmin(SecurityAdmin):
         self, userid: str, group: str
     ) -> Union[dict, bytes]:
         """Give a user operations authority within a group."""
-        result = self.alter(userid, group, {"base:operations": True})
+        result = self.connect(userid, group, {"base:operations": True})
         return self._to_steps(result)
 
     def take_away_group_operations_authority(
         self, userid: str, group: str
     ) -> Union[dict, bytes]:
         """Remove a user's operations authority within a group."""
-        result = self.alter(userid, group, {"base:operations": False})
+        result = self.connect(userid, group, {"base:operations": False})
         return self._to_steps(result)
 
     # ============================================================================
@@ -88,14 +88,14 @@ class ConnectionAdmin(SecurityAdmin):
         self, userid: str, group: str
     ) -> Union[dict, bytes]:
         """Give a user auditor authority within a group."""
-        result = self.alter(userid, group, {"base:auditor": True})
+        result = self.connect(userid, group, {"base:auditor": True})
         return self._to_steps(result)
 
     def take_away_group_auditor_authority(
         self, userid: str, group: str
     ) -> Union[dict, bytes]:
         """Remove a user's auditor authority within a group."""
-        result = self.alter(userid, group, {"base:auditor": False})
+        result = self.connect(userid, group, {"base:auditor": False})
         return self._to_steps(result)
 
     # ============================================================================
@@ -106,7 +106,7 @@ class ConnectionAdmin(SecurityAdmin):
         Automatically make group data set profiles that a user
         creates accessible to all members of the group.
         """
-        result = self.alter(userid, group, {"base:group_access": True})
+        result = self.connect(userid, group, {"base:group_access": True})
         return self._to_steps(result)
 
     def remove_group_access_attribute(
@@ -116,14 +116,14 @@ class ConnectionAdmin(SecurityAdmin):
         Don't automatically make group data set profiles that
         a user creates accessible to all members of the group.
         """
-        result = self.alter(userid, group, {"base:group_access": False})
+        result = self.connect(userid, group, {"base:group_access": False})
         return self._to_steps(result)
 
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def alter(self, userid: str, group: str, traits: dict = {}) -> Union[dict, bytes]:
-        """Alter an existing group connection."""
+    def connect(self, userid: str, group: str, traits: dict = {}) -> Union[dict, bytes]:
+        """Establish or change a group connection."""
         self._build_segment_dictionaries(traits)
         connection_request = ConnectionRequest(userid, group, "set")
         self._add_traits_directly_to_request_xml_with_no_segments(connection_request)

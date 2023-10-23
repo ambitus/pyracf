@@ -124,9 +124,9 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Raclist Refresh
     # ============================================================================
-    def refresh_raclist(self, class_name: str) -> Union[dict, bytes]:
+    def refresh_raclist(self, class_names: Union[List[str], str]) -> Union[dict, bytes]:
         """Refresh raclist."""
-        result = self.alter(options={"base:raclist": class_name, "base:refresh": True})
+        result = self.alter(options={"base:raclist": class_names, "base:refresh": True})
         return self._to_steps(result)
 
     # ============================================================================
@@ -147,135 +147,161 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Audit Class
     # ============================================================================
-    def add_audit_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to list of classes that RACF performs auditing for."""
-        result = self.alter(options={"base:audit_class": class_name})
+    def add_audit_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to list of classes that RACF performs auditing for."""
+        result = self.alter(options={"base:audit_class": class_names})
         return self._to_steps(result)
 
-    def remove_audit_class(self, class_name: str) -> Union[dict, bytes]:
-        """Remove a class from the list of classes that RACF performs auditing for."""
-        result = self.alter(options={"delete:base:audit_class": class_name})
+    def remove_audit_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Remove class(es) from the list of classes that RACF performs auditing for."""
+        result = self.alter(options={"delete:base:audit_class": class_names})
         return self._to_steps(result)
 
     # ============================================================================
     # Active Class
     # ============================================================================
-    def add_active_class(self, class_name: str) -> Union[dict, bytes]:
+    def add_active_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
         """
-        Add a class to the list of classes that RACF performs access authorization checking for.
+        Add class(es) to the list of classes that RACF performs access authorization checking for.
         """
-        result = self.alter(options={"base:active_class": class_name})
+        result = self.alter(options={"base:active_class": class_names})
         return self._to_steps(result)
 
-    def remove_active_class(self, class_name: str) -> Union[dict, bytes]:
+    def remove_active_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that
+        Remove class(es) from the list of classes that
         RACF performs access authorization checking for.
         """
-        result = self.alter(options={"delete:base:active_class": class_name})
+        result = self.alter(options={"delete:base:active_class": class_names})
         return self._to_steps(result)
 
     # ============================================================================
     # Statistics Class
     # ============================================================================
-    def add_statistics_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to the list of classes that RACF collects statistics for."""
-        result = self.alter(options={"base:statistics_class": class_name})
+    def add_statistics_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to the list of classes that RACF collects statistics for."""
+        result = self.alter(options={"base:statistics_class": class_names})
         return self._to_steps(result)
 
-    def remove_statistics_class(self, class_name: str) -> Union[dict, bytes]:
-        """Remove a class from the list of classes that RACF collects statistics for."""
-        result = self.alter(options={"delete:base:statistics_class": class_name})
+    def remove_statistics_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Remove class(es) from the list of classes that RACF collects statistics for."""
+        result = self.alter(options={"delete:base:statistics_class": class_names})
         return self._to_steps(result)
 
     # ============================================================================
     # Generic Command Processing Class
     # ============================================================================
-    def add_generic_command_processing_class(
-        self, class_name: str
+    def add_generic_command_processing_classes(
+        self, class_names: Union[List[str], str]
     ) -> Union[dict, bytes]:
         """
-        Add a class to the list of classes that have
+        Add class(es) to the list of classes that have
         generic profile command processing enabled.
         """
-        result = self.alter(options={"base:general_command_class": class_name})
+        result = self.alter(options={"base:general_command_class": class_names})
         return self._to_steps(result)
 
-    def remove_generic_command_processing_class(
-        self, class_name: str
+    def remove_generic_command_processing_classes(
+        self, class_names: Union[List[str], str]
     ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that
+        Remove class(es) from the list of classes that
         have generic profile command processing enabled.
         """
-        result = self.alter(options={"delete:base:general_command_class": class_name})
+        result = self.alter(options={"delete:base:general_command_class": class_names})
         return self._to_steps(result)
 
     # ============================================================================
     # Generic Profile Checking Class
     # ============================================================================
-    def add_generic_profile_checking_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to the list of classes that have generic profile checking enabled."""
-        result = self.alter(options={"base:generic_profile_checking_class": class_name})
+    def add_generic_profile_checking_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to the list of classes that have generic profile checking enabled."""
+        result = self.alter(
+            options={"base:generic_profile_checking_class": class_names}
+        )
         return self._to_steps(result)
 
-    def remove_generic_profile_checking_class(
-        self, class_name: str
+    def remove_generic_profile_checking_classes(
+        self, class_names: Union[List[str], str]
     ) -> Union[dict, bytes]:
-        """Remove a class from the list of classes that have generic profile checking enabled."""
+        """Remove class(es) from the list of classes that have generic profile checking enabled."""
         result = self.alter(
-            options={"delete:base:generic_profile_checking_class": class_name}
+            options={"delete:base:generic_profile_checking_class": class_names}
         )
         return self._to_steps(result)
 
     # ============================================================================
     # Generic Profile Sharing Class
     # ============================================================================
-    def add_generic_profile_sharing_class(self, class_name: str) -> Union[dict, bytes]:
-        """
-        Add a class to the list of classes that are eligible for
-        general resource profile sharing in common storage.
-        """
-        result = self.alter(options={"base:generic_profile_sharing_class": class_name})
-        return self._to_steps(result)
-
-    def remove_generic_profile_sharing_class(
-        self, class_name: str
+    def add_generic_profile_sharing_classes(
+        self, class_names: Union[List[str], str]
     ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that are eligible
+        Add class(es) to the list of classes that are eligible for
+        general resource profile sharing in common storage.
+        """
+        result = self.alter(options={"base:generic_profile_sharing_class": class_names})
+        return self._to_steps(result)
+
+    def remove_generic_profile_sharing_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """
+        Remove class(es) from the list of classes that are eligible
         for general resource profile sharing in common storage.
         """
         result = self.alter(
-            options={"delete:base:generic_profile_sharing_class": class_name}
+            options={"delete:base:generic_profile_sharing_class": class_names}
         )
         return self._to_steps(result)
 
     # ============================================================================
     # Global Access Class
     # ============================================================================
-    def add_global_access_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to the list of classes eligible for global access checking."""
-        return self.alter(options={"base:global_access_class": class_name})
+    def add_global_access_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to the list of classes eligible for global access checking."""
+        return self.alter(options={"base:global_access_class": class_names})
 
-    def remove_global_access_class(self, class_name: str) -> Union[dict, bytes]:
-        """Remove a class from the list of classes eligible for global access checking."""
-        result = self.alter(options={"delete:base:global_access_class": class_name})
+    def remove_global_access_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Remove class(es) from the list of classes eligible for global access checking."""
+        result = self.alter(options={"delete:base:global_access_class": class_names})
         return self._to_steps(result)
 
     # ============================================================================
     # Raclist Class
     # ============================================================================
-    def add_raclist_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to list of classes that have in-storage profile sharing activated."""
-        result = self.alter(options={"base:raclist": class_name})
+    def add_raclist_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to list of classes that have in-storage profile sharing activated."""
+        result = self.alter(options={"base:raclist": class_names})
         return self._to_steps(result)
 
-    def remove_raclist_class(self, class_name: str) -> Union[dict, bytes]:
+    def remove_raclist_classes(
+        self, class_names: Union[List[str], str]
+    ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that have in-storage profile sharing activated.
+        Remove class(es) from the list of classes that have in-storage profile sharing activated.
         """
-        result = self.alter(options={"delete:base:raclist": class_name})
+        result = self.alter(options={"delete:base:raclist": class_names})
         return self._to_steps(result)
 
     # ============================================================================

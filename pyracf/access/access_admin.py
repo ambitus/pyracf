@@ -54,7 +54,7 @@ class AccessAdmin(SecurityAdmin):
     # ============================================================================
     # Base Functions
     # ============================================================================
-    def alter(
+    def permit(
         self,
         resource: str,
         class_name: str,
