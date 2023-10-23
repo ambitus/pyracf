@@ -97,7 +97,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML
         )
         self.assertEqual(
-            self.user_admin.extract("squidwrd", segments={"omvs": True}),
+            self.user_admin.extract("squidwrd", segments=["omvs"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
@@ -109,7 +109,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertEqual(
-            self.user_admin.extract("squidwrd", segments={"omvs": True}),
+            self.user_admin.extract("squidwrd", segments=["omvs"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_JSON,
         )
 
@@ -122,7 +122,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            self.user_admin.extract("squidwrd", segments={"omvs": True})
+            self.user_admin.extract("squidwrd", segments=["omvs"])
         self.assertEqual(
             exception.exception.result,
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY,
@@ -136,7 +136,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML
         )
         self.assertEqual(
-            self.user_admin.extract("squidwrd", segments={"omvs": True}),
+            self.user_admin.extract("squidwrd", segments=["omvs"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
@@ -148,7 +148,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML
         )
         self.assertEqual(
-            self.user_admin.extract("squidwrd", segments={"omvs": True, "tso": True}),
+            self.user_admin.extract("squidwrd", segments=["omvs", "tso"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_DICTIONARY,
         )
 
@@ -365,6 +365,6 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
         )
         self.assertEqual(
-            user_admin.extract("squidwrd", {"omvs": True, "csdata": True}),
+            user_admin.extract("squidwrd", segments=["omvs", "csdata"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
         )

@@ -69,7 +69,7 @@ class TestGroupDebugLogging(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.group_admin.extract("TESTGRP0", segments={"omvs": True})
+            self.group_admin.extract("TESTGRP0", segments=["omvs"])
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log, TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_SUCCESS_LOG
@@ -85,7 +85,7 @@ class TestGroupDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.group_admin.extract("TESTGRP0", segments={"omvs": True})
+                self.group_admin.extract("TESTGRP0", segments=["omvs"])
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())

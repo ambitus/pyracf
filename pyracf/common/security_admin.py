@@ -258,11 +258,11 @@ class SecurityAdmin:
         self._trait_map[trait] = self._valid_segment_traits[segment][trait]
         return True
 
-    def _build_bool_segment_dictionaries(self, segments: dict) -> None:
+    def _build_bool_segment_dictionaries(self, segments: List[str]) -> None:
         """Build segment dictionaries for profile extract."""
         for segment in segments:
             if segment in self._valid_segment_traits:
-                self._segment_traits[segment] = segments[segment]
+                self._segment_traits[segment] = True
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 

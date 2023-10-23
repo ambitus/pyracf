@@ -93,7 +93,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OMVS GID."""
-        profile = self.extract(group, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(group, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "gid")
 
     def set_omvs_gid(self, group: str, gid: int) -> Union[dict, bytes]:
@@ -106,7 +106,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def get_ovm_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OVM GID."""
-        profile = self.extract(group, segments={"ovm": True}, profile_only=True)
+        profile = self.extract(group, segments=["ovm"], profile_only=True)
         return self._get_field(profile, "ovm", "gid")
 
     def set_ovm_gid(self, group: str, gid: int) -> Union[dict, bytes]:
@@ -132,7 +132,7 @@ class GroupAdmin(SecurityAdmin):
         return self._make_request(group_request, irrsmo00_precheck=True)
 
     def extract(
-        self, group: str, segments: dict = {}, profile_only: bool = False
+        self, group: str, segments: List[str] = [], profile_only: bool = False
     ) -> Union[dict, bytes]:
         """Extract a group's profile."""
         self._build_bool_segment_dictionaries(segments)

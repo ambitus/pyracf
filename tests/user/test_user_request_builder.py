@@ -47,9 +47,7 @@ class TestUserRequestBuilder(unittest.TestCase):
         self.assertEqual(result, TestUserConstants.TEST_ALTER_USER_REQUEST_XML)
 
     def test_user_admin_build_extract_user_request_base_omvs(self):
-        result = self.user_admin.extract(
-            "squidwrd", segments={"omvs": True, "mfa": False}
-        )
+        result = self.user_admin.extract("squidwrd", segments=["omvs"])
         self.assertEqual(
             result, TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML
         )

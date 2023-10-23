@@ -235,7 +235,11 @@ class ResourceAdmin(SecurityAdmin):
         return self._make_request(profile_request, irrsmo00_precheck=True)
 
     def extract(
-        self, resource: str, class_name: str, segments={}, profile_only: bool = False
+        self,
+        resource: str,
+        class_name: str,
+        segments: List[str] = [],
+        profile_only: bool = False,
     ) -> Union[dict, bytes]:
         """Extract a general resource profile."""
         self._build_bool_segment_dictionaries(segments)

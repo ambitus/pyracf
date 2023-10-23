@@ -398,7 +398,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS UID."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "uid")
 
     def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]:
@@ -411,7 +411,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_address_space_size(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS max address space size."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxAddressSpaceSize")
 
     def set_omvs_max_address_space_size(
@@ -430,7 +430,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_cpu_time(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS max cpu time."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxCpuTime")
 
     def set_omvs_max_cpu_time(
@@ -447,7 +447,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_files_per_process(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS max files per process."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxFilesPerProcess")
 
     def set_omvs_max_files_per_process(
@@ -466,7 +466,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_non_shared_memory(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's OMVS max non-shared memory."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxNonSharedMemory", string=True)
 
     def set_omvs_max_non_shared_memory(
@@ -485,7 +485,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_file_mapping_pages(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS max file mapping pages."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxFileMappingPages")
 
     def set_omvs_max_file_mapping_pages(
@@ -504,7 +504,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_processes(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS max processes."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxProcesses")
 
     def set_omvs_max_processes(
@@ -521,7 +521,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_shared_memory(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's OMVS max shared memory."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxSharedMemory", string=True)
 
     def set_omvs_max_shared_memory(
@@ -540,7 +540,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_max_threads(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS max threads."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "maxThreads")
 
     def set_omvs_max_threads(
@@ -557,7 +557,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_home_directory(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's OMVS home directory."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "homeDirectory", string=True)
 
     def set_omvs_home_directory(
@@ -574,7 +574,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_default_shell(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's OMVS default shell."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "defaultShell", string=True)
 
     def set_omvs_default_shell(
@@ -591,7 +591,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_account_number(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO account number."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "accountNumber", string=True)
 
     def set_tso_account_number(
@@ -608,7 +608,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_logon_command(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO logon command."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "logonCommand", string=True)
 
     def set_tso_logon_command(
@@ -625,7 +625,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_hold_class(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO hold class."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "holdClass", string=True)
 
     def set_tso_hold_class(
@@ -642,7 +642,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_max_region_size(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's TSO max region size."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "maxRegionSize")
 
     def set_tso_max_region_size(
@@ -659,7 +659,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_message_class(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO message class."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "messageClass", string=True)
 
     def set_tso_message_class(
@@ -676,7 +676,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_logon_procedure(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO logon procedure."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "logonProcedure", string=True)
 
     def set_tso_logon_procedure(
@@ -693,7 +693,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_default_region_size(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's TSO default region size."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "defaultRegionSize")
 
     def set_tso_default_region_size(
@@ -712,7 +712,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_sysout_class(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO sysout class."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "sysoutClass", string=True)
 
     def set_tso_sysout_class(
@@ -729,7 +729,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_user_data(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO user data."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "userData", string=True)
 
     def set_tso_user_data(
@@ -746,7 +746,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def get_tso_data_set_allocation_unit(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's TSO data set allocation unit."""
-        profile = self.extract(userid, segments={"tso": True}, profile_only=True)
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
         return self._get_field(profile, "tso", "dataSetAllocationUnit", string=True)
 
     def set_tso_data_set_allocation_unit(
@@ -778,7 +778,7 @@ class UserAdmin(SecurityAdmin):
         return self._make_request(user_request, irrsmo00_precheck=True)
 
     def extract(
-        self, userid: str, segments: dict = {}, profile_only: bool = False
+        self, userid: str, segments: List[str] = [], profile_only: bool = False
     ) -> Union[dict, bytes]:
         """Extract a user's profile."""
         self._build_bool_segment_dictionaries(segments)

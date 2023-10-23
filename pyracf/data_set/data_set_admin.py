@@ -123,7 +123,7 @@ class DataSetAdmin(SecurityAdmin):
     def extract(
         self,
         data_set: str,
-        segments: dict = {},
+        segments: List[str] = [],
         volume: Union[str, None] = None,
         generic: bool = False,
         profile_only: bool = False,
