@@ -383,7 +383,7 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     # Name
     # ============================================================================
-    def get_name(self, userid: str) -> Union[str, bytes]:
+    def get_name(self, userid: str) -> Union[str, None, bytes]:
         """Get a user's name."""
         profile = self.extract(userid, profile_only=True)
         return self._get_field(profile, "base", "name", string=True)
