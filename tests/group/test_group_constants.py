@@ -42,11 +42,11 @@ TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML = get_sample(
 TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_DICTIONARY = get_sample(
     "extract_group_result_base_omvs_error.json"
 )
-TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
-    "extract_group_result_base_only_no_omvs_success.xml"
+TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML = get_sample(
+    "extract_group_result_base_only_success.xml"
 )
-TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
-    "extract_group_result_base_only_no_omvs_success.json"
+TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_JSON = get_sample(
+    "extract_group_result_base_only_success.json"
 )
 
 # Delete Group

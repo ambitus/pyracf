@@ -287,7 +287,7 @@ class TestUserDebugLogging(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.extract("squidwrd", segments={"omvs": True})
+            self.user_admin.extract("squidwrd", segments=["omvs"])
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log, TestUserConstants.TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG
@@ -303,7 +303,7 @@ class TestUserDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.extract("squidwrd", segments={"omvs": True})
+                self.user_admin.extract("squidwrd", segments=["omvs"])
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())

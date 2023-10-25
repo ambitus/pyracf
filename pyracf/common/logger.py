@@ -145,6 +145,15 @@ class Logger:
             match = re.search(rf"\<{xml_key}+[^>]*\>", xml_string)
             if not match:
                 continue
+            # Delete operation has no end tag and and redaction should not be attempted.
+            #
+            # Redact this:
+            # <tag operation="set">secret</tag>
+            #
+            # Don't try to redact this:
+            # <tag operation="del" />
+            if f"</{xml_key}>" not in xml_string:
+                continue
             xml_string = self.__redact_string(xml_string, match.end(), f"</{xml_key}")
         if is_bytes:
             xml_string = xml_string.encode("utf-8")
@@ -166,7 +175,7 @@ class Logger:
             match = re.search(rf"{racf_key.upper()} +\(", xml_string)
             if not match:
                 continue
-            xml_string = self.__redact_string(xml_string, match.end(), ") ")
+            xml_string = self.__redact_string(xml_string, match.end(), ")")
         return xml_string
 
     def __colorize_json(self, json_text: str) -> str:

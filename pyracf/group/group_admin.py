@@ -20,26 +20,21 @@ class GroupAdmin(SecurityAdmin):
     ) -> None:
         self._valid_segment_traits = {
             "base": {
-                "base:connects": "racf:connects",
-                "base:gauth": "racf:gauth",
-                "base:guserid": "racf:guserid",
-                "base:creatdat": "racf:creatdat",
-                "base:data": "racf:data",
-                "base:model": "racf:model",
+                "base:installation_data": "racf:data",
+                "base:data_set_model": "racf:model",
                 "base:owner": "racf:owner",
-                "base:subgroup": "racf:subgroup",
-                "base:supgroup": "racf:supgroup",
-                "base:termuacc": "racf:termuacc",
-                "base:universl": "racf:universl",
+                "base:superior_group": "racf:supgroup",
+                "base:terminal_universal_access": "racf:termuacc",
+                "base:universal": "racf:universl",
             },
             "dfp": {
-                "dfp:dataappl": "dataappl",
-                "dfp:dataclas": "dataclas",
-                "dfp:mgmtclas": "mgmtclas",
-                "dfp:storclas": "storclas",
+                "dfp:data_application": "dataappl",
+                "dfp:data_class": "dataclas",
+                "dfp:management_class": "mgmtclas",
+                "dfp:storage_class": "storclas",
             },
             "omvs": {
-                "omvs:autogid": "racf:autogid",
+                "omvs:auto_gid": "racf:autogid",
                 "omvs:gid": "gid",
                 "omvs:shared": "racf:shared",
             },
@@ -98,7 +93,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OMVS GID."""
-        profile = self.extract(group, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(group, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "gid")
 
     def set_omvs_gid(self, group: str, gid: int) -> Union[dict, bytes]:
@@ -111,7 +106,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def get_ovm_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OVM GID."""
-        profile = self.extract(group, segments={"ovm": True}, profile_only=True)
+        profile = self.extract(group, segments=["ovm"], profile_only=True)
         return self._get_field(profile, "ovm", "gid")
 
     def set_ovm_gid(self, group: str, gid: int) -> Union[dict, bytes]:
@@ -137,7 +132,7 @@ class GroupAdmin(SecurityAdmin):
         return self._make_request(group_request, irrsmo00_precheck=True)
 
     def extract(
-        self, group: str, segments: dict = {}, profile_only: bool = False
+        self, group: str, segments: List[str] = [], profile_only: bool = False
     ) -> Union[dict, bytes]:
         """Extract a group's profile."""
         self._build_bool_segment_dictionaries(segments)

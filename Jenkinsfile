@@ -70,11 +70,17 @@ pipeline {
                 }
             }
         }
+         stage('Install Poetry') {
+            steps {
+                clean_python_environment()
+                install_poetry(python_executables_and_wheels_map.keySet()[-1])
+            }
+         }
         stage('Build Virtual Environments') {
             steps {
                 script {
                     for (python in python_executables_and_wheels_map.keySet()) {
-                        build_virtual_environment(python)
+                        build_poetry_environment(python)
                     }
                 }
             }
@@ -94,7 +100,7 @@ pipeline {
                     for (python in python_executables_and_wheels_map.keySet()) {
                         function_test(
                             python, 
-                            python_executables_and_wheels_map[python]["defaultName"]
+                            python_executables_and_wheels_map[python]["wheelDefault"]
                         )
                     }
                 }
@@ -119,6 +125,7 @@ pipeline {
         always {
             echo "Cleaning up workspace..."
             cleanWs()
+            clean_python_environment()
         }
     }
 }
@@ -145,26 +152,39 @@ def create_python_executables_and_wheels_map(python_versions) {
 
     for (version in python_versions) {
         python_executables_and_wheels_map["python3.${version}"] = [
-            "defaultName": (
+            "wheelDefault": (
                 "pyracf-${pyracf_version}-cp3${version}-cp3${version}-${os}_${zos_release}_${processor}.whl"
             ),
-            "publishName": "pyracf-${pyracf_version}-cp3${version}-none-any.whl"
+            "wheelPublish": "pyracf-${pyracf_version}-cp3${version}-none-any.whl",
+            "tarPublish": "pyracf-${pyracf_version}.tar.gz"
         ]
     }
 
     return python_executables_and_wheels_map
 }
 
-def build_virtual_environment(python) {
-    echo "Building virtual environment for '${python}'..."
+def clean_python_environment() {
+    echo "Cleaning Python environment..."
 
     sh """
-        ${python} --version
-        rm -rf venv_${python}
-        ${python} -m venv venv_${python}
-        . venv_${python}/bin/activate
-        ${python} -m pip install -r requirements.txt
-        ${python} -m pip install -r requirements-development.txt
+        rm -rf ~/.cache
+        rm -rf ~/.local
+    """
+}
+
+def install_poetry(python) {
+    echo "Installing Poetry..."
+
+    sh "bash -c 'curl -sSL https://install.python-poetry.org | ${python} -'"
+}
+
+def build_poetry_environment(python) {
+    echo "Building Poetry environment for '${python}'..."
+
+    sh """
+        poetry env use ${python}
+        poetry install --no-root
+        poetry env info
     """
 }
 
@@ -172,12 +192,12 @@ def lint_and_unit_test(python) {
     echo "Running linters and unit tests for '${python}'..."
 
     sh """
-        . venv_${python}/bin/activate
-        ${python} -m flake8 .
-        ${python} -m pylint --recursive=y .
-        cd tests
-        ${python} -m coverage run test_runner.py
-        ${python} -m coverage report -m
+        poetry env use ${python}
+        poetry env info
+        poetry run flake8 .
+        poetry run pylint --recursive=y .
+        poetry run coverage run tests/test_runner.py
+        poetry run coverage report -m
     """
 }
 
@@ -185,10 +205,11 @@ def function_test(python, wheel) {
     echo "Running function test for '${python}'..."
 
     sh """
-        git clean -f -d -e 'venv_*'
-        . venv_${python}/bin/activate
-        ${python} -m pip wheel .
-        ${python} -m pip install ${wheel}
+        git clean -fdx
+        poetry env use ${python} 
+        poetry env info
+        poetry build
+        ${python} -m pip install dist/${wheel}
         cd tests/function_test
         ${python} function_test.py
     """
@@ -212,6 +233,18 @@ def publish(
             string(
                 credentialsId: 'pyracf-github-access-token',
                 variable: 'github_access_token'
+            ),
+            string(
+                credentialsId: 'pyracf-pypi-repository',
+                variable: 'pypi_repository'
+            ),
+            string(
+                credentialsId: 'pyracf-pypi-username',
+                variable: 'pypi_username'
+            ),
+            string(
+                credentialsId: 'pyracf-pypi-password',
+                variable: 'pypi_password'
             )
         ]
     ) {
@@ -250,47 +283,82 @@ def publish(
             )
         ).trim()
 
+        sh 'poetry config repositories.test ${pypi_repository}'
+
+        def tar_published = false
+
         for (python in python_executables_and_wheels_map.keySet()) {
-            def wheel_default = python_executables_and_wheels_map[python]["defaultName"]
-            def wheel_publish = python_executables_and_wheels_map[python]["publishName"]
+            def wheel_default = python_executables_and_wheels_map[python]["wheelDefault"]
+            def wheel_publish = python_executables_and_wheels_map[python]["wheelPublish"]
+            def tar_publish = python_executables_and_wheels_map[python]["tarPublish"]
 
             echo "Cleaning repo and building '${wheel_default}'..."
 
             sh """
-                git clean -f -d -e 'venv_*'
-                . venv_${python}/bin/activate
-                ${python} -m pip wheel .
+                git clean -fdx
+                poetry env use ${python} && poetry env info
+                poetry build
+                mv dist/${wheel_default} dist/${wheel_publish}
             """
 
             echo "Uploading '${wheel_default}' as '${wheel_publish}' to '${release}' GitHub release..."
 
-            sh(
-                'curl -f -v -L '
-                + '-X POST '
-                + '-H "Accept: application/vnd.github+json" '
-                + '-H "Authorization: Bearer ${github_access_token}" '
-                + '-H "X-GitHub-Api-Version: 2022-11-28" '
-                + '-H "Content-Type: application/octet-stream" '
-                + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${wheel_publish}\" "
-                + "--data-binary \"@${wheel_default}\""
+            upload_asset(release_id, wheel_publish)
+            if (tar_published == false) {
+                upload_asset(release_id, tar_publish)
+                tar_published = true
+            }
+            else {
+                sh "rm dist/${tar_publish}"
+            }
+
+            echo "Uploading '${wheel_default}' as '${wheel_publish}' and 'pyracf-${release}.tar.gz' to PyPi repository..."
+
+            sh (
+                'poetry publish \\'
+                + '--repository=test \\'
+                + '--username=${pypi_username} \\'
+                + '--password=${pypi_password}'
             )
         }
     }
+}
+
+def upload_asset(release_id, release_asset) {
+    sh(
+        'curl -f -v -L '
+        + '-X POST '
+        + '-H "Accept: application/vnd.github+json" '
+        + '-H "Authorization: Bearer ${github_access_token}" '
+        + '-H "X-GitHub-Api-Version: 2022-11-28" '
+        + '-H "Content-Type: application/octet-stream" '
+        + "\"https://uploads.github.com/repos/ambitus/pyracf/releases/${release_id}/assets?name=${release_asset}\" "
+        + "--data-binary \"@dist/${release_asset}\""
+    )
 }
 
 def build_description(python_executables_and_wheels_map, release, milestone) {
     def description = "Release Milestone: ${milestone}\\n&nbsp;\\n&nbsp;\\n"
 
     for (python in python_executables_and_wheels_map.keySet()) {
-        def wheel = python_executables_and_wheels_map[python]["publishName"]
+        def wheel = python_executables_and_wheels_map[python]["wheelPublish"]
         def python_executable = python
         def python_label = python.replace("python", "Python ")
         description += (
-            "Install for ${python_label}:\\n"
+            "Install From **${python_label} Wheel Distribution** *(pre-built)*:\\n"
             + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${wheel} "
             + "&& ${python_executable} -m pip install ${wheel}\\n```\\n"
         )
     }
+
+    def python = python_executables_and_wheels_map.keySet()[-1]
+    def tar = python_executables_and_wheels_map[python]["tarPublish"]
+    description += (
+        "Install From **Source Distribution** *(build on install)*:\\n"
+        + "> :warning: _Requires z/OS XLC compiler._\\n"
+        + "```\\ncurl -O -L https://github.com/ambitus/pyracf/releases/download/${release}/${tar} "
+        + "&& python3 -m pip install ${tar}\\n```\\n"
+    )
 
     return description
 }
