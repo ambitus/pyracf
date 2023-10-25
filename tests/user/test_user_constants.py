@@ -98,10 +98,16 @@ TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML = get_sample(
     "extract_user_result_with_command_audit_trail.xml"
 )
 TEST_EXTRACT_USER_RESULT_INVALID_ATTRIBUTE_XML = get_sample(
-    "extract_user_result_invattr_error.xml"
+    "extract_user_result_invalid_attribute_error.xml"
 )
 TEST_EXTRACT_USER_RESULT_INVALID_ATTRIBUTE_JSON = get_sample(
-    "extract_user_result_invattr_error.json"
+    "extract_user_result_invalid_attribute_error.json"
+)
+TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML = get_sample(
+    "extract_user_result_base_omvs_tso_revoke_resume.xml"
+)
+TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_DICTIONARY = get_sample(
+    "extract_user_result_base_omvs_tso_revoke_resume.json"
 )
 
 # Delete User
@@ -170,7 +176,6 @@ TEST_ADD_USER_REQUEST_INVALID_TRAITS["omvs:invalid_trait"] = "TESTING VALUE"
 TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
 TEST_ALTER_USER_REQUEST_TRAITS = {
     "base:special": False,
-    "base:operator": True,
     "omvs:home_directory": "/u/clarinet",
     "omvs:default_shell": False,
 }
@@ -179,8 +184,8 @@ TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED = {
     "base:owner": "leonard",
     "base:special": True,
     "omvs:uid": "2424",
-    "omvs:home": "/u/squidwrd",
-    "omvs:program": "/bin/sh",
+    "omvs:home_directory": "/u/squidwrd",
+    "omvs:default_shell": "/bin/sh",
 }
 TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD = dict(TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED)
 TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD["base:password"] = "GIyTTqdF"

@@ -132,7 +132,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Get attributes
     # ============================================================================
-    def get_classes_attributes(self, class_name: str) -> Union[list, bytes]:
+    def get_class_attributes(self, class_name: str) -> Union[list, bytes]:
         """Get RACF get attributes."""
         profile = self.list_racf_options(options_only=True)
         if not isinstance(profile, dict):
@@ -159,7 +159,7 @@ class SetroptsAdmin(SecurityAdmin):
     ) -> Union[dict, bytes]:
         """Remove class(es) from the list of classes that RACF performs auditing for."""
         result = self.alter(options={"delete:base:audit_classes": class_names})
-
+        return self._to_steps(result)
 
     # ============================================================================
     # Active Classes
@@ -220,7 +220,9 @@ class SetroptsAdmin(SecurityAdmin):
         Remove class(es) from the list of classes that
         have generic profile command processing enabled.
         """
-        result = self.alter(options={"delete:base:general_command_classes": class_names})
+        result = self.alter(
+            options={"delete:base:general_command_classes": class_names}
+        )
         return self._to_steps(result)
 
     # ============================================================================
@@ -254,7 +256,9 @@ class SetroptsAdmin(SecurityAdmin):
         Add class(es) to the list of classes that are eligible for
         general resource profile sharing in common storage.
         """
-        result = self.alter(options={"base:generic_profile_sharing_classes": class_names})
+        result = self.alter(
+            options={"base:generic_profile_sharing_classes": class_names}
+        )
         return self._to_steps(result)
 
     def remove_generic_profile_sharing_classes(

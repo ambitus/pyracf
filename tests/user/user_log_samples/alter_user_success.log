@@ -145,7 +145,7 @@
                     "connectDate": "4/4/2023",
                     "connects": 0,
                     "uacc": null,
-                    "lastConnect": "unknown",
+                    "lastConnect": null,
                     "connectAttributes": [],
                     "revokeDate": null,
                     "resumeDate": null
@@ -179,11 +179,11 @@
     }
   },
   "omvs": {
-    "omvs:home": {
+    "omvs:home_directory": {
       "value": "/u/clarinet",
       "operation": null
     },
-    "omvs:program": {
+    "omvs:default_shell": {
       "value": false,
       "operation": "delete"
     }
