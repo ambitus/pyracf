@@ -4,16 +4,10 @@
       "name": "SQUIDWRD",
       "operation": "set",
       "requestId": "UserRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
       "commands": [
-        {
-          "safReturnCode": 8,
-          "returnCode": 16,
-          "reasonCode": 8,
-          "image": "ADDUSER SQUIDWRD ",
-          "messages": [
-            "IKJ56702I INVALID USERID, SQUIDWRD"
-          ]
-        },
         {
           "safReturnCode": 0,
           "returnCode": 0,
@@ -22,7 +16,7 @@
         }
       ]
     },
-    "returnCode": 4,
+    "returnCode": 0,
     "reasonCode": 0
   }
 }

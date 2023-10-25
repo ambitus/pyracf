@@ -5,7 +5,7 @@
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
       <reasoncode>0</reasoncode>
-      <image>LISTUSER SQUIDWRD  OMVS    </image>
+      <image>LISTUSER SQUIDWRD </image>
       <message>USER=SQUIDWRD  NAME=SQUIDWARD             OWNER=LEONARD   CREATED=23.094</message>
       <message> DEFAULT-GROUP=SYS1     PASSDATE=00.000 PASS-INTERVAL=186 PHRASEDATE=N/A</message>
       <message> ATTRIBUTES=NONE</message>
@@ -25,8 +25,6 @@
       <message>CATEGORY-AUTHORIZATION</message>
       <message> NONE SPECIFIED</message>
       <message>SECURITY-LABEL=NONE SPECIFIED</message>
-      <message> </message>
-      <message>NO OMVS INFORMATION</message>
     </command>
   </user>
   <returncode>0</returncode>

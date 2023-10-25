@@ -17,3 +17,15 @@ class SecurityRequestError(Exception):
 
     def __str__(self) -> str:
         return self.message
+
+    def scan_for_error(self, security_definition_tag: str, error_id: str):
+        commands = self.result["securityResult"][security_definition_tag].get(
+            "commands"
+        )
+        if not isinstance(commands, list):
+            return False
+        messages = commands[0].get("messages", [])
+        if error_id in "".join(messages):
+            return True
+        else:
+            return False

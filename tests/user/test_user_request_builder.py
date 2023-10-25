@@ -55,7 +55,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     ):
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD,
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSWORD_XML)
         self.assertNotIn(self.test_password, result.decode("utf-8"))
@@ -65,7 +65,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     ):
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE,
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_XML)
         self.assertNotIn(self.test_passphrase, result.decode("utf-8"))
@@ -75,7 +75,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     ):
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
         )
         self.assertEqual(
             result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML

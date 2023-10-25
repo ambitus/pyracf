@@ -20,48 +20,51 @@ TEST_ADD_USER_RESULT_SUCCESS_XML = get_sample("add_user_result_success.xml")
 TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY = get_sample("add_user_result_success.json")
 TEST_ADD_USER_RESULT_ERROR_XML = get_sample("add_user_result_error.xml")
 TEST_ADD_USER_RESULT_ERROR_DICTIONARY = get_sample("add_user_result_error.json")
-TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_XML = get_sample(
-    "add_user_result_password_success.xml"
-)
-TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "add_user_result_password_success.json"
-)
-TEST_ADD_USER_PASSWORD_RESULT_ERROR_XML = get_sample(
-    "add_user_result_password_error.xml"
-)
-TEST_ADD_USER_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
-    "add_user_result_password_error.json"
-)
-TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML = get_sample(
-    "add_user_result_passphrase_success.xml"
-)
-TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "add_user_result_passphrase_success.json"
-)
-TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML = get_sample(
-    "add_user_result_passphrase_error.xml"
-)
-TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY = get_sample(
-    "add_user_result_passphrase_error.json"
-)
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML = get_sample(
-    "add_user_result_passphrase_and_password_success.xml"
-)
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY = get_sample(
-    "add_user_result_passphrase_and_password_success.json"
-)
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML = get_sample(
-    "add_user_result_passphrase_and_password_error.xml"
-)
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
-    "add_user_result_passphrase_and_password_error.json"
-)
 
 # Alter User
 TEST_ALTER_USER_RESULT_SUCCESS_XML = get_sample("alter_user_result_success.xml")
 TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY = get_sample("alter_user_result_success.json")
 TEST_ALTER_USER_RESULT_ERROR_XML = get_sample("alter_user_result_error.xml")
 TEST_ALTER_USER_RESULT_ERROR_DICTIONARY = get_sample("alter_user_result_error.json")
+TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_XML = get_sample(
+    "alter_user_result_password_success.xml"
+)
+TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "alter_user_result_password_success.json"
+)
+TEST_ALTER_USER_PASSWORD_RESULT_ERROR_XML = get_sample(
+    "alter_user_result_password_error.xml"
+)
+TEST_ALTER_USER_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
+    "alter_user_result_password_error.json"
+)
+TEST_ALTER_USER_PASSPHRASE_RESULT_SUCCESS_XML = get_sample(
+    "alter_user_result_passphrase_success.xml"
+)
+TEST_ALTER_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "alter_user_result_passphrase_success.json"
+)
+TEST_ALTER_USER_PASSPHRASE_RESULT_ERROR_XML = get_sample(
+    "alter_user_result_passphrase_error.xml"
+)
+TEST_ALTER_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY = get_sample(
+    "alter_user_result_passphrase_error.json"
+)
+TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML = get_sample(
+    "alter_user_result_passphrase_and_password_success.xml"
+)
+TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY = get_sample(
+    "alter_user_result_passphrase_and_password_success.json"
+)
+TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML = get_sample(
+    "alter_user_result_passphrase_and_password_error.xml"
+)
+TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
+    "alter_user_result_passphrase_and_password_error.json"
+)
+TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML = get_sample(
+    "alter_user_result_extended_success.xml"
+)
 
 # Extract User
 TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML = get_sample(
@@ -76,17 +79,29 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_DICTIONARY = get_sample(
     "extract_user_result_base_omvs_error.json"
 )
-TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
-    "extract_user_result_base_only_no_omvs_success.xml"
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML = get_sample(
+    "extract_user_result_base_only_success.xml"
 )
-TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
-    "extract_user_result_base_only_no_omvs_success.json"
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_JSON = get_sample(
+    "extract_user_result_base_only_success.json"
+)
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML = get_sample(
+    "extract_user_result_base_only_error.xml"
+)
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_JSON = get_sample(
+    "extract_user_result_base_only_error.json"
 )
 TEST_EXTRACT_USER_RESULT_WITH_CLASS_AUTHORIZATIONS = get_sample(
     "extract_user_result_with_class_authorizations.xml"
 )
 TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML = get_sample(
     "extract_user_result_with_command_audit_trail.xml"
+)
+TEST_EXTRACT_USER_RESULT_INVALID_ATTRIBUTE_XML = get_sample(
+    "extract_user_result_invattr_error.xml"
+)
+TEST_EXTRACT_USER_RESULT_INVALID_ATTRIBUTE_JSON = get_sample(
+    "extract_user_result_invattr_error.json"
 )
 
 # Delete User
@@ -116,19 +131,6 @@ TEST_ADD_USER_REQUEST_TRAITS = {
     "omvs:home": "/u/squidwrd",
     "omvs:program": "/bin/sh",
 }
-TEST_ADD_USER_REQUEST_TRAITS_PASSWORD = dict(TEST_ADD_USER_REQUEST_TRAITS)
-TEST_ADD_USER_REQUEST_TRAITS_PASSWORD["base:password"] = "GIyTTqdF"
-TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE = dict(TEST_ADD_USER_REQUEST_TRAITS)
-TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE["base:password"] = "PASSWORD"
-TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE = dict(TEST_ADD_USER_REQUEST_TRAITS)
-TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE["base:passphrase"] = "PassPhrasesAreCool!"
-TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD = dict(
-    TEST_ADD_USER_REQUEST_TRAITS
-)
-TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD["base:password"] = "GIyTTqdF"
-TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD[
-    "base:passphrase"
-] = "PassPhrasesAreCool!"
 TEST_ADD_USER_REQUEST_INVALID_TRAITS = dict(TEST_ADD_USER_REQUEST_TRAITS)
 TEST_ADD_USER_REQUEST_INVALID_TRAITS["omvs:invalid_trait"] = "TESTING VALUE"
 
@@ -139,6 +141,33 @@ TEST_ALTER_USER_REQUEST_TRAITS = {
     "omvs:home": "/u/clarinet",
     "omvs:program": False,
 }
+TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED = {
+    "base:name": "Squidward",
+    "base:owner": "leonard",
+    "base:special": True,
+    "omvs:uid": "2424",
+    "omvs:home": "/u/squidwrd",
+    "omvs:program": "/bin/sh",
+}
+TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD = dict(TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED)
+TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD["base:password"] = "GIyTTqdF"
+TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE = dict(
+    TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED
+)
+TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE["base:password"] = "PASSWORD"
+TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE = dict(
+    TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED
+)
+TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE["base:passphrase"] = "PassPhrasesAreCool!"
+TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD = dict(
+    TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED
+)
+TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD["base:password"] = "GIyTTqdF"
+TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD[
+    "base:passphrase"
+] = "PassPhrasesAreCool!"
+TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR = dict(TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED)
+TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"] = 90000000000
 
 # Extract User
 TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
@@ -198,27 +227,27 @@ TEST_USER_SET_OMVS_PROGRAM_XML = get_sample("user_set_omvs_program_request.xml")
 # Debug Logging
 # ============================================================================
 
-TEST_ADD_USER_SUCCESS_LOG = get_sample("add_user_success.log")
-TEST_ADD_USER_ERROR_LOG = get_sample("add_user_error.log")
+TEST_ALTER_USER_SUCCESS_LOG = get_sample("alter_user_success.log")
+TEST_ALTER_USER_ERROR_LOG = get_sample("alter_user_error.log")
 
-TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
-    "add_user_additional_secret_added_success.log"
+TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "alter_user_additional_secret_added_success.log"
 )
-TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
-    "add_user_additional_secret_added_error.log"
+TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "alter_user_additional_secret_added_error.log"
 )
 
-TEST_ADD_USER_PASSWORD_SUCCESS_LOG = get_sample("add_user_password_success.log")
-TEST_ADD_USER_PASSWORD_ERROR_LOG = get_sample("add_user_password_error.log")
+TEST_ALTER_USER_PASSWORD_SUCCESS_LOG = get_sample("alter_user_password_success.log")
+TEST_ALTER_USER_PASSWORD_ERROR_LOG = get_sample("alter_user_password_error.log")
 
-TEST_ADD_USER_PASSPHRASE_SUCCESS_LOG = get_sample("add_user_passphrase_success.log")
-TEST_ADD_USER_PASSPHRASE_ERROR_LOG = get_sample("add_user_passphrase_error.log")
+TEST_ALTER_USER_PASSPHRASE_SUCCESS_LOG = get_sample("alter_user_passphrase_success.log")
+TEST_ALTER_USER_PASSPHRASE_ERROR_LOG = get_sample("alter_user_passphrase_error.log")
 
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG = get_sample(
-    "add_user_passphrase_and_password_success.log"
+TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG = get_sample(
+    "alter_user_passphrase_and_password_success.log"
 )
-TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_ERROR_LOG = get_sample(
-    "add_user_passphrase_and_password_error.log"
+TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_ERROR_LOG = get_sample(
+    "alter_user_passphrase_and_password_error.log"
 )
 
 TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG = get_sample(

@@ -2,7 +2,7 @@
   "securityResult": {
     "user": {
       "name": "squidward",
-      "operation": "set",
+      "operation": "listdata",
       "requestId": "UserRequest",
       "error": {
         "errorFunction": 10,

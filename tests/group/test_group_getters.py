@@ -27,7 +27,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertTrue(
             self.group_admin.has_group_special_authority("TESTGRP0", "ESWIFT")
@@ -63,7 +63,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertTrue(
             self.group_admin.has_group_operations_authority("TESTGRP0", "LEONARD")
@@ -99,7 +99,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         group_extract_auditor = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         group_extract_auditor = group_extract_auditor.replace(
             "<message>         CONNECT ATTRIBUTES=SPECIAL</message>",
@@ -115,7 +115,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertFalse(
             self.group_admin.has_group_auditor_authority("TESTGRP0", "ESWIFT")
@@ -140,7 +140,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         group_extract_grpacc = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         group_extract_grpacc = group_extract_grpacc.replace(
             "<message>         CONNECT ATTRIBUTES=OPERATIONS</message>",
@@ -156,7 +156,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertFalse(
             self.group_admin.has_group_access_attribute("TESTGRP0", "LEONARD")
@@ -201,7 +201,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertIsNone(self.group_admin.get_omvs_gid("TESTGRP0"))
 
@@ -237,6 +237,6 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertIsNone(self.group_admin.get_ovm_gid("TESTGRP0"))

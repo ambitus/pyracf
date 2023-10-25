@@ -136,7 +136,7 @@ class SetroptsAdmin(SecurityAdmin):
         """Get RACF get attributes."""
         profile = self.list_racf_options(options_only=True)
         if not isinstance(profile, dict):
-            # Allows this function to work with "self.__generate_requests_only" mode.
+            # Allows this function to work with "self._generate_requests_only" mode.
             return profile
         return [
             class_type

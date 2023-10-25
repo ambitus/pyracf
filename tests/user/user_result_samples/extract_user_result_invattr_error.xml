@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <user name="squidward" operation="set" requestid="UserRequest">
+  <user name="squidward" operation="listdata" requestid="UserRequest">
     <error>
       <errorfunction>10</errorfunction>
       <errorcode>2000</errorcode>

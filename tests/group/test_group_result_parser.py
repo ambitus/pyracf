@@ -59,7 +59,7 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
             TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_XML,
         ]
         self.assertEqual(
@@ -96,7 +96,7 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
             TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
@@ -124,16 +124,16 @@ class TestGroupResultParser(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
-    def test_group_admin_can_parse_extract_group_base_only_no_omvs_success_xml(
+    def test_group_admin_can_parse_extract_group_base_only_success_xml(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertEqual(
             self.group_admin.extract("TESTGRP0"),
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_JSON,
         )
 
     # Error in environment, TESTGRP0 already deleted/not added

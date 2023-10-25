@@ -151,7 +151,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertEqual(self.user_admin.get_class_authorizations("squidwrd"), [])
 
@@ -192,7 +192,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertIsNone(self.user_admin.get_omvs_uid("squidwrd"))
 
@@ -223,7 +223,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertIsNone(self.user_admin.get_omvs_home("squidwrd"))
 
@@ -254,6 +254,6 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertIsNone(self.user_admin.get_omvs_program("squidwrd"))

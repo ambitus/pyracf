@@ -1,5 +1,6 @@
 """Make security admin subclasses available from package root."""
 from .access.access_admin import AccessAdmin
+from .common.add_operation_error import AddOperationError
 from .common.alter_operation_error import AlterOperationError
 from .common.invalid_segment_name_error import InvalidSegmentNameError
 from .common.invalid_segment_trait_error import InvalidSegmentTraitError
