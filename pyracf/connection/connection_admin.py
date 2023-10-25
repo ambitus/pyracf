@@ -20,22 +20,17 @@ class ConnectionAdmin(SecurityAdmin):
     ) -> None:
         self._valid_segment_traits = {
             "base": {
-                "base:adsp": "racf:adsp",
+                "base:automatic_data_set_protection": "racf:adsp",
                 "base:auditor": "racf:auditor",
-                "base:auth": "racf:auth",
-                "base:cgauthda": "racf:cgauthda",
-                "base:cginitct": "racf:cginitct",
-                "base:cgljdate": "racf:cgljdate",
-                "base:cgljtime": "racf:cgljtime",
+                "base:group_authority": "racf:auth",
                 "base:group": "racf:group",
                 "base:group_access": "racf:grpacc",
                 "base:operations": "racf:oper",
                 "base:owner": "racf:owner",
                 "base:resume": "racf:resume",
                 "base:revoke": "racf:revoke",
-                "base:revokefl": "racf:revokefl",
                 "base:special": "racf:special",
-                "base:uacc": "racf:uacc",
+                "base:universal_access": "racf:uacc",
             }
         }
         super().__init__(

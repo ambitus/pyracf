@@ -31,7 +31,7 @@ class TestGroupRequestBuilder(unittest.TestCase):
         self.assertEqual(result, TestGroupConstants.TEST_ALTER_GROUP_REQUEST_XML)
 
     def test_group_admin_build_extract_group_request_base_omvs(self):
-        result = self.group_admin.extract("TESTGRP0", segments={"omvs": True})
+        result = self.group_admin.extract("TESTGRP0", segments=["omvs"])
         self.assertEqual(
             result, TestGroupConstants.TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_XML
         )

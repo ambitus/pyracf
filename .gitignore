@@ -171,3 +171,6 @@ _site
 .jekyll-metadata
 vendor
 Gemfile.lock
+
+# Poetry
+poetry.lock

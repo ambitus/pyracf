@@ -120,7 +120,7 @@ class TestGroupResultParser(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
         )
         self.assertEqual(
-            self.group_admin.extract("TESTGRP0", segments={"omvs": True}),
+            self.group_admin.extract("TESTGRP0", segments=["omvs"]),
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
@@ -145,7 +145,7 @@ class TestGroupResultParser(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            self.group_admin.extract("TESTGRP0", segments={"omvs": True})
+            self.group_admin.extract("TESTGRP0", segments=["omvs"])
         self.assertEqual(
             exception.exception.result,
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_DICTIONARY,
