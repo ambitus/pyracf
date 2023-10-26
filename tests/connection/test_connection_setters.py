@@ -82,14 +82,14 @@ class TestConnectionSetters(unittest.TestCase):
     # ============================================================================
     # Group Access Attribute
     # ============================================================================
-    def test_connection_admin_build_set_group_access_attribute_request(self):
-        result = self.connection_admin.set_group_access_attribute("ESWIFT", "TESTGRP0")
+    def test_connection_admin_build_give_group_access_attribute_request(self):
+        result = self.connection_admin.give_group_access_attribute("ESWIFT", "TESTGRP0")
         self.assertEqual(
             result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_ACCESS_ATTRIBUTE
         )
 
-    def test_connection_admin_build_remove_group_access_attribute(self):
-        result = self.connection_admin.remove_group_access_attribute(
+    def test_connection_admin_build_take_away_group_access_attribute(self):
+        result = self.connection_admin.take_away_group_access_attribute(
             "ESWIFT", "TESTGRP0"
         )
         self.assertEqual(

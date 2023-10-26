@@ -81,10 +81,10 @@ TEST_CONNECTION_TAKE_AWAY_GROUP_OPERATIONS_AUTHORITY = get_sample(
     "connection_take_away_group_operations_authority.xml"
 )
 TEST_CONNECTION_SET_GROUP_ACCESS_ATTRIBUTE = get_sample(
-    "connection_set_group_access_attribute.xml"
+    "connection_give_group_access_attribute.xml"
 )
 TEST_CONNECTION_REMOVE_GROUP_ACCESS_ATTRIBUTE = get_sample(
-    "connection_remove_group_access_attribute.xml"
+    "connection_take_away_group_access_attribute.xml"
 )
 
 # ============================================================================

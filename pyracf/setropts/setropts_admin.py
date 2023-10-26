@@ -32,7 +32,7 @@ class SetroptsAdmin(SecurityAdmin):
                 "base:erase_data_sets_on_delete": "racf:erase",
                 "base:erase_data_sets_on_delete_all": "racf:eraseall",
                 "base:erase_data_sets_on_delete_security_level": "racf:erasesec",
-                "base:general_command_classes": "racf:gencmd",
+                "base:generic_command_classes": "racf:gencmd",
                 "base:generic_profile_checking_classes": "racf:generic",
                 "base:generic_profile_sharing_classes": "racf:genlist",
                 "base:generic_owner": "racf:genowner",
@@ -210,7 +210,7 @@ class SetroptsAdmin(SecurityAdmin):
         Add class(es) to the list of classes that have
         generic profile command processing enabled.
         """
-        result = self.alter(options={"base:general_command_classes": class_names})
+        result = self.alter(options={"base:generic_command_classes": class_names})
         return self._to_steps(result)
 
     def remove_generic_command_processing_classes(
@@ -221,7 +221,7 @@ class SetroptsAdmin(SecurityAdmin):
         have generic profile command processing enabled.
         """
         result = self.alter(
-            options={"delete:base:general_command_classes": class_names}
+            options={"delete:base:generic_command_classes": class_names}
         )
         return self._to_steps(result)
 

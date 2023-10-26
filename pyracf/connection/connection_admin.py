@@ -96,7 +96,9 @@ class ConnectionAdmin(SecurityAdmin):
     # ============================================================================
     # Group Access
     # ============================================================================
-    def set_group_access_attribute(self, userid: str, group: str) -> Union[dict, bytes]:
+    def give_group_access_attribute(
+        self, userid: str, group: str
+    ) -> Union[dict, bytes]:
         """
         Automatically make group data set profiles that a user
         creates accessible to all members of the group.
@@ -104,7 +106,7 @@ class ConnectionAdmin(SecurityAdmin):
         result = self.connect(userid, group, {"base:group_access": True})
         return self._to_steps(result)
 
-    def remove_group_access_attribute(
+    def take_away_group_access_attribute(
         self, userid: str, group: str
     ) -> Union[dict, bytes]:
         """
