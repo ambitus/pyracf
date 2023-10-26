@@ -8,5 +8,5 @@ has_toc: false
 
 # Advanced
 
-Data Set Administration functions that should be used to perform more complex and nuanced tasks.
+Data Set Profile Administration functions that should be used to perform more complex and nuanced tasks.
 {: .fs-6 .fw-300 }

@@ -6,7 +6,7 @@ parent: Standard
 
 # List RACF Options
 
-Functions for extracting the system's RACF Options. 
+Extract the system's RACF Options. 
 {: .fs-6 .fw-300 }
 
 ## `SetroptsAdmin.list_racf_options()`
@@ -16,6 +16,13 @@ def list_racf_options(self,  options_only: bool = False) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
+
+&nbsp;
+
+{: .experimental }
+> _`SetroptsAdmin.list_racf_options()` is more or less fully functional but still needs additional testing and validation, which may lead to significant changes in the structure of extracted **RACF Options** data._
+
+&nbsp;
 
 List the system's **RACF Options**
 

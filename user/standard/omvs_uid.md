@@ -25,7 +25,7 @@ Get a user's **z/OS Unix System Services UID**.
 
 #### 📤 Returns
 * `Union[int, None, bytes]`<br>
-  Returns the user's **z/OS Unix System Services UID** or `None` if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns the user's **z/OS Unix System Services UID** or `None` if it is not set or if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -44,7 +44,7 @@ Get a user's **z/OS Unix System Services UID**.
 ## `UserAdmin.set_omvs_uid()`
 
 ```python
-def set_omvs_uid(self, userid: str, uid: int) -> Union[dict, bytes]:
+def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -53,10 +53,10 @@ Change a user's **z/OS Unix System Services UID**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being changed.
+  The **z/OS userid** of the user who's **z/OS Unix System Services UID** is being set.
 
 * `uid`<br>
-  The **z/OS Unix System Services UID** to assign to the specified user.
+  The **z/OS Unix System Services UID** to set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

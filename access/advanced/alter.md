@@ -27,6 +27,11 @@ def alter(
 
 &nbsp;
 
+{: .experimental }
+> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 {: .warning }
 > _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
 > _This function will not produce output unless the user running the command has this access._
@@ -72,7 +77,7 @@ traits = {
     "base:access": "NONE",
 }
 
-access_admin.alter("TESTING", "ELIJTEST", "ESWIFT", traits)
+access_admin.alter("TESTING", "ELIJTEST", "ESWIFT", traits=traits)
 ```
 
 ###### Security Result Dictionary as JSON

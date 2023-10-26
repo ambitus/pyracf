@@ -56,7 +56,7 @@ Change a group's **z/VM Open Extensions GID**.
   The group who's **z/VM Open Extensions GID** is being changed.
 
 * `gid`<br>
-  The **z/VM Open Extensions GID** to assign to the specified group.
+  The **z/VM Open Extensions GID** to set for the specified group.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

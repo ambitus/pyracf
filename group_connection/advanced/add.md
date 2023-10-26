@@ -17,6 +17,13 @@ def add(self, userid: str, group: str, traits: dict = {}) -> Union[dict, bytes]:
 
 #### 📄 Description
 
+&nbsp;
+
+{: .experimental }
+> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 Create a new **group connection**.
 
 #### 📥 Parameters

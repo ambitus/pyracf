@@ -6,10 +6,15 @@ parent: Advanced
 
 # Segments, Traits, and Operators
 
-Relevant information about using `segments` dictionaries, `traits` dictionaries, and `operators`.
+Information about group connection `segments` dictionaries, `traits` dictionaries, and `operators`.
 {: .fs-6 .fw-300 }
 
 ### Segments
+
+&nbsp;
+
+{: .experimental }
+> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
 
 &nbsp;
 
@@ -19,12 +24,20 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 &nbsp;
 
+| **Segment** | **Description** |
+| `Base` | Describes a general resource profile's **Base** attributes. |
+
 ### Traits
 
 &nbsp;
 
+{: .experimental }
+> _**Traits** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
 {: .note }
-> _All **key-value pair traits** can be set to `False` in **[`ConnectionAdmin.alter()`](../alter#connectionadminalter)** to indicate that they should be removed or unset._
+> _Some **Traits** can be set to `False` to delete their existing values._
 
 &nbsp;
 
@@ -37,10 +50,10 @@ Traits use the following syntax: `<segment>:<trait>`
 &nbsp;
 
 | **Trait** | **Description** | **Valid Types** |
-| `base:special` | Set to `True` to give a user **RACF Special** authority within a group or `False` otherwise. | Add: `bool`<br>Alter: `bool` |
-| `base:auditor` | Set to `True` to give a user **Auditor** authority within a group or `False` otherwise. | Add: `bool`<br>Alter: `bool` |
-| `base:operations` | Set to `True` to give a user **Operator** authority within a group or `False` otherwise. | Add: `bool`<br>Alter: `bool` |
-| `base:access` | Set to `True` to give a user the **Access** attribute with a group or `False` otherwise. |
+| `base:special` | Set to `True` to give a user **RACF Special** authority within a group or `False` otherwise. | `bool` |
+| `base:auditor` | Set to `True` to give a user **Auditor** authority within a group or `False` otherwise. | `bool` |
+| `base:operations` | Set to `True` to give a user **Operator** authority within a group or `False` otherwise. | `bool` |
+| `base:access` | Set to `True` to give a user the **Access** attribute with a group or `False` otherwise. | `bool` |
 
 ### Operators
 

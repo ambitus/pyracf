@@ -6,10 +6,20 @@ parent: Advanced
 
 # Segments, Traits, and Operators
 
-Relevant information about using `segments` dictionaries, `traits` dictionaries, and `operators`.
+Information about group `segments` dictionaries, `traits` dictionaries, and `operators`.
 {: .fs-6 .fw-300 }
 
 ### Segments
+
+&nbsp;
+
+{: .experimental }
+> _**Segments** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
+{: .experimental }
+> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
 
 &nbsp;
 
@@ -23,6 +33,7 @@ When using the **[`GroupAdmin.extract()`](../../standard/extract#groupadminextra
 &nbsp;
 
 | **Segment** | **Description** |
+| `base` | Describes a group's **Base** attributes. |
 | `omvs` | Describes a groups's **z/OS Unix System Services** attributes. |
 | `ovm` | Describes a groups **z/VM Open Extensions** attributes. |
 
@@ -30,8 +41,13 @@ When using the **[`GroupAdmin.extract()`](../../standard/extract#groupadminextra
 
 &nbsp;
 
+{: .experimental }
+> _**Traits** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
 {: .note }
-> _All **key-value pair traits** can be set to `False` in **[`GroupAdmin.alter()`](../alter#groupadminalter)** to indicate that they should be removed or unset._
+> _Some **Traits** can be set to `False` to delete their existing values._
 
 &nbsp;
 
@@ -44,8 +60,8 @@ Traits use the following syntax: `<segment>:<trait>`
 &nbsp;
 
 | **Trait** | **Description** | **Valid Types** |
-| `omvs:gid` | Set a group's **z/OS Unix System Services GID**. | Add: `int`, `str`<br>Alter: `int`, `str`, `False` |
-| `ovm:gid` | Set a group's **z/VM Open Extensions GID**. | Add: `int`, `str`<br>Alter: `int`, `str`, `False` |
+| `omvs:gid` | Set a group's **z/OS Unix System Services GID**. | `int`, `False` |
+| `ovm:gid` | Set a group's **z/VM Open Extensions GID**. | `int`, `False` |
 
 ### Operators
 

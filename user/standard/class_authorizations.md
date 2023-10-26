@@ -270,10 +270,10 @@ Remove **Class Authorizations** to a user's existing **Class Authorizations**.
 }
 ```
 
-## `UserAdmin.delete_all_class_authorizations()`
+## `UserAdmin.remove_all_class_authorizations()`
 
 ```python
-def delete_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
+def remove_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
 ```
 
 #### 📄 Description
