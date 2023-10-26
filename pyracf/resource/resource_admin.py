@@ -2,6 +2,7 @@
 
 from typing import List, Union
 
+from pyracf.common.add_operation_error import AddOperationError
 from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
 from pyracf.common.security_request_error import SecurityRequestError
@@ -222,14 +223,23 @@ class ResourceAdmin(SecurityAdmin):
         self, resource: str, class_name: str, traits: dict = {}
     ) -> Union[dict, bytes]:
         """Create a new general resource profile."""
-        self._build_segment_dictionaries(traits)
-        profile_request = ResourceRequest(resource, class_name, "set")
-        self._build_xml_segments(profile_request)
-        return self._make_request(profile_request)
+        if self._generate_requests_only:
+            self._build_segment_dictionaries(traits)
+            profile_request = ResourceRequest(resource, class_name, "set")
+            self._build_xml_segments(profile_request)
+            return self._make_request(profile_request)
+        try:
+            self.extract(resource, class_name)
+        except SecurityRequestError as exception:
+            if not exception.scan_for_error("resource", "ICH13003I"):
+                raise exception
+            self._build_segment_dictionaries(traits)
+            profile_request = ResourceRequest(resource, class_name, "set")
+            self._build_xml_segments(profile_request)
+            return self._make_request(profile_request)
+        raise AddOperationError(resource, class_name)
 
-    def alter(
-        self, resource: str, class_name: str, traits: dict = {}
-    ) -> Union[dict, bytes]:
+    def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing general resource profile."""
         try:
             self.extract(resource, class_name)

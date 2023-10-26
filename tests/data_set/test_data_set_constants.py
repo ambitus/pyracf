@@ -40,23 +40,29 @@ TEST_ALTER_DATA_SET_RESULT_ERROR_DICTIONARY = get_sample(
 )
 
 # Extract Data Set
-TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML = get_sample(
-    "extract_data_set_result_base_success.xml"
+TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML = get_sample(
+    "extract_data_set_result_base_only_success.xml"
 )
-TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_DICTIONARY = get_sample(
-    "extract_data_set_result_base_success.json"
+TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_DICTIONARY = get_sample(
+    "extract_data_set_result_base_only_success.json"
 )
-TEST_EXTRACT_DATA_SET_RESULT_GENERIC_BASE_SUCCESS_XML = get_sample(
-    "extract_data_set_result_generic_base_success.xml"
+TEST_EXTRACT_DATA_SET_RESULT_GENERIC_BASE_ONLY_SUCCESS_XML = get_sample(
+    "extract_data_set_result_generic_base_only_success.xml"
 )
-TEST_EXTRACT_DATA_SET_RESULT_GENERIC_BASE_SUCCESS_DICTIONARY = get_sample(
-    "extract_data_set_result_generic_base_success.json"
+TEST_EXTRACT_DATA_SET_RESULT_GENERIC_BASE_ONLY_SUCCESS_DICTIONARY = get_sample(
+    "extract_data_set_result_generic_base_only_success.json"
 )
-TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_XML = get_sample(
-    "extract_data_set_result_base_error.xml"
+TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML = get_sample(
+    "extract_data_set_result_base_only_error.xml"
 )
-TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_DICTIONARY = get_sample(
-    "extract_data_set_result_base_error.json"
+TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_DICTIONARY = get_sample(
+    "extract_data_set_result_base_only_error.json"
+)
+TEST_EXTRACT_DATA_SET_RESULT_INVALID_ATTRIBUTE_ERROR_XML = get_sample(
+    "extract_data_set_result_invalid_attribute_error.xml"
+)
+TEST_EXTRACT_DATA_SET_RESULT_INVALID_ATTRIBUTE_ERROR_DICTIONARY = get_sample(
+    "extract_data_set_result_invalid_attribute_error.json"
 )
 
 # Delete Data Set
@@ -118,8 +124,12 @@ TEST_DATA_SET_SET_UNIVERSAL_ACCESS_XML = get_sample("data_set_set_universal_acce
 # Debug Logging
 # ============================================================================
 
-TEST_ADD_DATA_SET_SUCCESS_LOG = get_sample("add_data_set_success.log")
-TEST_ADD_DATA_SET_ERROR_LOG = get_sample("add_data_set_error.log")
+TEST_ALTER_DATA_SET_SUCCESS_LOG = get_sample("alter_data_set_success.log")
+TEST_ALTER_DATA_SET_ERROR_LOG = get_sample("alter_data_set_error.log")
 
-TEST_EXTRACT_DATA_SET_BASE_SUCCESS_LOG = get_sample("extract_data_set_base_success.log")
-TEST_EXTRACT_DATA_SET_BASE_ERROR_LOG = get_sample("extract_data_set_base_error.log")
+TEST_EXTRACT_DATA_SET_BASE_ONLY_SUCCESS_LOG = get_sample(
+    "extract_data_set_base_only_success.log"
+)
+TEST_EXTRACT_DATA_SET_BASE_ONLY_ERROR_LOG = get_sample(
+    "extract_data_set_base_only_error.log"
+)

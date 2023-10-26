@@ -2,7 +2,7 @@
   "securityResult": {
     "dataSet": {
       "name": "ESWIFTTESTT1136242P3020470",
-      "operation": "set",
+      "operation": "listdata",
       "generic": "no",
       "requestId": "DatasetRequest",
       "commands": [
@@ -10,9 +10,11 @@
           "safReturnCode": 8,
           "returnCode": 16,
           "reasonCode": 8,
-          "image": "ADDSD                ('ESWIFTTESTT1136242P3020470') ",
+          "image": "LISTDSD  DATASET     ('ESWIFTTESTT1136242P3020470') ",
           "messages": [
-            "IKJ56702I INVALID DATASET NAME, 'ESWIFTTESTT1136242P3020470'"
+            "IKJ56702I INVALID DATASET NAME, 'ESWIFTTESTT1136242P3020470'",
+            "IKJ56701I MISSING DATASET NAME+",
+            "IKJ56701I MISSING DATASET NAMES  FOR WHICH YOU WANT RACF INFORMATION LISTED"
           ]
         }
       ]

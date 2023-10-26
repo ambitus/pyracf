@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <group name="TESTGRPP0" operation="set" requestid="GroupRequest">
+  <group name="TESTGRPP0" operation="listdata" requestid="GroupRequest">
     <error>
       <errorfunction>10</errorfunction>
       <errorcode>2000</errorcode>

@@ -2,7 +2,7 @@
   "securityResult": {
     "group": {
       "name": "TESTGRPP0",
-      "operation": "set",
+      "operation": "listdata",
       "requestId": "GroupRequest",
       "error": {
         "errorFunction": 10,

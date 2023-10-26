@@ -6,7 +6,12 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.group.test_group_constants as TestGroupConstants
-from pyracf import AlterOperationError, GroupAdmin, SecurityRequestError
+from pyracf import (
+    AddOperationError,
+    AlterOperationError,
+    GroupAdmin,
+    SecurityRequestError,
+)
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -26,9 +31,10 @@ class TestGroupResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_XML,
+            TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.group_admin.add(
                 "TESTGRP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
@@ -36,19 +42,43 @@ class TestGroupResultParser(unittest.TestCase):
             TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_DICTIONARY,
         )
 
-    # Error in environment, TESTGRP0 already added/exists
+    def test_group_admin_throws_error_on_add_existing_group(
+        self,
+        call_racf_mock: Mock,
+    ):
+        group_name = "TESTGRP0"
+        admin_name = "GROUP"
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AddOperationError) as exception:
+            self.group_admin.add(
+                group_name, traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Security request made to IRRSMO00 failed."
+            + "\n\nTarget profile "
+            + f"'{group_name}' already exists as a {admin_name} profile.",
+        )
+
+    # Error in command, TESTGRPP0 is invalid GROUP
     def test_group_admin_can_parse_add_group_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_INVALID_ATTRIBUTE_ERROR_XML,
+            TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.group_admin.add(
-                "TESTGRP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
+                "TESTGRPP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
             )
         self.assertEqual(
             exception.exception.result,
-            TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_DICTIONARY,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_INVALID_ATTRIBUTE_ERROR_DICTIONARY,
         )
 
     # ============================================================================

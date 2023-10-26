@@ -2,6 +2,7 @@
 
 from typing import List, Union
 
+from pyracf.common.add_operation_error import AddOperationError
 from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
 from pyracf.common.security_request_error import SecurityRequestError
@@ -99,15 +100,26 @@ class DataSetAdmin(SecurityAdmin):
     def add(
         self,
         data_set: str,
-        traits: dict,
+        traits: dict = {},
         volume: Union[str, None] = None,
         generic: bool = False,
     ) -> Union[dict, bytes]:
         """Create a new data set profile."""
-        self._build_segment_dictionaries(traits)
-        data_set_request = DataSetRequest(data_set, "set", volume, generic)
-        self._build_xml_segments(data_set_request)
-        return self._make_request(data_set_request)
+        if self._generate_requests_only:
+            self._build_segment_dictionaries(traits)
+            data_set_request = DataSetRequest(data_set, "set", volume, generic)
+            self._build_xml_segments(data_set_request)
+            return self._make_request(data_set_request)
+        try:
+            self.extract(data_set, volume=volume, generic=generic)
+        except SecurityRequestError as exception:
+            if not exception.scan_for_error("dataSet", "ICH35003I"):
+                raise exception
+            self._build_segment_dictionaries(traits)
+            data_set_request = DataSetRequest(data_set, "set", volume, generic)
+            self._build_xml_segments(data_set_request)
+            return self._make_request(data_set_request)
+        raise AddOperationError(data_set, "DATASET")
 
     def alter(
         self,

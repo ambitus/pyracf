@@ -6,7 +6,12 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import AlterOperationError, ResourceAdmin, SecurityRequestError
+from pyracf import (
+    AddOperationError,
+    AlterOperationError,
+    ResourceAdmin,
+    SecurityRequestError,
+)
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -26,12 +31,36 @@ class TestResourceResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.resource_admin.add("TESTING", "ELIJTEST"),
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_DICTIONARY,
+        )
+
+    def test_resource_admin_throws_error_on_add_existing_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "TESTING"
+        class_name = "ELIJTEST"
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AddOperationError) as exception:
+            self.resource_admin.add(
+                profile_name,
+                class_name,
+                traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_TRAITS,
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Security request made to IRRSMO00 failed."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' already exists as a profile in the {class_name} class.",
         )
 
     # Error: Invalid Entity Name ELIXTEST
@@ -39,14 +68,15 @@ class TestResourceResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_INVALID_CLASS_ERROR_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.add("TESTING", "ELIXTEST")
         self.assertEqual(
             exception.exception.result,
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_DICTIONARY,
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_INVALID_CLASS_ERROR_DICTIONARY,
         )
 
     # ============================================================================

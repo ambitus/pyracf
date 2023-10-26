@@ -784,7 +784,7 @@ class UserAdmin(SecurityAdmin):
             return self._make_request(user_request)
         raise AddOperationError(userid, "USER")
 
-    def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
+    def alter(self, userid: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing user."""
         if self._generate_requests_only:
             self._build_segment_dictionaries(traits)
