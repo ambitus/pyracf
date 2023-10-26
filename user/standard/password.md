@@ -19,13 +19,6 @@ def set_password(self, userid: str, password: Union[str, bool]) -> Union[dict, b
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 {: .warning }
 > * _pyRACF encodes the data it passes to RACF in Code Page `IBM-1047`._
 > * _If you are entering a password with special or national characters, users logging on from terminals using differnt or international codepages may experience errors._

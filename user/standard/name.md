@@ -17,13 +17,6 @@ def get_name(self, userid: str) -> Union[str, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **Name**.
 
 #### 📥 Parameters
@@ -55,13 +48,6 @@ def set_name(self, userid: str, name: Union[str, bool]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Set a user's **Name**.
 

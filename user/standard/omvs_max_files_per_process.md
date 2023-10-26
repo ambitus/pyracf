@@ -17,13 +17,6 @@ def get_omvs_max_files_per_process(self, userid: str) -> Union[int, None, bytes]
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **z/OS Unix System Services Max Files Per Process**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_omvs_max_files_per_process(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **z/OS Unix System Services Max Files Per Process**.
 

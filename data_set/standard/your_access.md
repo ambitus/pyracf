@@ -6,13 +6,13 @@ parent: Standard
 
 # Your Access
 
-Data Set administration functions for checking the user's access to a Data Set Profile. 
+Data Set Profile administration functions for checking the user's access to a data set profile. 
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.get_your_access()`
 
 ```python
-def get_your_access(self, dataset: str) -> Union[str, bytes, None]:
+def get_your_access(self, data_set: str) -> Union[str, bytes, None]:
 ```
 
 #### 📄 Description
@@ -20,8 +20,8 @@ def get_your_access(self, dataset: str) -> Union[str, bytes, None]:
 Check **Your Access** for a data set profile.
 
 #### 📥 Parameters
-* `dataset`<br>
-  The **Dataset** profile for which RACF should check the current user's access level.
+* `data_set`<br>
+  The **data set profile** for which RACF should check the current user's access level.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
@@ -36,7 +36,7 @@ Check **Your Access** for a data set profile.
 ###### Python REPL
 ```python
 >>> from pyracf import DataSetAdmin
->>> dataset_admin = DataSetAdmin()
->>> dataset_admin.get_your_access("ESWIFT.TEST.T1136242.P3020470")
+>>> data_set_admin = DataSetAdmin()
+>>> data_set_admin.get_your_access("ESWIFT.TEST.T1136242.P3020470")
 "read"
 ```

@@ -17,13 +17,6 @@ def get_omvs_max_cpu_time(self, userid: str) -> Union[int, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **z/OS Unix System Services Max CPU Time**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_omvs_max_cpu_time(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **z/OS Unix System Services Max CPU Time**.
 

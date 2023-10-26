@@ -235,6 +235,11 @@ blockquote.warning code.highlighter-rouge {
     color: #ccc;
 }
 
+blockquote.experimental code.highlighter-rouge {
+    background-color: #545;
+    color: #ccc;
+}
+
 blockquote.note a > code.highlighter-rouge,
 blockquote.warning a > code.highlighter-rouge {
     color: #abf;
@@ -242,14 +247,12 @@ blockquote.warning a > code.highlighter-rouge {
 
 blockquote.note::before,
 blockquote.warning::before,
-blockquote.stable::before,
 blockquote.experimental::before {
     padding-bottom: 0;
 }
 
 blockquote.note > p:first-child,
 blockquote.warning > p:first-child,
-blockquote.stable > p:first-child,
 blockquote.experimental > p:first-child {
     padding-top: .125rem;
 }

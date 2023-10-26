@@ -17,13 +17,6 @@ def get_omvs_max_non_shared_memory(self, userid: str) -> Union[str, None, bytes]
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **z/OS Unix System Services Max Non-Shared Memory**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_omvs_max_non_shared_memory(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **z/OS Unix System Services Max Non-Shared Memory**.
 

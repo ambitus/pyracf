@@ -17,13 +17,6 @@ def get_tso_message_class(self, userid: str) -> Union[str, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **TSO Message Class**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_tso_message_class(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **TSO Message Class**.
 

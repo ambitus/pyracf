@@ -17,13 +17,6 @@ def get_omvs_default_shell(self, userid: str) -> Union[str, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **z/OS Unix System Services Default Shell**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_omvs_default_shell(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **z/OS Unix System Services Default Shell**.
 

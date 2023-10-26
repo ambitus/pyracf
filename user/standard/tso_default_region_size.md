@@ -17,13 +17,6 @@ def get_tso_default_region_size(self, userid: str) -> Union[int, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **TSO Default Region Size**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_tso_default_region_size(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **TSO Default Region Size**.
 

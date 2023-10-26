@@ -6,30 +6,61 @@ parent: Standard
 
 # Profile Extract
 
-Functions for extracting a general resource profile's data. 
+Extract a general resource profile's profile data. 
 {: .fs-6 .fw-300 }
 
 ## `ResourceAdmin.extract()`
 
 ```python
 def extract(
-    self, data_set: str, resource: str, class_name: str, segments: dict = {}, profile_only: bool = False
+    self, 
+    data_set: str, 
+    resource: str, 
+    class_name: str, 
+    segments: List[str] = [], 
+    profile_only: bool = False
 ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Extract a **general resource** profile's data.
+&nbsp;
+
+{: .experimental }
+> _Profile data extracted for experimental **Segments** and **Traits** are considered **Experimental**. See [Segments](../../advanced/segments_traits_operators#segments) and [Traits](../../advanced/segments_traits_operators#traits) for more details._
+
+&nbsp;
+
+{: .warning }
+> _Note that it is recommended to extract profile data using the provided **Getter** functions in most cases._
+>
+> &nbsp;
+>
+> ❌
+> ```python
+> profile = resource_admin.extract("TESTING","ELIJTEST", profile_only=True)
+> if profile["base"]["universalAccess"] == "read":
+>     # Do something
+> ```
+> ✅
+> ```python
+> if resource_admin.get_universal_access("TESTING","ELIJTEST") == "read"
+>   # Do something.
+> ```
+
+&nbsp;
+
+Extract a **general resource profile's** data.
 
 #### 📥 Parameters
 * `resource`<br>
-  The name of the **resource** profile being extracted.
+  The name of the **general resource profile** being extracted.
 
 * `class_name`<br>
-  The name of the **class** the resource profile being extracted belongs to.
+  The name of the **class** the general resource profile being extracted belongs to.
 
 * `segments`<br>
-  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
+  A list of additional **segments** to extract. The base segment is extracted by default, but providing one or more additional segment keys for other segments in the form of a list will result in those segments being extracted as well.
 
 * `profile_only`<br>
   When set to `True`, only the extracted profile will be returned instead of returning the entire **Security Result dictionary**.
@@ -44,7 +75,7 @@ Extract a **general resource** profile's data.
 
 #### 💻 Example
 
-The following example **extracts** the **base segment** of the general resource profile `TESTING` in the `ELIJTEST` class. The base segment is extracted by default whether or not other segments are specified. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
+The following example **extracts** the **base segment** of the general resource profile `TESTING` in the `ELIJTEST` class. The base segment is extracted by default whether or not other segments are specified in the `segments` list.
 
 ###### Python REPL
 ```python

@@ -173,7 +173,7 @@ user_admin.extract("squidwrd")
             {
               "base": {
                 "user": "squidwrd",
-                "name": "unknown",
+                "name": null,
                 "owner": "leonard",
                 "created": "7/12/2023",
                 "defaultGroup": "sys1",
@@ -185,7 +185,7 @@ user_admin.extract("squidwrd")
                 ],
                 "revokeDate": null,
                 "resumeDate": null,
-                "lastAccess": "unknown",
+                "lastAccess": null,
                 "classAuthorizations": [],
                 "logonAllowedDays": "anyday",
                 "logonAllowedTime": "anytime",
@@ -196,7 +196,7 @@ user_admin.extract("squidwrd")
                     "connectDate": "7/12/2023",
                     "connects": 0,
                     "uacc": null,
-                    "lastConnect": "unknown",
+                    "lastConnect": null,
                     "connectAttributes": [],
                     "revokeDate": null,
                     "resumeDate": null

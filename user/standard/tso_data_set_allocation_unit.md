@@ -17,13 +17,6 @@ def get_tso_data_set_allocation_unit(self, userid: str) -> Union[str, None, byte
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **TSO Data Set Allocation Unit**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_tso_data_set_allocation_unit(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **TSO Data Set Allocation Unit**.
 

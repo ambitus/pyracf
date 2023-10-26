@@ -17,13 +17,6 @@ def get_omvs_home_directory(self, userid: str) -> Union[str, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **z/OS Unix System Services Home Directory**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_omvs_home_directory(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **z/OS Unix System Services Home Directory**.
 

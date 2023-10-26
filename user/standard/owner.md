@@ -17,13 +17,6 @@ def get_owner(self, userid: str) -> Union[str, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **Owner**.
 
 #### 📥 Parameters
@@ -55,13 +48,6 @@ def set_owner(self, userid: str, name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Set a user's **Owner**.
 

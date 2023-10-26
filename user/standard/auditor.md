@@ -17,13 +17,6 @@ def has_auditor_authority(self, userid: str) -> Union[bool, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Check if a user has **Auditor** authority.
 
 #### 📥 Parameters
@@ -55,13 +48,6 @@ def give_auditor_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Give a user **Auditor** authority.
 
@@ -122,13 +108,6 @@ def take_away_auditor_authority(self, userid: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Remove a user's **Auditor** authority.
 

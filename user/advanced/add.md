@@ -19,11 +19,6 @@ def add(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
 
 &nbsp;
 
-{: .stable }
-> _**Add User** is overall conisdered **Stable**. Please take note the exceptions in the annotation below._
-
-&nbsp;
-
 {: .experimental }
 > _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
 

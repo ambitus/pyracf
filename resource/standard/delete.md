@@ -17,14 +17,14 @@ def delete(self, resource: str, class_name: str) -> Union[dict, bytes]:
 
 #### 📄 Description
 
-Delete an existing **general resource** profile.
+Delete an existing **general resource profile**.
 
 #### 📥 Parameters
 * `resource`<br>
-  The name of the **resource** profile being deleted.
+  The name of the **general resource profile** being deleted.
 
 * `class_name`<br>
-  The name of the **class** the resource profile being deleted belongs to.
+  The name of the **class** the general resource profile being deleted belongs to.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

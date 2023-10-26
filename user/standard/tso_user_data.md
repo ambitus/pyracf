@@ -17,13 +17,6 @@ def get_tso_user_data(self, userid: str) -> Union[str, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **TSO User Data**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_tso_user_data(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **TSO User Data**.
 

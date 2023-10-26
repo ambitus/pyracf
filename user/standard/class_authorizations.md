@@ -17,13 +17,6 @@ User administration functions for accessing and modifying a user's Class Authori
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **Class Authorizations**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_class_authorizations(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Overwrite a user's existing **Class Authorizations**.
 
@@ -152,13 +138,6 @@ def add_class_authorizations(
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Add new **Class Authorizations** to a user's existing **Class Authorizations**.
 
 #### 📥 Parameters
@@ -230,13 +209,6 @@ def remove_class_authorizations(
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Remove **Class Authorizations** to a user's existing **Class Authorizations**.
 
 #### 📥 Parameters
@@ -305,13 +277,6 @@ def remove_all_class_authorizations(self, userid: str) -> Union[dict, bool, byte
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Delete all of a user's **Class Authorizations**.
 

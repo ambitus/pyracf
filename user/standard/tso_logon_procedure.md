@@ -17,13 +17,6 @@ def get_tso_logon_procedure(self, userid: str) -> Union[str, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **TSO Logon Procedure**.
 
 #### 📥 Parameters
@@ -57,13 +50,6 @@ def set_tso_logon_procedure(
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **TSO Logon Procedure**.
 

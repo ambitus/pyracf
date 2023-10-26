@@ -17,13 +17,6 @@ def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **z/OS Unix System Services UID**.
 
 #### 📥 Parameters
@@ -55,13 +48,6 @@ def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Change a user's **z/OS Unix System Services UID**.
 

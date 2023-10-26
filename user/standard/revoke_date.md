@@ -17,13 +17,6 @@ def get_revoke_date(self, userid: str) -> Union[str, None, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Get a user's **Revoke Date**.
 
 #### 📥 Parameters
@@ -55,13 +48,6 @@ def set_revoke_date(self, userid: str, revoke_date: Union[str, bool]) -> Union[d
 ```
 
 #### 📄 Description
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 Set a user's **Revoke Date**.
 

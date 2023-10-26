@@ -56,7 +56,7 @@ Change a group's **z/OS Unix System Services GID**.
   The group who's **z/OS Unix System Services GID** is being changed.
 
 * `gid`<br>
-  The **z/OS Unix System Services GID** to assign to the specified group.
+  The **z/OS Unix System Services GID** to set for the specified group.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

@@ -19,13 +19,6 @@ def set_passphrase(self, userid: str, passphrase: str) -> Union[dict, bytes]:
 
 #### 📄 Description
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 {: .warning }
 > * _pyRACF encodes the data it passes to RACF in Code Page `IBM-1047`._
 > * _If you are entering a passphrase with special or national characters, users logging on from terminals using differnt or international codepages may experience errors._

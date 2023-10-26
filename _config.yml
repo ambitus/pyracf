@@ -64,8 +64,8 @@ callouts:
   experimental:
     title: 🚧 Experimental
     color: red
-  stable:
-    title: ✅ Stable
+  development_status:
+    title: 💻 Development Status
     color: green
 
 mermaid:

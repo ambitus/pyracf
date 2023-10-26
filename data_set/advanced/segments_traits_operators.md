@@ -6,10 +6,20 @@ parent: Advanced
 
 # Segments, Traits, and Operators
 
-Relevant information about using `segments` dictionaries, `traits` dictionaries, and `operators`.
+Information about data set profile `segments` dictionaries, `traits` dictionaries, and `operators`.
 {: .fs-6 .fw-300 }
 
 ### Segments
+
+&nbsp;
+
+{: .experimental }
+> _**Segments** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
+{: .experimental }
+> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
 
 &nbsp;
 
@@ -23,18 +33,23 @@ When using the **[`DataSetAdmin.extract()`](../../standard/extract#datasetadmine
 &nbsp;
 
 | **Segment** | **Description** |
-| | |
+| `base` | Describes a data set profile's **Base** attributes. |
 
 ### Traits
 
 &nbsp;
 
-{: .note }
-> _All **key-value pair traits** can be set to `False` in **[`DataSetAdmin.alter()`](../alter#datasetadminalter)** to indicate that they should be removed or unset._
+{: .experimental }
+> _**Traits** that are **NOT** documented below are considered **Experimental**._
 
 &nbsp;
 
-When using the **[`DataSetAdmin.add()`](../add#datasetadminadd)** and **[`DataSetAdmin.alter()`](../alter#datasetadminalter)** functions, the following are valid data set traits. Feel free to experiment with any of the other traits defined in `pyracf/data_set/data_set_admin.py` in the pyRACF source code.
+{: .note }
+> _Some **Traits** can be set to `False` to delete their existing values._
+
+&nbsp;
+
+When using the **[`DataSetAdmin.add()`](../add#datasetadminadd)** and **[`DataSetAdmin.alter()`](../alter#datasetadminalter)** functions, the following are valid data set profile traits. Feel free to experiment with any of the other traits defined in `pyracf/data_set/data_set_admin.py` in the pyRACF source code.
 
 &nbsp;
 
@@ -43,7 +58,7 @@ Traits use the following syntax: `<segment>:<trait>`
 &nbsp;
 
 | **Trait** | **Description** | **Valid Types** |
-| `base:universal_access` | Set a dataset's **Universal Access** level. | Add: `str`<br>Alter: `str` |
+| `base:universal_access` | Set a data set profile's **Universal Access** level. | `str` |
 
 
 ### Operators

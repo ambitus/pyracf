@@ -6,7 +6,7 @@ parent: Advanced
 
 # Options and Operators
 
-Relevant information about using `options` dictionaries, and `operators`.
+Information about setropts `options` dictionaries and `operators`.
 {: .fs-6 .fw-300 }
 
 
@@ -14,8 +14,18 @@ Relevant information about using `options` dictionaries, and `operators`.
 
 &nbsp;
 
+{: .experimental }
+> _**Options** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
+{: .experimental }
+> _All functionality dependent on **[`SetroptsAdmin.list_racf_options()`](../../standard/list_racf_options#setroptsadminlist_racf_options)** is considered **Experimental**. See **[`SetroptsAdmin.list_racf_options()`](../../standard/list_racf_options#setroptsadminlist_racf_options)** for more details._
+
+&nbsp;
+
 {: .note }
-> _All **key-value pair options** can be set to `False` in **[`SetroptsAdmin.alter()`](../alter#setroptsadminalter)** to indicate that they should be removed or unset._
+> _Some **Options** can be set to `False` to delete their existing values._
 
 &nbsp;
 
@@ -28,15 +38,15 @@ Options use the following syntax: `<segment>:<options>`
 &nbsp;
 
 | **Option** | **Description** | **Valid Types** |
-| `base:raclist` | Add a class to the list of **raclisted** classes in RACF.  | Alter: `str` |
-| `base:audit_class` | Add a class to the list of **audited** classes in RACF. | Alter: `str` |
-| `base:active_class` | Add a class to the list of **active** classes in RACF.  | Alter: `str` |
-| `base:statiscs_class` | Track **statistics** for a specicified class.  | Alter: `str` |
-| `base:general_command_class` | Allow **generic profile command** processing for a specified class. | Alter: `str` |
-| `base:generic_profile_checking_class` | Allow **generic profile checking** for a specified class. | Alter: `str` |
-| `base:generic_profile_sharing_class` | Allow sharing of in-storage **generic profiles** for a specified class. | Alter: `str` |
-| `base:global_access_class` | Add a class to the list of **global access checking** classes in RACF.  | Alter: `str` |
-| `base:refresh` | **Refresh** the in-storage profiles for Genric, Global, or Raclist classes. | Alter: `bool` |
+| `base:raclist` | Add a class to the list of **raclisted** classes in RACF.  | `str` |
+| `base:audit_classes` | Add a class to the list of **audited** classes in RACF. | `str` |
+| `base:active_classes` | Add a class to the list of **active** classes in RACF.  | `str` |
+| `base:statiscs_class` | Track **statistics** for a specicified class.  | `str` |
+| `base:general_command_classes` | Allow **generic profile command** processing for a specified class. | `str` |
+| `base:generic_profile_checking_classes` | Allow **generic profile checking** for a specified class. | `str` |
+| `base:generic_profile_sharing_classes` | Allow sharing of in-storage **generic profiles** for a specified class. | `str` |
+| `base:global_access_classes` | Add a class to the list of **global access checking** classes in RACF.  | `str` |
+| `base:refresh` | **Refresh** the in-storage profiles for Genric, Global, or Raclist classes. | `bool` |
 
 ### Operators
 

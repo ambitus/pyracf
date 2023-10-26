@@ -6,15 +6,10 @@ parent: Advanced
 
 # Segments, Traits, and Operators
 
-Relevant information about using `segments` dictionaries, `traits` dictionaries, and `operators`.
+Information about user `segments` dictionaries, `traits` dictionaries, and `operators`.
 {: .fs-6 .fw-300 }
 
 ### Segments
-
-&nbsp;
-
-{: .stable }
-> _**Segments** documented in the table below are considered **Stable**._
 
 &nbsp;
 
@@ -23,13 +18,13 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 &nbsp;
 
-{: .note }
-> _The `base` segment is **always included** in **[`UserAdmin.extract()`](../../standard/extract#useradminextract)** by default._
+{: .experimental }
+> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
 
 &nbsp;
 
-{: .warning }
-> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
+{: .note }
+> _The `base` segment is **always included** in **[`UserAdmin.extract()`](../../standard/extract#useradminextract)** by default._
 
 &nbsp;
 
@@ -38,15 +33,11 @@ When using the **[`UserAdmin.extract()`](../../standard/extract#useradminextract
 &nbsp;
 
 | **Segment** | **Description** |
+| `base` | Describes a user's **Base** attributes. |
 | `omvs` | Describes a user's **z/OS Unix System Services** attributes. |
 | `tso` | Describes a user's **TSO** attributes. |
 
 ### Traits
-
-&nbsp;
-
-{: .stable }
-> _**Traits** documented in the table below are considered **Stable**._
 
 &nbsp;
 
@@ -102,13 +93,6 @@ Traits use the following syntax: `<segment>:<trait>`
 
 ### Operators
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Operators can be prepended to traits using the following syntax: `<operator>:<segment>:<trait>`
 
 &nbsp;
@@ -117,23 +101,9 @@ Operators can be prepended to traits using the following syntax: `<operator>:<se
 
 ### Key-Value Pair Traits
 
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
-
 Operators are generally not needed for **key-value pair traits**. For key-value pair traits, setting the value to a non-`False` value with no operator will generally set or overwrite the trait and setting the value to `False` will generally delete its existing value.
 
 ### List Traits
-
-&nbsp;
-
-{: .stable }
-> 
-
-&nbsp;
 
 | **Trait** | **Operator Usage** |
 | `base:class_authorizations` | Use the `add` operator to add new **Class Authorizations** and `remove` to remove **Class Authorizations**. |
