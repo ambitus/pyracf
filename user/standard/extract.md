@@ -26,7 +26,7 @@ Extract a **user's** profile data.
   The **z/OS userid** to extract segment data from.
 
 * `segments`<br>
-  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
+  A list of segments to extract. Any segments omitted from the list will not be extracted. The base sgement is included always.
 
 * `profile_only`<br>
   When set to `True`, only the extracted profile will be returned instead of returning the entire **Security Result dictionary**.
@@ -38,6 +38,8 @@ Extract a **user's** profile data.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `InvalidSegmentNameError`<br>
+  Raises `InvalidSegmentNameError` when the list of **segments** supplied contains at least one unknown segment.
 
 #### 💻 Example
 

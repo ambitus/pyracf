@@ -12,7 +12,7 @@ Alter an existing z/OS userid.
 ## `UserAdmin.alter()`
 
 ```python
-def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
+def alter(self, userid: str, traits: dict) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -49,6 +49,10 @@ Alter an existing **z/OS userid**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied does not already exist in the environment.
+* `InvalidSegmentTraitError`<br>
+  Raises `InvalidSegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
 
 #### 💻 Example
 

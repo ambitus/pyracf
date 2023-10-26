@@ -42,6 +42,10 @@ Create a new **z/OS userid**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AddOperationError`<br>
+  Raises `AddOperationError` when the **z/OS userid** supplied does already exists in the environment.
+* `InvalidSegmentTraitError`<br>
+  Raises `InvalidSegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
 
 #### 💻 Example
 
