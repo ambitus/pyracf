@@ -26,7 +26,6 @@ class AccessAdmin(SecurityAdmin):
                 "base:model_profile": "racf:fprofile",
                 "base:model_profile_generic": "racf:fgeneric",
                 "base:model_profile_volume": "racf:fvolume",
-                "base:id": "authid",
                 "base:reset": "racf:reset",
                 "base:volume": "racf:volume",
                 "base:when_partner_lu_name": "racf:whenappc",
