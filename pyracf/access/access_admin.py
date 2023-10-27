@@ -62,7 +62,7 @@ class AccessAdmin(SecurityAdmin):
         volume: Union[str, None] = None,
         generic: bool = False,
     ) -> Union[dict, bytes]:
-        """Change a permission (or add a new one)"""
+        """Create or change a permission"""
         traits["base:auth_id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
