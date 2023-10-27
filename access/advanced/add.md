@@ -25,6 +25,13 @@ def add(
 
 #### 📄 Description
 
+&nbsp;
+
+{: .experimental }
+> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 Create a new **permission**.
 
 #### 📥 Parameters
@@ -65,7 +72,7 @@ traits = {
     "base:access": "READ",
 }
 
-access_admin.add("TESTING", "ELIJTEST", "ESWIFT", traits)
+access_admin.add("TESTING", "ELIJTEST", "ESWIFT", traits=traits)
 ```
 
 ###### Security Result Dictionary as JSON

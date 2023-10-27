@@ -6,10 +6,15 @@ parent: Advanced
 
 # Segments, Traits, and Operators
 
-Relevant information about using `segments` dictionaries, `traits` dictionaries, and `operators`.
+Information about permission `segments` dictionaries, `traits` dictionaries, and `operators`.
 {: .fs-6 .fw-300 }
 
 ### Segments
+
+&nbsp;
+
+{: .experimental }
+> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
 
 &nbsp;
 
@@ -19,12 +24,20 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 &nbsp;
 
+| **Segment** | **Description** |
+| `Base` | Describes a permission's **Base** attributes. |
+
 ### Traits
 
 &nbsp;
 
+{: .experimental }
+> _**Traits** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
 {: .note }
-> _All **key-value pair traits** can be set to `False` in **[`AccessAdmin.alter()`](../alter#accessadminalter)** to indicate that they should be removed or unset._
+> _Some **Traits** can be set to `False` to delete their existing values._
 
 &nbsp;
 
@@ -37,7 +50,7 @@ Traits use the following syntax: `<segment>:<trait>`
 &nbsp;
 
 | **Trait** | **Description** | **Valid Types** |
-| `base:access` | Set the **access level** associated with the permission. | Add: `str`<br>Alter: `str` |
+| `base:access` | Set the **access level** associated with the permission. | `str` |
 
 ### Operators
 

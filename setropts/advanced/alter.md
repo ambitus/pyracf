@@ -17,6 +17,13 @@ def alter(self, options: dict = {}) -> Union[dict, bytes]:
 
 #### 📄 Description
 
+&nbsp;
+
+{: .experimental }
+> _Only a subset of available **Options** are considered **Stable**. See [Options](../options_operators#options) for more details._
+
+&nbsp;
+
 Alter the current **RACF Options**.
 
 #### 📥 Parameters

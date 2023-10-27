@@ -19,6 +19,11 @@ def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, byt
 
 &nbsp;
 
+{: .experimental }
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segmetns) and [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 {: .warning }
 > _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
 > _This function will not produce output unless the user running the command has this access._
@@ -32,7 +37,7 @@ Alter an existing **general resource profile**.
   The name of the **general resource profile** being altered.
 
 * `class_name`<br>
-  The name of the **class** the resource profile being altered belongs to.
+  The name of the **class** the general resource profile being altered belongs to.
 
 * `traits`<br>
   A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
@@ -51,7 +56,7 @@ Alter an existing **general resource profile**.
 
 #### 💻 Example
 
-The following example **alters** a resource profile called `ESWIFT.TEST.T1136242.P3020470` with **traits/attributes** to alter specified in the `traits` dictionary.
+The following example **alters** a general resource profile called `ESWIFT.TEST.T1136242.P3020470` with **traits/attributes** to alter specified in the `traits` dictionary.
 
 
 ###### Python Script

@@ -17,6 +17,13 @@ def add(self, resource: str, class_name: str, traits: dict = {}) -> Union[dict, 
 
 #### 📄 Description
 
+&nbsp;
+
+{: .experimental }
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segmetns) and [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 Create a new **general resource profile**.
 
 #### 📥 Parameters
@@ -24,7 +31,7 @@ Create a new **general resource profile**.
   The name of the **general resource profile** being created.
 
 * `class_name`<br>
-  The name of the **class** the resource profile being created belongs to.
+  The name of the **class** the general resource profile being created belongs to.
 
 * `traits`<br>
   A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
@@ -43,7 +50,7 @@ Create a new **general resource profile**.
 
 #### 💻 Example
 
-The following example **creates** a **new resource** profile called `TESTING` in the `ELIJTEST` class with two **traits/attributes** as defined in the `traits` dictionary.
+The following example **creates** a **new general resource profile** called `TESTING` in the `ELIJTEST` class with two **traits/attributes** as defined in the `traits` dictionary.
 
 ###### Python Script
 ```python

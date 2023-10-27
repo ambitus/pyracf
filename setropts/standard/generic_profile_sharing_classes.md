@@ -9,10 +9,10 @@ parent: Standard
 Setropts administration functions for modifying if a class has the Generic RACLIST attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.remove_generic_profile_sharing_classes()`
+## `SetroptsAdmin.add_generic_profile_sharing_classes()`
 
 ```python
-def remove_generic_profile_sharing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
+def add_generic_profile_sharing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

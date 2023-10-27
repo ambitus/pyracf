@@ -12,8 +12,13 @@ Python interface into the RACF management application programming interface.
 
 &nbsp;
 
-{: .warning }
-> _**pyRACF** is still in **Alpha**, meaning that it is not yet considered ready for production use and existing functionality and interfaces are still subject to change._
+{: .development_status }
+> _**pyRACF** is currently in **Beta**, meaning that a subset of functionality is available and considered more or less **Stable** and ready for production, but there is still functionality that is **Experimental** or still needs to be implemented. Please see the annotation below on **Experimental** features._
+
+&nbsp;
+
+{: .experimental }
+> _Functionality that is considered **Experimental** will be accompanied by this annotation. This means that the functionality is not tested and or is subject to major changes including even being removed entirely._
 
 &nbsp;
 
@@ -39,10 +44,10 @@ Python interface into the RACF management application programming interface.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.get_omvs_uid("squidwrd")
 2424
->>> user_admin.set_uid("squidwrd", 1919)
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.set_omvs_uid("squidwrd", 1919)
+>>> user_admin.get_omvs_uid("squidwrd")
 1919
 ```
 

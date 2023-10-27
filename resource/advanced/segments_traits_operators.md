@@ -6,10 +6,15 @@ parent: Advanced
 
 # Segments, Traits, and Operators
 
-Relevant information about using `segments` dictionaries, `traits` dictionaries, and `operators`.
+Information about general resource profile `segments` dictionaries, `traits` dictionaries, and `operators`.
 {: .fs-6 .fw-300 }
 
 ### Segments
+
+&nbsp;
+
+{: .experimental }
+> _**Segments** that are **NOT** documented below are considered **Experimental**._
 
 &nbsp;
 
@@ -18,19 +23,29 @@ Relevant information about using `segments` dictionaries, `traits` dictionaries,
 
 &nbsp;
 
+{: .warning }
+> _Note that just because a **Segment** is considered **Stable** that does not mean that all of the **Traits** in that **Segment** are considered **Stable**. See [Traits](#traits) for more detail._
+
+&nbsp;
+
 When using the **[`ResourceAdmin.extract()`](../../standard/extract#resourceadminextract)** function, the following is the current list of additional segments that have been tested and validated. Feel free to experiment with any of the segments defined in `pyracf/resource/resource_admin.py` in the pyRACF source code.
 
 &nbsp;
 
 | **Segment** | **Description** |
-| | |
+| `Base` | Describes a general resource profile's **Base** attributes. |
 
 ### Traits
 
 &nbsp;
 
+{: .experimental }
+> _**Traits** that are **NOT** documented below are considered **Experimental**._
+
+&nbsp;
+
 {: .note }
-> _All **key-value pair traits** can be set to `False` in **[`ResourceAdmin.alter()`](../alter#resourceadminalter)** to indicate that they should be removed or unset._
+> _Some **Traits** can be set to `False` to delete their existing values._
 
 &nbsp;
 
@@ -43,7 +58,7 @@ Traits use the following syntax: `<segment>:<trait>`
 &nbsp;
 
 | **Trait** | **Description** | **Valid Types** |
-| `base:universal_access` | Set a resource's **Universal Access** level. | Add: `str`<br>Alter: `str` |
+| `base:universal_access` | Set a resource's **Universal Access** level. | `str` |
 
 
 ### Operators

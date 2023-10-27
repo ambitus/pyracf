@@ -17,6 +17,13 @@ def get_class_attributes(self, class_name: str) -> Union[List[str], bytes]:
 
 #### 📄 Description
 
+&nbsp;
+
+{: .experimental }
+> _This functionality is currently considered **Experimental** due to it's dependency on **[`SetroptsAdmin.list_racf_options()`](../list_racf_options#setroptsadminlist_racf_options)**. See **[`SetroptsAdmin.list_racf_options()`](../list_racf_options#setroptsadminlist_racf_options)** for more details._
+
+&nbsp;
+
 Get the **Class Attributes** for a specified class.
 
 #### 📥 Parameters

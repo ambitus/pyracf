@@ -6,7 +6,7 @@ parent: Standard
 
 # Profile Extract
 
-Functions for extracting a data set profile's data. 
+Extract a data set profile's profile data. 
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.extract()`
@@ -15,7 +15,7 @@ Functions for extracting a data set profile's data.
 def extract(
     self,
     data_set: str,
-    segments: list = [],
+    segments: List[str] = [],
     volume: Union[str, None] = None,
     generic: bool = False,
     profile_only: bool = False,
@@ -24,17 +24,43 @@ def extract(
 
 #### 📄 Description
 
-Extract a **data set profile**'s data.
+&nbsp;
+
+{: .experimental }
+> _Profile data extracted for experimental **Segments** and **Traits** are considered **Experimental**. See [Segments](../../advanced/segments_traits_operators#segments) and [Traits](../../advanced/segments_traits_operators#traits) for more details._
+
+&nbsp;
+
+{: .warning }
+> _Note that it is recommended to extract profile data using the provided **Getter** functions in most cases._
+>
+> &nbsp;
+>
+> ❌
+> ```python
+> profile = data_set_admin.extract("ESWIFT.TEST.T1136242.P3020470", profile_only=True)
+> if profile["base"]["universalAccess"] == "read":
+>     # Do something
+> ```
+> ✅
+> ```python
+> if data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470") == "read":
+>   # Do something.
+> ```
+
+&nbsp;
+
+Extract a **data set profile's** data.
 
 #### 📥 Parameters
 * `data_set`<br>
   The **data set profile** to extract segment data from.
 
 * `segments`<br>
-  A list of segments to extract. Any segments omitted from the list will not be extracted. The base sgement is included always.
+  A list of additional **segments** to extract. The base segment is extracted by default, but providing one or more additional segment keys for other segments in the form of a list will result in those segments being extracted as well.
 
 * `volume`<br>
-  A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
+  A single **volume** name for this data set profile. This argument is optional. If `generic=True` is specified, volume is ignored.
 
 * `generic`<br>
   A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `False`.
@@ -54,13 +80,13 @@ Extract a **data set profile**'s data.
 
 #### 💻 Example
 
-The following example **extracts** the **base segment** of the data set profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default whether or not other segments are specified. Also note that if any segments were specified in the `segments` dictionary with a value of `False`, those segments also would not be extracted.
+The following example **extracts** the **base segment** of the data set profile `ESWIFT.TEST.T1136242.P3020470`. The base segment is extracted by default whether or not other segments are specified in the `segments` list.
 
 ###### Python REPL
 ```python
 >>> from pyracf import DataSetAdmin
->>> dataset_admin = DataSetAdmin()
->>> dataset_admin.extract("ESWIFT.TEST.T1136242.P3020470")
+>>> data_set_admin = DataSetAdmin()
+>>> data_set_admin.extract("ESWIFT.TEST.T1136242.P3020470")
 {"securityResult":{"dataSet":{"name":"ESWIFT.TEST.T1136242.P3020470","operation":"listdata","generic":"no","requestId":"DatasetRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')","profiles":[{"base":{"name":"eswift.test.t1136242.p3020470","level":0,"owner":"eswift","universalAccess":"read","warning":null,"erase":null,"auditing":{"failures":"read"},"notify":null,"yourAccess":"alter","creationGroup":"sys1","dataSetType":"non-vsam","volumes":["usrat2"],"installationData":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}}
 ```
 

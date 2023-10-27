@@ -6,13 +6,13 @@ parent: Standard
 
 # Universal Access
 
-Resource administration functions for checking a Data Set Profile's Universal Access Attribute. 
+Data Set Profile administration functions for checking a data set profile's Universal Access Attribute. 
 {: .fs-6 .fw-300 }
 
 ## `DataSetAdmin.get_universal_access()`
 
 ```python
-def get_universal_access(self, dataset: str) -> Union[str, bytes, None]:
+def get_universal_access(self, data_set: str) -> Union[str, bytes, None]:
 ```
 
 #### 📄 Description
@@ -20,7 +20,7 @@ def get_universal_access(self, dataset: str) -> Union[str, bytes, None]:
 Check the **Universal Access Attribute** for a data set profile.
 
 #### 📥 Parameters
-* `dataset`<br>
+* `data_set`<br>
   The **data set profile** for which RACF should check the universal access attribute.
 
 #### 📤 Returns
@@ -36,15 +36,15 @@ Check the **Universal Access Attribute** for a data set profile.
 ###### Python REPL
 ```python
 >>> from pyracf import DataSetAdmin
->>> dataset_admin = DataSetAdmin()
->>> dataset_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470")
+>>> data_set_admin = DataSetAdmin()
+>>> data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470")
 "read"
 ```
 
 ## `DataSetAdmin.set_universal_access()`
 
 ```python
-def set_universal_access(self, dataset: str, universal_access: str) -> Union[dict, bytes]:
+def set_universal_access(self, data_set: str, universal_access: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -52,11 +52,11 @@ def set_universal_access(self, dataset: str, universal_access: str) -> Union[dic
 Set the **Universal Access Attribute** for a data set profile.
 
 #### 📥 Parameters
-* `dataset`<br>
+* `data_set`<br>
   The **data set profile** for which RACF should set the universal access attribute.
 
 * `universal_access`<br>
-  The **Universal Access** level to assign to the specified data set profile.
+  The **Universal Access** level to set for the specified data set profile.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -73,8 +73,8 @@ Set the **Universal Access Attribute** for a data set profile.
 ###### Python REPL
 ```python
 >>> from pyracf import DataSetAdmin
->>> dataset_admin = DataSetAdmin()
->>> dataset_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470","ALTER")
+>>> data_set_admin = DataSetAdmin()
+>>> data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470","ALTER")
 {"securityResult":{"dataSet":{"name":"ESWIFT.TEST.T1136242.P3020470","operation":"set","generic":"no","requestId":"DatasetRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"ALTDSD               ('ESWIFT.TEST.T1136242.P3020470')  UACC        (Alter)"}]},"returnCode":0,"reasonCode":0}}
 ```
 

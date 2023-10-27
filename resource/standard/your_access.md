@@ -21,14 +21,14 @@ Check **Your Access** for a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **Resource** profile for which RACF should check the current user's access level.
+  The **general resource profile** for which RACF should check the current user's access level.
 
 * `class_name`<br>
-  The name of the **class** the resource profile being checked belongs to.
+  The name of the **class** the general resource profile being checked belongs to.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
-  Returns `None` when the resource profile has no **Your Access** defined, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the general resource profile has no **Your Access** defined, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>

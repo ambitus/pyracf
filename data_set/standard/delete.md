@@ -26,7 +26,7 @@ Delete a **data set profile**.
   The name of the **data set profile** being deleted.
 
 * `volume`<br>
-  A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
+  A single **volume** name for this data set profile. This argument is optional. If `generic=True` is specified, volume is ignored.
 
 * `generic`<br>
   A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `False`.
@@ -44,8 +44,8 @@ Delete a **data set profile**.
 ###### Python REPL
 ```python
 >>> from pyracf import DataSetAdmin
->>> dataset_admin = DataSetAdmin()
->>> dataset_admin.delete("ESWIFT.TEST.T1136242.P3020470")
+>>> data_set_admin = DataSetAdmin()
+>>> data_set_admin.delete("ESWIFT.TEST.T1136242.P3020470")
 {"securityResult":{"dataSet":{"name":"ESWIFT.TEST.T1136242.P3020470","operation":"del","generic":"no","requestId":"DatasetRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"DELDSD               ('ESWIFT.TEST.T1136242.P3020470')"}]},"returnCode":0,"reasonCode":0}}
 ```
 

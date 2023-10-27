@@ -21,10 +21,10 @@ Check the **Universal Access Attribute** for a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **Resource** profile for which RACF should check the universal access attribute.
+  The **general resource profile** for which RACF should check the universal access attribute.
 
 * `class_name`<br>
-  The name of the **class** the resource profile being checked belongs to.
+  The name of the **class** the general resource profile being checked belongs to.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
@@ -61,13 +61,13 @@ Set the **Universal Access Attribute** for a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **Resource** profile for which RACF should set the universal access attribute.
+  The **general resource profile** for which RACF should set the universal access attribute.
 
 * `class_name`<br>
-  The name of the **class** the resource profile being altered belongs to.
+  The name of the **class** the general resource profile being altered belongs to.
 
 * `universal_access`<br>
-  The **Universal Access** level to assign to the specified general resource profile.
+  The **Universal Access** level to set for the specified general resource profile.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

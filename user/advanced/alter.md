@@ -19,6 +19,11 @@ def alter(self, userid: str, traits: dict) -> Union[dict, bytes]:
 
 &nbsp;
 
+{: .experimental }
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segmetns) and [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 {: .warning }
 > _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
 > _This function will not produce output unless the user running the command has this access._

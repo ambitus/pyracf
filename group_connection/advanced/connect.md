@@ -19,6 +19,17 @@ def connect(self, userid: str, group: str, traits: dict = {}) -> Union[dict, byt
 
 &nbsp;
 
+{: .experimental }
+> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
+{: .warning }
+> _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
+> _This function will not produce output unless the user running the command has this access._
+
+&nbsp;
+
 Create or change a **group connection**.
 
 #### 📥 Parameters
@@ -42,7 +53,7 @@ Create or change a **group connection**.
 
 #### 💻 Example
 
-The following example **connectes** an **existing group connection** where the connection of **z/OS userid** `squidwrd` to **group** `testgrp0` will be connected with the **traits/attributes** defined in the `traits` dictionary.
+The following example **connects** an **existing group connection** where the connection of **z/OS userid** `squidwrd` to **group** `testgrp0` will be connected with the **traits/attributes** defined in the `traits` dictionary.
 
 ###### Python Script
 ```python

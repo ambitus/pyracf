@@ -19,6 +19,11 @@ def add(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
 
 &nbsp;
 
+{: .experimental }
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 {: .warning }
 > * _pyRACF encodes the data it passes to RACF in Code Page `IBM-1047`._
 > * _If you are entering a password or phrase with special or national characters, users logging on from terminals using differnt or international codepages may experience errors._

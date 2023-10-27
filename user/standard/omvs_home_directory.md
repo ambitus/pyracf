@@ -4,15 +4,15 @@ grand_parent: User Admin
 parent: Standard
 ---
 
-# z/OS Unix System Services Home
+# z/OS Unix System Services Home Directory
 
 User administration functions for accessing and modifying a user's z/OS Unix System Services Home Directory. 
 {: .fs-6 .fw-300 }
 
-## `UserAdmin.get_omvs_home()`
+## `UserAdmin.get_omvs_home_directory()`
 
 ```python
-def get_omvs_home(self, userid: str) -> Union[str, None, bytes]:
+def get_omvs_home_directory(self, userid: str) -> Union[str, None, bytes]:
 ```
 
 #### 📄 Description
@@ -25,7 +25,7 @@ Get a user's **z/OS Unix System Services Home Directory**.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
-  Returns the user's **z/OS Unix System Services Home Directory** or `None` if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns the user's **z/OS Unix System Services Home Directory** or `None` if it is not set or the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -37,14 +37,16 @@ Get a user's **z/OS Unix System Services Home Directory**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_omvs_home("squidwrd")
+>>> user_admin.get_omvs_home_directory("squidwrd")
 '/u/squidwrd'
 ```
 
-## `UserAdmin.set_omvs_home()`
+## `UserAdmin.set_omvs_home_directory()`
 
 ```python
-def set_omvs_home(self, userid: str, home_directory: str) -> Union[dict, bytes]:
+def set_omvs_home_directory(
+    self, userid: str, home_directory: Union[str, bool]
+  ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -53,10 +55,10 @@ Change a user's **z/OS Unix System Services Home Directory**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Home Directory** is being changed.
+  The **z/OS userid** of the user who's **z/OS Unix System Services Home Directory** is being set.
 
 * `home_directory`<br>
-  The **z/OS Unix System Services Home Directory** to assign to the specified user.
+  The **z/OS Unix System Services Home Directory** to set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -74,7 +76,7 @@ Change a user's **z/OS Unix System Services Home Directory**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.set_omvs_home("squidwrd", "/u/squidwrd")
+>>> user_admin.set_omvs_home_directory("squidwrd", "/u/squidwrd")
 {'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': "ALTUSER SQUIDWRD  OMVS     (HOME        ('/u/squidwrd'))"}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 

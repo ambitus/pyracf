@@ -22,6 +22,11 @@ def alter(
 
 &nbsp;
 
+{: .experimental }
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
+
+&nbsp;
+
 {: .warning }
 > _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
 > _This function will not produce output unless the user running the command has this access._
@@ -35,10 +40,10 @@ Alter an existing **data set profile**.
   The name of the **data set profile** being altered.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the data set on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Data Set Traits** are.
+  A dictionary of **traits/attributes** that should be given to the data set profile on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Data Set Traits** are.
 
 * `volume`<br>
-  A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
+  A single **volume** name for this data set profile. This argument is optional. If `generic=True` is specified, volume is ignored.
 
 * `generic`<br>
   A bool indicating whether to treat this profile as **generic** or not. This argument is optional and defaults to `False`.
@@ -64,14 +69,14 @@ The following example **alters** a data set profile called `ESWIFT.TEST.T1136242
 
 ```python
 from pyracf import DataSetAdmin
-dataset_admin = DataSetAdmin()
+data_set_admin = DataSetAdmin()
 
 traits = {
     "base:universal_access": "Read",
     "base:owner": "eswift",
 }
 
-dataset_admin.alter("ESWIFT.TEST.T1136242.P3020470", traits=traits)
+data_set_admin.alter("ESWIFT.TEST.T1136242.P3020470", traits=traits)
 ```
 
 ###### Security Result Dictionary as JSON

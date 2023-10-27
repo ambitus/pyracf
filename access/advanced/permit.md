@@ -27,6 +27,11 @@ def permit(
 
 &nbsp;
 
+{: .experimental }
+> _Only a subset of available **Options** are considered **Stable**. See [Options](../options_operators#options) for more details._
+
+&nbsp;
+
 Create or change a **permission**.
 
 #### 📥 Parameters
@@ -68,7 +73,7 @@ traits = {
     "base:access": "NONE",
 }
 
-access_admin.permit("TESTING", "ELIJTEST", "ESWIFT", traits)
+access_admin.permit("TESTING", "ELIJTEST", "ESWIFT", traits=traits)
 ```
 
 ###### Security Result Dictionary as JSON

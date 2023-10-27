@@ -4,28 +4,28 @@ grand_parent: User Admin
 parent: Standard
 ---
 
-# z/OS Unix System Services Program
+# z/OS Unix System Services Default Shell
 
-User administration functions for accessing and modifying a user's z/OS Unix System Services Program/Default Shell. 
+User administration functions for accessing and modifying a user's z/OS Unix System Services Default Shell. 
 {: .fs-6 .fw-300 }
 
-## `UserAdmin.get_omvs_program()`
+## `UserAdmin.get_omvs_default_shell()`
 
 ```python
-def get_omvs_program(self, userid: str) -> Union[str, None, bytes]:
+def get_omvs_default_shell(self, userid: str) -> Union[str, None, bytes]:
 ```
 
 #### 📄 Description
 
-Get a user's **z/OS Unix System Services Program/Default Shell**.
+Get a user's **z/OS Unix System Services Default Shell**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Program/Default Shell** is being requested.
+  The **z/OS userid** of the user who's **z/OS Unix System Services Default Shell** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
-  Returns the user's **z/OS Unix System Services Program/Default Shell** or `None` if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns the user's **z/OS Unix System Services Default Shell** or `None` if it is not set or if the user does not have an **OMVS segment**. If the `UserAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -37,26 +37,28 @@ Get a user's **z/OS Unix System Services Program/Default Shell**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_omvs_program("squidwrd")
+>>> user_admin.get_omvs_default_shell("squidwrd")
 '/bin/sh'
 ```
 
-## `UserAdmin.set_omvs_program()`
+## `UserAdmin.set_omvs_default_shell()`
 
 ```python
-def set_omvs_program(self, userid: str, program: str) -> Union[dict, bytes]:
+def set_omvs_default_shell(
+    self, userid: str, default_shell: Union[str, bool]
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Change a user's **z/OS Unix System Services Program/Default Shell**.
+Change a user's **z/OS Unix System Services Default Shell**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Program/Default Shell** is being changed.
+  The **z/OS userid** of the user who's **z/OS Unix System Services Default Shell** is being changed.
 
-* `program`<br>
-  The filesystem path to the **z/OS Unix System Services Program/Default Shell** to assign to the specified user.
+* `default_shell`<br>
+  The filesystem path to the **z/OS Unix System Services Default Shell** set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -74,8 +76,8 @@ Change a user's **z/OS Unix System Services Program/Default Shell**.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.set_omvs_program("squidwrd", "/bin/sh")
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': "ALTUSER SQUIDWRD  OMVS     (PROGRAM     ('/bin/sh'))"}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> user_admin.set_omvs_default_shell("squidwrd", "/bin/bash")
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': "ALTUSER SQUIDWRD  OMVS     (PROGRAM     ('/bin/bash'))"}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -95,7 +97,7 @@ Change a user's **z/OS Unix System Services Program/Default Shell**.
             "safReturnCode": 0,
             "returnCode": 0,
             "reasonCode": 0,
-            "image": "ALTUSER SQUIDWRD  OMVS     (PROGRAM     ('/bin/sh'))"
+            "image": "ALTUSER SQUIDWRD  OMVS     (PROGRAM     ('/bin/bash'))"
           }
         ]
       },

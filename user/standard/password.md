@@ -14,12 +14,10 @@ User administration functions for modifying a user's password.
 
 <br>
 ```python
-def set_password(self, userid: str, password: str) -> Union[dict, bytes]:
+def set_password(self, userid: str, password: Union[str, bool]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
-
-&nbsp;
 
 {: .warning }
 > * _pyRACF encodes the data it passes to RACF in Code Page `IBM-1047`._
@@ -34,14 +32,14 @@ def set_password(self, userid: str, password: str) -> Union[dict, bytes]:
 
 &nbsp;
 
-Change a user's **password**.
+Set a user's **password**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **password** is being changed.
+  The **z/OS userid** of the user who's **password** is being set.
 
 * `password`<br>
-  The **password** to assign to the specified user.
+  The **password** to set for the specified user or `False` to delete the current value.
 
 #### 📤 Returns
 
