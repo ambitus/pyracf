@@ -71,7 +71,7 @@ class TestDataSetResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_INVALID_ATTRIBUTE_ERROR_XML,
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_bad_ATTRIBUTE_ERROR_XML,
             TestDataSetConstants.TEST_ADD_DATA_SET_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
@@ -81,7 +81,7 @@ class TestDataSetResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_INVALID_ATTRIBUTE_ERROR_DICTIONARY,
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_bad_ATTRIBUTE_ERROR_DICTIONARY,
         )
 
     # ============================================================================

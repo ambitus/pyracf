@@ -9,8 +9,10 @@ class SegmentTraitError(Exception):
     def __init__(self, bad_traits: list, profile_type: str) -> None:
         self.message = "Unable to build Security Request.\n\n"
         for trait in bad_traits:
-            self.message += f"'{trait}' is not a known segment-trait "
-            self.message += f"combination for '{profile_type}'.\n"
+            self.message += (
+                f"'{trait}' is not a known segment-trait "
+                + f"combination for '{profile_type}'.\n"
+            )
 
     def __str__(self) -> str:
         return self.message

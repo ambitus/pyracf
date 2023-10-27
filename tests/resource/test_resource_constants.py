@@ -52,11 +52,11 @@ TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML = get_sample(
 TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_DICTIONARY = get_sample(
     "extract_resource_result_base_error.json"
 )
-TEST_EXTRACT_RESOURCE_RESULT_INVALID_CLASS_ERROR_XML = get_sample(
-    "extract_resource_result_invalid_class_error.xml"
+TEST_EXTRACT_RESOURCE_RESULT_bad_CLASS_ERROR_XML = get_sample(
+    "extract_resource_result_bad_class_error.xml"
 )
-TEST_EXTRACT_RESOURCE_RESULT_INVALID_CLASS_ERROR_DICTIONARY = get_sample(
-    "extract_resource_result_invalid_class_error.json"
+TEST_EXTRACT_RESOURCE_RESULT_bad_CLASS_ERROR_DICTIONARY = get_sample(
+    "extract_resource_result_bad_class_error.json"
 )
 
 # Delete Resource

@@ -62,13 +62,13 @@ class TestGroupResultParser(unittest.TestCase):
             + f"'{group_name}' already exists as a '{self.group_admin._profile_type}' profile.",
         )
 
-    # Error in command, TESTGRPP0 is invalid GROUP
+    # Error in command, TESTGRPP0 is bad GROUP
     def test_group_admin_can_parse_add_group_error_xml(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_INVALID_ATTRIBUTE_ERROR_XML,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_bad_ATTRIBUTE_ERROR_XML,
             TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
@@ -77,7 +77,7 @@ class TestGroupResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_INVALID_ATTRIBUTE_ERROR_DICTIONARY,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_bad_ATTRIBUTE_ERROR_DICTIONARY,
         )
 
     # ============================================================================
@@ -118,7 +118,7 @@ class TestGroupResultParser(unittest.TestCase):
             + f"'{group_name}' does not exist as a '{self.group_admin._profile_type}' profile.",
         )
 
-    # Error: invalid gid "3000000000"
+    # Error: bad gid "3000000000"
     def test_group_admin_can_parse_alter_group_error_xml(
         self,
         call_racf_mock: Mock,

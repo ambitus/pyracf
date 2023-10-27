@@ -66,13 +66,13 @@ class TestUserResultParser(unittest.TestCase):
             + f"'{profile_name}' already exists as a '{self.user_admin._profile_type}' profile.",
         )
 
-    # Error in command, SQUIDWARD is invalid USERID
+    # Error in command, SQUIDWARD is bad USERID
     def test_user_admin_can_parse_add_user_error_xml(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_INVALID_ATTRIBUTE_XML,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_bad_ATTRIBUTE_XML,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
@@ -82,7 +82,7 @@ class TestUserResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_INVALID_ATTRIBUTE_JSON,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_bad_ATTRIBUTE_JSON,
         )
 
     # ============================================================================
@@ -123,7 +123,7 @@ class TestUserResultParser(unittest.TestCase):
             + f"'{profile_name}' does not exist as a '{self.user_admin._profile_type}' profile.",
         )
 
-    # Error: invalid uid '90000000000'
+    # Error: bad uid '90000000000'
     def test_user_admin_can_parse_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
@@ -231,7 +231,7 @@ class TestUserResultParser(unittest.TestCase):
         self.assertNotIn(self.test_password, result_str)
         self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
-    # Error: invalid uid '90000000000'
+    # Error: bad uid '90000000000'
     def test_user_admin_password_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
@@ -277,7 +277,7 @@ class TestUserResultParser(unittest.TestCase):
         self.assertNotIn(self.test_passphrase, result_str)
         self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
 
-    # Error: invalid uid '90000000000'
+    # Error: bad uid '90000000000'
     def test_user_admin_passphrase_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
@@ -325,7 +325,7 @@ class TestUserResultParser(unittest.TestCase):
         self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
         self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
-    # Error: invalid uid '90000000000'
+    # Error: bad uid '90000000000'
     def test_user_admin_passphrase_and_password_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
@@ -374,7 +374,7 @@ class TestUserResultParser(unittest.TestCase):
         self.assertNotIn("(" + " " * len(self.simple_password) + ")", result_str)
         self.assertIn(self.simple_password, result_str)
 
-    # Error: invalid uid '90000000000'
+    # Error: bad uid '90000000000'
     def test_user_admin_password_message_not_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,

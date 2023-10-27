@@ -58,11 +58,11 @@ TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML = get_sample(
 TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_DICTIONARY = get_sample(
     "extract_data_set_result_base_only_error.json"
 )
-TEST_EXTRACT_DATA_SET_RESULT_INVALID_ATTRIBUTE_ERROR_XML = get_sample(
-    "extract_data_set_result_invalid_attribute_error.xml"
+TEST_EXTRACT_DATA_SET_RESULT_bad_ATTRIBUTE_ERROR_XML = get_sample(
+    "extract_data_set_result_bad_attribute_error.xml"
 )
-TEST_EXTRACT_DATA_SET_RESULT_INVALID_ATTRIBUTE_ERROR_DICTIONARY = get_sample(
-    "extract_data_set_result_invalid_attribute_error.json"
+TEST_EXTRACT_DATA_SET_RESULT_bad_ATTRIBUTE_ERROR_DICTIONARY = get_sample(
+    "extract_data_set_result_bad_attribute_error.json"
 )
 
 # Delete Data Set

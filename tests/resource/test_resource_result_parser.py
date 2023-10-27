@@ -63,20 +63,20 @@ class TestResourceResultParser(unittest.TestCase):
             + f"'{profile_name}' already exists as a profile in the '{class_name}' class.",
         )
 
-    # Error: Invalid Entity Name ELIXTEST
+    # Error: bad Entity Name ELIXTEST
     def test_resource_admin_can_parse_add_resource_error_xml(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_INVALID_CLASS_ERROR_XML,
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_bad_CLASS_ERROR_XML,
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.add("TESTING", "ELIXTEST")
         self.assertEqual(
             exception.exception.result,
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_INVALID_CLASS_ERROR_DICTIONARY,
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_bad_CLASS_ERROR_DICTIONARY,
         )
 
     # ============================================================================
@@ -122,7 +122,7 @@ class TestResourceResultParser(unittest.TestCase):
             + f"'{profile_name}' does not exist as a profile in the '{class_name}' class.",
         )
 
-    # Error: Invalid Universal Access ALL
+    # Error: bad Universal Access ALL
     def test_resource_admin_can_parse_alter_resource_error_xml(
         self,
         call_racf_mock: Mock,
