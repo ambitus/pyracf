@@ -13,7 +13,7 @@ Functions for extracting a user's profile data.
 
 ```python
 def extract(
-    self, userid: str, segments: dict = {}, profile_only: bool = False
+    self, userid: str, segments: list = [], profile_only: bool = False
 ) -> Union[dict, bytes]:
 ```
 

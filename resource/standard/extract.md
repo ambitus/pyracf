@@ -13,7 +13,7 @@ Functions for extracting a general resource profile's data.
 
 ```python
 def extract(
-    self, data_set: str, resource: str, class_name: str, segments: dict = {}, profile_only: bool = False
+    self, data_set: str, resource: str, class_name: str, segments: list = [], profile_only: bool = False
 ) -> Union[dict, bytes]:
 ```
 

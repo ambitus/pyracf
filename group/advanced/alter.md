@@ -12,7 +12,7 @@ Alter an existing group.
 ## `GroupAdmin.alter()`
 
 ```python
-def alter(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
+def alter(self, group: str, traits: dict) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

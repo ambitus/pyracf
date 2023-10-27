@@ -9,10 +9,10 @@ parent: Standard
 Group Connection administration functions for modifying a user's Group Access Attribute. 
 {: .fs-6 .fw-300 }
 
-## `GroupAdmin.set_group_access_attribute()`
+## `GroupAdmin.give_group_access_attribute()`
 
 ```python
-def set_group_access_attribute(self, userid: str, group: str) -> Union[dict, bytes]:
+def give_group_access_attribute(self, userid: str, group: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -39,7 +39,7 @@ Set the **Access Attribute** of a user within a group
 ```python
 >>> from pyracf import ConnectionAdmin
 >>> connection_admin = ConnectionAdmin()
->>> connection_admin.set_group_access_attribute("squidwrd", "testgrp0")
+>>> connection_admin.give_group_access_attribute("squidwrd", "testgrp0")
 {'step1': {'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'set', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'CONNECT SQUIDWRD  GROUP       (TESTGRP0) GRPACC      '}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
@@ -69,10 +69,10 @@ Set the **Access Attribute** of a user within a group
 }
 ```
 
-## `GroupAdmin.remove_group_access_attribute()`
+## `GroupAdmin.take_away_group_access_attribute()`
 
 ```python
-def remove_group_access_attribute(self, userid: str, group: str) -> Union[dict, bytes]:
+def take_away_group_access_attribute(self, userid: str, group: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -99,7 +99,7 @@ Take remove the **Access Attribute** from a user within a group.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> connection_admin.remove_group_access_attribute("squidwrd", "testgrp0")
+>>> connection_admin.take_away_group_access_attribute("squidwrd", "testgrp0")
 {'step1': {'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'set', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'CONNECT SQUIDWRD  GROUP       (TESTGRP0) NOGRPACC      '}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 

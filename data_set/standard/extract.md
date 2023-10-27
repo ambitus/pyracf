@@ -15,7 +15,7 @@ Functions for extracting a data set profile's data.
 def extract(
     self,
     data_set: str,
-    segments: dict = {},
+    segments: list = [],
     volume: Union[str, None] = None,
     generic: bool = False,
     profile_only: bool = False,

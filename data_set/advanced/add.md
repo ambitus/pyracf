@@ -13,7 +13,11 @@ Create a new data set profile.
 
 ```python
 def add(
-    self, data_set: str, traits: dict, volume: Union[str, None] = None, generic: bool = False
+    self,
+    data_set: str,
+    traits: dict = {},
+    volume: Union[str, None] = None,
+    generic: bool = False
 ) -> Union[dict, bytes]:
 ```
 
