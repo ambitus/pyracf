@@ -21,7 +21,7 @@ Check **Your Access** for a data set profile.
 
 #### 📥 Parameters
 * `dataset`<br>
-  The **Dataset** profile for which RACF should check the current user's access level.
+  The **data set profile** for which RACF should check the current user's access level.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>

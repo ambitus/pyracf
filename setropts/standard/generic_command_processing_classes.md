@@ -4,24 +4,24 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Statistics Class
+# Gencmd Class
 
-Setropts administration functions for modifying if a class has the Statistics attribute. 
+Setropts administration functions for modifying if a class has the Generic Command attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.add_statistics_class()`
+## `SetroptsAdmin.add_generic_command_processing_classes()`
 
 ```python
-def add_statistics_class(self, class_name: str) -> Union[dict, bytes]:
+def add_generic_command_processing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Add a class to the list of classes that RACF will collect **Statistics** for.
+Add a class to the list of classes that RACF will process **Generic Commands** for.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to add the statistics attribute to.
+  The name of the **class** to add the generic command attribute to.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -37,8 +37,8 @@ Add a class to the list of classes that RACF will collect **Statistics** for.
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.add_statistics_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      STATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.add_generic_command_processing_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GENCMD    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -54,7 +54,7 @@ Add a class to the list of classes that RACF will collect **Statistics** for.
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS      STATISTICS    (ELIJTEST)"
+            "image":"SETROPTS      GENCMD    (ELIJTEST)"
           }
         ]
       },
@@ -66,19 +66,19 @@ Add a class to the list of classes that RACF will collect **Statistics** for.
 ```
 
 
-## `SetroptsAdmin.remove_statistics_class_()`
+## `SetroptsAdmin.remove_generic_command_processing_classes()`
 
 ```python
-def remove_statistics_class(self, class_name: str) -> Union[dict, bytes]:
+def remove_generic_command_processing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Remove a class from the list of classes that RACF will collect **Statistics** for.
+Remove a class from the list of classes that RACF will process **Generic Commands** for.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to remove the statistics attribute from.
+  The name of the **class** to remove the generic command attribute from.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -94,8 +94,8 @@ Remove a class from the list of classes that RACF will collect **Statistics** fo
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.remove_statistics_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOSTATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.remove_generic_command_processing_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGENCMD    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 
 ```
 
@@ -112,7 +112,7 @@ Remove a class from the list of classes that RACF will collect **Statistics** fo
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS    NOSTATISTICS    (ELIJTEST)"
+            "image":"SETROPTS    NOGENCMD   (ELIJTEST)"
           }
         ]
       },

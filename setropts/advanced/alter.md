@@ -30,6 +30,8 @@ Alter the current **RACF Options**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
 
 #### 💻 Example
 

@@ -24,14 +24,14 @@ def extract(
 
 #### 📄 Description
 
-Extract a **data set** profile's data.
+Extract a **data set profile**'s data.
 
 #### 📥 Parameters
 * `data_set`<br>
-  The **data set** profile to extract segment data from.
+  The **data set profile** to extract segment data from.
 
 * `segments`<br>
-  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
+  A list of segments to extract. Any segments omitted from the list will not be extracted. The base sgement is included always.
 
 * `volume`<br>
   A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.
@@ -49,6 +49,8 @@ Extract a **data set** profile's data.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `SegmentError`<br>
+  Raises `SegmentError` when the list of **segments** supplied contains at least one unknown segment.
 
 #### 💻 Example
 

@@ -4,15 +4,15 @@ grand_parent: Access Admin
 parent: Advanced
 ---
 
-# Alter
+# Permit
 
-Create a new permission.
+Create or change a permission
 {: .fs-6 .fw-300 }
 
-## `AccessAdmin.alter()`
+## `AccessAdmin.permit()`
 
 ```python
-def alter(
+def permit(
     self,
     resource: str,
     class_name: str,
@@ -27,17 +27,11 @@ def alter(
 
 &nbsp;
 
-{: .warning }
-> _Alter operations in pyracf require READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class_
-> _This function will not produce output unless the user running the command has this access._
-
-&nbsp;
-
-Alter an existing **permission**.
+Create or change a **permission**.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **resource profile** to alter this permission to.
+  The **general resource profile** to permit this permission to.
 * `class`<br>
   The **class** that the specified resource profile belongs to.
 * `auth_id`<br>
@@ -58,10 +52,12 @@ Alter an existing **permission**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
 
 #### 💻 Example
 
-The following example **alters** an existing **permission** for the **z/OS userid** `eswift` to the **resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
+The following example **permits** an existing **permission** for the **z/OS userid** `eswift` to the **general resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
 
 ###### Python Script
 ```python
@@ -72,7 +68,7 @@ traits = {
     "base:access": "NONE",
 }
 
-access_admin.alter("TESTING", "ELIJTEST", "ESWIFT", traits)
+access_admin.permit("TESTING", "ELIJTEST", "ESWIFT", traits)
 ```
 
 ###### Security Result Dictionary as JSON

@@ -28,7 +28,7 @@ Delete a specified **permission**
 
 #### 📥 Parameters
 * `resource`<br>
-  The **resource profile** to delete this permission from.
+  The **general resource profile** to delete this permission from.
 * `class_name`<br>
   The **class** that the specified resource profile belongs to.
 * `auth_id`<br>

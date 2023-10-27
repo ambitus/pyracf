@@ -4,24 +4,24 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Generic Class
+# Active Class
 
-Setropts administration functions for modifying if a class has the Generic attribute. 
+Setropts administration functions for modifying if a class has the Active attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.add_generic_profile_checking_class()`
+## `SetroptsAdmin.add_active_classes()`
 
 ```python
-def add_generic_profile_checking_class(self, class_name: str) -> Union[dict, bytes]:
+def add_active_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Add a class to the list of classes that RACF will check **Generic Profiles** for.
+Add a class to the list of classes that RACF considers **Active**.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to add the generic attribute to.
+  The name of the **class** to add the active attribute to.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -37,8 +37,8 @@ Add a class to the list of classes that RACF will check **Generic Profiles** for
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.add_generic_profile_checking_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GENERIC    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.add_active_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      CLASSACT    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -54,7 +54,7 @@ Add a class to the list of classes that RACF will check **Generic Profiles** for
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS      GENERIC    (ELIJTEST)"
+            "image":"SETROPTS      CLASSACT    (ELIJTEST)"
           }
         ]
       },
@@ -66,19 +66,19 @@ Add a class to the list of classes that RACF will check **Generic Profiles** for
 ```
 
 
-## `SetroptsAdmin.remove_generic_profile_checking_class()`
+## `SetroptsAdmin.remove_active_classes()`
 
 ```python
-def remove_generic_profile_checking_class(self, class_name: str) -> Union[dict, bytes]:
+def remove_active_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Remove a class from the list of classes that RACF will check **Generic Profiles** for.
+Remove a class from the list of classes that RACF considers **Active**.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to remove the generic attribute from.
+  The name of the **class** to remove the active attribute from.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -94,8 +94,8 @@ Remove a class from the list of classes that RACF will check **Generic Profiles*
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.remove_generic_profile_checking_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGENERIC    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.remove_active_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOCLASSACT    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 
 ```
 
@@ -112,7 +112,7 @@ Remove a class from the list of classes that RACF will check **Generic Profiles*
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS    NOGENERIC    (ELIJTEST)"
+            "image":"SETROPTS    NOCLASSACT    (ELIJTEST)"
           }
         ]
       },

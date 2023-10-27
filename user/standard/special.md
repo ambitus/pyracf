@@ -77,7 +77,7 @@ Give a user **RACF Special** authority.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **z/OS userid** supplied does not already exist in the environment.
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does not exist in the environment.
 
 #### 💻 Example
 
@@ -146,7 +146,7 @@ Take away a user's **RACF Special** authority.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **z/OS userid** supplied does not already exist in the environment.
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does not exist in the environment.
 
 #### 💻 Example
 

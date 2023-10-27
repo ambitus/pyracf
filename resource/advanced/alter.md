@@ -25,11 +25,11 @@ def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, byt
 
 &nbsp;
 
-Alter an existing **general resource** profile.
+Alter an existing **general resource profile**.
 
 #### 📥 Parameters
 * `resource`<br>
-  The name of the **resource** profile being altered.
+  The name of the **general resource profile** being altered.
 
 * `class_name`<br>
   The name of the **class** the resource profile being altered belongs to.
@@ -44,6 +44,10 @@ Alter an existing **general resource** profile.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does not exist in the environment.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
 
 #### 💻 Example
 

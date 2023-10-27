@@ -53,11 +53,11 @@ Operators are generally not needed for **key-value pair options**. For key-value
 ### List Options
 
 | **Option** | **Operator Usage** |
-| `base:raclist` | Use the `add` operator to add new classes to the list of **raclisted** classes and `delete` to remove the class.  |
-| `base:audit_class` | Use the `add` operator to add new classes to the list of **audited** classes and `delete` to remove the class.  |
-| `base:active_class` | Use the `add` operator to add new classes to the list of **active** classes and `delete` to remove the class.  |
-| `base:statiscs_class` | Use the `add` operator to add new classes to the list of classes with **statistics** tracked and `delete` to remove the class.  |
-| `base:generic_command_class` | Use the `add` operator to add new classes to the list of classes with **generic profile command** processing allowed and `delete` to remove the class.  |
-| `base:generic_profile_checking_class` | Use the `add` operator to add new classes to the list of classes with **generic profile checking** allowed and `delete` to remove the class.  |
-| `base:generic_profile_sharing_class` | Use the `add` operator to add new classes to the list of classes with **generic profile** sharing allowed and `delete` to remove the class.  |
-| `base:global_access_class` | Use the `add` operator to add new classes to the list of classes with **global access** checking allowed and `delete` to remove the class.  |
+| `base:raclist` | Use the `add` operator to add new classes to the list of **raclisted** classes and `delete` to remove the classes.  |
+| `base:audit_classes` | Use the `add` operator to add new classes to the list of **audited** classes and `delete` to remove the classes.  |
+| `base:active_classes` | Use the `add` operator to add new classes to the list of **active** classes and `delete` to remove the classes.  |
+| `base:statiscs_classes` | Use the `add` operator to add new classes to the list of classes with **statistics** tracked and `delete` to remove the classes.  |
+| `base:generic_command_classes` | Use the `add` operator to add new classes to the list of classes with **generic profile command** processing allowed and `delete` to remove the classes.  |
+| `base:generic_profile_checking_classes` | Use the `add` operator to add new classes to the list of classes with **generic profile checking** allowed and `delete` to remove the classes.  |
+| `base:generic_profile_sharing_classes` | Use the `add` operator to add new classes to the list of classes with **generic profile** sharing allowed and `delete` to remove the classes.  |
+| `base:global_access_classes` | Use the `add` operator to add new classes to the list of classes with **global access** checking allowed and `delete` to remove the classes.  |

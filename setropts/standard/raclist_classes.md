@@ -4,24 +4,24 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Global Class
+# Raclist Class
 
-Setropts administration functions for modifying if a class has the Global Access attribute. 
+Setropts administration functions for modifying if a class has the Raclist attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.add_global_access_class()`
+## `SetroptsAdmin.add_raclist_classes()`
 
 ```python
-def add_global_access_class(self, class_name: str) -> Union[dict, bytes]:
+def add_raclist_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Add a class to the list of classes for which RACF will refer to the **Global Access** table.
+Add a class to the list of classes that RACF has **Raclisted**.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to add the global access attribute to.
+  The name of the **class** to add the raclist attribute to.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -37,8 +37,8 @@ Add a class to the list of classes for which RACF will refer to the **Global Acc
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.add_global_access_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GLOBAL    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.add_raclist_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      RACLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -54,7 +54,7 @@ Add a class to the list of classes for which RACF will refer to the **Global Acc
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS      GLOBAL    (ELIJTEST)"
+            "image":"SETROPTS      RACLIST    (ELIJTEST)"
           }
         ]
       },
@@ -66,19 +66,19 @@ Add a class to the list of classes for which RACF will refer to the **Global Acc
 ```
 
 
-## `SetroptsAdmin.remove_global_access_class()`
-
+## `SetroptsAdmin.remove_raclist_classes()`
+remove_raclist_class
 ```python
-def remove_global_access_class(self, class_name: str) -> Union[dict, bytes]:
+def remove_raclist_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Remove a class from the list of classes for which RACF will refer to the **Global Access** table.
+Remove a class from the list of classes that RACF has **Raclisted**.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to remove the global access attribute from.
+  The name of the **class** to remove the raclist attribute from.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -94,8 +94,8 @@ Remove a class from the list of classes for which RACF will refer to the **Globa
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.remove_global_access_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGLOBAL    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.remove_raclist_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NORACLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 
 ```
 
@@ -112,7 +112,7 @@ Remove a class from the list of classes for which RACF will refer to the **Globa
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS    NOGLOBAL    (ELIJTEST)"
+            "image":"SETROPTS    NORACLIST    (ELIJTEST)"
           }
         ]
       },

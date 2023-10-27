@@ -19,11 +19,11 @@ def delete(
 
 #### 📄 Description
 
-Delete a **data set** profile.
+Delete a **data set profile**.
 
 #### 📥 Parameters
 * `data_set`<br>
-  The name of the **data set** profile being deleted.
+  The name of the **data set profile** being deleted.
 
 * `volume`<br>
   A single **volume** name for this dataset. This argument is optional. If `generic=True` is specified, volume is ignored.

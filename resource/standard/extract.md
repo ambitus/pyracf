@@ -19,17 +19,17 @@ def extract(
 
 #### 📄 Description
 
-Extract a **general resource** profile's data.
+Extract a **general resource profile's** data.
 
 #### 📥 Parameters
 * `resource`<br>
-  The name of the **resource** profile being extracted.
+  The name of the **general resource profile** being extracted.
 
 * `class_name`<br>
   The name of the **class** the resource profile being extracted belongs to.
 
 * `segments`<br>
-  A dictionary of segments to extract. Each segment must be a boolean value where `True` indicates that the segment should be extracted and `False` indicates that the segment should not be extracted. Any segments omitted from the dictionary will not be extracted. The base sgement is included always.
+  A list of segments to extract. Any segments omitted from the list will not be extracted. The base sgement is included always.
 
 * `profile_only`<br>
   When set to `True`, only the extracted profile will be returned instead of returning the entire **Security Result dictionary**.
@@ -41,6 +41,8 @@ Extract a **general resource** profile's data.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `SegmentError`<br>
+  Raises `SegmentError` when the list of **segments** supplied contains at least one unknown segment.
 
 #### 💻 Example
 

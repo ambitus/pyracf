@@ -4,24 +4,24 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Audit Class
+# Statistics Class
 
-Setropts administration functions for modifying if a class has the Audit attribute. 
+Setropts administration functions for modifying if a class has the Statistics attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.add_audit_class()`
+## `SetroptsAdmin.add_statistics_classes()`
 
 ```python
-def add_audit_class(self, class_name: str) -> Union[dict, bytes]:
+def add_statistics_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Add a class to the list of classes that RACF will **Audit**.
+Add a class to the list of classes that RACF will collect **Statistics** for.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to add the audit attribute to.
+  The name of the **class** to add the statistics attribute to.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -37,8 +37,8 @@ Add a class to the list of classes that RACF will **Audit**.
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.add_audit_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      AUDIT    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.add_statistics_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      STATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -54,7 +54,7 @@ Add a class to the list of classes that RACF will **Audit**.
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS      AUDIT    (ELIJTEST)"
+            "image":"SETROPTS      STATISTICS    (ELIJTEST)"
           }
         ]
       },
@@ -66,19 +66,19 @@ Add a class to the list of classes that RACF will **Audit**.
 ```
 
 
-## `SetroptsAdmin.remove_audit_class()`
+## `SetroptsAdmin.remove_statistics_class_()`
 
 ```python
-def remove_audit_class(self, class_name: str) -> Union[dict, bytes]:
+def remove_statistics_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Remove a class from the list of classes that RACF will **Audit**.
+Remove a class from the list of classes that RACF will collect **Statistics** for.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to remove the audit attribute from.
+  The name of the **class** to remove the statistics attribute from.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -94,8 +94,8 @@ Remove a class from the list of classes that RACF will **Audit**.
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.remove_audit_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOAUDIT    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.remove_statistics_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOSTATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 
 ```
 
@@ -112,7 +112,7 @@ Remove a class from the list of classes that RACF will **Audit**.
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS    NOAUDIT    (ELIJTEST)"
+            "image":"SETROPTS    NOSTATISTICS    (ELIJTEST)"
           }
         ]
       },

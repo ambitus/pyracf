@@ -23,11 +23,11 @@ def add(
 
 #### 📄 Description
 
-Create a new **data set** profile.
+Create a new **data set profile**.
 
 #### 📥 Parameters
 * `data_set`<br>
-  The name of the **data set** profile being created.
+  The name of the **data set profile** being created.
 
 * `traits`<br>
   A dictionary of **traits/attributes** that should be given to the data set on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Data Set Traits** are.
@@ -45,6 +45,10 @@ Create a new **data set** profile.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+ * `AddOperationError`<br>
+  Raises `AddOperationError` when the **data set profile** cannot be added because it already exists in the environment.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
 
 #### 💻 Example
 

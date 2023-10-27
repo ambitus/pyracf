@@ -21,7 +21,7 @@ Check the **Universal Access Attribute** for a data set profile.
 
 #### 📥 Parameters
 * `dataset`<br>
-  The **Dataset** profile for which RACF should check the universal access attribute.
+  The **data set profile** for which RACF should check the universal access attribute.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
@@ -53,7 +53,7 @@ Set the **Universal Access Attribute** for a data set profile.
 
 #### 📥 Parameters
 * `dataset`<br>
-  The **Dataset** profile for which RACF should set the universal access attribute.
+  The **data set profile** for which RACF should set the universal access attribute.
 
 * `universal_access`<br>
   The **Universal Access** level to assign to the specified data set profile.
@@ -65,6 +65,8 @@ Set the **Universal Access Attribute** for a data set profile.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **data set profile** cannot be altered because it does not exist in the environment.
 
 #### 💻 Example
 

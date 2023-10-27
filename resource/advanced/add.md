@@ -17,11 +17,11 @@ def add(self, resource: str, class_name: str, traits: dict = {}) -> Union[dict, 
 
 #### 📄 Description
 
-Create a new **general resource** profile.
+Create a new **general resource profile**.
 
 #### 📥 Parameters
 * `resource`<br>
-  The name of the **resource** profile being created.
+  The name of the **general resource profile** being created.
 
 * `class_name`<br>
   The name of the **class** the resource profile being created belongs to.
@@ -36,6 +36,10 @@ Create a new **general resource** profile.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AddOperationError`<br>
+  Raises `AddOperationError` when the **general resource profile** cannot be added because it already exists in the environment.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
 
 #### 💻 Example
 

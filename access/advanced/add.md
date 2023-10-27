@@ -29,7 +29,7 @@ Create a new **permission**.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **resource profile** to grant this permission to.
+  The **general resource profile** to grant this permission to.
 * `class`<br>
   The **class** that the specified resource profile belongs to.
 * `auth_id`<br>
@@ -54,7 +54,7 @@ Create a new **permission**.
 
 #### 💻 Example
 
-The following example **creates** a **new permission** for the **z/OS userid** `eswift` to the **resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
+The following example **creates** a **new permission** for the **z/OS userid** `eswift` to the **general resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
 
 ###### Python Script
 ```python
