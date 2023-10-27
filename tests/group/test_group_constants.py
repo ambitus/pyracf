@@ -54,10 +54,10 @@ TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_XML = get_sample(
 TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_JSON = get_sample(
     "extract_group_result_base_only_error.json"
 )
-TEST_EXTRACT_GROUP_RESULT_bad_ATTRIBUTE_ERROR_XML = get_sample(
+TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_XML = get_sample(
     "extract_group_result_bad_attribute_error.xml"
 )
-TEST_EXTRACT_GROUP_RESULT_bad_ATTRIBUTE_ERROR_DICTIONARY = get_sample(
+TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_DICTIONARY = get_sample(
     "extract_group_result_bad_attribute_error.json"
 )
 

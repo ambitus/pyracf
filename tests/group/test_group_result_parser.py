@@ -68,7 +68,7 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_bad_ATTRIBUTE_ERROR_XML,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_XML,
             TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
@@ -77,7 +77,7 @@ class TestGroupResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_bad_ATTRIBUTE_ERROR_DICTIONARY,
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_DICTIONARY,
         )
 
     # ============================================================================

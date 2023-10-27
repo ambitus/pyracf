@@ -46,7 +46,6 @@ class DataSetAdmin(SecurityAdmin):
                 "base:data_set_model_profile": "racf:model",
                 "base:notify_userid": "racf:notify",
                 "base:owner": "racf:owner",
-                "base:profile": "racf:profile",  # Not documented?
                 "base:tape_data_set_security_retention_period": "racf:retpd",
                 "base:security_label": "racf:seclabel",
                 "base:security_level": "racf:seclevel",

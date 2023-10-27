@@ -72,7 +72,7 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_bad_ATTRIBUTE_XML,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_XML,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
@@ -82,7 +82,7 @@ class TestUserResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_bad_ATTRIBUTE_JSON,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_JSON,
         )
 
     # ============================================================================

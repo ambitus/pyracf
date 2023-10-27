@@ -97,10 +97,10 @@ TEST_EXTRACT_USER_RESULT_WITH_CLASS_AUTHORIZATIONS = get_sample(
 TEST_EXTRACT_USER_RESULT_WITH_COMMAND_AUDIT_TRAIL_XML = get_sample(
     "extract_user_result_with_command_audit_trail.xml"
 )
-TEST_EXTRACT_USER_RESULT_bad_ATTRIBUTE_XML = get_sample(
+TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_XML = get_sample(
     "extract_user_result_bad_attribute_error.xml"
 )
-TEST_EXTRACT_USER_RESULT_bad_ATTRIBUTE_JSON = get_sample(
+TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_JSON = get_sample(
     "extract_user_result_bad_attribute_error.json"
 )
 TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML = get_sample(

@@ -84,7 +84,7 @@ class ResourceAdmin(SecurityAdmin):
                 "cfdef:mixed_case_allowed": "mixed",
                 "cfdef:min_numeric_value": "minvalue",
                 "cfdef:max_field_length": "maxlength",
-                "cfdef:max_numeric_value": "other",  # I think this is wrong...
+                "cfdef:max_numeric_value": "maxvalue",
                 "cfdef:valid_other_characters": "other",
                 "cfdef:validation_rexx_exec": "racf:cfvalrx",
             },

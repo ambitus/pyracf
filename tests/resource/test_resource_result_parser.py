@@ -69,14 +69,14 @@ class TestResourceResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.side_effect = [
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_bad_CLASS_ERROR_XML,
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_XML,
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML,
         ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.add("TESTING", "ELIXTEST")
         self.assertEqual(
             exception.exception.result,
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_bad_CLASS_ERROR_DICTIONARY,
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_DICTIONARY,
         )
 
     # ============================================================================
