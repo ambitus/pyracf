@@ -38,8 +38,8 @@ Extract a **user's** profile data.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `InvalidSegmentNameError`<br>
-  Raises `InvalidSegmentNameError` when the list of **segments** supplied contains at least one unknown segment.
+* `SegmentError`<br>
+  Raises `SegmentError` when the list of **segments** supplied contains at least one unknown segment.
 
 #### 💻 Example
 

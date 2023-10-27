@@ -51,8 +51,8 @@ Traits use the following syntax: `<segment>:<trait>`
 | `base:password` | Set a user's password. | Add: `str`<br>Alter: `str`, `False` |
 | `base:class_authorizations` | Modify a user's **Class Authorizations**. | Add: `str`, `List[str]`<br>Alter: `str`, `List[str]` |
 | `omvs:uid` | Set a user's **z/OS Unix System Services UID**. | Add: `int`, `str`<br>Alter: `int`, `str`, `False` |
-| `omvs:home` | Set a user's **z/OS Unix System Services Home Directory**. | Add: `str`<br>Alter: `str`, `False` |
-| `omvs:program` | Set the user's **z/OS Unix System Services Program/Default Shell**. | Add: `str`<br>Alter: `str`, `False` |
+| `omvs:home_directory` | Set a user's **z/OS Unix System Services Home Directory**. | Add: `str`<br>Alter: `str`, `False` |
+| `omvs:default_shell` | Set the user's **z/OS Unix System Services Program/Default Shell**. | Add: `str`<br>Alter: `str`, `False` |
 
 ### Operators
 
