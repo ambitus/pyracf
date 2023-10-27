@@ -25,8 +25,8 @@
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
   <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
-    <access>ALTER</access>
-    <authid>MCGINLEY</authid>
+    <access operation="set">ALTER</access>
+    <authid operation="set">MCGINLEY</authid>
   </permission>
 </securityrequest>
 

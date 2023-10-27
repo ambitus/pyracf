@@ -1,6 +1,6 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
   <systemsettings operation="set" requestid="SetroptsRequest">
-    <racf:raclist>elijtest xfacilit</racf:raclist>
-    <racf:refresh />
+    <racf:raclist operation="set">elijtest xfacilit</racf:raclist>
+    <racf:refresh operation="set" />
   </systemsettings>
 </securityrequest>
