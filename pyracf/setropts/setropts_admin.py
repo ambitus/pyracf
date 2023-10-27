@@ -51,8 +51,8 @@ class SetroptsAdmin(SecurityAdmin):
                 "base:list": "racf:list",
                 "base:audit_log_always_classes": "racf:logalwys",
                 "base:audit_log_default_classes": "racf:logdeflt",
-                "base:audit_log_failure_classesses": "racf:logfail",
-                "base:audit_log_never_classesse": "racf:lognever",
+                "base:audit_log_failure_classes": "racf:logfail",
+                "base:audit_log_never_classes": "racf:lognever",
                 "base:audit_log_success_classes": "racf:logsucc",
                 "base:min_password_change_interval": "racf:minchang",
                 "base:mixed_case_password_support": "racf:mixdcase",
@@ -124,7 +124,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Raclist Refresh
     # ============================================================================
-    def refresh_raclist(self, class_names: Union[List[str], str]) -> Union[dict, bytes]:
+    def refresh_raclist(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
         """Refresh raclist."""
         result = self.alter(options={"base:raclist": class_names, "base:refresh": True})
         return self._to_steps(result)
@@ -148,14 +148,14 @@ class SetroptsAdmin(SecurityAdmin):
     # Audit Classes
     # ============================================================================
     def add_audit_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Add class(es) to list of classes that RACF performs auditing for."""
         result = self.alter(options={"base:audit_classes": class_names})
         return self._to_steps(result)
 
     def remove_audit_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Remove class(es) from the list of classes that RACF performs auditing for."""
         result = self.alter(options={"delete:base:audit_classes": class_names})
@@ -165,7 +165,7 @@ class SetroptsAdmin(SecurityAdmin):
     # Active Classes
     # ============================================================================
     def add_active_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
         Add class(es) to the list of classes that RACF performs access authorization checking for.
@@ -174,7 +174,7 @@ class SetroptsAdmin(SecurityAdmin):
         return self._to_steps(result)
 
     def remove_active_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
         Remove class(es) from the list of classes that
@@ -187,14 +187,14 @@ class SetroptsAdmin(SecurityAdmin):
     # Statistics Classes
     # ============================================================================
     def add_statistics_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Add class(es) to the list of classes that RACF collects statistics for."""
         result = self.alter(options={"base:statistics_classes": class_names})
         return self._to_steps(result)
 
     def remove_statistics_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Remove class(es) from the list of classes that RACF collects statistics for."""
         result = self.alter(options={"delete:base:statistics_classes": class_names})
@@ -204,7 +204,7 @@ class SetroptsAdmin(SecurityAdmin):
     # Generic Command Processing Classes
     # ============================================================================
     def add_generic_command_processing_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
         Add class(es) to the list of classes that have
@@ -214,7 +214,7 @@ class SetroptsAdmin(SecurityAdmin):
         return self._to_steps(result)
 
     def remove_generic_command_processing_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
         Remove class(es) from the list of classes that
@@ -229,7 +229,7 @@ class SetroptsAdmin(SecurityAdmin):
     # Generic Profile Checking Classes
     # ============================================================================
     def add_generic_profile_checking_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Add class(es) to the list of classes that have generic profile checking enabled."""
         result = self.alter(
@@ -238,7 +238,7 @@ class SetroptsAdmin(SecurityAdmin):
         return self._to_steps(result)
 
     def remove_generic_profile_checking_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Remove class(es) from the list of classes that have generic profile checking enabled."""
         result = self.alter(
@@ -250,7 +250,7 @@ class SetroptsAdmin(SecurityAdmin):
     # Generic Profile Sharing Classes
     # ============================================================================
     def add_generic_profile_sharing_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
         Add class(es) to the list of classes that are eligible for
@@ -262,7 +262,7 @@ class SetroptsAdmin(SecurityAdmin):
         return self._to_steps(result)
 
     def remove_generic_profile_sharing_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
         Remove class(es) from the list of classes that are eligible
@@ -277,13 +277,13 @@ class SetroptsAdmin(SecurityAdmin):
     # Global Access Classes
     # ============================================================================
     def add_global_access_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Add class(es) to the list of classes eligible for global access checking."""
         return self.alter(options={"base:global_access_classes": class_names})
 
     def remove_global_access_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Remove class(es) from the list of classes eligible for global access checking."""
         result = self.alter(options={"delete:base:global_access_classes": class_names})
@@ -293,14 +293,14 @@ class SetroptsAdmin(SecurityAdmin):
     # Raclist Classes
     # ============================================================================
     def add_raclist_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """Add class(es) to list of classes that have in-storage profile sharing activated."""
         result = self.alter(options={"base:raclist": class_names})
         return self._to_steps(result)
 
     def remove_raclist_classes(
-        self, class_names: Union[List[str], str]
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
         Remove class(es) from the list of classes that have in-storage profile sharing activated.
@@ -622,7 +622,7 @@ class SetroptsAdmin(SecurityAdmin):
         ]
 
     def __add_classes_list(self, profile: dict, class_key: str, value_raw: str) -> None:
-        """Add a class list to profile"""
+        """Add a class list to profile."""
         if "classes" not in profile:
             profile["classes"] = {}
         class_key = class_key.replace("Classes", "")

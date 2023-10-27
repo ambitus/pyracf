@@ -231,7 +231,7 @@ class ResourceAdmin(SecurityAdmin):
         try:
             self.extract(resource, class_name)
         except SecurityRequestError as exception:
-            if not exception.scan_for_error("resource", "ICH13003I"):
+            if not exception.contains_error_message(self._profile_type, "ICH13003I"):
                 raise exception
             self._build_segment_dictionaries(traits)
             profile_request = ResourceRequest(resource, class_name, "set")

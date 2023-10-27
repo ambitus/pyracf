@@ -20,7 +20,7 @@ class TestConnectionResultParser(unittest.TestCase):
     connection_admin = ConnectionAdmin()
 
     # ============================================================================
-    # Alter Connection
+    # Connect Connection
     # ============================================================================
     def test_connection_admin_can_parse_connect_connection_success_xml(
         self,

@@ -15,7 +15,7 @@ def get_sample(sample_file: str) -> Union[str, bytes]:
 # Access Administration Result Sample Data
 # ============================================================================
 
-# Alter Access
+# Permit Access
 TEST_PERMIT_ACCESS_RESULT_SUCCESS_XML = get_sample("permit_access_result_success.xml")
 TEST_PERMIT_ACCESS_RESULT_SUCCESS_DICTIONARY = get_sample(
     "permit_access_result_success.json"
@@ -40,7 +40,7 @@ TEST_DELETE_ACCESS_RESULT_ERROR_DICTIONARY = get_sample(
 # Access Administration Request Sample Data
 # ============================================================================
 
-# Alter Access
+# Permit Access
 TEST_PERMIT_ACCESS_REQUEST_XML = get_sample("permit_access_request.xml")
 
 # Delete Access

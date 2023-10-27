@@ -51,7 +51,6 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         profile_name = "squidwrd"
-        admin_name = "USER"
         call_racf_mock.side_effect = [
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML,
@@ -64,7 +63,7 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{profile_name}' already exists as a {admin_name} profile.",
+            + f"'{profile_name}' already exists as a '{self.user_admin._profile_type}' profile.",
         )
 
     # Error in command, SQUIDWARD is invalid USERID
@@ -109,7 +108,6 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         profile_name = "squidwrd"
-        admin_name = "USER"
         call_racf_mock.side_effect = [
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML,
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
@@ -122,7 +120,7 @@ class TestUserResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{profile_name}' does not exist as a {admin_name} profile.",
+            + f"'{profile_name}' does not exist as a '{self.user_admin._profile_type}' profile.",
         )
 
     # Error: invalid uid '90000000000'

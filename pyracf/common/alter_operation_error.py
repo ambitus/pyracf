@@ -3,21 +3,21 @@
 
 class AlterOperationError(Exception):
     """
-    Raised when a profile passed into an Alter is not successfully extracted.
+    Raised when a profile cannot be altered because it does not exist.
     """
 
     def __init__(self, profile_name: str, class_name: str) -> None:
         self.message = "Security request made to IRRSMO00 failed."
-        admin_types = ["USER", "GROUP", "DATASET"]
+        admin_types = ["user", "group", "dataSet"]
         if class_name not in admin_types:
             self.message += (
                 "\n\nTarget profile "
-                + f"'{profile_name}' does not exist as a profile in the {class_name} class."
+                + f"'{profile_name}' does not exist as a profile in the '{class_name}' class."
             )
         else:
             self.message += (
                 "\n\nTarget profile "
-                + f"'{profile_name}' does not exist as a {class_name} profile."
+                + f"'{profile_name}' does not exist as a '{class_name}' profile."
             )
 
     def __str__(self) -> str:

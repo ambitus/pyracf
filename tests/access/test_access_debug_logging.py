@@ -24,7 +24,7 @@ class TestAccessDebugLogging(unittest.TestCase):
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     # ============================================================================
-    # Alter Access
+    # Permit Access
     # ============================================================================
     def test_permit_access_request_debug_log_works_on_success(
         self,

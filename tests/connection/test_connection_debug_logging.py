@@ -24,7 +24,7 @@ class TestConnectionDebugLogging(unittest.TestCase):
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     # ============================================================================
-    # Alter Connection
+    # Connect Connection
     # ============================================================================
     def test_connect_connection_request_debug_log_works_on_success(
         self,

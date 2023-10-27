@@ -47,7 +47,6 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         group_name = "TESTGRP0"
-        admin_name = "GROUP"
         call_racf_mock.side_effect = [
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
             TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML,
@@ -60,7 +59,7 @@ class TestGroupResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{group_name}' already exists as a {admin_name} profile.",
+            + f"'{group_name}' already exists as a '{self.group_admin._profile_type}' profile.",
         )
 
     # Error in command, TESTGRPP0 is invalid GROUP
@@ -104,7 +103,6 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         group_name = "TESTGRP0"
-        admin_name = "GROUP"
         call_racf_mock.side_effect = [
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML,
             TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_XML,
@@ -117,7 +115,7 @@ class TestGroupResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{group_name}' does not exist as a {admin_name} profile.",
+            + f"'{group_name}' does not exist as a '{self.group_admin._profile_type}' profile.",
         )
 
     # Error: invalid gid "3000000000"

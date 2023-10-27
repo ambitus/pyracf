@@ -113,13 +113,13 @@ class DataSetAdmin(SecurityAdmin):
         try:
             self.extract(data_set, volume=volume, generic=generic)
         except SecurityRequestError as exception:
-            if not exception.scan_for_error("dataSet", "ICH35003I"):
+            if not exception.contains_error_message(self._profile_type, "ICH35003I"):
                 raise exception
             self._build_segment_dictionaries(traits)
             data_set_request = DataSetRequest(data_set, "set", volume, generic)
             self._build_xml_segments(data_set_request)
             return self._make_request(data_set_request)
-        raise AddOperationError(data_set, "DATASET")
+        raise AddOperationError(data_set, self._profile_type)
 
     def alter(
         self,
@@ -131,7 +131,7 @@ class DataSetAdmin(SecurityAdmin):
         try:
             self.extract(data_set)
         except SecurityRequestError:
-            raise AlterOperationError(data_set, "DATASET")
+            raise AlterOperationError(data_set, self._profile_type)
         """Alter an existing data set profile."""
         self._build_segment_dictionaries(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)

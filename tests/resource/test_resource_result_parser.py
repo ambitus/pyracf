@@ -60,7 +60,7 @@ class TestResourceResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{profile_name}' already exists as a profile in the {class_name} class.",
+            + f"'{profile_name}' already exists as a profile in the '{class_name}' class.",
         )
 
     # Error: Invalid Entity Name ELIXTEST
@@ -119,7 +119,7 @@ class TestResourceResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{profile_name}' does not exist as a profile in the {class_name} class.",
+            + f"'{profile_name}' does not exist as a profile in the '{class_name}' class.",
         )
 
     # Error: Invalid Universal Access ALL

@@ -20,7 +20,7 @@ class TestAccessResultParser(unittest.TestCase):
     access_admin = AccessAdmin()
 
     # ============================================================================
-    # Alter Access
+    # Permit Access
     # ============================================================================
     def test_access_admin_can_parse_permit_access_success_xml(
         self,

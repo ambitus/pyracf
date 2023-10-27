@@ -15,7 +15,7 @@ def get_sample(sample_file: str) -> Union[str, bytes]:
 # Connection Administration Result Sample Data
 # ============================================================================
 
-# Alter Connection
+# Connect Connection
 TEST_CONNECT_CONNECTION_RESULT_SUCCESS_XML = get_sample(
     "connect_connection_result_success.xml"
 )
@@ -48,7 +48,7 @@ TEST_DELETE_CONNECTION_RESULT_ERROR_DICTIONARY = get_sample(
 # Connection Administration Request Sample Data
 # ============================================================================
 
-# Alter Connection
+# Connect Connection
 TEST_CONNECT_CONNECTION_REQUEST_XML = get_sample("connect_connection_request.xml")
 TEST_CONNECT_CONNECTION_REQUEST_TRAITS = {
     "base:operations": False,

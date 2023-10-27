@@ -48,7 +48,6 @@ class TestDataSetResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         profile_name = "ESWIFT.TEST.T1136242.P3020470"
-        class_name = "DATASET"
         call_racf_mock.side_effect = [
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML,
             TestDataSetConstants.TEST_ADD_DATA_SET_RESULT_SUCCESS_XML,
@@ -62,7 +61,8 @@ class TestDataSetResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{profile_name}' already exists as a {class_name} profile.",
+            + f"'{profile_name}' already exists as a "
+            + f"'{self.data_set_admin._profile_type}' profile.",
         )
 
     # Error in command, ESWIFTTESTT1136242P3020470 is not a valid DATASET
@@ -108,7 +108,6 @@ class TestDataSetResultParser(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         profile_name = "ESWIFT.TEST.T1136242.P3020470"
-        class_name = "DATASET"
         call_racf_mock.side_effect = [
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML,
             TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML,
@@ -122,7 +121,8 @@ class TestDataSetResultParser(unittest.TestCase):
             exception.exception.message,
             "Security request made to IRRSMO00 failed."
             + "\n\nTarget profile "
-            + f"'{profile_name}' does not exist as a {class_name} profile.",
+            + f"'{profile_name}' does not exist as a "
+            + f"'{self.data_set_admin._profile_type}' profile.",
         )
 
     # Error in environment, ESWIFT.TEST.T1136242.P3020470 data set does not exist

@@ -5,13 +5,13 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
-from .invalid_segment_name_error import InvalidSegmentNameError
-from .invalid_segment_trait_error import InvalidSegmentTraitError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
 from .security_request import SecurityRequest
 from .security_request_error import SecurityRequestError
 from .security_result import SecurityResult
+from .segment_error import SegmentError
+from .segment_trait_error import SegmentTraitError
 
 
 class SecurityAdmin:
@@ -66,7 +66,7 @@ class SecurityAdmin:
             "base:passphrase": "racf:phrase",
         }
         self.__irrsmo00 = IRRSMO00()
-        self.__profile_type = profile_type
+        self._profile_type = profile_type
         self._segment_traits = {}
         # used to preserve segment traits for debug logging.
         self.__preserved_segment_traits = {}
@@ -262,21 +262,20 @@ class SecurityAdmin:
 
     def _build_bool_segment_dictionaries(self, segments: List[str]) -> None:
         """Build segment dictionaries for profile extract."""
-        invalid_segments = []
+        bad_segments = []
         for segment in segments:
             if segment in self._valid_segment_traits:
                 self._segment_traits[segment] = True
             else:
-                invalid_segments.append(segment)
-
-        if invalid_segments:
-            raise InvalidSegmentNameError(invalid_segments)
+                bad_segments.append(segment)
+        if bad_segments:
+            raise SegmentError(bad_segments, self._profile_type)
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 
     def _build_segment_dictionaries(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
-        invalid_traits = []
+        bad_traits = []
         for trait in traits:
             trait_valid = False
             for segment in self._valid_segment_traits:
@@ -286,10 +285,9 @@ class SecurityAdmin:
                 if trait_valid:
                     break
             if not trait_valid:
-                invalid_traits.append(trait)
-
-        if invalid_traits:
-            raise InvalidSegmentTraitError(invalid_traits)
+                bad_traits.append(trait)
+        if bad_traits:
+            raise SegmentTraitError(bad_traits, self._profile_type)
 
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
@@ -325,7 +323,7 @@ class SecurityAdmin:
         if self._generate_requests_only:
             # Allows this function to work with "self._generate_requests_only" mode.
             return result
-        return result["securityResult"][self.__profile_type]["commands"][0]["profiles"][
+        return result["securityResult"][self._profile_type]["commands"][0]["profiles"][
             index
         ]
 
@@ -373,15 +371,15 @@ class SecurityAdmin:
                 current_segment = messages[i].split()[0].lower()
                 profile[current_segment] = {}
                 i += 2
-            if self.__profile_type in ("dataSet", "resource"):
+            if self._profile_type in ("dataSet", "resource"):
                 i = self.__format_data_set_generic_profile_data(
                     messages, profile, current_segment, i
                 )
-            if self.__profile_type == "user":
+            if self._profile_type == "user":
                 i = self.__format_user_profile_data(
                     messages, profile, current_segment, i
                 )
-            if self.__profile_type == "group":
+            if self._profile_type == "group":
                 i = self.__format_group_profile_data(
                     messages, profile, current_segment, i
                 )

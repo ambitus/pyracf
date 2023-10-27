@@ -776,13 +776,13 @@ class UserAdmin(SecurityAdmin):
         try:
             self.extract(userid)
         except SecurityRequestError as exception:
-            if not exception.scan_for_error("user", "ICH30001I"):
+            if not exception.contains_error_message(self._profile_type, "ICH30001I"):
                 raise exception
             self._build_segment_dictionaries(traits)
             user_request = UserRequest(userid, "set")
             self._build_xml_segments(user_request)
             return self._make_request(user_request)
-        raise AddOperationError(userid, "USER")
+        raise AddOperationError(userid, self._profile_type)
 
     def alter(self, userid: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing user."""
@@ -794,7 +794,7 @@ class UserAdmin(SecurityAdmin):
         try:
             self.extract(userid)
         except SecurityRequestError:
-            raise AlterOperationError(userid, "USER")
+            raise AlterOperationError(userid, self._profile_type)
         self._build_segment_dictionaries(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request, alter=True)
