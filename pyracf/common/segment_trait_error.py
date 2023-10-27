@@ -3,13 +3,13 @@
 
 class SegmentTraitError(Exception):
     """
-    Raised when a user passes an invalid segment-trait combination in the traits dictionary.
+    Raised when a user passes a bad segment-trait combination in the traits dictionary.
     """
 
-    def __init__(self, invalid_traits: list, profile_type: str) -> None:
+    def __init__(self, bad_traits: list, profile_type: str) -> None:
         self.message = "Unable to build Security Request.\n\n"
-        for trait in invalid_traits:
-            self.message += f"'{trait}' is not a valid segment-trait "
+        for trait in bad_traits:
+            self.message += f"'{trait}' is not a known segment-trait "
             self.message += f"combination for '{profile_type}'.\n"
 
     def __str__(self) -> str:

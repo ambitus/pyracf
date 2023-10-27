@@ -136,7 +136,7 @@ class TestUserRequestBuilder(unittest.TestCase):
         self.assertEqual(
             exception.exception.message,
             "Unable to build Security Request.\n\n"
-            + f"'{bad_trait}' is not a valid segment-trait "
+            + f"'{bad_trait}' is not a known segment-trait "
             + f"combination for '{self.user_admin._profile_type}'.\n",
         )
 
@@ -150,5 +150,5 @@ class TestUserRequestBuilder(unittest.TestCase):
         self.assertEqual(
             exception.exception.message,
             "Unable to build Security Request.\n\n"
-            + f"'{bad_segment}' is not a valid segment for '{self.user_admin._profile_type}'.\n",
+            + f"'{bad_segment}' is not a known segment for '{self.user_admin._profile_type}'.\n",
         )
