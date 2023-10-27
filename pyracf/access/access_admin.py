@@ -26,6 +26,7 @@ class AccessAdmin(SecurityAdmin):
                 "base:model_profile": "racf:fprofile",
                 "base:model_profile_generic": "racf:fgeneric",
                 "base:model_profile_volume": "racf:fvolume",
+                "base:auth_id": "authid",
                 "base:reset": "racf:reset",
                 "base:volume": "racf:volume",
                 "base:when_partner_lu_name": "racf:whenappc",
@@ -62,7 +63,7 @@ class AccessAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> Union[dict, bytes]:
         """Change a permission (or add a new one)"""
-        traits["base:id"] = auth_id
+        traits["base:auth_id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
         self._add_traits_directly_to_request_xml_with_no_segments(access_request, alter=True)
@@ -77,7 +78,7 @@ class AccessAdmin(SecurityAdmin):
         generic: bool = False,
     ) -> Union[dict, bytes]:
         """Delete a permission."""
-        traits = {"base:id": auth_id}
+        traits = {"base:auth_id": auth_id}
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "del", volume, generic)
         self._add_traits_directly_to_request_xml_with_no_segments(access_request)
