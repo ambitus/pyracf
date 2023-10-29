@@ -8,14 +8,10 @@ parent: Common
 Understanding the `SegmentTraitError` exception.
 {: .fs-6 .fw-300 }
 
-&nbsp;
-
-{: .warning }
-> _A **Segment-Trait Combination** unknown to pyracf would generate an improper request to IRRSMO00. Pyracf will always raise a `SegmentTraitError` to bring attention to any unknown values prior to executing such a request._
 
 &nbsp;
 
-When any **Segment-Trait Combination** unknown to pyracf appears as a parameter to a request, a `SegmentError` will be raised to indicate that the request failed to build. A `SegmentError` can be handled as follows.
+When any unknown **Segment-Trait Combination** is provided in the parameters to a **Non-Profile Extract** request, a `SegmentTraitError` will be raised to indicate that the request cannot be built. A `SegmentTraitError` can be handled as follows.
 
 ###### Python Script
 ```python
@@ -36,7 +32,7 @@ traits = {
 
 try:
     user_admin.alter("squidwrd", traits=traits)
-except SegmentError as e:
+except SegmentTraitError as e:
     print(e.message)
 ```
 

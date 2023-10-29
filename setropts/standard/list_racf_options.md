@@ -28,7 +28,7 @@ List the system's **RACF Options**
 
 #### 📥 Parameters
 
-* `profile_only`<br>
+* `options_only`<br>
   When set to `True`, only the racf options will be returned instead of returning the entire **Security Result dictionary**.
 
 #### 📤 Returns

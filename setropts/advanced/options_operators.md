@@ -41,7 +41,7 @@ Options use the following syntax: `<segment>:<options>`
 | `base:raclist` | Add class(es) to the list of **raclisted** classes in RACF.  | `str` |
 | `base:audit_classes` | Add class(es) to the list of **audited** classes in RACF. | `str` |
 | `base:active_classes` | Add class(es) to the list of **active** classes in RACF.  | `str` |
-| `base:statiscs_class` | Track **statistics** for specicified class(es).  | `str` |
+| `base:statiscs_classes` | Track **statistics** for specicified class(es).  | `str` |
 | `base:general_command_classes` | Allow **generic profile command** processing for speficied class(es). | `str` |
 | `base:generic_profile_checking_classes` | Allow **generic profile checking** for speficied class(es). | `str` |
 | `base:generic_profile_sharing_classes` | Allow sharing of in-storage **generic profiles** for speficied class(es). | `str` |

@@ -66,7 +66,7 @@ Change a user's **z/OS Unix System Services UID**.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does not exist in the environment.
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 

@@ -20,7 +20,7 @@ def alter(self, options: dict = {}) -> Union[dict, bytes]:
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Options** are considered **Stable**. See [Options](../options_operators#options) for more details._
+> _Only a subset of available **Options** are considered **Stable**. See [Options](../advanced/options_operators#options) for more details._
 
 &nbsp;
 
@@ -38,7 +38,7 @@ Alter the current **RACF Options**.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains at least one **unknown** trait.
 
 #### 💻 Example
 

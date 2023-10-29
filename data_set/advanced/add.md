@@ -26,7 +26,7 @@ def add(
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../advanced/segments_traits_operators#segments) and [Traits](../advanced/segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -37,7 +37,7 @@ Create a new **data set profile**.
   The name of the **data set profile** being created.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the data set profile on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Data Set Traits** are.
+  A dictionary of **traits/attributes** that should be given to the data set profile on creation. See [Traits](../advanced/segments_traits_operators#traits) to see what all of the valid **Data Set Traits** are.
 
 * `volume`<br>
   A single **volume** name for this data set profile. This argument is optional. If `generic=True` is specified, volume is ignored.
@@ -53,9 +53,9 @@ Create a new **data set profile**.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
  * `AddOperationError`<br>
-  Raises `AddOperationError` when the **data set profile** cannot be added because it already exists in the environment.
+  Raises `AddOperationError` when the **data set profile** cannot be added because it already exists.
 * `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains at least one **unknown** trait.
 
 #### 💻 Example
 

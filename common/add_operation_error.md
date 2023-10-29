@@ -10,12 +10,12 @@ Understanding the `AddOperationError` exception.
 
 &nbsp;
 
-{: .warning }
-> _An **Add** operation targeting an existing profile could end up effectively performing an **Alter** operation on this profile. Pyracf will always raise an `AddOperationError` to bring attention to these failures before attempting the **Add** operation._
+{: .note }
+> _An **Add** operation targeting an existing profile could end up effectively performing an **Alter** operation on an existing profile. Pyracf will always raise an `AddOperationError` and **refuse** to perform the requested operation to bring attention to this condition._
 
 &nbsp;
 
-When pyracf executes an **Add** operation, it first performs an **Extract** to evaluate whether the profile already exists. If the **Return Code** and the **Messages** returned by the **Extract** operation indicate that the profile already exists, an `AddOperationError` will be raised to indicate that the request failed. An `AddOperationError` can be handled as follows.
+Prior to executing an **Add** operation, a **Profile Extract** is attempted to evaluate whether the profile already exists. If the **Return Code** and the **Messages** returned by the **Profile Extract** operation indicate that the profile already exists, an `AddOperationError` will be raised and the requested **Add** operation will **NOT** be executed. An `AddOperationError` can be handled as follows.
 
 ###### Python Script
 ```python

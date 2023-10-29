@@ -10,12 +10,7 @@ Understanding the `SegmentError` exception.
 
 &nbsp;
 
-{: .warning }
-> _A **Segment** unknown to pyracf would generate an improper **EXTRACT** request to IRRSMO00. Pyracf will always raise a `SegmentError` to bring attention to any unknown values prior to executing such a request._
-
-&nbsp;
-
-When any **Segment** unknown to pyracf appears as a parameter to an **EXTRACT** request, a `SegmentError` will be raised to indicate that the request failed to build. A `SegmentError` can be handled as follows.
+When an unknown **Segment** is provided in the parameters to a **Profile Extract** request, a `SegmentError` will be raised to indicate that the request cannot be built. A `SegmentError` can be handled as follows.
 
 ###### Python Script
 ```python

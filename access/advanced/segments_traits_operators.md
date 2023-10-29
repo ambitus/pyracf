@@ -41,7 +41,7 @@ Information about permission `segments` dictionaries, `traits` dictionaries, and
 
 &nbsp;
 
-When using the **[`AccessAdmin.add()`](../add#accessadminadd)** and **[`AccessAdmin.alter()`](../alter#accessadminalter)** functions, the following are valid access traits. Feel free to experiment with any of the other traits defined in `pyracf/access/access_admin.py` in the pyRACF source code.
+When using the **[`AccessAdmin.permit()`](../permit#accessadminpermit)** function, the following are valid access traits. Feel free to experiment with any of the other traits defined in `pyracf/access/access_admin.py` in the pyRACF source code.
 
 &nbsp;
 

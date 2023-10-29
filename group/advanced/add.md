@@ -20,7 +20,7 @@ def add(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../advanced/segments_traits_operators#segments) and [Traits](../advanced/segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -31,7 +31,7 @@ Create a new **group**.
   The **group** being created.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the group on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Group Traits** are.
+  A dictionary of **traits/attributes** that should be given to the group on creation. See [Traits](../advanced/segments_traits_operators#traits) to see what all of the valid **Group Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -41,11 +41,9 @@ Create a new **group**.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `AddOperationError`<br>
-  Raises `AddOperationError` when the **group** cannot be added because it already exists in the environment.
+  Raises `AddOperationError` when the **group** cannot be added because it already exists.
 * `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
-* `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** supplied contains at least one unknown trait.
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains at least one **unknown** trait.
 
 #### 💻 Example
 
