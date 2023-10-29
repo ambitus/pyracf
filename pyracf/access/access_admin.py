@@ -66,7 +66,9 @@ class AccessAdmin(SecurityAdmin):
         traits["base:auth_id"] = auth_id
         self._build_segment_dictionaries(traits)
         access_request = AccessRequest(resource, class_name, "set", volume, generic)
-        self._add_traits_directly_to_request_xml_with_no_segments(access_request, alter=True)
+        self._add_traits_directly_to_request_xml_with_no_segments(
+            access_request, alter=True
+        )
         return self._make_request(access_request)
 
     def delete(

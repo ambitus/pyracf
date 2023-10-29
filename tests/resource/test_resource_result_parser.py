@@ -58,7 +58,7 @@ class TestResourceResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.message,
-            "Security request made to IRRSMO00 failed."
+            "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{profile_name}' already exists as a profile in the '{class_name}' class.",
         )
@@ -117,7 +117,7 @@ class TestResourceResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.message,
-            "Security request made to IRRSMO00 failed."
+            "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{profile_name}' does not exist as a profile in the '{class_name}' class.",
         )

@@ -61,7 +61,7 @@ class TestUserResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.message,
-            "Security request made to IRRSMO00 failed."
+            "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{profile_name}' already exists as a '{self.user_admin._profile_type}' profile.",
         )
@@ -118,7 +118,7 @@ class TestUserResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.message,
-            "Security request made to IRRSMO00 failed."
+            "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{profile_name}' does not exist as a '{self.user_admin._profile_type}' profile.",
         )
@@ -447,4 +447,52 @@ class TestUserResultParser(unittest.TestCase):
         self.assertEqual(
             user_admin.extract("squidwrd", segments=["omvs", "csdata"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
+        )
+
+    # ============================================================================
+    # Add Additional Secrets
+    # ============================================================================
+    def test_user_admin_custom_secret_redacted_on_success(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(additional_secret_traits=["omvs:uid"])
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML,
+        ]
+        result = user_admin.alter(
+            "squidwrd",
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
+        )
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_DICTIONARY,
+        )
+        self.assertNotIn(
+            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
+            result,
+        )
+
+    def test_user_admin_custom_secret_redacted_on_error(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            user_admin.alter(
+                "squidwrd",
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
+            )
+        self.assertEqual(
+            exception.exception.result,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_UID_SECRET_DICTIONARY,
+        )
+        self.assertNotIn(
+            f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
+            exception.exception.result,
         )

@@ -57,7 +57,7 @@ class TestGroupResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.message,
-            "Security request made to IRRSMO00 failed."
+            "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{group_name}' already exists as a '{self.group_admin._profile_type}' profile.",
         )
@@ -113,7 +113,7 @@ class TestGroupResultParser(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.message,
-            "Security request made to IRRSMO00 failed."
+            "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{group_name}' does not exist as a '{self.group_admin._profile_type}' profile.",
         )

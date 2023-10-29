@@ -19,7 +19,7 @@ class TestSetroptsSetters(unittest.TestCase):
     setropts_admin = SetroptsAdmin(generate_requests_only=True)
 
     # ============================================================================
-    # Class adders
+    # Class Adders
     # ============================================================================
     def test_setropts_admin_build_add_audit_class_request(self):
         result = self.setropts_admin.add_audit_classes("elijtest")
@@ -199,7 +199,7 @@ class TestSetroptsSetters(unittest.TestCase):
         )
 
     # ============================================================================
-    # Class removers
+    # Class Removers
     # ============================================================================
     def test_setropts_admin_build_remove_audit_class_request(self):
         result = self.setropts_admin.remove_audit_classes("elijtest")
@@ -383,7 +383,7 @@ class TestSetroptsSetters(unittest.TestCase):
         )
 
     # ============================================================================
-    # Raclist refresh
+    # Raclist Refresh
     # ============================================================================
     def test_setropts_admin_build_refresh_raclist_request(self):
         result = self.setropts_admin.refresh_raclist("elijtest")

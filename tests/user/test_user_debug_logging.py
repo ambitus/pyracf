@@ -319,11 +319,7 @@ class TestUserDebugLogging(unittest.TestCase):
             TestUserConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
         )
         self.assertNotIn(
-            "("
-            + str(
-                TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"]
-            )
-            + ")",
+            f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
             error_log,
         )
 

@@ -7,7 +7,7 @@ class AddOperationError(Exception):
     """
 
     def __init__(self, profile_name: str, class_name: str) -> None:
-        self.message = "Security request made to IRRSMO00 failed."
+        self.message = "Refusing to make security request to IRRSMO00."
         admin_types = ["user", "group", "dataSet"]
         if class_name not in admin_types:
             self.message += (
