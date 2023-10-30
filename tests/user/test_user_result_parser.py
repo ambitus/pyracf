@@ -6,7 +6,12 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
-from pyracf import SecurityRequestError, UserAdmin
+from pyracf import (
+    AddOperationError,
+    AlterOperationError,
+    SecurityRequestError,
+    UserAdmin,
+)
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -29,7 +34,10 @@ class TestUserResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML,
+            TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.user_admin.add(
                 "squidwrd",
@@ -38,20 +46,43 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
-    # Error in environment, SQUIDWRD already added/exists
+    def test_user_admin_throws_error_on_add_existing_user(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "squidwrd"
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AddOperationError) as exception:
+            self.user_admin.add(
+                profile_name, traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Refusing to make security request to IRRSMO00."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' already exists as a '{self.user_admin._profile_type}' profile.",
+        )
+
+    # Error in command, SQUIDWARD is bad USERID
     def test_user_admin_can_parse_add_user_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_XML,
+            TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add(
-                "squidwrd",
+                "squidward",
                 traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS,
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_ADD_USER_RESULT_ERROR_DICTIONARY,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_JSON,
         )
 
     # ============================================================================
@@ -61,9 +92,10 @@ class TestUserResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.user_admin.alter(
                 "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
@@ -71,15 +103,39 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_DICTIONARY,
         )
 
-    # Error: invalid parameter "name"
+    def test_user_admin_throws_error_on_alter_new_user(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "squidwrd"
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.user_admin.alter(
+                profile_name, traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Refusing to make security request to IRRSMO00."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' does not exist as a '{self.user_admin._profile_type}' profile.",
+        )
+
+    # Error: bad uid '90000000000'
     def test_user_admin_can_parse_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.alter(
-                "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
+                "squidwrd",
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
             )
         self.assertEqual(
             exception.exception.result,
@@ -155,100 +211,113 @@ class TestUserResultParser(unittest.TestCase):
     # ============================================================================
     # Password and Password Phrase Redaction
     # ============================================================================
-    def test_user_admin_password_redacted_add_user_success_xml(
+    def test_user_admin_password_redacted_alter_user_success_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_XML
-        )
-        result = self.user_admin.add(
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_XML,
+        ]
+        result = self.user_admin.alter(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD,
         )
         self.assertEqual(
             result,
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY,
         )
         result_str = str(result)
         self.assertNotIn(self.test_password, result_str)
         self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
-    # Error in environment, SQUIDWRD already added/exists
-    def test_user_admin_password_redacted_add_user_error_xml(
+    # Error: bad uid '90000000000'
+    def test_user_admin_password_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
-            self.user_admin.add(
+            error_traits = dict(
+                TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD
+            )
+            error_traits["omvs:uid"] = 90000000000
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
+                traits=error_traits,
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_ERROR_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_DICTIONARY,
         )
         result_str = str(exception.exception.result)
         self.assertNotIn(self.test_password, result_str)
         self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
-    def test_user_admin_passphrase_redacted_add_user_success_xml(
+    def test_user_admin_passphrase_redacted_alter_user_success_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML
-        )
-        result = self.user_admin.add(
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_RESULT_SUCCESS_XML,
+        ]
+        result = self.user_admin.alter(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE,
         )
         self.assertEqual(
             result,
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_RESULT_SUCCESS_DICTIONARY,
         )
         result_str = str(result)
         self.assertNotIn(self.test_passphrase, result_str)
         self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
 
-    # Error in environment, SQUIDWRD already added/exists
-    def test_user_admin_passphrase_redacted_add_user_error_xml(
+    # Error: bad uid '90000000000'
+    def test_user_admin_passphrase_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
-            self.user_admin.add(
+            error_traits = dict(
+                TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE
+            )
+            error_traits["omvs:uid"] = 90000000000
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
+                traits=error_traits,
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_RESULT_ERROR_DICTIONARY,
         )
         result_str = str(exception.exception.result)
         self.assertNotIn(self.test_passphrase, result_str)
         self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
 
-    def test_user_admin_passphrase_and_password_redacted_add_user_success_xml(
+    def test_user_admin_passphrase_and_password_redacted_alter_user_success_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML
-        )
-        result = self.user_admin.add(
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML,
+        ]
+        result = self.user_admin.alter(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
         )
         self.assertEqual(
             result,
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_DICTIONARY,
         )
         result_str = str(result)
         self.assertNotIn(self.test_passphrase, result_str)
@@ -256,22 +325,27 @@ class TestUserResultParser(unittest.TestCase):
         self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
         self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
-    # Error in environment, SQUIDWRD already added/exists
-    def test_user_admin_passphrase_and_password_redacted_add_user_error_xml(
+    # Error: bad uid '90000000000'
+    def test_user_admin_passphrase_and_password_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
-            self.user_admin.add(
+            error_traits = dict(
+                TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD
+            )
+            error_traits["omvs:uid"] = 90000000000
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
+                traits=error_traits,
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY,
         )
         result_str = str(exception.exception.result)
         self.assertNotIn(self.test_passphrase, result_str)
@@ -279,42 +353,48 @@ class TestUserResultParser(unittest.TestCase):
         self.assertNotIn("(" + " " * (len(self.test_passphrase) + 2) + ")", result_str)
         self.assertNotIn("(" + " " * len(self.test_password) + ")", result_str)
 
-    def test_user_admin_password_message_not_redacted_add_user_success_xml(
+    def test_user_admin_password_message_not_redacted_alter_user_success_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_XML
-        )
-        result = self.user_admin.add(
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_XML,
+        ]
+        result = self.user_admin.alter(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE,
         )
         self.assertEqual(
             result,
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_DICTIONARY,
         )
         result_str = str(result)
         self.assertNotIn("(" + self.simple_password + ")", result_str)
         self.assertNotIn("(" + " " * len(self.simple_password) + ")", result_str)
         self.assertIn(self.simple_password, result_str)
 
-    # Error in environment, SQUIDWRD already added/exists
-    def test_user_admin_password_message_not_redacted_add_user_error_xml(
+    # Error: bad uid '90000000000'
+    def test_user_admin_password_message_not_redacted_alter_user_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
-            self.user_admin.add(
+            error_traits = dict(
+                TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE
+            )
+            error_traits["omvs:uid"] = 90000000000
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE,
+                traits=error_traits,
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_ERROR_DICTIONARY,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_DICTIONARY,
         )
         result_str = str(exception.exception.result)
         self.assertNotIn("(" + self.simple_password + ")", result_str)
@@ -367,4 +447,54 @@ class TestUserResultParser(unittest.TestCase):
         self.assertEqual(
             user_admin.extract("squidwrd", segments=["omvs", "csdata"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
+        )
+
+    # ============================================================================
+    # Add Additional Secrets
+    # ============================================================================
+    def test_user_admin_custom_secret_redacted_on_success(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(additional_secret_traits=["omvs:uid"])
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML,
+        ]
+        result = user_admin.alter(
+            "squidwrd",
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
+        )
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_DICTIONARY,
+        )
+        self.assertNotIn(
+            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
+            result,
+        )
+
+    # Secret redacted from command image but not from resulting error message.
+    # Marked experimental until resolved
+    def test_user_admin_custom_secret_redacted_on_error(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            user_admin.alter(
+                "squidwrd",
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
+            )
+        self.assertEqual(
+            exception.exception.result,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_UID_SECRET_DICTIONARY,
+        )
+        self.assertNotIn(
+            f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
+            exception.exception.result,
         )

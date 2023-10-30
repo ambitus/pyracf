@@ -1,0 +1,83 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                              AccessAdmin.permit()                             
+                                                                               
+
+{
+  "base": {
+    "base:access": {
+      "value": "ALTER",
+      "operation": null
+    },
+    "base:auth_id": {
+      "value": "MCGINLEY",
+      "operation": null
+    }
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                              AccessAdmin.permit()                             
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
+    <access operation="set">ALTER</access>
+    <authid operation="set">MCGINLEY</authid>
+  </permission>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                              AccessAdmin.permit()                             
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <permission name="TESTING" class="ELIJTEST" operation="set" requestid="AccessRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)</image>
+      <message>ICH06007I MCGINLEY NOT DEFINED TO RACF</message>
+    </command>
+  </permission>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                              AccessAdmin.permit()                             
+                                                                               
+
+{
+  "securityResult": {
+    "permission": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "set",
+      "requestId": "AccessRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (ALTER) ID          (MCGINLEY)",
+          "messages": [
+            "ICH06007I MCGINLEY NOT DEFINED TO RACF"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 0
+  }
+}
+

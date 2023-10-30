@@ -2,7 +2,10 @@
 
 from typing import List, Union
 
+from pyracf.common.add_operation_error import AddOperationError
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .group_request import GroupRequest
 
@@ -119,13 +122,28 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def add(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
         """Create a new group."""
-        self._build_segment_dictionaries(traits)
-        group_request = GroupRequest(group, "set")
-        self._build_xml_segments(group_request)
-        return self._make_request(group_request)
+        if self._generate_requests_only:
+            self._build_segment_dictionaries(traits)
+            group_request = GroupRequest(group, "set")
+            self._build_xml_segments(group_request)
+            return self._make_request(group_request)
+        try:
+            self.extract(group)
+        except SecurityRequestError as exception:
+            if not exception.contains_error_message(self._profile_type, "ICH51003I"):
+                raise exception
+            self._build_segment_dictionaries(traits)
+            group_request = GroupRequest(group, "set")
+            self._build_xml_segments(group_request)
+            return self._make_request(group_request)
+        raise AddOperationError(group, self._profile_type)
 
-    def alter(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
+    def alter(self, group: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing group."""
+        try:
+            self.extract(group)
+        except SecurityRequestError:
+            raise AlterOperationError(group, self._profile_type)
         self._build_segment_dictionaries(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)

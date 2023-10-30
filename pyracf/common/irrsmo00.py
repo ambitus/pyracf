@@ -21,7 +21,7 @@ class IRRSMO00:
 
     def call_racf(self, request_xml: bytes, precheck: bool = False) -> str:
         """Make request to call_irrsmo00 in the cpyracf Python extension."""
-        options = 11 if precheck else 9
+        options = 15 if precheck else 13
         return call_irrsmo00(
             xml_str=request_xml, xml_len=len(request_xml), opts=options
         ).decode("cp1047")

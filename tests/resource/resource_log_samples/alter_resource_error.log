@@ -1,0 +1,253 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                             ResourceAdmin.alter()                             
+                                                                               
+
+{}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                             ResourceAdmin.alter()                             
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest"/>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                             ResourceAdmin.alter()                             
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RLIST   ELIJTEST             (TESTING) </image>
+      <message>CLASS      NAME</message>
+      <message>-----      ----</message>
+      <message>ELIJTEST   TESTING</message>
+      <message> </message>
+      <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
+      <message>-----  --------   ----------------  -----------  -------</message>
+      <message> 00    ESWIFT          READ               READ    NO</message>
+      <message> </message>
+      <message>INSTALLATION DATA</message>
+      <message>-----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>APPLICATION DATA</message>
+      <message>----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>AUDITING</message>
+      <message>--------</message>
+      <message>FAILURES(READ)</message>
+      <message> </message>
+      <message>NOTIFY</message>
+      <message>------</message>
+      <message>NO USER TO BE NOTIFIED</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                             ResourceAdmin.alter()                             
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   ELIJTEST             (TESTING) ",
+          "messages": [
+            "CLASS      NAME",
+            "-----      ----",
+            "ELIJTEST   TESTING",
+            " ",
+            "LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING",
+            "-----  --------   ----------------  -----------  -------",
+            " 00    ESWIFT          READ               READ    NO",
+            " ",
+            "INSTALLATION DATA",
+            "-----------------",
+            "NONE",
+            " ",
+            "APPLICATION DATA",
+            "----------------",
+            "NONE",
+            " ",
+            "AUDITING",
+            "--------",
+            "FAILURES(READ)",
+            " ",
+            "NOTIFY",
+            "------",
+            "NO USER TO BE NOTIFIED"
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                     Result Dictionary (Formatted Profile)                     
+                             ResourceAdmin.alter()                             
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   ELIJTEST             (TESTING) ",
+          "profiles": [
+            {
+              "base": {
+                "class": "elijtest",
+                "name": "testing",
+                "level": 0,
+                "owner": "eswift",
+                "universalAccess": "read",
+                "yourAccess": "read",
+                "warning": null,
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "failures": "read"
+                },
+                "notify": null,
+                "generic": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                             ResourceAdmin.alter()                             
+                                                                               
+
+{
+  "base": {
+    "base:universal_access": {
+      "value": "ALL",
+      "operation": null
+    },
+    "base:owner": {
+      "value": "eswift",
+      "operation": null
+    }
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                             ResourceAdmin.alter()                             
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
+    <base>
+      <racf:uacc operation="set">ALL</racf:uacc>
+      <racf:owner operation="set">eswift</racf:owner>
+    </base>
+  </resource>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                             ResourceAdmin.alter()                             
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
+    <info>Definition exists. Add command skipped due  to precheck option</info>
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>8</reasoncode>
+      <image>RALTER  ELIJTEST             (TESTING)  UACC        (ALL) OWNER       (eswift)</image>
+      <message>IKJ56702I INVALID UNIVERSAL ACCESS, ALL</message>
+      <message>IKJ56701I MISSING UNIVERSAL ACCESS+</message>
+      <message>IKJ56701I MISSING ALTER, CONTROL, UPDATE, READ, EXECUTE, OR NONE</message>
+    </command>
+  </resource>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                             ResourceAdmin.alter()                             
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "set",
+      "requestId": "ResourceRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "RALTER  ELIJTEST             (TESTING)  UACC        (ALL) OWNER       (eswift)",
+          "messages": [
+            "IKJ56702I INVALID UNIVERSAL ACCESS, ALL",
+            "IKJ56701I MISSING UNIVERSAL ACCESS+",
+            "IKJ56701I MISSING ALTER, CONTROL, UPDATE, READ, EXECUTE, OR NONE"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 0
+  }
+}
+

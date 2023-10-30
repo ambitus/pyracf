@@ -10,6 +10,8 @@ from .logger import Logger
 from .security_request import SecurityRequest
 from .security_request_error import SecurityRequestError
 from .security_result import SecurityResult
+from .segment_error import SegmentError
+from .segment_trait_error import SegmentTraitError
 
 
 class SecurityAdmin:
@@ -64,13 +66,13 @@ class SecurityAdmin:
             "base:passphrase": "racf:phrase",
         }
         self.__irrsmo00 = IRRSMO00()
-        self.__profile_type = profile_type
+        self._profile_type = profile_type
         self._segment_traits = {}
         # used to preserve segment traits for debug logging.
         self.__preserved_segment_traits = {}
         self._trait_map = {}
         self.__debug = debug
-        self.__generate_requests_only = generate_requests_only
+        self._generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
             self.__update_valid_segment_traits(update_existing_segment_traits)
         if replace_existing_segment_traits is not None:
@@ -123,7 +125,7 @@ class SecurityAdmin:
     ) -> dict:
         """Extract a RACF profile."""
         result = self._make_request(security_request)
-        if self.__generate_requests_only:
+        if self._generate_requests_only:
             return result
         self._format_profile(result)
         if self.__debug:
@@ -155,7 +157,7 @@ class SecurityAdmin:
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
-        if self.__generate_requests_only:
+        if self._generate_requests_only:
             request_xml = self.__logger.redact_request_xml(
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
@@ -202,7 +204,7 @@ class SecurityAdmin:
         """
         if isinstance(results, dict) or isinstance(results, bytes):
             results = [results]
-        if self.__generate_requests_only:
+        if self._generate_requests_only:
             concatenated_xml = b""
             for request_xml in results:
                 if request_xml:
@@ -260,17 +262,33 @@ class SecurityAdmin:
 
     def _build_bool_segment_dictionaries(self, segments: List[str]) -> None:
         """Build segment dictionaries for profile extract."""
+        bad_segments = []
         for segment in segments:
             if segment in self._valid_segment_traits:
                 self._segment_traits[segment] = True
+            else:
+                bad_segments.append(segment)
+        if bad_segments:
+            raise SegmentError(bad_segments, self._profile_type)
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 
     def _build_segment_dictionaries(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
+        bad_traits = []
         for trait in traits:
+            trait_valid = False
             for segment in self._valid_segment_traits:
-                self.__validate_and_add_trait(trait, segment, traits[trait])
+                trait_valid = self.__validate_and_add_trait(
+                    trait, segment, traits[trait]
+                )
+                if trait_valid:
+                    break
+            if not trait_valid:
+                bad_traits.append(trait)
+        if bad_traits:
+            raise SegmentTraitError(bad_traits, self._profile_type)
+
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 
@@ -302,10 +320,10 @@ class SecurityAdmin:
         self, result: Union[dict, bytes], index: int = 0
     ) -> Union[dict, bytes]:
         """Extract the profile section from a result dictionary."""
-        if self.__generate_requests_only:
-            # Allows this function to work with "self.__generate_requests_only" mode.
+        if self._generate_requests_only:
+            # Allows this function to work with "self._generate_requests_only" mode.
             return result
-        return result["securityResult"][self.__profile_type]["commands"][0]["profiles"][
+        return result["securityResult"][self._profile_type]["commands"][0]["profiles"][
             index
         ]
 
@@ -317,8 +335,8 @@ class SecurityAdmin:
         string: bool = False,
     ) -> Union[bytes, Any, None]:
         """Extract the value of a field from a segment in a profile."""
-        if self.__generate_requests_only:
-            # Allows this function to work with "self.__generate_requests_only" mode.
+        if self._generate_requests_only:
+            # Allows this function to work with "self._generate_requests_only" mode.
             return profile
         try:
             field = profile[segment][field]
@@ -353,15 +371,15 @@ class SecurityAdmin:
                 current_segment = messages[i].split()[0].lower()
                 profile[current_segment] = {}
                 i += 2
-            if self.__profile_type in ("dataSet", "resource"):
+            if self._profile_type in ("dataSet", "resource"):
                 i = self.__format_data_set_generic_profile_data(
                     messages, profile, current_segment, i
                 )
-            if self.__profile_type == "user":
+            if self._profile_type == "user":
                 i = self.__format_user_profile_data(
                     messages, profile, current_segment, i
                 )
-            if self.__profile_type == "group":
+            if self._profile_type == "group":
                 i = self.__format_group_profile_data(
                     messages, profile, current_segment, i
                 )

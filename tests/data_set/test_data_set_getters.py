@@ -27,7 +27,7 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertEqual(
             self.data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470"),
@@ -39,7 +39,7 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         data_set_extract_no_universal_access = (
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML
         )
         data_set_extract_no_universal_access = (
             data_set_extract_no_universal_access.replace(
@@ -58,7 +58,7 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_XML
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
             self.data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470")
@@ -68,7 +68,7 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertEqual(
             self.data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470"), "alter"
@@ -79,7 +79,7 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         data_set_extract_no_my_access = (
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_SUCCESS_XML
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML
         )
         data_set_extract_no_my_access = data_set_extract_no_my_access.replace(
             "<message> ALTER        SYS1           NON-VSAM</message>",
@@ -96,7 +96,7 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ERROR_XML
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError):
             self.data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470")

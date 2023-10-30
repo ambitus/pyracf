@@ -6,7 +6,7 @@ from unittest.mock import Mock
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
-from pyracf import UserAdmin
+from pyracf import SegmentError, SegmentTraitError, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -64,7 +64,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     ):
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD,
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSWORD_XML)
         self.assertNotIn(self.test_password, result.decode("utf-8"))
@@ -74,7 +74,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     ):
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE,
         )
         self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_XML)
         self.assertNotIn(self.test_passphrase, result.decode("utf-8"))
@@ -84,7 +84,7 @@ class TestUserRequestBuilder(unittest.TestCase):
     ):
         result = self.user_admin.add(
             "squidwrd",
-            traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
         )
         self.assertEqual(
             result, TestUserConstants.TEST_ADD_USER_REQUEST_PASSPHRASE_AND_PASSWORD_XML
@@ -113,9 +113,42 @@ class TestUserRequestBuilder(unittest.TestCase):
             update_existing_segment_traits=TestUserConstants.TEST_USER_ADDITIONAL_SEGMENT_TRAITS,
         )
         result = user_admin.alter(
-            "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
+            "squidwrd",
+            traits=TestUserConstants.TEST_ALTER_USER_CSDATA_AND_OMVS_REQUEST_TRAITS,
         )
         self.assertEqual(
             result,
             TestUserConstants.TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML,
+        )
+
+    # ============================================================================
+    # Request Builder Errors
+    # ============================================================================
+    def test_user_admin_build_add_request_with_bad_segment_traits(self):
+        bad_trait = "omvs:bad_trait"
+        user_admin = UserAdmin(
+            generate_requests_only=True,
+        )
+        with self.assertRaises(SegmentTraitError) as exception:
+            user_admin.add(
+                "squidwrd", TestUserConstants.TEST_ADD_USER_REQUEST_BAD_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Unable to build Security Request.\n\n"
+            + f"'{bad_trait}' is not a known segment-trait "
+            + f"combination for '{self.user_admin._profile_type}'.\n",
+        )
+
+    def test_user_admin_build_extract_request_with_bad_segment_name(self):
+        bad_segment = "bad_segment"
+        user_admin = UserAdmin(
+            generate_requests_only=True,
+        )
+        with self.assertRaises(SegmentError) as exception:
+            user_admin.extract("squidwrd", segments=[bad_segment])
+        self.assertEqual(
+            exception.exception.message,
+            "Unable to build Security Request.\n\n"
+            + f"'{bad_segment}' is not a known segment for '{self.user_admin._profile_type}'.\n",
         )

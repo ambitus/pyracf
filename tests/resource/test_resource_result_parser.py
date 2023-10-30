@@ -6,7 +6,12 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import ResourceAdmin, SecurityRequestError
+from pyracf import (
+    AddOperationError,
+    AlterOperationError,
+    ResourceAdmin,
+    SecurityRequestError,
+)
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -26,27 +31,52 @@ class TestResourceResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.resource_admin.add("TESTING", "ELIJTEST"),
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_DICTIONARY,
         )
 
-    # Error: Invalid Entity Name ELIXTEST
+    def test_resource_admin_throws_error_on_add_existing_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "TESTING"
+        class_name = "ELIJTEST"
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AddOperationError) as exception:
+            self.resource_admin.add(
+                profile_name,
+                class_name,
+                traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_TRAITS,
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Refusing to make security request to IRRSMO00."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' already exists as a profile in the '{class_name}' class.",
+        )
+
+    # Error: bad Entity Name ELIXTEST
     def test_resource_admin_can_parse_add_resource_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.add("TESTING", "ELIXTEST")
         self.assertEqual(
             exception.exception.result,
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_DICTIONARY,
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_DICTIONARY,
         )
 
     # ============================================================================
@@ -56,9 +86,10 @@ class TestResourceResultParser(unittest.TestCase):
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
         self.assertEqual(
             self.resource_admin.alter(
                 "TESTING",
@@ -68,14 +99,38 @@ class TestResourceResultParser(unittest.TestCase):
             TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_DICTIONARY,
         )
 
-    # Error: Invalid Universal Access ALL
+    def test_resource_admin_throws_error_on_alter_new_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "TESTING"
+        class_name = "ELIJTEST"
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.resource_admin.alter(
+                profile_name,
+                class_name,
+                traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Refusing to make security request to IRRSMO00."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' does not exist as a profile in the '{class_name}' class.",
+        )
+
+    # Error: bad Universal Access ALL
     def test_resource_admin_can_parse_alter_resource_error_xml(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_XML,
+        ]
         with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.alter(
                 "TESTING",

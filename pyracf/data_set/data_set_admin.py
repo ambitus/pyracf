@@ -2,7 +2,10 @@
 
 from typing import List, Union
 
+from pyracf.common.add_operation_error import AddOperationError
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .data_set_request import DataSetRequest
 
@@ -43,7 +46,6 @@ class DataSetAdmin(SecurityAdmin):
                 "base:data_set_model_profile": "racf:model",
                 "base:notify_userid": "racf:notify",
                 "base:owner": "racf:owner",
-                "base:profile": "racf:profile",  # Not documented?
                 "base:tape_data_set_security_retention_period": "racf:retpd",
                 "base:security_label": "racf:seclabel",
                 "base:security_level": "racf:seclevel",
@@ -97,15 +99,26 @@ class DataSetAdmin(SecurityAdmin):
     def add(
         self,
         data_set: str,
-        traits: dict,
+        traits: dict = {},
         volume: Union[str, None] = None,
         generic: bool = False,
     ) -> Union[dict, bytes]:
         """Create a new data set profile."""
-        self._build_segment_dictionaries(traits)
-        data_set_request = DataSetRequest(data_set, "set", volume, generic)
-        self._build_xml_segments(data_set_request)
-        return self._make_request(data_set_request)
+        if self._generate_requests_only:
+            self._build_segment_dictionaries(traits)
+            data_set_request = DataSetRequest(data_set, "set", volume, generic)
+            self._build_xml_segments(data_set_request)
+            return self._make_request(data_set_request)
+        try:
+            self.extract(data_set, volume=volume, generic=generic)
+        except SecurityRequestError as exception:
+            if not exception.contains_error_message(self._profile_type, "ICH35003I"):
+                raise exception
+            self._build_segment_dictionaries(traits)
+            data_set_request = DataSetRequest(data_set, "set", volume, generic)
+            self._build_xml_segments(data_set_request)
+            return self._make_request(data_set_request)
+        raise AddOperationError(data_set, self._profile_type)
 
     def alter(
         self,
@@ -114,6 +127,10 @@ class DataSetAdmin(SecurityAdmin):
         volume: Union[str, None] = None,
         generic: bool = False,
     ) -> Union[dict, bytes]:
+        try:
+            self.extract(data_set)
+        except SecurityRequestError:
+            raise AlterOperationError(data_set, self._profile_type)
         """Alter an existing data set profile."""
         self._build_segment_dictionaries(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)

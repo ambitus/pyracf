@@ -1,0 +1,25 @@
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIXTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "RLIST   ELIXTEST             (TESTING) ",
+          "messages": [
+            "IKJ56702I INVALID CLASS NAME, ELIXTEST",
+            "IKJ56701I MISSING ENTITY NAME+",
+            "IKJ56701I MISSING NAME OF ENTITY TO BE LISTED"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 0
+  }
+}

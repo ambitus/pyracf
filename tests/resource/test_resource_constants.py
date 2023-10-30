@@ -52,6 +52,12 @@ TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML = get_sample(
 TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_DICTIONARY = get_sample(
     "extract_resource_result_base_error.json"
 )
+TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_XML = get_sample(
+    "extract_resource_result_bad_class_error.xml"
+)
+TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_DICTIONARY = get_sample(
+    "extract_resource_result_bad_class_error.json"
+)
 
 # Delete Resource
 TEST_DELETE_RESOURCE_RESULT_SUCCESS_XML = get_sample(
@@ -107,8 +113,8 @@ TEST_RESOURCE_SET_UNIVERSAL_ACCESS_XML = get_sample("resource_set_universal_acce
 # Debug Logging
 # ============================================================================
 
-TEST_ADD_RESOURCE_SUCCESS_LOG = get_sample("add_resource_success.log")
-TEST_ADD_RESOURCE_ERROR_LOG = get_sample("add_resource_error.log")
+TEST_ALTER_RESOURCE_SUCCESS_LOG = get_sample("alter_resource_success.log")
+TEST_ALTER_RESOURCE_ERROR_LOG = get_sample("alter_resource_error.log")
 
 TEST_EXTRACT_RESOURCE_BASE_SUCCESS_LOG = get_sample("extract_resource_base_success.log")
 TEST_EXTRACT_RESOURCE_BASE_ERROR_LOG = get_sample("extract_resource_base_error.log")

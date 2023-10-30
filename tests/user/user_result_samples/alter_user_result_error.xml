@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <user name="squidward" operation="set" requestid="UserRequest">
-    <error>
-      <errorfunction>10</errorfunction>
-      <errorcode>2000</errorcode>
-      <errorreason>68</errorreason>
-      <errormessage>Invalid attribute value specified.</errormessage>
-      <erroroffset>149</erroroffset>
-      <textinerror>name</textinerror>
-    </error>
+  <user name="SQUIDWRD" operation="set" requestid="UserRequest">
+    <info>Definition exists. Add command skipped due  to precheck option</info>
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>8</reasoncode>
+      <image>ALTUSER SQUIDWRD  NOSPECIAL      OMVS     (HOME        ('/u/clarinet') NOPROGRAM      UID         (90000000000))</image>
+      <message>IKJ56702I INVALID UID, 90000000000</message>
+      <message>IKJ56701I MISSING OMVS UID+</message>
+      <message>IKJ56701I MISSING OMVS USER ID (UID), 1-10 NUMERIC DIGITS</message>
+    </command>
   </user>
-  <returncode>2000</returncode>
-  <reasoncode>68</reasoncode>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
 </securityresult>
