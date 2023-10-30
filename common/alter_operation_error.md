@@ -15,7 +15,7 @@ Understanding the `AlterOperationError` exception.
 
 &nbsp;
 
-Prior to executing an **Alter** operation, a **Profile Extract** is attempted to evaluate whether the profile already exists. If the **Return Code** and the **Messages** returned by the **Extract** operation indicate that the profile does **NOT** exist, an `AlterOperationError` will be raised and the requseted **Alter** operation will **NOT** be executed. An `AlterOperationError` can be handled as follows.
+Prior to executing an **Alter** operation, a **Profile Extract** is attempted to determine whether the profile already exists. If the **Return Code** and the **Messages** returned by the **Extract** operation indicate that the profile does **NOT** exist, an `AlterOperationError` will be raised and the requseted **Alter** operation will **NOT** be executed. An `AlterOperationError` can be handled as follows.
 
 ###### Python Script
 ```python
@@ -32,7 +32,7 @@ except AlterOperationError as e:
 
 ###### Console Output
 ```console
-Security request made to IRRSMO00 failed.
+Refusing to make security request to IRRSMO00.
 
 Target profile 'squidwrd' does not exist as a 'user' profile.
 ```

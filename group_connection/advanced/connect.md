@@ -20,7 +20,7 @@ def connect(self, userid: str, group: str, traits: dict = {}) -> Union[dict, byt
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../advanced/segments_traits_operators#traits) for more details._
+> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -39,7 +39,7 @@ Create or change a **group connection**.
   The **group** to which the user's connection is being created or changed.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that will be connected for the specified user's connection to the specifed group. See [Traits](../advanced/segments_traits_operators#traits) to see what all of the valid **Group Traits** are.
+  A dictionary of **traits/attributes** that will be connected for the specified user's connection to the specifed group. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Group Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -49,7 +49,7 @@ Create or change a **group connection**.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains at least one **unknown** trait.
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 

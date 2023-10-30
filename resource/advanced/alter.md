@@ -20,7 +20,7 @@ def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, byt
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../advanced/segments_traits_operators#segmetns) and [Traits](../advanced/segments_traits_operators#traits) for more details._
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segmetns) and [Traits](../segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -40,7 +40,7 @@ Alter an existing **general resource profile**.
   The name of the **class** the general resource profile being altered belongs to.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../advanced/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -52,7 +52,7 @@ Alter an existing **general resource profile**.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
 * `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains at least one **unknown** trait.
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 

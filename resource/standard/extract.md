@@ -27,7 +27,7 @@ def extract(
 &nbsp;
 
 {: .experimental }
-> _Profile data extracted for experimental **Segments** and **Traits** are considered **Experimental**. See [Segments](../../advanced/segments_traits_operators#segments) and [Traits](../../advanced/segments_traits_operators#traits) for more details._
+> _Profile data extracted for experimental **Segments** and **Traits** are considered **Experimental**. See [Segments](../../segments_traits_operators#segments) and [Traits](../../segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -73,7 +73,7 @@ Extract a **general resource profile's** data.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `SegmentError`<br>
-  Raises `SegmentError` when the list of **segments** provided contains at least one **unknown** segment.
+  Raises `SegmentError` when the list of **segments** provided contains one or more **unknown** segments.
 
 #### 💻 Example
 

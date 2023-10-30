@@ -11,11 +11,11 @@ Understanding the `AddOperationError` exception.
 &nbsp;
 
 {: .note }
-> _An **Add** operation targeting an existing profile could end up effectively performing an **Alter** operation on an existing profile. Pyracf will always raise an `AddOperationError` and **refuse** to perform the requested operation to bring attention to this condition._
+> _An **Add** operation targeting an existing profile could end up effectively performing an **Alter** operation on an existing profile. pyRacf will always raise an `AddOperationError` and **refuse** to perform the requested operation to bring attention to this condition._
 
 &nbsp;
 
-Prior to executing an **Add** operation, a **Profile Extract** is attempted to evaluate whether the profile already exists. If the **Return Code** and the **Messages** returned by the **Profile Extract** operation indicate that the profile already exists, an `AddOperationError` will be raised and the requested **Add** operation will **NOT** be executed. An `AddOperationError` can be handled as follows.
+Prior to executing an **Add** operation, a **Profile Extract** is attempted to determine whether the profile already exists. If the **Return Code** and the **Messages** returned by the **Profile Extract** operation indicate that the profile already exists, an `AddOperationError` will be raised and the requested **Add** operation will **NOT** be executed. An `AddOperationError` can be handled as follows.
 
 ###### Python Script
 ```python
@@ -32,7 +32,7 @@ except AddOperationError as e:
 
 ###### Console Output
 ```console
-Security request made to IRRSMO00 failed.
+Refusing to make security request to IRRSMO00.
 
 Target profile 'squidwrd' already exists as a 'user' profile.
 ```

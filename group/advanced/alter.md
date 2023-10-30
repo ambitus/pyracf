@@ -20,7 +20,7 @@ def alter(self, group: str, traits: dict) -> Union[dict, bytes]:
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../advanced/segments_traits_operators#segments) and [Traits](../advanced/segments_traits_operators#traits) for more details._
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -37,7 +37,7 @@ Alter an existing **group**.
   The **group** being altered.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be altered. See [Traits](../advanced/segments_traits_operators#traits) to see what all of the valid **Group Traits** are.
+  A dictionary of **traits/attributes** that should be altered. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Group Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -49,7 +49,7 @@ Alter an existing **group**.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **group** cannot be altered because it does **NOT** exist.
 * `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains at least one **unknown** trait.
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 

@@ -28,7 +28,7 @@ def permit(
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../advanced/segments_traits_operators#traits) for more details._
+> _Only a subset of available **Traits** are considered **Stable**. See [Traits](../segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -43,7 +43,7 @@ Create or change a **permission**.
   The **z/OS userid or group name** of the user or group to receive the change in permission.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be assigned to this permission for the specified user to the specified resource. See [Traits](../advanced/segments_traits_operators#traits) to see what all of the valid **Access Traits** are.
+  A dictionary of **traits/attributes** that should be assigned to this permission for the specified user to the specified resource. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Access Traits** are.
 
 * `volume`<br>
   The **volume** that the specified data set resides on (ignored unless the **class** is `DATASET`).
@@ -58,7 +58,7 @@ Create or change a **permission**.
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
 * `SegmentTraitError`<br>
-  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains at least one **unknown** trait.
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 
