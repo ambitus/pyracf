@@ -217,6 +217,197 @@ class ResourceAdmin(SecurityAdmin):
         return self._get_field(profile, "base", "yourAccess")
 
     # ============================================================================
+    # Class Administration
+    # ============================================================================
+    def add_resource_class(
+        self, class_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new general resource class."""
+        return self.add(resource=class_name, class_name="CDT", traits=traits)
+
+    def alter_resource_class(
+        self, class_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing general resource class."""
+        return self.alter(resource=class_name, class_name="CDT", traits=traits)
+
+    def extract_resource_class(self, class_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a general resource class."""
+        profile = self.extract(
+            resource=class_name, class_name="CDT", segments=["CDTINFO"]
+        )
+        return profile["cdtinfo"]
+
+    def delete_resource_class(self, class_name: str) -> Union[dict, bytes]:
+        """Delete a general resource class."""
+        return self.delete(resource=class_name, class_name="CDT")
+
+    # ============================================================================
+    # Started Task Administration
+    # ============================================================================
+    def add_started_task(
+        self, started_task_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new started task profile."""
+        return self.add(resource=started_task_name, class_name="STARTED", traits=traits)
+
+    def alter_started_task(
+        self, started_task_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing started task profile."""
+        return self.alter(
+            resource=started_task_name, class_name="STARTED", traits=traits
+        )
+
+    def extract_started_task(self, started_task_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a started task profile."""
+        profile = self.extract(
+            resource=started_task_name, class_name="STARTED", segments=["STDATA"]
+        )
+        return profile["stdata"]
+
+    def delete_started_task(self, started_task_name: str) -> Union[dict, bytes]:
+        """Delete a started task profile."""
+        return self.delete(resource=started_task_name, class_name="STARTED")
+
+    # ============================================================================
+    # Custom Field Administration
+    # ============================================================================
+    def add_custom_field(
+        self, custom_field_name: str, custom_field_type: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        return self.add(resource=full_profile_name, class_name="CFIELD", traits=traits)
+
+    def alter_custom_field(
+        self, custom_field_name: str, custom_field_type: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        return self.alter(
+            resource=full_profile_name, class_name="CFIELD", traits=traits
+        )
+
+    def extract_custom_field(
+        self, custom_field_name: str, custom_field_type: str
+    ) -> Union[dict, bytes]:
+        """Extract the attributes of a custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        profile = self.extract(
+            resource=full_profile_name, class_name="CFIELD", segments=["CFDEF"]
+        )
+        return profile["cfdef"]
+
+    def delete_custom_field(
+        self, custom_field_name: str, custom_field_type: str
+    ) -> Union[dict, bytes]:
+        """Delete a custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        return self.delete(resource=full_profile_name, class_name="CFIELD")
+
+    # ============================================================================
+    # Kerberos Realm Administration
+    # ============================================================================
+    def add_kerberos_realm(
+        self, kerberos_realm_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new kerberos realm profile."""
+        return self.add(resource=kerberos_realm_name, class_name="REALM", traits=traits)
+
+    def alter_kerberos_realm(
+        self, kerberos_realm_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing kerberos realm profile."""
+        return self.alter(
+            resource=kerberos_realm_name, class_name="REALM", traits=traits
+        )
+
+    def extract_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a kerberos realm profile."""
+        profile = self.extract(
+            resource=kerberos_realm_name, class_name="REALM", segments=["KERB"]
+        )
+        return profile["kerb"]
+
+    def delete_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
+        """Delete a kerberos realm profile."""
+        return self.delete(resource=kerberos_realm_name, class_name="REALM")
+
+    # ============================================================================
+    # Signed Program Administration
+    # ============================================================================
+    def add_signed_program(
+        self, signed_program_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new signed program profile."""
+        if traits["sigver:library"]:
+            traits["base:member"] = traits["sigver:library"]
+            del traits["sigver:library"]
+        return self.add(
+            resource=signed_program_name, class_name="PROGRAM", traits=traits
+        )
+
+    def alter_signed_program(
+        self, signed_program_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing signed program profile."""
+        if traits["sigver:library"]:
+            traits["base:member"] = traits["sigver:library"]
+            del traits["sigver:library"]
+        return self.alter(
+            resource=signed_program_name, class_name="PROGRAM", traits=traits
+        )
+
+    def extract_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a signed program profile."""
+        profile = self.extract(
+            resource=signed_program_name, class_name="PROGRAM", segments=["SIGVER"]
+        )
+        profile["sigver"]["library"] = profile["base"].get("member")
+        return profile["sigver"]
+
+    def delete_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
+        """Delete a signed program profile."""
+        return self.delete(resource=signed_program_name, class_name="PROGRAM")
+
+    # ============================================================================
+    # APPC Session Administration
+    # ============================================================================
+    def add_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new APPC session profile."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        return self.add(resource=full_profile_name, class_name="APPCLU", traits=traits)
+
+    def alter_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing APPC session profile."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        return self.alter(
+            resource=full_profile_name, class_name="APPCLU", traits=traits
+        )
+
+    def extract_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str
+    ) -> Union[dict, bytes]:
+        """Extract the attributes of a APPC session profile."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        profile = self.extract(
+            resource=full_profile_name, class_name="APPCLU", segments=["SESSION"]
+        )
+        return profile["session"]
+
+    def delete_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str
+    ) -> Union[dict, bytes]:
+        """Delete a APPC session."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        return self.delete(resource=full_profile_name, class_name="APPCLU")
+
+    # ============================================================================
     # Base Functions
     # ============================================================================
     def add(
