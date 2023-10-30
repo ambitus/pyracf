@@ -295,6 +295,8 @@ class TestUserDebugLogging(unittest.TestCase):
             success_log,
         )
 
+    # Secret redacted from command image but not from resulting error message.
+    # Marked experimental until resolved
     def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_error(
         self,
         call_racf_mock: Mock,

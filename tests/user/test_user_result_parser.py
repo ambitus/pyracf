@@ -474,6 +474,8 @@ class TestUserResultParser(unittest.TestCase):
             result,
         )
 
+    # Secret redacted from command image but not from resulting error message.
+    # Marked experimental until resolved
     def test_user_admin_custom_secret_redacted_on_error(
         self,
         call_racf_mock: Mock,
