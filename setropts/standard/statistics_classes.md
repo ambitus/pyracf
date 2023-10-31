@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Statistics Class
+# Statistics Classes
 
 Setropts administration functions for modifying if a class has the Statistics attribute. 
 {: .fs-6 .fw-300 }
@@ -66,7 +66,7 @@ Add a class to the list of classes that RACF will collect **Statistics** for.
 ```
 
 
-## `SetroptsAdmin.remove_statistics_class_()`
+## `SetroptsAdmin.remove_statistics_classes()`
 
 ```python
 def remove_statistics_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:

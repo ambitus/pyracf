@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Global Class
+# Global Classes
 
 Setropts administration functions for modifying if a class has the Global Access attribute. 
 {: .fs-6 .fw-300 }

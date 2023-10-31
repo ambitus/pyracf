@@ -22,7 +22,7 @@ def extract(
 &nbsp;
 
 {: .experimental }
-> _Profile data extracted for experimental **Segments** and **Traits** are considered **Experimental**. See [Segments](../../segments_traits_operators#segments) and [Traits](../../segments_traits_operators#traits) for more details._
+> _Profile data extracted for experimental **Segments** and **Traits** are considered **Experimental**. See [Segments](../../advanced/segments_traits_operators#segments) and [Traits](../../advanced/segments_traits_operators#traits) for more details._
 
 &nbsp;
 

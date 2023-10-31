@@ -39,7 +39,7 @@ Create or change a **group connection**.
   The **group** to which the user's connection is being created or changed.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that will be connected for the specified user's connection to the specifed group. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Group Traits** are.
+  A dictionary of **traits/attributes** that will be connected for the specified user's connection to the specifed group. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Group Connection Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

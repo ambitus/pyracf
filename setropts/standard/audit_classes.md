@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Audit Class
+# Audit Classes
 
 Setropts administration functions for modifying if a class has the Audit attribute. 
 {: .fs-6 .fw-300 }

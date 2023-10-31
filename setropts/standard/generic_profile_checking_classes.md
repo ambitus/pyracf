@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Generic Class
+# Generic Classes
 
 Setropts administration functions for modifying if a class has the Generic attribute. 
 {: .fs-6 .fw-300 }

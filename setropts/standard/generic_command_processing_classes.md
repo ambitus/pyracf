@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Gencmd Class
+# Gencmd Classes
 
 Setropts administration functions for modifying if a class has the Generic Command attribute. 
 {: .fs-6 .fw-300 }

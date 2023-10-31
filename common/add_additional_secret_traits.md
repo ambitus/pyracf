@@ -11,7 +11,7 @@ Add additional secrets to be redacted in debug log output and any returned resul
 &nbsp;
 
 {: .experimental }
-> _This feature will successfully remove references to the additional secrets in the **RACF Command Image** in the **Result XML** and debug logging output, but additional messages may contain secret values from these traits, especially if invalid data is specified._
+> _This feature will successfully remove references to the additional secrets in the **RACF Command Image** in the **Result XML** and debug logging output, but additional messages may contain secret values from these traits, especially if bad data is provided._
 
 &nbsp;
 

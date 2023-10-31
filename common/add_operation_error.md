@@ -11,7 +11,7 @@ Understanding the `AddOperationError` exception.
 &nbsp;
 
 {: .note }
-> _An **Add** operation targeting an existing profile could end up effectively performing an **Alter** operation on an existing profile. pyRacf will always raise an `AddOperationError` and **refuse** to perform the requested operation to bring attention to this condition._
+> _An **Add** operation targeting an existing profile could end up effectively performing an **Alter** operation on an existing profile. pyRACF will always raise an `AddOperationError` and **refuse** to perform the requested operation to bring attention to this condition._
 
 &nbsp;
 

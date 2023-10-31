@@ -20,7 +20,7 @@ def add(self, resource: str, class_name: str, traits: dict = {}) -> Union[dict, 
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segmetns) and [Traits](../segments_traits_operators#traits) for more details._
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
 
 &nbsp;
 

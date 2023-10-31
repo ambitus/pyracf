@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Active Class
+# Active Classes
 
 Setropts administration functions for modifying if a class has the Active attribute. 
 {: .fs-6 .fw-300 }

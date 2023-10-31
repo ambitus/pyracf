@@ -4,7 +4,7 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Genlist Class
+# Genlist Classes
 
 Setropts administration functions for modifying if a class has the Generic RACLIST attribute. 
 {: .fs-6 .fw-300 }

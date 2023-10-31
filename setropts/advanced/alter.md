@@ -20,7 +20,7 @@ def alter(self, options: dict = {}) -> Union[dict, bytes]:
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Options** are considered **Stable**. See [Options](../advanced/options_operators#options) for more details._
+> _Only a subset of available **Options** are considered **Stable**. See [Options](../options_operators#options) for more details._
 
 &nbsp;
 
