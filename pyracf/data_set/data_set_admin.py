@@ -110,7 +110,9 @@ class DataSetAdmin(SecurityAdmin):
             self._build_xml_segments(data_set_request)
             return self._make_request(data_set_request)
         try:
-            profile = self.extract(data_set, volume=volume, generic=generic, profile_only=True)
+            profile = self.extract(
+                data_set, volume=volume, generic=generic, profile_only=True
+            )
             if self._get_field(profile, "base", "name") == data_set.lower():
                 raise AddOperationError(data_set, self._profile_type)
         except SecurityRequestError as exception:
@@ -135,7 +137,9 @@ class DataSetAdmin(SecurityAdmin):
             self._build_xml_segments(data_set_request, alter=True)
             return self._make_request(data_set_request, irrsmo00_precheck=True)
         try:
-            profile = self.extract(data_set, volume=volume, generic=generic, profile_only=True)
+            profile = self.extract(
+                data_set, volume=volume, generic=generic, profile_only=True
+            )
         except SecurityRequestError:
             raise AlterOperationError(data_set, self._profile_type)
         if not self._get_field(profile, "base", "name") == data_set.lower():

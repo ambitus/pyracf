@@ -234,7 +234,10 @@ class ResourceAdmin(SecurityAdmin):
     def extract_resource_class(self, class_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a general resource class."""
         profile = self.extract(
-            resource=class_name, class_name="CDT", segments=["cdtinfo"], profile_only=True
+            resource=class_name,
+            class_name="CDT",
+            segments=["cdtinfo"],
+            profile_only=True,
         )
         return profile["cdtinfo"]
 
@@ -262,7 +265,10 @@ class ResourceAdmin(SecurityAdmin):
     def extract_started_task(self, started_task_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a started task profile."""
         profile = self.extract(
-            resource=started_task_name, class_name="STARTED", segments=["stdata"], profile_only=True
+            resource=started_task_name,
+            class_name="STARTED",
+            segments=["stdata"],
+            profile_only=True,
         )
         return profile["stdata"]
 
@@ -295,7 +301,10 @@ class ResourceAdmin(SecurityAdmin):
         """Extract the attributes of a custom field."""
         full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
         profile = self.extract(
-            resource=full_profile_name, class_name="CFIELD", segments=["cfdef"], profile_only=True
+            resource=full_profile_name,
+            class_name="CFIELD",
+            segments=["cfdef"],
+            profile_only=True,
         )
         return profile["cfdef"]
 
@@ -326,7 +335,10 @@ class ResourceAdmin(SecurityAdmin):
     def extract_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a kerberos realm profile."""
         profile = self.extract(
-            resource=kerberos_realm_name, class_name="REALM", segments=["kerb"], profile_only=True
+            resource=kerberos_realm_name,
+            class_name="REALM",
+            segments=["kerb"],
+            profile_only=True,
         )
         return profile["kerb"]
 
@@ -362,7 +374,10 @@ class ResourceAdmin(SecurityAdmin):
     def extract_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a signed program profile."""
         profile = self.extract(
-            resource=signed_program_name, class_name="PROGRAM", segments=["sigver"], profile_only=True
+            resource=signed_program_name,
+            class_name="PROGRAM",
+            segments=["sigver"],
+            profile_only=True,
         )
         profile["sigver"]["library"] = profile["base"].get("member")
         return profile["sigver"]
@@ -396,7 +411,10 @@ class ResourceAdmin(SecurityAdmin):
         """Extract the attributes of a APPC session profile."""
         full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
         profile = self.extract(
-            resource=full_profile_name, class_name="APPCLU", segments=["session"], profile_only=True
+            resource=full_profile_name,
+            class_name="APPCLU",
+            segments=["session"],
+            profile_only=True,
         )
         return profile["session"]
 

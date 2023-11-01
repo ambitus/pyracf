@@ -55,6 +55,17 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
         rsp
     );
 
+   int i;
+   for (i = 1; i < rsp_len; i++){
+        if (rsp[i] == 0) {
+	        if (rsp[i-1] == '>') {
+                        break; 
+                }
+	        else {
+                        rsp[i] = ' ';
+                }
+	}
+   }
    return Py_BuildValue("y", rsp);
 }
 
