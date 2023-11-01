@@ -30,7 +30,7 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
     VarStr_T userid = { 0, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
-    char rsp[BUFFER_SIZE+1];
+    unsigned char rsp[BUFFER_SIZE+1];
     memset(rsp, 0, BUFFER_SIZE);
     unsigned int saf_rc=0, racf_rc=0, racf_rsn=0;
     unsigned int num_parms=17, fn=1, opts = input_opts, rsp_len = sizeof(rsp)-1;
@@ -55,14 +55,13 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
         rsp
     );
 
-   int i;
-   for (i = 1; i < rsp_len; i++){
+   for (int i = 1; i < rsp_len; i++){
         if (rsp[i] == 0) {
-	        if (rsp[i-1] == '>') {
+	        if (rsp[i-1] == 0x6E) {
                         break; 
                 }
 	        else {
-                        rsp[i] = ' ';
+                        rsp[i] = 0x40;
                 }
 	}
    }
