@@ -65,7 +65,7 @@ class ResourceAdmin(SecurityAdmin):
                 "cdtinfo:key_qualifiers": "keyqual",
                 "cdtinfo:manditory_access_control_processing": "macprocessing",
                 "cdtinfo:max_length": "maxlenx",
-                "cdtinfo:max_length_racroute": "maxlength",
+                "cdtinfo:max_length_entityx": "maxlength",
                 "cdtinfo:member_class_name": "member",
                 "cdtinfo:operations": "operations",
                 "cdtinfo:valid_other_characters": "other",
@@ -83,7 +83,7 @@ class ResourceAdmin(SecurityAdmin):
                 "cfdef:list_heading_text": "listhead",
                 "cfdef:mixed_case_allowed": "mixed",
                 "cfdef:min_numeric_value": "minvalue",
-                "cfdef:max_field_length": "maxlength",
+                "cfdef:max_field_length": "mxlength",
                 "cfdef:max_numeric_value": "maxvalue",
                 "cfdef:valid_other_characters": "other",
                 "cfdef:validation_rexx_exec": "racf:cfvalrx",
@@ -234,7 +234,7 @@ class ResourceAdmin(SecurityAdmin):
     def extract_resource_class(self, class_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a general resource class."""
         profile = self.extract(
-            resource=class_name, class_name="CDT", segments=["CDTINFO"]
+            resource=class_name, class_name="CDT", segments=["cdtinfo"], profile_only=True
         )
         return profile["cdtinfo"]
 
@@ -262,7 +262,7 @@ class ResourceAdmin(SecurityAdmin):
     def extract_started_task(self, started_task_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a started task profile."""
         profile = self.extract(
-            resource=started_task_name, class_name="STARTED", segments=["STDATA"]
+            resource=started_task_name, class_name="STARTED", segments=["stdata"], profile_only=True
         )
         return profile["stdata"]
 
@@ -295,7 +295,7 @@ class ResourceAdmin(SecurityAdmin):
         """Extract the attributes of a custom field."""
         full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
         profile = self.extract(
-            resource=full_profile_name, class_name="CFIELD", segments=["CFDEF"]
+            resource=full_profile_name, class_name="CFIELD", segments=["cfdef"], profile_only=True
         )
         return profile["cfdef"]
 
@@ -326,7 +326,7 @@ class ResourceAdmin(SecurityAdmin):
     def extract_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a kerberos realm profile."""
         profile = self.extract(
-            resource=kerberos_realm_name, class_name="REALM", segments=["KERB"]
+            resource=kerberos_realm_name, class_name="REALM", segments=["kerb"], profile_only=True
         )
         return profile["kerb"]
 
@@ -362,7 +362,7 @@ class ResourceAdmin(SecurityAdmin):
     def extract_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
         """Extract the attributes of a signed program profile."""
         profile = self.extract(
-            resource=signed_program_name, class_name="PROGRAM", segments=["SIGVER"]
+            resource=signed_program_name, class_name="PROGRAM", segments=["sigver"], profile_only=True
         )
         profile["sigver"]["library"] = profile["base"].get("member")
         return profile["sigver"]
@@ -396,7 +396,7 @@ class ResourceAdmin(SecurityAdmin):
         """Extract the attributes of a APPC session profile."""
         full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
         profile = self.extract(
-            resource=full_profile_name, class_name="APPCLU", segments=["SESSION"]
+            resource=full_profile_name, class_name="APPCLU", segments=["session"], profile_only=True
         )
         return profile["session"]
 
@@ -420,21 +420,29 @@ class ResourceAdmin(SecurityAdmin):
             self._build_xml_segments(profile_request)
             return self._make_request(profile_request)
         try:
-            self.extract(resource, class_name)
+            profile = self.extract(resource, class_name, profile_only=True)
+            if self._get_field(profile, "base", "name") == resource.lower():
+                raise AddOperationError(resource, class_name)
         except SecurityRequestError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH13003I"):
                 raise exception
-            self._build_segment_dictionaries(traits)
-            profile_request = ResourceRequest(resource, class_name, "set")
-            self._build_xml_segments(profile_request)
-            return self._make_request(profile_request)
-        raise AddOperationError(resource, class_name)
+        self._build_segment_dictionaries(traits)
+        profile_request = ResourceRequest(resource, class_name, "set")
+        self._build_xml_segments(profile_request)
+        return self._make_request(profile_request)
 
     def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing general resource profile."""
+        if self._generate_requests_only:
+            self._build_segment_dictionaries(traits)
+            profile_request = ResourceRequest(resource, class_name, "set")
+            self._build_xml_segments(profile_request, alter=True)
+            return self._make_request(profile_request, irrsmo00_precheck=True)
         try:
-            self.extract(resource, class_name)
+            profile = self.extract(resource, class_name, profile_only=True)
         except SecurityRequestError:
+            raise AlterOperationError(resource, class_name)
+        if not self._get_field(profile, "base", "name") == resource.lower():
             raise AlterOperationError(resource, class_name)
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
