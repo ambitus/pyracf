@@ -13,14 +13,14 @@ typedef struct {
         char str[8];
 } VarStr_T;
 
-static char* null_byte_fix(char* string) {
-   for (int i = 1; i < rsp_len; i++){
-      if (rsp[i] == 0) {
-         if (rsp[i-1] == 0x6E) {
+void null_byte_fix(char* str, unsigned int str_len) {
+   for (int i = 1; i < str_len; i++){
+      if (str[i] == 0) {
+         if (str[i-1] == 0x6E) {
             break; 
          }
          else {
-            rsp[i] = 0x40;
+            str[i] = 0x40;
          }
       }
    }
@@ -68,7 +68,7 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
         rsp
     );
 
-   rsp = null_byte_fix(rsp);
+   null_byte_fix(rsp,rsp_len);
    return Py_BuildValue("y", rsp);
 }
 
