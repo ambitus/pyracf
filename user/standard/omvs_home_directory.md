@@ -67,6 +67,8 @@ Change a user's **z/OS Unix System Services Home Directory**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 

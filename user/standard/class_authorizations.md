@@ -67,6 +67,8 @@ Overwrite a user's existing **Class Authorizations**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 
@@ -160,6 +162,8 @@ Add new **Class Authorizations** to a user's existing **Class Authorizations**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 
@@ -231,6 +235,8 @@ Remove **Class Authorizations** to a user's existing **Class Authorizations**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 
@@ -291,6 +297,8 @@ Delete all of a user's **Class Authorizations**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 

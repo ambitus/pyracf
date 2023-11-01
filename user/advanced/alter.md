@@ -12,7 +12,7 @@ Alter an existing z/OS userid.
 ## `UserAdmin.alter()`
 
 ```python
-def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
+def alter(self, userid: str, traits: dict) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -20,7 +20,7 @@ def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
 &nbsp;
 
 {: .experimental }
-> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segmetns) and [Traits](../segments_traits_operators#traits) for more details._
+> _Only a subset of available **Segments** and **Traits** are considered **Stable**. See [Segments](../segments_traits_operators#segments) and [Traits](../segments_traits_operators#traits) for more details._
 
 &nbsp;
 
@@ -54,6 +54,10 @@ Alter an existing **z/OS userid**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 
@@ -69,8 +73,8 @@ user_admin = UserAdmin()
 traits = {
     "base:special": False,
     "base:operations": True,
-    "omvs:home": "/u/clarinet",
-    "omvs:program": False,
+    "omvs:home_directory": "/u/clarinet",
+    "omvs:default_shell": False,
 }
 
 user_admin.alter("squidwrd", traits=traits)

@@ -13,7 +13,11 @@ Create a new data set profile.
 
 ```python
 def add(
-    self, data_set: str, traits: dict, volume: Union[str, None] = None, generic: bool = False
+    self,
+    data_set: str,
+    traits: dict = {},
+    volume: Union[str, None] = None,
+    generic: bool = False
 ) -> Union[dict, bytes]:
 ```
 
@@ -48,6 +52,10 @@ Create a new **data set profile**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+ * `AddOperationError`<br>
+  Raises `AddOperationError` when the **data set profile** cannot be added because it already exists.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 

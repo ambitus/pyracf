@@ -4,24 +4,24 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Active Class
+# Genlist Classes
 
-Setropts administration functions for modifying if a class has the Active attribute. 
+Setropts administration functions for modifying if a class has the Generic RACLIST attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.has_active_authority()`
+## `SetroptsAdmin.add_generic_profile_sharing_classes()`
 
 ```python
-def add_active_class(self, class_name: str) -> Union[dict, bytes]:
+def add_generic_profile_sharing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Add a class to the list of classes that RACF considers **Active**.
+Add a class to the list of classes for which RACF will share **Generic Profiles** by RACLISTing them in common storage.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to add the active attribute to.
+  The name of the **class** to add the Generic attribute to.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -37,8 +37,8 @@ Add a class to the list of classes that RACF considers **Active**.
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.add_active_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      CLASSACT    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.add_generic_profile_sharing_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GENLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -54,7 +54,7 @@ Add a class to the list of classes that RACF considers **Active**.
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS      CLASSACT    (ELIJTEST)"
+            "image":"SETROPTS      GENLIST    (ELIJTEST)"
           }
         ]
       },
@@ -66,19 +66,19 @@ Add a class to the list of classes that RACF considers **Active**.
 ```
 
 
-## `SetroptsAdmin.remove_active_class()`
+## `SetroptsAdmin.remove_generic_profile_sharing_classes()`
 
 ```python
-def remove_active_class(self, class_name: str) -> Union[dict, bytes]:
+def remove_generic_profile_sharing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Remove a class from the list of classes that RACF considers **Active**.
+Remove a class from the list of classes for which RACF will share **Generic Profiles** by RACLISTing them in common storage.
 
 #### 📥 Parameters
 * `class_name`<br>
-  The name of the **class** to remove the active attribute from.
+  The name of the **class** to remove the generic profile sharing attribute from.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -94,8 +94,8 @@ Remove a class from the list of classes that RACF considers **Active**.
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.remove_active_class("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOCLASSACT    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+>>> setropts_admin.remove_generic_profile_sharing_classes("ELIJTEST")
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGENLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 
 ```
 
@@ -112,7 +112,7 @@ Remove a class from the list of classes that RACF considers **Active**.
             "safReturnCode":0,
             "returnCode":0,
             "reasonCode":0,
-            "image":"SETROPTS    NOCLASSACT    (ELIJTEST)"
+            "image":"SETROPTS    NOGENLIST    (ELIJTEST)"
           }
         ]
       },

@@ -64,6 +64,8 @@ Extract a **group's** profile data.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `SegmentError`<br>
+  Raises `SegmentError` when the list of **segments** provided contains one or more **unknown** segments.
 
 #### 💻 Example
 

@@ -4,15 +4,15 @@ grand_parent: Setropts Admin
 parent: Standard
 ---
 
-# Gencmd Class
+# Gencmd Classes
 
 Setropts administration functions for modifying if a class has the Generic Command attribute. 
 {: .fs-6 .fw-300 }
 
-## `SetroptsAdmin.add_generic_command_processing_class()`
+## `SetroptsAdmin.add_generic_command_processing_classes()`
 
 ```python
-def add_generic_command_processing_class(self, class_name: str) -> Union[dict, bytes]:
+def add_generic_command_processing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -37,7 +37,7 @@ Add a class to the list of classes that RACF will process **Generic Commands** f
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.add_generic_command_processing_class("ELIJTEST")
+>>> setropts_admin.add_generic_command_processing_classes("ELIJTEST")
 {'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GENCMD    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 ```
 
@@ -66,10 +66,10 @@ Add a class to the list of classes that RACF will process **Generic Commands** f
 ```
 
 
-## `SetroptsAdmin.remove_generic_command_processing_class()`
+## `SetroptsAdmin.remove_generic_command_processing_classes()`
 
 ```python
-def remove_generic_command_processing_class(self, class_name: str) -> Union[dict, bytes]:
+def remove_generic_command_processing_classes(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -94,7 +94,7 @@ Remove a class from the list of classes that RACF will process **Generic Command
 ```python
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
->>> setropts_admin.remove_generic_command_processing_class("ELIJTEST")
+>>> setropts_admin.remove_generic_command_processing_classes("ELIJTEST")
 {'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGENCMD    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
 
 ```

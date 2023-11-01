@@ -12,7 +12,7 @@ Refresh a RACLISTed class.
 ## `SetroptsAdmin.refresh_raclist()`
 
 ```python
-def refresh_raclist(self, class_name: str) -> Union[dict, bytes]:
+def refresh_raclist(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

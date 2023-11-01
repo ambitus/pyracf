@@ -62,6 +62,8 @@ Give a user **Operations** authority.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **return code** or **reason code** of a **Security Result** is not equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 
@@ -122,6 +124,8 @@ Remove a user's **Operations** authority.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **return code** or **reason code** of a **Security Result** is not equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
 #### 💻 Example
 

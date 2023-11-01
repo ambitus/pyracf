@@ -12,7 +12,7 @@ Alter an existing group.
 ## `GroupAdmin.alter()`
 
 ```python
-def alter(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
+def alter(self, group: str, traits: dict) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -46,6 +46,10 @@ Alter an existing **group**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `AlterOperationError`<br>
+  Raises `AlterOperationError` when the **group** cannot be altered because it does **NOT** exist.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 

@@ -4,15 +4,15 @@ grand_parent: Access Admin
 parent: Advanced
 ---
 
-# Add
+# Permit
 
-Create a new permission.
+Create or change a permission
 {: .fs-6 .fw-300 }
 
-## `AccessAdmin.add()`
+## `AccessAdmin.permit()`
 
 ```python
-def add(
+def permit(
     self,
     resource: str,
     class_name: str,
@@ -32,16 +32,15 @@ def add(
 
 &nbsp;
 
-Create a new **permission**.
+Create or change a **permission**.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **resource profile** to grant this permission to.
+  The **general resource profile** to permit this permission to.
 * `class`<br>
   The **class** that the specified resource profile belongs to.
 * `auth_id`<br>
-  The **z/OS userid or group name** of the user or group to receive the permission.
-
+  The **z/OS userid or group name** of the user or group to receive the change in permission.
 
 * `traits`<br>
   A dictionary of **traits/attributes** that should be assigned to this permission for the specified user to the specified resource. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Access Traits** are.
@@ -58,10 +57,12 @@ Create a new **permission**.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+* `SegmentTraitError`<br>
+  Raises `SegmentTraitError` when the dictionary of **traits/attributes** provided contains one or more **unknown** traits.
 
 #### 💻 Example
 
-The following example **creates** a **new permission** for the **z/OS userid** `eswift` to the **resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
+The following example **permits** an existing **permission** for the **z/OS userid** `eswift` to the **general resource profile** `testing` in the **class** `elijtest` with one **trait/attribute** as defined in the `traits` dictionary.
 
 ###### Python Script
 ```python
@@ -69,10 +70,10 @@ from pyracf import AccessAdmin
 access_admin = AccessAdmin()
 
 traits = {
-    "base:access": "READ",
+    "base:access": "NONE",
 }
 
-access_admin.add("TESTING", "ELIJTEST", "ESWIFT", traits=traits)
+access_admin.permit("TESTING", "ELIJTEST", "ESWIFT", traits=traits)
 ```
 
 ###### Security Result Dictionary as JSON
@@ -89,7 +90,7 @@ access_admin.add("TESTING", "ELIJTEST", "ESWIFT", traits=traits)
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (READ) ID          (ESWIFT)",
+          "image": "PERMIT               TESTING CLASS(ELIJTEST)  ACCESS      (NONE) ID          (ESWIFT)",
           "messages": [
             "ICH06011I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED"
           ]
