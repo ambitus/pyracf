@@ -13,9 +13,9 @@ typedef struct {
         char str[8];
 } VarStr_T;
 
-// This function changes any null character not preceded by '>' to whitespace
-// This works around an issue with IRRSMO00 treating whitespace as null characters
-// which led to premature string termination
+// This function changes any null character not preceded by '>' to a blank character.
+// This works around an issue with our expectations of values in the response string
+// returned from IRRSMO00 which led to premature string termination.
 void null_byte_fix(char* str, unsigned int str_len) {
    for (int i = 1; i < str_len; i++){
       if (str[i] == 0) {

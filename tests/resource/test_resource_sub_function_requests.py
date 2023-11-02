@@ -13,7 +13,7 @@ from pyracf.common.irrsmo00 import IRRSMO00
 __init__
 
 
-class TestResourceSubFunctionRequests(unittest.TestCase):
+class TestResourceSubfunctionRequests(unittest.TestCase):
     maxDiff = None
     IRRSMO00.__init__ = Mock(return_value=None)
     resource_admin = ResourceAdmin(generate_requests_only=True)
