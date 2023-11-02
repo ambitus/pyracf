@@ -269,6 +269,7 @@ class SecurityAdmin:
             else:
                 bad_segments.append(segment)
         if bad_segments:
+            self.__clear_state(SecurityRequest)
             raise SegmentError(bad_segments, self._profile_type)
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
@@ -287,6 +288,7 @@ class SecurityAdmin:
             if not trait_valid:
                 bad_traits.append(trait)
         if bad_traits:
+            self.__clear_state(SecurityRequest)
             raise SegmentTraitError(bad_traits, self._profile_type)
 
         # preserve segment traits for debug logging.
