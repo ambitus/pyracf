@@ -30,10 +30,10 @@ from tests.resource.test_resource_getters import TestResourceGetters
 from tests.resource.test_resource_request_builder import TestResourceRequestBuilder
 from tests.resource.test_resource_result_parser import TestResourceResultParser
 from tests.resource.test_resource_setters import TestResourceSetters
-from tests.resource.test_resource_sub_function_extracts import (
+from tests.resource.test_resource_subfunction_extracts import (
     TestResourceSubfunctionExtracts,
 )
-from tests.resource.test_resource_sub_function_requests import (
+from tests.resource.test_resource_subfunction_requests import (
     TestResourceSubfunctionRequests,
 )
 from tests.setropts.test_setropts_debug_logging import TestSetroptsDebugLogging

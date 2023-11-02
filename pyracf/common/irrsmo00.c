@@ -14,8 +14,9 @@ typedef struct {
 } VarStr_T;
 
 // This function changes any null character not preceded by '>' to a blank character.
-// This works around an issue with our expectations of values in the response string
-// returned from IRRSMO00 which led to premature string termination.
+// This is a workaround for an issue where the profile data embedded in response xml 
+// returned by IRROSMO00 sometimes includes null characters instead of properly 
+// encoded text, which causes the returned xml to be truncated.
 void null_byte_fix(char* str, unsigned int str_len) {
    for (int i = 1; i < str_len; i++){
       if (str[i] == 0) {
