@@ -65,6 +65,22 @@ class TestDataSetResultParser(unittest.TestCase):
             + f"'{self.data_set_admin._profile_type}' profile.",
         )
 
+    def test_dataset_admin_avoids_error_on_add_covered_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.side_effect = [
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_GENERIC_BASE_ONLY_SUCCESS_XML,
+            TestDataSetConstants.TEST_ADD_DATA_SET_RESULT_SUCCESS_XML,
+        ]
+        self.assertEqual(
+            self.data_set_admin.add(
+                "ESWIFT.TEST.T1136242.P3020470",
+                traits=TestDataSetConstants.TEST_ADD_DATA_SET_REQUEST_TRAITS,
+            ),
+            TestDataSetConstants.TEST_ADD_DATA_SET_RESULT_SUCCESS_DICTIONARY,
+        )
+
     # Error in command, ESWIFTTESTT1136242P3020470 is not a valid DATASET
     def test_data_set_admin_can_parse_add_data_set_error_xml(
         self,
@@ -110,6 +126,28 @@ class TestDataSetResultParser(unittest.TestCase):
         profile_name = "ESWIFT.TEST.T1136242.P3020470"
         call_racf_mock.side_effect = [
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML,
+            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.data_set_admin.alter(
+                profile_name,
+                traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Refusing to make security request to IRRSMO00."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' does not exist as a "
+            + f"'{self.data_set_admin._profile_type}' profile.",
+        )
+
+    def test_dataset_admin_throws_error_on_alter_covered_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "ESWIFT.TEST.T1136242.P3020470"
+        call_racf_mock.side_effect = [
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_GENERIC_BASE_ONLY_SUCCESS_XML,
             TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML,
         ]
         with self.assertRaises(AlterOperationError) as exception:
