@@ -247,16 +247,12 @@ class TestUserDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             try:
                 error_traits = dict(
-                    TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD
+                    TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE
                 )
                 error_traits["omvs:uid"] = 90000000000
                 self.user_admin.alter(
                     "squidwrd",
                     traits=error_traits,
-                )
-                self.user_admin.alter(
-                    "squidwrd",
-                    traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE,
                 )
             except SecurityRequestError:
                 pass
