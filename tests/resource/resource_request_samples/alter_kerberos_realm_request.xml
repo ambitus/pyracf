@@ -1,0 +1,7 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TSTREALM" class="REALM" operation="set" requestid="ResourceRequest">
+    <kerb>
+      <encrypt operation="set">AES128</encrypt>
+    </kerb>
+  </resource>
+</securityrequest>

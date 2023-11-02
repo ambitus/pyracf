@@ -17,7 +17,7 @@ void null_byte_fix(char* str, unsigned int str_len) {
    for (int i = 1; i < str_len; i++){
       if (str[i] == 0) {
          if (str[i-1] == 0x6E) {
-            break; 
+            return; 
          }
          else {
             str[i] = 0x40;

@@ -187,8 +187,8 @@ class ResourceAdmin(SecurityAdmin):
                 "first": "validFirstCharacters",
                 "generic": "generic",
                 "genlist": "genlist",
-                "grouping": "groupingClassName",
-                "keyqual": "keyQualifiers",
+                "group": "groupingClassName",
+                "keyqualifiers": "keyQualifiers",
                 "macprocessing": "manditoryAccessControlProcessing",
                 "maxlenx": "maxLength",
                 "maxlength": "maxLengthEntityx",
@@ -199,7 +199,7 @@ class ResourceAdmin(SecurityAdmin):
                 "profilesallowed": "profilesAllowed",
                 "raclist": "raclistAllowed",
                 "signal": "sendEnfSignalOnProfileCreation",
-                "seclabelrequired": "securityLabelRequired",
+                "seclabelsrequired": "securityLabelsRequired",
                 "defaultuacc": "defaultUniversalAccess",
             },
             "cfdef": {
@@ -407,7 +407,7 @@ class ResourceAdmin(SecurityAdmin):
         self, signed_program_name: str, traits: dict = {}
     ) -> Union[dict, bytes]:
         """Create a new signed program profile."""
-        if traits["sigver:library"]:
+        if "sigver:library" in traits:
             traits["base:member"] = traits["sigver:library"]
             del traits["sigver:library"]
         return self.add(
@@ -418,7 +418,7 @@ class ResourceAdmin(SecurityAdmin):
         self, signed_program_name: str, traits: dict = {}
     ) -> Union[dict, bytes]:
         """Alter an existing signed program profile."""
-        if traits["sigver:library"]:
+        if "sigver:library" in traits:
             traits["base:member"] = traits["sigver:library"]
             del traits["sigver:library"]
         return self.alter(

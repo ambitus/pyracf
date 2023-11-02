@@ -30,6 +30,12 @@ from tests.resource.test_resource_getters import TestResourceGetters
 from tests.resource.test_resource_request_builder import TestResourceRequestBuilder
 from tests.resource.test_resource_result_parser import TestResourceResultParser
 from tests.resource.test_resource_setters import TestResourceSetters
+from tests.resource.test_resource_sub_function_extracts import (
+    TestResourceSubFunctionExtracts,
+)
+from tests.resource.test_resource_sub_function_requests import (
+    TestResourceSubFunctionRequests,
+)
 from tests.setropts.test_setropts_debug_logging import TestSetroptsDebugLogging
 from tests.setropts.test_setropts_getters import TestSetroptsGetters
 from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
@@ -68,6 +74,8 @@ def __test_suite() -> unittest.TestSuite:
         TestResourceGetters,
         TestResourceSetters,
         TestResourceDebugLogging,
+        TestResourceSubFunctionRequests,
+        TestResourceSubFunctionExtracts,
         TestGroupResultParser,
         TestGroupRequestBuilder,
         TestGroupGetters,
