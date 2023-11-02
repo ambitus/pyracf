@@ -1,0 +1,7 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TSTNET.TSTLOCLU.TSTPRTLU" class="APPCLU" operation="set" requestid="ResourceRequest">
+    <session>
+      <racf:lock operation="set" />
+    </session>
+  </resource>
+</securityrequest>

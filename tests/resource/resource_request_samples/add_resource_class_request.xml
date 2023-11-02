@@ -1,0 +1,17 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="SHELCITY" class="CDT" operation="set" requestid="ResourceRequest">
+    <cdtinfo>
+      <case>UPPER</case>
+      <first>ALPHA</first>
+      <other>ALPHA NUMERIC</other>
+      <maxlenx>246</maxlenx>
+      <maxlength>246</maxlength>
+      <keyqual>0</keyqual>
+      <profilesallowed>YES</profilesallowed>
+      <posit>200</posit>
+      <defaultrc>8</defaultrc>
+      <defaultuacc>NONE</defaultuacc>
+      <raclist>ALLOWED</raclist>
+    </cdtinfo>
+  </resource>
+</securityrequest>

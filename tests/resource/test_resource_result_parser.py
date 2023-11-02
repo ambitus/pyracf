@@ -63,6 +63,19 @@ class TestResourceResultParser(unittest.TestCase):
             + f"'{profile_name}' already exists as a profile in the '{class_name}' class.",
         )
 
+    def test_resource_admin_avoids_error_on_add_covered_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_GENERIC_SUCCESS_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        self.assertEqual(
+            self.resource_admin.add("TESTING", "ELIJTEST"),
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_DICTIONARY,
+        )
+
     # Error: bad Entity Name ELIXTEST
     def test_resource_admin_can_parse_add_resource_error_xml(
         self,
@@ -107,6 +120,29 @@ class TestResourceResultParser(unittest.TestCase):
         class_name = "ELIJTEST"
         call_racf_mock.side_effect = [
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(AlterOperationError) as exception:
+            self.resource_admin.alter(
+                profile_name,
+                class_name,
+                traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Refusing to make security request to IRRSMO00."
+            + "\n\nTarget profile "
+            + f"'{profile_name}' does not exist as a profile in the '{class_name}' class.",
+        )
+
+    def test_resource_admin_throws_error_on_alter_covered_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "TESTING"
+        class_name = "ELIJTEST"
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_GENERIC_SUCCESS_XML,
             TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
         ]
         with self.assertRaises(AlterOperationError) as exception:

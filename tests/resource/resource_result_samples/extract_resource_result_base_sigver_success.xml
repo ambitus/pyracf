@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTPRGM" class="PROGRAM" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RLIST   PROGRAM             (TESTPRGM)  SIGVER  </image>
+      <message>CLASS      NAME</message>
+      <message>-----      ----</message>
+      <message>PROGRAM    TESTPRGM</message>
+      <message> </message>
+      <message>MEMBER CLASS NAME</message>
+      <message>------ ----- ----</message>
+      <message>PMBR</message>
+      <message> </message>
+      <message>DATA SET NAME                                  VOLSER   PADS CHECKING</message>
+      <message>--------------------------------------------   ------   -------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
+      <message>-----  --------   ----------------  -----------  -------</message>
+      <message> 00    ESWIFT          NONE              ALTER    NO</message>
+      <message> </message>
+      <message>INSTALLATION DATA</message>
+      <message>-----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>APPLICATION DATA</message>
+      <message>----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>AUDITING</message>
+      <message>--------</message>
+      <message>FAILURES(READ)</message>
+      <message> </message>
+      <message>NOTIFY</message>
+      <message>------</message>
+      <message>NO USER TO BE NOTIFIED</message>
+      <message> </message>
+      <message>SIGVER INFORMATION</message>
+      <message>------------------</message>
+      <message>SIGREQUIRED = NO</message>
+      <message>FAILLOAD = NEVER</message>
+      <message>SIGAUDIT = SUCCESS</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

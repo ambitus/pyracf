@@ -1,0 +1,9 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="user.csdata.TVSHOW" class="CFIELD" operation="set" requestid="ResourceRequest">
+    <cfdef>
+      <help operation="set">Favorite TV Show</help>
+      <first operation="set">ALPHA</first>
+      <other operation="set">ALPHA</other>
+    </cfdef>
+  </resource>
+</securityrequest>
