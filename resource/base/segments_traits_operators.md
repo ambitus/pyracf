@@ -33,7 +33,13 @@ When using the **[`ResourceAdmin.extract()`](../extract#resourceadminextract)** 
 &nbsp;
 
 | **Segment** | **Description** |
-| `Base` | Describes a general resource profile's **Base** attributes. |
+| `base` | Describes a general resource profile's **Base** attributes. |
+| `cdtinfo` | Describes a general resource profile's **Resource Class** attributes. |
+| `cfdef` | Describes a general resource profile's **Custom Field** attributes. |
+| `kerb` | Describes a general resource profile's **Kerberos Realm** attributes. |
+| `session` | Describes a general resource profile's **APPC Session** attributes. |
+| `sigver` | Describes a general resource profile's **Signed Program** attributes. |
+| `stdata` | Describes a general resource profile's **Started Task** attributes. |
 
 ### Traits
 
@@ -59,6 +65,29 @@ Traits use the following syntax: `<segment>:<trait>`
 
 | **Trait** | **Description** | **Valid Types** |
 | `base:universal_access` | Set a resource's **Universal Access** level. | `str` |
+| `cdtinfo:case_allowed` | Set the **Case Allowed** for the names of profiles in this resource class. | `str`, `False` |
+| `cdtinfo:default_racroute_return_code` | Set the **Default Return Code** for requests to access profiles in this resource class. | `int`, `False` |
+| `cdtinfo:valid_first_characters` | Set the **Valid Character Types** for the first characters in names of profiles in this resource class. | `str`, `False` |
+| `cdtinfo:grouping_class_name` | Set the **Grouping Class** name associated with this resource class. | `str`, `False` |
+| `cdtinfo:key_qualifiers` | Set the number of **Qualifiers** used to determine a match for profiles in this resource class | `int` |
+| `cdtinfo:max_length` | Set the **Maximum Length** for the names of profiles within this resource class. | `str`, `False` |
+| `cdtinfo:max_length_entityx` | Set the **Maximum Length** for the names of profiles when a RACROUTE macro is invoked with the ENTITYX keyword within this resource class. | `str`, `False` |
+| `cdtinfo:valid_other_characters` | Set the **Valid Character Types** for the other characters in names of profiles in this resource class. | `str`, `False` |
+| `cdtinfo:posit_number` | Set the **Posit Number** for this resource class. This controls flags that control many RACF processing options | `int`, `False` |
+| `cdtinfo:profiles_allowed` | Specifies whether or not **Profiles are Allowed** for this resource class. | `bool` |
+| `cdtinfo:raclist_allowed` | Specifies whether or not this class is **Allowed to be Raclisted**. | `bool` |
+| `cdtinfo:default_universal_access` | Set the **Default Universal Access Value** for profiles in this resource class. | `str`, `False` |
+| `cfdef:help_text` | Set the **Help Text** for this custom field. | `str` |
+| `cfdef:valid_first_characters` | Set the **Valid Character Types** for the first characters in values for this custom field. | `str` |
+| `cfdef:valid_other_characters` | Set the **Valid Character Types** for the other characters in values for this custom field. | `str` |
+| `kerb:key_encryption_type` | Set the **Encryption Algorithms** for this kerberos realm. | `str`, `False` |
+| `sigver:log_signature_verification_events` | Specifies whether to **Audit Signature Verification Events** this signed program. | `str`, `False` |
+| `session:locked` | **Lock** the profiled for this APPC session. | `bool` |
+| `stdata:group` | Set the **Group** to associate with this started task. | `str`, `False` |
+| `stdata:privileged` | Specify whether or not this started task runs with the **RACF Privileged** attribute. | `bool` |
+| `stdata:trace` | Specify whether or not this started task should issue a message to the operator to **Trace** use of this entry. | `bool` |
+| `stdata:trusted` | Specify whether or not this started task runs with the **RACF Trusted** attribute. | `bool` |
+| `stdata:user` | Set the **User ID** to associate with this started task. | `str`, `False` |
 
 
 ### Operators
