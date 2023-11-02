@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="user.csdata.TVSHOW" class="CFIELD" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>RLIST   CFIELD             (USER.CSDATA.TVSHOW)  CFDEF </image>
+      <message>ICH13003I USER.CSDATA.TVSHOW NOT FOUND</message>
+    </command>
+  </resource>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

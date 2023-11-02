@@ -140,6 +140,11 @@ class GroupAdmin(SecurityAdmin):
 
     def alter(self, group: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing group."""
+        if self._generate_requests_only:
+            self._build_segment_dictionaries(traits)
+            group_request = GroupRequest(group, "set")
+            self._build_xml_segments(group_request, alter=True)
+            return self._make_request(group_request, irrsmo00_precheck=True)
         try:
             self.extract(group)
         except SecurityRequestError:

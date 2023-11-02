@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="USER.CSDATA.TVSHOW" class="CFIELD" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RLIST   CFIELD             (USER.CSDATA.TVSHOW)  CFDEF   </image>
+      <message>CLASS      NAME</message>
+      <message>-----      ----</message>
+      <message>CFIELD     USER.CSDATA.TVSHOW</message>
+      <message> </message>
+      <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
+      <message>-----  --------   ----------------  -----------  -------</message>
+      <message> 00    ESWIFT          NONE              ALTER    NO</message>
+      <message> </message>
+      <message>INSTALLATION DATA</message>
+      <message>-----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>APPLICATION DATA</message>
+      <message>----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>AUDITING</message>
+      <message>--------</message>
+      <message>FAILURES(READ)</message>
+      <message> </message>
+      <message>NOTIFY</message>
+      <message>------</message>
+      <message>NO USER TO BE NOTIFIED</message>
+      <message> </message>
+      <message>CFDEF INFORMATION</message>
+      <message>-----------------</message>
+      <message>TYPE = CHAR</message>
+      <message>MAXLENGTH = NONE</message>
+      <message>MAXVALUE = NONE</message>
+      <message>MINVALUE = NONE</message>
+      <message>FIRST = ALPHA</message>
+      <message>OTHER = ALPHA</message>
+      <message>MIXED = NO</message>
+      <message>HELP = FAVORITE TV SHOW</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

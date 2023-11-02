@@ -59,13 +59,13 @@ class ResourceAdmin(SecurityAdmin):
                 "cdtinfo:case_allowed": "case",
                 "cdtinfo:default_racroute_return_code": "defaultrc",
                 "cdtinfo:valid_first_characters": "first",
-                "cdtinfo:generic": "generic",
-                "cdtinfo:genlist": "genlist",
+                "cdtinfo:generic_profile_checking": "racf:generic",
+                "cdtinfo:generic_profile_sharing": "racf:genlist",
                 "cdtinfo:grouping_class_name": "grouping",
                 "cdtinfo:key_qualifiers": "keyqual",
                 "cdtinfo:manditory_access_control_processing": "macprocessing",
                 "cdtinfo:max_length": "maxlenx",
-                "cdtinfo:max_length_racroute": "maxlength",
+                "cdtinfo:max_length_entityx": "maxlength",
                 "cdtinfo:member_class_name": "member",
                 "cdtinfo:operations": "operations",
                 "cdtinfo:valid_other_characters": "other",
@@ -83,7 +83,7 @@ class ResourceAdmin(SecurityAdmin):
                 "cfdef:list_heading_text": "listhead",
                 "cfdef:mixed_case_allowed": "mixed",
                 "cfdef:min_numeric_value": "minvalue",
-                "cfdef:max_field_length": "maxlength",
+                "cfdef:max_field_length": "mxlength",
                 "cfdef:max_numeric_value": "maxvalue",
                 "cfdef:valid_other_characters": "other",
                 "cfdef:validation_rexx_exec": "racf:cfvalrx",
@@ -180,6 +180,60 @@ class ResourceAdmin(SecurityAdmin):
                 "tme:roles": "racf:roles",
             },
         }
+        self._extracted_key_value_pair_segment_traits_map = {
+            "cdtinfo": {
+                "case": "caseAllowed",
+                "defaultrc": "defaultRacrouteReturnCode",
+                "first": "validFirstCharacters",
+                "generic": "genericProfileChecking",
+                "genlist": "genericProfileSharing",
+                "group": "groupingClassName",
+                "keyqualifiers": "keyQualifiers",
+                "macprocessing": "manditoryAccessControlProcessing",
+                "maxlenx": "maxLength",
+                "maxlength": "maxLengthEntityx",
+                "member": "memberClassName",
+                "operations": "operations",
+                "other": "validOtherCharacters",
+                "posit": "positNumber",
+                "profilesallowed": "profilesAllowed",
+                "raclist": "raclistAllowed",
+                "signal": "sendEnfSignalOnProfileCreation",
+                "seclabelsrequired": "securityLabelsRequired",
+                "defaultuacc": "defaultUniversalAccess",
+            },
+            "cfdef": {
+                "type": "customFieldDataType",
+                "first": "validFirstCharacters",
+                "help": "helpText",
+                "listhead": "listHeadingText",
+                "mixed": "mixedCaseAllowed",
+                "minvalue": "minNumericValue",
+                "mxlength": "maxFieldLength",
+                "maxvalue": "maxNumericValue",
+                "other": "validOtherCharacters",
+                "cfvalrx": "validationRexxExec",
+            },
+            "kerb": {
+                "checkaddrs": "validateAddresses",
+                "deftktlife": "defaultTicketLife",
+                "encrypt": "encryptionAlgorithms",
+                "kerbname": "realmName",
+                "maxtktlf": "maxTicketLife",
+                "mintklife": "minTicketLife",
+            },
+            "session": {
+                "convsec": "securityCheckingLevel",
+                "interval": "sessionKeyInterval",
+                "lock": "locked",
+                "sesskey": "sessionKey",
+            },
+            "sigver": {
+                "failload": "failProgramLoadCondition",
+                "sigaudit": "logSignatureVerificationEvents",
+                "sigrequired": "signatureRequired",
+            },
+        }
         super().__init__(
             "resource",
             debug=debug,
@@ -217,6 +271,215 @@ class ResourceAdmin(SecurityAdmin):
         return self._get_field(profile, "base", "yourAccess")
 
     # ============================================================================
+    # Class Administration
+    # ============================================================================
+    def add_resource_class(
+        self, class_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new general resource class."""
+        return self.add(resource=class_name, class_name="CDT", traits=traits)
+
+    def alter_resource_class(
+        self, class_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing general resource class."""
+        return self.alter(resource=class_name, class_name="CDT", traits=traits)
+
+    def extract_resource_class(self, class_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a general resource class."""
+        profile = self.extract(
+            resource=class_name,
+            class_name="CDT",
+            segments=["cdtinfo"],
+            profile_only=True,
+        )
+        return profile["cdtinfo"]
+
+    def delete_resource_class(self, class_name: str) -> Union[dict, bytes]:
+        """Delete a general resource class."""
+        return self.delete(resource=class_name, class_name="CDT")
+
+    # ============================================================================
+    # Started Task Administration
+    # ============================================================================
+    def add_started_task(
+        self, started_task_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new started task profile."""
+        return self.add(resource=started_task_name, class_name="STARTED", traits=traits)
+
+    def alter_started_task(
+        self, started_task_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing started task profile."""
+        return self.alter(
+            resource=started_task_name, class_name="STARTED", traits=traits
+        )
+
+    def extract_started_task(self, started_task_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a started task profile."""
+        profile = self.extract(
+            resource=started_task_name,
+            class_name="STARTED",
+            segments=["stdata"],
+            profile_only=True,
+        )
+        return profile["stdata"]
+
+    def delete_started_task(self, started_task_name: str) -> Union[dict, bytes]:
+        """Delete a started task profile."""
+        return self.delete(resource=started_task_name, class_name="STARTED")
+
+    # ============================================================================
+    # Custom Field Administration
+    # ============================================================================
+    def add_custom_field(
+        self, custom_field_name: str, custom_field_type: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        return self.add(resource=full_profile_name, class_name="CFIELD", traits=traits)
+
+    def alter_custom_field(
+        self, custom_field_name: str, custom_field_type: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        return self.alter(
+            resource=full_profile_name, class_name="CFIELD", traits=traits
+        )
+
+    def extract_custom_field(
+        self, custom_field_name: str, custom_field_type: str
+    ) -> Union[dict, bytes]:
+        """Extract the attributes of a custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        profile = self.extract(
+            resource=full_profile_name,
+            class_name="CFIELD",
+            segments=["cfdef"],
+            profile_only=True,
+        )
+        return profile["cfdef"]
+
+    def delete_custom_field(
+        self, custom_field_name: str, custom_field_type: str
+    ) -> Union[dict, bytes]:
+        """Delete a custom field."""
+        full_profile_name = f"{custom_field_type}.csdata.{custom_field_name}"
+        return self.delete(resource=full_profile_name, class_name="CFIELD")
+
+    # ============================================================================
+    # Kerberos Realm Administration
+    # ============================================================================
+    def add_kerberos_realm(
+        self, kerberos_realm_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new kerberos realm profile."""
+        return self.add(resource=kerberos_realm_name, class_name="REALM", traits=traits)
+
+    def alter_kerberos_realm(
+        self, kerberos_realm_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing kerberos realm profile."""
+        return self.alter(
+            resource=kerberos_realm_name, class_name="REALM", traits=traits
+        )
+
+    def extract_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a kerberos realm profile."""
+        profile = self.extract(
+            resource=kerberos_realm_name,
+            class_name="REALM",
+            segments=["kerb"],
+            profile_only=True,
+        )
+        return profile["kerb"]
+
+    def delete_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
+        """Delete a kerberos realm profile."""
+        return self.delete(resource=kerberos_realm_name, class_name="REALM")
+
+    # ============================================================================
+    # Signed Program Administration
+    # ============================================================================
+    def add_signed_program(
+        self, signed_program_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new signed program profile."""
+        if "sigver:library" in traits:
+            traits["base:member"] = traits["sigver:library"]
+            del traits["sigver:library"]
+        return self.add(
+            resource=signed_program_name, class_name="PROGRAM", traits=traits
+        )
+
+    def alter_signed_program(
+        self, signed_program_name: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing signed program profile."""
+        if "sigver:library" in traits:
+            traits["base:member"] = traits["sigver:library"]
+            del traits["sigver:library"]
+        return self.alter(
+            resource=signed_program_name, class_name="PROGRAM", traits=traits
+        )
+
+    def extract_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
+        """Extract the attributes of a signed program profile."""
+        profile = self.extract(
+            resource=signed_program_name,
+            class_name="PROGRAM",
+            segments=["sigver"],
+            profile_only=True,
+        )
+        profile["sigver"]["library"] = profile["base"].get("member")
+        return profile["sigver"]
+
+    def delete_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
+        """Delete a signed program profile."""
+        return self.delete(resource=signed_program_name, class_name="PROGRAM")
+
+    # ============================================================================
+    # APPC Session Administration
+    # ============================================================================
+    def add_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Create a new APPC session profile."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        return self.add(resource=full_profile_name, class_name="APPCLU", traits=traits)
+
+    def alter_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
+    ) -> Union[dict, bytes]:
+        """Alter an existing APPC session profile."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        return self.alter(
+            resource=full_profile_name, class_name="APPCLU", traits=traits
+        )
+
+    def extract_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str
+    ) -> Union[dict, bytes]:
+        """Extract the attributes of a APPC session profile."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        profile = self.extract(
+            resource=full_profile_name,
+            class_name="APPCLU",
+            segments=["session"],
+            profile_only=True,
+        )
+        return profile["session"]
+
+    def delete_appc_session(
+        self, net_id: str, local_lu: str, partner_lu: str
+    ) -> Union[dict, bytes]:
+        """Delete a APPC session."""
+        full_profile_name = f"{net_id}.{local_lu}.{partner_lu}"
+        return self.delete(resource=full_profile_name, class_name="APPCLU")
+
+    # ============================================================================
     # Base Functions
     # ============================================================================
     def add(
@@ -229,21 +492,29 @@ class ResourceAdmin(SecurityAdmin):
             self._build_xml_segments(profile_request)
             return self._make_request(profile_request)
         try:
-            self.extract(resource, class_name)
+            profile = self.extract(resource, class_name, profile_only=True)
+            if self._get_field(profile, "base", "name") == resource.lower():
+                raise AddOperationError(resource, class_name)
         except SecurityRequestError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH13003I"):
                 raise exception
-            self._build_segment_dictionaries(traits)
-            profile_request = ResourceRequest(resource, class_name, "set")
-            self._build_xml_segments(profile_request)
-            return self._make_request(profile_request)
-        raise AddOperationError(resource, class_name)
+        self._build_segment_dictionaries(traits)
+        profile_request = ResourceRequest(resource, class_name, "set")
+        self._build_xml_segments(profile_request)
+        return self._make_request(profile_request)
 
     def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing general resource profile."""
+        if self._generate_requests_only:
+            self._build_segment_dictionaries(traits)
+            profile_request = ResourceRequest(resource, class_name, "set")
+            self._build_xml_segments(profile_request, alter=True)
+            return self._make_request(profile_request, irrsmo00_precheck=True)
         try:
-            self.extract(resource, class_name)
+            profile = self.extract(resource, class_name, profile_only=True)
         except SecurityRequestError:
+            raise AlterOperationError(resource, class_name)
+        if not self._get_field(profile, "base", "name") == resource.lower():
             raise AlterOperationError(resource, class_name)
         self._build_segment_dictionaries(traits)
         profile_request = ResourceRequest(resource, class_name, "set")

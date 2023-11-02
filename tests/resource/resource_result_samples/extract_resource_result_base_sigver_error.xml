@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTPRGM" class="PROGRAM" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>RLIST   PROGRAM             (TESTPRGM)  SIGVER </image>
+      <message>ICH13003I TESTPRGM NOT FOUND</message>
+    </command>
+  </resource>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

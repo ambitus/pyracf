@@ -1,0 +1,7 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TSTTSKEL" class="STARTED" operation="set" requestid="ResourceRequest">
+    <stdata>
+      <racf:trusted operation="set" />
+    </stdata>
+  </resource>
+</securityrequest>
