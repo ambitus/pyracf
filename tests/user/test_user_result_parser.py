@@ -196,6 +196,18 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_DICTIONARY,
         )
 
+    def test_user_admin_can_parse_extract_user_and_ignore_extra_messages_on_succes_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_EXTRA_MESSAGES_SUCCESS_XML
+        )
+        self.assertEqual(
+            self.user_admin.extract("squidwrd", segments=["omvs", "tso", "ovm"]),
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_EXTRA_MESSAGES_SUCCESS_DICTIONARY,
+        )
+
     def test_user_admin_can_parse_extract_user_base_omvs_tso_revoke_resume_success_xml(
         self,
         call_racf_mock: Mock,
