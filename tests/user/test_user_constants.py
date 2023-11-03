@@ -115,6 +115,12 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_DICTIONARY = get_sample(
     "extract_user_result_base_omvs_tso_revoke_resume.json"
 )
+TEST_EXTRACT_USER_RESULT_EXTRA_MESSAGES_SUCCESS_XML = get_sample(
+    "extract_user_result_extra_messages_success.xml"
+)
+TEST_EXTRACT_USER_RESULT_EXTRA_MESSAGES_SUCCESS_DICTIONARY = get_sample(
+    "extract_user_result_extra_messages_success.json"
+)
 
 # Delete User
 TEST_DELETE_USER_RESULT_SUCCESS_XML = get_sample("delete_user_result_success.xml")
