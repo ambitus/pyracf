@@ -487,7 +487,7 @@ class ResourceAdmin(SecurityAdmin):
     ) -> Union[dict, bytes]:
         """Create a new general resource profile."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             profile_request = ResourceRequest(resource, class_name, "set")
             self._build_xml_segments(profile_request)
             return self._make_request(profile_request)
@@ -498,7 +498,7 @@ class ResourceAdmin(SecurityAdmin):
         except SecurityRequestError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH13003I"):
                 raise exception
-        self._build_segment_dictionaries(traits)
+        self._build_segment_trait_dictionary(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request)
         return self._make_request(profile_request)
@@ -506,7 +506,7 @@ class ResourceAdmin(SecurityAdmin):
     def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing general resource profile."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             profile_request = ResourceRequest(resource, class_name, "set")
             self._build_xml_segments(profile_request, alter=True)
             return self._make_request(profile_request, irrsmo00_precheck=True)
@@ -516,7 +516,7 @@ class ResourceAdmin(SecurityAdmin):
             raise AlterOperationError(resource, class_name)
         if not self._get_field(profile, "base", "name") == resource.lower():
             raise AlterOperationError(resource, class_name)
-        self._build_segment_dictionaries(traits)
+        self._build_segment_trait_dictionary(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request, alter=True)
         return self._make_request(profile_request, irrsmo00_precheck=True)
@@ -529,7 +529,7 @@ class ResourceAdmin(SecurityAdmin):
         profile_only: bool = False,
     ) -> Union[dict, bytes]:
         """Extract a general resource profile."""
-        self._build_bool_segment_dictionaries(segments)
+        self._build_segment_dictionary(segments)
         resource_request = ResourceRequest(resource, class_name, "listdata")
         self._build_xml_segments(resource_request, extract=True)
         result = self._extract_and_check_result(resource_request)

@@ -140,6 +140,33 @@ class TestUserRequestBuilder(unittest.TestCase):
             + f"combination for '{self.user_admin._profile_type}'.\n",
         )
 
+    # Since this test uses generate_requests_only, the "Add" after the AddOperationError is
+    # returned does not begin with an "Extract" call. This is necessary to recreate the error,
+    # so an extra extract call was added to simulate this behavior.
+    def test_user_admin_cleans_up_after_build_add_request_with_bad_segment_traits(self):
+        bad_trait = "omvs:bad_trait"
+        user_admin = UserAdmin(
+            generate_requests_only=True,
+        )
+        with self.assertRaises(SegmentTraitError) as exception:
+            user_admin.add(
+                "squidwrd", TestUserConstants.TEST_ADD_USER_REQUEST_BAD_TRAITS
+            )
+        self.assertEqual(
+            exception.exception.message,
+            "Unable to build Security Request.\n\n"
+            + f"'{bad_trait}' is not a known segment-trait "
+            + f"combination for '{self.user_admin._profile_type}'.\n",
+        )
+        result = user_admin.extract("squidwrd", segments=["omvs"])
+        self.assertEqual(
+            result, TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML
+        )
+        result = self.user_admin.add(
+            "squidwrd", traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
+        )
+        self.assertEqual(result, TestUserConstants.TEST_ADD_USER_REQUEST_XML)
+
     def test_user_admin_build_extract_request_with_bad_segment_name(self):
         bad_segment = "bad_segment"
         user_admin = UserAdmin(
@@ -151,4 +178,23 @@ class TestUserRequestBuilder(unittest.TestCase):
             exception.exception.message,
             "Unable to build Security Request.\n\n"
             + f"'{bad_segment}' is not a known segment for '{self.user_admin._profile_type}'.\n",
+        )
+
+    def test_user_admin_cleans_up_after_build_extract_request_with_bad_segment_name(
+        self,
+    ):
+        bad_segment = "bad_segment"
+        user_admin = UserAdmin(
+            generate_requests_only=True,
+        )
+        with self.assertRaises(SegmentError) as exception:
+            user_admin.extract("squidwrd", segments=["tso", bad_segment])
+        self.assertEqual(
+            exception.exception.message,
+            "Unable to build Security Request.\n\n"
+            + f"'{bad_segment}' is not a known segment for '{self.user_admin._profile_type}'.\n",
+        )
+        result = user_admin.extract("squidwrd", segments=["omvs"])
+        self.assertEqual(
+            result, TestUserConstants.TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML
         )

@@ -260,7 +260,7 @@ class SecurityAdmin:
         self._trait_map[trait] = self._valid_segment_traits[segment][trait]
         return True
 
-    def _build_bool_segment_dictionaries(self, segments: List[str]) -> None:
+    def _build_segment_dictionary(self, segments: List[str]) -> None:
         """Build segment dictionaries for profile extract."""
         bad_segments = []
         for segment in segments:
@@ -269,11 +269,12 @@ class SecurityAdmin:
             else:
                 bad_segments.append(segment)
         if bad_segments:
+            self.__clear_state(SecurityRequest)
             raise SegmentError(bad_segments, self._profile_type)
         # preserve segment traits for debug logging.
         self.__preserved_segment_traits = self._segment_traits
 
-    def _build_segment_dictionaries(self, traits: dict) -> None:
+    def _build_segment_trait_dictionary(self, traits: dict) -> None:
         """Build segemnt dictionaries for each segment."""
         bad_traits = []
         for trait in traits:
@@ -287,6 +288,7 @@ class SecurityAdmin:
             if not trait_valid:
                 bad_traits.append(trait)
         if bad_traits:
+            self.__clear_state(SecurityRequest)
             raise SegmentTraitError(bad_traits, self._profile_type)
 
         # preserve segment traits for debug logging.
