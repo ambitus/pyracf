@@ -3,43 +3,43 @@ repos:
     hooks:
       - id: isort
         name: isort
-        entry: isort .
+        entry: poetry run isort .
         language: system
         pass_filenames: false
         always_run: true
       - id: black
         name: black
-        entry: black .
+        entry: poetry run black .
         language: system
         pass_filenames: false
         always_run: true
       - id: flake8
         name: flake8
-        entry: flake8 .
+        entry: poetry run flake8 .
         language: system
         pass_filenames: false
         always_run: true
       - id: pylint
         name: pylint
-        entry: pylint --recursive=y .
+        entry: poetry run pylint --recursive=y .
         language: system
         pass_filenames: false
         always_run: true
       - id: unittest
         name: unittest
-        entry: coverage run tests/test_runner.py
+        entry: poetry run coverage run tests/test_runner.py
         language: system
         pass_filenames: false
         always_run: true
       - id: coverage-html
         name: coverage-html
-        entry: coverage html
+        entry: poetry run coverage html
         language: system
         pass_filenames: false
         always_run: true
       - id: coverage
         name: coverage
-        entry: coverage report -m
+        entry: poetry run coverage report -m
         language: system
         pass_filenames: false
         always_run: true

@@ -1,0 +1,235 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                               GroupAdmin.alter()                              
+                                                                               
+
+{}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                               GroupAdmin.alter()                              
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest"/>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                               GroupAdmin.alter()                              
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>LISTGRP TESTGRP0 </image>
+      <message>INFORMATION FOR GROUP TESTGRP0</message>
+      <message>    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.150</message>
+      <message>    NO INSTALLATION DATA</message>
+      <message>    NO MODEL DATA SET</message>
+      <message>    TERMUACC</message>
+      <message>    NO SUBGROUPS</message>
+      <message>    USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=</message>
+      <message>      ESWIFT        USE           000000               NONE</message>
+      <message>         CONNECT ATTRIBUTES=SPECIAL</message>
+      <message>         REVOKE DATE=NONE                 RESUME DATE=NONE</message>
+      <message>      LEONARD       USE           000000               NONE</message>
+      <message>         CONNECT ATTRIBUTES=OPERATIONS</message>
+      <message>         REVOKE DATE=NONE                 RESUME DATE=NONE</message>
+    </command>
+  </group>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                               GroupAdmin.alter()                              
+                                                                               
+
+{
+  "securityResult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "listdata",
+      "requestId": "GroupRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTGRP TESTGRP0 ",
+          "messages": [
+            "INFORMATION FOR GROUP TESTGRP0",
+            "    SUPERIOR GROUP=SYS1         OWNER=ESWIFT      CREATED=23.150",
+            "    NO INSTALLATION DATA",
+            "    NO MODEL DATA SET",
+            "    TERMUACC",
+            "    NO SUBGROUPS",
+            "    USER(S)=      ACCESS=      ACCESS COUNT=      UNIVERSAL ACCESS=",
+            "      ESWIFT        USE           000000               NONE",
+            "         CONNECT ATTRIBUTES=SPECIAL",
+            "         REVOKE DATE=NONE                 RESUME DATE=NONE",
+            "      LEONARD       USE           000000               NONE",
+            "         CONNECT ATTRIBUTES=OPERATIONS",
+            "         REVOKE DATE=NONE                 RESUME DATE=NONE"
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                     Result Dictionary (Formatted Profile)                     
+                               GroupAdmin.alter()                              
+                                                                               
+
+{
+  "securityResult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "listdata",
+      "requestId": "GroupRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTGRP TESTGRP0 ",
+          "profiles": [
+            {
+              "base": {
+                "name": "testgrp0",
+                "superiorGroup": "sys1",
+                "owner": "eswift",
+                "created": "5/30/2023",
+                "installationData": null,
+                "modelDataSet": null,
+                "terminalUniversalAccess": true,
+                "subgroups": [],
+                "users": [
+                  {
+                    "userid": "eswift",
+                    "access": "use",
+                    "accessCount": 0,
+                    "universalAccess": null,
+                    "connectAttributes": [
+                      "special"
+                    ],
+                    "revokeDate": null,
+                    "resumeDate": null
+                  },
+                  {
+                    "userid": "leonard",
+                    "access": "use",
+                    "accessCount": 0,
+                    "universalAccess": null,
+                    "connectAttributes": [
+                      "operations"
+                    ],
+                    "revokeDate": null,
+                    "resumeDate": null
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                               GroupAdmin.alter()                              
+                                                                               
+
+{
+  "omvs": {
+    "omvs:gid": {
+      "value": "1234567",
+      "operation": null
+    }
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                               GroupAdmin.alter()                              
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+    <omvs>
+      <gid operation="set">1234567</gid>
+    </omvs>
+  </group>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                               GroupAdmin.alter()                              
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+    <info>Definition exists. Add command skipped due  to precheck option</info>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>ALTGROUP TESTGRP0  OMVS     (GID         (1234567))</image>
+    </command>
+  </group>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                               GroupAdmin.alter()                              
+                                                                               
+
+{
+  "securityResult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "set",
+      "requestId": "GroupRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTGROUP TESTGRP0  OMVS     (GID         (1234567))"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+

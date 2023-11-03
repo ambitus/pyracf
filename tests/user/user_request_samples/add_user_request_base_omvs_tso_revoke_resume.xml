@@ -1,0 +1,37 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <user name="squidwrd" operation="set" requestid="UserRequest">
+    <base>
+      <name>Squidward</name>
+      <racf:password>********</racf:password>
+      <racf:owner>LEONARD</racf:owner>
+      <revokedate>10/22/23</revokedate>
+      <resumedate>11/2/23</resumedate>
+    </base>
+    <omvs>
+      <assize>10485760</assize>
+      <cputime>1500</cputime>
+      <filemax>50</filemax>
+      <memlim>4g</memlim>
+      <mmaparea>350</mmaparea>
+      <procmax>128</procmax>
+      <racf:shared />
+      <shmemmax>2g</shmemmax>
+      <threads>48</threads>
+      <uid>1919</uid>
+      <home>/u/squidward</home>
+      <pgm>/bin/sh</pgm>
+    </omvs>
+    <tso>
+      <acctnum>SB29</acctnum>
+      <command>ISPF</command>
+      <holdclass>A</holdclass>
+      <maxsize>2048</maxsize>
+      <msgclass>B</msgclass>
+      <proc>PROC</proc>
+      <size>1024</size>
+      <sysclass>O</sysclass>
+      <userdata>ABCD</userdata>
+      <unit>SYSDA</unit>
+    </tso>
+  </user>
+</securityrequest>

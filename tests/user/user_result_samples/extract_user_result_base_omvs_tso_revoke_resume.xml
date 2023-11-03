@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <user name="SQUIDWRD" operation="listdata" requestid="UserRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>LISTUSER SQUIDWRD  OMVS     TSO     </image>
+      <message>USER=SQUIDWRD  NAME=SQUIDWARD              OWNER=LEONARD   CREATED=23.294</message>
+      <message> DEFAULT-GROUP=SYS1     PASSDATE=00.000 PASS-INTERVAL=186 PHRASEDATE=N/A</message>
+      <message> ATTRIBUTES=NONE</message>
+      <message> REVOKE DATE=OCTOBER 22, 2023   RESUME DATE=NOVEMBER 2, 2023</message>
+      <message> LAST-ACCESS=23.294/12:20:06</message>
+      <message> CLASS AUTHORIZATIONS=NONE</message>
+      <message> NO-INSTALLATION-DATA</message>
+      <message> NO-MODEL-NAME</message>
+      <message> LOGON ALLOWED   (DAYS)          (TIME)</message>
+      <message> ---------------------------------------------</message>
+      <message> ANYDAY                          ANYTIME</message>
+      <message>  GROUP=SYS1      AUTH=USE      CONNECT-OWNER=LEONARD   CONNECT-DATE=23.294</message>
+      <message>    CONNECTS=    00  UACC=NONE     LAST-CONNECT=UNKNOWN</message>
+      <message>    CONNECT ATTRIBUTES=NONE</message>
+      <message>    REVOKE DATE=NONE   RESUME DATE=NONE</message>
+      <message>SECURITY-LEVEL=NONE SPECIFIED</message>
+      <message>CATEGORY-AUTHORIZATION</message>
+      <message> NONE SPECIFIED</message>
+      <message>SECURITY-LABEL=NONE SPECIFIED</message>
+      <message> </message>
+      <message>OMVS INFORMATION</message>
+      <message>----------------</message>
+      <message>UID= 0000001919</message>
+      <message>HOME= /u/squidward</message>
+      <message>PROGRAM= /bin/sh</message>
+      <message>CPUTIMEMAX= 0000001500</message>
+      <message>ASSIZEMAX= 0010485760</message>
+      <message>FILEPROCMAX= 00000050</message>
+      <message>PROCUSERMAX= 00000128</message>
+      <message>THREADSMAX= 48</message>
+      <message>MMAPAREAMAX= 00000350</message>
+      <message>MEMLIMIT= 4G</message>
+      <message>SHMEMMAX= 2G</message>
+      <message> </message>
+      <message>TSO INFORMATION</message>
+      <message>---------------</message>
+      <message>ACCTNUM= SB29</message>
+      <message>HOLDCLASS= A</message>
+      <message>MSGCLASS= B</message>
+      <message>PROC= PROC</message>
+      <message>SIZE= 00001024</message>
+      <message>MAXSIZE= 00002048</message>
+      <message>SYSOUTCLASS= O</message>
+      <message>UNIT= SYSDA</message>
+      <message>USERDATA= ABCD</message>
+      <message>COMMAND= ISPF</message>
+    </command>
+  </user>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

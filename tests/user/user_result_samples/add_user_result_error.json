@@ -1,28 +1,19 @@
 {
   "securityResult": {
     "user": {
-      "name": "SQUIDWRD",
+      "name": "squidward",
       "operation": "set",
       "requestId": "UserRequest",
-      "commands": [
-        {
-          "safReturnCode": 8,
-          "returnCode": 16,
-          "reasonCode": 8,
-          "image": "ADDUSER SQUIDWRD ",
-          "messages": [
-            "IKJ56702I INVALID USERID, SQUIDWRD"
-          ]
-        },
-        {
-          "safReturnCode": 0,
-          "returnCode": 0,
-          "reasonCode": 0,
-          "image": "ALTUSER SQUIDWRD     NAME        ('Squidward') OWNER       (leonard) SPECIAL      OMVS     (UID         (2424) HOME        ('/u/squidwrd') PROGRAM     ('/bin/sh'))"
-        }
-      ]
+      "error": {
+        "errorFunction": 10,
+        "errorCode": 2000,
+        "errorReason": 68,
+        "errorMessage": "Invalid attribute value specified.",
+        "errorOffset": 149,
+        "textInError": "name"
+      }
     },
-    "returnCode": 4,
-    "reasonCode": 0
+    "returnCode": 2000,
+    "reasonCode": 68
   }
 }

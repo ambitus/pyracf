@@ -2,7 +2,10 @@
 
 from typing import List, Union
 
+from pyracf.common.add_operation_error import AddOperationError
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .group_request import GroupRequest
 
@@ -20,26 +23,21 @@ class GroupAdmin(SecurityAdmin):
     ) -> None:
         self._valid_segment_traits = {
             "base": {
-                "base:connects": "racf:connects",
-                "base:gauth": "racf:gauth",
-                "base:guserid": "racf:guserid",
-                "base:creatdat": "racf:creatdat",
-                "base:data": "racf:data",
-                "base:model": "racf:model",
+                "base:installation_data": "racf:data",
+                "base:data_set_model": "racf:model",
                 "base:owner": "racf:owner",
-                "base:subgroup": "racf:subgroup",
-                "base:supgroup": "racf:supgroup",
-                "base:termuacc": "racf:termuacc",
-                "base:universl": "racf:universl",
+                "base:superior_group": "racf:supgroup",
+                "base:terminal_universal_access": "racf:termuacc",
+                "base:universal": "racf:universl",
             },
             "dfp": {
-                "dfp:dataappl": "dataappl",
-                "dfp:dataclas": "dataclas",
-                "dfp:mgmtclas": "mgmtclas",
-                "dfp:storclas": "storclas",
+                "dfp:data_application": "dataappl",
+                "dfp:data_class": "dataclas",
+                "dfp:management_class": "mgmtclas",
+                "dfp:storage_class": "storclas",
             },
             "omvs": {
-                "omvs:autogid": "racf:autogid",
+                "omvs:auto_gid": "racf:autogid",
                 "omvs:gid": "gid",
                 "omvs:shared": "racf:shared",
             },
@@ -98,7 +96,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def get_omvs_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OMVS GID."""
-        profile = self.extract(group, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(group, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "gid")
 
     def set_omvs_gid(self, group: str, gid: int) -> Union[dict, bytes]:
@@ -111,7 +109,7 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def get_ovm_gid(self, group: str) -> Union[int, bytes]:
         """Get a group's OVM GID."""
-        profile = self.extract(group, segments={"ovm": True}, profile_only=True)
+        profile = self.extract(group, segments=["ovm"], profile_only=True)
         return self._get_field(profile, "ovm", "gid")
 
     def set_ovm_gid(self, group: str, gid: int) -> Union[dict, bytes]:
@@ -124,23 +122,43 @@ class GroupAdmin(SecurityAdmin):
     # ============================================================================
     def add(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
         """Create a new group."""
-        self._build_segment_dictionaries(traits)
-        group_request = GroupRequest(group, "set")
-        self._build_xml_segments(group_request)
-        return self._make_request(group_request)
+        if self._generate_requests_only:
+            self._build_segment_trait_dictionary(traits)
+            group_request = GroupRequest(group, "set")
+            self._build_xml_segments(group_request)
+            return self._make_request(group_request)
+        try:
+            self.extract(group)
+        except SecurityRequestError as exception:
+            if not exception.contains_error_message(self._profile_type, "ICH51003I"):
+                raise exception
+            self._build_segment_trait_dictionary(traits)
+            group_request = GroupRequest(group, "set")
+            self._build_xml_segments(group_request)
+            return self._make_request(group_request)
+        raise AddOperationError(group, self._profile_type)
 
-    def alter(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
+    def alter(self, group: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing group."""
-        self._build_segment_dictionaries(traits)
+        if self._generate_requests_only:
+            self._build_segment_trait_dictionary(traits)
+            group_request = GroupRequest(group, "set")
+            self._build_xml_segments(group_request, alter=True)
+            return self._make_request(group_request, irrsmo00_precheck=True)
+        try:
+            self.extract(group)
+        except SecurityRequestError:
+            raise AlterOperationError(group, self._profile_type)
+        self._build_segment_trait_dictionary(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)
         return self._make_request(group_request, irrsmo00_precheck=True)
 
     def extract(
-        self, group: str, segments: dict = {}, profile_only: bool = False
+        self, group: str, segments: List[str] = [], profile_only: bool = False
     ) -> Union[dict, bytes]:
         """Extract a group's profile."""
-        self._build_bool_segment_dictionaries(segments)
+        self._build_segment_dictionary(segments)
         group_request = GroupRequest(group, "listdata")
         self._build_xml_segments(group_request, extract=True)
         result = self._extract_and_check_result(group_request)

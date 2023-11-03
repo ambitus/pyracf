@@ -1,0 +1,22 @@
+{
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "set",
+      "requestId": "UserRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "ALTUSER SQUIDWRD  NOSPECIAL      OMVS     (HOME        ('/u/clarinet') NOPROGRAM      UID         (********))"
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

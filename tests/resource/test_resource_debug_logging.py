@@ -24,46 +24,48 @@ class TestResourceDebugLogging(unittest.TestCase):
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     # ============================================================================
-    # Add Resource
+    # Alter Resource
     # ============================================================================
-    def test_add_resource_request_debug_log_works_on_success(
+    def test_alter_resource_request_debug_log_works_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.add(
+            self.resource_admin.alter(
                 "TESTING",
                 "ELIJTEST",
-                traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_TRAITS,
+                traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            success_log, TestResourceConstants.TEST_ADD_RESOURCE_SUCCESS_LOG
+            success_log, TestResourceConstants.TEST_ALTER_RESOURCE_SUCCESS_LOG
         )
 
-    def test_add_resource_request_debug_log_works_on_error(
+    def test_alter_resource_request_debug_log_works_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.add(
+                self.resource_admin.alter(
                     "TESTING",
-                    "ELIXTEST",
-                    traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_ERROR_TRAITS,
+                    "ELIJTEST",
+                    traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestResourceConstants.TEST_ADD_RESOURCE_ERROR_LOG)
+        self.assertEqual(error_log, TestResourceConstants.TEST_ALTER_RESOURCE_ERROR_LOG)
 
     # ============================================================================
     # Extract Resource

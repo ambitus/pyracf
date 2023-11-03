@@ -2,7 +2,10 @@
 
 from typing import List, Union
 
+from pyracf.common.add_operation_error import AddOperationError
+from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .user_request import UserRequest
 
@@ -20,196 +23,188 @@ class UserAdmin(SecurityAdmin):
     ) -> None:
         self._valid_segment_traits = {
             "base": {
-                "base:adsp": "racf:adsp",
+                "base:automatic_data_set_protection": "racf:adsp",
                 "base:auditor": "racf:auditor",
-                "base:auth": "racf:auth",
-                "base:category": "racf:category",
+                "base:default_group_authority": "racf:auth",
+                "base:security_categories": "racf:category",
                 "base:class_authorizations": "racf:clauth",
-                "base:connects": "racf:connects",
-                "base:cadsp": "racf:cadsp",
-                "base:cauditor": "racf:cauditor",
-                "base:cauthda": "racf:cauthda",
-                "base:cgroup": "racf:cgroup",
-                "base:cgrpacc": "racf:cgrpacc",
-                "base:cinitct": "racf:cinitct",
-                "base:cljdate": "racf:cljdate",
-                "base:cljtime": "racf:cljtime",
-                "base:coper": "racf:coper",
-                "base:cowner": "racf:cowner",
-                "base:cresume": "racf:cresume",
-                "base:crevoke": "racf:crevoke",
-                "base:crevokfl": "racf:crevokfl",
-                "base:cspecial": "racf:cspecial",
-                "base:cuacc": "racf:cuacc",
-                "base:creatdat": "racf:creatdat",
-                "base:data": "racf:data",
-                "base:dfltgrp": "defgroup",
-                "base:expired": "racf:expired",
-                "base:factorn": "racf:factorn",
-                "base:factor": "racf:factor",
-                "base:facactv": "racf:facactv",
-                "base:factagnn": "racf:factagnn",
-                "base:facvalnn": "racf:facvalnn",
+                "base:installation_data": "racf:data",
+                "base:default_group": "defgroup",
+                "base:password_expired": "racf:expired",
                 "base:group": "racf:group",
-                "base:grpacc": "racf:grpacc",
-                "base:hasphras": "racf:hasphras",
-                "base:haspwd": "racf:haspwd",
-                "base:lastdate": "racf:lastdate",
-                "base:lasttime": "racf:lasttime",
-                "base:mfaflbk": "racf:mfaflbk",
-                "base:mfapolnm": "racf:mfapolnm",
-                "base:model": "racf:model",
+                "base:group_data_set_access": "racf:grpacc",
+                "base:model_data_set": "racf:model",
                 "base:name": "name",
-                "base:oidcard": "racf:oidcard",
+                "base:require_operator_id_card": "racf:oidcard",
                 "base:operations": "racf:oper",
                 "base:owner": "racf:owner",
-                "base:passdate": "racf:passdate",
-                "base:passint": "racf:passint",
                 "base:password": "racf:password",
                 "base:passphrase": "racf:phrase",
-                "base:phrdate": "racf:phrdate",
-                "base:phrint": "racf:phrint",
-                "base:pphenv": "racf:pphenv",
-                "base:protectd": "racf:protectd",
-                "base:pwdenv": "racf:pwdenv",
-                "base:rest": "racf:rest",
-                "base:resume": "resumedate",
-                "base:revoke": "revokedate",
-                "base:revokefl": "racf:revokefl",
-                "base:roaudit": "racf:roaudit",
-                "base:seclabel": "seclabel",
-                "base:seclevel": "racf:seclevel",
+                "base:restrict_global_access_checking": "racf:rest",
+                "base:resume_date": "resumedate",
+                "base:revoke_date": "revokedate",
+                "base:audit_responsibility": "racf:roaudit",
+                "base:security_label": "seclabel",
+                "base:security_level": "racf:seclevel",
                 "base:special": "racf:special",
-                "base:uacc": "racf:uacc",
-                "base:uaudit": "uaudit",
-                "base:whendays": "whendays",
-                "base:whensrv": "whensrv",
-                "base:whentime": "whentime",
+                "base:universal_access": "racf:uacc",
+                "base:audit_logging": "uaudit",
+                "base:logon_allowed_days": "whendays",
+                "base:logon_allowed_time": "whentime",
             },
             "cics": {
-                "cisc:opclass": "racf:opclass",
-                "cics:opident": "opident",
-                "cics:opprty": "opprty",
-                "cics:rslkey": "racf:rslkey",
+                "cics:operator_classes": "racf:opclass",
+                "cics:operator_id": "opident",
+                "cics:operator_priority": "opprty",
+                "cics:rsl_key": "racf:rslkey",
                 "cics:timeout": "timeout",
-                "cics:tslkey": "racf:tslkey",
-                "cics:xrfsoff": "force",
+                "cics:tsl_key": "racf:tslkey",
+                "cics:xrf_sign_off": "force",
             },
             "dce": {
-                "dce:autolog": "autolog",
-                "dce:dcename": "dcename",
-                "dce:homecell": "homecell",
-                "dce:homeuuid": "homeuuid",
+                "dce:auto_login": "autolog",
+                "dce:name": "dcename",
+                "dce:home_cell": "homecell",
+                "dce:home_cell_uuid": "homeuuid",
                 "dce:uuid": "uuid",
             },
             "dfp": {
-                "dfp:dataappl": "dataappl",
-                "dfp:dataclas": "dataclas",
-                "dfp:mgmtclas": "mgmtclass",
-                "dfp:storclas": "storclas",
+                "dfp:data_application": "dataappl",
+                "dfp:data_class": "dataclas",
+                "dfp:management_class": "mgmtclass",
+                "dfp:storage_class": "storclas",
             },
-            "eim": {"ldapprof": "racf:ldapprof"},
+            "eim": {"eim:ldap_bind_profile": "racf:ldapprof"},
             "kerb": {
-                "dfp:encrypt": "racf:encrypt",
-                "dfp:kerbname": "racf:kerbname",
-                "dfp:keyfrom": "racf:keyfrom",
-                "dfp:keyvers": "racf:keyvers",
-                "dfp:maxtktlf": "racf:maxtktlf",
+                "kerb:encryption_algorithm": "racf:encrypt",
+                "kerb:name": "racf:kerbname",
+                "kerb:max_ticket_life": "racf:maxtktlf",
             },
-            "language": {"language:primary": "primary", "language:second": "secondary"},
-            "lnotes": {"lnotes:sname": "racf:sname"},
+            "language": {
+                "language:primary": "primary",
+                "language:secondary": "secondary",
+            },
+            "lnotes": {"lnotes:zos_short_name": "racf:sname"},
             "mfa": {
                 "mfa:factor": "racf:factor",
-                "mfa:facactv": "racf:facactv",
-                "mfa:factags": "racf:factags",
-                "mfa:mfaflbk": "racf:mfaflbk",
-                "mfa:mfapolnm": "racf:mfapolnm",
+                "mfa:active": "racf:facactv",
+                "mfa:tags": "racf:factags",
+                "mfa:password_fallback": "racf:mfaflbk",
+                "mfa:policy": "racf:mfapolnm",
             },
-            "nds": {"nds:uname": "racf:uname"},
+            "nds": {"nds:username": "racf:uname"},
             "netview": {
-                "netview:consname": "consid",
-                "netview:ctl": "secctl",
+                "netview:default_console": "consid",
+                "netview:security_check": "secctl",
                 "netview:domains": "nvdomains",
-                "netview:ic": "ic",
-                "netview:msgrecvr": "msgrec",
-                "netview:ngmfadmn": "racf:ngmfadmn",
-                "netview:ngmfvspn": "gmfadmin",
-                "netview:opclass": "racf:opclass",
+                "netview:logon_commands": "ic",
+                "netview:recieve_unsolicited_messages": "msgrec",
+                "netview:graphic_monitor_facility_admin": "racf:ngmfadmn",
+                "netview:view_span": "gmfadmin",
+                "netview:operator_scope_classes": "racf:opclass",
             },
             "omvs": {
-                "omvs:assize": "assize",
-                "omvs:autouid": "racf:autouid",
-                "omvs:cputime": "cputime",
-                "omvs:fileproc": "filemax",
-                "omvs:home": "home",
-                "omvs:memlimit": "memlim",
-                "omvs:mmaparea": "mmaparea",
-                "omvs:procuser": "procmax",
-                "omvs:program": "pgm",
+                "omvs:max_address_space_size": "assize",
+                "omvs:auto_uid": "racf:autouid",
+                "omvs:max_cpu_time": "cputime",
+                "omvs:max_files_per_process": "filemax",
+                "omvs:home_directory": "home",
+                "omvs:max_non_shared_memory": "memlim",
+                "omvs:max_file_mapping_pages": "mmaparea",
+                "omvs:max_processes": "procmax",
+                "omvs:default_shell": "pgm",
                 "omvs:shared": "racf:shared",
-                "omvs:shmemmax": "shmemmax",
-                "omvs:threads": "threads",
+                "omvs:max_shared_memory": "shmemmax",
+                "omvs:max_threads": "threads",
                 "omvs:uid": "uid",
             },
             "operparm": {
-                "operparm:altgrp": "altgrp",
-                "operparm:auto": "auto",
-                "operparm:cmdsys": "cmdsys",
-                "operparm:dom": "dom",
-                "operparm:hc": "hc",
-                "operparm:intids": "intid",
-                "operparm:key": "key",
-                "operparm:level": "racf:level",
-                "operparm:logcmd": "logcmd",
-                "operparm:mform": "mform",
-                "operparm:migid": "migid",
-                "operparm:monitor": "mon",
-                "operparm:mscope": "racf:mscope",
-                "operparm:operauth": "auth",
-                "operparm:routcode": "routcode",
-                "operparm:storage": "storage",
-                "operparm:ud": "ud",
-                "operparm:unknids": "unkids",
+                "operparm:alternate_console_group": "altgrp",
+                "operparm:recieve_automated_messages": "auto",
+                "operparm:command_target_systems": "cmdsys",
+                "operparm:recieve_delete_operator_messages": "dom",
+                "operparm:recieve_hardcopy_messages": "hc",
+                "operparm:recieve_internal_console_messages": "intid",
+                "operparm:console_searching_key": "key",
+                "operparm:message_level": "racf:level",
+                "operparm:log_command_responses": "logcmd",
+                "operparm:message_format": "mform",
+                "operparm:migration_id": "migid",
+                "operparm:events_to_monitor": "mon",
+                "operparm:message_scope": "racf:mscope",
+                "operparm:operator_command_authority": "auth",
+                "operparm:recieve_routing_codes": "routcode",
+                "operparm:message_queue_storage": "storage",
+                "operparm:recieve_undelivered_messages": "ud",
+                "operparm:recieve_messages_from_unknown_console_ids": "unkids",
             },
             "ovm": {
-                "ovm:fsroot": "racf:fsroot",
-                "ovm:vhome": "racf:vhome",
-                "ovm:vprogram": "racf:vprogram",
-                "ovm:vuid": "racf:vuid",
+                "ovm:file_system_root": "racf:fsroot",
+                "ovm:home_directory": "racf:vhome",
+                "ovm:default_shell": "racf:vprogram",
+                "ovm:uid": "racf:vuid",
             },
             "proxy": {
-                "proxy:binddn": "racf:binddn",
-                "proxy:bindpw": "racf:bindpw",
-                "proxy:ldaphost": "racf:ldaphost",
+                "proxy:bind_distinguished_name": "racf:binddn",
+                "proxy:bind_password": "racf:bindpw",
+                "proxy:ldap_host": "racf:ldaphost",
             },
             "tso": {
-                "tso:acctnum": "acctnum",
-                "tso:command": "command",
-                "tso:dest": "dest",
-                "tso:hldclass": "holdclass",
-                "tso:jobclass": "jobclass",
-                "tso:maxsize": "maxsize",
-                "tso:msgclass": "msgclass",
-                "tso:proc": "proc",
-                "tso:seclabel": "seclabel",
-                "tso:size": "size",
-                "tso:sysoutcl": "sysclass",
-                "tso:unit": "unit",
-                "tso:userdata": "userdata",
+                "tso:account_number": "acctnum",
+                "tso:logon_command": "command",
+                "tso:sysout_destination_id": "dest",
+                "tso:hold_class": "holdclass",
+                "tso:job_class": "jobclass",
+                "tso:max_region_size": "maxsize",
+                "tso:message_class": "msgclass",
+                "tso:logon_procedure": "proc",
+                "tso:security_label": "seclabel",
+                "tso:default_region_size": "size",
+                "tso:sysout_class": "sysclass",
+                "tso:data_set_allocation_unit": "unit",
+                "tso:user_data": "userdata",
             },
             "workattr": {
-                "workattr:waaccnt": "waaccnt",
-                "workattr:waaddr1": "waaddr1",
-                "workattr:waaddr2": "waaddr2",
-                "workattr:waaddr3": "waaddr3",
-                "workattr:waaddr4": "waaddr4",
-                "workattr:wabldg": "wabldg",
-                "workattr:wadept": "wadept",
-                "workattr:waname": "waname",
-                "workattr:waroom": "waroom",
-                "workattr:waemail": "waemail",
+                "workattr:account_number": "waaccnt",
+                "workattr:sysout_address_1": "waaddr1",
+                "workattr:sysout_address_2": "waaddr2",
+                "workattr:sysout_address_3": "waaddr3",
+                "workattr:sysout_address_4": "waaddr4",
+                "workattr:sysout_building": "wabldg",
+                "workattr:sysout_department": "wadept",
+                "workattr:sysout_user": "waname",
+                "workattr:sysout_room": "waroom",
+                "workattr:sysout_email": "waemail",
             },
         }
+        self._extracted_key_value_pair_segment_traits_map = {
+            "omvs": {
+                "home": "homeDirectory",
+                "program": "defaultShell",
+                "cputimemax": "maxCpuTime",
+                "assizemax": "maxAddressSpaceSize",
+                "fileprocmax": "maxFilesPerProcess",
+                "procusermax": "maxProcesses",
+                "threadsmax": "maxThreads",
+                "mmapareamax": "maxFileMappingPages",
+                "memlimit": "maxNonSharedMemory",
+                "shmemmax": "maxSharedMemory",
+            },
+            "tso": {
+                "acctnum": "accountNumber",
+                "holdclass": "holdClass",
+                "jobclass": "jobClass",
+                "msgclass": "messageClass",
+                "proc": "logonProcedure",
+                "size": "defaultRegionSize",
+                "maxsize": "maxRegionSize",
+                "sysoutclass": "sysoutClass",
+                "unit": "dataSetAllocationUnit",
+                "userdata": "userData",
+                "command": "logonCommand",
+            },
+        }
+        self._case_sensitive_extracted_values = ["homeDirectory", "defaultShell"]
         super().__init__(
             "user",
             debug=debug,
@@ -282,7 +277,7 @@ class UserAdmin(SecurityAdmin):
     def set_password(
         self,
         userid: str,
-        password: str,
+        password: Union[str, bool],
     ) -> Union[dict, bytes]:
         """Set a user's password."""
         result = self.alter(userid, traits={"base:password": password})
@@ -294,7 +289,7 @@ class UserAdmin(SecurityAdmin):
     def set_passphrase(
         self,
         userid: str,
-        passphrase: str,
+        passphrase: Union[str, bool],
     ) -> Union[dict, bytes]:
         """Set a user's passphrase."""
         result = self.alter(userid, traits={"base:passphrase": passphrase})
@@ -316,14 +311,14 @@ class UserAdmin(SecurityAdmin):
         removes the user's current class authorizations and then recreates
         the class authorizations list using the list that the user provides.
         """
-        delete_result = self.delete_all_class_authorizations(userid)
+        delete_result = self.remove_all_class_authorizations(userid)
         add_result = self.add_class_authorizations(userid, class_authorizations)
         return self._to_steps([delete_result, add_result])
 
     def add_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> Union[dict, bytes]:
-        """Add a class to a user's class authorizations."""
+        """Add one or more classes to a user's class authorizations."""
         result = self.alter(
             userid, traits={"add:base:class_authorizations": class_authorizations}
         )
@@ -332,64 +327,440 @@ class UserAdmin(SecurityAdmin):
     def remove_class_authorizations(
         self, userid: str, class_authorizations: Union[str, List[str]]
     ) -> Union[dict, bytes]:
-        """Remove a class from a user's class authorizations."""
+        """Remove one or more classes from a user's class authorizations."""
         result = self.alter(
             userid, traits={"remove:base:class_authorizations": class_authorizations}
         )
         return self._to_steps(result)
 
-    def delete_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
-        """Delete all classes from a users class authorizations."""
+    def remove_all_class_authorizations(self, userid: str) -> Union[dict, bool, bytes]:
+        """Remove all classes from a users class authorizations."""
         current_class_authorizations = self.get_class_authorizations(userid)
         if not current_class_authorizations:
             return False
         return self.remove_class_authorizations(userid, current_class_authorizations)
 
     # ============================================================================
+    # Revoke Date
+    # ============================================================================
+    def get_revoke_date(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's revoke date."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "revokeDate", string=True)
+
+    def set_revoke_date(
+        self, userid: str, revoke_date: Union[str, bool]
+    ) -> Union[dict, bytes]:
+        """Set a user's revoke date."""
+        result = self.alter(userid, traits={"base:revoke_date": revoke_date})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Resume Date
+    # ============================================================================
+    def get_resume_date(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's resume date."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "resumeDate", string=True)
+
+    def set_resume_date(
+        self, userid: str, resume_date: Union[str, bool]
+    ) -> Union[dict, bytes]:
+        """Set a user's resume date."""
+        result = self.alter(userid, traits={"base:resume_date": resume_date})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Owner
+    # ============================================================================
+    def get_owner(self, userid: str) -> Union[str, bytes]:
+        """Get a user's owner."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "owner", string=True)
+
+    def set_owner(self, userid: str, owner: str) -> Union[dict, bytes]:
+        """Set a user's owner."""
+        result = self.alter(userid, traits={"base:owner": owner})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Name
+    # ============================================================================
+    def get_name(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's name."""
+        profile = self.extract(userid, profile_only=True)
+        return self._get_field(profile, "base", "name", string=True)
+
+    def set_name(self, userid: str, name: Union[str, bool]) -> Union[dict, bytes]:
+        """Set a user's name."""
+        result = self.alter(userid, traits={"base:name": name})
+        return self._to_steps(result)
+
+    # ============================================================================
     # OMVS UID
     # ============================================================================
     def get_omvs_uid(self, userid: str) -> Union[int, None, bytes]:
         """Get a user's OMVS UID."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
         return self._get_field(profile, "omvs", "uid")
 
-    def set_omvs_uid(self, userid: str, uid: int) -> Union[dict, bytes]:
+    def set_omvs_uid(self, userid: str, uid: Union[int, bool]) -> Union[dict, bytes]:
         """Set a user's OMVS UID."""
         result = self.alter(userid, traits={"omvs:uid": uid})
         return self._to_steps(result)
 
     # ============================================================================
-    # OMVS Home
+    # OMVS Max Address Space Size
     # ============================================================================
-    def get_omvs_home(self, userid: str) -> Union[str, None, bytes]:
-        """Get a user's OMVS home directory."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
-        return self._get_field(profile, "omvs", "home")
+    def get_omvs_max_address_space_size(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max address space size."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxAddressSpaceSize")
 
-    def set_omvs_home(
+    def set_omvs_max_address_space_size(
         self,
         userid: str,
-        home_directory: str,
+        max_address_space_size: Union[int, bool],
     ) -> Union[dict, bytes]:
-        """Set a user's OMVS home directory."""
-        result = self.alter(userid, traits={"omvs:home": home_directory})
+        """Set a user's OMVS max address space size."""
+        result = self.alter(
+            userid, traits={"omvs:max_address_space_size": max_address_space_size}
+        )
         return self._to_steps(result)
 
     # ============================================================================
-    # OMVS Program
+    # OMVS Max CPU Time
     # ============================================================================
-    def get_omvs_program(self, userid: str) -> Union[str, None, bytes]:
-        """Get a user's OMVS program."""
-        profile = self.extract(userid, segments={"omvs": True}, profile_only=True)
-        return self._get_field(profile, "omvs", "program")
+    def get_omvs_max_cpu_time(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max cpu time."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxCpuTime")
 
-    def set_omvs_program(
+    def set_omvs_max_cpu_time(
         self,
         userid: str,
-        program: str,
+        max_cpu_time: Union[int, bool],
     ) -> Union[dict, bytes]:
-        """Set a user's OMVS program."""
-        result = self.alter(userid, traits={"omvs:program": program})
+        """Set a user's OMVS max cpu time."""
+        result = self.alter(userid, traits={"omvs:max_cpu_time": max_cpu_time})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Files Per Process
+    # ============================================================================
+    def get_omvs_max_files_per_process(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max files per process."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxFilesPerProcess")
+
+    def set_omvs_max_files_per_process(
+        self,
+        userid: str,
+        max_files_per_process: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max files per process."""
+        result = self.alter(
+            userid, traits={"omvs:max_files_per_process": max_files_per_process}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Non-Shared Memory
+    # ============================================================================
+    def get_omvs_max_non_shared_memory(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's OMVS max non-shared memory."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxNonSharedMemory", string=True)
+
+    def set_omvs_max_non_shared_memory(
+        self,
+        userid: str,
+        max_non_shared_memory: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max non-shared memory."""
+        result = self.alter(
+            userid, traits={"omvs:max_non_shared_memory": max_non_shared_memory}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max File Mapping Pages
+    # ============================================================================
+    def get_omvs_max_file_mapping_pages(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max file mapping pages."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxFileMappingPages")
+
+    def set_omvs_max_file_mapping_pages(
+        self,
+        userid: str,
+        max_file_mapping_pages: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max file mapping pages."""
+        result = self.alter(
+            userid, traits={"omvs:max_file_mapping_pages": max_file_mapping_pages}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Processes
+    # ============================================================================
+    def get_omvs_max_processes(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max processes."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxProcesses")
+
+    def set_omvs_max_processes(
+        self,
+        userid: str,
+        max_processes: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max processes."""
+        result = self.alter(userid, traits={"omvs:max_processes": max_processes})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Shared Memory
+    # ============================================================================
+    def get_omvs_max_shared_memory(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's OMVS max shared memory."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxSharedMemory", string=True)
+
+    def set_omvs_max_shared_memory(
+        self,
+        userid: str,
+        max_shared_memory: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max shared memory."""
+        result = self.alter(
+            userid, traits={"omvs:max_shared_memory": max_shared_memory}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Max Threads
+    # ============================================================================
+    def get_omvs_max_threads(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's OMVS max threads."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "maxThreads")
+
+    def set_omvs_max_threads(
+        self,
+        userid: str,
+        max_threads: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS max threads."""
+        result = self.alter(userid, traits={"omvs:max_threads": max_threads})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Home Directory
+    # ============================================================================
+    def get_omvs_home_directory(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's OMVS home directory."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "homeDirectory", string=True)
+
+    def set_omvs_home_directory(
+        self,
+        userid: str,
+        home_directory: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS home directory."""
+        result = self.alter(userid, traits={"omvs:home_directory": home_directory})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # OMVS Default Shell
+    # ============================================================================
+    def get_omvs_default_shell(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's OMVS default shell."""
+        profile = self.extract(userid, segments=["omvs"], profile_only=True)
+        return self._get_field(profile, "omvs", "defaultShell", string=True)
+
+    def set_omvs_default_shell(
+        self,
+        userid: str,
+        default_shell: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's OMVS default shell."""
+        result = self.alter(userid, traits={"omvs:default_shell": default_shell})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Account Number
+    # ============================================================================
+    def get_tso_account_number(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO account number."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "accountNumber", string=True)
+
+    def set_tso_account_number(
+        self,
+        userid: str,
+        account_number: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO account number."""
+        result = self.alter(userid, traits={"tso:account_number": account_number})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Logon Command
+    # ============================================================================
+    def get_tso_logon_command(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO logon command."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "logonCommand", string=True)
+
+    def set_tso_logon_command(
+        self,
+        userid: str,
+        logon_command: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO logon command."""
+        result = self.alter(userid, traits={"tso:logon_command": logon_command})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Hold Class
+    # ============================================================================
+    def get_tso_hold_class(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO hold class."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "holdClass", string=True)
+
+    def set_tso_hold_class(
+        self,
+        userid: str,
+        hold_class: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO hold class."""
+        result = self.alter(userid, traits={"tso:hold_class": hold_class})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Max Region Size
+    # ============================================================================
+    def get_tso_max_region_size(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's TSO max region size."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "maxRegionSize")
+
+    def set_tso_max_region_size(
+        self,
+        userid: str,
+        max_region_size: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO max region size."""
+        result = self.alter(userid, traits={"tso:max_region_size": max_region_size})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Message Class
+    # ============================================================================
+    def get_tso_message_class(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO message class."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "messageClass", string=True)
+
+    def set_tso_message_class(
+        self,
+        userid: str,
+        message_class: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO message class."""
+        result = self.alter(userid, traits={"tso:message_class": message_class})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Logon Procedure
+    # ============================================================================
+    def get_tso_logon_procedure(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO logon procedure."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "logonProcedure", string=True)
+
+    def set_tso_logon_procedure(
+        self,
+        userid: str,
+        logon_procedure: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO logon procedure."""
+        result = self.alter(userid, traits={"tso:logon_procedure": logon_procedure})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Default Region Size
+    # ============================================================================
+    def get_tso_default_region_size(self, userid: str) -> Union[int, None, bytes]:
+        """Get a user's TSO default region size."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "defaultRegionSize")
+
+    def set_tso_default_region_size(
+        self,
+        userid: str,
+        default_region_size: Union[int, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO default region size."""
+        result = self.alter(
+            userid, traits={"tso:default_region_size": default_region_size}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Sysout Class
+    # ============================================================================
+    def get_tso_sysout_class(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO sysout class."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "sysoutClass", string=True)
+
+    def set_tso_sysout_class(
+        self,
+        userid: str,
+        sysout_class: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO sysout class."""
+        result = self.alter(userid, traits={"tso:sysout_class": sysout_class})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO User Data
+    # ============================================================================
+    def get_tso_user_data(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO user data."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "userData", string=True)
+
+    def set_tso_user_data(
+        self,
+        userid: str,
+        user_data: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO user data."""
+        result = self.alter(userid, traits={"tso:user_data": user_data})
+        return self._to_steps(result)
+
+    # ============================================================================
+    # TSO Data Set Allocation Unit
+    # ============================================================================
+    def get_tso_data_set_allocation_unit(self, userid: str) -> Union[str, None, bytes]:
+        """Get a user's TSO data set allocation unit."""
+        profile = self.extract(userid, segments=["tso"], profile_only=True)
+        return self._get_field(profile, "tso", "dataSetAllocationUnit", string=True)
+
+    def set_tso_data_set_allocation_unit(
+        self,
+        userid: str,
+        data_set_allocation_unit: Union[str, bool],
+    ) -> Union[dict, bytes]:
+        """Set a user's TSO data set allocation unit."""
+        result = self.alter(
+            userid, traits={"tso:data_set_allocation_unit": data_set_allocation_unit}
+        )
         return self._to_steps(result)
 
     # ============================================================================
@@ -397,23 +768,43 @@ class UserAdmin(SecurityAdmin):
     # ============================================================================
     def add(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
         """Create a new user."""
-        self._build_segment_dictionaries(traits)
-        user_request = UserRequest(userid, "set")
-        self._build_xml_segments(user_request)
-        return self._make_request(user_request)
+        if self._generate_requests_only:
+            self._build_segment_trait_dictionary(traits)
+            user_request = UserRequest(userid, "set")
+            self._build_xml_segments(user_request)
+            return self._make_request(user_request)
+        try:
+            self.extract(userid)
+        except SecurityRequestError as exception:
+            if not exception.contains_error_message(self._profile_type, "ICH30001I"):
+                raise exception
+            self._build_segment_trait_dictionary(traits)
+            user_request = UserRequest(userid, "set")
+            self._build_xml_segments(user_request)
+            return self._make_request(user_request)
+        raise AddOperationError(userid, self._profile_type)
 
-    def alter(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
+    def alter(self, userid: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing user."""
-        self._build_segment_dictionaries(traits)
+        if self._generate_requests_only:
+            self._build_segment_trait_dictionary(traits)
+            user_request = UserRequest(userid, "set")
+            self._build_xml_segments(user_request, alter=True)
+            return self._make_request(user_request, irrsmo00_precheck=True)
+        try:
+            self.extract(userid)
+        except SecurityRequestError:
+            raise AlterOperationError(userid, self._profile_type)
+        self._build_segment_trait_dictionary(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request, alter=True)
         return self._make_request(user_request, irrsmo00_precheck=True)
 
     def extract(
-        self, userid: str, segments: dict = {}, profile_only: bool = False
+        self, userid: str, segments: List[str] = [], profile_only: bool = False
     ) -> Union[dict, bytes]:
         """Extract a user's profile."""
-        self._build_bool_segment_dictionaries(segments)
+        self._build_segment_dictionary(segments)
         user_request = UserRequest(userid, "listdata")
         self._build_xml_segments(user_request, extract=True)
         result = self._extract_and_check_result(user_request)

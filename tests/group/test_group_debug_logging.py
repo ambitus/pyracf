@@ -24,38 +24,43 @@ class TestGroupDebugLogging(unittest.TestCase):
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     # ============================================================================
-    # Add Group
+    # Alter Group
     # ============================================================================
-    def test_add_group_request_debug_log_works_on_success(
+    def test_alter_group_request_debug_log_works_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.group_admin.add(
-                "TESTGRP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
+            self.group_admin.alter(
+                "TESTGRP0", traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(success_log, TestGroupConstants.TEST_ADD_GROUP_SUCCESS_LOG)
+        self.assertEqual(success_log, TestGroupConstants.TEST_ALTER_GROUP_SUCCESS_LOG)
 
-    def test_add_group_request_debug_log_works_on_error(
+    def test_alter_group_request_debug_log_works_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.group_admin.add(
-                    "TESTGRP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
+                self.group_admin.alter(
+                    "TESTGRP0",
+                    traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestGroupConstants.TEST_ADD_GROUP_ERROR_LOG)
+        self.assertEqual(error_log, TestGroupConstants.TEST_ALTER_GROUP_ERROR_LOG)
 
     # ============================================================================
     # Extract Group
@@ -69,7 +74,7 @@ class TestGroupDebugLogging(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.group_admin.extract("TESTGRP0", segments={"omvs": True})
+            self.group_admin.extract("TESTGRP0", segments=["omvs"])
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log, TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_SUCCESS_LOG
@@ -85,7 +90,7 @@ class TestGroupDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.group_admin.extract("TESTGRP0", segments={"omvs": True})
+                self.group_admin.extract("TESTGRP0", segments=["omvs"])
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())

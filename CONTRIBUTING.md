@@ -9,17 +9,19 @@ The following are a set of guidelines to help you contribute.
 
 * [Ways to Contribute](#ways-to-contribute)
 
-* [Coding](#coding)
+  * [Coding](#coding)
 
-* [pre-commit Hooks](#pre-commit-hooks)
+  * [pre-commit Hooks](#pre-commit-hooks)
 
-* [Adding New Functionality](#adding-new-functionality)
+  * [Adding New Functionality](#adding-new-functionality)
 
-* [Testing](#testing)
+  * [Testing](#testing)
 
-* [Fixing Bugs](#fixing-bugs)
+  * [Fixing Bugs](#fixing-bugs)
 
-* [Adding or Fixing Documentation](#adding-or-fixing-documentation)
+  * [Adding or Fixing Documentation](#adding-or-fixing-documentation)
+
+  * [Branch Naming Conventions](#branch-naming-conventions)
 
 * [Style Guidelines](#style-guidelines)
 
@@ -52,14 +54,16 @@ If you want to write code, a good way to get started is by looking at the issues
 ### pre-commit Hooks
 To ensure that **code formatters _(isort and black)_**, **linters _(flake8 and pylint)_**, and **unit tests** are always run against your code on **every commit** set up the **pre-commit hooks**.
 
-* Install development dependencies
+> :warning: _pyRACF uses Poetry as it's **build backend** and for **dependency management**. After installing Poetry, ensure that the install location of Poetry is added to the `$PATH` **environment variable** if it is not already._
+* [Install Poetry](https://python-poetry.org/docs/#installation)
+
+* Install dependencies
   ```shell
-  python3 -m pip install -r requirements-development.txt
+  poetry install --no-root
   ```
 * Setup pre-commit hooks
-> :warning: _If your workstation cannot find `pre-commit`, ensure that the **Python package** `bin` directory location is added to the `$PATH` **environment variable**._
   ```shell
-  pre-commit install -f
+  poetry run pre-commit install -f
   ```
 
 ### Adding New Functionality
@@ -69,6 +73,12 @@ If you have a new functionality that can be added to the package, open a GitHub 
 ### Testing
 
 The main way to test pyRACF is to write **unit tests** in the [`tests`](tests) folder which **mock** the real **IRRSMO00 API** to enable **XML generation** and **XML parsing** logic to be validated in a **fast** and **automated** way. The unit test suite can be run by just executing [`test_runner.py`](tests/test_runner.py). It is also recommended to do manual tests on a **z/OS system** for **new functionality** and **bug fixes** to test the real calls to **IRRSMO00**.
+
+Since pyRACF uses Poetry as it's **build backend** and for **dependency management**, the pyRACF unit test suite should be executed as follows:
+
+```shell
+poetry run coverage run tests/test_runner.py
+```
 
 * **Unit Tests:**
 
@@ -88,13 +98,22 @@ If you fix a bug, open a GitHub pull request against the `dev` branch with the f
 
 If any updates need to be made to the pyRACF documentation, open a GitHub pull request against the `gh-pages-dev` branch with your changes. This may include updates to document new functionality or updates to correct errors or mistakes in the existing documentation.
 
+### Branch Naming Conventions
+
+Code branches should use the following naming conventions:
+
+* `wip/name` *(Work in progress branch that likely won't be finished soon)*
+* `feat/name` *(Branch where new functionality or enhancements are being developed)*
+* `bug/name` *(Branch where one or more bugs are being fixed)*
+* `junk/name` *(Throwaway branch created for experimentation)*
+
 ## Style Guidelines
 
 :bulb: _These steps can be done automatically using the [pre-commit Hooks](#pre-commit-hooks)._
 
 * When adding code to pyRACF, follow the PEP8 style guide for Python
-* The use of Flake8, Black, and pydocstyle as helpers is recommended
-* It is strongly recommended that you perform a pylint check on your code. We expect it to have a pylint score greater than 9
+* The use of `pylint`, `flake8`, `black`, and `isort` is required.
+* We expect all contributions to pass `flake8` and to have a `pylint` score of **10**.
 
 ## Contribution checklist
 
@@ -106,8 +125,8 @@ When contributing to pyRACF, think about the following:
 * Add any available test cases to `/tests`.
 * Verify `__init__.py` files are updated properly.
 * Ensure that you have __pre-commit Hooks__ setup to ensure that **isort**, **black**, **flake8**, and **pylint** are run against the code for every commit you make.
-* Run unit test suite by executing `python3 tests/test_runner.py`.
-* Install pyRACF on a z/OS system and do a smoke test to make sure no regressions have been introduced with the C code that interfaces with IRRSOM00.
+* Run unit test suite by executing `poetry run coverage run tests/test_runner.py`.
+* Install pyRACF on a z/OS system and do a smoke test to make sure no regressions have been introduced with the C code that interfaces with IRRSOM00. [`function_test.py`](tests/function_test/function_test.py) can be used for this smoke test.
 
 ## Found a bug?
 

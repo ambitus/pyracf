@@ -27,252 +27,298 @@ class TestUserDebugLogging(unittest.TestCase):
     simple_password = "PASSWORD"
 
     # ============================================================================
-    # Add User
+    # Alter User
     # ============================================================================
-    def test_add_user_request_debug_log_works_on_success(
+    def test_alter_user_request_debug_log_works_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add(
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(success_log, TestUserConstants.TEST_ADD_USER_SUCCESS_LOG)
+        self.assertEqual(success_log, TestUserConstants.TEST_ALTER_USER_SUCCESS_LOG)
 
-    def test_add_user_request_debug_log_works_on_error(
+    def test_alter_user_request_debug_log_works_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add(
+                self.user_admin.alter(
                     "squidwrd",
-                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS,
+                    traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_ERROR_LOG)
+        self.assertEqual(error_log, TestUserConstants.TEST_ALTER_USER_ERROR_LOG)
 
     # ============================================================================
     # Secrets Redaction
     # ============================================================================
-    def test_add_user_request_debug_log_passwords_get_redacted_on_success(
+    def test_alter_user_request_debug_log_passwords_get_redacted_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add(
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            success_log, TestUserConstants.TEST_ADD_USER_PASSWORD_SUCCESS_LOG
+            success_log, TestUserConstants.TEST_ALTER_USER_PASSWORD_SUCCESS_LOG
         )
         self.assertNotIn(self.test_password, success_log)
 
-    def test_add_user_request_debug_log_passwords_get_redacted_on_error(
+    def test_alter_user_request_debug_log_passwords_get_redacted_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add(
+                error_traits = dict(
+                    TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD
+                )
+                error_traits["omvs:uid"] = 90000000000
+                self.user_admin.alter(
                     "squidwrd",
-                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD,
+                    traits=error_traits,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_PASSWORD_ERROR_LOG)
+        self.assertEqual(
+            error_log, TestUserConstants.TEST_ALTER_USER_PASSWORD_ERROR_LOG
+        )
         self.assertNotIn(self.test_password, error_log)
 
-    def test_add_user_request_debug_log_passphrases_get_redacted_on_success(
+    def test_alter_user_request_debug_log_passphrases_get_redacted_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_RESULT_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add(
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            success_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_SUCCESS_LOG
+            success_log, TestUserConstants.TEST_ALTER_USER_PASSPHRASE_SUCCESS_LOG
         )
         self.assertNotIn(self.test_passphrase, success_log)
 
-    def test_add_user_request_debug_log_passphrases_get_redacted_on_error(
+    def test_alter_user_request_debug_log_passphrases_get_redacted_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add(
+                error_traits = dict(
+                    TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE
+                )
+                error_traits["omvs:uid"] = 90000000000
+                self.user_admin.alter(
                     "squidwrd",
-                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE,
+                    traits=error_traits,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            error_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_ERROR_LOG
+            error_log, TestUserConstants.TEST_ALTER_USER_PASSPHRASE_ERROR_LOG
         )
         self.assertNotIn(self.test_passphrase, error_log)
 
-    def test_add_user_request_debug_log_passphrases_and_passwords_get_redacted_on_success(
+    def test_alter_user_request_debug_log_passphrases_and_passwords_get_redacted_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add(
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log,
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_SUCCESS_LOG,
         )
         self.assertNotIn(self.test_passphrase, success_log)
         self.assertNotIn(self.test_password, success_log)
 
-    def test_add_user_request_debug_log_passphrases_and_passwords_get_redacted_on_error(
+    def test_alter_user_request_debug_log_passphrases_and_passwords_get_redacted_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add(
+                error_traits = dict(
+                    TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD
+                )
+                error_traits["omvs:uid"] = 90000000000
+                self.user_admin.alter(
                     "squidwrd",
-                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD,
+                    traits=error_traits,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            error_log, TestUserConstants.TEST_ADD_USER_PASSPHRASE_AND_PASSWORD_ERROR_LOG
+            error_log,
+            TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_ERROR_LOG,
         )
         self.assertNotIn(self.test_passphrase, error_log)
         self.assertNotIn(self.test_password, error_log)
 
-    def test_add_user_request_debug_log_password_xml_tags_not_redacted_on_success(
+    def test_alter_user_request_debug_log_password_xml_tags_not_redacted_on_success(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_SUCCESS_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.add(
+            self.user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            success_log, TestUserConstants.TEST_ADD_USER_PASSWORD_SUCCESS_LOG
+            success_log, TestUserConstants.TEST_ALTER_USER_PASSWORD_SUCCESS_LOG
         )
         self.assertEqual(success_log.count("********"), 4)
         self.assertIn(self.simple_password, success_log)
 
-    def test_add_user_request_debug_log_password_xml_tags_not_redacted_on_error(
+    def test_alter_user_request_debug_log_password_xml_tags_not_redacted_on_error(
         self,
         call_racf_mock: Mock,
     ):
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_ADD_USER_PASSWORD_RESULT_ERROR_XML
-        )
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.add(
+                error_traits = dict(
+                    TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE
+                )
+                error_traits["omvs:uid"] = 90000000000
+                self.user_admin.alter(
                     "squidwrd",
-                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS_PASSWORD_SIMPLE,
+                    traits=error_traits,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(error_log, TestUserConstants.TEST_ADD_USER_PASSWORD_ERROR_LOG)
+        self.assertEqual(
+            error_log, TestUserConstants.TEST_ALTER_USER_PASSWORD_ERROR_LOG
+        )
         self.assertEqual(error_log.count("********"), 4)
         self.assertIn(self.simple_password, error_log)
 
     # ============================================================================
     # Add Additional Secrets
     # ============================================================================
-    def test_add_user_request_debug_log_additional_secret_added_get_redacted_on_success(
+    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_success(
         self,
         call_racf_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            user_admin.add(
+            user_admin.alter(
                 "squidwrd",
-                traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log,
-            TestUserConstants.TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
+            TestUserConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
         )
         self.assertNotIn(
-            TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS["omvs:uid"], success_log
+            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
+            success_log,
         )
 
-    def test_add_user_request_debug_log_additional_secret_added_get_redacted_on_error(
+    # Secret redacted from command image but not from resulting error message.
+    # Marked experimental until resolved
+    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_error(
         self,
         call_racf_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
-        call_racf_mock.return_value = TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
+        ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                user_admin.add(
+                user_admin.alter(
                     "squidwrd",
-                    traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS,
+                    traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
                 )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            error_log, TestUserConstants.TEST_ADD_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG
+            error_log,
+            TestUserConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
         )
         self.assertNotIn(
-            TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS["omvs:uid"], error_log
+            f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
+            error_log,
         )
 
     # ============================================================================
@@ -287,7 +333,7 @@ class TestUserDebugLogging(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.user_admin.extract("squidwrd", segments={"omvs": True})
+            self.user_admin.extract("squidwrd", segments=["omvs"])
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log, TestUserConstants.TEST_EXTRACT_USER_BASE_OMVS_SUCCESS_LOG
@@ -303,7 +349,7 @@ class TestUserDebugLogging(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.user_admin.extract("squidwrd", segments={"omvs": True})
+                self.user_admin.extract("squidwrd", segments=["omvs"])
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())

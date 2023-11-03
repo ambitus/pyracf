@@ -24,37 +24,45 @@ class TestConnectionDebugLogging(unittest.TestCase):
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     # ============================================================================
-    # Add Connection
+    # Connect Connection
     # ============================================================================
-    def test_add_connection_request_debug_log_works_on_success(
+    def test_connect_connection_request_debug_log_works_on_success(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_SUCCESS_XML
+            TestConnectionConstants.TEST_CONNECT_CONNECTION_RESULT_SUCCESS_XML
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.connection_admin.add("ESWIFT", "TESTGRP0")
+            self.connection_admin.connect(
+                "ESWIFT",
+                "TESTGRP0",
+                traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
+            ),
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            success_log, TestConnectionConstants.TEST_ADD_CONNECTION_SUCCESS_LOG
+            success_log, TestConnectionConstants.TEST_CONNECT_CONNECTION_SUCCESS_LOG
         )
 
-    def test_add_connection_request_debug_log_works_on_error(
+    def test_connect_connection_request_debug_log_works_on_error(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = (
-            TestConnectionConstants.TEST_ADD_CONNECTION_RESULT_ERROR_XML
+            TestConnectionConstants.TEST_CONNECT_CONNECTION_RESULT_ERROR_XML
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.connection_admin.add("ESWIFT", "TESTGRP0")
+                self.connection_admin.connect(
+                    "ESWIFT",
+                    "TESTGRP0",
+                    traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
+                ),
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            error_log, TestConnectionConstants.TEST_ADD_CONNECTION_ERROR_LOG
+            error_log, TestConnectionConstants.TEST_CONNECT_CONNECTION_ERROR_LOG
         )

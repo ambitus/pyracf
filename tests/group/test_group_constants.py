@@ -42,11 +42,23 @@ TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML = get_sample(
 TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_DICTIONARY = get_sample(
     "extract_group_result_base_omvs_error.json"
 )
-TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_XML = get_sample(
-    "extract_group_result_base_only_no_omvs_success.xml"
+TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML = get_sample(
+    "extract_group_result_base_only_success.xml"
 )
-TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_NO_OMVS_SUCCESS_JSON = get_sample(
-    "extract_group_result_base_only_no_omvs_success.json"
+TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_JSON = get_sample(
+    "extract_group_result_base_only_success.json"
+)
+TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_XML = get_sample(
+    "extract_group_result_base_only_error.xml"
+)
+TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_JSON = get_sample(
+    "extract_group_result_base_only_error.json"
+)
+TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_XML = get_sample(
+    "extract_group_result_bad_attribute_error.xml"
+)
+TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_DICTIONARY = get_sample(
+    "extract_group_result_bad_attribute_error.json"
 )
 
 # Delete Group
@@ -92,8 +104,8 @@ TEST_GROUP_SET_OVM_GID_XML = get_sample("group_set_ovm_gid.xml")
 # Debug Logging
 # ============================================================================
 
-TEST_ADD_GROUP_SUCCESS_LOG = get_sample("add_group_success.log")
-TEST_ADD_GROUP_ERROR_LOG = get_sample("add_group_error.log")
+TEST_ALTER_GROUP_SUCCESS_LOG = get_sample("alter_group_success.log")
+TEST_ALTER_GROUP_ERROR_LOG = get_sample("alter_group_error.log")
 
 TEST_EXTRACT_GROUP_BASE_OMVS_SUCCESS_LOG = get_sample(
     "extract_group_base_omvs_success.log"

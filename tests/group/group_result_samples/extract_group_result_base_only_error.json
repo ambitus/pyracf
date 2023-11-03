@@ -1,0 +1,22 @@
+{
+  "securityResult": {
+    "group": {
+      "name": "TESTGRP0",
+      "operation": "listdata",
+      "requestId": "GroupRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "LISTGRP TESTGRP0 ",
+          "messages": [
+            "ICH51003I NAME NOT FOUND IN RACF DATA SET"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 0
+  }
+}

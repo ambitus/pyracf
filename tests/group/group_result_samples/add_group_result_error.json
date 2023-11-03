@@ -1,28 +1,19 @@
 {
   "securityResult": {
     "group": {
-      "name": "TESTGRP0",
+      "name": "TESTGRPP0",
       "operation": "set",
       "requestId": "GroupRequest",
-      "commands": [
-        {
-          "safReturnCode": 8,
-          "returnCode": 16,
-          "reasonCode": 8,
-          "image": "ADDGROUP TESTGRP0 ",
-          "messages": [
-            "IKJ56702I INVALID GROUP, TESTGRP0"
-          ]
-        },
-        {
-          "safReturnCode": 0,
-          "returnCode": 0,
-          "reasonCode": 0,
-          "image": "ALTGROUP TESTGRP0  OMVS     (GID         (6667))"
-        }
-      ]
+      "error": {
+        "errorFunction": 10,
+        "errorCode": 2000,
+        "errorReason": 68,
+        "errorMessage": "Invalid attribute value specified.",
+        "errorOffset": 149,
+        "textInError": "name"
+      }
     },
-    "returnCode": 4,
-    "reasonCode": 0
+    "returnCode": 2000,
+    "reasonCode": 68
   }
 }

@@ -8,6 +8,7 @@ import __init__
 from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
+from tests.common.test_logger import TestLogger
 from tests.connection.test_connection_debug_logging import TestConnectionDebugLogging
 from tests.connection.test_connection_request_builder import (
     TestConnectionRequestBuilder,
@@ -29,6 +30,12 @@ from tests.resource.test_resource_getters import TestResourceGetters
 from tests.resource.test_resource_request_builder import TestResourceRequestBuilder
 from tests.resource.test_resource_result_parser import TestResourceResultParser
 from tests.resource.test_resource_setters import TestResourceSetters
+from tests.resource.test_resource_subfunction_extracts import (
+    TestResourceSubfunctionExtracts,
+)
+from tests.resource.test_resource_subfunction_requests import (
+    TestResourceSubfunctionRequests,
+)
 from tests.setropts.test_setropts_debug_logging import TestSetroptsDebugLogging
 from tests.setropts.test_setropts_getters import TestSetroptsGetters
 from tests.setropts.test_setropts_request_builder import TestSetroptsRequestBuilder
@@ -52,6 +59,7 @@ def __test_suite() -> unittest.TestSuite:
         TestAccessResultParser,
         TestAccessRequestBuilder,
         TestAccessDebugLogging,
+        TestLogger,
         TestConnectionResultParser,
         TestConnectionRequestBuilder,
         TestConnectionSetters,
@@ -66,6 +74,8 @@ def __test_suite() -> unittest.TestSuite:
         TestResourceGetters,
         TestResourceSetters,
         TestResourceDebugLogging,
+        TestResourceSubfunctionRequests,
+        TestResourceSubfunctionExtracts,
         TestGroupResultParser,
         TestGroupRequestBuilder,
         TestGroupGetters,

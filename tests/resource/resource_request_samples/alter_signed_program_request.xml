@@ -1,0 +1,7 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTPRGM" class="PROGRAM" operation="set" requestid="ResourceRequest">
+    <sigver>
+      <sigaudit operation="set">SUCCESS</sigaudit>
+    </sigver>
+  </resource>
+</securityrequest>

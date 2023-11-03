@@ -13,6 +13,23 @@ typedef struct {
         char str[8];
 } VarStr_T;
 
+// This function changes any null character not preceded by '>' to a blank character.
+// This is a workaround for an issue where profile data embedded in response xml 
+// returned by IRROSMO00 sometimes includes null characters instead of properly 
+// encoded text, which causes the returned xml to be truncated.
+void null_byte_fix(char* str, unsigned int str_len) {
+   for (int i = 1; i < str_len; i++){
+      if (str[i] == 0) {
+         if (str[i-1] == 0x6E) {
+            return; 
+         }
+         else {
+            str[i] = 0x40;
+         }
+      }
+   }
+}
+
 static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs) {
    const unsigned int xml_len;
    const unsigned int input_opts;
@@ -30,7 +47,7 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
     VarStr_T userid = { 0, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
-    char rsp[BUFFER_SIZE+1];
+    unsigned char rsp[BUFFER_SIZE+1];
     memset(rsp, 0, BUFFER_SIZE);
     unsigned int saf_rc=0, racf_rc=0, racf_rsn=0;
     unsigned int num_parms=17, fn=1, opts = input_opts, rsp_len = sizeof(rsp)-1;
@@ -55,6 +72,7 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
         rsp
     );
 
+   null_byte_fix(rsp,rsp_len);
    return Py_BuildValue("y", rsp);
 }
 

@@ -1,19 +1,27 @@
 {
   "securityResult": {
     "user": {
-      "name": "squidward",
+      "name": "SQUIDWRD",
       "operation": "set",
       "requestId": "UserRequest",
-      "error": {
-        "errorFunction": 10,
-        "errorCode": 2000,
-        "errorReason": 68,
-        "errorMessage": "Invalid attribute value specified.",
-        "errorOffset": 149,
-        "textInError": "name"
-      }
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 8,
+          "image": "ALTUSER SQUIDWRD  NOSPECIAL      OMVS     (HOME        ('/u/clarinet') NOPROGRAM      UID         (90000000000))",
+          "messages": [
+            "IKJ56702I INVALID UID, 90000000000",
+            "IKJ56701I MISSING OMVS UID+",
+            "IKJ56701I MISSING OMVS USER ID (UID), 1-10 NUMERIC DIGITS"
+          ]
+        }
+      ]
     },
-    "returnCode": 2000,
-    "reasonCode": 68
+    "returnCode": 4,
+    "reasonCode": 0
   }
 }

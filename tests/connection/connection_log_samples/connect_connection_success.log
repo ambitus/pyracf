@@ -1,0 +1,79 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                           ConnectionAdmin.connect()                           
+                                                                               
+
+{
+  "base": {
+    "base:operations": {
+      "value": false,
+      "operation": "delete"
+    },
+    "base:special": {
+      "value": true,
+      "operation": null
+    }
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                           ConnectionAdmin.connect()                           
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+    <racf:oper operation="del"/>
+    <racf:special operation="set"/>
+  </groupconnection>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                           ConnectionAdmin.connect()                           
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     </image>
+    </command>
+  </groupconnection>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                           ConnectionAdmin.connect()                           
+                                                                               
+
+{
+  "securityResult": {
+    "groupConnection": {
+      "name": "ESWIFT",
+      "group": "TESTGRP0",
+      "operation": "set",
+      "requestId": "ConnectionRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "CONNECT ESWIFT  GROUP       (TESTGRP0) SPECIAL     "
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+

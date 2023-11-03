@@ -18,20 +18,14 @@ class TestConnectionRequestBuilder(unittest.TestCase):
     IRRSMO00.__init__ = Mock(return_value=None)
     connection_admin = ConnectionAdmin(generate_requests_only=True)
 
-    def test_connection_admin_build_add_connection_request(self):
-        result = self.connection_admin.add("ESWIFT", "TESTGRP0")
-        self.assertEqual(
-            result, TestConnectionConstants.TEST_ADD_CONNECTION_REQUEST_XML
-        )
-
-    def test_connection_admin_build_alter_connection_request(self):
-        result = self.connection_admin.alter(
+    def test_connection_admin_build_connect_connection_request(self):
+        result = self.connection_admin.connect(
             "ESWIFT",
             "TESTGRP0",
-            traits=TestConnectionConstants.TEST_ALTER_CONNECTION_REQUEST_TRAITS,
+            traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
         )
         self.assertEqual(
-            result, TestConnectionConstants.TEST_ALTER_CONNECTION_REQUEST_XML
+            result, TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_XML
         )
 
     def test_connection_admin_build_delete_connection_request(self):

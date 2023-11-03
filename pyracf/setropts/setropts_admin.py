@@ -20,88 +20,88 @@ class SetroptsAdmin(SecurityAdmin):
     ) -> None:
         self._valid_segment_traits = {
             "base": {
-                "base:active_class": "racf:classact",
-                "base:addcreat": "racf:addcreat",
-                "base:adsp": "racf:adsp",
-                "base:applaudt": "racf:applaudt",
-                "base:audit_class": "racf:audit",
-                "base:catdsns": "racf:catdsns",
-                "base:cmdviol": "racf:cmdviol",
-                "base:compmode": "racf:compmode",
-                "base:egn": "racf:egn",
-                "base:erase": "racf:erase",
-                "base:eraseall": "racf:eraseall",
-                "base:erasesec": "racf:erasesec",
-                "base:general_command_class": "racf:gencmd",
-                "base:generic_profile_checking_class": "racf:generic",
-                "base:generic_profile_sharing_class": "racf:genlist",
-                "base:genowner": "racf:genowner",
-                "base:global_access_class": "racf:global",
-                "base:grplist": "racf:grplist",
-                "base:history": "racf:history",
-                "base:inactive": "racf:inactive",
-                "base:initstat": "racf:initstat",
-                "base:interval": "racf:interval",
-                "base:jesbatch": "racf:jesbatch",
-                "base:jesearly": "racf:jesearly",
-                "base:jesnje": "racf:jesnje",
-                "base:jesundef": "racf:jesundef",
-                "base:jesxbm": "racf:jesxbm",
-                "base:kerblvl": "racf:kerblvl",
+                "base:active_classes": "racf:classact",
+                "base:add_creator": "racf:addcreat",
+                "base:automatic_data_set_protection": "racf:adsp",
+                "base:application_logon_auditing": "racf:applaudt",
+                "base:audit_classes": "racf:audit",
+                "base:uncataloged_data_set_access": "racf:catdsns",
+                "base:log_racf_command_violations": "racf:cmdviol",
+                "base:security_label_compatibility_mode": "racf:compmode",
+                "base:enhanced_generic_naming": "racf:egn",
+                "base:erase_data_sets_on_delete": "racf:erase",
+                "base:erase_data_sets_on_delete_all": "racf:eraseall",
+                "base:erase_data_sets_on_delete_security_level": "racf:erasesec",
+                "base:generic_command_classes": "racf:gencmd",
+                "base:generic_profile_checking_classes": "racf:generic",
+                "base:generic_profile_sharing_classes": "racf:genlist",
+                "base:generic_owner": "racf:genowner",
+                "base:global_access_classes": "racf:global",
+                "base:list_of_groups_access_checking": "racf:grplist",
+                "base:password_history": "racf:history",
+                "base:revoke_inactive_userids_interval": "racf:inactive",
+                "base:record_user_verification_statistics": "racf:initstat",
+                "base:max_password_change_interval": "racf:interval",
+                "base:jes_batch": "racf:jesbatch",
+                "base:jes_early_verification": "racf:jesearly",
+                "base:jes_network_user": "racf:jesnje",
+                "base:jes_undefined_user": "racf:jesundef",
+                "base:jes_execution_batch_monitoring": "racf:jesxbm",
+                "base:kerberos_encryption_level": "racf:kerblvl",
                 "base:list": "racf:list",
-                "base:logalwys": "racf:logalwys",
-                "base:logdeflt": "racf:logdeflt",
-                "base:logfail": "racf:logfail",
-                "base:lognever": "racf:lognever",
-                "base:logsucc": "racf:logsucc",
-                "base:minchang": "racf:minchang",
-                "base:mixdcase": "racf:mixdcase",
-                "base:mlactive": "racf:mlactive",
-                "base:mlfs": "racf:mlfs",
-                "base:mlipc": "racf:mlipc",
-                "base:mlnames": "racf:mlnames",
-                "base:mlquiet": "racf:mlquiet",
-                "base:mls": "racf:mls",
-                "base:mlstable": "racf:mlstable",
-                "base:model": "racf:model",
-                "base:modgdg": "racf:modgdg",
-                "base:modgroup": "racf:modgroup",
-                "base:moduser": "racf:moduser",
-                "base:operaudt": "racf:operaudt",
-                "base:phrint": "racf:phrint",
-                "base:prefix": "racf:prefix",
-                "base:primlang": "racf:primlang",
-                "base:protall": "racf:protall",
-                "base:pwdalg": "racf:pwdalg",
-                "base:pwdspec": "racf:pwdspec",
+                "base:audit_log_always_classes": "racf:logalwys",
+                "base:audit_log_default_classes": "racf:logdeflt",
+                "base:audit_log_failure_classes": "racf:logfail",
+                "base:audit_log_never_classes": "racf:lognever",
+                "base:audit_log_success_classes": "racf:logsucc",
+                "base:min_password_change_interval": "racf:minchang",
+                "base:mixed_case_password_support": "racf:mixdcase",
+                "base:multi_level_security_address_space": "racf:mlactive",
+                "base:multi_level_security_file_system": "racf:mlfs",
+                "base:multi_level_security_interprocess": "racf:mlipc",
+                "base:multi_level_security_file_names": "racf:mlnames",
+                "base:multi_level_security_logon": "racf:mlquiet",
+                "base:multi_level_security_declassification": "racf:mls",
+                "base:multi_level_security_label_alteration": "racf:mlstable",
+                "base:profile_modelling": "racf:model",
+                "base:profile_modelling_generation_data_group": "racf:modgdg",
+                "base:profile_modelling_group": "racf:modgroup",
+                "base:profile_modelling_user": "racf:moduser",
+                "base:log_operator_actions": "racf:operaudt",
+                "base:passphrase_change_interval": "racf:phrint",
+                "base:data_set_single_level_name_prefix_protection": "racf:prefix",
+                "base:primary_language": "racf:primlang",
+                "base:protect_all_data_sets": "racf:protall",
+                "base:password_encryption_algorithm": "racf:pwdalg",
+                "base:special_character_password_support": "racf:pwdspec",
                 "base:raclist": "racf:raclist",
-                "base:realdsn": "racf:realdsn",
+                "base:log_real_data_set_name": "racf:realdsn",
                 "base:refresh": "racf:refresh",
-                "base:retpd": "racf:retpd",
-                "base:revoke": "racf:revoke",
-                "base:rules": "racf:rules",
-                "base:rule1": "racf:rule1",
-                "base:rule2": "racf:rule2",
-                "base:rule3": "racf:rule3",
-                "base:rule4": "racf:rule4",
-                "base:rule5": "racf:rule5",
-                "base:rule6": "racf:rule6",
-                "base:rule7": "racf:rule7",
-                "base:rule8": "racf:rule8",
-                "base:rvarswpw": "racf:rvarswpw",
-                "base:rvarstpw": "racf:rvarstpw",
-                "base:saudit": "racf:saudit",
-                "base:seclabct": "racf:seclabct",
-                "base:seclang": "racf:seclang",
-                "base:sessint": "racf:sessint",
-                "base:slabaudt": "racf:slabaudt",
-                "base:slbysys": "racf:slbysys",
-                "base:slevaudt": "racf:slevaudt",
-                "base:statistics_class": "racf:classtat",
-                "base:tapedsn": "racf:tapedsn",
-                "base:terminal": "racf:terminal",
-                "base:warning": "racf:warning",
-                "base:whenprog": "racf:whenprog",
+                "base:tape_data_set_security_retention_period": "racf:retpd",
+                "base:max_incorrect_password_attempts": "racf:revoke",
+                "base:password_rules": "racf:rules",
+                "base:password_rule_1": "racf:rule1",
+                "base:password_rule_2": "racf:rule2",
+                "base:password_rule_3": "racf:rule3",
+                "base:password_rule_4": "racf:rule4",
+                "base:password_rule_5": "racf:rule5",
+                "base:password_rule_6": "racf:rule6",
+                "base:password_rule_7": "racf:rule7",
+                "base:password_rule_8": "racf:rule8",
+                "base:rvary_switch_password": "racf:rvarswpw",
+                "base:rvary_status_password": "racf:rvarstpw",
+                "base:log_commands_issuesd_by_special_users": "racf:saudit",
+                "base:security_label_control": "racf:seclabct",
+                "base:secondary_language": "racf:seclang",
+                "base:session_key_verification_interval": "racf:sessint",
+                "base:security_label_auditing": "racf:slabaudt",
+                "base:security_label_system": "racf:slbysys",
+                "base:security_level_auditing": "racf:slevaudt",
+                "base:statistics_classes": "racf:classtat",
+                "base:tape_data_set_protection": "racf:tapedsn",
+                "base:terminal_universal_access": "racf:terminal",
+                "base:password_expiration_warning": "racf:warning",
+                "base:program_control": "racf:whenprog",
             }
         }
         super().__init__(
@@ -124,9 +124,9 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     # Raclist Refresh
     # ============================================================================
-    def refresh_raclist(self, class_name: str) -> Union[dict, bytes]:
+    def refresh_raclist(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
         """Refresh raclist."""
-        result = self.alter(options={"base:raclist": class_name, "base:refresh": True})
+        result = self.alter(options={"base:raclist": class_names, "base:refresh": True})
         return self._to_steps(result)
 
     # ============================================================================
@@ -136,7 +136,7 @@ class SetroptsAdmin(SecurityAdmin):
         """Get RACF get attributes."""
         profile = self.list_racf_options(options_only=True)
         if not isinstance(profile, dict):
-            # Allows this function to work with "self.__generate_requests_only" mode.
+            # Allows this function to work with "self._generate_requests_only" mode.
             return profile
         return [
             class_type
@@ -145,137 +145,167 @@ class SetroptsAdmin(SecurityAdmin):
         ]
 
     # ============================================================================
-    # Audit Class
+    # Audit Classes
     # ============================================================================
-    def add_audit_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to list of classes that RACF performs auditing for."""
-        result = self.alter(options={"base:audit_class": class_name})
+    def add_audit_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to list of classes that RACF performs auditing for."""
+        result = self.alter(options={"base:audit_classes": class_names})
         return self._to_steps(result)
 
-    def remove_audit_class(self, class_name: str) -> Union[dict, bytes]:
-        """Remove a class from the list of classes that RACF performs auditing for."""
-        result = self.alter(options={"delete:base:audit_class": class_name})
+    def remove_audit_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Remove class(es) from the list of classes that RACF performs auditing for."""
+        result = self.alter(options={"delete:base:audit_classes": class_names})
         return self._to_steps(result)
 
     # ============================================================================
-    # Active Class
+    # Active Classes
     # ============================================================================
-    def add_active_class(self, class_name: str) -> Union[dict, bytes]:
+    def add_active_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
         """
-        Add a class to the list of classes that RACF performs access authorization checking for.
+        Add class(es) to the list of classes that RACF performs access authorization checking for.
         """
-        result = self.alter(options={"base:active_class": class_name})
+        result = self.alter(options={"base:active_classes": class_names})
         return self._to_steps(result)
 
-    def remove_active_class(self, class_name: str) -> Union[dict, bytes]:
+    def remove_active_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that
+        Remove class(es) from the list of classes that
         RACF performs access authorization checking for.
         """
-        result = self.alter(options={"delete:base:active_class": class_name})
+        result = self.alter(options={"delete:base:active_classes": class_names})
         return self._to_steps(result)
 
     # ============================================================================
-    # Statistics Class
+    # Statistics Classes
     # ============================================================================
-    def add_statistics_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to the list of classes that RACF collects statistics for."""
-        result = self.alter(options={"base:statistics_class": class_name})
+    def add_statistics_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to the list of classes that RACF collects statistics for."""
+        result = self.alter(options={"base:statistics_classes": class_names})
         return self._to_steps(result)
 
-    def remove_statistics_class(self, class_name: str) -> Union[dict, bytes]:
-        """Remove a class from the list of classes that RACF collects statistics for."""
-        result = self.alter(options={"delete:base:statistics_class": class_name})
+    def remove_statistics_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Remove class(es) from the list of classes that RACF collects statistics for."""
+        result = self.alter(options={"delete:base:statistics_classes": class_names})
         return self._to_steps(result)
 
     # ============================================================================
-    # Generic Command Processing Class
+    # Generic Command Processing Classes
     # ============================================================================
-    def add_generic_command_processing_class(
-        self, class_name: str
+    def add_generic_command_processing_classes(
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
-        Add a class to the list of classes that have
+        Add class(es) to the list of classes that have
         generic profile command processing enabled.
         """
-        result = self.alter(options={"base:general_command_class": class_name})
+        result = self.alter(options={"base:generic_command_classes": class_names})
         return self._to_steps(result)
 
-    def remove_generic_command_processing_class(
-        self, class_name: str
+    def remove_generic_command_processing_classes(
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that
+        Remove class(es) from the list of classes that
         have generic profile command processing enabled.
         """
-        result = self.alter(options={"delete:base:general_command_class": class_name})
-        return self._to_steps(result)
-
-    # ============================================================================
-    # Generic Profile Checking Class
-    # ============================================================================
-    def add_generic_profile_checking_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to the list of classes that have generic profile checking enabled."""
-        result = self.alter(options={"base:generic_profile_checking_class": class_name})
-        return self._to_steps(result)
-
-    def remove_generic_profile_checking_class(
-        self, class_name: str
-    ) -> Union[dict, bytes]:
-        """Remove a class from the list of classes that have generic profile checking enabled."""
         result = self.alter(
-            options={"delete:base:generic_profile_checking_class": class_name}
+            options={"delete:base:generic_command_classes": class_names}
         )
         return self._to_steps(result)
 
     # ============================================================================
-    # Generic Profile Sharing Class
+    # Generic Profile Checking Classes
     # ============================================================================
-    def add_generic_profile_sharing_class(self, class_name: str) -> Union[dict, bytes]:
-        """
-        Add a class to the list of classes that are eligible for
-        general resource profile sharing in common storage.
-        """
-        result = self.alter(options={"base:generic_profile_sharing_class": class_name})
+    def add_generic_profile_checking_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to the list of classes that have generic profile checking enabled."""
+        result = self.alter(
+            options={"base:generic_profile_checking_classes": class_names}
+        )
         return self._to_steps(result)
 
-    def remove_generic_profile_sharing_class(
-        self, class_name: str
+    def remove_generic_profile_checking_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Remove class(es) from the list of classes that have generic profile checking enabled."""
+        result = self.alter(
+            options={"delete:base:generic_profile_checking_classes": class_names}
+        )
+        return self._to_steps(result)
+
+    # ============================================================================
+    # Generic Profile Sharing Classes
+    # ============================================================================
+    def add_generic_profile_sharing_classes(
+        self, class_names: Union[str, List[str]]
     ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that are eligible
+        Add class(es) to the list of classes that are eligible for
+        general resource profile sharing in common storage.
+        """
+        result = self.alter(
+            options={"base:generic_profile_sharing_classes": class_names}
+        )
+        return self._to_steps(result)
+
+    def remove_generic_profile_sharing_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """
+        Remove class(es) from the list of classes that are eligible
         for general resource profile sharing in common storage.
         """
         result = self.alter(
-            options={"delete:base:generic_profile_sharing_class": class_name}
+            options={"delete:base:generic_profile_sharing_classes": class_names}
         )
         return self._to_steps(result)
 
     # ============================================================================
-    # Global Access Class
+    # Global Access Classes
     # ============================================================================
-    def add_global_access_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to the list of classes eligible for global access checking."""
-        return self.alter(options={"base:global_access_class": class_name})
+    def add_global_access_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to the list of classes eligible for global access checking."""
+        return self.alter(options={"base:global_access_classes": class_names})
 
-    def remove_global_access_class(self, class_name: str) -> Union[dict, bytes]:
-        """Remove a class from the list of classes eligible for global access checking."""
-        result = self.alter(options={"delete:base:global_access_class": class_name})
+    def remove_global_access_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Remove class(es) from the list of classes eligible for global access checking."""
+        result = self.alter(options={"delete:base:global_access_classes": class_names})
         return self._to_steps(result)
 
     # ============================================================================
-    # Raclist Class
+    # Raclist Classes
     # ============================================================================
-    def add_raclist_class(self, class_name: str) -> Union[dict, bytes]:
-        """Add a class to list of classes that have in-storage profile sharing activated."""
-        result = self.alter(options={"base:raclist": class_name})
+    def add_raclist_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Add class(es) to list of classes that have in-storage profile sharing activated."""
+        result = self.alter(options={"base:raclist": class_names})
         return self._to_steps(result)
 
-    def remove_raclist_class(self, class_name: str) -> Union[dict, bytes]:
+    def remove_raclist_classes(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
         """
-        Remove a class from the list of classes that have in-storage profile sharing activated.
+        Remove class(es) from the list of classes that have in-storage profile sharing activated.
         """
-        result = self.alter(options={"delete:base:raclist": class_name})
+        result = self.alter(options={"delete:base:raclist": class_names})
         return self._to_steps(result)
 
     # ============================================================================
@@ -283,7 +313,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     def list_racf_options(self, options_only: bool = False) -> Union[dict, bytes]:
         """List RACF options."""
-        self._build_segment_dictionaries({"base:list": True})
+        self._build_segment_trait_dictionary({"base:list": True})
         setropts_request = SetroptsRequest()
         self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
         result = self._extract_and_check_result(setropts_request)
@@ -293,9 +323,11 @@ class SetroptsAdmin(SecurityAdmin):
 
     def alter(self, options: dict = {}) -> Union[dict, bytes]:
         """Update RACF options."""
-        self._build_segment_dictionaries(options)
+        self._build_segment_trait_dictionary(options)
         setropts_request = SetroptsRequest()
-        self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
+        self._add_traits_directly_to_request_xml_with_no_segments(
+            setropts_request, alter=True
+        )
         return self._make_request(setropts_request)
 
     # ============================================================================
@@ -506,12 +538,12 @@ class SetroptsAdmin(SecurityAdmin):
         for key_raw, value_raw in profile_raw:
             if "[TOKEN " in value_raw:
                 (key_raw, value_raw) = self.__fix_key_value_raw(key_raw, value_raw)
-            key = self._profile_field_to_camel_case(key_raw.lower())
+            key = self._profile_field_to_camel_case("base", key_raw.lower())
             if key_raw == "ATTRIBUTES":
                 self.__add_attributes(profile, key, value_raw)
                 continue
             elif key_raw in class_list_fields:
-                self.__add_class_list(profile, key, value_raw)
+                self.__add_classes_list(profile, key, value_raw)
                 continue
             elif key_raw in generic_list_fields:
                 value = self.__to_list(value_raw)
@@ -578,7 +610,7 @@ class SetroptsAdmin(SecurityAdmin):
                     attribute = "LOG COMMAND VIOLATIONS"
                 case "OPERAUDIT":
                     attribute = "OPERATIONS AUDIT"
-            attribute = self._profile_field_to_camel_case(attribute.lower())
+            attribute = self._profile_field_to_camel_case("base", attribute.lower())
             profile[key][attribute] = value
 
     def __to_list(self, value_raw: str, n: int = 1) -> List[str]:
@@ -591,8 +623,8 @@ class SetroptsAdmin(SecurityAdmin):
             for i in range(0, len(tokens), n)
         ]
 
-    def __add_class_list(self, profile: dict, class_key: str, value_raw: str) -> None:
-        """Add a class list to profile"""
+    def __add_classes_list(self, profile: dict, class_key: str, value_raw: str) -> None:
+        """Add a class list to profile."""
         if "classes" not in profile:
             profile["classes"] = {}
         class_key = class_key.replace("Classes", "")
@@ -685,7 +717,7 @@ class SetroptsAdmin(SecurityAdmin):
                 subkey_raw = key_raw.replace(subfield_token, "")
         if key not in profile:
             profile[key] = {}
-        subkey = self._profile_field_to_camel_case(subkey_raw.lower())
+        subkey = self._profile_field_to_camel_case("base", subkey_raw.lower())
         if subdictionary:
             profile[key][subkey] = subdictionary
         else:
@@ -697,7 +729,9 @@ class SetroptsAdmin(SecurityAdmin):
         options_dictionary = {}
         for option in subsubfield_option_tokens:
             option_tokens = option.split("=")
-            key = self._profile_field_to_camel_case(option_tokens[0].strip().lower())
+            key = self._profile_field_to_camel_case(
+                "base", option_tokens[0].strip().lower()
+            )
             value = self._cast_from_str(option_tokens[1].strip())
             options_dictionary[key] = value
         return options_dictionary
