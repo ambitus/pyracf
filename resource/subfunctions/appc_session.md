@@ -194,7 +194,7 @@ def extract_appc_session(
 &nbsp;
 
 {: .experimental }
-> _So far, no tested **Segments** and **Traits** are considered **Stable** when extracting the the `session` segment. This is how the function will work when **Traits** for the `session` segment are made **Stable**._
+> _So far, no tested **Segments** and **Traits** are considered **Stable** when extracting the `session` segment. This is how the function will work when **Traits** for the `session` segment are made **Stable**._
 
 &nbsp;
 
