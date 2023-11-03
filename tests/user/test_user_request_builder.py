@@ -140,6 +140,9 @@ class TestUserRequestBuilder(unittest.TestCase):
             + f"combination for '{self.user_admin._profile_type}'.\n",
         )
 
+# Since this test uses GenerateRequestsOnly, the "Add" after the AddOperationError is returned
+# does not begin with an "Extract" call. This is necessary to recreate the error, so an extra
+# extract call was added to simulate this behavior.
     def test_user_admin_cleans_up_after_build_add_request_with_bad_segment_traits(self):
         bad_trait = "omvs:bad_trait"
         user_admin = UserAdmin(
