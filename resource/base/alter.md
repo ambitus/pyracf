@@ -40,7 +40,7 @@ Alter an existing **general resource profile**.
   The name of the **class** the general resource profile being altered belongs to.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource. See [Traits](../segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
