@@ -12,8 +12,13 @@ Python interface into the RACF management application programming interface.
 
 &nbsp;
 
-{: .warning }
-> _**pyRACF** is still in **Alpha**, meaning that it is not yet considered ready for production use and existing functionality and interfaces are still subject to change._
+{: .development_status }
+> _**pyRACF** is currently in **Beta**, meaning that a subset of functionality is available and considered more or less **Stable** and ready for production, but there is still functionality that is **Experimental** or still needs to be implemented. Please see the annotation below on **Experimental** features._
+
+&nbsp;
+
+{: .experimental }
+> _Functionality that is considered **Experimental** will be accompanied by this annotation. This means that the functionality is not tested and or is subject to major changes including even being removed entirely._
 
 &nbsp;
 
@@ -30,6 +35,30 @@ Python interface into the RACF management application programming interface.
 {: .note}
  > _pyRACF will eventually be made available on [pypi.org](https://pypi.org/), but currently python wheel distributions for pyRACF are only available for manual download and installation via GitHub._
 
+ &nbsp;
+
+{: .warning}
+> _If you get the following error when trying to install pyRACF from GitHub using the provided commands, ensure that you have a `.curlrc` in your **Home Directory** that is configured to point to a **Trusted CA Certificate Bundle**._
+>
+> ###### CA Certificate Verification Failure
+> ```console
+>   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+>                                  Dload  Upload   Total   Spent    Left  Speed
+>   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+> curl: (60) SSL certificate problem: unable to get local issuer certificate
+> More details here: https://curl.haxx.se/docs/sslcerts.html
+> 
+> curl failed to verify the legitimacy of the server and therefore could not
+> establish a secure connection to it. To learn more about this situation and
+> how to fix it, please visit the web page mentioned above.
+> ```
+>
+> ###### .curlrc
+> ```properties
+> capath=/path/to/my/trusted/ca/
+> cacert=/path/to/my/trusted/ca/ca.pem
+> ```
+
 &nbsp;
 
 [Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
@@ -39,10 +68,10 @@ Python interface into the RACF management application programming interface.
 ```python
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.get_omvs_uid("squidwrd")
 2424
->>> user_admin.set_uid("squidwrd", 1919)
->>> user_admin.get_uid("squidwrd")
+>>> user_admin.set_omvs_uid("squidwrd", 1919)
+>>> user_admin.get_omvs_uid("squidwrd")
 1919
 ```
 

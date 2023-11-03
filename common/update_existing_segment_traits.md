@@ -10,6 +10,11 @@ Update existing valid segment traits dictionary.
 
 &nbsp;
 
+{: .experimental }
+> _This functionality is **Experimental** and is subject to major changes and even being removed entirely._
+
+&nbsp;
+
 {: .note}
 > _Changes made using the functionality described here are scoped to the target "Admin" object instance._
 

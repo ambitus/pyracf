@@ -21,7 +21,7 @@ permalink: /:title/
 logo: "/assets/images/logo.png"
 
 # Build settings
-remote_theme: just-the-docs/just-the-docs@main
+remote_theme: just-the-docs/just-the-docs@v0.6.2
 include:
   - contribute.markdown
 color_scheme: dark
@@ -61,6 +61,12 @@ callouts:
   note:
     title: 💡 Note
     color: blue
+  experimental:
+    title: 🚧 Experimental
+    color: red
+  development_status:
+    title: 💻 Development Status
+    color: green
 
 mermaid:
   # Version of mermaid library
