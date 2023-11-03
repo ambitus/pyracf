@@ -73,7 +73,7 @@ Traits use the following syntax: `<segment>:<trait>`
 | `cdtinfo:max_length` | Set the **Maximum Length** for the names of profiles within this resource class. | `str`, `False` |
 | `cdtinfo:max_length_entityx` | Set the **Maximum Length** for the names of profiles when a RACROUTE macro is invoked with the ENTITYX keyword within this resource class. | `str`, `False` |
 | `cdtinfo:valid_other_characters` | Set the **Valid Character Types** for the other characters in names of profiles in this resource class. | `str`, `False` |
-| `cdtinfo:posit_number` | Set the **Posit Number** for this resource class. This controls flags that control many RACF processing options | `int`, `False` |
+| `cdtinfo:posit_number` | Set the **Posit Number** for this resource class. This controls flags that control many RACF processing options. | `int`, `False` |
 | `cdtinfo:profiles_allowed` | Specifies whether or not **Profiles are Allowed** for this resource class. | `bool` |
 | `cdtinfo:raclist_allowed` | Specifies whether or not this class is **Allowed to be Raclisted**. | `bool` |
 | `cdtinfo:default_universal_access` | Set the **Default Universal Access Value** for profiles in this resource class. | `str`, `False` |
@@ -81,8 +81,8 @@ Traits use the following syntax: `<segment>:<trait>`
 | `cfdef:valid_first_characters` | Set the **Valid Character Types** for the first characters in values for this custom field. | `str` |
 | `cfdef:valid_other_characters` | Set the **Valid Character Types** for the other characters in values for this custom field. | `str` |
 | `kerb:key_encryption_type` | Set the **Encryption Algorithms** for this kerberos realm. | `str`, `False` |
-| `sigver:log_signature_verification_events` | Specifies whether to **Audit Signature Verification Events** this signed program. | `str`, `False` |
-| `session:locked` | **Lock** the profiled for this APPC session. | `bool` |
+| `sigver:log_signature_verification_events` | Specifies whether to **Audit Signature Verification Events** for this signed program. | `str`, `False` |
+| `session:locked` | **Lock** the profile for this APPC session. | `bool` |
 | `stdata:group` | Set the **Group** to associate with this started task. | `str`, `False` |
 | `stdata:privileged` | Specify whether or not this started task runs with the **RACF Privileged** attribute. | `bool` |
 | `stdata:trace` | Specify whether or not this started task should issue a message to the operator to **Trace** use of this entry. | `bool` |

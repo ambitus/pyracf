@@ -6,7 +6,7 @@ parent: Subfunctions
 
 # Kerberos Realm
 
-Resource Administration functions for Kerberos Realm Administration
+Resource Administration subfunctions for Kerberos Realm Administration.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -19,7 +19,7 @@ Resource Administration functions for Kerberos Realm Administration
 ## `ResourceAdmin.add_kerberos_realm()`
 
 ```python
-  def add_kerberos_realm( self, kerberos_realm_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def add_kerberos_realm(self, kerberos_realm_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -92,7 +92,7 @@ resource_admin.add_kerberos_realm("TSTREALM")
 ## `ResourceAdmin.alter_kerberos_realm()`
 
 ```python
-  def alter_kerberos_realm( self, kerberos_realm_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def alter_kerberos_realm(self, kerberos_realm_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -117,7 +117,7 @@ Alter an existing **Kerberos Realm** profile in the **REALM** class.
   The name of the **Kerberos Realm** profile being defined to the **REALM** class.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -174,7 +174,7 @@ resource_admin.alter_kerberos_realm("TSTREALM", traits={"kerb:encryption_algorit
 ## `ResourceAdmin.extract_kerberos_realm()`
 
 ```python
-  def extract_kerberos_realm( self, kerberos_realm_name: str ) -> Union[dict, bytes]:
+def extract_kerberos_realm(self, kerberos_realm_name: str ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -209,15 +209,15 @@ resource_admin.extract_kerberos_realm("TSTTSKEL")
   "user": "",
   "group": "",
   "trusted": "yes",
-  "privileged": None,
-  "trace": None
+  "privileged": null,
+  "trace": null
 }
 ```
 
 ## `ResourceAdmin.delete_kerberos_realm()`
 
 ```python
-  def delete_kerberos_realm( self, kerberos_realm_name: str ) -> Union[dict, bytes]:
+def delete_kerberos_realm(self, kerberos_realm_name: str ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

@@ -12,7 +12,7 @@ User Administration functions for accessing and modifying a user's Class Authori
 ## `UserAdmin.get_class_authorizations()`
 
 ```python
-  def get_class_authorizations(self, userid: str) -> Union[List[str], bytes]:
+def get_class_authorizations(self, userid: str) -> Union[List[str], bytes]:
 ```
 
 #### 📄 Description

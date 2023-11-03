@@ -6,7 +6,7 @@ parent: Subfunctions
 
 # APPC Session
 
-Resource Administration functions for APPC Session Administration
+Resource Administration subfunctions for APPC Session Administration.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -19,9 +19,9 @@ Resource Administration functions for APPC Session Administration
 ## `ResourceAdmin.add_appc_session()`
 
 ```python
-  def add_appc_session(
-        self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
-    ) -> Union[dict, bytes]:
+def add_appc_session(
+    self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -36,8 +36,14 @@ Resource Administration functions for APPC Session Administration
 Define a new **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **APPC Session** profile being defined to the **APPCLU** class.
+* `net_id`<br>
+  The **Netword ID** of the **APPC Session** being defined.
+
+* `local_lu`<br>
+  The name of the **Local Logical Unit** of the **APPC Session** being defined.
+
+* `partner_lu`<br>
+  The name of the **Partner Logical Unit** of the **APPC Session** being defined.
 
 * `traits`<br>
   A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
@@ -91,9 +97,9 @@ resource_admin.add_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU")
 ## `ResourceAdmin.alter_appc_session()`
 
 ```python
-  def alter_appc_session(
-        self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
-  ) -> Union[dict, bytes]:
+def alter_appc_session(
+    self, net_id: str, local_lu: str, partner_lu: str, traits: dict = {}
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -114,11 +120,17 @@ resource_admin.add_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU")
 Alter an existing **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **APPC Session** profile being defined to the **APPCLU** class.
+* `net_id`<br>
+  The **Netword ID** of the **APPC Session** being altered.
+
+* `local_lu`<br>
+  The name of the **Local Logical Unit** of the **APPC Session** being altered.
+
+* `partner_lu`<br>
+  The name of the **Partner Logical Unit** of the **APPC Session** being altered.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -172,9 +184,9 @@ resource_admin.alter_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU", traits={"ses
 ## `ResourceAdmin.extract_appc_session()`
 
 ```python
-  def extract_appc_session(
-        self, net_id: str, local_lu: str, partner_lu: str
-  ) -> Union[dict, bytes]:
+def extract_appc_session(
+    self, net_id: str, local_lu: str, partner_lu: str
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -189,8 +201,14 @@ resource_admin.alter_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU", traits={"ses
 Extract an existing **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **APPC Session** profile being defined to the **APPCLU** class.
+* `net_id`<br>
+  The **Netword ID** of the **APPC Session** being extracted.
+
+* `local_lu`<br>
+  The name of the **Local Logical Unit** of the **APPC Session** being extracted.
+
+* `partner_lu`<br>
+  The name of the **Partner Logical Unit** of the **APPC Session** being extracted.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -203,9 +221,9 @@ Extract an existing **APPC Session** profile in the **APPCLU** class.
 ## `ResourceAdmin.delete_appc_session()`
 
 ```python
-  def delete_appc_session(
-        self, net_id: str, local_lu: str, partner_lu: str
-  ) -> Union[dict, bytes]:
+def delete_appc_session(
+    self, net_id: str, local_lu: str, partner_lu: str
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -213,8 +231,14 @@ Extract an existing **APPC Session** profile in the **APPCLU** class.
 Delete an existing **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **APPC Session** profile being defined to the **APPCLU** class.
+* `net_id`<br>
+  The **Netword ID** of the **APPC Session** being deleted.
+
+* `local_lu`<br>
+  The name of the **Local Logical Unit** of the **APPC Session** being deleted.
+
+* `partner_lu`<br>
+  The name of the **Partner Logical Unit** of the **APPC Session** being deleted.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

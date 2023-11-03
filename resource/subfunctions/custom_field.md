@@ -6,7 +6,7 @@ parent: Subfunctions
 
 # Custom Field
 
-Resource Administration functions for Custom Field Administration
+Resource Administration subfunctions for Custom Field Administration.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -19,9 +19,9 @@ Resource Administration functions for Custom Field Administration
 ## `ResourceAdmin.add_custom_field()`
 
 ```python
-  def add_custom_field(
-        self, custom_field_name: str, custom_field_type: str, traits: dict = {}
-  ) -> Union[dict, bytes]:
+def add_custom_field(
+    self, custom_field_name: str, custom_field_type: str, traits: dict = {}
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -36,8 +36,11 @@ Resource Administration functions for Custom Field Administration
 Define a new **Custom Field** profile in the **CFIELD** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **Custom Field** profile being defined to the **CFIELD** class.
+* `custom_field_name`<br>
+  The name of the **Custom Field** being defined.
+
+* `custom_field_type`<br>
+  The **Type** of the **Custom Field** being defined. Valid **Types** are `user` or `group` in RACF.
 
 * `traits`<br>
   A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
@@ -91,9 +94,9 @@ resource_admin.add_custom_field("TVSHOW","user")
 ## `ResourceAdmin.alter_custom_field()`
 
 ```python
-  def alter_custom_field(
-        self, custom_field_name: str, custom_field_type: str, traits: dict = {}
-  ) -> Union[dict, bytes]:
+def alter_custom_field(
+    self, custom_field_name: str, custom_field_type: str, traits: dict = {}
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -114,11 +117,14 @@ resource_admin.add_custom_field("TVSHOW","user")
 Alter an existing **Custom Field** profile in the **CFIELD** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **Custom Field** profile being defined to the **CFIELD** class.
+* `custom_field_name`<br>
+  The name of the **Custom Field** being altered.
+
+* `custom_field_type`<br>
+  The **Type** of the **Custom Field** being altered. Valid **Types** are `user` or `group` in RACF.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -180,9 +186,9 @@ resource_admin.alter_custom_field("TVSHOW","user",traits=cf_traits)
 ## `ResourceAdmin.extract_custom_field()`
 
 ```python
-  def extract_custom_field(
-        self, custom_field_name: str, custom_field_type: str
-  ) -> Union[dict, bytes]:
+def extract_custom_field(
+    self, custom_field_name: str, custom_field_type: str
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -190,8 +196,11 @@ resource_admin.alter_custom_field("TVSHOW","user",traits=cf_traits)
 Extract an existing **Custom Field** profile in the **CFIELD** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **Custom Field** profile being defined to the **CFIELD** class.
+* `custom_field_name`<br>
+  The name of the **Custom Field** being extracted.
+
+* `custom_field_type`<br>
+  The **Type** of the **Custom Field** being extracted. Valid **Types** are `user` or `group` in RACF.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -215,22 +224,22 @@ resource_admin.extract_custom_field("SHELCITY")
 ```json
 {
   "customFieldDataType": "char",
-  "maxlength": None,
-  "maxNumericValue": None,
-  "minNumericValue": None,
+  "maxlength": null,
+  "maxNumericValue": null,
+  "minNumericValue": null,
   "validFirstCharacters": "alpha",
   "validOtherCharacters": "alpha",
-  "mixedCaseAllowed": None,
-  "helpText": ["favorite", "tv", "show"],
+  "mixedCaseAllowed": null,
+  "helpText": ["favorite", "tv", "show"]
 }
 ```
 
 ## `ResourceAdmin.delete_custom_field()`
 
 ```python
-  def delete_custom_field(
-        self, custom_field_name: str, custom_field_type: str
-  ) -> Union[dict, bytes]:
+def delete_custom_field(
+    self, custom_field_name: str, custom_field_type: str
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -238,8 +247,11 @@ resource_admin.extract_custom_field("SHELCITY")
 Delete an existing **Custom Field** profile in the **CFIELD** class.
 
 #### 📥 Parameters
-* `class_name`<br>
-  The name of the **Custom Field** profile being defined to the **CFIELD** class.
+* `custom_field_name`<br>
+  The name of the **Custom Field** being deleted.
+
+* `custom_field_type`<br>
+  The **Type** of the **Custom Field** being deleted. Valid **Types** are `user` or `group` in RACF.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>

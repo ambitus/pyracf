@@ -6,7 +6,7 @@ parent: Subfunctions
 
 # Resource Class
 
-Resource Administration functions for Resource Class Administration
+Resource Administration subfunctions for Resource Class Administration.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -19,7 +19,7 @@ Resource Administration functions for Resource Class Administration
 ## `ResourceAdmin.add_resource_class()`
 
 ```python
-  def add_resource_class( self, class_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def add_resource_class(self, class_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -116,7 +116,7 @@ resource_admin.add_resource_class("SHELCITY",traits=class_traits)
 ## `ResourceAdmin.alter_resource_class()`
 
 ```python
-  def alter_resource_class( self, class_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def alter_resource_class(self, class_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -141,7 +141,7 @@ Alter an existing **Resource Class** profile in the **CDT** class.
   The name of the **Resource Class** profile being defined to the **CDT** class.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -206,7 +206,7 @@ resource_admin.alter_resource_class("SHELCITY",traits=class_traits)
 ## `ResourceAdmin.extract_resource_class()`
 
 ```python
-  def extract_resource_class( self, class_name: str ) -> Union[dict, bytes]:
+def extract_resource_class(self, class_name: str ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -238,35 +238,35 @@ resource_admin.extract_resource_class("SHELCITY")
 ###### Trait Dictionary as JSON
 ```json
 {
-  "case":"upper",
-  "defaultrc":8,
-  "defaultuacc":None,
-  "first":"alpha",
-  "genlist":"disallowed",
-  "generic":"allowed",
-  "group":"",
-  "keyqualifiers":0,
-  "macprocessing":"normal",
-  "maxlength":246,
-  "maxlenx":246,
-  "member":"",
-  "operations":None,
-  "other":[
+  "case": "upper",
+  "defaultrc": 8,
+  "defaultuacc": null,
+  "first": "alpha",
+  "genlist": "disallowed",
+  "generic": "allowed",
+  "group": "",
+  "keyqualifiers": 0,
+  "macprocessing": "normal",
+  "maxlength": 246,
+  "maxlenx": 246,
+  "member": "",
+  "operations": null,
+  "other": [
     "alpha",
     "numeric"
   ],
-  "posit":200,
-  "profilesallowed":"yes",
-  "raclist":"allowed",
-  "seclabelsrequired":None,
-  "signal":None
+  "posit": 200,
+  "profilesallowed": "yes",
+  "raclist": "allowed",
+  "seclabelsrequired": null,
+  "signal": null
 }
 ```
 
 ## `ResourceAdmin.delete_resource_class()`
 
 ```python
-  def delete_resource_class( self, class_name: str ) -> Union[dict, bytes]:
+def delete_resource_class(self, class_name: str ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

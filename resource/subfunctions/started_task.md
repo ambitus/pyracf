@@ -6,7 +6,7 @@ parent: Subfunctions
 
 # Started task
 
-Resource Administration functions for Started Task Administration
+Resource Administration subfunctions for Started Task Administration.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -19,7 +19,7 @@ Resource Administration functions for Started Task Administration
 ## `ResourceAdmin.add_started_task()`
 
 ```python
-  def add_started_task( self, started_task_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def add_started_task(self, started_task_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -92,7 +92,7 @@ resource_admin.add_started_task("TSTTSKEL")
 ## `ResourceAdmin.alter_started_task()`
 
 ```python
-  def alter_started_task( self, started_task_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def alter_started_task(self, started_task_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -117,7 +117,7 @@ Alter an existing **Started Task** profile in the **STARTED** class.
   The name of the **Started Task** profile being defined to the **STARTED** class.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -176,7 +176,7 @@ resource_admin.alter_started_task("TSTTSKEL",traits={"stdata:trusted": True})
 ## `ResourceAdmin.extract_started_task()`
 
 ```python
-  def extract_started_task( self, started_task_name: str ) -> Union[dict, bytes]:
+def extract_started_task(self, started_task_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -211,15 +211,15 @@ resource_admin.extract_started_task("TSTTSKEL")
   "user": "",
   "group": "",
   "trusted": "yes",
-  "privileged": None,
-  "trace": None
+  "privileged": null,
+  "trace": null
 }
 ```
 
 ## `ResourceAdmin.delete_started_task()`
 
 ```python
-  def delete_started_task( self, started_task_name: str ) -> Union[dict, bytes]:
+def delete_started_task(self, started_task_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

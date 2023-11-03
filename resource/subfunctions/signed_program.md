@@ -6,7 +6,7 @@ parent: Subfunctions
 
 # Signed Program
 
-Resource Administration functions for Signed Program Administration
+Resource Administration subfunctions for Signed Program Administration.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -19,7 +19,7 @@ Resource Administration functions for Signed Program Administration
 ## `ResourceAdmin.add_signed_program()`
 
 ```python
-  def add_signed_program( self, signed_program_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def add_signed_program(self, signed_program_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -89,7 +89,7 @@ resource_admin.add_signed_program("TESTPRGM")
 ## `ResourceAdmin.alter_signed_program()`
 
 ```python
-  def alter_signed_program( self, signed_program_name: str, traits: dict = {} ) -> Union[dict, bytes]:
+def alter_signed_program(self, signed_program_name: str, traits: dict = {}) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -114,7 +114,7 @@ Alter an existing **Signed Program** profile in the **PROGRAM** class.
   The name of the **Signed Program** profile being defined to the **PROGRAM** class.
 
 * `traits`<br>
-  A dictionary of **traits/attributes** that should be given to the resource on creation. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
+  A dictionary of **traits/attributes** that should be given to the resource. See [Traits](../../base/segments_traits_operators#traits) to see what all of the valid **Resource Traits** are.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -168,7 +168,7 @@ resource_admin.alter_signed_program("TESTPRGM", traits={"sigver:log_signature_ve
 ## `ResourceAdmin.extract_signed_program()`
 
 ```python
-  def extract_signed_program( self, signed_program_name: str ) -> Union[dict, bytes]:
+def extract_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -200,17 +200,17 @@ resource_admin.extract_signed_program("TESTPRGM")
 ###### Trait Dictionary as JSON
 ```json
 {
-  "signatureRequired":"None",
-  "failProgramLoadCondition":"never",
-  "logSignatureVerificationEvents":"success",
-  "library":"None"
+  "signatureRequired": null,
+  "failProgramLoadCondition": "never",
+  "logSignatureVerificationEvents": "success",
+  "library": null
 }
 ```
 
 ## `ResourceAdmin.delete_signed_program()`
 
 ```python
-  def delete_signed_program( self, signed_program_name: str ) -> Union[dict, bytes]:
+def delete_signed_program(self, signed_program_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
