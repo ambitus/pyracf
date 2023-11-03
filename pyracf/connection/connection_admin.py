@@ -121,7 +121,7 @@ class ConnectionAdmin(SecurityAdmin):
     # ============================================================================
     def connect(self, userid: str, group: str, traits: dict = {}) -> Union[dict, bytes]:
         """Create or change a group connection."""
-        self._build_segment_dictionaries(traits)
+        self._build_segment_trait_dictionary(traits)
         connection_request = ConnectionRequest(userid, group, "set")
         self._add_traits_directly_to_request_xml_with_no_segments(
             connection_request, alter=True

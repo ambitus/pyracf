@@ -313,7 +313,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     def list_racf_options(self, options_only: bool = False) -> Union[dict, bytes]:
         """List RACF options."""
-        self._build_segment_dictionaries({"base:list": True})
+        self._build_segment_trait_dictionary({"base:list": True})
         setropts_request = SetroptsRequest()
         self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
         result = self._extract_and_check_result(setropts_request)
@@ -323,7 +323,7 @@ class SetroptsAdmin(SecurityAdmin):
 
     def alter(self, options: dict = {}) -> Union[dict, bytes]:
         """Update RACF options."""
-        self._build_segment_dictionaries(options)
+        self._build_segment_trait_dictionary(options)
         setropts_request = SetroptsRequest()
         self._add_traits_directly_to_request_xml_with_no_segments(
             setropts_request, alter=True

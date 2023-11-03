@@ -123,7 +123,7 @@ class GroupAdmin(SecurityAdmin):
     def add(self, group: str, traits: dict = {}) -> Union[dict, bytes]:
         """Create a new group."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             group_request = GroupRequest(group, "set")
             self._build_xml_segments(group_request)
             return self._make_request(group_request)
@@ -132,7 +132,7 @@ class GroupAdmin(SecurityAdmin):
         except SecurityRequestError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH51003I"):
                 raise exception
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             group_request = GroupRequest(group, "set")
             self._build_xml_segments(group_request)
             return self._make_request(group_request)
@@ -141,7 +141,7 @@ class GroupAdmin(SecurityAdmin):
     def alter(self, group: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing group."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             group_request = GroupRequest(group, "set")
             self._build_xml_segments(group_request, alter=True)
             return self._make_request(group_request, irrsmo00_precheck=True)
@@ -149,7 +149,7 @@ class GroupAdmin(SecurityAdmin):
             self.extract(group)
         except SecurityRequestError:
             raise AlterOperationError(group, self._profile_type)
-        self._build_segment_dictionaries(traits)
+        self._build_segment_trait_dictionary(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)
         return self._make_request(group_request, irrsmo00_precheck=True)
@@ -158,7 +158,7 @@ class GroupAdmin(SecurityAdmin):
         self, group: str, segments: List[str] = [], profile_only: bool = False
     ) -> Union[dict, bytes]:
         """Extract a group's profile."""
-        self._build_bool_segment_dictionaries(segments)
+        self._build_segment_dictionary(segments)
         group_request = GroupRequest(group, "listdata")
         self._build_xml_segments(group_request, extract=True)
         result = self._extract_and_check_result(group_request)

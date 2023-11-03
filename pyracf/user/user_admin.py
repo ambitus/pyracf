@@ -769,7 +769,7 @@ class UserAdmin(SecurityAdmin):
     def add(self, userid: str, traits: dict = {}) -> Union[dict, bytes]:
         """Create a new user."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             user_request = UserRequest(userid, "set")
             self._build_xml_segments(user_request)
             return self._make_request(user_request)
@@ -778,7 +778,7 @@ class UserAdmin(SecurityAdmin):
         except SecurityRequestError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH30001I"):
                 raise exception
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             user_request = UserRequest(userid, "set")
             self._build_xml_segments(user_request)
             return self._make_request(user_request)
@@ -787,7 +787,7 @@ class UserAdmin(SecurityAdmin):
     def alter(self, userid: str, traits: dict) -> Union[dict, bytes]:
         """Alter an existing user."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             user_request = UserRequest(userid, "set")
             self._build_xml_segments(user_request, alter=True)
             return self._make_request(user_request, irrsmo00_precheck=True)
@@ -795,7 +795,7 @@ class UserAdmin(SecurityAdmin):
             self.extract(userid)
         except SecurityRequestError:
             raise AlterOperationError(userid, self._profile_type)
-        self._build_segment_dictionaries(traits)
+        self._build_segment_trait_dictionary(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request, alter=True)
         return self._make_request(user_request, irrsmo00_precheck=True)
@@ -804,7 +804,7 @@ class UserAdmin(SecurityAdmin):
         self, userid: str, segments: List[str] = [], profile_only: bool = False
     ) -> Union[dict, bytes]:
         """Extract a user's profile."""
-        self._build_bool_segment_dictionaries(segments)
+        self._build_segment_dictionary(segments)
         user_request = UserRequest(userid, "listdata")
         self._build_xml_segments(user_request, extract=True)
         result = self._extract_and_check_result(user_request)

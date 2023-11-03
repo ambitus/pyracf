@@ -105,7 +105,7 @@ class DataSetAdmin(SecurityAdmin):
     ) -> Union[dict, bytes]:
         """Create a new data set profile."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             data_set_request = DataSetRequest(data_set, "set", volume, generic)
             self._build_xml_segments(data_set_request)
             return self._make_request(data_set_request)
@@ -118,7 +118,7 @@ class DataSetAdmin(SecurityAdmin):
         except SecurityRequestError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH35003I"):
                 raise exception
-        self._build_segment_dictionaries(traits)
+        self._build_segment_trait_dictionary(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)
         self._build_xml_segments(data_set_request)
         return self._make_request(data_set_request)
@@ -132,7 +132,7 @@ class DataSetAdmin(SecurityAdmin):
     ) -> Union[dict, bytes]:
         """Alter an existing data set profile."""
         if self._generate_requests_only:
-            self._build_segment_dictionaries(traits)
+            self._build_segment_trait_dictionary(traits)
             data_set_request = DataSetRequest(data_set, "set", volume, generic)
             self._build_xml_segments(data_set_request, alter=True)
             return self._make_request(data_set_request, irrsmo00_precheck=True)
@@ -144,7 +144,7 @@ class DataSetAdmin(SecurityAdmin):
             raise AlterOperationError(data_set, self._profile_type)
         if not self._get_field(profile, "base", "name") == data_set.lower():
             raise AlterOperationError(data_set, self._profile_type)
-        self._build_segment_dictionaries(traits)
+        self._build_segment_trait_dictionary(traits)
         data_set_request = DataSetRequest(data_set, "set", volume, generic)
         self._build_xml_segments(data_set_request, alter=True)
         return self._make_request(data_set_request, irrsmo00_precheck=True)
@@ -158,7 +158,7 @@ class DataSetAdmin(SecurityAdmin):
         profile_only: bool = False,
     ) -> Union[dict, bytes]:
         """Extract a data set profile."""
-        self._build_bool_segment_dictionaries(segments)
+        self._build_segment_dictionary(segments)
         data_set_request = DataSetRequest(data_set, "listdata", volume, generic)
         self._build_xml_segments(data_set_request, extract=True)
         result = self._extract_and_check_result(data_set_request)
