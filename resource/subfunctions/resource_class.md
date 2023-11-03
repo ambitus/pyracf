@@ -206,7 +206,7 @@ resource_admin.alter_resource_class("SHELCITY",traits=class_traits)
 ## `ResourceAdmin.extract_resource_class()`
 
 ```python
-def extract_resource_class(self, class_name: str ) -> Union[dict, bytes]:
+def extract_resource_class(self, class_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -266,7 +266,7 @@ resource_admin.extract_resource_class("SHELCITY")
 ## `ResourceAdmin.delete_resource_class()`
 
 ```python
-def delete_resource_class(self, class_name: str ) -> Union[dict, bytes]:
+def delete_resource_class(self, class_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

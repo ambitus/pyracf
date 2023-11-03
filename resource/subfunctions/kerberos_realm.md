@@ -174,7 +174,7 @@ resource_admin.alter_kerberos_realm("TSTREALM", traits={"kerb:encryption_algorit
 ## `ResourceAdmin.extract_kerberos_realm()`
 
 ```python
-def extract_kerberos_realm(self, kerberos_realm_name: str ) -> Union[dict, bytes]:
+def extract_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -217,7 +217,7 @@ resource_admin.extract_kerberos_realm("TSTTSKEL")
 ## `ResourceAdmin.delete_kerberos_realm()`
 
 ```python
-def delete_kerberos_realm(self, kerberos_realm_name: str ) -> Union[dict, bytes]:
+def delete_kerberos_realm(self, kerberos_realm_name: str) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description

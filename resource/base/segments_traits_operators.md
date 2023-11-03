@@ -82,7 +82,6 @@ Traits use the following syntax: `<segment>:<trait>`
 | `cfdef:valid_other_characters` | Set the **Valid Character Types** for the other characters in values for this custom field. | `str` |
 | `kerb:key_encryption_type` | Set the **Encryption Algorithms** for this kerberos realm. | `str`, `False` |
 | `sigver:log_signature_verification_events` | Specifies whether to **Audit Signature Verification Events** for this signed program. | `str`, `False` |
-| `session:locked` | **Lock** the profile for this APPC session. | `bool` |
 | `stdata:group` | Set the **Group** to associate with this started task. | `str`, `False` |
 | `stdata:privileged` | Specify whether or not this started task runs with the **RACF Privileged** attribute. | `bool` |
 | `stdata:trace` | Specify whether or not this started task should issue a message to the operator to **Trace** use of this entry. | `bool` |

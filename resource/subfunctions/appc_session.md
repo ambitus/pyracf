@@ -37,7 +37,7 @@ Define a new **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
 * `net_id`<br>
-  The **Netword ID** of the **APPC Session** being defined.
+  The **Network ID** of the **APPC Session** being defined.
 
 * `local_lu`<br>
   The name of the **Local Logical Unit** of the **APPC Session** being defined.
@@ -121,7 +121,7 @@ Alter an existing **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
 * `net_id`<br>
-  The **Netword ID** of the **APPC Session** being altered.
+  The **Network ID** of the **APPC Session** being altered.
 
 * `local_lu`<br>
   The name of the **Local Logical Unit** of the **APPC Session** being altered.
@@ -194,7 +194,7 @@ def extract_appc_session(
 &nbsp;
 
 {: .experimental }
-> _So far, no tested **Segments** and **Traits** are considered **Stable** for profile extract of the **session** segment. This is how the function will work when **Traits** are made **Stable** for extract._
+> _So far, no tested **Segments** and **Traits** are considered **Stable** when extracting the the `session` segment. This is how the function will work when **Traits** for the `session` segment are made **Stable**._
 
 &nbsp;
 
@@ -202,7 +202,7 @@ Extract an existing **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
 * `net_id`<br>
-  The **Netword ID** of the **APPC Session** being extracted.
+  The **Network ID** of the **APPC Session** being extracted.
 
 * `local_lu`<br>
   The name of the **Local Logical Unit** of the **APPC Session** being extracted.
@@ -232,7 +232,7 @@ Delete an existing **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
 * `net_id`<br>
-  The **Netword ID** of the **APPC Session** being deleted.
+  The **Network ID** of the **APPC Session** being deleted.
 
 * `local_lu`<br>
   The name of the **Local Logical Unit** of the **APPC Session** being deleted.
