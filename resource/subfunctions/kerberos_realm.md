@@ -200,14 +200,14 @@ Extract an existing **Kerberos Realm** profile in the **REALM** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.extract_kerberos_realm("TSTTSKEL")
-{'user': '', 'group': '', 'trusted': 'yes', 'privileged': None, 'trace': None}
+{'user': None, 'group': None, 'trusted': 'yes', 'privileged': None, 'trace': None}
 ```
 
 ###### Trait Dictionary as JSON
 ```json
 {
-  "user": "",
-  "group": "",
+  "user": null,
+  "group": null,
   "trusted": "yes",
   "privileged": null,
   "trace": null
