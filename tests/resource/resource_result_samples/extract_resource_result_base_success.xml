@@ -24,7 +24,7 @@
       <message> </message>
       <message>AUDITING</message>
       <message>--------</message>
-      <message>FAILURES(READ)</message>
+      <message>SUCCESS(UPDATE),FAILURES(READ)</message>
       <message> </message>
       <message>NOTIFY</message>
       <message>------</message>
