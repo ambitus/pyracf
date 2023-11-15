@@ -561,9 +561,9 @@
                 "interprocessCommunications": true,
                 "nameHiding": false
               },
-              "vtam": {
-                "sessionKeyVerificationInterval": 30,
-                "appcTransactionAudit": true
+              "appc": {
+                "maxSessionKeyInterval": 30,
+                "transactionAudit": true
               },
               "kerberos": {
                 "encryptionLevel": 0
