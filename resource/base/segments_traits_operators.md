@@ -81,7 +81,7 @@ Traits use the following syntax: `<segment>:<trait>`
 | `cdtinfo:posit_number` | Set the **Posit Number** for this resource class. This controls flags that control many RACF processing options. | `int`, `False` |
 | `cdtinfo:profiles_allowed` | Specifies whether or not **Profiles are Allowed** for this resource class. | `bool` |
 | `cdtinfo:raclist_allowed` | Specifies whether or not this class is **Allowed to be Raclisted**. | `bool` |
-| `cdtinfo:send_enf_signal_on_profile_creation` | Specify whether or not **ENF Signals** should be sent to listenersfor raclisted profiles in this resource class when they are created updated or deleted. | `str`, `False` |
+| `cdtinfo:send_enf_signal_on_profile_creation` | Specify whether or not **ENF Signals** should be sent to listeners for raclisted profiles in this resource class when they are created, updated, or deleted. | `str`, `False` |
 | `cdtinfo:security_label_required` | Specify whether or not **Security Labels** are required for the profiles in this resource class. | `str`, `False` |
 | `cdtinfo:default_universal_access` | Set the **Default Universal Access Value** for profiles in this resource class. | `str`, `False` |
 | `cfdef:help_text` | Set the **Help Text** for this custom field. | `str` |

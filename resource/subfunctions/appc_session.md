@@ -225,7 +225,7 @@ resource_admin.extract_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU")
 ```json
 {
   "sessionKeyInterval": 5,
-  "locked": True,
+  "locked": true,
   "sessionKey": "e3c5e2e3d2c5e800",
   "securityCheckingLevel": "conv",
 }
