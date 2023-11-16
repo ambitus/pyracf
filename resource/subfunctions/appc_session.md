@@ -191,13 +191,6 @@ def extract_appc_session(
 
 #### 📄 Description
 
-&nbsp;
-
-{: .experimental }
-> _So far, no tested **Segments** and **Traits** are considered **Stable** when extracting the `session` segment. This is how the function will work when **Traits** for the `session` segment are made **Stable**._
-
-&nbsp;
-
 Extract an existing **APPC Session** profile in the **APPCLU** class.
 
 #### 📥 Parameters
@@ -217,6 +210,26 @@ Extract an existing **APPC Session** profile in the **APPCLU** class.
 #### ❌ Raises
 * `SecurityRequestError`<br>
   Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+
+#### 💻 Example
+
+###### Python REPL
+```python
+from pyracf import ResourceAdmin
+resource_admin = ResourceAdmin()
+resource_admin.extract_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU")
+{"sessionKeyInterval": 5, "locked": True, "sessionKey": "e3c5e2e3d2c5e800", "securityCheckingLevel": "conv"}
+```
+
+###### Security Result Dictionary as JSON
+```json
+{
+  "sessionKeyInterval": 5,
+  "locked": true,
+  "sessionKey": "e3c5e2e3d2c5e800",
+  "securityCheckingLevel": "conv",
+}
+```
 
 ## `ResourceAdmin.delete_appc_session()`
 

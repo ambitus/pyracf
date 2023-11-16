@@ -232,7 +232,7 @@ Extract an existing **Resource Class** profile in the **CDT** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.extract_resource_class("SHELCITY")
-{'case': 'upper', 'defaultrc': 8, 'defaultuacc': None, 'first': 'alpha', 'genlist': 'disallowed', 'generic': 'allowed', 'group': '', 'keyqualifiers': 0, 'macprocessing': 'normal', 'maxlength': 246, 'maxlenx': 246, 'member': '', 'operations': None, 'other': ['alpha', 'numeric'], 'posit': 200, 'profilesallowed': 'yes', 'raclist': 'allowed', 'seclabelsrequired': None, 'signal': None}
+{'case': 'upper', 'defaultrc': 8, 'defaultuacc': None, 'first': 'alpha', 'genlist': 'disallowed', 'generic': 'allowed', 'group': None, 'keyqualifiers': 0, 'macprocessing': 'normal', 'maxlength': 246, 'maxlenx': 246, 'member': None, 'operations': None, 'other': ['alpha', 'numeric'], 'posit': 200, 'profilesallowed': 'yes', 'raclist': 'allowed', 'seclabelsrequired': None, 'signal': None}
 ```
 
 ###### Trait Dictionary as JSON
@@ -244,12 +244,12 @@ resource_admin.extract_resource_class("SHELCITY")
   "first": "alpha",
   "genlist": "disallowed",
   "generic": "allowed",
-  "group": "",
+  "group": null,
   "keyqualifiers": 0,
   "macprocessing": "normal",
   "maxlength": 246,
   "maxlenx": 246,
-  "member": "",
+  "member": null,
   "operations": null,
   "other": [
     "alpha",
