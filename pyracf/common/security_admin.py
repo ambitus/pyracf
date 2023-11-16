@@ -397,6 +397,7 @@ class SecurityAdmin:
             messages[i]
             .replace("DATASET", "DATA SET")
             .replace("VOLUMES ON WHICH DATA SET RESIDES", "VOLUMES")
+            .replace(" IS ", " = ")
         )
         if "=" in messages[i]:
             self.__add_key_value_pair_to_profile(
@@ -440,6 +441,10 @@ class SecurityAdmin:
             i += 1
         elif "NO INSTALLATION DATA" in messages[i]:
             profile[current_segment]["installationData"] = None
+        elif "UNLOCKED" in messages[i]:
+            profile[current_segment]["locked"] = False
+        elif "LOCKED" in messages[i]:
+            profile[current_segment]["locked"] = True
         if "INFORMATION FOR DATA SET" in messages[i]:
             profile[current_segment]["name"] = (
                 messages[i].split("INFORMATION FOR DATA SET ")[1].lower()
@@ -683,6 +688,10 @@ class SecurityAdmin:
         if isinstance(out, list):
             if None in out:
                 return None
+            if "days" in out:
+                del out[out.index("days")]
+                if len(out) == 1:
+                    return out[0]
             open_ind = []
             close_ind = []
             cln_ind = []
@@ -711,7 +720,16 @@ class SecurityAdmin:
         """Cast null values floats and integers."""
         if not case_sensitive:
             value = value.lower()
-        if value in ("n/a", "none", "none specified", "no", "None", "unknown"):
+        if value in (
+            "n/a",
+            "none",
+            "none specified",
+            "no",
+            "None",
+            "unknown",
+            "unlimited",
+            "",
+        ):
             return None
         if value in (
             "in effect",
