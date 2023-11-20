@@ -1,0 +1,482 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest"/>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RLIST   ELIJTEST             (TESTING) </image>
+      <message>CLASS      NAME</message>
+      <message>-----      ----</message>
+      <message>ELIJTEST   TESTING</message>
+      <message> </message>
+      <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
+      <message>-----  --------   ----------------  -----------  -------</message>
+      <message> 00    ESWIFT          READ               READ    NO</message>
+      <message> </message>
+      <message>INSTALLATION DATA</message>
+      <message>-----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>APPLICATION DATA</message>
+      <message>----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>AUDITING</message>
+      <message>--------</message>
+      <message>SUCCESS(UPDATE),FAILURES(READ)</message>
+      <message> </message>
+      <message>NOTIFY</message>
+      <message>------</message>
+      <message>NO USER TO BE NOTIFIED</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   ELIJTEST             (TESTING) ",
+          "messages": [
+            "CLASS      NAME",
+            "-----      ----",
+            "ELIJTEST   TESTING",
+            " ",
+            "LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING",
+            "-----  --------   ----------------  -----------  -------",
+            " 00    ESWIFT          READ               READ    NO",
+            " ",
+            "INSTALLATION DATA",
+            "-----------------",
+            "NONE",
+            " ",
+            "APPLICATION DATA",
+            "----------------",
+            "NONE",
+            " ",
+            "AUDITING",
+            "--------",
+            "SUCCESS(UPDATE),FAILURES(READ)",
+            " ",
+            "NOTIFY",
+            "------",
+            "NO USER TO BE NOTIFIED"
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                     Result Dictionary (Formatted Profile)                     
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   ELIJTEST             (TESTING) ",
+          "profiles": [
+            {
+              "base": {
+                "class": "elijtest",
+                "name": "testing",
+                "level": 0,
+                "owner": "eswift",
+                "universalAccess": "read",
+                "yourAccess": "read",
+                "warning": null,
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "success": "update",
+                  "failures": "read"
+                },
+                "notify": null,
+                "generic": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest"/>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RLIST   ELIJTEST             (TESTING) </image>
+      <message>CLASS      NAME</message>
+      <message>-----      ----</message>
+      <message>ELIJTEST   TESTING</message>
+      <message> </message>
+      <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
+      <message>-----  --------   ----------------  -----------  -------</message>
+      <message> 00    ESWIFT          READ               READ    NO</message>
+      <message> </message>
+      <message>INSTALLATION DATA</message>
+      <message>-----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>APPLICATION DATA</message>
+      <message>----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>AUDITING</message>
+      <message>--------</message>
+      <message>SUCCESS(UPDATE),FAILURES(READ)</message>
+      <message> </message>
+      <message>NOTIFY</message>
+      <message>------</message>
+      <message>NO USER TO BE NOTIFIED</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   ELIJTEST             (TESTING) ",
+          "messages": [
+            "CLASS      NAME",
+            "-----      ----",
+            "ELIJTEST   TESTING",
+            " ",
+            "LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING",
+            "-----  --------   ----------------  -----------  -------",
+            " 00    ESWIFT          READ               READ    NO",
+            " ",
+            "INSTALLATION DATA",
+            "-----------------",
+            "NONE",
+            " ",
+            "APPLICATION DATA",
+            "----------------",
+            "NONE",
+            " ",
+            "AUDITING",
+            "--------",
+            "SUCCESS(UPDATE),FAILURES(READ)",
+            " ",
+            "NOTIFY",
+            "------",
+            "NO USER TO BE NOTIFIED"
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                     Result Dictionary (Formatted Profile)                     
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RLIST   ELIJTEST             (TESTING) ",
+          "profiles": [
+            {
+              "base": {
+                "class": "elijtest",
+                "name": "testing",
+                "level": 0,
+                "owner": "eswift",
+                "universalAccess": "read",
+                "yourAccess": "read",
+                "warning": null,
+                "installationData": null,
+                "applicationData": null,
+                "auditing": {
+                  "success": "update",
+                  "failures": "read"
+                },
+                "notify": null,
+                "generic": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{
+  "base": {
+    "base:audit_read": {
+      "value": "FAILURE",
+      "operation": null
+    }
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
+    <base>
+      <racf:audread operation="set">FAILURE</racf:audread>
+    </base>
+  </resource>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
+    <info>Definition exists. Add command skipped due  to precheck option</info>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (READ        ))</image>
+      <message>ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "set",
+      "requestId": "ResourceRequest",
+      "info": [
+        "Definition exists. Add command skipped due  to precheck option"
+      ],
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (READ        ))",
+          "messages": [
+            "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                Steps Dictionary                               
+                     ResourceAdmin.clear_audit_successes()                     
+                                                                               
+
+{
+  "step1": {
+    "securityResult": {
+      "resource": {
+        "name": "TESTING",
+        "class": "ELIJTEST",
+        "operation": "listdata",
+        "requestId": "ResourceRequest",
+        "commands": [
+          {
+            "safReturnCode": 0,
+            "returnCode": 0,
+            "reasonCode": 0,
+            "image": "RLIST   ELIJTEST             (TESTING) ",
+            "profiles": [
+              {
+                "base": {
+                  "class": "elijtest",
+                  "name": "testing",
+                  "level": 0,
+                  "owner": "eswift",
+                  "universalAccess": "read",
+                  "yourAccess": "read",
+                  "warning": null,
+                  "installationData": null,
+                  "applicationData": null,
+                  "auditing": {
+                    "success": "update",
+                    "failures": "read"
+                  },
+                  "notify": null,
+                  "generic": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "returnCode": 0,
+      "reasonCode": 0
+    }
+  },
+  "step2": {
+    "securityResult": {
+      "resource": {
+        "name": "TESTING",
+        "class": "ELIJTEST",
+        "operation": "set",
+        "requestId": "ResourceRequest",
+        "info": [
+          "Definition exists. Add command skipped due  to precheck option"
+        ],
+        "commands": [
+          {
+            "safReturnCode": 0,
+            "returnCode": 0,
+            "reasonCode": 0,
+            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (READ        ))",
+            "messages": [
+              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+            ]
+          }
+        ]
+      },
+      "returnCode": 0,
+      "reasonCode": 0
+    }
+  }
+}
+
