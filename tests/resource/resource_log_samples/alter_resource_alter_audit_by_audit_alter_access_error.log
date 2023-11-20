@@ -1,0 +1,69 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+               ResourceAdmin.alter_audit_by_audit_alter_access()               
+                                                                               
+
+{}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+               ResourceAdmin.alter_audit_by_audit_alter_access()               
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest"/>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+               ResourceAdmin.alter_audit_by_audit_alter_access()               
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>RLIST   ELIJTEST             (TESTING)</image>
+      <message>ICH13003I TESTING NOT FOUND</message>
+    </command>
+  </resource>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+               ResourceAdmin.alter_audit_by_audit_alter_access()               
+                                                                               
+
+{
+  "securityResult": {
+    "resource": {
+      "name": "TESTING",
+      "class": "ELIJTEST",
+      "operation": "listdata",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "RLIST   ELIJTEST             (TESTING)",
+          "messages": [
+            "ICH13003I TESTING NOT FOUND"
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 0
+  }
+}
+

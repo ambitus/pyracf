@@ -335,11 +335,11 @@ class ResourceAdmin(SecurityAdmin):
         result.append(self.alter(resource, class_name, traits=traits))
         return self._to_steps(result)
 
-    def clear_audit_both_failures_and_successes(
+    def clear_audit_both_successes_and_failures(
         self, resource: str, class_name: str
     ) -> Union[dict, bytes]:
         """
-        Clears the auditing rules for both failures and successes for this
+        Clears the auditing rules for both successes and failures for this
         general resource profile while preserving individual rules.
         """
         result = [self.extract(resource, class_name)]
