@@ -65,6 +65,11 @@ Traits use the following syntax: `<segment>:<trait>`
 
 | **Trait** | **Description** | **Valid Types** |
 | `base:universal_access` | Set a resource's **Universal Access** level. | `str` |
+| `base:audit_alter` | Set a resource's audit rules to audit **Alter** accesses of the specified type. | `str` |
+| `base:audit_control` | Set a resource's audit rules to audit **Control** accesses of the specified type. | `str` |
+| `base:audit_none` | Clear a resource's **Audit Rules**. | `True` |
+| `base:audit_read` | Set a resource's audit rules to audit **Read** accesses of the specified type. | `str` |
+| `base:audit_update` | Set a resource's audit rules to audit **Update** accesses of the specified type. | `str` |
 | `cdtinfo:case_allowed` | Set the **Case Allowed** for the names of profiles in this resource class. | `str`, `False` |
 | `cdtinfo:default_racroute_return_code` | Set the **Default Return Code** for requests to access profiles in this resource class. | `int`, `False` |
 | `cdtinfo:valid_first_characters` | Set the **Valid Character Types** for the first characters in names of profiles in this resource class. | `str`, `False` |
