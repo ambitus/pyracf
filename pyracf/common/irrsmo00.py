@@ -33,7 +33,7 @@ class IRRSMO00:
                 xml_str=request_xml,
                 xml_len=len(request_xml),
                 opts=options,
-                userid=0,
+                userid="".encode("cp1047"),
                 userid_len=0,
             ).decode("cp1047")
         return call_irrsmo00(

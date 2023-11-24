@@ -93,7 +93,7 @@ class SecurityAdmin:
             self.__running_userid = new_userid
             return
         if (
-            new_userid.isinstance(str)
+            isinstance(new_userid, str)
             and (len(new_userid) <= 8)
             and (not new_userid == "")
         ):
