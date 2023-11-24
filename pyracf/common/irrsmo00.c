@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
+#include <string.h>
 
 #define BUFFER_SIZE (100000)
 
@@ -46,13 +47,15 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
 
     char work_area[1024];
     char req_handle[64] = { 0 };
-    VarStr_T userid = { input_userid_len, {input_userid}};
+    VarStr_T userid = { input_userid_len, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
     unsigned char rsp[BUFFER_SIZE+1];
     memset(rsp, 0, BUFFER_SIZE);
     unsigned int saf_rc=0, racf_rc=0, racf_rsn=0;
     unsigned int num_parms=17, fn=1, opts = input_opts, rsp_len = sizeof(rsp)-1;
+
+    strncpy(userid.str, input_userid, userid.len);
 
     IRRSMO64(
         work_area, 
