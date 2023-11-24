@@ -140,8 +140,8 @@ class DataSetAdmin(SecurityAdmin):
             profile = self.extract(
                 data_set, volume=volume, generic=generic, profile_only=True
             )
-        except SecurityRequestError:
-            raise AlterOperationError(data_set, self._profile_type)
+        except SecurityRequestError as exception:
+            raise AlterOperationError(data_set, self._profile_type) from exception
         if not self._get_field(profile, "base", "name") == data_set.lower():
             raise AlterOperationError(data_set, self._profile_type)
         self._build_segment_trait_dictionary(traits)
