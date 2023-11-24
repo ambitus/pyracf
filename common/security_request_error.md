@@ -17,6 +17,10 @@ Understanding the `SecurityRequestError` exception.
 
 When the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`, a `SecurityRequestError` will be raised to indicate that the request failed. A `SecurityRequestError` can be handled as follows.
 
+&nbsp;
+
+For an understanding of return or reason codes returned from IRRSMO00, you can review [IRRSMO00's Return and Reason Codes documentation]](https://www.ibm.com/docs/en/zos/2.3.0?topic=operations-return-reason-codes). The 'Messages' list shown in the sample below also contains any error messages or other such information. 
+
 ###### Python Script
 ```python
 from pyracf import UserAdmin

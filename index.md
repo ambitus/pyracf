@@ -26,7 +26,7 @@ Python interface into the RACF management application programming interface.
 > _The following **dependencies** are required in order to use pyRACF:_
 > * _z/OS **2.4** and higher._
 > * _**R_SecMgtOper (IRRSMO00)**: Security Management Operations._
-> * _The appropriate RACF authorizations. Details can be found [here](https://www.ibm.com/docs/en/zos/2.3.0?topic=operations-racf-authorization)._
+> * _The appropriate RACF authorizations. Specifically READ access to the IRR.IRRSMO00.PRECHECK resource in the XFACILIT class. Details can be found [here](https://www.ibm.com/docs/en/zos/2.3.0?topic=operations-racf-authorization)._
 
 ### Install
 
@@ -62,6 +62,10 @@ Python interface into the RACF management application programming interface.
 &nbsp;
 
 [Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
+
+&nbsp;
+
+[Check for & set up RACF Authorizations](../common/check_for_and_setup_RACF_authorizations)
 
 ### Use
 
