@@ -75,6 +75,7 @@ class TestGroupResultParser(unittest.TestCase):
             self.group_admin.add(
                 "TESTGRPP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
             )
+        print(exception.exception.result)
         self.assertEqual(
             exception.exception.result,
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_DICTIONARY,
