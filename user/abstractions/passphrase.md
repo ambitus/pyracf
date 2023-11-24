@@ -14,7 +14,7 @@ User Administration functions for modifying a user's passphrase.
 
 <br>
 ```python
-def set_passphrase(self, userid: str, passphrase: str) -> Union[dict, bytes]:
+def set_passphrase(self, userid: str, passphrase: str, expired: bool = False) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -40,6 +40,9 @@ Set a user's **passphrase**.
 
 * `passphrase`<br>
   The **passphrase** to set for the specified user or `False` to delete the current value.
+
+* `expired`<br>
+  A bool representing whether or not the **passphrase** should be set as **expired** and require changing on next logon.
 
 #### 📤 Returns
 
