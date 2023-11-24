@@ -1,5 +1,6 @@
 """Interface to irrsmo00.dll."""
 import platform
+from typing import Union
 
 try:
     from cpyracf import call_irrsmo00
@@ -19,9 +20,22 @@ class IRRSMO00:
         # Initialize size of output buffer
         self.buffer_size = 100000
 
-    def call_racf(self, request_xml: bytes, precheck: bool = False) -> str:
+    def call_racf(
+        self,
+        request_xml: bytes,
+        precheck: bool = False,
+        running_userid: Union[str, False] = False,
+    ) -> str:
         """Make request to call_irrsmo00 in the cpyracf Python extension."""
         options = 15 if precheck else 13
+        if not running_userid:
+            return call_irrsmo00(
+                xml_str=request_xml, xml_len=len(request_xml), opts=options
+            ).decode("cp1047")
         return call_irrsmo00(
-            xml_str=request_xml, xml_len=len(request_xml), opts=options
+            xml_str=request_xml,
+            xml_len=len(request_xml),
+            opts=options,
+            userid=running_userid.encode("cp1047"),
+            userid_len=len(running_userid),
         ).decode("cp1047")

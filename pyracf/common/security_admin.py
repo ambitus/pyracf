@@ -5,6 +5,7 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
+from .improper_userid_error import ImproperUserIDError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
 from .security_request import SecurityRequest
@@ -20,6 +21,7 @@ class SecurityAdmin:
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
     _case_sensitive_extracted_values = []
+    __running_userid = False
     __logger = Logger()
 
     def __init__(
@@ -30,6 +32,7 @@ class SecurityAdmin:
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
+        run_as_userid: Union[str, False] = False,
     ) -> None:
         self._common_base_traits_data_set_generic = {
             "base:aclcnt": "racf:aclcnt",
@@ -79,6 +82,30 @@ class SecurityAdmin:
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
             self.__add_additional_secret_traits(additional_secret_traits)
+        if run_as_userid:
+            self.set_running_userid(run_as_userid)
+
+    # ============================================================================
+    # Run as Other User ID
+    # ============================================================================
+    def set_running_userid(self, new_userid: Union[str, False]):
+        if new_userid is False:
+            self.__running_userid = new_userid
+            return
+        if (
+            new_userid.isinstance(str)
+            and (len(new_userid) <= 8)
+            and (not new_userid == "")
+        ):
+            self.__running_userid = new_userid
+            return
+        raise ImproperUserIDError(new_userid)
+
+    def clear_running_userid(self):
+        self.__running_userid = False
+
+    def get_running_userid(self):
+        return self.__running_userid
 
     # ============================================================================
     # Customize Segment Traits
@@ -166,7 +193,9 @@ class SecurityAdmin:
             return request_xml
         result_xml = self.__logger.redact_result_xml(
             self.__irrsmo00.call_racf(
-                security_request.dump_request_xml(), irrsmo00_precheck
+                security_request.dump_request_xml(),
+                irrsmo00_precheck,
+                self.__running_userid,
             ),
             self.__secret_traits,
         )

@@ -33,18 +33,20 @@ void null_byte_fix(char* str, unsigned int str_len) {
 static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs) {
    const unsigned int xml_len;
    const unsigned int input_opts;
+   const uint8_t input_userid_len;
    const char *input_xml;
+   const char *input_userid;
 
-   static char *kwlist[] = {"xml_str", "xml_len", "opts", NULL};
+   static char *kwlist[] = {"xml_str", "xml_len", "opts", "userid", "userid_len", NULL};
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "y|II", kwlist, &input_xml, &xml_len, &input_opts)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "y|IIyb", kwlist, &input_xml, &xml_len, &input_opts, &input_userid, &input_userid_len)) {
         return NULL;
     }
 
 
     char work_area[1024];
     char req_handle[64] = { 0 };
-    VarStr_T userid = { 0, {0}};
+    VarStr_T userid = { input_userid_len, {input_userid}};
     unsigned int alet = 0;
     unsigned int acee = 0;
     unsigned char rsp[BUFFER_SIZE+1];
