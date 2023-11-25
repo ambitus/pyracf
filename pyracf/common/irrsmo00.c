@@ -78,11 +78,11 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
     );
 
    null_byte_fix(rsp,rsp_len);
-   return Py_BuildValue("y", rsp);
+   return Py_BuildValue("yBBB", rsp, saf_rc, racf_rc, racf_rsn);
 }
 
 static char call_irrsmo00_docs[] =
-   "call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint): Returns an XML response from the IRRSMO00 RACF Callable Service.\n";
+   "call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint): Returns an XML response string and return and reason codes from the IRRSMO00 RACF Callable Service.\n";
 
 static PyMethodDef cpyracf_methods[] = {
    {"call_irrsmo00", (PyCFunction)call_irrsmo00,
