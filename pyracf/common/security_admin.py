@@ -8,6 +8,7 @@ from typing import Any, List, Tuple, Union
 from .improper_userid_error import ImproperUserIDError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
+from .null_response_error import NullResponseError
 from .security_request import SecurityRequest
 from .security_request_error import SecurityRequestError
 from .security_result import SecurityResult
@@ -184,11 +185,11 @@ class SecurityAdmin:
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
+        request_xml = self.__logger.redact_request_xml(
+            security_request.dump_request_xml(encoding="utf-8"),
+            secret_traits=self.__secret_traits,
+        )
         if self._generate_requests_only:
-            request_xml = self.__logger.redact_request_xml(
-                security_request.dump_request_xml(encoding="utf-8"),
-                secret_traits=self.__secret_traits,
-            )
             self.__clear_state(security_request)
             return request_xml
         result_xml = self.__logger.redact_result_xml(
@@ -204,6 +205,8 @@ class SecurityAdmin:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
             self.__logger.log_xml("Result XML", result_xml)
+        if result_xml == "":
+            raise NullResponseError(result_xml)
         results = SecurityResult(result_xml)
         if self.__debug:
             # No need to redact anything here since the result dictionary
@@ -218,7 +221,7 @@ class SecurityAdmin:
             # up to the user to interogate the result dictionary attached to the
             # SecurityRequestError and decided whether or not the return code 4 is
             # indicative of a problem.
-            raise SecurityRequestError(result_dictionary)
+            raise SecurityRequestError(result_dictionary, request_xml)
         return result_dictionary
 
     def _to_steps(self, results: Union[List[dict], dict, bytes]) -> Union[dict, bytes]:

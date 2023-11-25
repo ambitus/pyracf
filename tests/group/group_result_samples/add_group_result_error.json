@@ -4,14 +4,17 @@
       "name": "TESTGRPP0",
       "operation": "set",
       "requestId": "GroupRequest",
-      "error": {
-        "errorFunction": 10,
-        "errorCode": 2000,
-        "errorReason": 68,
-        "errorMessage": "Invalid attribute value specified.",
-        "errorOffset": 149,
-        "textInError": "name"
-      }
+      "commands": [
+        {
+          "safReturnCode": 10,
+          "returnCode": 2000,
+          "reasonCode": 68,
+          "image": "<securityrequest xmlns=\"http://www.ibm.com/systems/zos/saf\" xmlns:racf=\"http://www.ibm.com/systems/zos/racf\"><group name=\"TESTGRPP0\" operation=\"set\" requestid=\"GroupRequest\" /></securityrequest>",
+          "messages": [
+            "Invalid attribute value specified.\nText in Error: 'name'\nApproximate Offset of Text in Error: '149'\nPlease note that for any text in error, redacted values may skew offset calculations."
+          ]
+        }
+      ]
     },
     "returnCode": 2000,
     "reasonCode": 68

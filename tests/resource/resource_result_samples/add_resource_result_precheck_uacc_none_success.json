@@ -1,0 +1,32 @@
+{
+  "securityResult": {
+    "resource": {
+      "name": "IRR.IRRSMO00.PRECHECK",
+      "class": "XFACILIT",
+      "operation": "set",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RDEFINE XFACILIT             (IRR.IRRSMO00.PRECHECK) ",
+          "messages": [
+            "ICH10006I RACLISTED PROFILES FOR XFACILIT WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+          ]
+        },
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "RALTER  XFACILIT             (IRR.IRRSMO00.PRECHECK)  UACC        (None) ",
+          "messages": [
+            "ICH11009I RACLISTED PROFILES FOR XFACILIT WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0
+  }
+}

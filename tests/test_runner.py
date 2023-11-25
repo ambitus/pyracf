@@ -8,7 +8,9 @@ import __init__
 from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
+from tests.common.test_install_precheck_script import TestInstallPrecheckScript
 from tests.common.test_logger import TestLogger
+from tests.common.test_null_response_error import TestNullResponseError
 from tests.connection.test_connection_debug_logging import TestConnectionDebugLogging
 from tests.connection.test_connection_request_builder import (
     TestConnectionRequestBuilder,
@@ -59,7 +61,9 @@ def __test_suite() -> unittest.TestSuite:
         TestAccessResultParser,
         TestAccessRequestBuilder,
         TestAccessDebugLogging,
+        TestInstallPrecheckScript,
         TestLogger,
+        TestNullResponseError,
         TestConnectionResultParser,
         TestConnectionRequestBuilder,
         TestConnectionSetters,
