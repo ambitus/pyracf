@@ -19,7 +19,7 @@ After executing any operation, pyRACF expects a non-empty response string from I
 
 &nbsp;
 
-The only known cause of this error is that the user does not have `READ` authority to the `IRR.IRRSMO00.PRECHECK` attribute as outlined in [our dependencies note](../../index). If you are not certain if you have this authority or if this has been established in your environment, please consult our [Check for & set up RACF Authorizations](../check_for_and_setup_RACF_authorizations) documentation.
+The only known cause of this error is that the user does not have proper RACF authorizations as outlined in [our dependencies note](../../index). One of the possible failures is `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource in the `XFACILIT` class, which is required for `set` or `alter` operations. If you are not certain if you have this authority or if this has been established in your environment, please consult our [Check for & set up RACF Authorizations](../check_for_and_setup_RACF_authorizations) documentation. The other possibility is `ALTER` authority to the `userid.IRRSMO00` resource in the `SURROGAT` class, which is required to run pyRACF commands as another userid. Please review our [run as userid](../run_as_userid) documentation for more information on this feature.
 
 ###### Python Script
 ```python
@@ -40,4 +40,25 @@ Security request made to IRRSMO00 failed.
 
 Check to see if proper RACF permissions are in place.
 For `set` or `alter` functions, you must have at least READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class.
+```
+
+###### Python Script
+```python
+from pyracf import UserAdmin
+from pyracf import NullResponseError
+
+user_admin = UserAdmin(run_as_userid="ESWIFT")
+
+try:
+    user_admin.set_uid("squidwrd", 123456)
+except AddOperationError as e:
+    print(e.message)
+```
+
+###### Console Output
+```console
+Security request made to IRRSMO00 failed.
+
+Check to see if proper RACF permissions are in place.
+For the `run_as_userid` feature, you must have at least UPDATE access to `ESWIFT.IRRSMO00` in the `SURROGAT` class.
 ```
