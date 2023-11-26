@@ -127,7 +127,7 @@ TEST_NULL_RESPONSE_PRECHECK_TEXT = (
 TEST_NULL_RESPONSE_SURROGAT_TEXT = (
     "(NullResponseError) Security request made to IRRSMO00 failed."
     + "\n\nCheck to see if proper RACF permissions are in place.\n"
-    + "For the `run_as_userid` feature, you must have at least ALTER"
+    + "For the `run_as_userid` feature, you must have at least UPDATE"
     + " access to `ESWIFT.IRRSMO00` in the `SURROGAT` class."
 )
 

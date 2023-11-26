@@ -88,7 +88,7 @@ class SecurityAdmin:
     # ============================================================================
     # Run as Other User ID
     # ============================================================================
-    def set_running_userid(self, new_userid: Union[str, None]):
+    def set_running_userid(self, new_userid: Union[str, None]) -> None:
         if new_userid is None:
             self.__running_userid = new_userid
             return
@@ -101,16 +101,16 @@ class SecurityAdmin:
             return
         raise ImproperUserIDError(new_userid)
 
-    def clear_running_userid(self):
+    def clear_running_userid(self) -> None:
         self.__running_userid = None
 
-    def get_running_userid(self):
+    def get_running_userid(self) -> None:
         return self.__running_userid
 
     # ============================================================================
     # Customize Segment Traits
     # ============================================================================
-    def __update_valid_segment_traits(self, update_valid_segment_traits: dict):
+    def __update_valid_segment_traits(self, update_valid_segment_traits: dict) -> None:
         """Update fields to valid segment traits dictionary."""
         for segment in update_valid_segment_traits:
             if segment in self._valid_segment_traits:
@@ -122,14 +122,14 @@ class SecurityAdmin:
                     segment
                 ]
 
-    def __replace_valid_segment_traits(self, new_valid_segment_traits: dict):
+    def __replace_valid_segment_traits(self, new_valid_segment_traits: dict) -> None:
         """Replace field data in valid segment traits dictionary"""
         self._valid_segment_traits = new_valid_segment_traits
 
     # ============================================================================
     # Secrets Redaction
     # ============================================================================
-    def __add_additional_secret_traits(self, additional_secret_traits: list):
+    def __add_additional_secret_traits(self, additional_secret_traits: list) -> None:
         """Add additional fields to be redacted in logger output."""
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
