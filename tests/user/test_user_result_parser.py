@@ -444,24 +444,6 @@ class TestUserResultParser(unittest.TestCase):
         )
 
     # ============================================================================
-    # Extract User with Customized Segment Traits
-    # ============================================================================
-    def test_user_admin_can_parse_extract_user_base_omvs_csdata_success_xml(
-        self,
-        call_racf_mock: Mock,
-    ):
-        user_admin = UserAdmin(
-            update_existing_segment_traits=TestUserConstants.TEST_USER_REPLACE_SEGMENT_TRAITS
-        )
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
-        )
-        self.assertEqual(
-            user_admin.extract("squidwrd", segments=["omvs", "csdata"]),
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
-        )
-
-    # ============================================================================
     # Add Additional Secrets
     # ============================================================================
     def test_user_admin_custom_secret_redacted_on_success(

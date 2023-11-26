@@ -20,7 +20,7 @@ class SecurityRequestError(Exception):
         return self.message
 
     def __check_result_type(self, result: dict) -> dict:
-        not_profiles = ["returnCode", "reasonCode"]
+        not_profiles = ["returnCode", "reasonCode", "runningUserid"]
         for profile_type in result["securityResult"]:
             if profile_type in not_profiles:
                 continue

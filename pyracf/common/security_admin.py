@@ -83,8 +83,7 @@ class SecurityAdmin:
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
             self.__add_additional_secret_traits(additional_secret_traits)
-        if run_as_userid is not None:
-            self.set_running_userid(run_as_userid)
+        self.set_running_userid(run_as_userid)
 
     # ============================================================================
     # Run as Other User ID
@@ -201,13 +200,16 @@ class SecurityAdmin:
             self.__secret_traits,
         )
         self.__clear_state(security_request)
+        if isinstance(result_xml, list):
+            # When IRRSMO00 encounters some errors, it returns no XML response string.
+            # When this happens, the c code instead surfaces the return and reason
+            # codes which causes a NullResponseError to be raised.
+            raise NullResponseError(result_xml, self.get_running_userid())
         if self.__debug:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
             self.__logger.log_xml("Result XML", result_xml)
-        if result_xml == "":
-            raise NullResponseError(result_xml)
-        results = SecurityResult(result_xml)
+        results = SecurityResult(result_xml, self.get_running_userid())
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
