@@ -37,8 +37,9 @@ except AddOperationError as e:
 ###### Console Output
 ```console
 Security request made to IRRSMO00 failed.
+SAF Return Code: 8 / RACF Return Code: 200 / RACF Reason Code: 16
 
-Check to see if proper RACF permissions are in place.
+Check to see if the proper RACF permissions are in place.
 For `set` or `alter` functions, you must have at least READ access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class.
 ```
 
@@ -58,7 +59,8 @@ except AddOperationError as e:
 ###### Console Output
 ```console
 Security request made to IRRSMO00 failed.
+SAF Return Code: 8 / RACF Return Code: 200 / RACF Reason Code: 8
 
-Check to see if proper RACF permissions are in place.
+Check to see if the proper RACF permissions are in place.
 For the `run_as_userid` feature, you must have at least UPDATE access to `ESWIFT.IRRSMO00` in the `SURROGAT` class.
 ```
