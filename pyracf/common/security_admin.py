@@ -5,7 +5,6 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
-from .improper_userid_error import UserIdError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
 from .null_response_error import NullResponseError
@@ -14,6 +13,7 @@ from .security_request_error import SecurityRequestError
 from .security_result import SecurityResult
 from .segment_error import SegmentError
 from .segment_trait_error import SegmentTraitError
+from .userid_error import UserIdError
 
 
 class SecurityAdmin:

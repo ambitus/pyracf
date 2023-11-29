@@ -42,7 +42,7 @@ class TestRunAsUserId(unittest.TestCase):
             success_log, TestCommonConstants.TEST_ALTER_USER_SUCCESS_AS_ESWIFT_LOG
         )
 
-    def test_set_run_as_userid_on_object_creation_raises_improper_userid_error(self):
+    def test_set_run_as_userid_on_object_creation_raises_userid_error(self):
         userid = "ESWIFTTEST"
         with self.assertRaises(UserIdError) as exception:
             UserAdmin(debug=True, run_as_userid=userid)
@@ -74,7 +74,7 @@ class TestRunAsUserId(unittest.TestCase):
             success_log, TestCommonConstants.TEST_ALTER_USER_SUCCESS_AS_ESWIFT_LOG
         )
 
-    def test_set_running_userid_after_object_creation_raises_improper_userid_error(
+    def test_set_running_userid_after_object_creation_raises_userid_error(
         self,
     ):
         userid = "ESWIFTTEST"
@@ -139,7 +139,7 @@ class TestRunAsUserId(unittest.TestCase):
         self.assertEqual(access, "read")
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-    def test_get_user_access_raises_improper_userid_error(
+    def test_get_user_access_raises_userid_error(
         self,
         call_racf_mock: Mock,
     ):
