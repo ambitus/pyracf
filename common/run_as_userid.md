@@ -56,8 +56,8 @@ Set the **z/OS userid** this Admin object will use to run pyRACF commands.
   The **z/OS userid** this Admin object will use to run pyRACF commands. If you pass in `None`, this will clear any userid previously set for this Admin object.
 
 #### ❌ Raises
-* `ImproperUserIdError`<br>
-  Raises `ImproperUserIdError` when the **z/OS userid** passed is not a valid string from 1 to 8 characters in length (or `None`).
+* `UserIdError`<br>
+  Raises `UserIdError` when the **z/OS userid** passed is not a valid string from 1 to 8 characters in length (or `None`).
 
 #### 💻 Example
 
