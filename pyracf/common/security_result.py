@@ -11,11 +11,13 @@ class SecurityResult:
     """Generic Security Result Parser."""
 
     def __init__(
-        self, result_xml: str, running_userid: Union[str, None] = None
+        self, result_xml: str, request_xml: str, running_userid: Union[str, None] = None
     ) -> None:
+        self.__request_xml = request_xml
         self.__result = XMLParser.fromstring(result_xml)
         self.__result_dictionary = {"securityResult": {}}
         self.__extract_results()
+        self.__result_dictionary = self.__check_result_type(self.__result_dictionary)
         if running_userid is not None:
             self.__result_dictionary["securityResult"]["runningUserid"] = running_userid
 
@@ -60,6 +62,42 @@ class SecurityResult:
                 return
             info.append(item.text)
             self.__definition.remove(item)
+
+    def __check_result_type(self, result: dict) -> dict:
+        not_profiles = ["returnCode", "reasonCode", "runningUserid"]
+        for profile_type in result["securityResult"]:
+            if profile_type in not_profiles:
+                continue
+            if "error" in result["securityResult"][profile_type]:
+                return self.__organize_smo_error(result, profile_type)
+        return result
+
+    def __organize_smo_error(self, result: dict, profile_type: str) -> dict:
+        command_result = {}
+        command_result["image"] = self.__request_xml.decode("utf-8")
+        command_result["safReturnCode"] = result["securityResult"][profile_type][
+            "error"
+        ]["errorFunction"]
+        command_result["returnCode"] = result["securityResult"][profile_type]["error"][
+            "errorCode"
+        ]
+        command_result["reasonCode"] = result["securityResult"][profile_type]["error"][
+            "errorReason"
+        ]
+        error_offset = result["securityResult"][profile_type]["error"]["errorOffset"]
+        error_text = result["securityResult"][profile_type]["error"]["textInError"]
+        error_message = (
+            result["securityResult"][profile_type]["error"]["errorMessage"]
+            + "\n"
+            + f"Text in Error: '{error_text}'\n"
+            + f"Approximate Offset of Text in Error: '{error_offset}'\n"
+            + "Please note that for any text in error,"
+            + " redacted values may skew offset calculations."
+        )
+        command_result["messages"] = [error_message]
+        result["securityResult"][profile_type]["commands"] = [command_result]
+        del result["securityResult"][profile_type]["error"]
+        return result
 
     def __extract_commands(self, filter_out_extra_messages: bool) -> None:
         """Extract commands section from XML into a list."""

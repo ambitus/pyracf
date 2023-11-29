@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
-from pyracf import ImproperUserIdError, ResourceAdmin, UserAdmin
+from pyracf import ResourceAdmin, UserAdmin, UserIdError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -44,7 +44,7 @@ class TestRunAsUserId(unittest.TestCase):
 
     def test_set_run_as_userid_on_object_creation_raises_improper_userid_error(self):
         userid = "ESWIFTTEST"
-        with self.assertRaises(ImproperUserIdError) as exception:
+        with self.assertRaises(UserIdError) as exception:
             UserAdmin(debug=True, run_as_userid=userid)
         self.assertEqual(
             exception.exception.message,
@@ -79,7 +79,7 @@ class TestRunAsUserId(unittest.TestCase):
     ):
         userid = "ESWIFTTEST"
         user_admin = UserAdmin(debug=True)
-        with self.assertRaises(ImproperUserIdError) as exception:
+        with self.assertRaises(UserIdError) as exception:
             user_admin.set_running_userid(userid)
         self.assertEqual(
             exception.exception.message,
@@ -153,7 +153,7 @@ class TestRunAsUserId(unittest.TestCase):
         )
         resource_admin = ResourceAdmin(debug=True, run_as_userid="ESWIFT")
         call_racf_mock.return_value = precheck_profile_as_squidwrd
-        with self.assertRaises(ImproperUserIdError) as exception:
+        with self.assertRaises(UserIdError) as exception:
             resource_admin.get_user_access("IRR.IRRSMO00.PRECHECK", "XFACILIT", userid)
         self.assertEqual(
             exception.exception.message,

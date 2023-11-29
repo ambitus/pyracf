@@ -13,8 +13,8 @@ class NullResponseError(Exception):
         self.racf_return_code = xml_str[1]
         self.racf_reason_code = xml_str[2]
         self.message += (
-            f"\nSAF Return Code: {self.saf_return_code} / RACF Return Code:"
-            + f" {self.racf_return_code} / RACF Reason Code: {self.racf_reason_code}"
+            f"\nSAF Return Code: {self.saf_return_code} \nRACF Return Code:"
+            + f" {self.racf_return_code} \nRACF Reason Code: {self.racf_reason_code}"
         )
         if (
             (self.saf_return_code == 8)

@@ -5,7 +5,7 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
-from .improper_userid_error import ImproperUserIdError
+from .improper_userid_error import UserIdError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
 from .null_response_error import NullResponseError
@@ -22,7 +22,7 @@ class SecurityAdmin:
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
     _case_sensitive_extracted_values = []
-    __running_userid = False
+    __running_userid = None
     __logger = Logger()
 
     def __init__(
@@ -99,7 +99,7 @@ class SecurityAdmin:
         ):
             self.__running_userid = new_userid.upper()
             return
-        raise ImproperUserIdError(new_userid)
+        raise UserIdError(new_userid)
 
     def clear_running_userid(self) -> None:
         self.__running_userid = None
@@ -209,7 +209,7 @@ class SecurityAdmin:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
             self.__logger.log_xml("Result XML", result_xml)
-        results = SecurityResult(result_xml, self.get_running_userid())
+        results = SecurityResult(result_xml, request_xml, self.get_running_userid())
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
@@ -223,7 +223,7 @@ class SecurityAdmin:
             # up to the user to interogate the result dictionary attached to the
             # SecurityRequestError and decided whether or not the return code 4 is
             # indicative of a problem.
-            raise SecurityRequestError(result_dictionary, request_xml)
+            raise SecurityRequestError(result_dictionary)
         return result_dictionary
 
     def _to_steps(self, results: Union[List[dict], dict, bytes]) -> Union[dict, bytes]:

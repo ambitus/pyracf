@@ -1,4 +1,4 @@
-"""Test password sanitization in resource debug logging."""
+"""Test included script to initialize and evaluate precheck permissions."""
 
 import contextlib
 import io
