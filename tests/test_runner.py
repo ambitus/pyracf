@@ -12,7 +12,7 @@ from tests.common.test_customize_segment_traits import TestCustomizeSegmentTrait
 from tests.common.test_install_precheck_script import TestInstallPrecheckScript
 from tests.common.test_logger import TestLogger
 from tests.common.test_null_response_error import TestNullResponseError
-from tests.common.test_run_as_userid import TestRunAsUserID
+from tests.common.test_run_as_userid import TestRunAsUserId
 from tests.connection.test_connection_debug_logging import TestConnectionDebugLogging
 from tests.connection.test_connection_request_builder import (
     TestConnectionRequestBuilder,
@@ -67,7 +67,7 @@ def __test_suite() -> unittest.TestSuite:
         TestInstallPrecheckScript,
         TestLogger,
         TestNullResponseError,
-        TestRunAsUserID,
+        TestRunAsUserId,
         TestConnectionResultParser,
         TestConnectionRequestBuilder,
         TestConnectionSetters,

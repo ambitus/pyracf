@@ -5,7 +5,7 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
-from .improper_userid_error import ImproperUserIDError
+from .improper_userid_error import ImproperUserIdError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
 from .null_response_error import NullResponseError
@@ -99,7 +99,7 @@ class SecurityAdmin:
         ):
             self.__running_userid = new_userid.upper()
             return
-        raise ImproperUserIDError(new_userid)
+        raise ImproperUserIdError(new_userid)
 
     def clear_running_userid(self) -> None:
         self.__running_userid = None

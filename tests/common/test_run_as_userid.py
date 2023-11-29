@@ -9,14 +9,14 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
-from pyracf import ImproperUserIDError, ResourceAdmin, UserAdmin
+from pyracf import ImproperUserIdError, ResourceAdmin, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
 
 
-class TestRunAsUserID(unittest.TestCase):
+class TestRunAsUserId(unittest.TestCase):
     maxDiff = None
     IRRSMO00.__init__ = Mock(return_value=None)
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
@@ -44,12 +44,12 @@ class TestRunAsUserID(unittest.TestCase):
 
     def test_set_run_as_userid_on_object_creation_raises_improper_userid_error(self):
         userid = "ESWIFTTEST"
-        with self.assertRaises(ImproperUserIDError) as exception:
+        with self.assertRaises(ImproperUserIdError) as exception:
             UserAdmin(debug=True, run_as_userid=userid)
         self.assertEqual(
             exception.exception.message,
-            "Cannot run under this userid."
-            + f"{userid} is not a string from 1 to 8 characters in length.",
+            f"Unable to run as userid '{userid}'. Userid must "
+            + "be a string value between 1 to 8 characters in length.",
         )
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
@@ -79,12 +79,12 @@ class TestRunAsUserID(unittest.TestCase):
     ):
         userid = "ESWIFTTEST"
         user_admin = UserAdmin(debug=True)
-        with self.assertRaises(ImproperUserIDError) as exception:
+        with self.assertRaises(ImproperUserIdError) as exception:
             user_admin.set_running_userid(userid)
         self.assertEqual(
             exception.exception.message,
-            "Cannot run under this userid."
-            + f"{userid} is not a string from 1 to 8 characters in length.",
+            f"Unable to run as userid '{userid}'. Userid must "
+            + "be a string value between 1 to 8 characters in length.",
         )
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
@@ -153,10 +153,10 @@ class TestRunAsUserID(unittest.TestCase):
         )
         resource_admin = ResourceAdmin(debug=True, run_as_userid="ESWIFT")
         call_racf_mock.return_value = precheck_profile_as_squidwrd
-        with self.assertRaises(ImproperUserIDError) as exception:
+        with self.assertRaises(ImproperUserIdError) as exception:
             resource_admin.get_user_access("IRR.IRRSMO00.PRECHECK", "XFACILIT", userid)
         self.assertEqual(
             exception.exception.message,
-            "Cannot run under this userid."
-            + f"{userid} is not a string from 1 to 8 characters in length.",
+            f"Unable to run as userid '{userid}'. Userid must "
+            + "be a string value between 1 to 8 characters in length.",
         )

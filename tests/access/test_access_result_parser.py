@@ -36,7 +36,7 @@ class TestAccessResultParser(unittest.TestCase):
             TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_SUCCESS_DICTIONARY,
         )
 
-    # Error, UserID MCGINLEY not defined to RACF
+    # Error, UserId MCGINLEY not defined to RACF
     def test_access_admin_can_parse_permit_access_error_xml(
         self,
         call_racf_mock: Mock,

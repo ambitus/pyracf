@@ -24,24 +24,21 @@ class IRRSMO00:
         self,
         request_xml: bytes,
         precheck: bool = False,
-        running_userid: Union[str, bool] = None,
+        run_as_userid: Union[str, None] = None,
     ) -> str:
         """Make request to call_irrsmo00 in the cpyracf Python extension."""
         options = 15 if precheck else 13
-        if running_userid is None:
-            response = call_irrsmo00(
-                xml_str=request_xml,
-                xml_len=len(request_xml),
-                opts=options,
-                userid="".encode("cp1047"),
-                userid_len=0,
-            ).decode("cp1047")
+        userid = b""
+        userid_length = 0
+        if run_as_userid:
+            userid = run_as_userid.encode("cp1047")
+            userid_length = len(run_as_userid)
         response = call_irrsmo00(
             xml_str=request_xml,
             xml_len=len(request_xml),
             opts=options,
-            userid=running_userid.encode("cp1047"),
-            userid_len=len(running_userid),
+            userid=userid,
+            userid_len=userid_length,
         ).decode("cp1047")
         if response[0] == "":
             return response[1:3]

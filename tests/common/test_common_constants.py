@@ -91,7 +91,7 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
 )
 
 # ============================================================================
-# Run As UserID
+# Run As UserId
 # ============================================================================
 
 TEST_RUNNING_USERID = "ESWIFT"
@@ -119,20 +119,23 @@ TEST_EXTRACT_RESOURCE_PRECHECK_AS_SQUIDWRD_LOG = get_sample(
 
 TEST_NULL_RESPONSE_PRECHECK_TEXT = (
     "(NullResponseError) Security request made to IRRSMO00 failed."
-    + "\n\nCheck to see if proper RACF permissions are in place.\n"
+    + "\nSAF Return Code: 8 / RACF Return Code: 200 / RACF Reason Code: 16"
+    + "\n\nCheck to see if the proper RACF permissions are in place.\n"
     + "For `set` or `alter` functions, you must have at least READ "
     + "access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class."
 )
 
 TEST_NULL_RESPONSE_SURROGAT_TEXT = (
     "(NullResponseError) Security request made to IRRSMO00 failed."
-    + "\n\nCheck to see if proper RACF permissions are in place.\n"
+    + "\nSAF Return Code: 8 / RACF Return Code: 200 / RACF Reason Code: 8"
+    + "\n\nCheck to see if the proper RACF permissions are in place.\n"
     + "For the `run_as_userid` feature, you must have at least UPDATE"
     + " access to `ESWIFT.IRRSMO00` in the `SURROGAT` class."
 )
 
 TEST_NULL_RESPONSE_GENERIC_TEXT = (
     "(NullResponseError) Security request made to IRRSMO00 failed."
+    + "\nSAF Return Code: 8 / RACF Return Code: 2000 / RACF Reason Code: 20"
     + "\n\nPlease check the specified return and reason codes against"
     + " the IRRSMO00 documented return and reason codes for more information"
     + " about this error.\n"

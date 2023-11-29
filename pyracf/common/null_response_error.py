@@ -12,13 +12,17 @@ class NullResponseError(Exception):
         self.saf_return_code = xml_str[0]
         self.racf_return_code = xml_str[1]
         self.racf_reason_code = xml_str[2]
+        self.message += (
+            f"\nSAF Return Code: {self.saf_return_code} / RACF Return Code:"
+            + f" {self.racf_return_code} / RACF Reason Code: {self.racf_reason_code}"
+        )
         if (
             (self.saf_return_code == 8)
             and (self.racf_return_code == 200)
             and (self.racf_reason_code == 16)
         ):
             self.message += (
-                "\n\nCheck to see if proper RACF permissions are in place.\n"
+                "\n\nCheck to see if the proper RACF permissions are in place.\n"
                 + "For `set` or `alter` functions, you must have at least READ "
                 + "access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class."
             )
@@ -28,7 +32,7 @@ class NullResponseError(Exception):
             and (self.racf_reason_code == 8)
         ):
             self.message += (
-                "\n\nCheck to see if proper RACF permissions are in place.\n"
+                "\n\nCheck to see if the proper RACF permissions are in place.\n"
                 + "For the `run_as_userid` feature, you must have at least UPDATE"
                 + f" access to `{run_as_userid}.IRRSMO00` in the `SURROGAT` class."
             )
