@@ -1,4 +1,7 @@
-"""Exception to use when attempting to set an invalid userid for pyRACF to run under."""
+"""
+Exception to raise when run as userid is given a userid value
+that is not a string between 1 to 8 characters in length.
+"""
 
 
 class UserIdError(Exception):

@@ -6,9 +6,10 @@ class SecurityRequestError(Exception):
     Raised when the return code of a security result returned by IRRSMO00 is NOT equal to 0.
     """
 
-    def __init__(self, result: dict) -> None:
+    def __init__(self, result: dict, request_xml: bytes) -> None:
         self.message = "Security request made to IRRSMO00 failed."
         self.result = result
+        self.request_xml = request_xml.decode("utf-8")
         self.message += (
             "\n\nSee results dictionary "
             + f"'{self.__class__.__name__}.result' for more details."

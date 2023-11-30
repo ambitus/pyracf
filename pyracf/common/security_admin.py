@@ -204,12 +204,12 @@ class SecurityAdmin:
             # When IRRSMO00 encounters some errors, it returns no XML response string.
             # When this happens, the c code instead surfaces the return and reason
             # codes which causes a NullResponseError to be raised.
-            raise NullResponseError(result_xml, self.get_running_userid())
+            raise NullResponseError(result_xml, request_xml, self.get_running_userid())
         if self.__debug:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
             self.__logger.log_xml("Result XML", result_xml)
-        results = SecurityResult(result_xml, request_xml, self.get_running_userid())
+        results = SecurityResult(result_xml, self.get_running_userid())
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
@@ -223,7 +223,7 @@ class SecurityAdmin:
             # up to the user to interogate the result dictionary attached to the
             # SecurityRequestError and decided whether or not the return code 4 is
             # indicative of a problem.
-            raise SecurityRequestError(result_dictionary)
+            raise SecurityRequestError(result_dictionary, request_xml)
         return result_dictionary
 
     def _to_steps(self, results: Union[List[dict], dict, bytes]) -> Union[dict, bytes]:

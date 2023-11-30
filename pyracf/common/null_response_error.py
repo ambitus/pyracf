@@ -7,14 +7,17 @@ class NullResponseError(Exception):
     Raised when no xml string is returned by IRRSMO00.
     """
 
-    def __init__(self, xml_str: str, run_as_userid: Union[str, None] = None) -> None:
+    def __init__(
+        self, xml_str: str, request_xml: bytes, run_as_userid: Union[str, None] = None
+    ) -> None:
         self.message = "Security request made to IRRSMO00 failed."
         self.saf_return_code = xml_str[0]
         self.racf_return_code = xml_str[1]
         self.racf_reason_code = xml_str[2]
+        self.request_xml = request_xml.decode("utf-8")
         self.message += (
-            f"\nSAF Return Code: {self.saf_return_code} \nRACF Return Code:"
-            + f" {self.racf_return_code} \nRACF Reason Code: {self.racf_reason_code}"
+            f"\n\nSAF Return Code: {self.saf_return_code}\nRACF Return Code:"
+            + f" {self.racf_return_code}\nRACF Reason Code: {self.racf_reason_code}"
         )
         if (
             (self.saf_return_code == 8)
@@ -41,7 +44,7 @@ class NullResponseError(Exception):
                 "\n\nPlease check the specified return and reason codes against"
                 + " the IRRSMO00 documented return and reason codes for more information"
                 + " about this error.\n"
-                + "(https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-return-reason-codes)"
+                + "https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-return-reason-codes"
             )
         self.message = f"({self.__class__.__name__}) {self.message}"
 
