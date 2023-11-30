@@ -4,19 +4,14 @@
       "name": "TESTGRPP0",
       "operation": "set",
       "requestId": "GroupRequest",
-      "commands": [
-        {
-          "safReturnCode": 10,
-          "returnCode": 2000,
-          "reasonCode": 68,
-          "textInError": "name",
-          "errorOffset": 149,
-          "messages": [
-            "Invalid attribute value specified.",
-            "Please note that for any text in error, redacted values may skew offset calculations."
-          ]
-        }
-      ]
+      "error": {
+        "errorFunction": 10,
+        "errorCode": 2000,
+        "errorReason": 68,
+        "textInError": "name",
+        "errorOffset": 149,
+        "errorMessage": "Invalid attribute value specified."
+      }
     },
     "returnCode": 2000,
     "reasonCode": 68

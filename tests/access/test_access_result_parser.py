@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf import AccessAdmin, SecurityRequestError
+from pyracf import AccessAdmin, SecurityResponseError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -44,7 +44,7 @@ class TestAccessResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.access_admin.permit(
                 "TESTING", "ELIJTEST", "MCGINLEY", traits={"base:access": "ALTER"}
             )
@@ -76,7 +76,7 @@ class TestAccessResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.access_admin.delete("TESTING", "ELIJTEST", "ESWIFT")
         self.assertEqual(
             exception.exception.result,

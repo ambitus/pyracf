@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
-from pyracf import SecurityRequestError, SetroptsAdmin
+from pyracf import SecurityResponseError, SetroptsAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -52,7 +52,7 @@ class TestSetroptsDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             try:
                 self.setropts_admin.alter(options={"base:raclist": "ELIXTEST"})
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestSetroptsConstants.TEST_ALTER_SETROPTS_ERROR_LOG)

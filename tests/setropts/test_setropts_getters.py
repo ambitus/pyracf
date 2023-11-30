@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
-from pyracf import SecurityRequestError
+from pyracf import SecurityResponseError
 from pyracf.common.irrsmo00 import IRRSMO00
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
@@ -43,7 +43,7 @@ class TestSetroptsGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError):
+        with self.assertRaises(SecurityResponseError):
             self.setropts_admin.get_password_rules()
 
     # ============================================================================
@@ -70,5 +70,5 @@ class TestSetroptsGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError):
+        with self.assertRaises(SecurityResponseError):
             self.setropts_admin.get_class_attributes("FACILITY")

@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.group.test_group_constants as TestGroupConstants
-from pyracf import GroupAdmin, SecurityRequestError
+from pyracf import GroupAdmin, SecurityResponseError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -57,7 +57,7 @@ class TestGroupDebugLogging(unittest.TestCase):
                     "TESTGRP0",
                     traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS,
                 )
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestGroupConstants.TEST_ALTER_GROUP_ERROR_LOG)
@@ -91,7 +91,7 @@ class TestGroupDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             try:
                 self.group_admin.extract("TESTGRP0", segments=["omvs"])
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(

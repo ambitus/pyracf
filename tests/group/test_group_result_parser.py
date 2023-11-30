@@ -11,6 +11,7 @@ from pyracf import (
     AlterOperationError,
     GroupAdmin,
     SecurityRequestError,
+    SecurityResponseError,
 )
 from pyracf.common.irrsmo00 import IRRSMO00
 
@@ -127,7 +128,7 @@ class TestGroupResultParser(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
             TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.group_admin.alter(
                 "TESTGRP0",
                 traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS,
@@ -172,7 +173,7 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.group_admin.extract("TESTGRP0", segments=["omvs"])
         self.assertEqual(
             exception.exception.result,
@@ -202,7 +203,7 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_DELETE_GROUP_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.group_admin.delete("TESTGRP0")
         self.assertEqual(
             exception.exception.result,

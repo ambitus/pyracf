@@ -10,7 +10,7 @@ from pyracf import (
     AddOperationError,
     AlterOperationError,
     DataSetAdmin,
-    SecurityRequestError,
+    SecurityResponseError,
 )
 from pyracf.common.irrsmo00 import IRRSMO00
 
@@ -90,7 +90,7 @@ class TestDataSetResultParser(unittest.TestCase):
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BAD_ATTRIBUTE_ERROR_XML,
             TestDataSetConstants.TEST_ADD_DATA_SET_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.data_set_admin.add(
                 "ESWIFTTESTT1136242P3020470",
                 traits=TestDataSetConstants.TEST_ADD_DATA_SET_REQUEST_TRAITS,
@@ -172,7 +172,7 @@ class TestDataSetResultParser(unittest.TestCase):
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML,
             TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.data_set_admin.alter(
                 "ESWIFT.TEST.T1136242.P3020470",
                 traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
@@ -217,7 +217,7 @@ class TestDataSetResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.data_set_admin.extract("ESWIFT.TEST.T1136242.P3020470")
         self.assertEqual(
             exception.exception.result,
@@ -247,7 +247,7 @@ class TestDataSetResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_DELETE_DATA_SET_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.data_set_admin.delete("ESWIFT.TEST.T1136242.P3020470")
         self.assertEqual(
             exception.exception.result,

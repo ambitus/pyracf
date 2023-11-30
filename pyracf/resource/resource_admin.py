@@ -5,7 +5,7 @@ from typing import List, Union
 from pyracf.common.add_operation_error import AddOperationError
 from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
+from pyracf.common.security_response_error import SecurityResponseError
 
 from .resource_request import ResourceRequest
 
@@ -510,7 +510,7 @@ class ResourceAdmin(SecurityAdmin):
             profile = self.extract(resource, class_name, profile_only=True)
             if self._get_field(profile, "base", "name") == resource.lower():
                 raise AddOperationError(resource, class_name)
-        except SecurityRequestError as exception:
+        except SecurityResponseError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH13003I"):
                 raise exception
         self._build_segment_trait_dictionary(traits)
@@ -527,7 +527,7 @@ class ResourceAdmin(SecurityAdmin):
             return self._make_request(profile_request, irrsmo00_precheck=True)
         try:
             profile = self.extract(resource, class_name, profile_only=True)
-        except SecurityRequestError:
+        except SecurityResponseError:
             raise AlterOperationError(resource, class_name)
         if not self._get_field(profile, "base", "name") == resource.lower():
             raise AlterOperationError(resource, class_name)

@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
-from pyracf import SecurityRequestError
+from pyracf import SecurityResponseError
 from pyracf.common.irrsmo00 import IRRSMO00
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
@@ -43,7 +43,7 @@ class TestSetroptsResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             self.setropts_admin.alter(options={"base:raclist": "elixtest"})
         self.assertEqual(
             exception.exception.result,
@@ -97,7 +97,7 @@ class TestSetroptsResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestSetroptsConstants.TEST_ALTER_SETROPTS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(SecurityResponseError) as exception:
             # Not valid error for this request, but good test
             self.setropts_admin.list_racf_options()
         self.assertEqual(

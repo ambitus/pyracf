@@ -7,9 +7,9 @@ from typing import Any, List, Tuple, Union
 
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
-from .null_response_error import NullResponseError
 from .security_request import SecurityRequest
 from .security_request_error import SecurityRequestError
+from .security_response_error import SecurityResponseError
 from .security_result import SecurityResult
 from .segment_error import SegmentError
 from .segment_trait_error import SegmentTraitError
@@ -203,8 +203,10 @@ class SecurityAdmin:
         if isinstance(result_xml, list):
             # When IRRSMO00 encounters some errors, it returns no XML response string.
             # When this happens, the c code instead surfaces the return and reason
-            # codes which causes a NullResponseError to be raised.
-            raise NullResponseError(result_xml, request_xml, self.get_running_userid())
+            # codes which causes a SecurityRequestError to be raised.
+            raise SecurityRequestError(
+                result_xml, request_xml, self.get_running_userid()
+            )
         if self.__debug:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
@@ -217,13 +219,29 @@ class SecurityAdmin:
                 "Result Dictionary", results.get_result_dictionary()
             )
         result_dictionary = results.get_result_dictionary()
+        if result_dictionary["securityResult"]["returnCode"] > 4:
+            # All return codes greater than 4 are indicative of an issue with
+            # IRRSMO00 that would stop a command image from being generated.
+            # The user should interogate the result dictionary attached to the
+            # SecurityResponseError as well as the return and reason codes to
+            # resolve the problem.
+            raise SecurityRequestError(
+                [
+                    8,
+                    result_dictionary["securityResult"]["returnCode"],
+                    result_dictionary["securityResult"]["reasonCode"],
+                ],
+                request_xml,
+                self.get_running_userid(),
+                result_dictionary,
+            )
         if result_dictionary["securityResult"]["returnCode"] != 0:
-            # All non-zero return codes should cause a SecurityRequestError to be raised.
+            # All non-zero return codes should cause a SecurityResponseError to be raised.
             # Even if a return code of 4 is not indicative of a problem, it it is
             # up to the user to interogate the result dictionary attached to the
-            # SecurityRequestError and decided whether or not the return code 4 is
+            # SecurityResponseError and decided whether or not the return code 4 is
             # indicative of a problem.
-            raise SecurityRequestError(result_dictionary, request_xml)
+            raise SecurityResponseError(result_dictionary)
         return result_dictionary
 
     def _to_steps(self, results: Union[List[dict], dict, bytes]) -> Union[dict, bytes]:

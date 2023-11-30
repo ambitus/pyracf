@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
-from pyracf import NullResponseError, UserAdmin
+from pyracf import SecurityRequestError, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -14,42 +14,42 @@ __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-class TestNullResponseError(unittest.TestCase):
+class TestSecurityRequestError(unittest.TestCase):
     maxDiff = None
     IRRSMO00.__init__ = Mock(return_value=None)
     user_admin = UserAdmin()
 
-    def test_null_response_error_thrown_on_precheck_error(
+    def test_security_request_error_thrown_on_precheck_error(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = [8, 200, 16]
-        with self.assertRaises(NullResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.set_password("TESTUSER", "Testpass")
         self.assertEqual(
             exception.exception.message,
             TestCommonConstants.TEST_NULL_RESPONSE_PRECHECK_TEXT,
         )
 
-    def test_null_response_error_thrown_on_surrogat_error(
+    def test_security_request_error_thrown_on_surrogat_error(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = [8, 200, 8]
         self.user_admin.set_running_userid("ESWIFT")
-        with self.assertRaises(NullResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add("squidwrd")
         self.assertEqual(
             exception.exception.message,
             TestCommonConstants.TEST_NULL_RESPONSE_SURROGAT_TEXT,
         )
 
-    def test_null_response_error_thrown_on_miscellaneous_error(
+    def test_security_request_error_thrown_on_miscellaneous_error(
         self,
         call_racf_mock: Mock,
     ):
         call_racf_mock.return_value = [8, 2000, 20]
-        with self.assertRaises(NullResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.add("squidwrd")
         self.assertEqual(
             exception.exception.message,

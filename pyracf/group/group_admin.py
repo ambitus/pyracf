@@ -5,7 +5,7 @@ from typing import List, Union
 from pyracf.common.add_operation_error import AddOperationError
 from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
+from pyracf.common.security_response_error import SecurityResponseError
 
 from .group_request import GroupRequest
 
@@ -131,7 +131,7 @@ class GroupAdmin(SecurityAdmin):
             return self._make_request(group_request)
         try:
             self.extract(group)
-        except SecurityRequestError as exception:
+        except SecurityResponseError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH51003I"):
                 raise exception
             self._build_segment_trait_dictionary(traits)
@@ -149,7 +149,7 @@ class GroupAdmin(SecurityAdmin):
             return self._make_request(group_request, irrsmo00_precheck=True)
         try:
             self.extract(group)
-        except SecurityRequestError:
+        except SecurityResponseError:
             raise AlterOperationError(group, self._profile_type)
         self._build_segment_trait_dictionary(traits)
         group_request = GroupRequest(group, "set")

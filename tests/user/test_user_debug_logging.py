@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
-from pyracf import SecurityRequestError, UserAdmin
+from pyracf import SecurityResponseError, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -61,7 +61,7 @@ class TestUserDebugLogging(unittest.TestCase):
                     "squidwrd",
                     traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
                 )
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestUserConstants.TEST_ALTER_USER_ERROR_LOG)
@@ -108,7 +108,7 @@ class TestUserDebugLogging(unittest.TestCase):
                     "squidwrd",
                     traits=error_traits,
                 )
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -155,7 +155,7 @@ class TestUserDebugLogging(unittest.TestCase):
                     "squidwrd",
                     traits=error_traits,
                 )
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -204,7 +204,7 @@ class TestUserDebugLogging(unittest.TestCase):
                     "squidwrd",
                     traits=error_traits,
                 )
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -254,7 +254,7 @@ class TestUserDebugLogging(unittest.TestCase):
                     "squidwrd",
                     traits=error_traits,
                 )
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -309,7 +309,7 @@ class TestUserDebugLogging(unittest.TestCase):
                     "squidwrd",
                     traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
                 )
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -350,7 +350,7 @@ class TestUserDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             try:
                 self.user_admin.extract("squidwrd", segments=["omvs"])
-            except SecurityRequestError:
+            except SecurityResponseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
