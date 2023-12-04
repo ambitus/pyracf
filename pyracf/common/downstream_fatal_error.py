@@ -1,10 +1,10 @@
-"""Exception to use when no data is returned by IRRSMO00."""
+"""Exception to use when IRRSMO00 returns with an error."""
 from typing import Union
 
 
 class DownstreamFatalError(Exception):
     """
-    Raised when no xml string is returned by IRRSMO00.
+    Raised IRRSMO00 returns with a return code of 8, indicating an error occured prior to request.
     """
 
     def __init__(

@@ -17,12 +17,12 @@ __init__
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-class TestInstallPrecheckScript(unittest.TestCase):
+class TestSetupPrecheck(unittest.TestCase):
     maxDiff = None
     IRRSMO00.__init__ = Mock(return_value=None)
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
-    def test_install_precheck_works_when_no_setup_done(
+    def test_setup_precheck_works_when_no_setup_done(
         self,
         call_racf_mock: Mock,
     ):
@@ -36,14 +36,14 @@ class TestInstallPrecheckScript(unittest.TestCase):
             result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            precheck_log, TestCommonConstants.TEST_INSTALL_PRECHECK_DEFINED_PROFILE_TEXT
+            precheck_log, TestCommonConstants.TEST_SETUP_PRECHECK_DEFINED_PROFILE_TEXT
         )
         self.assertEqual(
             result,
             TestCommonConstants.TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_SUCCESS_DICTIONARY,
         )
 
-    def test_install_precheck_works_when_alter_access_exists(
+    def test_setup_precheck_works_when_alter_access_exists(
         self,
         call_racf_mock: Mock,
     ):
@@ -56,11 +56,11 @@ class TestInstallPrecheckScript(unittest.TestCase):
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             precheck_log,
-            TestCommonConstants.TEST_INSTALL_PRECHECK_VALIDATED_ACCESS_TEXT,
+            TestCommonConstants.TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT,
         )
         self.assertEqual(result, True)
 
-    def test_install_precheck_works_when_control_access_exists(
+    def test_setup_precheck_works_when_control_access_exists(
         self,
         call_racf_mock: Mock,
     ):
@@ -73,7 +73,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         )
         call_racf_mock.return_value = extract_with_control_access
         validated_control_access = (
-            TestCommonConstants.TEST_INSTALL_PRECHECK_VALIDATED_ACCESS_TEXT
+            TestCommonConstants.TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT
         )
         validated_control_access = validated_control_access.replace(
             "you already have alter access!", "you already have control access!"
@@ -85,7 +85,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         self.assertEqual(precheck_log, validated_control_access)
         self.assertEqual(result, True)
 
-    def test_install_precheck_works_when_read_access_exists(
+    def test_setup_precheck_works_when_read_access_exists(
         self,
         call_racf_mock: Mock,
     ):
@@ -98,7 +98,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         )
         call_racf_mock.return_value = extract_with_read_access
         validated_read_access = (
-            TestCommonConstants.TEST_INSTALL_PRECHECK_VALIDATED_ACCESS_TEXT
+            TestCommonConstants.TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT
         )
         validated_read_access = validated_read_access.replace(
             "you already have alter access!", "you already have read access!"
@@ -110,7 +110,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         self.assertEqual(precheck_log, validated_read_access)
         self.assertEqual(result, True)
 
-    def test_install_precheck_works_when_update_access_exists(
+    def test_setup_precheck_works_when_update_access_exists(
         self,
         call_racf_mock: Mock,
     ):
@@ -123,7 +123,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         )
         call_racf_mock.return_value = extract_with_update_access
         validated_update_access = (
-            TestCommonConstants.TEST_INSTALL_PRECHECK_VALIDATED_ACCESS_TEXT
+            TestCommonConstants.TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT
         )
         validated_update_access = validated_update_access.replace(
             "you already have alter access!", "you already have update access!"
@@ -135,7 +135,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         self.assertEqual(precheck_log, validated_update_access)
         self.assertEqual(result, True)
 
-    def test_install_precheck_works_when_none_access_exists(
+    def test_setup_precheck_works_when_none_access_exists(
         self,
         call_racf_mock: Mock,
     ):
@@ -152,6 +152,6 @@ class TestInstallPrecheckScript(unittest.TestCase):
             result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
-            precheck_log, TestCommonConstants.TEST_INSTALL_PRECHECK_FOUND_NO_ACCESS_TEXT
+            precheck_log, TestCommonConstants.TEST_SETUP_PRECHECK_FOUND_NO_ACCESS_TEXT
         )
         self.assertEqual(result, False)
