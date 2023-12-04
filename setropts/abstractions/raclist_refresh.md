@@ -38,7 +38,7 @@ Refresh a RACLISTed **class**.
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.refresh_raclist("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      RACLIST     (ELIJTEST) REFRESH     ', 'messages': ['ICH14063I SETROPTS command complete.']}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      RACLIST     (ELIJTEST) REFRESH     ', 'messages': ['ICH14063I SETROPTS command complete.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Dictionary as JSON

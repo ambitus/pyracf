@@ -38,7 +38,7 @@ Add a class to the list of classes for which RACF will share **Generic Profiles*
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.add_generic_profile_sharing_classes("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GENLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GENLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -95,7 +95,7 @@ Remove a class from the list of classes for which RACF will share **Generic Prof
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.remove_generic_profile_sharing_classes("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGENLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGENLIST    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 
 ```
 

@@ -96,7 +96,8 @@ resource_admin.add("TESTING","ELIJTEST", traits=traits)
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

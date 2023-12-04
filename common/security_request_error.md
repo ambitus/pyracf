@@ -72,7 +72,8 @@ IKJ56717I INVALID PASSWORD
       ]
     },
     "returnCode": 4,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

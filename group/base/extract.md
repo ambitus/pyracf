@@ -76,7 +76,7 @@ The following example **extracts** group `testgrp0`'s **base segment** and **OMV
 >>> from pyracf import GroupAdmin
 >>> group_admin = GroupAdmin()
 >>> group_admin.extract("testgrp0", segments=["omvs"])
-{'securityResult': {'group': {'name': 'TESTGRP0', 'operation': 'listdata', 'requestId': 'GroupRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'LISTGRP TESTGRP0  OMVS    ', 'profiles': [{'base': {'name': 'testgrp0', 'superiorGroup': 'sys1', 'owner': 'eswift', 'created': '5/30/2023', 'installationData': None, 'modelDataSet': None, 'terminalUniversalAccess': True, 'subgroups': [], 'users': [{'userid': 'eswift', 'access': 'use', 'accessCount': 0, 'universalAccess': None, 'connectAttributes': ['special'], 'revokeDate': None, 'resumeDate': None}, {'userid': 'leonard', 'access': 'use', 'accessCount': 0, 'universalAccess': None, 'connectAttributes': ['operations'], 'revokeDate': None, 'resumeDate': None}]}, 'omvs': {'gid': 4545}}]}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'group': {'name': 'TESTGRP0', 'operation': 'listdata', 'requestId': 'GroupRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'LISTGRP TESTGRP0  OMVS    ', 'profiles': [{'base': {'name': 'testgrp0', 'superiorGroup': 'sys1', 'owner': 'eswift', 'created': '5/30/2023', 'installationData': None, 'modelDataSet': None, 'terminalUniversalAccess': True, 'subgroups': [], 'users': [{'userid': 'eswift', 'access': 'use', 'accessCount': 0, 'universalAccess': None, 'connectAttributes': ['special'], 'revokeDate': None, 'resumeDate': None}, {'userid': 'leonard', 'access': 'use', 'accessCount': 0, 'universalAccess': None, 'connectAttributes': ['operations'], 'revokeDate': None, 'resumeDate': None}]}, 'omvs': {'gid': 4545}}]}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -138,7 +138,8 @@ The following example **extracts** group `testgrp0`'s **base segment** and **OMV
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

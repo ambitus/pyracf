@@ -20,9 +20,9 @@ To streamline this configuration, we have included a sample script in the "pyrac
 
 ###### Python Script
 ```python
-from pyracf import define_precheck_profile
+from pyracf import setup_precheck
 
-define_precheck_profile()
+setup_precheck()
 ```
 
 ###### Console Output

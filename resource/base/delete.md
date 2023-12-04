@@ -67,7 +67,8 @@ Delete an existing **general resource profile**.
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

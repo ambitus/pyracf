@@ -101,7 +101,8 @@ data_set_admin.alter("ESWIFT.TEST.T1136242.P3020470", traits=traits)
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

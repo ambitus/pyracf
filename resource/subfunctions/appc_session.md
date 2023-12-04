@@ -67,7 +67,7 @@ Define a new **APPC Session** profile in the **APPCLU** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.add_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU")
-{'securityResult': {'resource': {'name': 'TSTNET.TSTLOCLU.TSTPRTLU', 'class': 'APPCLU', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE APPCLU             (TSTNET.TSTLOCLU.TSTPRTLU) '}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTNET.TSTLOCLU.TSTPRTLU', 'class': 'APPCLU', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE APPCLU             (TSTNET.TSTLOCLU.TSTPRTLU) '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -151,7 +151,7 @@ Alter an existing **APPC Session** profile in the **APPCLU** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.alter_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU", traits={"session:locked": True})
-{'securityResult': {'resource': {'name': 'TSTNET.TSTLOCLU.TSTPRTLU', 'class': 'APPCLU', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  APPCLU             (TSTNET.TSTLOCLU.TSTPRTLU)  SESSION  (   LOCK        )'}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTNET.TSTLOCLU.TSTPRTLU', 'class': 'APPCLU', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  APPCLU             (TSTNET.TSTLOCLU.TSTPRTLU)  SESSION  (   LOCK        )'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -268,7 +268,7 @@ Delete an existing **APPC Session** profile in the **APPCLU** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.delete_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU")
-{'securityResult': {'resource': {'name': 'TSTNET.TSTLOCLU.TSTPRTLU', 'class': 'APPCLU', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE APPCLU             (TSTNET.TSTLOCLU.TSTPRTLU) '}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTNET.TSTLOCLU.TSTPRTLU', 'class': 'APPCLU', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE APPCLU             (TSTNET.TSTLOCLU.TSTPRTLU) '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON

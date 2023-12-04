@@ -88,7 +88,8 @@ connection_admin.connect("squidwrd", "testgrp0", traits=traits)
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```
