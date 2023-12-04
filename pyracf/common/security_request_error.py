@@ -1,9 +1,9 @@
-"""Exception to use when data returned by IRRSMO00 indicates that the request failed."""
+"""Exception to use when IRRSMO00 processes a request with RACF warnings or errors."""
 
 
 class SecurityRequestError(Exception):
     """
-    Raised when the return code of a security result returned by IRRSMO00 is NOT equal to 0.
+    Raised when the SAF Return Code of a security result returned by IRRSMO00 is equal to 4.
     """
 
     def __init__(self, result: dict) -> None:

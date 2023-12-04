@@ -12,7 +12,7 @@ def get_sample(sample_file: str, function_group: str) -> Union[str, bytes]:
 
 
 # ============================================================================
-# Install Precheck Sample Data
+# Setup Precheck Sample Data
 # ============================================================================
 
 TEST_EXTRACT_RESOURCE_RESULT_PRECHECK_ERROR_XML = get_sample(
@@ -30,24 +30,24 @@ TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_SUCCESS_DICTIONARY = get_sample(
 )
 
 TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is already defined, and you already have alter access!"
-    + "\nYou are ready to start using pyRACF!"
-    + "\nPlease ensure other users of pyRACF also have at least read access."
-    + "\nReview our documentation at https://ambitus.github.io/pyracf/ as well!\n"
+    "IRR.IRRSMO00.PRECHECK is already defined, and you already have alter access!\n"
+    + "You are ready to start using pyRACF!\n"
+    + "Please ensure other users of pyRACF also have at least read access.\n"
+    + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
 
 TEST_SETUP_PRECHECK_FOUND_NO_ACCESS_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is already defined, but you have no access."
-    + "\nContact your security administrator for READ access before using pyRACF."
-    + "\nReview our documentation at https://ambitus.github.io/pyracf/ as well!\n"
+    "IRR.IRRSMO00.PRECHECK is already defined, but you have no access.\n"
+    + "Contact your security administrator for READ access before using pyRACF.\n"
+    + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
 
 TEST_SETUP_PRECHECK_DEFINED_PROFILE_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is now defined with a `Universal Access` of None."
-    + "\nContact your security administrator for READ access before using pyRACF."
-    + "\nOther users of pyRACF will also need to have at least read access."
-    + "\nYou may also need to REFRESH the `XFACILIT` class."
-    + "\nReview our documentation at https://ambitus.github.io/pyracf/ as well!\n"
+    "IRR.IRRSMO00.PRECHECK is now defined with a `Universal Access` of None.\n"
+    + "Contact your security administrator for READ access before using pyRACF.\n"
+    + "Other users of pyRACF will also need to have at least read access.\n"
+    + "You may also need to REFRESH the `XFACILIT` class.\n"
+    + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
 
 # ============================================================================
@@ -114,10 +114,10 @@ TEST_EXTRACT_RESOURCE_PRECHECK_AS_SQUIDWRD_LOG = get_sample(
 )
 
 # ============================================================================
-# Null Response Error
+# Downstream Fatal Error
 # ============================================================================
 
-TEST_NULL_RESPONSE_PRECHECK_TEXT = (
+TEST_DOWNSTREAM_FATAL_PRECHECK_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 16"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
@@ -125,19 +125,19 @@ TEST_NULL_RESPONSE_PRECHECK_TEXT = (
     + "access to `IRR.IRRSMO00.PRECHECK` in the `XFACILIT` class."
 )
 
-TEST_NULL_RESPONSE_SURROGAT_TEXT = (
+TEST_DOWNSTREAM_FATAL_SURROGAT_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 8"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
-    + "For the `run_as_userid` feature, you must have at least UPDATE"
-    + " access to `ESWIFT.IRRSMO00` in the `SURROGAT` class."
+    + "For the `run_as_userid` feature, you must have at least UPDATE "
+    + "access to `ESWIFT.IRRSMO00` in the `SURROGAT` class."
 )
 
-TEST_NULL_RESPONSE_GENERIC_TEXT = (
+TEST_DOWNSTREAM_FATAL_GENERIC_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 2000\nRACF Reason Code: 20"
-    + "\n\nPlease check the specified return and reason codes against"
-    + " the IRRSMO00 documented return and reason codes for more information"
-    + " about this error.\n"
+    + "\n\nPlease check the specified return and reason codes against "
+    + "the IRRSMO00 documented return and reason codes for more information "
+    + "about this error.\n"
     + "https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-return-reason-codes"
 )

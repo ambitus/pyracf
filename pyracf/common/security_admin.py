@@ -88,13 +88,13 @@ class SecurityAdmin:
     # ============================================================================
     # Run as Other User ID
     # ============================================================================
-    def set_running_userid(self, new_userid: Union[str, None]) -> None:
-        if new_userid is None:
-            self.__running_userid = new_userid
+    def set_running_userid(self, userid: Union[str, None]) -> None:
+        if userid is None:
+            self.__running_userid = userid
             return
-        if not isinstance(new_userid, str) or len(new_userid) > 8 or new_userid == "":
-            raise UserIdError(new_userid)
-        self.__running_userid = new_userid.upper()
+        if not isinstance(userid, str) or len(userid) > 8 or userid == "":
+            raise UserIdError(userid)
+        self.__running_userid = userid.upper()
 
     def clear_running_userid(self) -> None:
         self.__running_userid = None
@@ -197,10 +197,12 @@ class SecurityAdmin:
         self.__clear_state(security_request)
         if isinstance(result_xml, list):
             # When IRRSMO00 encounters some errors, it returns no XML response string.
-            # When this happens, the c code instead surfaces the return and reason
+            # When this happens, the C code instead surfaces the return and reason
             # codes which causes a DownstreamFatalError to be raised.
             raise DownstreamFatalError(
-                result_xml, request_xml, self.get_running_userid()
+                return_reason_codes=result_xml,
+                request_xml=request_xml,
+                run_as_userid=self.get_running_userid(),
             )
         if self.__debug:
             # No need to redact anything here since the raw result XML

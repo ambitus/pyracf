@@ -11,24 +11,24 @@ def setup_precheck():
             "IRR.IRRSMO00.PRECHECK", "XFACILIT", traits=traits_precheck
         )
         print(
-            "IRR.IRRSMO00.PRECHECK is now defined with a `Universal Access` of None."
-            + "\nContact your security administrator for READ access before using pyRACF."
-            + "\nOther users of pyRACF will also need to have at least read access."
-            + "\nYou may also need to REFRESH the `XFACILIT` class."
-            + "\nReview our documentation at https://ambitus.github.io/pyracf/ as well!"
+            "IRR.IRRSMO00.PRECHECK is now defined with a `Universal Access` of None.\n"
+            + "Contact your security administrator for READ access before using pyRACF.\n"
+            + "Other users of pyRACF will also need to have at least read access.\n"
+            + "You may also need to REFRESH the `XFACILIT` class.\n"
+            + "Review our documentation at https://ambitus.github.io/pyracf/ as well!"
         )
         return result
     if access:
         print(
-            f"IRR.IRRSMO00.PRECHECK is already defined, and you already have {access} access!"
-            + "\nYou are ready to start using pyRACF!"
-            + "\nPlease ensure other users of pyRACF also have at least read access."
-            + "\nReview our documentation at https://ambitus.github.io/pyracf/ as well!"
+            f"IRR.IRRSMO00.PRECHECK is already defined, and you already have {access} access!\n"
+            + "You are ready to start using pyRACF!\n"
+            + "Please ensure other users of pyRACF also have at least read access.\n"
+            + "Review our documentation at https://ambitus.github.io/pyracf/ as well!"
         )
         return True
     print(
-        "IRR.IRRSMO00.PRECHECK is already defined, but you have no access."
-        + "\nContact your security administrator for READ access before using pyRACF."
-        + "\nReview our documentation at https://ambitus.github.io/pyracf/ as well!"
+        "IRR.IRRSMO00.PRECHECK is already defined, but you have no access.\n"
+        + "Contact your security administrator for READ access before using pyRACF.\n"
+        + "Review our documentation at https://ambitus.github.io/pyracf/ as well!"
     )
     return False

@@ -11,9 +11,9 @@ from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
 from tests.common.test_customize_segment_traits import TestCustomizeSegmentTraits
+from tests.common.test_downstream_fatal_error import TestDownstreamFatalError
 from tests.common.test_logger import TestLogger
 from tests.common.test_run_as_userid import TestRunAsUserId
-from tests.common.test_security_request_error import TestDownstreamFatalError
 from tests.common.test_setup_precheck import TestSetupPrecheck
 from tests.connection.test_connection_debug_logging import TestConnectionDebugLogging
 from tests.connection.test_connection_request_builder import (
