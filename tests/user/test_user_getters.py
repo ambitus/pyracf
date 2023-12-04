@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.user.test_user_constants as TestUserConstants
-from pyracf import SecurityResponseError, UserAdmin
+from pyracf import SecurityRequestError, UserAdmin
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -53,7 +53,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.has_special_authority("squidwrd")
 
     # ============================================================================
@@ -91,7 +91,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.has_auditor_authority("squidwrd")
 
     # ============================================================================
@@ -128,7 +128,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.has_operations_authority("squidwrd")
 
     # ============================================================================
@@ -162,7 +162,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_class_authorizations("squidwrd")
 
     # ============================================================================
@@ -268,7 +268,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_uid("squidwrd")
 
     def test_user_admin_get_omvs_uid_returns_none_when_no_omvs_segment_exists(
@@ -301,7 +301,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_address_space_size("squidwrd")
 
     def test_user_admin_get_omvs_max_address_space_size_returns_none_when_no_omvs_segment_exists(
@@ -332,7 +332,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_cpu_time("squidwrd")
 
     def test_user_admin_get_omvs_max_cpu_time_returns_none_when_no_omvs_segment_exists(
@@ -363,7 +363,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_files_per_process("squidwrd")
 
     def test_user_admin_get_omvs_max_files_per_process_returns_none_when_no_omvs_segment_exists(
@@ -396,7 +396,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_non_shared_memory("squidwrd")
 
     def test_user_admin_get_omvs_max_non_shared_memory_returns_none_when_field_is_unset(
@@ -438,7 +438,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_file_mapping_pages("squidwrd")
 
     def test_user_admin_get_omvs_max_file_mapping_pages_returns_none_when_no_omvs_segment_exists(
@@ -469,7 +469,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_processes("squidwrd")
 
     def test_user_admin_get_omvs_max_processes_returns_none_when_no_omvs_segment_exists(
@@ -500,7 +500,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_shared_memory("squidwrd")
 
     def test_user_admin_get_omvs_max_shared_memory_returns_none_when_field_is_unset(
@@ -540,7 +540,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_max_threads("squidwrd")
 
     def test_user_admin_get_omvs_max_threads_returns_none_when_no_omvs_segment_exists(
@@ -573,7 +573,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_home_directory("squidwrd")
 
     def test_user_admin_get_omvs_home_directory_returns_none_when_no_omvs_segment_exists(
@@ -626,7 +626,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_omvs_default_shell("squidwrd")
 
     def test_user_admin_get_omvs_default_shell_returns_none_when_no_omvs_segment_exists(
@@ -675,7 +675,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_account_number("squidwrd")
 
     def test_user_admin_get_tso_account_number_returns_none_when_no_tso_segment_exists(
@@ -715,7 +715,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_logon_command("squidwrd")
 
     def test_user_admin_get_tso_logon_command_returns_none_when_no_tso_segment_exists(
@@ -755,7 +755,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_hold_class("squidwrd")
 
     def test_user_admin_get_tso_hold_class_returns_none_when_no_tso_segment_exists(
@@ -795,7 +795,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_max_region_size("squidwrd")
 
     def test_user_admin_get_tso_max_region_size_returns_none_when_no_tso_segment_exists(
@@ -826,7 +826,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_message_class("squidwrd")
 
     def test_user_admin_get_tso_message_class_returns_none_when_no_tso_segment_exists(
@@ -866,7 +866,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_logon_procedure("squidwrd")
 
     def test_user_admin_get_tso_logon_procedure_returns_none_when_no_tso_segment_exists(
@@ -906,7 +906,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_default_region_size("squidwrd")
 
     def test_user_admin_get_default_tso_region_size_returns_none_when_no_tso_segment_exists(
@@ -937,7 +937,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_sysout_class("squidwrd")
 
     def test_user_admin_get_tso_sysout_class_returns_none_when_no_tso_segment_exists(
@@ -977,7 +977,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_user_data("squidwrd")
 
     def test_user_admin_get_tso_user_data_returns_none_when_no_tso_segment_exists(
@@ -1019,7 +1019,7 @@ class TestUserGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.user_admin.get_tso_data_set_allocation_unit("squidwrd")
 
     def test_user_admin_get_tso_data_set_allocation_unit_returns_none_when_no_tso_segment_exists(

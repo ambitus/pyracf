@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.data_set.test_data_set_constants as TestDataSetConstants
-from pyracf import DataSetAdmin, SecurityResponseError
+from pyracf import DataSetAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -60,7 +60,7 @@ class TestDataSetDebugLogging(unittest.TestCase):
                     "ESWIFT.TEST.T1136242.P3020470",
                     traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
                 )
-            except SecurityResponseError:
+            except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestDataSetConstants.TEST_ALTER_DATA_SET_ERROR_LOG)
@@ -95,7 +95,7 @@ class TestDataSetDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             try:
                 self.data_set_admin.extract("ESWIFT.TEST.T1136242.P3020470")
-            except SecurityResponseError:
+            except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(

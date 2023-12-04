@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import ResourceAdmin, SecurityResponseError
+from pyracf import ResourceAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -62,7 +62,7 @@ class TestResourceDebugLogging(unittest.TestCase):
                     "ELIJTEST",
                     traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS,
                 )
-            except SecurityResponseError:
+            except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestResourceConstants.TEST_ALTER_RESOURCE_ERROR_LOG)
@@ -96,7 +96,7 @@ class TestResourceDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             try:
                 self.resource_admin.extract("TESTING", "ELIJTEST")
-            except SecurityResponseError:
+            except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(

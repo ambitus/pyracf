@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
-from pyracf import define_precheck_profile
+from pyracf import setup_precheck
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -33,7 +33,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            result = define_precheck_profile()
+            result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             precheck_log, TestCommonConstants.TEST_INSTALL_PRECHECK_DEFINED_PROFILE_TEXT
@@ -52,7 +52,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            result = define_precheck_profile()
+            result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             precheck_log,
@@ -80,7 +80,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            result = define_precheck_profile()
+            result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(precheck_log, validated_control_access)
         self.assertEqual(result, True)
@@ -105,7 +105,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            result = define_precheck_profile()
+            result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(precheck_log, validated_read_access)
         self.assertEqual(result, True)
@@ -130,7 +130,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            result = define_precheck_profile()
+            result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(precheck_log, validated_update_access)
         self.assertEqual(result, True)
@@ -149,7 +149,7 @@ class TestInstallPrecheckScript(unittest.TestCase):
         call_racf_mock.return_value = extract_with_none_access
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            result = define_precheck_profile()
+            result = setup_precheck()
         precheck_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             precheck_log, TestCommonConstants.TEST_INSTALL_PRECHECK_FOUND_NO_ACCESS_TEXT

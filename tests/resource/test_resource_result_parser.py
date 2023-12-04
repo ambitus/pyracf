@@ -10,7 +10,7 @@ from pyracf import (
     AddOperationError,
     AlterOperationError,
     ResourceAdmin,
-    SecurityResponseError,
+    SecurityRequestError,
 )
 from pyracf.common.irrsmo00 import IRRSMO00
 
@@ -85,7 +85,7 @@ class TestResourceResultParser(unittest.TestCase):
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_XML,
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.add("TESTING", "ELIXTEST")
         self.assertEqual(
             exception.exception.result,
@@ -167,7 +167,7 @@ class TestResourceResultParser(unittest.TestCase):
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
             TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.alter(
                 "TESTING",
                 "ELIJTEST",
@@ -214,7 +214,7 @@ class TestResourceResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.extract("TESTING", "ELIJTEST")
         self.assertEqual(
             exception.exception.result,
@@ -244,7 +244,7 @@ class TestResourceResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_DELETE_RESOURCE_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.resource_admin.delete("TESTING", "ELIJTEST")
         self.assertEqual(
             exception.exception.result,

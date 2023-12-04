@@ -5,11 +5,11 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
+from .downstream_fatal_error import DownstreamFatalError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
 from .security_request import SecurityRequest
 from .security_request_error import SecurityRequestError
-from .security_response_error import SecurityResponseError
 from .security_result import SecurityResult
 from .segment_error import SegmentError
 from .segment_trait_error import SegmentTraitError
@@ -92,14 +92,9 @@ class SecurityAdmin:
         if new_userid is None:
             self.__running_userid = new_userid
             return
-        if (
-            isinstance(new_userid, str)
-            and (len(new_userid) <= 8)
-            and (not new_userid == "")
-        ):
-            self.__running_userid = new_userid.upper()
-            return
-        raise UserIdError(new_userid)
+        if not isinstance(new_userid, str) or len(new_userid) > 8 or new_userid == "":
+            raise UserIdError(new_userid)
+        self.__running_userid = new_userid.upper()
 
     def clear_running_userid(self) -> None:
         self.__running_userid = None
@@ -203,8 +198,8 @@ class SecurityAdmin:
         if isinstance(result_xml, list):
             # When IRRSMO00 encounters some errors, it returns no XML response string.
             # When this happens, the c code instead surfaces the return and reason
-            # codes which causes a SecurityRequestError to be raised.
-            raise SecurityRequestError(
+            # codes which causes a DownstreamFatalError to be raised.
+            raise DownstreamFatalError(
                 result_xml, request_xml, self.get_running_userid()
             )
         if self.__debug:
@@ -223,9 +218,9 @@ class SecurityAdmin:
             # All return codes greater than 4 are indicative of an issue with
             # IRRSMO00 that would stop a command image from being generated.
             # The user should interogate the result dictionary attached to the
-            # SecurityResponseError as well as the return and reason codes to
+            # SecurityRequestError as well as the return and reason codes to
             # resolve the problem.
-            raise SecurityRequestError(
+            raise DownstreamFatalError(
                 [
                     8,
                     result_dictionary["securityResult"]["returnCode"],
@@ -236,12 +231,12 @@ class SecurityAdmin:
                 result_dictionary,
             )
         if result_dictionary["securityResult"]["returnCode"] != 0:
-            # All non-zero return codes should cause a SecurityResponseError to be raised.
+            # All non-zero return codes should cause a SecurityRequestError to be raised.
             # Even if a return code of 4 is not indicative of a problem, it it is
             # up to the user to interogate the result dictionary attached to the
-            # SecurityResponseError and decided whether or not the return code 4 is
+            # SecurityRequestError and decided whether or not the return code 4 is
             # indicative of a problem.
-            raise SecurityResponseError(result_dictionary)
+            raise SecurityRequestError(result_dictionary)
         return result_dictionary
 
     def _to_steps(self, results: Union[List[dict], dict, bytes]) -> Union[dict, bytes]:

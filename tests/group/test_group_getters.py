@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.group.test_group_constants as TestGroupConstants
-from pyracf import GroupAdmin, SecurityResponseError
+from pyracf import GroupAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -52,7 +52,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.group_admin.has_group_special_authority("TESTGRP0", "ESWIFT")
 
     # ============================================================================
@@ -88,7 +88,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.group_admin.has_group_operations_authority("TESTGRP0", "LEONARD")
 
     # ============================================================================
@@ -129,7 +129,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.group_admin.has_group_auditor_authority("TESTGRP0", "ESWIFT")
 
     # ============================================================================
@@ -170,7 +170,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.group_admin.has_group_access_attribute("TESTGRP0", "LEONARD")
 
     # ============================================================================
@@ -193,7 +193,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.group_admin.get_omvs_gid("TESTGRP0"), 1234567
 
     def test_group_admin_get_omvs_gid_returns_none_when_no_omvs_segment_exists(
@@ -229,7 +229,7 @@ class TestGroupGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.group_admin.get_ovm_gid("TESTGRP0"), 1234567
 
     def test_group_admin_get_ovm_gid_returns_none_when_no_ovm_segment_exists(

@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf import AccessAdmin, SecurityResponseError
+from pyracf import AccessAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -56,7 +56,7 @@ class TestAccessDebugLogging(unittest.TestCase):
                 self.access_admin.permit(
                     "TESTING", "ELIJTEST", "MCGINLEY", traits={"base:access": "ALTER"}
                 )
-            except SecurityResponseError:
+            except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(error_log, TestAccessConstants.TEST_PERMIT_ACCESS_ERROR_LOG)

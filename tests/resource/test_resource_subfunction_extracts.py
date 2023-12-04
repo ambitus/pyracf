@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import ResourceAdmin, SecurityResponseError
+from pyracf import ResourceAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -41,7 +41,7 @@ class TestResourceSubfunctionExtracts(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_CDTINFO_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.extract_resource_class("SHELCITY")
 
     # ============================================================================
@@ -66,7 +66,7 @@ class TestResourceSubfunctionExtracts(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_STDATA_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.extract_started_task("TSTTSKEL")
 
     # ============================================================================
@@ -91,7 +91,7 @@ class TestResourceSubfunctionExtracts(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_CFDEF_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.extract_custom_field("TVSHOW", "user")
 
     # ============================================================================
@@ -116,7 +116,7 @@ class TestResourceSubfunctionExtracts(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_KERB_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.extract_kerberos_realm("TSTREALM")
 
     # ============================================================================
@@ -141,7 +141,7 @@ class TestResourceSubfunctionExtracts(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SIGVER_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.extract_signed_program("TESTPRGM")
 
     # ============================================================================
@@ -166,5 +166,5 @@ class TestResourceSubfunctionExtracts(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SESSION_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.extract_appc_session("TSTNET", "TSTLOCLU", "TSTPRTLU")

@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
-from pyracf import ResourceAdmin, SecurityResponseError
+from pyracf import ResourceAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -57,7 +57,7 @@ class TestResourceGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.get_universal_access("TESTING", "ELIJTEST")
 
     def test_resource_admin_get_my_access_returns_valid_when_read(
@@ -93,5 +93,5 @@ class TestResourceGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.resource_admin.get_my_access("TESTING", "ELIJTEST")

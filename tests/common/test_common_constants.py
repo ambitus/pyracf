@@ -118,7 +118,7 @@ TEST_EXTRACT_RESOURCE_PRECHECK_AS_SQUIDWRD_LOG = get_sample(
 # ============================================================================
 
 TEST_NULL_RESPONSE_PRECHECK_TEXT = (
-    "(SecurityRequestError) Security request made to IRRSMO00 failed."
+    "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 16"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
     + "For `set` or `alter` functions, you must have at least READ "
@@ -126,7 +126,7 @@ TEST_NULL_RESPONSE_PRECHECK_TEXT = (
 )
 
 TEST_NULL_RESPONSE_SURROGAT_TEXT = (
-    "(SecurityRequestError) Security request made to IRRSMO00 failed."
+    "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 8"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
     + "For the `run_as_userid` feature, you must have at least UPDATE"
@@ -134,7 +134,7 @@ TEST_NULL_RESPONSE_SURROGAT_TEXT = (
 )
 
 TEST_NULL_RESPONSE_GENERIC_TEXT = (
-    "(SecurityRequestError) Security request made to IRRSMO00 failed."
+    "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 2000\nRACF Reason Code: 20"
     + "\n\nPlease check the specified return and reason codes against"
     + " the IRRSMO00 documented return and reason codes for more information"

@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.data_set.test_data_set_constants as TestDataSetConstants
-from pyracf import DataSetAdmin, SecurityResponseError
+from pyracf import DataSetAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -60,7 +60,7 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.data_set_admin.get_universal_access("ESWIFT.TEST.T1136242.P3020470")
 
     def test_data_set_admin_get_my_access_returns_valid_when_alter(
@@ -98,5 +98,5 @@ class TestDataSetGetters(unittest.TestCase):
         call_racf_mock.return_value = (
             TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError):
+        with self.assertRaises(SecurityRequestError):
             self.data_set_admin.get_my_access("ESWIFT.TEST.T1136242.P3020470")

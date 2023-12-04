@@ -1,7 +1,6 @@
 """Generic Security Result Parser."""
 
 import getpass
-import platform
 import re
 from typing import Union
 from xml.etree.ElementTree import Element  # Only used for type hints.
@@ -25,7 +24,7 @@ class SecurityResult:
         else:
             self.__result_dictionary["securityResult"][
                 "runningUserid"
-            ] = self.__get_current_userid()
+            ] = getpass.getuser().lower()
 
     def __extract_results(self) -> None:
         """Extract XML results into a dictionary."""
@@ -142,12 +141,6 @@ class SecurityResult:
                 return "systemSettings"
             case _:
                 return key
-
-    def __get_current_userid(self) -> str:
-        if platform.system() == "OS/390":
-            return getpass.getuser().lower()
-        else:
-            return "testuser"
 
     def get_result_dictionary(self) -> dict:
         """Return result dictionary."""

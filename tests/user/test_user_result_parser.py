@@ -9,8 +9,8 @@ import tests.user.test_user_constants as TestUserConstants
 from pyracf import (
     AddOperationError,
     AlterOperationError,
+    DownstreamFatalError,
     SecurityRequestError,
-    SecurityResponseError,
     UserAdmin,
 )
 from pyracf.common.irrsmo00 import IRRSMO00
@@ -76,7 +76,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_XML,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(DownstreamFatalError) as exception:
             self.user_admin.add(
                 "squidward",
                 traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS,
@@ -133,7 +133,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.alter(
                 "squidwrd",
                 traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
@@ -178,7 +178,7 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.extract("squidwrd", segments=["omvs"])
         self.assertEqual(
             exception.exception.result,
@@ -253,7 +253,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             error_traits = dict(
                 TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD
             )
@@ -299,7 +299,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestUserConstants.TEST_ALTER_USER_PASSPHRASE_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             error_traits = dict(
                 TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE
             )
@@ -347,7 +347,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestUserConstants.TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             error_traits = dict(
                 TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD
             )
@@ -396,7 +396,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             error_traits = dict(
                 TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD_SIMPLE
             )
@@ -437,7 +437,7 @@ class TestUserResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.user_admin.delete("squidwrd")
         self.assertEqual(
             exception.exception.result,
@@ -480,7 +480,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             user_admin.alter(
                 "squidwrd",
                 traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,

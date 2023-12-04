@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.connection.test_connection_constants as TestConnectionConstants
-from pyracf import ConnectionAdmin, SecurityResponseError
+from pyracf import ConnectionAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -46,7 +46,7 @@ class TestConnectionResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_CONNECT_CONNECTION_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.connection_admin.connect(
                 "ESWIFT",
                 "TESTGRP0",
@@ -80,7 +80,7 @@ class TestConnectionResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.connection_admin.delete("ESWIFT", "TESTGRP0")
         self.assertEqual(
             exception.exception.result,

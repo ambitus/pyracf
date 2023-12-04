@@ -1,11 +1,11 @@
-from pyracf import ResourceAdmin, SecurityResponseError
+from pyracf import ResourceAdmin, SecurityRequestError
 
 
-def define_precheck_profile():
+def setup_precheck():
     resource_admin = ResourceAdmin()
     try:
         access = resource_admin.get_my_access("IRR.IRRSMO00.PRECHECK", "XFACILIT")
-    except SecurityResponseError:
+    except SecurityRequestError:
         traits_precheck = {"base:universal_access": "None"}
         result = resource_admin.add(
             "IRR.IRRSMO00.PRECHECK", "XFACILIT", traits=traits_precheck

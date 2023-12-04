@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
-from pyracf import AccessAdmin, SecurityResponseError
+from pyracf import AccessAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -44,7 +44,7 @@ class TestAccessResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_PERMIT_ACCESS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.access_admin.permit(
                 "TESTING", "ELIJTEST", "MCGINLEY", traits={"base:access": "ALTER"}
             )
@@ -69,14 +69,11 @@ class TestAccessResultParser(unittest.TestCase):
         )
 
     # Error User not authorized, delete ignored
-    def test_access_admin_can_parse_delete_access_error_xml(
-        self,
-        call_racf_mock: Mock,
-    ):
+    def test_access_admin_can_parse_delete_access_error_xml(self, call_racf_mock: Mock):
         call_racf_mock.return_value = (
             TestAccessConstants.TEST_DELETE_ACCESS_RESULT_ERROR_XML
         )
-        with self.assertRaises(SecurityResponseError) as exception:
+        with self.assertRaises(SecurityRequestError) as exception:
             self.access_admin.delete("TESTING", "ELIJTEST", "ESWIFT")
         self.assertEqual(
             exception.exception.result,

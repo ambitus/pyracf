@@ -5,7 +5,7 @@ from typing import List, Union
 from pyracf.common.add_operation_error import AddOperationError
 from pyracf.common.alter_operation_error import AlterOperationError
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_response_error import SecurityResponseError
+from pyracf.common.security_request_error import SecurityRequestError
 
 from .data_set_request import DataSetRequest
 
@@ -117,7 +117,7 @@ class DataSetAdmin(SecurityAdmin):
             )
             if self._get_field(profile, "base", "name") == data_set.lower():
                 raise AddOperationError(data_set, self._profile_type)
-        except SecurityResponseError as exception:
+        except SecurityRequestError as exception:
             if not exception.contains_error_message(self._profile_type, "ICH35003I"):
                 raise exception
         self._build_segment_trait_dictionary(traits)
@@ -142,7 +142,7 @@ class DataSetAdmin(SecurityAdmin):
             profile = self.extract(
                 data_set, volume=volume, generic=generic, profile_only=True
             )
-        except SecurityResponseError:
+        except SecurityRequestError:
             raise AlterOperationError(data_set, self._profile_type)
         if not self._get_field(profile, "base", "name") == data_set.lower():
             raise AlterOperationError(data_set, self._profile_type)

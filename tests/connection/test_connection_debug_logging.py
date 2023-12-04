@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.connection.test_connection_constants as TestConnectionConstants
-from pyracf import ConnectionAdmin, SecurityResponseError
+from pyracf import ConnectionAdmin, SecurityRequestError
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -60,7 +60,7 @@ class TestConnectionDebugLogging(unittest.TestCase):
                     "TESTGRP0",
                     traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
                 ),
-            except SecurityResponseError:
+            except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
