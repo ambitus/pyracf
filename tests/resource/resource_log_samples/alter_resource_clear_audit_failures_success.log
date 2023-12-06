@@ -1,7 +1,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {}
@@ -9,7 +9,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -19,7 +19,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -62,7 +62,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {
@@ -114,7 +114,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                      Result Dictionary (Formatted Profile)                     
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {
@@ -162,7 +162,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {}
@@ -170,7 +170,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -180,7 +180,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -223,7 +223,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {
@@ -275,7 +275,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                      Result Dictionary (Formatted Profile)                     
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {
@@ -323,7 +323,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {
@@ -338,7 +338,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -352,7 +352,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -374,7 +374,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {
@@ -407,7 +407,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                 Steps Dictionary                               
-                      ResourceAdmin.clear_audit_failures()                     
+                     ResourceAdmin.clear_audit_by_attempt()                    
                                                                                
 
 {

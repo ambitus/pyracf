@@ -295,216 +295,141 @@ class ResourceAdmin(SecurityAdmin):
         profile = self.extract(resource, class_name, profile_only=True)
         return self._get_field(profile, "base", "auditing")
 
-    def clear_audit_failures(
-        self, resource: str, class_name: str
+    def clear_audit_by_attempt(
+        self, resource: str, class_name: str, attempt_type: str
     ) -> Union[dict, bytes]:
         """
-        Clears the auditing rules for failures for this general resource profile while
-        preserving other rules.
+        Clears the auditing rules for specific attempts for this general resource profile
+        while preserving other rules.
         """
+        attempt_types = ["failures", "success", "all"]
         result = [self.extract(resource, class_name)]
         profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
         audit_rules = self._get_field(profile, "base", "auditing")
-        if "failures" not in audit_rules:
+        if attempt_type not in audit_rules:
             return self._to_steps(result[0])
         traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
+        attempt_types.remove(attempt_type)
+        for attempt in attempt_types:
+            if attempt in audit_rules:
+                value = (
+                    "FAILURE" if (attempt.upper() == "FAILURES") else attempt.upper()
+                )
+                traits[f"base:audit_{audit_rules[attempt]}"] = value
         result.append(self.alter(resource, class_name, traits=traits))
         return self._to_steps(result)
 
-    def clear_audit_successes(
-        self, resource: str, class_name: str
+    def overwrite_audit_by_attempt(
+        self,
+        resource: str,
+        class_name: str,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
     ) -> Union[dict, bytes]:
         """
-        Clears the auditing rules for successes for this general resource profile while
-        preserving other rules.
+        Overwrites the auditing rules for this general resource profile with new
+        rules to audit based on specified access attempts.
+        """
+        if success is not None:
+            traits = {f"base:audit_{success}": "SUCCESS"}
+        if failure is not None:
+            traits = {f"base:audit_{failure}": "FAILURE"}
+        if all is not None:
+            traits = {f"base:audit_{all}": "ALL"}
+        result = self.alter(resource, class_name, traits=traits)
+        return self._to_steps(result)
+
+    def alter_audit_by_attempt(
+        self,
+        resource: str,
+        class_name: str,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Alters the auditing rules for this general resource profile with new rules
+        to audit by access level, preserving existing non-conflicting rules.
         """
         result = [self.extract(resource, class_name)]
         profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
         audit_rules = self._get_field(profile, "base", "auditing")
-        if "success" not in audit_rules:
+        traits = {}
+        if "success" in audit_rules:
+            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
+        if "failures" in audit_rules:
+            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
+        if "all" in audit_rules:
+            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
+        if success is not None:
+            traits[f"base:audit_{success}"] = "SUCCESS"
+        if failure is not None:
+            traits[f"base:audit_{failure}"] = "FAILURE"
+        if all is not None:
+            traits[f"base:audit_{all}"] = "ALL"
+        result.append(self.alter(resource, class_name, traits=traits))
+        return self._to_steps(result)
+
+    def clear_audit_by_access_level(
+        self,
+        resource: str,
+        class_name: str,
+        access_level: str,
+    ) -> Union[dict, bytes]:
+        """
+        Clears the auditing rules for a specific access level for this general
+        resource profile while preserving other rules.
+        """
+        attempt_types = ["failures", "success", "all"]
+        result = [self.extract(resource, class_name)]
+        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
+        audit_rules = self._get_field(profile, "base", "auditing")
+        if access_level not in audit_rules.values():
             return self._to_steps(result[0])
         traits = {}
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
+        for attempt in attempt_types:
+            if attempt in audit_rules and not (audit_rules[attempt] == access_level):
+                value = (
+                    "FAILURE" if (attempt.upper() == "FAILURES") else attempt.upper()
+                )
+                traits[f"base:audit_{audit_rules[attempt]}"] = value
         result.append(self.alter(resource, class_name, traits=traits))
         return self._to_steps(result)
 
-    def clear_audit_both_successes_and_failures(
-        self, resource: str, class_name: str
+    def overwrite_audit_by_access_level(
+        self,
+        resource: str,
+        class_name: str,
+        alter: Union[str, None] = None,
+        control: Union[str, None] = None,
+        read: Union[str, None] = None,
+        update: Union[str, None] = None,
     ) -> Union[dict, bytes]:
         """
-        Clears the auditing rules for both successes and failures for this
-        general resource profile while preserving individual rules.
+        Overwrites the auditing rules for this general resource profile with new
+        rules to audit based on specified access levels.
         """
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        if "all" not in audit_rules:
-            return self._to_steps(result[0])
         traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
-    def clear_all_audit_rules(
-        self, resource: str, class_name: str
-    ) -> Union[dict, bytes]:
-        """Clears the auditing rules completely."""
-        result = self.alter(resource, class_name, {"base:audit_none": True})
-        return self._to_steps(result)
-
-    def overwrite_audit_by_successes(
-        self, resource: str, class_name: str, audit_success: str
-    ) -> Union[dict, bytes]:
-        """
-        Overwrites the auditing rules for this general resource profile with a new
-        rule to audit successes.
-        """
-        traits = {f"base:audit_{audit_success}": "SUCCESS"}
+        if alter is not None:
+            traits["base:audit_alter"] = alter
+        if control is not None:
+            traits["base:audit_control"] = control
+        if read is not None:
+            traits["base:audit_read"] = read
+        if update is not None:
+            traits["base:audit_update"] = update
         result = self.alter(resource, class_name, traits=traits)
         return self._to_steps(result)
 
-    def overwrite_audit_by_failures(
-        self, resource: str, class_name: str, audit_failures: str
-    ) -> Union[dict, bytes]:
-        """
-        Overwrites the auditing rules for this general resource profile with a new
-        rule to audit failures.
-        """
-        traits = {f"base:audit_{audit_failures}": "FAILURE"}
-        result = self.alter(resource, class_name, traits=traits)
-        return self._to_steps(result)
-
-    def overwrite_audit_by_both_successes_and_failures(
-        self, resource: str, class_name: str, audit_both: str
-    ) -> Union[dict, bytes]:
-        """
-        Overwrites the auditing rules for this general resource profile with a new
-        rule to audit both successes and failures.
-        """
-        traits = {f"base:audit_{audit_both}": "ALL"}
-        result = self.alter(resource, class_name, traits=traits)
-        return self._to_steps(result)
-
-    def alter_audit_by_successes(
-        self, resource: str, class_name: str, audit_success: str
-    ) -> Union[dict, bytes]:
-        """
-        Alters the auditing rules for this general resource profile with a new
-        rule to audit successes, preserving existing non-conflicting rules.
-        """
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
-        traits[f"base:audit_{audit_success}"] = "SUCCESS"
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
-    def alter_audit_by_failures(
-        self, resource: str, class_name: str, audit_failures: str
-    ) -> Union[dict, bytes]:
-        """
-        Alters the auditing rules for this general resource profile with a new
-        rule to audit failures, preserving existing non-conflicting rules.
-        """
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
-        traits[f"base:audit_{audit_failures}"] = "FAILURE"
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
-    def alter_audit_by_both_successes_and_failures(
-        self, resource: str, class_name: str, audit_both: str
-    ) -> Union[dict, bytes]:
-        """
-        Alters the auditing rules for this general resource profile with a new
-        rule to audit both successes and failures, preserving existing
-        non-conflicting rules.
-        """
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
-        traits[f"base:audit_{audit_both}"] = "ALL"
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
-    def overwrite_audit_by_audit_alter_access(
-        self, resource: str, class_name: str, access_attempt: str
-    ) -> Union[dict, bytes]:
-        """
-        Overwrites the auditing rules for this general resource profile with a new
-        rule to audit alter access.
-        """
-        traits = {"base:audit_alter": access_attempt}
-        result = self.alter(resource, class_name, traits=traits)
-        return self._to_steps(result)
-
-    def overwrite_audit_by_audit_control_access(
-        self, resource: str, class_name: str, access_attempt: str
-    ) -> Union[dict, bytes]:
-        """
-        Overwrites the auditing rules for this general resource profile with a new
-        rule to audit control access.
-        """
-        traits = {"base:audit_control": access_attempt}
-        result = self.alter(resource, class_name, traits=traits)
-        return self._to_steps(result)
-
-    def overwrite_audit_by_audit_read_access(
-        self, resource: str, class_name: str, access_attempt: str
-    ) -> Union[dict, bytes]:
-        """
-        Overwrites the auditing rules for this general resource profile with a new
-        rule to audit read access.
-        """
-        traits = {"base:audit_read": access_attempt}
-        result = self.alter(resource, class_name, traits=traits)
-        return self._to_steps(result)
-
-    def overwrite_audit_by_audit_update_access(
-        self, resource: str, class_name: str, access_attempt: str
-    ) -> Union[dict, bytes]:
-        """
-        Overwrites the auditing rules for this general resource profile with a new
-        rule to audit update access.
-        """
-        traits = {"base:audit_update": access_attempt}
-        result = self.alter(resource, class_name, traits=traits)
-        return self._to_steps(result)
-
-    def alter_audit_by_audit_alter_access(
-        self, resource: str, class_name: str, access_attempt: str
+    def alter_audit_by_access_level(
+        self,
+        resource: str,
+        class_name: str,
+        alter: Union[str, None] = None,
+        control: Union[str, None] = None,
+        read: Union[str, None] = None,
+        update: Union[str, None] = None,
     ) -> Union[dict, bytes]:
         """
         Alters the auditing rules for this general resource profile with a new
@@ -520,71 +445,22 @@ class ResourceAdmin(SecurityAdmin):
             traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
         if "all" in audit_rules:
             traits[f"base:audit_{audit_rules['all']}"] = "ALL"
-        traits["base:audit_alter"] = access_attempt
+        if alter is not None:
+            traits["base:audit_alter"] = alter
+        if control is not None:
+            traits["base:audit_control"] = control
+        if read is not None:
+            traits["base:audit_read"] = read
+        if update is not None:
+            traits["base:audit_update"] = update
         result.append(self.alter(resource, class_name, traits=traits))
         return self._to_steps(result)
 
-    def alter_audit_by_audit_control_access(
-        self, resource: str, class_name: str, access_attempt: str
+    def clear_all_audit_rules(
+        self, resource: str, class_name: str
     ) -> Union[dict, bytes]:
-        """
-        Alters the auditing rules for this general resource profile with a new
-        rule to audit control access, preserving existing non-conflicting rules.
-        """
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
-        traits["base:audit_control"] = access_attempt
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
-    def alter_audit_by_audit_read_access(
-        self, resource: str, class_name: str, access_attempt: str
-    ) -> Union[dict, bytes]:
-        """
-        Alters the auditing rules for this general resource profile with a new
-        rule to audit read access, preserving existing non-conflicting rules.
-        """
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
-        traits["base:audit_read"] = access_attempt
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
-    def alter_audit_by_audit_update_access(
-        self, resource: str, class_name: str, access_attempt: str
-    ) -> Union[dict, bytes]:
-        """
-        Alters the auditing rules for this general resource profile with a new
-        rule to audit update access, preserving existing non-conflicting rules.
-        """
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        traits = {}
-        if "success" in audit_rules:
-            traits[f"base:audit_{audit_rules['success']}"] = "SUCCESS"
-        if "failures" in audit_rules:
-            traits[f"base:audit_{audit_rules['failures']}"] = "FAILURE"
-        if "all" in audit_rules:
-            traits[f"base:audit_{audit_rules['all']}"] = "ALL"
-        traits["base:audit_update"] = access_attempt
-        result.append(self.alter(resource, class_name, traits=traits))
+        """Clears the auditing rules completely."""
+        result = self.alter(resource, class_name, {"base:audit_none": True})
         return self._to_steps(result)
 
     # ============================================================================
