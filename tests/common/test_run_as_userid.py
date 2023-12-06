@@ -93,7 +93,7 @@ class TestRunAsUserId(unittest.TestCase):
         call_racf_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, run_as_userid="ESWIFT")
-        user_admin.clear_running_userid()
+        user_admin.set_running_userid(userid=None)
         call_racf_mock.side_effect = [
             TestCommonConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             TestCommonConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,

@@ -1,4 +1,4 @@
-"""Test downstream fatal error raising."""
+"""Test downstream fatal error."""
 
 import unittest
 from unittest.mock import Mock, patch

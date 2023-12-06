@@ -90,14 +90,11 @@ class SecurityAdmin:
     # ============================================================================
     def set_running_userid(self, userid: Union[str, None]) -> None:
         if userid is None:
-            self.__running_userid = userid
+            self.__running_userid = None
             return
         if not isinstance(userid, str) or len(userid) > 8 or userid == "":
             raise UserIdError(userid)
         self.__running_userid = userid.upper()
-
-    def clear_running_userid(self) -> None:
-        self.__running_userid = None
 
     def get_running_userid(self) -> None:
         return self.__running_userid
@@ -186,7 +183,7 @@ class SecurityAdmin:
         if self._generate_requests_only:
             self.__clear_state(security_request)
             return request_xml
-        result_xml = self.__logger.redact_result_xml(
+        raw_result = self.__logger.redact_result_xml(
             self.__irrsmo00.call_racf(
                 security_request.dump_request_xml(),
                 irrsmo00_precheck,
@@ -195,46 +192,46 @@ class SecurityAdmin:
             self.__secret_traits,
         )
         self.__clear_state(security_request)
-        if isinstance(result_xml, list):
+        if isinstance(raw_result, list):
             # When IRRSMO00 encounters some errors, it returns no XML response string.
             # When this happens, the C code instead surfaces the return and reason
             # codes which causes a DownstreamFatalError to be raised.
             raise DownstreamFatalError(
-                return_reason_codes=result_xml,
+                saf_return_code=raw_result[0],
+                racf_return_code=raw_result[1],
+                racf_reason_code=raw_result[2],
                 request_xml=request_xml,
                 run_as_userid=self.get_running_userid(),
             )
         if self.__debug:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
-            self.__logger.log_xml("Result XML", result_xml)
-        results = SecurityResult(result_xml, self.get_running_userid())
+            self.__logger.log_xml("Result XML", raw_result)
+        result = SecurityResult(raw_result, self.get_running_userid())
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
             self.__logger.log_dictionary(
-                "Result Dictionary", results.get_result_dictionary()
+                "Result Dictionary", result.get_result_dictionary()
             )
-        result_dictionary = results.get_result_dictionary()
-        if result_dictionary["securityResult"]["returnCode"] > 4:
+        result_dictionary = result.get_result_dictionary()
+        if result_dictionary["securityResult"]["returnCode"] >= 8:
             # All return codes greater than 4 are indicative of an issue with
             # IRRSMO00 that would stop a command image from being generated.
             # The user should interogate the result dictionary attached to the
             # SecurityRequestError as well as the return and reason codes to
             # resolve the problem.
             raise DownstreamFatalError(
-                [
-                    8,
-                    result_dictionary["securityResult"]["returnCode"],
-                    result_dictionary["securityResult"]["reasonCode"],
-                ],
-                request_xml,
-                self.get_running_userid(),
-                result_dictionary,
+                saf_return_code=8,
+                racf_return_code=result_dictionary["securityResult"]["returnCode"],
+                racf_reason_code=result_dictionary["securityResult"]["reasonCode"],
+                request_xml=request_xml,
+                run_as_userid=self.get_running_userid(),
+                result_dictionary=result_dictionary,
             )
         if result_dictionary["securityResult"]["returnCode"] != 0:
             # All non-zero return codes should cause a SecurityRequestError to be raised.
-            # Even if a return code of 4 is not indicative of a problem, it it is
+            # Even if a return code of 4 is not indicative of a problem, it is
             # up to the user to interogate the result dictionary attached to the
             # SecurityRequestError and decided whether or not the return code 4 is
             # indicative of a problem.

@@ -39,7 +39,7 @@ class IRRSMO00:
             opts=options,
             userid=userid,
             userid_len=userid_length,
-        ).decode("cp1047")
+        )
         if response[0] == "":
             return response[1:3]
-        return response[0]
+        return response[0].decode("cp1047")
