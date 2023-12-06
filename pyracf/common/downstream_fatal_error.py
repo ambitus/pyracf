@@ -43,7 +43,7 @@ class DownstreamFatalError(Exception):
         ):
             self.message += (
                 "\n\nCheck to see if the proper RACF permissions are in place.\n"
-                + "For 'set' or 'alter' functions, you must have at least READ "
+                + "For 'set' or 'alter' functions, you must have at least 'READ' "
                 + "access to 'IRR.IRRSMO00.PRECHECK' in the 'XFACILIT' class."
             )
         elif (
@@ -53,7 +53,7 @@ class DownstreamFatalError(Exception):
         ):
             self.message += (
                 "\n\nCheck to see if the proper RACF permissions are in place.\n"
-                + "For the 'run_as_userid' feature, you must have at least UPDATE "
+                + "For the 'run_as_userid' feature, you must have at least 'UPDATE' "
                 + f"access to '{run_as_userid}.IRRSMO00' in the 'SURROGAT' class."
             )
         else:

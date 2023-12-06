@@ -161,7 +161,7 @@ class Logger:
 
     def redact_result_xml(
         self,
-        racf_response: Union[str, List[int]],
+        security_response: Union[str, List[int]],
         secret_traits: dict,
     ) -> str:
         """
@@ -170,15 +170,17 @@ class Logger:
             'TRAIT (value)'
         This function also accounts for varied amounts of whitespace in the pattern.
         """
-        if isinstance(racf_response, list):
-            return racf_response
+        if isinstance(security_response, list):
+            return security_response
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            match = re.search(rf"{racf_key.upper()} +\(", racf_response)
+            match = re.search(rf"{racf_key.upper()} +\(", security_response)
             if not match:
                 continue
-            racf_response = self.__redact_string(racf_response, match.end(), ")")
-        return racf_response
+            security_response = self.__redact_string(
+                security_response, match.end(), ")"
+            )
+        return security_response
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""

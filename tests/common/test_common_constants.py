@@ -30,9 +30,9 @@ TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_SUCCESS_DICTIONARY = get_sample(
 )
 
 TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is already defined, and you already have 'alter' access!\n"
+    "IRR.IRRSMO00.PRECHECK is already defined, and you already have 'ALTER' access!\n"
     + "You are ready to start using pyRACF!\n"
-    + "Please ensure other users of pyRACF also have at least read access.\n"
+    + "Please ensure other users of pyRACF also have at least 'READ' access.\n"
     + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
 
@@ -43,9 +43,9 @@ TEST_SETUP_PRECHECK_FOUND_NO_ACCESS_TEXT = (
 )
 
 TEST_SETUP_PRECHECK_DEFINED_PROFILE_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is now defined with a 'Universal Access' of None.\n"
+    "IRR.IRRSMO00.PRECHECK is now defined with a 'Universal Access' of 'NONE'.\n"
     + "Contact your security administrator for 'READ' access before using pyRACF.\n"
-    + "Other users of pyRACF will also need to have at least read access.\n"
+    + "Other users of pyRACF will also need to have at least 'READ' access.\n"
     + "You may also need to REFRESH the 'XFACILIT' class.\n"
     + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
@@ -119,7 +119,7 @@ TEST_DOWNSTREAM_FATAL_PRECHECK_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 16"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
-    + "For 'set' or 'alter' functions, you must have at least READ "
+    + "For 'set' or 'alter' functions, you must have at least 'READ' "
     + "access to 'IRR.IRRSMO00.PRECHECK' in the 'XFACILIT' class."
 )
 
@@ -127,7 +127,7 @@ TEST_DOWNSTREAM_FATAL_SURROGAT_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 8"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
-    + "For the 'run_as_userid' feature, you must have at least UPDATE "
+    + "For the 'run_as_userid' feature, you must have at least 'UPDATE' "
     + "access to 'ESWIFT.IRRSMO00' in the 'SURROGAT' class."
 )
 

@@ -230,9 +230,9 @@ class SecurityAdmin:
                 result_dictionary=result_dictionary,
             )
         if result_dictionary["securityResult"]["returnCode"] != 0:
-            # All non-zero return codes should cause a SecurityRequestError to be raised.
-            # Even if a return code of 4 is not indicative of a problem, it is
-            # up to the user to interogate the result dictionary attached to the
+            # All remaining non-zero return codes should cause a SecurityRequestError
+            # to be raised. Even if a SAF return code of 4 is not indicative of a problem,
+            # it is up to the user to interogate the result dictionary attached to the
             # SecurityRequestError and decided whether or not the return code 4 is
             # indicative of a problem.
             raise SecurityRequestError(result_dictionary)

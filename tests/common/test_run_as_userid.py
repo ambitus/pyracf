@@ -138,21 +138,9 @@ class TestRunAsUserId(unittest.TestCase):
         )
         self.assertEqual(access, "read")
 
-    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-    def test_get_user_access_raises_userid_error(
-        self,
-        call_racf_mock: Mock,
-    ):
+    def test_get_user_access_raises_userid_error(self):
         userid = "squidwrdtest"
-        precheck_profile_as_squidwrd = (
-            TestCommonConstants.TEST_EXTRACT_RESOURCE_RESULT_PRECHECK_SUCCESS_XML
-        )
-        precheck_profile_as_squidwrd = precheck_profile_as_squidwrd.replace(
-            "<message> 00    ESWIFT          READ              ALTER    NO</message>",
-            "<message> 00    ESWIFT          READ               READ    NO</message>",
-        )
         resource_admin = ResourceAdmin(debug=True, run_as_userid="ESWIFT")
-        call_racf_mock.return_value = precheck_profile_as_squidwrd
         with self.assertRaises(UserIdError) as exception:
             resource_admin.get_user_access("IRR.IRRSMO00.PRECHECK", "XFACILIT", userid)
         self.assertEqual(

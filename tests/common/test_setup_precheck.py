@@ -76,7 +76,7 @@ class TestSetupPrecheck(unittest.TestCase):
             TestCommonConstants.TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT
         )
         validated_control_access = validated_control_access.replace(
-            "you already have 'alter' access!", "you already have 'control' access!"
+            "you already have 'ALTER' access!", "you already have 'CONTROL' access!"
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
@@ -101,7 +101,7 @@ class TestSetupPrecheck(unittest.TestCase):
             TestCommonConstants.TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT
         )
         validated_read_access = validated_read_access.replace(
-            "you already have 'alter' access!", "you already have 'read' access!"
+            "you already have 'ALTER' access!", "you already have 'READ' access!"
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
@@ -126,7 +126,7 @@ class TestSetupPrecheck(unittest.TestCase):
             TestCommonConstants.TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT
         )
         validated_update_access = validated_update_access.replace(
-            "you already have 'alter' access!", "you already have 'update' access!"
+            "you already have 'ALTER' access!", "you already have 'UPDATE' access!"
         )
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
