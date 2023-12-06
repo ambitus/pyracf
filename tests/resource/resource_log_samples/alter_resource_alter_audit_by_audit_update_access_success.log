@@ -1,7 +1,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {}
@@ -9,7 +9,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -19,7 +19,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -62,7 +62,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {
@@ -114,7 +114,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                      Result Dictionary (Formatted Profile)                     
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {
@@ -162,7 +162,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {}
@@ -170,7 +170,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -180,7 +180,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -223,7 +223,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {
@@ -275,7 +275,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                      Result Dictionary (Formatted Profile)                     
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {
@@ -323,7 +323,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {
@@ -342,7 +342,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -357,7 +357,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -379,7 +379,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {
@@ -412,7 +412,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                 Steps Dictionary                               
-               ResourceAdmin.alter_audit_by_audit_update_access()              
+                  ResourceAdmin.alter_audit_by_access_level()                  
                                                                                
 
 {

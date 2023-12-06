@@ -39,8 +39,8 @@ class TestResourceSetters(unittest.TestCase):
         )
 
     def test_resource_admin_build_overwrite_audit_by_audit_alter_access_request(self):
-        result = self.resource_admin.overwrite_audit_by_audit_alter_access(
-            "TESTING", "ELIJTEST", "SUCCESS"
+        result = self.resource_admin.overwrite_audit_by_access_level(
+            "TESTING", "ELIJTEST", alter="SUCCESS"
         )
         self.assertEqual(
             result,
@@ -48,8 +48,8 @@ class TestResourceSetters(unittest.TestCase):
         )
 
     def test_resource_admin_build_overwrite_audit_by_audit_control_access_request(self):
-        result = self.resource_admin.overwrite_audit_by_audit_control_access(
-            "TESTING", "ELIJTEST", "FAILURE"
+        result = self.resource_admin.overwrite_audit_by_access_level(
+            "TESTING", "ELIJTEST", control="FAILURE"
         )
         self.assertEqual(
             result,
@@ -57,8 +57,8 @@ class TestResourceSetters(unittest.TestCase):
         )
 
     def test_resource_admin_build_overwrite_audit_by_audit_read_access_request(self):
-        result = self.resource_admin.overwrite_audit_by_audit_read_access(
-            "TESTING", "ELIJTEST", "SUCCESS"
+        result = self.resource_admin.overwrite_audit_by_access_level(
+            "TESTING", "ELIJTEST", read="SUCCESS"
         )
         self.assertEqual(
             result,
@@ -66,8 +66,8 @@ class TestResourceSetters(unittest.TestCase):
         )
 
     def test_resource_admin_build_overwrite_audit_by_audit_update_access_request(self):
-        result = self.resource_admin.overwrite_audit_by_audit_update_access(
-            "TESTING", "ELIJTEST", "ALL"
+        result = self.resource_admin.overwrite_audit_by_access_level(
+            "TESTING", "ELIJTEST", update="ALL"
         )
         self.assertEqual(
             result,
@@ -75,16 +75,16 @@ class TestResourceSetters(unittest.TestCase):
         )
 
     def test_resource_admin_build_overwrite_audit_by_successes_request(self):
-        result = self.resource_admin.overwrite_audit_by_successes(
-            "TESTING", "ELIJTEST", "alter"
+        result = self.resource_admin.overwrite_audit_by_attempt(
+            "TESTING", "ELIJTEST", success="alter"
         )
         self.assertEqual(
             result, TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_SUCCESSES_XML
         )
 
     def test_resource_admin_build_overwrite_audit_by_failures_request(self):
-        result = self.resource_admin.overwrite_audit_by_failures(
-            "TESTING", "ELIJTEST", "control"
+        result = self.resource_admin.overwrite_audit_by_attempt(
+            "TESTING", "ELIJTEST", failure="control"
         )
         self.assertEqual(
             result, TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_FAILURES_XML
@@ -93,8 +93,8 @@ class TestResourceSetters(unittest.TestCase):
     def test_resource_admin_build_overwrite_audit_by_both_successes_and_failures_request(
         self,
     ):
-        result = self.resource_admin.overwrite_audit_by_both_successes_and_failures(
-            "TESTING", "ELIJTEST", "update"
+        result = self.resource_admin.overwrite_audit_by_attempt(
+            "TESTING", "ELIJTEST", all="update"
         )
         self.assertEqual(
             result,

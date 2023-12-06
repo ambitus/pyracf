@@ -1,7 +1,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Request Dictionary                              
-                    ResourceAdmin.alter_audit_by_failures()                    
+                     ResourceAdmin.alter_audit_by_attempt()                    
                                                                                
 
 {}
@@ -9,7 +9,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                   Request XML                                  
-                    ResourceAdmin.alter_audit_by_failures()                    
+                     ResourceAdmin.alter_audit_by_attempt()                    
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
@@ -19,7 +19,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                    Result XML                                  
-                    ResourceAdmin.alter_audit_by_failures()                    
+                     ResourceAdmin.alter_audit_by_attempt()                    
                                                                                
 
 <?xml version="1.0" encoding="IBM-1047"?>
@@ -40,7 +40,7 @@
                                                                                
                                  [pyRACF:Debug]                                
                                Result Dictionary                               
-                    ResourceAdmin.alter_audit_by_failures()                    
+                     ResourceAdmin.alter_audit_by_attempt()                    
                                                                                
 
 {

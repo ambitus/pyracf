@@ -37,7 +37,9 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.clear_audit_failures("TESTING", "ELIJTEST")
+            self.resource_admin.clear_audit_by_attempt(
+                "TESTING", "ELIJTEST", "failures"
+            )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log,
@@ -57,7 +59,9 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.clear_audit_failures("TESTING", "ELIJTEST")
+                self.resource_admin.clear_audit_by_attempt(
+                    "TESTING", "ELIJTEST", "failures"
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
@@ -77,7 +81,7 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.clear_audit_successes("TESTING", "ELIJTEST")
+            self.resource_admin.clear_audit_by_attempt("TESTING", "ELIJTEST", "success")
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log,
@@ -97,7 +101,9 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.clear_audit_successes("TESTING", "ELIJTEST")
+                self.resource_admin.clear_audit_by_attempt(
+                    "TESTING", "ELIJTEST", "success"
+                )
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
@@ -126,9 +132,7 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.clear_audit_both_successes_and_failures(
-                "TESTING", "ELIJTEST"
-            )
+            self.resource_admin.clear_audit_by_attempt("TESTING", "ELIJTEST", "all")
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
             success_log,
@@ -148,9 +152,7 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.clear_audit_both_successes_and_failures(
-                    "TESTING", "ELIJTEST"
-                )
+                self.resource_admin.clear_audit_by_attempt("TESTING", "ELIJTEST", "all")
             except SecurityRequestError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
@@ -170,8 +172,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.alter_audit_by_failures(
-                "TESTING", "ELIJTEST", "control"
+            self.resource_admin.alter_audit_by_attempt(
+                "TESTING", "ELIJTEST", failure="control"
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -192,8 +194,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.alter_audit_by_failures(
-                    "TESTING", "ELIJTEST", "control"
+                self.resource_admin.alter_audit_by_attempt(
+                    "TESTING", "ELIJTEST", failure="control"
                 )
             except SecurityRequestError:
                 pass
@@ -214,8 +216,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.alter_audit_by_successes(
-                "TESTING", "ELIJTEST", "control"
+            self.resource_admin.alter_audit_by_attempt(
+                "TESTING", "ELIJTEST", success="control"
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -236,8 +238,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.alter_audit_by_successes(
-                    "TESTING", "ELIJTEST", "control"
+                self.resource_admin.alter_audit_by_attempt(
+                    "TESTING", "ELIJTEST", success="control"
                 )
             except SecurityRequestError:
                 pass
@@ -267,8 +269,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.alter_audit_by_both_successes_and_failures(
-                "TESTING", "ELIJTEST", "update"
+            self.resource_admin.alter_audit_by_attempt(
+                "TESTING", "ELIJTEST", all="update"
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -287,14 +289,12 @@ class TestResourceCompoundSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_SUCCESSES_AND_FAILURES_XML,
         ]
         with self.assertRaises(SecurityRequestError):
-            self.resource_admin.clear_audit_both_successes_and_failures(
-                "TESTING", "ELIJTEST"
-            )
+            self.resource_admin.clear_audit_by_attempt("TESTING", "ELIJTEST", "all")
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.alter_audit_by_both_successes_and_failures(
-                    "TESTING", "ELIJTEST", "update"
+                self.resource_admin.alter_audit_by_attempt(
+                    "TESTING", "ELIJTEST", all="update"
                 )
             except SecurityRequestError:
                 pass
@@ -315,8 +315,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.alter_audit_by_audit_alter_access(
-                "TESTING", "ELIJTEST", "success"
+            self.resource_admin.alter_audit_by_access_level(
+                "TESTING", "ELIJTEST", alter="success"
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -337,8 +337,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.alter_audit_by_audit_alter_access(
-                    "TESTING", "ELIJTEST", "success"
+                self.resource_admin.alter_audit_by_access_level(
+                    "TESTING", "ELIJTEST", alter="success"
                 )
             except SecurityRequestError:
                 pass
@@ -359,8 +359,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.alter_audit_by_audit_control_access(
-                "TESTING", "ELIJTEST", "success"
+            self.resource_admin.alter_audit_by_access_level(
+                "TESTING", "ELIJTEST", control="success"
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -381,8 +381,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.alter_audit_by_audit_control_access(
-                    "TESTING", "ELIJTEST", "success"
+                self.resource_admin.alter_audit_by_access_level(
+                    "TESTING", "ELIJTEST", control="success"
                 )
             except SecurityRequestError:
                 pass
@@ -403,8 +403,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.alter_audit_by_audit_read_access(
-                "TESTING", "ELIJTEST", "success"
+            self.resource_admin.alter_audit_by_access_level(
+                "TESTING", "ELIJTEST", read="success"
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -425,8 +425,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.alter_audit_by_audit_read_access(
-                    "TESTING", "ELIJTEST", "success"
+                self.resource_admin.alter_audit_by_access_level(
+                    "TESTING", "ELIJTEST", read="success"
                 )
             except SecurityRequestError:
                 pass
@@ -447,8 +447,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
-            self.resource_admin.alter_audit_by_audit_update_access(
-                "TESTING", "ELIJTEST", "failure"
+            self.resource_admin.alter_audit_by_access_level(
+                "TESTING", "ELIJTEST", update="failure"
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -469,8 +469,8 @@ class TestResourceCompoundSetters(unittest.TestCase):
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
-                self.resource_admin.alter_audit_by_audit_update_access(
-                    "TESTING", "ELIJTEST", "success"
+                self.resource_admin.alter_audit_by_access_level(
+                    "TESTING", "ELIJTEST", update="success"
                 )
             except SecurityRequestError:
                 pass
