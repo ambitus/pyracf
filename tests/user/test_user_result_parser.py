@@ -1,5 +1,6 @@
 """Test user result parser."""
 
+import copy
 import unittest
 from unittest.mock import Mock, patch
 
@@ -65,6 +66,37 @@ class TestUserResultParser(unittest.TestCase):
             "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{profile_name}' already exists as a '{self.user_admin._profile_type}' profile.",
+        )
+
+    def test_user_admin_add_surfaces_error_from_preliminary_extract(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "squidwrd"
+        extract_user_error_xml = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML
+        )
+        extract_user_error_xml = extract_user_error_xml.replace(
+            "<message>ICH30001I UNABLE TO LOCATE USER    ENTRY SQUIDWRD</message>",
+            "<message>NOT A REAL ERROR MESSAGE</message>",
+        )
+        call_racf_mock.side_effect = [
+            extract_user_error_xml,
+            TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.user_admin.add(
+                profile_name, traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
+            )
+        extract_user_error_json = copy.deepcopy(
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_DICTIONARY
+        )
+        extract_user_error_json["securityResult"]["user"]["commands"][0]["messages"] = [
+            "NOT A REAL ERROR MESSAGE"
+        ]
+        self.assertEqual(
+            exception.exception.result,
+            extract_user_error_json,
         )
 
     # Error in command, SQUIDWARD is bad USERID

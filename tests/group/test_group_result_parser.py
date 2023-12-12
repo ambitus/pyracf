@@ -1,5 +1,6 @@
 """Test group result parser."""
 
+import copy
 import unittest
 from unittest.mock import Mock, patch
 
@@ -61,6 +62,37 @@ class TestGroupResultParser(unittest.TestCase):
             "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{group_name}' already exists as a '{self.group_admin._profile_type}' profile.",
+        )
+
+    def test_group_admin_add_surfaces_error_from_preliminary_extract(
+        self,
+        call_racf_mock: Mock,
+    ):
+        group_name = "TESTGRP0"
+        extract_group_error_xml = (
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_XML
+        )
+        extract_group_error_xml = extract_group_error_xml.replace(
+            "<message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>",
+            "<message>NOT A REAL ERROR MESSAGE</message>",
+        )
+        call_racf_mock.side_effect = [
+            extract_group_error_xml,
+            TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.group_admin.add(
+                group_name, traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
+            )
+        extract_group_error_json = copy.deepcopy(
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_DICTIONARY
+        )
+        extract_group_error_json["securityResult"]["group"]["commands"][0][
+            "messages"
+        ] = ["NOT A REAL ERROR MESSAGE"]
+        self.assertEqual(
+            exception.exception.result,
+            extract_group_error_json,
         )
 
     # Error in command, TESTGRPP0 is bad GROUP

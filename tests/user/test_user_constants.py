@@ -94,7 +94,7 @@ TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_JSON = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML = get_sample(
     "extract_user_result_base_only_error.xml"
 )
-TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_JSON = get_sample(
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_DICTIONARY = get_sample(
     "extract_user_result_base_only_error.json"
 )
 TEST_EXTRACT_USER_RESULT_WITH_CLASS_AUTHORIZATIONS = get_sample(
