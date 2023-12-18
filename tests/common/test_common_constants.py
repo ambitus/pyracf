@@ -30,23 +30,23 @@ TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_SUCCESS_DICTIONARY = get_sample(
 )
 
 TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is already defined, and you already have 'ALTER' access!\n"
+    "'IRR.IRRSMO00.PRECHECK' is already defined, and you already have 'ALTER' access!\n"
     + "You are ready to start using pyRACF!\n"
     + "Please ensure other users of pyRACF also have at least 'READ' access.\n"
     + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
 
 TEST_SETUP_PRECHECK_FOUND_NO_ACCESS_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is already defined, but you have no access.\n"
+    "'IRR.IRRSMO00.PRECHECK' is already defined, but you have no access.\n"
     + "Contact your security administrator for 'READ' access before using pyRACF.\n"
     + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
 
 TEST_SETUP_PRECHECK_DEFINED_PROFILE_TEXT = (
-    "IRR.IRRSMO00.PRECHECK is now defined with a 'Universal Access' of 'NONE'.\n"
+    "'IRR.IRRSMO00.PRECHECK' is now defined with a 'Universal Access' of 'NONE'.\n"
     + "Contact your security administrator for 'READ' access before using pyRACF.\n"
     + "Other users of pyRACF will also need to have at least 'READ' access.\n"
-    + "You may also need to REFRESH the 'XFACILIT' class.\n"
+    + "You may also need to refresh the 'XFACILIT' class.\n"
     + "Review our documentation at https://ambitus.github.io/pyracf/ as well!\n"
 )
 

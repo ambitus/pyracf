@@ -6,7 +6,7 @@
       <returncode>16</returncode>
       <reasoncode>4</reasoncode>
       <image>RLIST   XFACILIT             (IRR.IRRSMO00.PRECHECK) </image>
-      <message>ICH13003I IRR.IRRSMO00.PRECHECK NOT FOUND</message>
+      <message>ICH13003I 'IRR.IRRSMO00.PRECHECK' NOT FOUND</message>
     </command>
   </resource>
   <returncode>4</returncode>

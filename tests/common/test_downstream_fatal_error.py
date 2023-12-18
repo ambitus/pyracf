@@ -19,7 +19,7 @@ class TestDownstreamFatalError(unittest.TestCase):
     IRRSMO00.__init__ = Mock(return_value=None)
     user_admin = UserAdmin()
 
-    def test_security_request_error_thrown_on_precheck_error(
+    def test_donwstream_fatal_error_thrown_on_precheck_error(
         self,
         call_racf_mock: Mock,
     ):
@@ -31,7 +31,7 @@ class TestDownstreamFatalError(unittest.TestCase):
             TestCommonConstants.TEST_DOWNSTREAM_FATAL_PRECHECK_TEXT,
         )
 
-    def test_security_request_error_thrown_on_surrogat_error(
+    def test_donwstream_fatal_error_thrown_on_surrogat_error(
         self,
         call_racf_mock: Mock,
     ):
@@ -44,7 +44,7 @@ class TestDownstreamFatalError(unittest.TestCase):
             TestCommonConstants.TEST_DOWNSTREAM_FATAL_SURROGAT_TEXT,
         )
 
-    def test_security_request_error_thrown_on_miscellaneous_error(
+    def test_donwstream_fatal_error_thrown_on_miscellaneous_error(
         self,
         call_racf_mock: Mock,
     ):
