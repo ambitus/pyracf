@@ -28,7 +28,7 @@ class TestDownstreamFatalError(unittest.TestCase):
             self.user_admin.set_password("TESTUSER", "Testpass")
         self.assertEqual(
             exception.exception.message,
-            TestCommonConstants.TEST_DOWNSTREAM_FATAL_PRECHECK_TEXT,
+            TestCommonConstants.TEST_DOWNSTREAM_FATAL_ERROR_PRECHECK_TEXT,
         )
 
     def test_donwstream_fatal_error_thrown_on_surrogat_error(
@@ -41,7 +41,7 @@ class TestDownstreamFatalError(unittest.TestCase):
             self.user_admin.add("squidwrd")
         self.assertEqual(
             exception.exception.message,
-            TestCommonConstants.TEST_DOWNSTREAM_FATAL_SURROGAT_TEXT,
+            TestCommonConstants.TEST_DOWNSTREAM_FATAL_ERROR_SURROGAT_TEXT,
         )
 
     def test_donwstream_fatal_error_thrown_on_miscellaneous_error(
@@ -53,5 +53,5 @@ class TestDownstreamFatalError(unittest.TestCase):
             self.user_admin.add("squidwrd")
         self.assertEqual(
             exception.exception.message,
-            TestCommonConstants.TEST_DOWNSTREAM_FATAL_GENERIC_TEXT,
+            TestCommonConstants.TEST_DOWNSTREAM_FATAL_ERROR_GENERIC_TEXT,
         )

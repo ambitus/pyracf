@@ -122,7 +122,7 @@ TEST_EXTRACT_RESOURCE_PRECHECK_AS_SQUIDWRD_LOG = get_sample(
 # Downstream Fatal Error
 # ============================================================================
 
-TEST_DOWNSTREAM_FATAL_PRECHECK_TEXT = (
+TEST_DOWNSTREAM_FATAL_ERROR_PRECHECK_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 16"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
@@ -130,7 +130,7 @@ TEST_DOWNSTREAM_FATAL_PRECHECK_TEXT = (
     + "access to 'IRR.IRRSMO00.PRECHECK' in the 'XFACILIT' class."
 )
 
-TEST_DOWNSTREAM_FATAL_SURROGAT_TEXT = (
+TEST_DOWNSTREAM_FATAL_ERROR_SURROGAT_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 200\nRACF Reason Code: 8"
     + "\n\nCheck to see if the proper RACF permissions are in place.\n"
@@ -138,7 +138,7 @@ TEST_DOWNSTREAM_FATAL_SURROGAT_TEXT = (
     + "access to 'ESWIFT.IRRSMO00' in the 'SURROGAT' class."
 )
 
-TEST_DOWNSTREAM_FATAL_GENERIC_TEXT = (
+TEST_DOWNSTREAM_FATAL_ERROR_GENERIC_TEXT = (
     "(DownstreamFatalError) Security request made to IRRSMO00 failed."
     + "\n\nSAF Return Code: 8\nRACF Return Code: 2000\nRACF Reason Code: 20"
     + "\n\nPlease check the specified return and reason codes against "
