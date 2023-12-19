@@ -9,7 +9,7 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
-from pyracf import setup_precheck
+from pyracf import SecurityRequestError, setup_precheck
 from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
@@ -41,6 +41,22 @@ class TestSetupPrecheck(unittest.TestCase):
         self.assertEqual(
             result,
             TestCommonConstants.TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_SUCCESS_DICTIONARY,
+        )
+
+    def test_setup_precheck_throws_error_when_cannot_add_profile(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.side_effect = [
+            TestCommonConstants.TEST_EXTRACT_RESOURCE_RESULT_PRECHECK_ERROR_XML,
+            TestCommonConstants.TEST_EXTRACT_RESOURCE_RESULT_PRECHECK_ERROR_XML,
+            TestCommonConstants.TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_ERROR_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            setup_precheck()
+        self.assertEqual(
+            exception.exception.result,
+            TestCommonConstants.TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_ERROR_DICTIONARY,
         )
 
     def test_setup_precheck_works_when_alter_access_exists(

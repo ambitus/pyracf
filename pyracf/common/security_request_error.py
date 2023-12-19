@@ -3,7 +3,7 @@
 
 class SecurityRequestError(Exception):
     """
-    Raised when pyRACF does not rais a DownstreamFatalError, and the SAF Return Code
+    Raised when pyRACF does not raise a DownstreamFatalError, and the SAF Return Code
     of a security result returned by IRRSMO00 is non-zero.
     """
 

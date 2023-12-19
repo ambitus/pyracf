@@ -29,6 +29,13 @@ TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_SUCCESS_DICTIONARY = get_sample(
     "add_resource_result_precheck_uacc_none_success.json"
 )
 
+TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_ERROR_XML = get_sample(
+    "add_resource_result_precheck_uacc_none_error.xml"
+)
+TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_ERROR_DICTIONARY = get_sample(
+    "add_resource_result_precheck_uacc_none_error.json"
+)
+
 TEST_SETUP_PRECHECK_VALIDATED_ACCESS_TEXT = (
     "'IRR.IRRSMO00.PRECHECK' is already defined, and you already have 'ALTER' access!\n"
     + "You are ready to start using pyRACF!\n"
