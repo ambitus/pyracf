@@ -43,7 +43,7 @@ class TestSetupPrecheck(unittest.TestCase):
             TestCommonConstants.TEST_ADD_RESOURCE_PRECHECK_UACC_NONE_SUCCESS_DICTIONARY,
         )
 
-    def test_setup_precheck_throws_error_when_cannot_add_profile(
+    def test_setup_precheck_throws_error_when_add_resource_fails(
         self,
         call_racf_mock: Mock,
     ):
