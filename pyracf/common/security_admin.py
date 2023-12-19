@@ -216,11 +216,11 @@ class SecurityAdmin:
             )
         result_dictionary = result.get_result_dictionary()
         if result_dictionary["securityResult"]["returnCode"] >= 8:
-            # All return codes greater than 4 are indicative of an issue with
-            # IRRSMO00 that would stop a command image from being generated.
+            # All return codes greater than or equal to 8 are indicative of an issue
+            # with IRRSMO00 that would stop RACF from generating a command image.
             # The user should interogate the result dictionary attached to the
-            # SecurityRequestError as well as the return and reason codes to
-            # resolve the problem.
+            # DownstreamFatalError as well as the return and reason codes to resolve
+            # the problem.
             raise DownstreamFatalError(
                 saf_return_code=8,
                 racf_return_code=result_dictionary["securityResult"]["returnCode"],
