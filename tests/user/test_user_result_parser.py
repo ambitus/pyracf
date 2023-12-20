@@ -78,7 +78,7 @@ class TestUserResultParser(unittest.TestCase):
         )
         extract_user_error_xml = extract_user_error_xml.replace(
             "<message>ICH30001I UNABLE TO LOCATE USER    ENTRY SQUIDWRD</message>",
-            "<message>NOT A REAL ERROR MESSAGE</message>",
+            "<message>ICH30010I NOT AUTHORIZED TO ISSUE LISTUSER</message>",
         )
         call_racf_mock.side_effect = [
             extract_user_error_xml,
@@ -92,7 +92,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_DICTIONARY
         )
         extract_user_error_json["securityResult"]["user"]["commands"][0]["messages"] = [
-            "NOT A REAL ERROR MESSAGE"
+            "ICH30010I NOT AUTHORIZED TO ISSUE LISTUSER"
         ]
         self.assertEqual(
             exception.exception.result,

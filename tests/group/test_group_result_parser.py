@@ -74,7 +74,7 @@ class TestGroupResultParser(unittest.TestCase):
         )
         extract_group_error_xml = extract_group_error_xml.replace(
             "<message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>",
-            "<message>NOT A REAL ERROR MESSAGE</message>",
+            "<message>ICH32004I NOT AUTHORIZED TO ISSUE LISTGRP</message>",
         )
         call_racf_mock.side_effect = [
             extract_group_error_xml,
@@ -89,7 +89,7 @@ class TestGroupResultParser(unittest.TestCase):
         )
         extract_group_error_json["securityResult"]["group"]["commands"][0][
             "messages"
-        ] = ["NOT A REAL ERROR MESSAGE"]
+        ] = ["ICH32004I NOT AUTHORIZED TO ISSUE LISTGRP"]
         self.assertEqual(
             exception.exception.result,
             extract_group_error_json,

@@ -75,7 +75,7 @@ class TestResourceResultParser(unittest.TestCase):
         )
         extract_resource_xml = extract_resource_xml.replace(
             "<message>ICH13003I TESTING NOT FOUND</message>",
-            "<message>NOT A REAL ERROR MESSAGE</message>",
+            "<message>ICH13002I NOT AUTHORIZED TO LIST TESTING</message>",
         )
         call_racf_mock.side_effect = [
             extract_resource_xml,
@@ -92,7 +92,7 @@ class TestResourceResultParser(unittest.TestCase):
         )
         extract_resource_error_json["securityResult"]["resource"]["commands"][0][
             "messages"
-        ] = ["NOT A REAL ERROR MESSAGE"]
+        ] = ["ICH13002I NOT AUTHORIZED TO LIST TESTING"]
         self.assertEqual(
             exception.exception.result,
             extract_resource_error_json,
