@@ -60,11 +60,11 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
     IRRSMO64(
         work_area, 
         alet, 
-        saf_rc, 
+        &saf_rc, 
         alet, 
-        racf_rc, 
+        &racf_rc, 
         alet, 
-        racf_rsn, 
+        &racf_rsn, 
         num_parms, 
         fn, 
         opts, 
@@ -78,6 +78,7 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
     );
 
    null_byte_fix(rsp,rsp_len);
+
    return Py_BuildValue("yBBB", rsp, saf_rc, racf_rc, racf_rsn);
 }
 
