@@ -19,7 +19,8 @@ When the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT*
 
 &nbsp;
 
-For an understanding of return or reason codes returned from IRRSMO00, you can review [IRRSMO00's Return and Reason Codes documentation]](https://www.ibm.com/docs/en/zos/2.3.0?topic=operations-return-reason-codes). The 'Messages' list shown in the sample below also contains any error messages or other such information. 
+{: .note}
+> _For an understanding of IRRSMO00 return and reason codes, see the [IRRSMO00 Return and Reason Codes](https://www.ibm.com/docs/en/zos/3.2.0?topic=operations-return-reason-codes) documentation._
 
 ###### Python Script
 ```python

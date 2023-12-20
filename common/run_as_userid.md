@@ -3,15 +3,10 @@ layout: default
 parent: Common
 ---
 
-# Run as UserID
+# Run as Userid
 
-Run pyRACF commands as another UserID.
+Run pyRACF commands as another user.
 {: .fs-6 .fw-300 }
-
-&nbsp;
-
-{: .experimental }
-> _This functionality is **Experimental** and is subject to major changes and even being removed entirely._
 
 &nbsp;
 
@@ -20,7 +15,15 @@ Run pyRACF commands as another UserID.
 
 &nbsp;
 
-pyRACF can now leverage a feature of IRRSMO00 where commands can be run under a specified userid. In order to take advantage of this feature, the caller must have `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where userid represents the specific userid you wish to execute commands as. Further information can be found outlined in [our dependencies note](../../index).
+{: .warning}
+> _In order to use `run_as_userid`, the caller must have `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to execute commands as. Further information can be found outlined in [our dependencies note](../../index)._
+
+&nbsp;
+
+The **Running Userid** can be set using the `run_as_userid` class attribute on any "Admin" object as shown in the below example. The **Running Userid** can also be set using the `set_running_userid()` function, which is a class function available on all "Admin" objects.
+
+&nbsp;
+
 
 ## Example
 
@@ -29,7 +32,7 @@ pyRACF can now leverage a feature of IRRSMO00 where commands can be run under a 
 from pyracf import UserAdmin
 
 user_admin = UserAdmin(run_as_userid="squidwrd")
-# Any future commands would be run under squidwrd's authority
+# All subsequent requests will be made using squidwrd's authority.
 ```
 
 ## `SecurityAdmin.set_running_userid()`
@@ -49,15 +52,15 @@ def set_running_userid(
 
 &nbsp;
 
-Set the **z/OS userid** this Admin object will use to run pyRACF commands.
+Set the **z/OS userid** this "Admin" object will use to run pyRACF commands.
 
 #### 📥 Parameters
 * `new_userid`<br>
-  The **z/OS userid** this Admin object will use to run pyRACF commands. If you pass in `None`, this will clear any userid previously set for this Admin object.
+  The **z/OS userid** this "Admin" object will use to run pyRACF commands. If you pass in `None`, this will clear any userid previously set for this "Admin" object.
 
 #### ❌ Raises
 * `UserIdError`<br>
-  Raises `UserIdError` when the **z/OS userid** passed is not a valid string from 1 to 8 characters in length (or `None`).
+  Raises `UserIdError` when the **z/OS userid** provided is not a string value between 1 to 8 characters in length.
 
 #### 💻 Example
 
@@ -67,36 +70,17 @@ from pyracf import UserAdmin
 
 user_admin = UserAdmin()
 user_admin.set_running_userid("squidwrd")
-# Any future commands would be run under squidwrd's authority
+# All subsequent requests will be made using squidwrd's authority.
 ```
-
-## `SecurityAdmin.clear_running_userid()`
-
-```python
-def clear_running_userid(self) -> None:
-```
-
-#### 📄 Description
-
-&nbsp;
-
-{: .experimental }
-> _This functionality is **Experimental** and is subject to major changes and even being removed entirely._
-
-&nbsp;
-
-Clear the **z/OS userid** this Admin object will use to run pyRACF commands.
-
-#### 💻 Example
 
 ###### Python REPL
 ```python 
 from pyracf import UserAdmin
 
 user_admin = UserAdmin(run_as_userid="squidwrd")
-# Any commands run here would be run under squidwrd's authority
-user_admin.clear_running_userid()
-# Any future commands would be run under the calling user's authority
+# All subsequent requests will be made using squidwrd's authority.
+user_admin.set_running_userid(None)
+# All subsequent requests will be made using the calling user's authority.
 ```
 
 ## `SecurityAdmin.get_running_userid()`
@@ -109,12 +93,7 @@ def get_running_userid(self) -> None:
 
 &nbsp;
 
-{: .experimental }
-> _This functionality is **Experimental** and is subject to major changes and even being removed entirely._
-
-&nbsp;
-
-Obtain the **z/OS userid** this Admin object will use to run pyRACF commands.
+Obtain the **z/OS userid** this "Admin" object will use to run pyRACF commands.
 
 #### 💻 Example
 

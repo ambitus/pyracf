@@ -11,17 +11,17 @@ Understanding the `DownstreamFatalError` exception.
 &nbsp;
 
 {: .note }
-> _pyRACF requires a response xml string from an internal call to the IRRSMO00 callable service to provide proper output. If the response string that pyRACF receives is empty, or if IRRSMO00 indicates a failing return code, pyRACF raises a `DownstreamFatalError` and terminates processing the response from IRRSMO00._
+> _pyRACF expects IRRSMO00 to return a string containing XML data. If IRRSMO00 returns an empty string, or if the **SAF Return Code** in the result XML is greater than `4`, `DownstreamFatalError` is raised._
 
 &nbsp;
 
-After executing any operation, pyRACF expects a non-empty response string from IRRSMO00 that indicates a RACF command image was built and processed in order to parse such a response and surface information back to the user. When pyRACF detects an empty response string, or a return code indicating an issue with command image processing, a `DownstramFatalError` is raised and processing terminates. It is possible that the command was executed prior to reaising this error, but this is not the case for any known causes of this error.
+pyRACF expects IRRSMO00 to return a non-empty response string after processing a request. If IRRSMO00 returns an empty response string or the **SAF Return Code** is greater than `4`, indicating that there was an issue with command image processing, a `DownstramFatalError` will be raised. It is possible that RACF commands are executed in this situation, but this is not the case for any known causes of this error.
 
 ## RACF Authorizations
 
 &nbsp;
 
-A common cause of this error is that the user does not have proper RACF authorizations as outlined in [our dependencies note](../../index). One of the possible failures is `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource in the `XFACILIT` class, which is required for `set` or `alter` operations. If you are not certain if you have this authority or if this has been established in your environment, please consult our [Check for & set up RACF Authorizations](../check_for_and_setup_RACF_authorizations) documentation. The other possibility is `ALTER` authority to the `userid.IRRSMO00` resource in the `SURROGAT` class, which is required to run pyRACF commands as another userid. Please review our [run as userid](../run_as_userid) documentation for more information on this feature.
+A common cause of this error is that the user does not have the proper RACF authorizations as outlined in [our dependencies note](../../index). One of the possible failures is the user not having `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource in the `XFACILIT` class, which is required for `set` or `alter` operations. If you are not certain if you have this authority or if this has been established in your environment, please consult our [Check for & set up RACF Authorizations](../setup_precheck) documentation. Another possibility is the user not having `ALTER` authority to the `userid.IRRSMO00` resource in the `SURROGAT` class, which is required to run pyRACF commands as another userid. Please review our [run as userid](../run_as_userid) documentation for more information on this feature.
 
 ###### Python Script
 ```python
@@ -32,7 +32,7 @@ user_admin = UserAdmin()
 
 try:
     user_admin.set_uid("squidwrd", 123456)
-except AddOperationError as e:
+except DownstreamFatalError as e:
     print(e.message)
 ```
 
@@ -57,7 +57,7 @@ user_admin = UserAdmin(run_as_userid="ESWIFT")
 
 try:
     user_admin.set_uid("squidwrd", 123456)
-except AddOperationError as e:
+except DownstreamFatalError as e:
     print(e.message)
 ```
 
@@ -77,7 +77,7 @@ For the `run_as_userid` feature, you must have at least UPDATE access to `ESWIFT
 
 &nbsp;
 
-As stated, this error can also appear if IRRSMO00 raises a problem with data passed in from pyRACF. This may happen when pyRACF receives data or data-types that do not align with use-cases for the traits in use. In this case, or others where a response is returned from IRRSMO00, you can review the initial command as well as error messages and information in the `result` dictionary as a part of the error.
+As stated, this error can also appear if there is a problem with the data pyRACF passes to IRRSMO00. In this situation, you can review the `request_xml` and the `result_dictionary`, which are stored as attributes in the `DownstreamFatalError` exception object for more information.
 
 ###### Python Script
 ```python
@@ -88,7 +88,7 @@ user_admin = UserAdmin()
 
 try:
     user_admin.alter("squidwrd", traits={"base:special": "STRING"})
-except AddOperationError as e:
+except DownstreamFatalError as e:
     print(e.message)
 ```
 

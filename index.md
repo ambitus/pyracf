@@ -61,11 +61,8 @@ Python interface into the RACF management application programming interface.
 
 &nbsp;
 
-[Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
-
-&nbsp;
-
-[Check for & set up RACF Authorizations](../common/check_for_and_setup_RACF_authorizations)
+1. [Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
+2. [IRRSMO00 Precheck Setup](../common/setup_precheck)
 
 ### Use
 

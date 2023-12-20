@@ -10,7 +10,7 @@ Understanding the `UserIdError` exception.
 
 &nbsp;
 
-When a caller specifies a **z/OS userid** for pyRACF to run commands under, an `UserIdError` will be raised if the specified **z/OS userid** is not a string from 1 to 8 characters in length. An `UserIdError` can be handled as follows.
+When the **Running Userid** is being set through an "Admin" object constructor or the `set_running_userid()` function on an `"Admin"` object, a `UserIdError` will be raised if the specified **z/OS userid** is not a string between 1 to 8 characters in length. A `UserIdError` can be handled as follows.
 
 ###### Python Script
 ```python
