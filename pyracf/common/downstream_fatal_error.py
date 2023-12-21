@@ -4,7 +4,7 @@ from typing import Union
 
 class DownstreamFatalError(Exception):
     """
-    Raised IRRSMO00 returns with a SAF Return Code of 8,
+    Raised when IRRSMO00 returns with a SAF Return Code of 8,
     indicating that the request could not be processed.
     """
 
