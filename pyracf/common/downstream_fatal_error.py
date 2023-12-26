@@ -54,7 +54,7 @@ class DownstreamFatalError(Exception):
             self.message += (
                 "\n\nCheck to see if the proper RACF permissions are in place.\n"
                 + "For the 'run_as_userid' feature, you must have at least 'UPDATE' "
-                + f"access to '{run_as_userid}.IRRSMO00' in the 'SURROGAT' class."
+                + f"access to '{run_as_userid.upper()}.IRRSMO00' in the 'SURROGAT' class."
             )
         else:
             self.message += (

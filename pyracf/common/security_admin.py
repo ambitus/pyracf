@@ -97,6 +97,8 @@ class SecurityAdmin:
         self.__running_userid = userid.upper()
 
     def get_running_userid(self) -> None:
+        if isinstance(self.__running_userid, str):
+            return self.__running_userid.lower()
         return self.__running_userid
 
     # ============================================================================

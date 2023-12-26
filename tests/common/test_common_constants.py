@@ -101,7 +101,7 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
 # Run As UserId
 # ============================================================================
 
-TEST_RUNNING_USERID = "ESWIFT"
+TEST_RUNNING_USERID = "eswift"
 TEST_ALTER_USER_REQUEST_TRAITS = {
     "base:special": False,
     "omvs:home_directory": "/u/clarinet",
