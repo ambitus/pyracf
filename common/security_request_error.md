@@ -10,17 +10,19 @@ Understanding the `SecurityRequestError` exception.
 
 &nbsp;
 
+{: .note}
+> _For an understanding of IRRSMO00 return and reason codes, see the [IRRSMO00 Return and Reason Codes](https://www.ibm.com/docs/en/zos/3.2.0?topic=operations-return-reason-codes) documentation._
+
+&nbsp;
+
 {: .warning }
-> _A **Return Code** of anything other than `0` from IRRSMO00 is indicative of a failure with one or more of the operations performed by IRRSMO00, and pyracf will always raise a `SecurityRequestError` to bring attention to these failures._
+> _A **Return Code** of anything other than `0` from IRRSMO00 is indicative of a failure with one or more of the operations performed by IRRSMO00, and pyRACF will always raise a `SecurityRequestError` to bring attention to these failures._
 
 &nbsp;
 
 When the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`, a `SecurityRequestError` will be raised to indicate that the request failed. A `SecurityRequestError` can be handled as follows.
 
 &nbsp;
-
-{: .note}
-> _For an understanding of IRRSMO00 return and reason codes, see the [IRRSMO00 Return and Reason Codes](https://www.ibm.com/docs/en/zos/3.2.0?topic=operations-return-reason-codes) documentation._
 
 ###### Python Script
 ```python

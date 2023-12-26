@@ -10,11 +10,16 @@ How to set up and check IRRSMO00 precheck configuration.
 
 &nbsp;
 
-In order to use `set` or `alter` functions in pyRACF, users must have `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource as outlined in [our dependencies note](../../index).
+{: .note}
+> _Changes made using this script may require a SETROPTS REFRESH of the `FACILITY` class._
 
 &nbsp;
 
-A function called `setup_precheck` is included with pyRACF to help streamline this process. You can use this function to verify your level of access, or define the `IRR.IRRSMO00.PRECHECK` profile with no universal access.`
+In order to use `set` or `alter` functions in pyRACF, users must have at least `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource as outlined in [our dependencies note](../../index).
+
+&nbsp;
+
+A function called `setup_precheck` is included with pyRACF to help streamline this process. You can use this function to verify your level of access, or define the `IRR.IRRSMO00.PRECHECK` profile with no universal access.
 
 ## Example
 

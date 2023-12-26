@@ -5,7 +5,7 @@ parent: Common
 
 # Run as Userid
 
-Run pyRACF commands as another user.
+Make security requests as another user.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -45,18 +45,11 @@ def set_running_userid(
 
 #### 📄 Description
 
-&nbsp;
-
-{: .experimental }
-> _This functionality is **Experimental** and is subject to major changes and even being removed entirely._
-
-&nbsp;
-
-Set the **z/OS userid** this "Admin" object will use to run pyRACF commands.
+Set the **z/OS userid** who's authority this "Admin" object will use to make security requests.
 
 #### 📥 Parameters
 * `new_userid`<br>
-  The **z/OS userid** this "Admin" object will use to run pyRACF commands. If you pass in `None`, this will clear any userid previously set for this "Admin" object.
+  The **z/OS userid** who's authority this "Admin" object will use to make security requests. If you pass in `None`, this will clear any userid previously set for this "Admin" object.
 
 #### ❌ Raises
 * `UserIdError`<br>
@@ -91,9 +84,7 @@ def get_running_userid(self) -> None:
 
 #### 📄 Description
 
-&nbsp;
-
-Obtain the **z/OS userid** this "Admin" object will use to run pyRACF commands.
+Obtain the **z/OS userid** who's authority this "Admin" object is using to make security requests.
 
 #### 💻 Example
 
@@ -102,5 +93,5 @@ Obtain the **z/OS userid** this "Admin" object will use to run pyRACF commands.
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin(run_as_userid="squidwrd")
 >>> user_admin.get_running_userid()
-SQUIDWRD
+squidwrd
 ```
