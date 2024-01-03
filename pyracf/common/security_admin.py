@@ -96,7 +96,7 @@ class SecurityAdmin:
             raise UserIdError(userid)
         self.__running_userid = userid.upper()
 
-    def get_running_userid(self) -> None:
+    def get_running_userid(self) -> Union[str, None]:
         if isinstance(self.__running_userid, str):
             return self.__running_userid.lower()
         return self.__running_userid
