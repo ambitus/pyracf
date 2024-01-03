@@ -21,7 +21,7 @@ pyRACF expects IRRSMO00 to return a non-empty response string after processing a
 
 &nbsp;
 
-A common cause of this error is that the user does not have the proper RACF authorizations as outlined in [our dependencies note](../../index). One of the possible failures is the user not having at least `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource in the `XFACILIT` class, which is required for `set` or `alter` operations. If you are not certain if you have this authority or if this has been established in your environment, please consult our [Check for & set up RACF Authorizations](../setup_precheck) documentation. Another possibility is the user not having `ALTER` authority to the `userid.IRRSMO00` resource in the `SURROGAT` class, which is required to make security requests as another userid. Please review our [run as userid](../run_as_userid) documentation for more information on this feature.
+A common cause of this error is that the user does not have the proper RACF authorizations as outlined in [our dependencies note](../../index). One of the possible failures is the user not having at least `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource in the `XFACILIT` class, which is required for `set` or `alter` operations. See the [Check for & set up RACF Authorizations](../setup_precheck) documentation for more details. Another possibility is the user not having `ALTER` authority to the `userid.IRRSMO00` resource in the `SURROGAT` class, which is required to make security requests as another userid. Please review our [run as userid](../run_as_userid) documentation for more information on this feature.
 
 ###### Python Script
 ```python
@@ -77,7 +77,7 @@ For the `run_as_userid` feature, you must have at least UPDATE access to `ESWIFT
 
 &nbsp;
 
-As stated, may also be raised if there is a problem with the data pyRACF passes to IRRSMO00. In this situation, you can review `DownstreamFatalError.request_xml` and the `DownwstreamFatalError.result_dictionary` for more information.
+As stated, `DownstreamFatalError` may also be raised if there is a problem with the data pyRACF passes to IRRSMO00. In this situation, you can review `DownstreamFatalError.request_xml` and the `DownwstreamFatalError.result_dictionary` for more information.
 
 ###### Python Script
 ```python

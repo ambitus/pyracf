@@ -16,7 +16,7 @@ Make security requests as another user.
 &nbsp;
 
 {: .warning}
-> _In order to use `run_as_userid`, the caller must have `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to execute commands as. Further information can be found outlined in [our dependencies note](../../index)._
+> _In order to use `run_as_userid`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to execute commands as. Further information can be found outlined in [our dependencies note](../../index)._
 
 &nbsp;
 
@@ -84,7 +84,7 @@ def get_running_userid(self) -> None:
 
 #### 📄 Description
 
-Obtain the **z/OS userid** who's authority this "Admin" object is using to make security requests.
+Get the **z/OS userid** who's authority this "Admin" object is using to make security requests.
 
 #### 💻 Example
 

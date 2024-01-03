@@ -11,7 +11,7 @@ How to set up and check IRRSMO00 precheck configuration.
 &nbsp;
 
 {: .note}
-> _Changes made using this script may require a SETROPTS REFRESH of the `FACILITY` class._
+> _Changes made using this script may require of the `FACILITY` class to be refreshed in order for the changes to take effect._
 
 &nbsp;
 
