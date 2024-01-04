@@ -49,7 +49,7 @@ Set the **z/OS userid** who's authority this "Admin" object will use to make sec
 
 #### 📥 Parameters
 * `new_userid`<br>
-  The **z/OS userid** who's authority this "Admin" object will use to make security requests. If you pass in `None`, this will clear any userid previously set for this "Admin" object.
+  The **z/OS userid** who's authority this "Admin" object will use to make security requests. If `None` is specified, the default behavior will take effect, and the calling user's authority will be used to make security requests.
 
 #### ❌ Raises
 * `UserIdError`<br>
