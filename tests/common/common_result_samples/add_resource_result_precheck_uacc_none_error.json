@@ -1,0 +1,33 @@
+{
+  "securityResult": {
+    "resource": {
+      "name": "IRR.IRRSMO00.PRECHECK",
+      "class": "XFACILIT",
+      "operation": "set",
+      "requestId": "ResourceRequest",
+      "commands": [
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "RDEFINE XFACILIT             (IRR.IRRSMO00.PRECHECK) ",
+          "messages": [
+            "ICH10103I NOT AUTHORIZED TO DEFINE IRR.IRRSMO00.PRECHECK."
+          ]
+        },
+        {
+          "safReturnCode": 8,
+          "returnCode": 16,
+          "reasonCode": 4,
+          "image": "RALTER  XFACILIT             (IRR.IRRSMO00.PRECHECK)  UACC        (None)",
+          "messages": [
+            "ICH11102I IRR.IRRSMO00.PRECHECK NOT DEFINED TO CLASS XFACILIT."
+          ]
+        }
+      ]
+    },
+    "returnCode": 4,
+    "reasonCode": 0,
+    "runningUserid": "testuser"
+  }
+}

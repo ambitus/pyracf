@@ -1,14 +1,20 @@
 """Used to drive all unit tests for pyRACF."""
 
+import getpass
 import sys
 import unittest
+from unittest.mock import Mock
 
 import __init__
 
 from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
+from tests.common.test_customize_segment_traits import TestCustomizeSegmentTraits
+from tests.common.test_downstream_fatal_error import TestDownstreamFatalError
 from tests.common.test_logger import TestLogger
+from tests.common.test_run_as_userid import TestRunAsUserId
+from tests.common.test_setup_precheck import TestSetupPrecheck
 from tests.connection.test_connection_debug_logging import TestConnectionDebugLogging
 from tests.connection.test_connection_request_builder import (
     TestConnectionRequestBuilder,
@@ -53,13 +59,18 @@ __init__
 
 def __test_suite() -> unittest.TestSuite:
     """Load and run each unit test class."""
+    getpass.getuser = Mock(return_value="testuser")
     test_suite = unittest.TestSuite()
     test_loader = unittest.TestLoader()
     test_classes = [
         TestAccessResultParser,
         TestAccessRequestBuilder,
         TestAccessDebugLogging,
+        TestCustomizeSegmentTraits,
+        TestSetupPrecheck,
         TestLogger,
+        TestDownstreamFatalError,
+        TestRunAsUserId,
         TestConnectionResultParser,
         TestConnectionRequestBuilder,
         TestConnectionSetters,

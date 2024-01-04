@@ -20,6 +20,7 @@ class ResourceAdmin(SecurityAdmin):
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
+        run_as_userid: Union[str, None] = None,
     ) -> None:
         self._valid_segment_traits = {
             "base": {
@@ -241,6 +242,7 @@ class ResourceAdmin(SecurityAdmin):
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,
             additional_secret_traits=additional_secret_traits,
+            run_as_userid=run_as_userid,
         )
 
     # ============================================================================
@@ -265,9 +267,22 @@ class ResourceAdmin(SecurityAdmin):
         )
         return self._to_steps(result)
 
+    # ============================================================================
+    # Individual Access
+    # ============================================================================
     def get_my_access(self, resource: str, class_name: str) -> Union[str, bytes, None]:
-        """Get the access associated with your own general resource profile."""
+        """Get your own level of access associated with a general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
+        return self._get_field(profile, "base", "yourAccess")
+
+    def get_user_access(
+        self, resource: str, class_name: str, userid: str
+    ) -> Union[str, bytes, None]:
+        """Get a target user's own level of access associated with a general resource profile."""
+        original_userid = self.get_running_userid()
+        self.set_running_userid(userid)
+        profile = self.extract(resource, class_name, profile_only=True)
+        self.set_running_userid(original_userid)
         return self._get_field(profile, "base", "yourAccess")
 
     # ============================================================================

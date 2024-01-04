@@ -1,5 +1,6 @@
 """Test group result parser."""
 
+import copy
 import unittest
 from unittest.mock import Mock, patch
 
@@ -9,6 +10,7 @@ import tests.group.test_group_constants as TestGroupConstants
 from pyracf import (
     AddOperationError,
     AlterOperationError,
+    DownstreamFatalError,
     GroupAdmin,
     SecurityRequestError,
 )
@@ -62,6 +64,37 @@ class TestGroupResultParser(unittest.TestCase):
             + f"'{group_name}' already exists as a '{self.group_admin._profile_type}' profile.",
         )
 
+    def test_group_admin_add_surfaces_error_from_preliminary_extract(
+        self,
+        call_racf_mock: Mock,
+    ):
+        group_name = "TESTGRP0"
+        extract_group_error_xml = (
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_XML
+        )
+        extract_group_error_xml = extract_group_error_xml.replace(
+            "<message>ICH51003I NAME NOT FOUND IN RACF DATA SET</message>",
+            "<message>ICH32004I NOT AUTHORIZED TO ISSUE LISTGRP</message>",
+        )
+        call_racf_mock.side_effect = [
+            extract_group_error_xml,
+            TestGroupConstants.TEST_ADD_GROUP_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.group_admin.add(
+                group_name, traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
+            )
+        extract_group_error_json = copy.deepcopy(
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_ERROR_DICTIONARY
+        )
+        extract_group_error_json["securityResult"]["group"]["commands"][0][
+            "messages"
+        ] = ["ICH32004I NOT AUTHORIZED TO ISSUE LISTGRP"]
+        self.assertEqual(
+            exception.exception.result,
+            extract_group_error_json,
+        )
+
     # Error in command, TESTGRPP0 is bad GROUP
     def test_group_admin_can_parse_add_group_error_xml(
         self,
@@ -71,7 +104,7 @@ class TestGroupResultParser(unittest.TestCase):
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BAD_ATTRIBUTE_ERROR_XML,
             TestGroupConstants.TEST_ADD_GROUP_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(DownstreamFatalError) as exception:
             self.group_admin.add(
                 "TESTGRPP0", traits=TestGroupConstants.TEST_ADD_GROUP_REQUEST_TRAITS
             )
