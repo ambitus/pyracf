@@ -10,6 +10,11 @@ Understanding the `DownstreamFatalError` exception.
 
 &nbsp;
 
+{: .note}
+> _For an understanding of IRRSMO00 return and reason codes, see the [IRRSMO00 Return and Reason Codes](https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-return-reason-codes) documentation._
+
+&nbsp;
+
 {: .note }
 > _pyRACF expects IRRSMO00 to return a string containing XML data. If IRRSMO00 returns an empty string, or if the **SAF Return Code** in the result XML is greater than `4`, `DownstreamFatalError` is raised._
 

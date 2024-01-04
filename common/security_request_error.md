@@ -10,11 +10,6 @@ Understanding the `SecurityRequestError` exception.
 
 &nbsp;
 
-{: .note}
-> _For an understanding of IRRSMO00 return and reason codes, see the [IRRSMO00 Return and Reason Codes](https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-return-reason-codes) documentation._
-
-&nbsp;
-
 {: .note }
 > _Any time the **SAF Return Code** is greater than `4`, a [`DownstreamFataError`](../downstream_fatal_error) will be raised._
 
