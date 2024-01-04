@@ -38,7 +38,7 @@ Delete a **z/OS userid**.
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.delete("squdwrd")
-{'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'del', 'requestId': 'UserRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'DELUSER SQUIDWRD'}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'del', 'requestId': 'UserRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'DELUSER SQUIDWRD'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -59,7 +59,8 @@ Delete a **z/OS userid**.
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

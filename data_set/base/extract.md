@@ -133,7 +133,8 @@ The following example **extracts** the **base segment** of the data set profile 
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

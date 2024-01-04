@@ -147,7 +147,8 @@ user_admin.extract("squidwrd")
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 
@@ -212,7 +213,8 @@ user_admin.extract("squidwrd")
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

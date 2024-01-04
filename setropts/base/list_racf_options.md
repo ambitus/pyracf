@@ -685,7 +685,8 @@ The following example **lists racf options** on the system.
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```
