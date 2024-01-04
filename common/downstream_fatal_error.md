@@ -77,7 +77,7 @@ For the `run_as_userid` feature, you must have at least UPDATE access to `ESWIFT
 
 &nbsp;
 
-As stated, `DownstreamFatalError` may also be raised if there is a problem with the data pyRACF passes to IRRSMO00. In this situation, you can review `DownstreamFatalError.request_xml` and the `DownwstreamFatalError.result_dictionary` for more information.
+As stated, `DownstreamFatalError` may also be raised if there is a problem with the data pyRACF passes to IRRSMO00. In this situation, you can review `DownstreamFatalError.request_xml` and `DownwstreamFatalError.result` for more information.
 
 ###### Python Script
 ```python
