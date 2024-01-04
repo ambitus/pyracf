@@ -15,12 +15,17 @@ Understanding the `SecurityRequestError` exception.
 
 &nbsp;
 
-{: .warning }
-> _A **Return Code** of anything other than `0` from IRRSMO00 is indicative of a failure with one or more of the operations performed by IRRSMO00, and pyRACF will always raise a `SecurityRequestError` to bring attention to these failures._
+{: .note }
+> _Any time the **SAF Return Code** is greater than `4`, a `[DownstreamFataError](../downstream_fatal_error)` will be raised._
 
 &nbsp;
 
-When the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`, a `SecurityRequestError` will be raised to indicate that the request failed. A `SecurityRequestError` can be handled as follows.
+{: .warning }
+> _A **SAF Return Code** of `4` from IRRSMO00 is indicative of a failure with one or more of the RACF operations performed by IRRSMO00, and pyRACF will always raise a `SecurityRequestError` to bring attention to these failures._
+
+&nbsp;
+
+When the **SAF Return Code** of a **Security Result** returned by IRRSMO00 is equal to `4`, a `SecurityRequestError` will be raised to indicate that the request failed. A `SecurityRequestError` can be handled as follows.
 
 &nbsp;
 
