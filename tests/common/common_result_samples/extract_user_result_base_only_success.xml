@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <user name="SQUIDWRD" operation="listdata" requestid="UserRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>LISTUSER SQUIDWRD </image>
+      <message>USER=SQUIDWRD  NAME=SQUIDWARD             OWNER=LEONARD   CREATED=23.094</message>
+      <message> DEFAULT-GROUP=SYS1     PASSDATE=00.000 PASS-INTERVAL=186 PHRASEDATE=N/A</message>
+      <message> ATTRIBUTES=NONE</message>
+      <message> REVOKE DATE=NONE   RESUME DATE=NONE</message>
+      <message> LAST-ACCESS=23.094/12:55:37</message>
+      <message> CLASS AUTHORIZATIONS=NONE</message>
+      <message> NO-INSTALLATION-DATA</message>
+      <message> NO-MODEL-NAME</message>
+      <message> LOGON ALLOWED   (DAYS)          (TIME)</message>
+      <message> ---------------------------------------------</message>
+      <message> ANYDAY                          ANYTIME</message>
+      <message>  GROUP=SYS1      AUTH=USE      CONNECT-OWNER=LEONARD   CONNECT-DATE=23.094</message>
+      <message>    CONNECTS=    00  UACC=NONE     LAST-CONNECT=UNKNOWN</message>
+      <message>    CONNECT ATTRIBUTES=NONE</message>
+      <message>    REVOKE DATE=NONE   RESUME DATE=NONE</message>
+      <message>SECURITY-LEVEL=NONE SPECIFIED</message>
+      <message>CATEGORY-AUTHORIZATION</message>
+      <message> NONE SPECIFIED</message>
+      <message>SECURITY-LABEL=NONE SPECIFIED</message>
+    </command>
+  </user>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
