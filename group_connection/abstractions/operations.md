@@ -40,7 +40,7 @@ Give a user **Operations** authority within a group.
 >>> from pyracf import ConnectionAdmin
 >>> connection_admin = ConnectionAdmin()
 >>> connection_admin.give_group_operations_authority("squidwrd", "testgrp0")
-{'step1': {'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'set', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'CONNECT SQUIDWRD  GROUP       (TESTGRP0) OPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'set', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'CONNECT SQUIDWRD  GROUP       (TESTGRP0) OPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -100,7 +100,7 @@ Take away a user's **Operations** authority within a group.
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
 >>> connection_admin.take_away_group_operations_authority("squidwrd", "testgrp0")
-{'step1': {'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'set', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'CONNECT SQUIDWRD  GROUP       (TESTGRP0) NOOPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'set', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'CONNECT SQUIDWRD  GROUP       (TESTGRP0) NOOPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON

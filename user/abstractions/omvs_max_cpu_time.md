@@ -77,7 +77,7 @@ Change a user's **z/OS Unix System Services Max CPU Time**.
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.set_omvs_max_cpu_time("squidwrd", 3000)
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (CPUTIMEMAX  (3000))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (CPUTIMEMAX  (3000))'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON

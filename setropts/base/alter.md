@@ -78,7 +78,8 @@ setropts_admin.alter(options=options)
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```
