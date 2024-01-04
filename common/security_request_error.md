@@ -16,7 +16,7 @@ Understanding the `SecurityRequestError` exception.
 &nbsp;
 
 {: .note }
-> _Any time the **SAF Return Code** is greater than `4`, a `[DownstreamFataError](../downstream_fatal_error)` will be raised._
+> _Any time the **SAF Return Code** is greater than `4`, a [`DownstreamFataError`](../downstream_fatal_error) will be raised._
 
 &nbsp;
 
