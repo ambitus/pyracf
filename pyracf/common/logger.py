@@ -5,6 +5,7 @@ import inspect
 import json
 import os
 import re
+import struct
 from datetime import datetime
 from typing import List, Union
 
@@ -331,7 +332,7 @@ class Logger:
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
 
-    def dump(self, raw_binary_response: bytes) -> str:
+    def binary_dump(self, raw_binary_response: bytes) -> None:
         """Dump raw binary response returned by IRRSMO00 to a dump file."""
         dump_directory = f"{os.path.expanduser('~')}/.pyracf/dump"
         if not os.path.exists(dump_directory):
@@ -339,22 +340,23 @@ class Logger:
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
         md5_hash = hashlib.md5(b"").hexdigest()
         dump_file_name = f"pyracf.{timestamp}.{md5_hash}.dump"
-        with open(f"{dump_directory}/{dump_file_name}", "wb") as dump_file_writer:
+        dump_file_path = f"{dump_directory}/{dump_file_name}"
+        with open(dump_file_path, "wb") as dump_file_writer:
             dump_file_writer.write(raw_binary_response)
-        self.log_info(f"Raw binary response written to '{dump_file_name}'.")
-        return dump_file_name
+        self.log_info(f"Raw binary response written to '{dump_file_path}'.\n")
 
     def log_formatted_hex_dump(self, raw_binary_response: bytes) -> None:
         """
         Log the raw binary response returned by IRRSMO00 as a formatted hex dump.
         """
         hex_row = ""
+        hex_row_size = 0
         interpreted_row = ""
         i = 0
         hex_dump = ""
         for byte in raw_binary_response:
             color_function = self.__green
-            char = chr(byte)
+            char = struct.pack("B", byte).decode("cp1047")
             match len(char):
                 case 3:
                     color_function = self.__red
@@ -363,17 +365,20 @@ class Logger:
                     color_function = self.__yellow
                     char = "."
             hex_row += f"{color_function(hex(byte)[2:])}"
-            interpreted_row = f"{color_function(char)}"
+            hex_row_size += 2
+            interpreted_row += f"{color_function(char)}"
             i += 1
             if i % 2 == 0:
                 hex_row += " "
-                interpreted_row = " "
+                hex_row_size += 1
             if i % 16 == 0:
                 row_index = hex(i - 16)[2:].rjust(8, "0")
                 hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
                 hex_row = ""
+                hex_row_size = 0
                 interpreted_row = ""
         if interpreted_row != "":
             row_index = hex(i - len(interpreted_row))[2:].rjust(8, "0")
+            interpreted_row = interpreted_row.rjust(41 - len(hex_row), " ")
             hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
-        self.log_debug(self, "Formatted Hex Dump", hex_dump)
+        self.log_debug("Formatted Hex Dump", hex_dump)

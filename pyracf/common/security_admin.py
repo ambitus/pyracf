@@ -216,8 +216,9 @@ class SecurityAdmin:
             # If the result XML cannot be parsed, a dump of the raw binary
             # response should be created to aid in problem determination.
             raw_binary_response = self.__irrsmo00.get_raw_binary_response()
+            self.__logger.binary_dump(raw_binary_response)
             if self.__debug:
-                Logger.log_formatted_hex_dump(raw_binary_response)
+                self.__logger.log_formatted_hex_dump(raw_binary_response)
             self.__irrsmo00.clear_raw_binary_response()
             # After creating the dump, re-raise the exception.
             raise e
