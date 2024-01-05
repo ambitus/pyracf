@@ -18,7 +18,14 @@ class IRRSMO00:
 
     def __init__(self) -> None:
         # Initialize size of output buffer
-        self.buffer_size = 100000
+        self.__buffer_size = 100000
+        self.__raw_binary_response = b""
+
+    def get_raw_binary_response(self) -> bytes:
+        return self.__raw_binary_response
+
+    def clear_raw_binary_response(self) -> None:
+        self.__raw_binary_response = b""
 
     def call_racf(
         self,
@@ -42,4 +49,8 @@ class IRRSMO00:
         )
         if response[0] == b"":
             return list(response[1:4])
+        # Preserve raw binary respone just in case we need to create a dump.
+        # If the decoded response cannot be parsed with the XML parser,
+        # a dump may need to be taken to aid in problem determination.
+        self.__raw_binary_response = response[0]
         return response[0].decode("cp1047")

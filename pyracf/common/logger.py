@@ -1,9 +1,11 @@
 """Logging for pyRACF."""
 
+import hashlib
 import inspect
 import json
 import os
 import re
+from datetime import datetime
 from typing import List, Union
 
 
@@ -13,6 +15,8 @@ class Logger:
     __ansi_reset = "\033[0m"
     __ansi_gray = "\033[2m"
     __ansi_green = "\033[32m"
+    __ansi_red = "\033[0;31m"
+    __ansi_yellow = "\033[1;33m"
     __ansi_blue = "\033[34m"
     __ansi_orange = "\033[38;5;214m"
     __ansi_cyan = "\033[96m"
@@ -25,6 +29,14 @@ class Logger:
     def __green(self, string: str) -> str:
         """Make contents of string green."""
         return self.__colorize_string(self.__ansi_green, string)
+
+    def __red(self, string: str) -> str:
+        """Make contents of string red."""
+        return self.__colorize_string(self.__ansi_red, string)
+
+    def __yellow(self, string: str) -> str:
+        """Make contents of string yellow."""
+        return self.__colorize_string(self.__ansi_yellow, string)
 
     def __blue(self, string: str) -> str:
         """Make contents of string blue."""
@@ -72,6 +84,14 @@ class Logger:
         indented_xml_string = self.__indent_xml(xml_string)
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
+
+    def log_info(self, message: str):
+        """Log an informational message to the console."""
+        print(f"[ {self.__cyan('INFO')} ] {message}")
+
+    def log_warning(self, message: str):
+        """Log a warning message to the console."""
+        print(f"[ {self.yellow('WARN')} ] {message}")
 
     def log_debug(self, header_message: str, message: str) -> None:
         """Log function to use for debug logging."""
@@ -310,3 +330,50 @@ class Logger:
             current_line = f"<{current_line}>"
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
+
+    def dump(self, raw_binary_response: bytes) -> str:
+        """Dump raw binary response returned by IRRSMO00 to a dump file."""
+        dump_directory = f"{os.path.expanduser('~')}/.pyracf/dump"
+        if not os.path.exists(dump_directory):
+            os.makedirs(dump_directory)
+        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        md5_hash = hashlib.md5(b"").hexdigest()
+        dump_file_name = f"pyracf.{timestamp}.{md5_hash}.dump"
+        with open(f"{dump_directory}/{dump_file_name}", "wb") as dump_file_writer:
+            dump_file_writer.write(raw_binary_response)
+        self.log_info(f"Raw binary response written to '{dump_file_name}'.")
+        return dump_file_name
+
+    def log_formatted_hex_dump(self, raw_binary_response: bytes) -> None:
+        """
+        Log the raw binary response returned by IRRSMO00 as a formatted hex dump.
+        """
+        hex_row = ""
+        interpreted_row = ""
+        i = 0
+        hex_dump = ""
+        for byte in raw_binary_response:
+            color_function = self.__green
+            char = chr(byte)
+            match len(char):
+                case 3:
+                    color_function = self.__red
+                    char = "."
+                case 2:
+                    color_function = self.__yellow
+                    char = "."
+            hex_row += f"{color_function(hex(byte)[2:])}"
+            interpreted_row = f"{color_function(char)}"
+            i += 1
+            if i % 2 == 0:
+                hex_row += " "
+                interpreted_row = " "
+            if i % 16 == 0:
+                row_index = hex(i - 16)[2:].rjust(8, "0")
+                hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
+                hex_row = ""
+                interpreted_row = ""
+        if interpreted_row != "":
+            row_index = hex(i - len(interpreted_row))[2:].rjust(8, "0")
+            hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
+        self.log_debug(self, "Formatted Hex Dump", hex_dump)

@@ -2,6 +2,7 @@
 
 import platform
 import re
+import xml.etree.ElementTree
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
@@ -209,7 +210,18 @@ class SecurityAdmin:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
             self.__logger.log_xml("Result XML", raw_result)
-        result = SecurityResult(raw_result, self.get_running_userid())
+        try:
+            result = SecurityResult(raw_result, self.get_running_userid())
+        except xml.etree.ElementTree.ParseError as e:
+            # If the result XML cannot be parsed, a dump of the raw binary
+            # response should be created to aid in problem determination.
+            raw_binary_response = self.__irrsmo00.get_raw_binary_response()
+            if self.__debug:
+                Logger.log_formatted_hex_dump(raw_binary_response)
+            self.__irrsmo00.clear_raw_binary_response()
+            # After creating the dump, re-raise the exception.
+            raise e
+        self.__irrsmo00.clear_raw_binary_response()
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
