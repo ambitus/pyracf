@@ -465,27 +465,9 @@ class SecurityAdmin:
             and messages[i + 1] is not None
             and ("-" in messages[i + 1])
         ):
-            field = " ".join(
-                [
-                    txt.lower().strip()
-                    for txt in list(filter(None, messages[i].split(" ")))
-                ]
+            self.__format_tabular_data(
+                messages, profile, current_segment, i, list_fields
             )
-            field = self._profile_field_to_camel_case(current_segment, field)
-            value = messages[i + 2]
-            if "(" in value:
-                value_tokens = value.split("(")
-                subfield = self._profile_field_to_camel_case(
-                    current_segment, value_tokens[0].lower()
-                )
-                profile[current_segment][field] = {
-                    subfield: self._clean_and_separate(value_tokens[-1].rstrip(")"))
-                }
-            elif field in list_fields:
-                profile[current_segment][field] = []
-                profile[current_segment][field].append(self._clean_and_separate(value))
-            else:
-                profile[current_segment][field] = self._clean_and_separate(value)
             i += 1
         elif "NO INSTALLATION DATA" in messages[i]:
             profile[current_segment]["installationData"] = None
@@ -667,6 +649,44 @@ class SecurityAdmin:
             profile[current_segment][field] = self._clean_and_separate(
                 messages[i + 2][indexes[j] : ind_e1]
             )
+
+    def __format_tabular_data(
+        self,
+        messages: List[str],
+        profile: dict,
+        current_segment: str,
+        i: int,
+        list_fields: List[str] = ["volumes"],
+    ) -> None:
+        field = " ".join(
+            [txt.lower().strip() for txt in list(filter(None, messages[i].split(" ")))]
+        )
+        field = self._profile_field_to_camel_case(current_segment, field)
+        values = (
+            [messages[i + 2]]
+            if "," not in messages[i + 2]
+            else messages[i + 2].split(",")
+        )
+        for value in values:
+            if "(" in value:
+                value_tokens = value.split("(")
+                subfield = self._profile_field_to_camel_case(
+                    current_segment, value_tokens[0].lower()
+                )
+                if field not in profile[current_segment]:
+                    profile[current_segment][field] = {
+                        subfield: self._clean_and_separate(value_tokens[-1].rstrip(")"))
+                    }
+                else:
+                    profile[current_segment][field][
+                        subfield
+                    ] = self._clean_and_separate(value_tokens[-1].rstrip(")"))
+            elif field in list_fields:
+                profile[current_segment][field] = []
+                profile[current_segment][field].append(self._clean_and_separate(value))
+            else:
+                profile[current_segment][field] = self._clean_and_separate(value)
+        return
 
     def __add_key_value_pairs_to_segment(
         self,
