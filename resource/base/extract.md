@@ -126,7 +126,8 @@ The following example **extracts** the **base segment** of the general resource 
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

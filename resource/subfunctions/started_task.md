@@ -59,7 +59,7 @@ Define a new **Started Task** profile in the **STARTED** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.add_started_task("TSTTSKEL")
-{'securityResult': {'resource': {'name': 'TSTTSKEL', 'class': 'STARTED', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE STARTED             (TSTTSKEL) ', 'messages': ['ICH10006I RACLISTED PROFILES FOR STARTED WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTTSKEL', 'class': 'STARTED', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE STARTED             (TSTTSKEL) ', 'messages': ['ICH10006I RACLISTED PROFILES FOR STARTED WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -138,7 +138,7 @@ Alter an existing **Started Task** profile in the **STARTED** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.alter_started_task("TSTTSKEL",traits={"stdata:trusted": True})
-{'securityResult': {'resource': {'name': 'TSTTSKEL', 'class': 'STARTED', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  STARTED             (TSTTSKEL)  STDATA   (TRUSTED     (YES))', 'messages': ['IRR52148I Warning: A value for USER should be specified in STDATA.', 'IRR52149I Warning: STARTED profiles should have (or match) names with two qualifiers.', 'ICH11009I RACLISTED PROFILES FOR STARTED WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTTSKEL', 'class': 'STARTED', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  STARTED             (TSTTSKEL)  STDATA   (TRUSTED     (YES))', 'messages': ['IRR52148I Warning: A value for USER should be specified in STDATA.', 'IRR52149I Warning: STARTED profiles should have (or match) names with two qualifiers.', 'ICH11009I RACLISTED PROFILES FOR STARTED WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -245,7 +245,7 @@ Delete an existing **Started Task** profile in the **STARTED** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.delete_started_task("TSTTSKEL")
-{'securityResult': {'resource': {'name': 'TSTTSKEL', 'class': 'STARTED', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE STARTED             (TSTTSKEL) ', 'messages': ['ICH12002I RACLISTED PROFILES FOR STARTED WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTTSKEL', 'class': 'STARTED', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE STARTED             (TSTTSKEL) ', 'messages': ['ICH12002I RACLISTED PROFILES FOR STARTED WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON

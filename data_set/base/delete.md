@@ -68,7 +68,8 @@ Delete a **data set profile**.
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

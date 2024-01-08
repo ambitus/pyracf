@@ -29,7 +29,7 @@ The `additional_secret_traits` constructor argument allows values beyond passwor
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin(additional_secret_traits=['omvs:uid'])
 >>> user_admin.add("squidwrd",traits={'omvs:uid':123456})
-{'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ADDUSER SQUIDWRD ', 'messages': ['ICH01024I User SQUIDWRD is defined as PROTECTED.']}, {'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (UID         (********))'}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ADDUSER SQUIDWRD ', 'messages': ['ICH01024I User SQUIDWRD is defined as PROTECTED.']}, {'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OMVS     (UID         (********))'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON

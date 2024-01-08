@@ -72,7 +72,7 @@ Give a user **Operations** authority.
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.give_operations_authority("squidwrd")
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  OPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -134,7 +134,7 @@ Remove a user's **Operations** authority.
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.take_away_operations_authority("squidwrd")
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  NOOPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  NOOPERATIONS  '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON

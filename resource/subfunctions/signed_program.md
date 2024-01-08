@@ -59,7 +59,7 @@ Define a new **Signed Program** profile in the **PROGRAM** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.add_signed_program("TESTPRGM")
-{'securityResult': {'resource': {'name': 'TESTPRGM', 'class': 'PROGRAM', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE PROGRAM             (TESTPRGM) '}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TESTPRGM', 'class': 'PROGRAM', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE PROGRAM             (TESTPRGM) '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -135,7 +135,7 @@ Alter an existing **Signed Program** profile in the **PROGRAM** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.alter_signed_program("TESTPRGM", traits={"sigver:log_signature_verification_events": "SUCCESS"})
-{'securityResult': {'resource': {'name': 'TESTPRGM', 'class': 'PROGRAM', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  PROGRAM             (TESTPRGM)  SIGVER   (SIGAUDIT    (SUCCESS))'}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TESTPRGM', 'class': 'PROGRAM', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  PROGRAM             (TESTPRGM)  SIGVER   (SIGAUDIT    (SUCCESS))'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -236,7 +236,7 @@ Delete an existing **Signed Program** profile in the **PROGRAM** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.delete_signed_program("TESTPRGM")
-{'securityResult': {'resource': {'name': 'TESTPRGM', 'class': 'PROGRAM', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE PROGRAM             (TESTPRGM) '}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TESTPRGM', 'class': 'PROGRAM', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE PROGRAM             (TESTPRGM) '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON

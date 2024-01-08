@@ -53,7 +53,7 @@ Delete a specified **permission**
 >>> from pyracf import AccessAdmin
 >>> access_admin = AccessAdmin()
 >>> access_admin.delete("TESTING", "ELIJTEST", "ESWIFT")
-{'securityResult': {'permission': {'name': 'TESTING', 'class': 'ELIJTEST', 'operation': 'del', 'requestId': 'AccessRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'PERMIT               TESTING CLASS(ELIJTEST)  DELETE       ID          (ESWIFT)', 'messages': ['ICH06011I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'permission': {'name': 'TESTING', 'class': 'ELIJTEST', 'operation': 'del', 'requestId': 'AccessRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'PERMIT               TESTING CLASS(ELIJTEST)  DELETE       ID          (ESWIFT)', 'messages': ['ICH06011I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -78,7 +78,8 @@ Delete a specified **permission**
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

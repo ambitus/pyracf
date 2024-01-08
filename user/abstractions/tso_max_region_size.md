@@ -77,7 +77,7 @@ Change a user's **TSO Max Region Size**.
 >>> from pyracf import UserAdmin
 >>> user_admin = UserAdmin()
 >>> user_admin.set_tso_max_region_size("squidwrd", 4096)
-{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  TSO      (MAXSIZE     (4096))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'user': {'name': 'SQUIDWRD', 'operation': 'set', 'requestId': 'UserRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTUSER SQUIDWRD  TSO      (MAXSIZE     (4096))'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON

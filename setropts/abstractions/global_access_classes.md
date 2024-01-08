@@ -38,7 +38,7 @@ Add a class to the list of classes for which RACF will refer to the **Global Acc
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.add_global_access_classes("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GLOBAL    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      GLOBAL    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -95,7 +95,7 @@ Remove a class from the list of classes for which RACF will refer to the **Globa
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.remove_global_access_classes("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGLOBAL    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOGLOBAL    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 
 ```
 

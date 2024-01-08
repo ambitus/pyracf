@@ -59,7 +59,7 @@ Define a new **Kerberos Realm** profile in the **REALM** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.add_kerberos_realm("TSTREALM")
-{'securityResult': {'resource': {'name': 'TSTREALM', 'class': 'REALM', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE REALM             (TSTREALM) ', 'messages': ['ICH10006I RACLISTED PROFILES FOR REALM WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTREALM', 'class': 'REALM', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE REALM             (TSTREALM) ', 'messages': ['ICH10006I RACLISTED PROFILES FOR REALM WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -138,7 +138,7 @@ Alter an existing **Kerberos Realm** profile in the **REALM** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.alter_kerberos_realm("TSTREALM", traits={"kerb:encryption_algorithms": "AES128"})
-{'securityResult': {'resource': {'name': 'TSTREALM', 'class': 'REALM', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  REALM             (TSTREALM)  KERB     (ENCRYPT     (AES128))', 'messages': ['ICH11009I RACLISTED PROFILES FOR REALM WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTREALM', 'class': 'REALM', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  REALM             (TSTREALM)  KERB     (ENCRYPT     (AES128))', 'messages': ['ICH11009I RACLISTED PROFILES FOR REALM WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -243,7 +243,7 @@ Delete an existing **Kerberos Realm** profile in the **REALM** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.delete_kerberos_realm("TSTREALM")
-{'securityResult': {'resource': {'name': 'TSTREALM', 'class': 'REALM', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE REALM             (TSTREALM) ', 'messages': ['ICH12002I RACLISTED PROFILES FOR REALM WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'TSTREALM', 'class': 'REALM', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE REALM             (TSTREALM) ', 'messages': ['ICH12002I RACLISTED PROFILES FOR REALM WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON

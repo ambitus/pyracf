@@ -38,7 +38,7 @@ Add a class to the list of classes that RACF will collect **Statistics** for.
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.add_statistics_classes("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      STATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS      STATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
@@ -95,7 +95,7 @@ Remove a class from the list of classes that RACF will collect **Statistics** fo
 >>> from pyracf import SetroptsAdmin
 >>> setropts_admin = SetroptsAdmin()
 >>> setropts_admin.remove_statistics_classes("ELIJTEST")
-{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOSTATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'systemSettings': {'operation': 'set', 'requestId': 'SetroptsRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'SETROPTS    NOSTATISTICS    (ELIJTEST)'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 
 ```
 

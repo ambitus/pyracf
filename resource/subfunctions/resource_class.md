@@ -72,7 +72,7 @@ class_traits = {
      "cdtinfo:raclist_allowed": "ALLOWED",
 }
 resource_admin.add_resource_class("SHELCITY",traits=class_traits)
-{'securityResult': {'resource': {'name': 'SHELCITY', 'class': 'CDT', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE CDT             (SHELCITY) ', 'messages': ['ICH10006I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.', 'IRR52205I Warning: CDTINFO segment is required for the CDT class.']}, {'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  CDT             (SHELCITY)  CDTINFO  (CASE        (UPPER) FIRST       (ALPHA) OTHER       (ALPHA NUMERIC) MAXLENX     (246) MAXLENGTH   (246) KEYQUALIFIER(0) PROFILESALLO(YES) POSIT       (200) DEFAULTRC   (8) DEFAULTUACC (NONE) RACLIST     (ALLOWED))', 'messages': ['IRR52199I Warning: Class name SHELCITY does not contain a national character nor a number.', 'ICH11009I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'SHELCITY', 'class': 'CDT', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE CDT             (SHELCITY) ', 'messages': ['ICH10006I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.', 'IRR52205I Warning: CDTINFO segment is required for the CDT class.']}, {'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  CDT             (SHELCITY)  CDTINFO  (CASE        (UPPER) FIRST       (ALPHA) OTHER       (ALPHA NUMERIC) MAXLENX     (246) MAXLENGTH   (246) KEYQUALIFIER(0) PROFILESALLO(YES) POSIT       (200) DEFAULTRC   (8) DEFAULTUACC (NONE) RACLIST     (ALLOWED))', 'messages': ['IRR52199I Warning: Class name SHELCITY does not contain a national character nor a number.', 'ICH11009I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -169,7 +169,7 @@ class_traits = {
     "cdtinfo:default_universal_access": "READ",
 }
 resource_admin.alter_resource_class("SHELCITY",traits=class_traits)
-{'securityResult': {'resource': {'name': 'SHELCITY', 'class': 'CDT', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  CDT             (SHELCITY)  CDTINFO  (FIRST       (ALPHA NUMERIC) OTHER       (ALPHA) PROFILESALLO(NO) DEFAULTRC   (4) DEFAULTUACC (READ))', 'messages': ['IRR52199I Warning: Class name SHELCITY does not contain a national character nor a number.', 'ICH11009I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'SHELCITY', 'class': 'CDT', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RALTER  CDT             (SHELCITY)  CDTINFO  (FIRST       (ALPHA NUMERIC) OTHER       (ALPHA) PROFILESALLO(NO) DEFAULTRC   (4) DEFAULTUACC (READ))', 'messages': ['IRR52199I Warning: Class name SHELCITY does not contain a national character nor a number.', 'ICH11009I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -292,7 +292,7 @@ Delete an existing **Resource Class** profile in the **CDT** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.delete_resource_class("SHELCITY")
-{'securityResult': {'resource': {'name': 'SHELCITY', 'class': 'CDT', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE CDT             (SHELCITY) ', 'messages': ['ICH12002I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'SHELCITY', 'class': 'CDT', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE CDT             (SHELCITY) ', 'messages': ['ICH12002I RACLISTED PROFILES FOR CDT WILL NOT REFLECT THE DELETION(S) UNTIL A SETROPTS REFRESH IS ISSUED.']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON

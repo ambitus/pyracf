@@ -99,7 +99,8 @@ data_set_admin.add("ESWIFT.TEST.T1136242.P3020470", traits=traits)
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```
@@ -146,7 +147,8 @@ data_set_admin.add("ESWIFT.TEST.**", traits=traits, generic=True)
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

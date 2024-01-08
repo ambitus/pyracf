@@ -46,7 +46,7 @@ Delete a **group**.
 >>> from pyracf import GroupAdmin
 >>> group_admin = GroupAdmin()
 >>> group_admin.delete("testgrp0")
-{'securityResult': {'group': {'name': 'TESTGRP0', 'operation': 'del', 'requestId': 'GroupRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'DELGROUP TESTGRP0'}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'group': {'name': 'TESTGRP0', 'operation': 'del', 'requestId': 'GroupRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'DELGROUP TESTGRP0'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -67,7 +67,8 @@ Delete a **group**.
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

@@ -75,7 +75,7 @@ Change a group's **z/OS Unix System Services GID**.
 >>> from pyracf import GroupAdmin
 >>> group_admin = GroupAdmin()
 >>> group_admin.set_omvs_gid("testgrp0", 4545)
-{'step1': {'securityResult': {'group': {'name': 'TESTGRP0', 'operation': 'set', 'requestId': 'GroupRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTGROUP TESTGRP0  OMVS     (GID         (4545))'}]}, 'returnCode': 0, 'reasonCode': 0}}}
+{'step1': {'securityResult': {'group': {'name': 'TESTGRP0', 'operation': 'set', 'requestId': 'GroupRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'ALTGROUP TESTGRP0  OMVS     (GID         (4545))'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON

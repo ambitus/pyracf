@@ -98,7 +98,8 @@ resource_admin.alter("TESTING","ELIJTEST", traits=traits)
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

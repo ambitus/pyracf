@@ -40,7 +40,7 @@ Delete a user's **connection** to a group.
 >>> from pyracf import ConnectionAdmin
 >>> connection_admin = ConnectionAdmin()
 >>> connection_admin.delete("squidwrd", "testgrp0")
-{'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'del', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'REMOVE  SQUIDWRD  GROUP       (TESTGRP0)'}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'groupConnection': {'name': 'SQUIDWRD', 'group': 'TESTGRP0', 'operation': 'del', 'requestId': 'ConnectionRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'REMOVE  SQUIDWRD  GROUP       (TESTGRP0)'}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -62,7 +62,8 @@ Delete a user's **connection** to a group.
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 ```

@@ -64,7 +64,7 @@ Define a new **Custom Field** profile in the **CFIELD** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.add_custom_field("TVSHOW","user")
-{'securityResult': {'resource': {'name': 'USER.CSDATA.TVSHOW', 'class': 'CFIELD', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE CFIELD             (USER.CSDATA.TVSHOW) '}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'USER.CSDATA.TVSHOW', 'class': 'CFIELD', 'operation': 'set', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDEFINE CFIELD             (USER.CSDATA.TVSHOW) '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -150,7 +150,7 @@ cf_traits = {
   "cfdef:valid_other_characters":"ALPHA"
 }
 resource_admin.alter_custom_field("TVSHOW","user",traits=cf_traits)
-{'securityResult': {'resource': {'name': 'USER.CSDATA.TVSHOW', 'class': 'CFIELD', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': "RALTER  CFIELD             (USER.CSDATA.TVSHOW)  CFDEF    (HELP        ('Favorite TV Show') FIRST       (ALPHA) OTHER       (ALPHA))", 'messages': ['IRR52216I An error was detected in the definition of custom field USER.CSDATA.TVSHOW. MAXLENGTH is missing or incorrect for a field with TYPE(CHAR).']}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'USER.CSDATA.TVSHOW', 'class': 'CFIELD', 'operation': 'set', 'requestId': 'ResourceRequest', 'info': ['Definition exists. Add command skipped due  to precheck option'], 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': "RALTER  CFIELD             (USER.CSDATA.TVSHOW)  CFDEF    (HELP        ('Favorite TV Show') FIRST       (ALPHA) OTHER       (ALPHA))", 'messages': ['IRR52216I An error was detected in the definition of custom field USER.CSDATA.TVSHOW. MAXLENGTH is missing or incorrect for a field with TYPE(CHAR).']}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
@@ -268,7 +268,7 @@ Delete an existing **Custom Field** profile in the **CFIELD** class.
 from pyracf import ResourceAdmin
 resource_admin = ResourceAdmin()
 resource_admin.delete_custom_field("TVSHOW","user")
-{'securityResult': {'resource': {'name': 'USER.CSDATA.TVSHOW', 'class': 'CFIELD', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE CFIELD             (USER.CSDATA.TVSHOW) '}]}, 'returnCode': 0, 'reasonCode': 0}}
+{'securityResult': {'resource': {'name': 'USER.CSDATA.TVSHOW', 'class': 'CFIELD', 'operation': 'del', 'requestId': 'ResourceRequest', 'commands': [{'safReturnCode': 0, 'returnCode': 0, 'reasonCode': 0, 'image': 'RDELETE CFIELD             (USER.CSDATA.TVSHOW) '}]}, 'returnCode': 0, 'reasonCode': 0, 'runningUserid': 'testuser'}}
 ```
 
 ###### Security Result Dictionary as JSON
