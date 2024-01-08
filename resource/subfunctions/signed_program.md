@@ -46,7 +46,9 @@ Define a new **Signed Program** profile in the **PROGRAM** class.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is greater than `4`.
 * `AddOperationError`<br>
   Raises `AddOperationError` when the **general resource profile** cannot be added because it already exists.
 * `SegmentTraitError`<br>
@@ -122,7 +124,9 @@ Alter an existing **Signed Program** profile in the **PROGRAM** class.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is greater than `4`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 * `SegmentTraitError`<br>
@@ -185,7 +189,9 @@ Extract an existing **Signed Program** profile in the **PROGRAM** class.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is greater than `4`.
 
 #### 💻 Example
 
@@ -227,7 +233,9 @@ Delete an existing **Signed Program** profile in the **PROGRAM** class.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is greater than `4`.
 
 #### 💻 Example
 
