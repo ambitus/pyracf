@@ -4,7 +4,7 @@ import inspect
 import json
 import os
 import re
-from typing import Union
+from typing import List, Union
 
 
 class Logger:
@@ -161,7 +161,7 @@ class Logger:
 
     def redact_result_xml(
         self,
-        xml_string: str,
+        security_response: Union[str, List[int]],
         secret_traits: dict,
     ) -> str:
         """
@@ -170,13 +170,17 @@ class Logger:
             'TRAIT (value)'
         This function also accounts for varied amounts of whitespace in the pattern.
         """
+        if isinstance(security_response, list):
+            return security_response
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            match = re.search(rf"{racf_key.upper()} +\(", xml_string)
+            match = re.search(rf"{racf_key.upper()} +\(", security_response)
             if not match:
                 continue
-            xml_string = self.__redact_string(xml_string, match.end(), ")")
-        return xml_string
+            security_response = self.__redact_string(
+                security_response, match.end(), ")"
+            )
+        return security_response
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""

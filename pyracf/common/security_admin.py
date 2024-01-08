@@ -5,6 +5,7 @@ import re
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
+from .downstream_fatal_error import DownstreamFatalError
 from .irrsmo00 import IRRSMO00
 from .logger import Logger
 from .security_request import SecurityRequest
@@ -12,6 +13,7 @@ from .security_request_error import SecurityRequestError
 from .security_result import SecurityResult
 from .segment_error import SegmentError
 from .segment_trait_error import SegmentTraitError
+from .userid_error import UserIdError
 
 
 class SecurityAdmin:
@@ -20,6 +22,7 @@ class SecurityAdmin:
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
     _case_sensitive_extracted_values = []
+    __running_userid = None
     __logger = Logger()
 
     def __init__(
@@ -30,6 +33,7 @@ class SecurityAdmin:
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
+        run_as_userid: Union[str, None] = None,
     ) -> None:
         self._common_base_traits_data_set_generic = {
             "base:aclcnt": "racf:aclcnt",
@@ -79,11 +83,28 @@ class SecurityAdmin:
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
             self.__add_additional_secret_traits(additional_secret_traits)
+        self.set_running_userid(run_as_userid)
+
+    # ============================================================================
+    # Run as Other User ID
+    # ============================================================================
+    def set_running_userid(self, userid: Union[str, None]) -> None:
+        if userid is None:
+            self.__running_userid = None
+            return
+        if not isinstance(userid, str) or len(userid) > 8 or userid == "":
+            raise UserIdError(userid)
+        self.__running_userid = userid.upper()
+
+    def get_running_userid(self) -> Union[str, None]:
+        if isinstance(self.__running_userid, str):
+            return self.__running_userid.lower()
+        return self.__running_userid
 
     # ============================================================================
     # Customize Segment Traits
     # ============================================================================
-    def __update_valid_segment_traits(self, update_valid_segment_traits: dict):
+    def __update_valid_segment_traits(self, update_valid_segment_traits: dict) -> None:
         """Update fields to valid segment traits dictionary."""
         for segment in update_valid_segment_traits:
             if segment in self._valid_segment_traits:
@@ -95,14 +116,14 @@ class SecurityAdmin:
                     segment
                 ]
 
-    def __replace_valid_segment_traits(self, new_valid_segment_traits: dict):
+    def __replace_valid_segment_traits(self, new_valid_segment_traits: dict) -> None:
         """Replace field data in valid segment traits dictionary"""
         self._valid_segment_traits = new_valid_segment_traits
 
     # ============================================================================
     # Secrets Redaction
     # ============================================================================
-    def __add_additional_secret_traits(self, additional_secret_traits: list):
+    def __add_additional_secret_traits(self, additional_secret_traits: list) -> None:
         """Add additional fields to be redacted in logger output."""
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
@@ -157,36 +178,63 @@ class SecurityAdmin:
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
+        request_xml = self.__logger.redact_request_xml(
+            security_request.dump_request_xml(encoding="utf-8"),
+            secret_traits=self.__secret_traits,
+        )
         if self._generate_requests_only:
-            request_xml = self.__logger.redact_request_xml(
-                security_request.dump_request_xml(encoding="utf-8"),
-                secret_traits=self.__secret_traits,
-            )
             self.__clear_state(security_request)
             return request_xml
-        result_xml = self.__logger.redact_result_xml(
+        raw_result = self.__logger.redact_result_xml(
             self.__irrsmo00.call_racf(
-                security_request.dump_request_xml(), irrsmo00_precheck
+                security_request.dump_request_xml(),
+                irrsmo00_precheck,
+                self.__running_userid,
             ),
             self.__secret_traits,
         )
         self.__clear_state(security_request)
+        if isinstance(raw_result, list):
+            # When IRRSMO00 encounters some errors, it returns no XML response string.
+            # When this happens, the C code instead surfaces the return and reason
+            # codes which causes a DownstreamFatalError to be raised.
+            raise DownstreamFatalError(
+                saf_return_code=raw_result[0],
+                racf_return_code=raw_result[1],
+                racf_reason_code=raw_result[2],
+                request_xml=request_xml,
+                run_as_userid=self.get_running_userid(),
+            )
         if self.__debug:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
-            self.__logger.log_xml("Result XML", result_xml)
-        results = SecurityResult(result_xml)
+            self.__logger.log_xml("Result XML", raw_result)
+        result = SecurityResult(raw_result, self.get_running_userid())
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
             self.__logger.log_dictionary(
-                "Result Dictionary", results.get_result_dictionary()
+                "Result Dictionary", result.get_result_dictionary()
             )
-        result_dictionary = results.get_result_dictionary()
+        result_dictionary = result.get_result_dictionary()
+        if result_dictionary["securityResult"]["returnCode"] >= 8:
+            # All return codes greater than or equal to 8 are indicative of an issue
+            # with IRRSMO00 that would stop RACF from generating a command image.
+            # The user should interogate the result dictionary attached to the
+            # DownstreamFatalError as well as the return and reason codes to resolve
+            # the problem.
+            raise DownstreamFatalError(
+                saf_return_code=8,
+                racf_return_code=result_dictionary["securityResult"]["returnCode"],
+                racf_reason_code=result_dictionary["securityResult"]["reasonCode"],
+                request_xml=request_xml,
+                run_as_userid=self.get_running_userid(),
+                result_dictionary=result_dictionary,
+            )
         if result_dictionary["securityResult"]["returnCode"] != 0:
-            # All non-zero return codes should cause a SecurityRequestError to be raised.
-            # Even if a return code of 4 is not indicative of a problem, it it is
-            # up to the user to interogate the result dictionary attached to the
+            # All remaining non-zero return codes should cause a SecurityRequestError
+            # to be raised. Even if a return code of 4 is not indicative of a problem,
+            # it is up to the user to interogate the result dictionary attached to the
             # SecurityRequestError and decided whether or not the return code 4 is
             # indicative of a problem.
             raise SecurityRequestError(result_dictionary)
