@@ -527,8 +527,8 @@ class ResourceAdmin(SecurityAdmin):
             return self._make_request(profile_request, irrsmo00_precheck=True)
         try:
             profile = self.extract(resource, class_name, profile_only=True)
-        except SecurityRequestError:
-            raise AlterOperationError(resource, class_name)
+        except SecurityRequestError as exception:
+            raise AlterOperationError(resource, class_name) from exception
         if not self._get_field(profile, "base", "name") == resource.lower():
             raise AlterOperationError(resource, class_name)
         self._build_segment_trait_dictionary(traits)
