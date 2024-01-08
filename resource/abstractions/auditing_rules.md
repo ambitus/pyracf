@@ -44,340 +44,6 @@ Check the **Audit Rules** for a general resource profile.
 {"success": "update", "failures": "read"}
 ```
 
-## `ResourceAdmin.clear_audit_successes()`
-
-```python
-def clear_audit_successes(self, resource: str, class_name: str) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Clear any `Success` rules defined within the **Audit Rules** for a general resource profile.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.clear_audit_successes("TESTING","ELIJTEST")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (READ        ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (READ        ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.clear_audit_failures()`
-
-```python
-def clear_audit_failures(self, resource: str, class_name: str) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Clear any `Failures` rules defined within the **Audit Rules** for a general resource profile.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.clear_audit_failures("TESTING","ELIJTEST")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.clear_audit_both_successes_and_failures()`
-
-```python
-def clear_audit_both_successes_and_failures(
-    self,
-    resource: str,
-    class_name: str
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Clear any `All` rules defined within the **Audit Rules** for a general resource profile.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.clear_audit_both_successes_and_failures("TESTING","ELIJTEST")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"all":"read","success":"control"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (CONTROL     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "all": "read",
-                    "success": "control"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (CONTROL     ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
 ## `ResourceAdmin.clear_all_audit_rules()`
 
 ```python
@@ -447,20 +113,22 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 }
 ```
 
-## `ResourceAdmin.overwrite_audit_by_successes()`
+## `ResourceAdmin.overwrite_audit_by_attempt()`
 
 ```python
-def overwrite_audit_by_successes(
+def overwrite_audit_by_attempt(
     self,
     resource: str,
     class_name: str,
-    audit_success: str,
+    successes: Union[str, None] = None,
+    failure: Union[str, None] = None,
+    all: Union[str, None] = None,
 ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with a `Success` rule.
+Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with `Success`, `Failure`, or `All` rule(s).
 
 #### 📥 Parameters
 * `resource`<br>
@@ -469,8 +137,14 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 * `class_name`<br>
   The name of the **class** the general resource profile being changed belongs to.
 
-* `audit_success`<br>
-  The **access_level** for which successes shall be audited.
+* `success`<br>
+  The **access_level** for which successes shall be audited. Ignore this operand to specify a different "attempt" type.
+
+* `failure`<br>
+  The **access_level** for which failures shall be audited. Ignore this operand to specify a different "attempt" type.
+
+* `all`<br>
+  The **access_level** for which both successes and failures shall be audited. Ignore this operand to specify a different "attempt" type.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -488,7 +162,7 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_successes("TESTING","ELIJTEST","alter")
+>>> resource_admin.overwrite_audit_by_attempt("TESTING","ELIJTEST",success="alter")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (alter       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
@@ -524,20 +198,23 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 }
 ```
 
-## `ResourceAdmin.overwrite_audit_by_failures()`
+## `ResourceAdmin.overwrite_audit_by_access_level()`
 
 ```python
-def overwrite_audit_by_failures(
+def overwrite_audit_by_access_level(
     self,
     resource: str,
     class_name: str,
-    audit_failures: str,
+    alter: Union[str, None] = None,
+    control: Union[str, None] = None,
+    read: Union[str, None] = None,
+    update: Union[str, None] = None,
 ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with a `Failure` rule.
+Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with a rule auditing `alter`, `control`, `read`, or `update` access attempts.
 
 #### 📥 Parameters
 * `resource`<br>
@@ -546,8 +223,17 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 * `class_name`<br>
   The name of the **class** the general resource profile being changed belongs to.
 
-* `audit_success`<br>
-  The **access_level** for which failures shall be audited.
+* `alter`<br>
+  The type of **attempt** (Success/Failure/All) for which alter access shall be audited. Ignore this operand to specify a different "access level".
+
+* `control`<br>
+  The type of **attempt** (Success/Failure/All) for which control access shall be audited. Ignore this operand to specify a different "access level".
+
+* `read`<br>
+  The type of **attempt** (Success/Failure/All) for which read access shall be audited. Ignore this operand to specify a different "access level".
+
+* `update`<br>
+  The type of **attempt** (Success/Failure/All) for which update access shall be audited. Ignore this operand to specify a different "access level".
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -565,161 +251,7 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_failures("TESTING","ELIJTEST","control")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (control     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (control     ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.overwrite_audit_by_both_successes_and_failures()`
-
-```python
-def overwrite_audit_by_both_successes_and_failures(
-    self,
-    resource: str,
-    class_name: str,
-    audit_both: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with an `All` rule.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `audit_success`<br>
-  The **access_level** for which both successes and failures shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_both_successes_and_failures("TESTING","ELIJTEST","update")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( ALL     (update      ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( ALL     (update      ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.overwrite_audit_by_audit_alter_access()`
-
-```python
-def overwrite_audit_by_audit_alter_access(
-    self,
-    resource: str,
-    class_name: str,
-    access_attempt: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with a rule auditing `alter` access attempts.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which alter access shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_audit_alter_access("TESTING","ELIJTEST","success")
+>>> resource_admin.overwrite_audit_by_access_leve("TESTING","ELIJTEST",alter="success")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( success (ALTER       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
@@ -755,20 +287,22 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 }
 ```
 
-## `ResourceAdmin.overwrite_audit_by_audit_control_access()`
+## `ResourceAdmin.alter_audit_by_attempt()`
 
 ```python
-def overwrite_audit_by_audit_control_access(
+def alter_audit_by_attempt(
     self,
     resource: str,
     class_name: str,
-    access_attempt: str,
+    success: Union[str, None] = None,
+    failure: Union[str, None] = None,
+    all: Union[str, None] = None,
 ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with a rule auditing `control` access attempts.
+Preserves any rules defined within the **Audit Rules** for a general resource profile and add new `Success`, `Failure`, or `All` rule(s).
 
 #### 📥 Parameters
 * `resource`<br>
@@ -777,8 +311,14 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 * `class_name`<br>
   The name of the **class** the general resource profile being changed belongs to.
 
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which control access shall be audited.
+* `success`<br>
+  The **access_level** for which successes shall be audited. Ignore this operand to specify a different "attempt" type.
+
+* `failure`<br>
+  The **access_level** for which failures shall be audited. Ignore this operand to specify a different "attempt" type.
+
+* `all`<br>
+  The **access_level** for which both successes and failures shall be audited. Ignore this operand to specify a different "attempt" type.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -796,286 +336,14 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_audit_control_access("TESTING","ELIJTEST","failure")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( failure (CONTROL     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
+>>> resource_admin.alter_audit_by_attempt("TESTING","ELIJTEST",success="control")
+{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) SUCCESS (CONTROL     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
 ```json
 {
   "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( failure (CONTROL     ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.overwrite_audit_by_audit_read_access()`
-
-```python
-def overwrite_audit_by_audit_read_access(
-    self,
-    resource: str,
-    class_name: str,
-    access_attempt: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with a rule auditing `read` access attempts.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which read access shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_audit_read_access("TESTING","ELIJTEST","success")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( success (READ        ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( failure (READ        ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.overwrite_audit_by_audit_update_access()`
-
-```python
-def overwrite_audit_by_audit_update_access(
-    self,
-    resource: str,
-    class_name: str,
-    access_attempt: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Clear any rules defined within the **Audit Rules** for a general resource profile and replace them with a rule auditing `update` access attempts.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which update access shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_audit_update_access("TESTING","ELIJTEST","failure")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( all     (UPDATE     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( all     (UPDATE      ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.alter_audit_by_successes()`
-
-```python
-def alter_audit_by_successes(
-    self,
-    resource: str,
-    class_name: str,
-    audit_success: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Preserves any rules defined within the **Audit Rules** for a general resource profile and add a new a `Success` rule.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `audit_success`<br>
-  The **access_level** for which successes shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_successes("TESTING","ELIJTEST","control")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) SUCCESS (CONTROL     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
     "securityResult": {
       "resource": {
         "name": "TESTING",
@@ -1104,20 +372,23 @@ Preserves any rules defined within the **Audit Rules** for a general resource pr
 }
 ```
 
-## `ResourceAdmin.alter_audit_by_failures()`
+## `ResourceAdmin.alter_audit_by_access_level()`
 
 ```python
-def alter_audit_by_failures(
+def alter_audit_by_access_level(
     self,
     resource: str,
     class_name: str,
-    audit_failures: str,
+    alter: Union[str, None] = None,
+    control: Union[str, None] = None,
+    read: Union[str, None] = None,
+    update: Union[str, None] = None,
 ) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
 
-Preserves any rules defined within the **Audit Rules** for a general resource profile and add a new a `Failure` rule.
+Preserves any rules defined within the **Audit Rules** for a general resource profile and add new rule(s) auditing `alter`, `control`, `read`, or `update` access attempts.
 
 #### 📥 Parameters
 * `resource`<br>
@@ -1126,8 +397,17 @@ Preserves any rules defined within the **Audit Rules** for a general resource pr
 * `class_name`<br>
   The name of the **class** the general resource profile being changed belongs to.
 
-* `audit_success`<br>
-  The **access_level** for which failures shall be audited.
+* `alter`<br>
+  The type of **attempt** (Success/Failure/All) for which alter access shall be audited. Ignore this operand to specify a different "access level".
+
+* `control`<br>
+  The type of **attempt** (Success/Failure/All) for which control access shall be audited. Ignore this operand to specify a different "access level".
+
+* `read`<br>
+  The type of **attempt** (Success/Failure/All) for which read access shall be audited. Ignore this operand to specify a different "access level".
+
+* `update`<br>
+  The type of **attempt** (Success/Failure/All) for which update access shall be audited. Ignore this operand to specify a different "access level".
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -1145,291 +425,14 @@ Preserves any rules defined within the **Audit Rules** for a general resource pr
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_failures("TESTING","ELIJTEST","control")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) FAILURE (CONTROL     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
+>>> resource_admin.alter_audit_by_access_level("TESTING","ELIJTEST",alter="success")
+{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) success (ALTER       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
 ###### Security Result Steps Dictionary as JSON
 ```json
 {
   "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) FAILURE (CONTROL     ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.alter_audit_by_both_successes_and_failures()`
-
-```python
-def alter_audit_by_both_successes_and_failures(
-    self,
-    resource: str,
-    class_name: str,
-    audit_both: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Preserves any rules defined within the **Audit Rules** for a general resource profile and add a new an `All` rule.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `audit_success`<br>
-  The **access_level** for which both successes and failures shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_both_successes_and_failures("TESTING","ELIJTEST","update")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"all":"read","success":"control"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (CONTROL     ) ALL     (READ        ) ALL     (UPDATE     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "all": "read",
-                    "success": "control"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (CONTROL     ) ALL     (READ        ) ALL     (UPDATE     ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.alter_audit_by_audit_alter_access()`
-
-```python
-def alter_audit_by_audit_alter_access(
-    self,
-    resource: str,
-    class_name: str,
-    access_attempt: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Preserves any rules defined within the **Audit Rules** for a general resource profile and add a new a rule auditing `alter` access attempts.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which alter access shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_audit_alter_access("TESTING","ELIJTEST","success")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) success (ALTER       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
     "securityResult": {
       "resource": {
         "name": "TESTING",
@@ -1445,360 +448,6 @@ Preserves any rules defined within the **Audit Rules** for a general resource pr
             "returnCode": 0,
             "reasonCode": 0,
             "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) success (ALTER       ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.alter_audit_by_audit_control_access()`
-
-```python
-def alter_audit_by_audit_control_access(
-    self,
-    resource: str,
-    class_name: str,
-    access_attempt: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Preserves any rules defined within the **Audit Rules** for a general resource profile and add a new a rule auditing `control` access attempts.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which control access shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_audit_control_access("TESTING","ELIJTEST","success")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) success (CONTROL     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) success (CONTROL     ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.alter_audit_by_audit_read_access()`
-
-```python
-def alter_audit_by_audit_read_access(
-    self,
-    resource: str,
-    class_name: str,
-    access_attempt: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Preserves any rules defined within the **Audit Rules** for a general resource profile and add a new a rule auditing `read` access attempts.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which read access shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_audit_read_access("TESTING","ELIJTEST","success")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) success (READ        ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) success (READ        ))",
-            "messages": [
-              "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  }
-}
-```
-
-## `ResourceAdmin.alter_audit_by_audit_update_access()`
-
-```python
-def alter_audit_by_audit_update_access(
-    self,
-    resource: str,
-    class_name: str,
-    access_attempt: str,
-) -> Union[dict, bytes]:
-```
-
-#### 📄 Description
-
-Preserves any rules defined within the **Audit Rules** for a general resource profile and add a new a rule auditing `update` access attempts.
-
-#### 📥 Parameters
-* `resource`<br>
-  The **general resource profile** for which RACF should change the audit rules.
-
-* `class_name`<br>
-  The name of the **class** the general resource profile being changed belongs to.
-
-* `access_attempt`<br>
-  The type of **attempt** (Success/Failure/All) for which update access shall be audited.
-
-#### 📤 Returns
-* `Union[dict, bytes]`<br>
-  Returns a **Security Result Steps dictionary** or **Concatenated Security Request XML bytes** if the `ResourceAdmin.generate_requests_only` class attribute is set to `True`.
-
-#### ❌ Raises
-* `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
-* `AlterOperationError`<br>
-  Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
-
-#### 💻 Example
-
-###### Python REPL
-```python
->>> from pyracf import ResourceAdmin
->>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_audit_update_access("TESTING","ELIJTEST","failure")
-{"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"listdata","requestId":"ResourceRequest","commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RLIST   ELIJTEST             (TESTING) ","profiles":[{"base":{"class":"elijtest","name":"testing","level":0,"owner":"eswift","universalAccess":"read","yourAccess":"read","warning":null,"installationData":null,"applicationData":null,"auditing":{"success":"update","failures":"read"},"notify":null,"generic":false}}]}]},"returnCode":0,"reasonCode":0}},"step2":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (READ        ) failure (UPDATE      ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
-```
-
-###### Security Result Steps Dictionary as JSON
-```json
-{
-  "step1": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "listdata",
-        "requestId": "ResourceRequest",
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RLIST   ELIJTEST             (TESTING) ",
-            "profiles": [
-              {
-                "base": {
-                  "class": "elijtest",
-                  "name": "testing",
-                  "level": 0,
-                  "owner": "eswift",
-                  "universalAccess": "read",
-                  "yourAccess": "read",
-                  "warning": null,
-                  "installationData": null,
-                  "applicationData": null,
-                  "auditing": {
-                    "success": "update",
-                    "failures": "read"
-                  },
-                  "notify": null,
-                  "generic": false
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "returnCode": 0,
-      "reasonCode": 0
-    }
-  },
-  "step2": {
-    "securityResult": {
-      "resource": {
-        "name": "TESTING",
-        "class": "ELIJTEST",
-        "operation": "set",
-        "requestId": "ResourceRequest",
-        "info": [
-          "Definition exists. Add command skipped due  to precheck option"
-        ],
-        "commands": [
-          {
-            "safReturnCode": 0,
-            "returnCode": 0,
-            "reasonCode": 0,
-            "image": "RALTER  ELIJTEST             (TESTING)  AUDIT( FAILURE (READ        ) failure (UPDATE      ))",
             "messages": [
               "ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."
             ]
