@@ -17,6 +17,7 @@ class SetroptsAdmin(SecurityAdmin):
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
+        run_as_userid: Union[str, None] = None,
     ) -> None:
         self._valid_segment_traits = {
             "base": {
@@ -93,7 +94,7 @@ class SetroptsAdmin(SecurityAdmin):
                 "base:log_commands_issuesd_by_special_users": "racf:saudit",
                 "base:security_label_control": "racf:seclabct",
                 "base:secondary_language": "racf:seclang",
-                "base:session_key_verification_interval": "racf:sessint",
+                "base:max_session_key_interval": "racf:sessint",
                 "base:security_label_auditing": "racf:slabaudt",
                 "base:security_label_system": "racf:slbysys",
                 "base:security_level_auditing": "racf:slevaudt",
@@ -104,6 +105,9 @@ class SetroptsAdmin(SecurityAdmin):
                 "base:program_control": "racf:whenprog",
             }
         }
+        self._extracted_key_value_pair_segment_traits_map = {
+            "base": {" session key verification interval": "maxSessionKeyInterval"}
+        }
         super().__init__(
             "systemSettings",
             debug=debug,
@@ -111,6 +115,7 @@ class SetroptsAdmin(SecurityAdmin):
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,
             additional_secret_traits=additional_secret_traits,
+            run_as_userid=run_as_userid,
         )
 
     # ============================================================================
@@ -462,13 +467,13 @@ class SetroptsAdmin(SecurityAdmin):
             )
             .replace(
                 "PARTNER LU-VERIFICATION SESSIONKEY INTERVAL MAXIMUM/DEFAULT",
-                "VTAM SESSION KEY VERIFICATION INTERVAL",
+                "APPC SESSION KEY VERIFICATION INTERVAL",
             )
             .replace(
                 "PARTNER LU-VERIFICATION SESSIONKEY INTERVAL DEFAULT",
-                "VTAM SESSION KEY VERIFICATION INTERVAL",
+                "APPC SESSION KEY VERIFICATION INTERVAL",
             )
-            .replace("APPLAUDIT", "VTAM APPC TRANSACTION AUDIT")
+            .replace("APPLAUDIT", "APPC TRANSACTION AUDIT")
             .splitlines()
         )
         # Merge multi-line fields into single line based on key-value relationship token.
@@ -521,7 +526,7 @@ class SetroptsAdmin(SecurityAdmin):
             "LANGUAGE DEFAULT": "languageDefaults",
             "DATA SET": "dataSets",
             "SECURITY LABEL": "securityLabels",
-            "VTAM": "vtam",
+            "APPC": "appc",
             "KERBEROS": "kerberos",
             "GENERIC RULES": "genericRules",
             "GROUP RULES": "groupRules",

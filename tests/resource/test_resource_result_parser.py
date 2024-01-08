@@ -1,5 +1,6 @@
 """Test general resource profile result parser."""
 
+import copy
 import unittest
 from unittest.mock import Mock, patch
 
@@ -61,6 +62,40 @@ class TestResourceResultParser(unittest.TestCase):
             "Refusing to make security request to IRRSMO00."
             + "\n\nTarget profile "
             + f"'{profile_name}' already exists as a profile in the '{class_name}' class.",
+        )
+
+    def test_resource_admin_add_surfaces_error_from_preliminary_extract(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "TESTING"
+        class_name = "ELIJTEST"
+        extract_resource_xml = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML
+        )
+        extract_resource_xml = extract_resource_xml.replace(
+            "<message>ICH13003I TESTING NOT FOUND</message>",
+            "<message>ICH13002I NOT AUTHORIZED TO LIST TESTING</message>",
+        )
+        call_racf_mock.side_effect = [
+            extract_resource_xml,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.resource_admin.add(
+                profile_name,
+                class_name,
+                traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_TRAITS,
+            )
+        extract_resource_error_json = copy.deepcopy(
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_DICTIONARY
+        )
+        extract_resource_error_json["securityResult"]["resource"]["commands"][0][
+            "messages"
+        ] = ["ICH13002I NOT AUTHORIZED TO LIST TESTING"]
+        self.assertEqual(
+            exception.exception.result,
+            extract_resource_error_json,
         )
 
     def test_resource_admin_avoids_error_on_add_covered_profile(

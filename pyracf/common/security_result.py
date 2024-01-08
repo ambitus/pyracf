@@ -1,6 +1,8 @@
 """Generic Security Result Parser."""
 
+import getpass
 import re
+from typing import Union
 from xml.etree.ElementTree import Element  # Only used for type hints.
 
 import defusedxml.ElementTree as XMLParser
@@ -9,10 +11,20 @@ import defusedxml.ElementTree as XMLParser
 class SecurityResult:
     """Generic Security Result Parser."""
 
-    def __init__(self, result_xml: str) -> None:
+    def __init__(
+        self, result_xml: str, running_userid: Union[str, None] = None
+    ) -> None:
         self.__result = XMLParser.fromstring(result_xml)
         self.__result_dictionary = {"securityResult": {}}
         self.__extract_results()
+        if running_userid is not None:
+            self.__result_dictionary["securityResult"][
+                "runningUserid"
+            ] = running_userid.lower()
+        else:
+            self.__result_dictionary["securityResult"][
+                "runningUserid"
+            ] = getpass.getuser().lower()
 
     def __extract_results(self) -> None:
         """Extract XML results into a dictionary."""

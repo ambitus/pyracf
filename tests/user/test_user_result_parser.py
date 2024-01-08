@@ -1,5 +1,6 @@
 """Test user result parser."""
 
+import copy
 import unittest
 from unittest.mock import Mock, patch
 
@@ -9,6 +10,7 @@ import tests.user.test_user_constants as TestUserConstants
 from pyracf import (
     AddOperationError,
     AlterOperationError,
+    DownstreamFatalError,
     SecurityRequestError,
     UserAdmin,
 )
@@ -66,6 +68,37 @@ class TestUserResultParser(unittest.TestCase):
             + f"'{profile_name}' already exists as a '{self.user_admin._profile_type}' profile.",
         )
 
+    def test_user_admin_add_surfaces_error_from_preliminary_extract(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "squidwrd"
+        extract_user_error_xml = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML
+        )
+        extract_user_error_xml = extract_user_error_xml.replace(
+            "<message>ICH30001I UNABLE TO LOCATE USER    ENTRY SQUIDWRD</message>",
+            "<message>ICH30010I NOT AUTHORIZED TO ISSUE LISTUSER</message>",
+        )
+        call_racf_mock.side_effect = [
+            extract_user_error_xml,
+            TestUserConstants.TEST_ADD_USER_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.user_admin.add(
+                profile_name, traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS
+            )
+        extract_user_error_json = copy.deepcopy(
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_DICTIONARY
+        )
+        extract_user_error_json["securityResult"]["user"]["commands"][0]["messages"] = [
+            "ICH30010I NOT AUTHORIZED TO ISSUE LISTUSER"
+        ]
+        self.assertEqual(
+            exception.exception.result,
+            extract_user_error_json,
+        )
+
     # Error in command, SQUIDWARD is bad USERID
     def test_user_admin_can_parse_add_user_error_xml(
         self,
@@ -75,7 +108,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BAD_ATTRIBUTE_XML,
             TestUserConstants.TEST_ADD_USER_RESULT_ERROR_XML,
         ]
-        with self.assertRaises(SecurityRequestError) as exception:
+        with self.assertRaises(DownstreamFatalError) as exception:
             self.user_admin.add(
                 "squidward",
                 traits=TestUserConstants.TEST_ADD_USER_REQUEST_TRAITS,
@@ -441,24 +474,6 @@ class TestUserResultParser(unittest.TestCase):
         self.assertEqual(
             exception.exception.result,
             TestUserConstants.TEST_DELETE_USER_RESULT_ERROR_DICTIONARY,
-        )
-
-    # ============================================================================
-    # Extract User with Customized Segment Traits
-    # ============================================================================
-    def test_user_admin_can_parse_extract_user_base_omvs_csdata_success_xml(
-        self,
-        call_racf_mock: Mock,
-    ):
-        user_admin = UserAdmin(
-            update_existing_segment_traits=TestUserConstants.TEST_USER_REPLACE_SEGMENT_TRAITS
-        )
-        call_racf_mock.return_value = (
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_XML
-        )
-        self.assertEqual(
-            user_admin.extract("squidwrd", segments=["omvs", "csdata"]),
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY,
         )
 
     # ============================================================================

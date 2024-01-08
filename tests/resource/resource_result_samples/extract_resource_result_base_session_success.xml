@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <resource name="TSTNET.TSTLOCLU.TSTPRTLU" class="APPCLU" operation="listdata" requestid="ResourceRequest">
+  <resource name="TMPNET.TMPLOC.TMPPART" class="APPCLU" operation="listdata" requestid="ResourceRequest">
     <command>
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
       <reasoncode>0</reasoncode>
-      <image>RLIST   APPCLU             (TSTNET.TSTLOCLU.TSTPRTLU)  SESSION </image>
+      <image>RLIST   APPCLU             (TMPNET.TMPLOC.TMPPART)  SESSION </image>
       <message>CLASS      NAME</message>
       <message>-----      ----</message>
-      <message>APPCLU     TSTNET.TSTLOCLU.TSTPRTLU</message>
+      <message>APPCLU     TMPNET.TMPLOC.TMPPART</message>
       <message> </message>
       <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
       <message>-----  --------   ----------------  -----------  -------</message>
@@ -32,8 +32,10 @@
       <message> </message>
       <message>SESSION INFORMATION</message>
       <message>-------------------</message>
-      <message>SESSION KEY INTERVAL IS UNLIMITED</message>
+      <message>SESSION KEY IS E3C5E2E3D2C5E800</message>
+      <message>SESSION KEY INTERVAL IS 00005 DAYS</message>
       <message>LOCKED</message>
+      <message>CONVSEC= CONV</message>
     </command>
   </resource>
   <returncode>0</returncode>

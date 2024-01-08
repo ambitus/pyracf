@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
+#include <string.h>
 
 #define BUFFER_SIZE (100000)
 
@@ -33,18 +34,20 @@ void null_byte_fix(char* str, unsigned int str_len) {
 static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs) {
    const unsigned int xml_len;
    const unsigned int input_opts;
+   const uint8_t input_userid_len;
    const char *input_xml;
+   const char *input_userid;
 
-   static char *kwlist[] = {"xml_str", "xml_len", "opts", NULL};
+   static char *kwlist[] = {"xml_str", "xml_len", "opts", "userid", "userid_len", NULL};
 
-    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "y|II", kwlist, &input_xml, &xml_len, &input_opts)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, "y|IIyb", kwlist, &input_xml, &xml_len, &input_opts, &input_userid, &input_userid_len)) {
         return NULL;
     }
 
 
     char work_area[1024];
     char req_handle[64] = { 0 };
-    VarStr_T userid = { 0, {0}};
+    VarStr_T userid = { input_userid_len, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
     unsigned char rsp[BUFFER_SIZE+1];
@@ -52,14 +55,16 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
     unsigned int saf_rc=0, racf_rc=0, racf_rsn=0;
     unsigned int num_parms=17, fn=1, opts = input_opts, rsp_len = sizeof(rsp)-1;
 
+    strncpy(userid.str, input_userid, userid.len);
+
     IRRSMO64(
         work_area, 
         alet, 
-        saf_rc, 
+        &saf_rc, 
         alet, 
-        racf_rc, 
+        &racf_rc, 
         alet, 
-        racf_rsn, 
+        &racf_rsn, 
         num_parms, 
         fn, 
         opts, 
@@ -73,11 +78,12 @@ static PyObject* call_irrsmo00(PyObject* self, PyObject* args, PyObject *kwargs)
     );
 
    null_byte_fix(rsp,rsp_len);
-   return Py_BuildValue("y", rsp);
+
+   return Py_BuildValue("yBBB", rsp, saf_rc, racf_rc, racf_rsn);
 }
 
 static char call_irrsmo00_docs[] =
-   "call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint): Returns an XML response from the IRRSMO00 RACF Callable Service.\n";
+   "call_irrsmo00(input_xml: bytes, xml_len: uint, opts: uint): Returns an XML response string and return and reason codes from the IRRSMO00 RACF Callable Service.\n";
 
 static PyMethodDef cpyracf_methods[] = {
    {"call_irrsmo00", (PyCFunction)call_irrsmo00,

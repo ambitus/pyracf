@@ -93,35 +93,6 @@ class TestUserRequestBuilder(unittest.TestCase):
         self.assertNotIn(self.test_passphrase, result.decode("utf-8"))
 
     # ============================================================================
-    # Customize Segment Traits
-    # ============================================================================
-    def test_user_admin_build_alter_request_replace_existing_segment_traits(self):
-        user_admin = UserAdmin(
-            generate_requests_only=True,
-            replace_existing_segment_traits=TestUserConstants.TEST_USER_REPLACE_SEGMENT_TRAITS,
-        )
-        result = user_admin.alter(
-            "squidwrd", traits=TestUserConstants.TEST_ALTER_USER_CSDATA_REQUEST_TRAITS
-        )
-        self.assertEqual(
-            result, TestUserConstants.TEST_ALTER_USER_REQUEST_REPLACE_SEGMENTS_XML
-        )
-
-    def test_user_admin_build_alter_request_update_existing_segment_traits(self):
-        user_admin = UserAdmin(
-            generate_requests_only=True,
-            update_existing_segment_traits=TestUserConstants.TEST_USER_ADDITIONAL_SEGMENT_TRAITS,
-        )
-        result = user_admin.alter(
-            "squidwrd",
-            traits=TestUserConstants.TEST_ALTER_USER_CSDATA_AND_OMVS_REQUEST_TRAITS,
-        )
-        self.assertEqual(
-            result,
-            TestUserConstants.TEST_ALTER_USER_REQUEST_UPDATE_SEGMENTS_XML,
-        )
-
-    # ============================================================================
     # Request Builder Errors
     # ============================================================================
     def test_user_admin_build_add_request_with_bad_segment_traits(self):

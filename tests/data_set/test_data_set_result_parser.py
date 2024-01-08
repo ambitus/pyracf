@@ -1,5 +1,6 @@
 """Test data set profile result parser."""
 
+import copy
 import unittest
 from unittest.mock import Mock, patch
 
@@ -63,6 +64,41 @@ class TestDataSetResultParser(unittest.TestCase):
             + "\n\nTarget profile "
             + f"'{profile_name}' already exists as a "
             + f"'{self.data_set_admin._profile_type}' profile.",
+        )
+
+    def test_dataset_admin_add_surfaces_error_from_preliminary_extract(
+        self,
+        call_racf_mock: Mock,
+    ):
+        profile_name = "ESWIFT.TEST.T1136242.P3020470"
+        extract_data_set_xml = (
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_XML
+        )
+        extract_data_set_xml = extract_data_set_xml.replace(
+            (
+                "<message>ICH35003I NO RACF DESCRIPTION FOUND "
+                "FOR ESWIFT.TEST.T1136242.P3020470</message>"
+            ),
+            "<message>ICH35002I NOT AUTHORIZED TO LIST ESWIFT.TEST.T1136242.P3020470</message>",
+        )
+        call_racf_mock.side_effect = [
+            extract_data_set_xml,
+            TestDataSetConstants.TEST_ADD_DATA_SET_RESULT_SUCCESS_XML,
+        ]
+        with self.assertRaises(SecurityRequestError) as exception:
+            self.data_set_admin.add(
+                profile_name,
+                traits=TestDataSetConstants.TEST_ADD_DATA_SET_REQUEST_TRAITS,
+            )
+        extract_data_set_error_json = copy.deepcopy(
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_ERROR_DICTIONARY
+        )
+        extract_data_set_error_json["securityResult"]["dataSet"]["commands"][0][
+            "messages"
+        ] = ["ICH35002I NOT AUTHORIZED TO LIST ESWIFT.TEST.T1136242.P3020470"]
+        self.assertEqual(
+            exception.exception.result,
+            extract_data_set_error_json,
         )
 
     def test_dataset_admin_avoids_error_on_add_covered_profile(

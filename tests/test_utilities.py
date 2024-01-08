@@ -57,7 +57,7 @@ def get_sample(sample_file: str, function_group: str) -> Union[str, bytes]:
     result_samples = f"{function_group}/{function_group}_result_samples"
     request_samples = f"{function_group}/{function_group}_request_samples"
     log_samples = f"{function_group}/{function_group}_log_samples"
-    if f"{function_group}_result" in sample_file:
+    if "_result" in sample_file:
         result_sample_file = f"{result_samples}/{sample_file}"
         if sample_file[-4:] == ".xml":
             return get_xml(result_sample_file)

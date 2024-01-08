@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="IRR.IRRSMO00.PRECHECK" class="XFACILIT" operation="set" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RDEFINE XFACILIT             (IRR.IRRSMO00.PRECHECK) </image>
+      <message>ICH10006I RACLISTED PROFILES FOR XFACILIT WILL NOT REFLECT THE ADDITION(S) UNTIL A SETROPTS REFRESH IS ISSUED.</message>
+    </command>
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RALTER  XFACILIT             (IRR.IRRSMO00.PRECHECK)  UACC        (None) </image>
+      <message>ICH11009I RACLISTED PROFILES FOR XFACILIT WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED.</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>

@@ -248,7 +248,8 @@
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 
@@ -561,9 +562,9 @@
                 "interprocessCommunications": true,
                 "nameHiding": false
               },
-              "vtam": {
-                "sessionKeyVerificationInterval": 30,
-                "appcTransactionAudit": true
+              "appc": {
+                "maxSessionKeyInterval": 30,
+                "transactionAudit": true
               },
               "kerberos": {
                 "encryptionLevel": 0
@@ -578,7 +579,8 @@
       ]
     },
     "returnCode": 0,
-    "reasonCode": 0
+    "reasonCode": 0,
+    "runningUserid": "testuser"
   }
 }
 

@@ -20,6 +20,7 @@ class DataSetAdmin(SecurityAdmin):
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
+        run_as_userid: Union[str, None] = None,
     ) -> None:
         self._valid_segment_traits = {
             "base": {
@@ -67,6 +68,7 @@ class DataSetAdmin(SecurityAdmin):
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,
             additional_secret_traits=additional_secret_traits,
+            run_as_userid=run_as_userid,
         )
         self._valid_segment_traits["base"].update(
             self._common_base_traits_data_set_generic

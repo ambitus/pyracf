@@ -237,12 +237,12 @@ TEST_EXTRACT_RESOURCE_CLASS_PROFILE = {
     "validFirstCharacters": "alpha",
     "genericProfileSharing": "disallowed",
     "genericProfileChecking": "allowed",
-    "groupingClassName": "",
+    "groupingClassName": None,
     "keyQualifiers": 0,
     "manditoryAccessControlProcessing": "normal",
     "maxLength": 246,
     "maxLengthEntityx": 246,
-    "memberClassName": "",
+    "memberClassName": None,
     "operations": None,
     "validOtherCharacters": ["alpha", "numeric"],
     "positNumber": 200,
@@ -323,8 +323,8 @@ TEST_EXTRACT_RESOURCE_RESULT_BASE_STDATA_ERROR_XML = get_sample(
 )
 
 TEST_EXTRACT_STARTED_TASK_PROFILE = {
-    "user": "",
-    "group": "",
+    "user": None,
+    "group": None,
     "trusted": "yes",
     "privileged": None,
     "trace": None,
@@ -397,4 +397,9 @@ TEST_EXTRACT_RESOURCE_RESULT_BASE_SESSION_ERROR_XML = get_sample(
 
 # This segment requires additional logic that is not currently implemented.
 # This will not be documented and the rest marked experimental
-TEST_EXTRACT_APPC_SESSION_PROFILE = {}
+TEST_EXTRACT_APPC_SESSION_PROFILE = {
+    "sessionKeyInterval": 5,
+    "locked": True,
+    "sessionKey": "e3c5e2e3d2c5e800",
+    "securityCheckingLevel": "conv",
+}

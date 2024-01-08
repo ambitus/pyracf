@@ -1,9 +1,10 @@
-"""Exception to use when data returned by IRRSMO00 indicates that the request failed."""
+"""Exception to use when IRRSMO00 processes a request with RACF warnings or errors."""
 
 
 class SecurityRequestError(Exception):
     """
-    Raised when the return code of a security result returned by IRRSMO00 is NOT equal to 0.
+    Raised when pyRACF does not raise a DownstreamFatalError, and the SAF Return Code
+    of a security result returned by IRRSMO00 is non-zero.
     """
 
     def __init__(self, result: dict) -> None:
@@ -21,6 +22,7 @@ class SecurityRequestError(Exception):
     def contains_error_message(
         self, security_definition_tag: str, error_message_id: str
     ):
+        """Checks to see if specific error message id appears in the security request error."""
         commands = self.result["securityResult"][security_definition_tag].get(
             "commands"
         )

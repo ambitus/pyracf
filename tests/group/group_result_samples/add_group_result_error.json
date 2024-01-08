@@ -8,12 +8,13 @@
         "errorFunction": 10,
         "errorCode": 2000,
         "errorReason": 68,
-        "errorMessage": "Invalid attribute value specified.",
+        "textInError": "name",
         "errorOffset": 149,
-        "textInError": "name"
+        "errorMessage": "Invalid attribute value specified."
       }
     },
     "returnCode": 2000,
-    "reasonCode": 68
+    "reasonCode": 68,
+    "runningUserid": "testuser"
   }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="IRR.IRRSMO00.PRECHECK" class="XFACILIT" operation="set" requestid="ResourceRequest">
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>RDEFINE XFACILIT             (IRR.IRRSMO00.PRECHECK) </image>
+      <message>ICH10103I NOT AUTHORIZED TO DEFINE IRR.IRRSMO00.PRECHECK.</message>
+    </command>
+    <command>
+      <safreturncode>8</safreturncode>
+      <returncode>16</returncode>
+      <reasoncode>4</reasoncode>
+      <image>RALTER  XFACILIT             (IRR.IRRSMO00.PRECHECK)  UACC        (None)</image>
+      <message>ICH11102I IRR.IRRSMO00.PRECHECK NOT DEFINED TO CLASS XFACILIT.</message>
+    </command>
+  </resource>
+  <returncode>4</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
