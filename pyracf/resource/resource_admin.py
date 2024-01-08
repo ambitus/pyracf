@@ -295,30 +295,6 @@ class ResourceAdmin(SecurityAdmin):
         profile = self.extract(resource, class_name, profile_only=True)
         return self._get_field(profile, "base", "auditing")
 
-    def clear_audit_by_attempt(
-        self, resource: str, class_name: str, attempt_type: str
-    ) -> Union[dict, bytes]:
-        """
-        Clears the auditing rules for specific attempts for this general resource profile
-        while preserving other rules.
-        """
-        attempt_types = ["failures", "success", "all"]
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        if attempt_type not in audit_rules:
-            return self._to_steps(result[0])
-        traits = {}
-        attempt_types.remove(attempt_type)
-        for attempt in attempt_types:
-            if attempt in audit_rules:
-                value = (
-                    "FAILURE" if (attempt.upper() == "FAILURES") else attempt.upper()
-                )
-                traits[f"base:audit_{audit_rules[attempt]}"] = value
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
     def overwrite_audit_by_attempt(
         self,
         resource: str,
@@ -368,33 +344,7 @@ class ResourceAdmin(SecurityAdmin):
             traits[f"base:audit_{failure}"] = "FAILURE"
         if all is not None:
             traits[f"base:audit_{all}"] = "ALL"
-        result.append(self.alter(resource, class_name, traits=traits))
-        return self._to_steps(result)
-
-    def clear_audit_by_access_level(
-        self,
-        resource: str,
-        class_name: str,
-        access_level: str,
-    ) -> Union[dict, bytes]:
-        """
-        Clears the auditing rules for a specific access level for this general
-        resource profile while preserving other rules.
-        """
-        attempt_types = ["failures", "success", "all"]
-        result = [self.extract(resource, class_name)]
-        profile = result[0]["securityResult"]["resource"]["commands"][0]["profiles"][0]
-        audit_rules = self._get_field(profile, "base", "auditing")
-        if access_level not in audit_rules.values():
-            return self._to_steps(result[0])
-        traits = {}
-        for attempt in attempt_types:
-            if attempt in audit_rules and not (audit_rules[attempt] == access_level):
-                value = (
-                    "FAILURE" if (attempt.upper() == "FAILURES") else attempt.upper()
-                )
-                traits[f"base:audit_{audit_rules[attempt]}"] = value
-        result.append(self.alter(resource, class_name, traits=traits))
+        result = self.alter(resource, class_name, traits=traits)
         return self._to_steps(result)
 
     def overwrite_audit_by_access_level(
@@ -453,7 +403,7 @@ class ResourceAdmin(SecurityAdmin):
             traits["base:audit_read"] = read
         if update is not None:
             traits["base:audit_update"] = update
-        result.append(self.alter(resource, class_name, traits=traits))
+        result = self.alter(resource, class_name, traits=traits)
         return self._to_steps(result)
 
     def clear_all_audit_rules(

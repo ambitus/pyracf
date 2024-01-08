@@ -135,33 +135,6 @@ TEST_RESOURCE_OVERWRITE_AUDIT_BY_FAILURES_XML = get_sample(
 TEST_RESOURCE_OVERWRITE_AUDIT_BY_BOTH_SUCCESSES_AND_FAILURES_XML = get_sample(
     "resource_overwrite_audit_by_both_successes_and_failures.xml"
 )
-TEST_RESOURCE_CLEAR_AUDIT_FAILURES_XML = get_sample(
-    "alter_resource_result_clear_audit_failures.xml"
-)
-TEST_RESOURCE_CLEAR_AUDIT_FAILURES_SUCCESS_LOG = get_sample(
-    "alter_resource_clear_audit_failures_success.log"
-)
-TEST_RESOURCE_CLEAR_AUDIT_FAILURES_ERROR_LOG = get_sample(
-    "alter_resource_clear_audit_failures_error.log"
-)
-TEST_RESOURCE_CLEAR_AUDIT_SUCCESSES_XML = get_sample(
-    "alter_resource_result_clear_audit_successes.xml"
-)
-TEST_RESOURCE_CLEAR_AUDIT_SUCCESSES_SUCCESS_LOG = get_sample(
-    "alter_resource_clear_audit_successes_success.log"
-)
-TEST_RESOURCE_CLEAR_AUDIT_SUCCESSES_ERROR_LOG = get_sample(
-    "alter_resource_clear_audit_successes_error.log"
-)
-TEST_RESOURCE_CLEAR_AUDIT_SUCCESSES_AND_FAILURES_XML = get_sample(
-    "alter_resource_result_clear_audit_both_successes_and_failures.xml"
-)
-TEST_RESOURCE_CLEAR_AUDIT_SUCCESSES_AND_FAILURES_SUCCESS_LOG = get_sample(
-    "alter_resource_clear_audit_both_successes_and_failures_success.log"
-)
-TEST_RESOURCE_CLEAR_AUDIT_SUCCESSES_AND_FAILURES_ERROR_LOG = get_sample(
-    "alter_resource_clear_audit_both_successes_and_failures_error.log"
-)
 TEST_RESOURCE_ALTER_AUDIT_BY_FAILURES_XML = get_sample(
     "alter_resource_result_alter_audit_by_failures.xml"
 )

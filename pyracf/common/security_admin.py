@@ -270,10 +270,6 @@ class SecurityAdmin:
         steps_dictionary = {}
         for step, result_dictionary in enumerate(pre_processed_results):
             steps_dictionary[f"step{step+1}"] = result_dictionary
-        self.__logger.log_dictionary(
-            "Steps Dictionary",
-            steps_dictionary,
-        )
         return steps_dictionary
 
     # ============================================================================
