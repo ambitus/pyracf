@@ -14,7 +14,7 @@ User Administration functions for modifying a user's password.
 
 <br>
 ```python
-def set_password(self, userid: str, password: Union[str, bool]) -> Union[dict, bytes]:
+def set_password(self, userid: str, password: Union[str, bool], expired: bool = True) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -40,6 +40,9 @@ Set a user's **password**.
 
 * `password`<br>
   The **password** to set for the specified user or `False` to delete the current value.
+
+* `expired`<br>
+  A bool representing whether or not the **password** should be set as **expired** and require changing on next logon.
 
 #### 📤 Returns
 
