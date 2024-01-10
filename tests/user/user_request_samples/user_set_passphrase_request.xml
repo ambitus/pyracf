@@ -2,7 +2,6 @@
   <user name="squidwrd" operation="set" requestid="UserRequest">
     <base>
       <racf:phrase operation="set">********</racf:phrase>
-      <racf:expired operation="set" />
     </base>
   </user>
 </securityrequest>

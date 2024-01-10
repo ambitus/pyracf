@@ -281,7 +281,7 @@ class UserAdmin(SecurityAdmin):
     ) -> Union[dict, bytes]:
         """Set a user's password."""
         traits = {"base:password": password}
-        if password:
+        if not expired:
             traits["base:password_expired"] = expired
         result = self.alter(userid, traits=traits)
         return self._to_steps(result)
@@ -294,7 +294,7 @@ class UserAdmin(SecurityAdmin):
     ) -> Union[dict, bytes]:
         """Set a user's passphrase."""
         traits = {"base:passphrase": passphrase}
-        if passphrase:
+        if not expired:
             traits["base:password_expired"] = expired
         result = self.alter(userid, traits=traits)
         return self._to_steps(result)
