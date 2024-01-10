@@ -1,7 +1,8 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
   <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
     <base>
-      <racf:audupdt operation="set">ALL</racf:audupdt>
+      <racf:audaltr operation="set">success</racf:audaltr>
+      <racf:audcntl operation="set">all</racf:audcntl>
     </base>
   </resource>
 </securityrequest>

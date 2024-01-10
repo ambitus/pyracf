@@ -1,7 +1,7 @@
 """Test general resource profile setter functions."""
 
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import __init__
 
@@ -32,71 +32,207 @@ class TestResourceSetters(unittest.TestCase):
     # ============================================================================
     # Auditing Rules
     # ============================================================================
-    def test_resource_admin_build_clear_all_audit_rules_request(self):
-        result = self.resource_admin.clear_all_audit_rules("TESTING", "ELIJTEST")
+    def test_resource_admin_build_remove_all_audit_rules_request(self):
+        result = self.resource_admin.remove_all_audit_rules("TESTING", "ELIJTEST")
         self.assertEqual(
-            result, TestResourceConstants.TEST_RESOURCE_CLEAR_ALL_AUDIT_RULES_XML
+            result,
+            TestResourceConstants.TEST_RESOURCE_REMOVE_ALL_AUDIT_RULES_REQUEST_XML,
         )
 
-    def test_resource_admin_build_overwrite_audit_by_audit_alter_access_request(self):
+    def test_resource_admin_build_overwrite_audit_by_access_level_request(self):
         result = self.resource_admin.overwrite_audit_by_access_level(
-            "TESTING", "ELIJTEST", alter="SUCCESS"
+            "TESTING", "ELIJTEST", alter="success"
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_AUDIT_ALTER_ACCESS_XML,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_REQUEST_XML,
         )
 
-    def test_resource_admin_build_overwrite_audit_by_audit_control_access_request(self):
+    def test_resource_admin_build_overwrite_audit_by_access_level_none_request(self):
         result = self.resource_admin.overwrite_audit_by_access_level(
-            "TESTING", "ELIJTEST", control="FAILURE"
+            "TESTING", "ELIJTEST"
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_AUDIT_CONTROL_ACCESS_XML,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_NONE_REQUEST_XML,
         )
 
-    def test_resource_admin_build_overwrite_audit_by_audit_read_access_request(self):
+    def test_resource_admin_build_overwrite_audit_by_access_level_multiple_request(
+        self,
+    ):
         result = self.resource_admin.overwrite_audit_by_access_level(
-            "TESTING", "ELIJTEST", read="SUCCESS"
+            "TESTING", "ELIJTEST", alter="success", control="all"
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_AUDIT_READ_ACCESS_XML,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_MULT_REQUEST_XML,
         )
 
-    def test_resource_admin_build_overwrite_audit_by_audit_update_access_request(self):
+    def test_resource_admin_build_overwrite_audit_by_access_level_all_request(self):
         result = self.resource_admin.overwrite_audit_by_access_level(
-            "TESTING", "ELIJTEST", update="ALL"
+            "TESTING",
+            "ELIJTEST",
+            alter="success",
+            control="all",
+            update="success",
+            read="failure",
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_AUDIT_UPDATE_ACCESS_XML,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_ALL_REQUEST_XML,
         )
 
-    def test_resource_admin_build_overwrite_audit_by_successes_request(self):
-        result = self.resource_admin.overwrite_audit_by_attempt(
-            "TESTING", "ELIJTEST", success="alter"
-        )
-        self.assertEqual(
-            result, TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_SUCCESSES_XML
-        )
-
-    def test_resource_admin_build_overwrite_audit_by_failures_request(self):
+    def test_resource_admin_build_overwrite_audit_by_attempt_request(self):
         result = self.resource_admin.overwrite_audit_by_attempt(
             "TESTING", "ELIJTEST", failure="control"
         )
         self.assertEqual(
-            result, TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_FAILURES_XML
+            result,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_REQUEST_XML,
         )
 
-    def test_resource_admin_build_overwrite_audit_by_both_successes_and_failures_request(
-        self,
-    ):
+    def test_resource_admin_build_overwrite_audit_by_attempt_none_request(self):
+        result = self.resource_admin.overwrite_audit_by_attempt("TESTING", "ELIJTEST")
+        self.assertEqual(
+            result,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_NONE_REQUEST_XML,
+        )
+
+    def test_resource_admin_build_overwrite_audit_by_attempt_multiple_request(self):
         result = self.resource_admin.overwrite_audit_by_attempt(
-            "TESTING", "ELIJTEST", all="update"
+            "TESTING", "ELIJTEST", success="alter", all="read"
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_BOTH_SUCCESSES_AND_FAILURES_XML,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_MULT_REQUEST_XML,
+        )
+
+    def test_resource_admin_build_overwrite_audit_by_attempt_all_request(self):
+        result = self.resource_admin.overwrite_audit_by_attempt(
+            "TESTING", "ELIJTEST", success="alter", all="read", failure="update"
+        )
+        self.assertEqual(
+            result,
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_ALL_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_access_level_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_access_level(
+                "TESTING", "ELIJTEST", alter="success"
+            ),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_access_level_none_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_access_level("TESTING", "ELIJTEST"),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_NONE_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_access_level_multiple_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_access_level(
+                "TESTING", "ELIJTEST", alter="success", control="failure"
+            ),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_MULT_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_access_level_all_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_access_level(
+                "TESTING",
+                "ELIJTEST",
+                alter="success",
+                control="failure",
+                update="all",
+                read="all",
+            ),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_ALL_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_attempt_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_attempt(
+                "TESTING", "ELIJTEST", failure="control"
+            ),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_attempt_none_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_attempt("TESTING", "ELIJTEST"),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_NONE_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_attempt_multiple_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_attempt(
+                "TESTING", "ELIJTEST", failure="control", all="read"
+            ),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_MULT_REQUEST_XML,
+        )
+
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    def test_resource_admin_build_alter_audit_by_attempt_all_request(
+        self,
+        resource_admin_extract_mock: Mock,
+    ):
+        resource_admin_extract_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+        )
+        self.assertEqual(
+            self.resource_admin.alter_audit_by_attempt(
+                "TESTING", "ELIJTEST", failure="control", success="alter", all="read"
+            ),
+            TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_ALL_REQUEST_XML,
         )

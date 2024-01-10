@@ -63,7 +63,7 @@ class TestResourceGetters(unittest.TestCase):
     # ============================================================================
     # My Access
     # ============================================================================
-    def test_resource_admin_get_my_access_returns_valid_when_read(
+    def test_resource_admin_get_my_access_read(
         self,
         call_racf_mock: Mock,
     ):
@@ -74,7 +74,7 @@ class TestResourceGetters(unittest.TestCase):
             self.resource_admin.get_my_access("TESTING", "ELIJTEST"), "read"
         )
 
-    def test_resource_admin_get_my_access_returns_valid_when_none(
+    def test_resource_admin_get_my_access_none(
         self,
         call_racf_mock: Mock,
     ):
@@ -102,7 +102,7 @@ class TestResourceGetters(unittest.TestCase):
     # ============================================================================
     # Auditing Rules
     # ============================================================================
-    def test_resource_admin_get_audit_rules_returns_valid(
+    def test_resource_admin_get_audit_rules(
         self,
         call_racf_mock: Mock,
     ):
