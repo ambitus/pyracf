@@ -30,6 +30,7 @@ class SecurityAdmin:
         self,
         profile_type: str,
         debug: bool = False,
+        dump_mode: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
@@ -77,6 +78,7 @@ class SecurityAdmin:
         self.__preserved_segment_traits = {}
         self._trait_map = {}
         self.__debug = debug
+        self.__dump_mode = dump_mode
         self._generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
             self.__update_valid_segment_traits(update_existing_segment_traits)
@@ -120,6 +122,15 @@ class SecurityAdmin:
     def __replace_valid_segment_traits(self, new_valid_segment_traits: dict) -> None:
         """Replace field data in valid segment traits dictionary"""
         self._valid_segment_traits = new_valid_segment_traits
+
+    # ============================================================================
+    # Dump Mode
+    # ============================================================================
+    def __binary_dump(self) -> None:
+        raw_binary_response = self.__irrsmo00.get_raw_binary_response()
+        self.__logger.binary_dump(raw_binary_response)
+        if self.__debug:
+            self.__logger.log_formatted_hex_dump(raw_binary_response)
 
     # ============================================================================
     # Secrets Redaction
@@ -214,14 +225,16 @@ class SecurityAdmin:
             result = SecurityResult(raw_result, self.get_running_userid())
         except xml.etree.ElementTree.ParseError as e:
             # If the result XML cannot be parsed, a dump of the raw binary
-            # response should be created to aid in problem determination.
-            raw_binary_response = self.__irrsmo00.get_raw_binary_response()
-            self.__logger.binary_dump(raw_binary_response)
-            if self.__debug:
-                self.__logger.log_formatted_hex_dump(raw_binary_response)
+            # response will be created to aid in problem determination.
+            self.__binary_dump()
             self.__irrsmo00.clear_raw_binary_response()
             # After creating the dump, re-raise the exception.
             raise e
+        if self.__dump_mode:
+            # If in dump mode a dump of the raw binary response
+            # will be created even if the raw security result was
+            # able to be processed successfully
+            self.__binary_dump()
         self.__irrsmo00.clear_raw_binary_response()
         if self.__debug:
             # No need to redact anything here since the result dictionary

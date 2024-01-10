@@ -332,23 +332,39 @@ class Logger:
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
 
-    def binary_dump(self, raw_binary_response: bytes) -> None:
+    def binary_dump(self, raw_binary_response: bytes) -> str:
         """Dump raw binary response returned by IRRSMO00 to a dump file."""
-        dump_directory = f"{os.path.expanduser('~')}/.pyracf/dump"
+
+        def opener(path: str, flags: int) -> int:
+            return os.open(path, flags, 0o600)
+
+        dump_directory = os.path.join(os.path.expanduser("~"), ".pyracf", "dump")
         if not os.path.exists(dump_directory):
-            os.makedirs(dump_directory)
-        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-        md5_hash = hashlib.md5(b"").hexdigest()
+            os.makedirs(dump_directory, mode=0o700)
+        timestamp = self.get_timestamp()
+        md5_hash = hashlib.md5(raw_binary_response).hexdigest()
         dump_file_name = f"pyracf.{timestamp}.{md5_hash}.dump"
-        dump_file_path = f"{dump_directory}/{dump_file_name}"
-        with open(dump_file_path, "wb") as dump_file_writer:
+        dump_file_path = os.path.join(dump_directory, dump_file_name)
+        with open(dump_file_path, "wb", opener=opener) as dump_file_writer:
             dump_file_writer.write(raw_binary_response)
         self.log_info(f"Raw binary response written to '{dump_file_path}'.\n")
+        return dump_file_path
+
+    def get_timestamp(self) -> str:
+        """
+        'datetime' is immutable, so we need this function to allow the
+        timestamp generataion function to be mocked for unit tests.
+        """
+        return datetime.now().strftime("%Y%m%d-%H%M%S")
 
     def log_formatted_hex_dump(self, raw_binary_response: bytes) -> None:
         """
         Log the raw binary response returned by IRRSMO00 as a formatted hex dump.
         """
+
+        def no_color(string) -> str:
+            return string
+
         hex_row = ""
         hex_row_size = 0
         interpreted_row = ""
@@ -357,14 +373,19 @@ class Logger:
         for byte in raw_binary_response:
             color_function = self.__green
             char = struct.pack("B", byte).decode("cp1047")
-            match len(char):
-                case 3:
+            match len(repr(char)):
+                case 6:
                     color_function = self.__red
                     char = "."
-                case 2:
+                case 4:
                     color_function = self.__yellow
                     char = "."
-            hex_row += f"{color_function(hex(byte)[2:])}"
+            if byte == 0:
+                # No color for null bytes.
+                color_function = no_color
+            elif byte == 255:
+                color_function = self.__blue
+            hex_row += f"{color_function(hex(byte)[2:].rjust(2, '0'))}"
             hex_row_size += 2
             interpreted_row += f"{color_function(char)}"
             i += 1
@@ -379,6 +400,6 @@ class Logger:
                 interpreted_row = ""
         if interpreted_row != "":
             row_index = hex(i - len(interpreted_row))[2:].rjust(8, "0")
-            interpreted_row = interpreted_row.rjust(41 - len(hex_row), " ")
+            interpreted_row = interpreted_row.rjust(41 - hex_row_size, " ")
             hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
         self.log_debug("Formatted Hex Dump", hex_dump)

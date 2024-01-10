@@ -16,6 +16,7 @@ class DataSetAdmin(SecurityAdmin):
     def __init__(
         self,
         debug: bool = False,
+        dump_mode: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
@@ -64,6 +65,7 @@ class DataSetAdmin(SecurityAdmin):
         super().__init__(
             "dataSet",
             debug=debug,
+            dump_mode=dump_mode,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,
