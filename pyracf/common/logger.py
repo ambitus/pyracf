@@ -338,9 +338,21 @@ class Logger:
         def opener(path: str, flags: int) -> int:
             return os.open(path, flags, 0o600)
 
-        dump_directory = os.path.join(os.path.expanduser("~"), ".pyracf", "dump")
+        dot_pyracf_directory = os.path.join(os.path.expanduser("~"), ".pyracf")
+        dump_directory = os.path.join(dot_pyracf_directory, "dump")
         if not os.path.exists(dump_directory):
             os.makedirs(dump_directory, mode=0o700)
+        # umask may override the permission bits we set
+        # upon creation of directories. It also is a possiblity
+        # that existing directories have permssion bits set that
+        # are too permissive, so always exlpicitely setting the
+        # the permission bits on directories using os.chmod()
+        # ensures that directories always have the the correct
+        # permissions
+        if oct(os.stat(dot_pyracf_directory).st_mode)[-3:] != "700":
+            os.chmod(dot_pyracf_directory, 0o700)
+        if oct(os.stat(dump_directory).st_mode)[-3:] != "700":
+            os.chmod(dump_directory, 0o700)
         timestamp = self.get_timestamp()
         md5_hash = hashlib.md5(raw_binary_response).hexdigest()
         dump_file_name = f"pyracf.{timestamp}.{md5_hash}.dump"
@@ -400,6 +412,6 @@ class Logger:
                 interpreted_row = ""
         if interpreted_row != "":
             row_index = hex(i - len(interpreted_row))[2:].rjust(8, "0")
-            interpreted_row = interpreted_row.rjust(41 - hex_row_size, " ")
+            interpreted_row = " " * (41 - hex_row_size) + interpreted_row
             hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
         self.log_debug("Formatted Hex Dump", hex_dump)
