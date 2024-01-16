@@ -19,41 +19,54 @@ class Logger:
     __ansi_red = "\033[0;31m"
     __ansi_yellow = "\033[1;33m"
     __ansi_blue = "\033[34m"
+    __ansi_light_blue = "\033[1;34m"
     __ansi_orange = "\033[38;5;214m"
     __ansi_cyan = "\033[96m"
     __ansi_purple_background = "\033[1;45m"
 
     def __gray(self, string: str) -> str:
-        """Make contents of string gray."""
+        """Make the text in a string gray."""
         return self.__colorize_string(self.__ansi_gray, string)
 
     def __green(self, string: str) -> str:
-        """Make contents of string green."""
+        """Make the text in a string green."""
         return self.__colorize_string(self.__ansi_green, string)
 
     def __red(self, string: str) -> str:
-        """Make contents of string red."""
+        """Make the text in a string red."""
         return self.__colorize_string(self.__ansi_red, string)
 
     def __yellow(self, string: str) -> str:
-        """Make contents of string yellow."""
+        """Make the text in a string yellow."""
         return self.__colorize_string(self.__ansi_yellow, string)
 
     def __blue(self, string: str) -> str:
-        """Make contents of string blue."""
+        """Make the text in a string blue."""
         return self.__colorize_string(self.__ansi_blue, string)
 
+    def __light_blue(self, string: str) -> str:
+        """Make the text in a string light blue."""
+        return self.__colorize_string(self.__ansi_light_blue, string)
+
     def __orange(self, string: str) -> str:
-        """Make contents of string orange."""
+        """Make the text in a string orange."""
         return self.__colorize_string(self.__ansi_orange, string)
 
     def __cyan(self, string: str) -> str:
-        """Make contents of string cyan."""
+        """Make the text in a string cyan."""
         return self.__colorize_string(self.__ansi_cyan, string)
 
     def __purple_background(self, string: str) -> str:
-        """Make contents of string magenta."""
+        """Make background color of a string magenta."""
         return self.__colorize_string(self.__ansi_purple_background, string)
+
+    def __no_color(self, string) -> str:
+        """Don't modiify the color of a string."""
+        # Lambdas could be used when a color function is required,
+        # but use of lambdas will make linters unhappy because it can
+        # make code less clear and more confusing. So, that is why
+        # a color function that does nothing is defined here.
+        return string
 
     def __colorize_string(self, ansi_color: str, string: str) -> str:
         return f"{ansi_color}{string}{self.__ansi_reset}"
@@ -373,10 +386,6 @@ class Logger:
         """
         Log the raw binary response returned by IRRSMO00 as a formatted hex dump.
         """
-
-        def no_color(string) -> str:
-            return string
-
         hex_row = ""
         hex_row_size = 0
         interpreted_row = ""
@@ -385,18 +394,24 @@ class Logger:
         for byte in raw_binary_response:
             color_function = self.__green
             char = struct.pack("B", byte).decode("cp1047")
+            # Non-displayable characters should be interpreted as '.'.
             match len(repr(char)):
+                # All non-displayable characters should be red.
+                # Two exceptions are 0x00 and 0xff, which are
+                # overriden later on.
                 case 6:
                     color_function = self.__red
                     char = "."
+                # '\t', '\r', and '\n' control characters should be yellow.
                 case 4:
                     color_function = self.__yellow
                     char = "."
             if byte == 0:
-                # No color for null bytes.
-                color_function = no_color
+                # Null bytes (0x00) should have no color.
+                color_function = self.__no_color
             elif byte == 255:
-                color_function = self.__blue
+                # 0xFF should be light blue.
+                color_function = self.__light_blue
             hex_row += f"{color_function(hex(byte)[2:].rjust(2, '0'))}"
             hex_row_size += 2
             interpreted_row += f"{color_function(char)}"
@@ -412,6 +427,6 @@ class Logger:
                 interpreted_row = ""
         if interpreted_row != "":
             row_index = hex(i - len(interpreted_row))[2:].rjust(8, "0")
-            interpreted_row = " " * (41 - hex_row_size) + interpreted_row
+            interpreted_row = " " * (40 - hex_row_size) + interpreted_row
             hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
         self.log_debug("Formatted Hex Dump", hex_dump)
