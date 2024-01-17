@@ -51,9 +51,9 @@ Create a new **data set profile**.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is equal to `4`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
 * `DownstreamFatalError`<br>
-  Raises `DownstreamFatalError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is greater than `4`.
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
  * `AddOperationError`<br>
   Raises `AddOperationError` when the **data set profile** cannot be added because it already exists.
 * `SegmentTraitError`<br>
