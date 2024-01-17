@@ -116,6 +116,22 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_ALL_REQUEST_XML,
         )
 
+    def test_resource_admin_build_overwrite_audit_by_attempt_value_error(self):
+        bad_val = "problem"
+        with self.assertRaises(ValueError) as exception:
+            self.resource_admin.overwrite_audit_by_attempt(
+                "TESTING", "ELIJTEST", success=bad_val
+            )
+        print(exception.exception, str(exception.exception).encode("utf-8"))
+        error_string = (
+            f"'{bad_val}' is not a proper value. Please specify 'alter', "
+            + "'control', 'read', or 'update' access for your target attempt."
+        )
+        self.assertEqual(
+            str(exception.exception),
+            error_string,
+        )
+
     @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
     def test_resource_admin_build_alter_audit_by_access_level_request(
         self,
@@ -235,4 +251,25 @@ class TestResourceSetters(unittest.TestCase):
                 "TESTING", "ELIJTEST", failure="control", success="alter", all="read"
             ),
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_ALL_REQUEST_XML,
+        )
+
+    def test_resource_admin_build_alter_audit_by_attempt_value_error(self):
+        bad_success = "problem"
+        bad_failure = "improper"
+        bad_all = "bad"
+        with self.assertRaises(ValueError) as exception:
+            self.resource_admin.overwrite_audit_by_attempt(
+                "TESTING",
+                "ELIJTEST",
+                success=bad_success,
+                failure=bad_failure,
+                all=bad_all,
+            )
+        error_string = (
+            f"'{bad_success}', '{bad_failure}', and '{bad_all}' are not proper values. Please "
+            + "specify 'alter', 'control', 'read', or 'update' access for your target attempt."
+        )
+        self.assertEqual(
+            str(exception.exception),
+            error_string,
         )

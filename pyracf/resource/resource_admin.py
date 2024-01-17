@@ -307,6 +307,7 @@ class ResourceAdmin(SecurityAdmin):
         Overwrites the auditing rules for this general resource profile with new
         rules to audit based on specified access attempts.
         """
+        self.__validate_access_level(success, failure, all)
         traits = {}
         if success is not None:
             traits[f"base:audit_{success}"] = "success"
@@ -329,6 +330,7 @@ class ResourceAdmin(SecurityAdmin):
         Alters the auditing rules for this general resource profile with new rules
         to audit by access level, preserving existing non-conflicting rules.
         """
+        self.__validate_access_level(success, failure, all)
         profile = self.extract(resource, class_name, profile_only=True)
         audit_rules = self._get_field(profile, "base", "auditing")
         traits = {}
@@ -716,3 +718,43 @@ class ResourceAdmin(SecurityAdmin):
 
         del result["securityResult"]["resource"]["commands"][0]["messages"]
         result["securityResult"]["resource"]["commands"][0]["profiles"] = profiles
+
+    def __validate_access_level(
+        self,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ):
+        access_levels = ["alter", "control", "read", "update"]
+        value_error_text = (
+            "Please specify 'alter', 'control', 'read', or 'update' access "
+            + "for your target attempt."
+        )
+        bad_values = []
+        if success is not None:
+            if success.lower() not in access_levels:
+                bad_values.append(success)
+        if failure is not None:
+            if failure.lower() not in access_levels:
+                bad_values.append(failure)
+        if all is not None:
+            if all.lower() not in access_levels:
+                bad_values.append(all)
+        if len(bad_values) == 0:
+            return
+        elif len(bad_values) == 1:
+            value_error_text = (
+                f"'{bad_values[0]}' is not a proper value. " + value_error_text
+            )
+        elif len(bad_values) == 2:
+            value_error_text = (
+                f"'{bad_values[0]}' and '{bad_values[1]}' are not proper values. "
+                + value_error_text
+            )
+        else:
+            value_error_text = (
+                f"'{bad_values[0]}', '{bad_values[1]}', and '{bad_values[2]}' "
+                + "are not proper values. "
+                + value_error_text
+            )
+        raise ValueError(value_error_text)
