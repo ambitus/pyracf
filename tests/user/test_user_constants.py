@@ -254,10 +254,14 @@ TEST_USER_SET_PASSWORD_XML = get_sample("user_set_password_request.xml")
 TEST_USER_SET_PASSWORD_NOEXPIRED_XML = get_sample(
     "user_set_password_noexpired_request.xml"
 )
+TEST_USER_SET_PASSWORD_EXPIRED_XML = get_sample("user_set_password_expired_request.xml")
 TEST_USER_SET_PASSWORD_DELETE_XML = get_sample("user_set_password_delete_request.xml")
 TEST_USER_SET_PASSPHRASE_XML = get_sample("user_set_passphrase_request.xml")
 TEST_USER_SET_PASSPHRASE_NOEXPIRED_XML = get_sample(
     "user_set_passphrase_noexpired_request.xml"
+)
+TEST_USER_SET_PASSPHRASE_EXPIRED_XML = get_sample(
+    "user_set_passphrase_expired_request.xml"
 )
 TEST_USER_SET_PASSPHRASE_DELETE_XML = get_sample(
     "user_set_passphrase_delete_request.xml"

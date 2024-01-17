@@ -277,11 +277,11 @@ class UserAdmin(SecurityAdmin):
     # Password
     # ============================================================================
     def set_password(
-        self, userid: str, password: Union[str, bool], expired: bool = True
+        self, userid: str, password: Union[str, bool], expired: Union[bool, None] = None
     ) -> Union[dict, bytes]:
         """Set a user's password."""
         traits = {"base:password": password}
-        if not expired:
+        if expired is not None:
             traits["base:password_expired"] = expired
         result = self.alter(userid, traits=traits)
         return self._to_steps(result)
@@ -290,11 +290,14 @@ class UserAdmin(SecurityAdmin):
     # Passphrase
     # ============================================================================
     def set_passphrase(
-        self, userid: str, passphrase: Union[str, bool], expired: bool = True
+        self,
+        userid: str,
+        passphrase: Union[str, bool],
+        expired: Union[bool, None] = None,
     ) -> Union[dict, bytes]:
         """Set a user's passphrase."""
         traits = {"base:passphrase": passphrase}
-        if not expired:
+        if expired is not None:
             traits["base:password_expired"] = expired
         result = self.alter(userid, traits=traits)
         return self._to_steps(result)

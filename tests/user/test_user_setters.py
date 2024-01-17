@@ -72,6 +72,10 @@ class TestUserSetters(unittest.TestCase):
         result = self.user_admin.set_password("squidwrd", "GIyTTqdF", expired=False)
         self.assertEqual(result, TestUserConstants.TEST_USER_SET_PASSWORD_NOEXPIRED_XML)
 
+    def test_user_admin_build_set_password_expired_request(self):
+        result = self.user_admin.set_password("squidwrd", "GIyTTqdF", expired=True)
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_PASSWORD_EXPIRED_XML)
+
     def test_user_admin_build_set_password_delete_request(self):
         result = self.user_admin.set_password("squidwrd", False)
         self.assertEqual(result, TestUserConstants.TEST_USER_SET_PASSWORD_DELETE_XML)
@@ -90,6 +94,12 @@ class TestUserSetters(unittest.TestCase):
         self.assertEqual(
             result, TestUserConstants.TEST_USER_SET_PASSPHRASE_NOEXPIRED_XML
         )
+
+    def test_user_admin_build_set_passphrase_expired_request(self):
+        result = self.user_admin.set_passphrase(
+            "squidwrd", "PassPhrasesAreCool!", expired=True
+        )
+        self.assertEqual(result, TestUserConstants.TEST_USER_SET_PASSPHRASE_EXPIRED_XML)
 
     def test_user_admin_build_set_passphrase_delete_request(self):
         result = self.user_admin.set_passphrase("squidwrd", False)
