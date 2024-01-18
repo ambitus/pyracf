@@ -124,8 +124,8 @@ class TestResourceSetters(unittest.TestCase):
             )
         print(exception.exception, str(exception.exception).encode("utf-8"))
         error_string = (
-            f"'{bad_val}' is not a proper value. Please specify 'alter', "
-            + "'control', 'read', or 'update' access for your target attempt."
+            f"'{bad_val}' is not a proper value. Valid access levels include "
+            + "'alter', 'control', 'read', and 'update'."
         )
         self.assertEqual(
             str(exception.exception),
@@ -256,7 +256,7 @@ class TestResourceSetters(unittest.TestCase):
     def test_resource_admin_build_alter_audit_by_attempt_value_error(self):
         bad_success = "problem"
         bad_failure = "improper"
-        bad_all = "bad"
+        bad_all = 1234
         with self.assertRaises(ValueError) as exception:
             self.resource_admin.overwrite_audit_by_attempt(
                 "TESTING",
@@ -266,8 +266,8 @@ class TestResourceSetters(unittest.TestCase):
                 all=bad_all,
             )
         error_string = (
-            f"'{bad_success}', '{bad_failure}', and '{bad_all}' are not proper values. Please "
-            + "specify 'alter', 'control', 'read', or 'update' access for your target attempt."
+            f"'{bad_success}', '{bad_failure}', and '{bad_all}' are not proper values. Valid "
+            + "access levels include 'alter', 'control', 'read', and 'update'."
         )
         self.assertEqual(
             str(exception.exception),
