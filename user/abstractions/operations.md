@@ -29,7 +29,9 @@ Check if a user has **Operations** authority.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 
 #### 💻 Example
 
@@ -61,7 +63,9 @@ Give a user **Operations** authority.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **return code** or **reason code** of a **Security Result** is not equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
@@ -123,7 +127,9 @@ Remove a user's **Operations** authority.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **return code** or **reason code** of a **Security Result** is not equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **z/OS userid** supplied cannot be altered because it does **NOT** exist.
 
