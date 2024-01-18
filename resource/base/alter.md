@@ -48,7 +48,9 @@ Alter an existing **general resource profile**.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
 * `SegmentTraitError`<br>

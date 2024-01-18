@@ -38,7 +38,9 @@ Give a user **RACF Special** authority within a group.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 
 #### 💻 Example
 
@@ -105,7 +107,9 @@ Take away a user's **RACF Special** authority within a group.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 
 #### 💻 Example
 
