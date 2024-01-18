@@ -32,7 +32,9 @@ Check the **Audit Rules** for a general resource profile.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 
 #### 💻 Example
 
@@ -67,7 +69,9 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
 
@@ -152,7 +156,11 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
+* `ValueError`<br>
+  Raises `ValueError` when values passed for `success`, `failure` or `all` are do not represent a valid `access level`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
 
@@ -241,7 +249,9 @@ Clear any rules defined within the **Audit Rules** for a general resource profil
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
 
@@ -326,7 +336,11 @@ Preserves any rules defined within the **Audit Rules** for a general resource pr
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
+* `ValueError`<br>
+  Raises `ValueError` when values passed for `success`, `failure` or `all` are do not represent a valid `access level`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
 
@@ -415,7 +429,9 @@ Preserves any rules defined within the **Audit Rules** for a general resource pr
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
-  Raises `SecurityRequestError` when the **Return Code** of a **Security Result** returned by IRRSMO00 is **NOT** equal to `0`.
+  Raises `SecurityRequestError` when the **SAF Return Code** of a **Security Result** is equal to `4`.
+* `DownstreamFatalError`<br>
+  Raises `DownstreamFatalError` when the **SAF Return Code** of a **Security Result** is greater than `4`.
 * `AlterOperationError`<br>
   Raises `AlterOperationError` when the **general resource profile** cannot be altered because it does **NOT** exist.
 
