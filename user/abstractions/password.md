@@ -42,7 +42,7 @@ Set a user's **password**.
   The **password** to set for the specified user or `False` to delete the current value.
 
 * `expired`<br>
-  A bool representing whether or not the **password** should be set as **expired** and require changing on next logon.
+  A boolean toggle that is used to determine whether or not the user's **password** should be set as **expired**,  meaning that the user will be required to change their **password** on next logon. Without this argument specified, RACF will maek the user's **password** as **expired** by default.
 
 #### 📤 Returns
 
