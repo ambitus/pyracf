@@ -733,32 +733,32 @@ class ResourceAdmin(SecurityAdmin):
         for attempt_argument in (success, failure, all):
             if (
                 attempt_argument is not None
-                and str(attempt_argument).lower() not in valid_access_levels
+                and isinstance(attempt_argument, str)
+                and attempt_argument.lower() not in valid_access_levels
             ):
                 bad_access_levels.append(attempt_argument)
+            elif attempt_argument is not None and not isinstance(attempt_argument, str):
+                bad_access_levels.append("non-string argument")
         match len(bad_access_levels):
             case 0:
                 return
             case 1:
                 value_error_text = (
-                    f"'{bad_access_levels[0]}' is not a proper value. "
+                    f"'{bad_access_levels[0]}' is not a valid access level. "
                     + value_error_text
                 )
             case 2:
                 value_error_text = (
-                    f"'{bad_access_levels[0]}' and '{bad_access_levels[1]}' are not proper "
-                    + "values. "
-                    + value_error_text
+                    f"'{bad_access_levels[0]}' and '{bad_access_levels[1]}' are not valid "
+                    + f"access levels. {value_error_text}"
                 )
             case _:
                 bad_access_levels = [
                     f"'{bad_access_level}'" for bad_access_level in bad_access_levels
                 ]
-                bad_access_levels[-1] = "and " + bad_access_levels[-1] + " "
-                bad_access_levels_string = ", ".join(bad_access_levels)
+                bad_access_levels[-1] = f"and {bad_access_levels[-1]} "
                 value_error_text = (
-                    bad_access_levels_string
-                    + "are not proper values. "
-                    + value_error_text
+                    f"{', '.join(bad_access_levels)}are not valid access levels. "
+                    + f"{value_error_text}"
                 )
         raise ValueError(value_error_text)

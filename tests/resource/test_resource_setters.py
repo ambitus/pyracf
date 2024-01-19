@@ -124,7 +124,7 @@ class TestResourceSetters(unittest.TestCase):
             )
         print(exception.exception, str(exception.exception).encode("utf-8"))
         error_string = (
-            f"'{bad_val}' is not a proper value. Valid access levels include "
+            f"'{bad_val}' is not a valid access level. Valid access levels include "
             + "'alter', 'control', 'read', and 'update'."
         )
         self.assertEqual(
@@ -255,7 +255,26 @@ class TestResourceSetters(unittest.TestCase):
 
     def test_resource_admin_build_alter_audit_by_attempt_value_error(self):
         bad_success = "problem"
-        bad_failure = "improper"
+        bad_all = "value"
+        with self.assertRaises(ValueError) as exception:
+            self.resource_admin.overwrite_audit_by_attempt(
+                "TESTING",
+                "ELIJTEST",
+                success=bad_success,
+                all=bad_all,
+            )
+        error_string = (
+            f"'{bad_success}' and '{bad_all}' are not valid access levels. Valid "
+            + "access levels include 'alter', 'control', 'read', and 'update'."
+        )
+        self.assertEqual(
+            str(exception.exception),
+            error_string,
+        )
+
+    def test_resource_admin_build_alter_audit_by_attempt_value_error_all(self):
+        bad_success = "problem"
+        bad_failure = ["improper"]
         bad_all = 1234
         with self.assertRaises(ValueError) as exception:
             self.resource_admin.overwrite_audit_by_attempt(
@@ -266,8 +285,9 @@ class TestResourceSetters(unittest.TestCase):
                 all=bad_all,
             )
         error_string = (
-            f"'{bad_success}', '{bad_failure}', and '{bad_all}' are not proper values. Valid "
-            + "access levels include 'alter', 'control', 'read', and 'update'."
+            f"'{bad_success}', 'non-string argument', and 'non-string argument' "
+            + "are not valid access levels. Valid access levels include 'alter', "
+            + "'control', 'read', and 'update'."
         )
         self.assertEqual(
             str(exception.exception),
