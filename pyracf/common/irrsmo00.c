@@ -110,7 +110,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     null_byte_fix(response_buffer, response_buffer_size);
 
     return Py_BuildValue(
-        "s#BBB", 
+        "y#BBB", 
         response_buffer, 
         response_buffer_size, 
         saf_rc, 
