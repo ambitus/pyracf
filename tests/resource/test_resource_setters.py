@@ -117,14 +117,13 @@ class TestResourceSetters(unittest.TestCase):
         )
 
     def test_resource_admin_build_overwrite_audit_by_attempt_value_error(self):
-        bad_val = "problem"
+        bad_success = "problem"
         with self.assertRaises(ValueError) as exception:
             self.resource_admin.overwrite_audit_by_attempt(
-                "TESTING", "ELIJTEST", success=bad_val
+                "TESTING", "ELIJTEST", success=bad_success
             )
-        print(exception.exception, str(exception.exception).encode("utf-8"))
         error_string = (
-            f"'{bad_val}' is not a valid access level. Valid access levels include "
+            f"'{bad_success}' is not a valid access level. Valid access levels include "
             + "'alter', 'control', 'read', and 'update'."
         )
         self.assertEqual(
@@ -285,9 +284,8 @@ class TestResourceSetters(unittest.TestCase):
                 all=bad_all,
             )
         error_string = (
-            f"'{bad_success}', 'non-string argument', and 'non-string argument' "
-            + "are not valid access levels. Valid access levels include 'alter', "
-            + "'control', 'read', and 'update'."
+            f"'{bad_success}', '{bad_failure}', and '{bad_all}' are not valid access levels. "
+            + "Valid access levels include 'alter', 'control', 'read', and 'update'."
         )
         self.assertEqual(
             str(exception.exception),

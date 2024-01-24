@@ -733,19 +733,16 @@ class ResourceAdmin(SecurityAdmin):
         for attempt_argument in (success, failure, all):
             if (
                 attempt_argument is not None
-                and isinstance(attempt_argument, str)
-                and attempt_argument.lower() not in valid_access_levels
+                and str(attempt_argument).lower() not in valid_access_levels
             ):
                 bad_access_levels.append(attempt_argument)
-            elif attempt_argument is not None and not isinstance(attempt_argument, str):
-                bad_access_levels.append("non-string argument")
         match len(bad_access_levels):
             case 0:
                 return
             case 1:
                 value_error_text = (
                     f"'{bad_access_levels[0]}' is not a valid access level. "
-                    + value_error_text
+                    + f"{value_error_text}"
                 )
             case 2:
                 value_error_text = (
