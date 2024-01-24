@@ -108,7 +108,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
 
     null_byte_fix(response_buffer, response_buffer_size);
 
-    return Py_BuildValue("y*BBB", rsp, saf_rc, racf_rc, racf_rsn);
+    return Py_BuildValue("y*BBB", response_buffer, saf_rc, racf_rc, racf_rsn);
 }
 
 static char call_irrsmo00_docs[] =
