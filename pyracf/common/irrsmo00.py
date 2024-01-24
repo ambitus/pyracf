@@ -46,7 +46,7 @@ class IRRSMO00:
             response_buffer_size=self.__response_buffer_size,
             irrsmo00_options=irrsmo00_options,
             running_userid=running_userid,
-            running_userid_lngth=running_userid_length,
+            running_userid_length=running_userid_length,
         )
         if response[0] == b"":
             return list(response[1:4])
@@ -55,8 +55,5 @@ class IRRSMO00:
         # a dump may need to be taken to aid in problem determination.
         # Also note that the response xml returned is a memory view object.
         # We must cast the memoryview object to a bytes object.
-        # Python C API 'y*': https://python.readthedocs.io/en/stable/c-api/arg.html
-        # Py_buffer: https://docs.python.org/3/c-api/buffer.html#c.Py_buffer
-        # memory view objects: https://www.geeksforgeeks.org/memoryview-in-python/
         self.__raw_binary_response = response[0]
-        return bytes(response[0]).decode("cp1047")
+        return response[0].decode("cp1047")
