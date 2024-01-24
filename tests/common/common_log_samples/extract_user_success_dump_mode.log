@@ -1,0 +1,270 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                              UserAdmin.extract()                              
+                                                                               
+
+{}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                              UserAdmin.extract()                              
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <user name="squidwrd" operation="listdata" requestid="UserRequest"/>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                              UserAdmin.extract()                              
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <user name="SQUIDWRD" operation="listdata" requestid="UserRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>LISTUSER SQUIDWRD </image>
+      <message>USER=SQUIDWRD  NAME=SQUIDWARD             OWNER=LEONARD   CREATED=23.094</message>
+      <message> DEFAULT-GROUP=SYS1     PASSDATE=00.000 PASS-INTERVAL=186 PHRASEDATE=N/A</message>
+      <message> ATTRIBUTES=NONE</message>
+      <message> REVOKE DATE=NONE   RESUME DATE=NONE</message>
+      <message> LAST-ACCESS=23.094/12:55:37</message>
+      <message> CLASS AUTHORIZATIONS=NONE</message>
+      <message> NO-INSTALLATION-DATA</message>
+      <message> NO-MODEL-NAME</message>
+      <message> LOGON ALLOWED   (DAYS)          (TIME)</message>
+      <message> ---------------------------------------------</message>
+      <message> ANYDAY                          ANYTIME</message>
+      <message>  GROUP=SYS1      AUTH=USE      CONNECT-OWNER=LEONARD   CONNECT-DATE=23.094</message>
+      <message>    CONNECTS=    00  UACC=NONE     LAST-CONNECT=UNKNOWN</message>
+      <message>    CONNECT ATTRIBUTES=NONE</message>
+      <message>    REVOKE DATE=NONE   RESUME DATE=NONE</message>
+      <message>SECURITY-LEVEL=NONE SPECIFIED</message>
+      <message>CATEGORY-AUTHORIZATION</message>
+      <message> NONE SPECIFIED</message>
+      <message>SECURITY-LABEL=NONE SPECIFIED</message>
+    </command>
+  </user>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+[ INFO ] Raw binary response written to '/u/testuser/.pyracf/dump/pyracf.20240108-131054.b9737628646bc92808b33c941b394e72.dump'.
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Formatted Hex Dump                              
+                              UserAdmin.extract()                              
+                                                                               
+
+00000000: 3c3f 786d 6c20 7665 7273 696f 6e3d 2231  <?xml version="1
+00000010: 2e30 2220 656e 636f 6469 6e67 3d22 4942  .0" encoding="IB
+00000020: 4d2d 3130 3437 223f 3e3c 7365 6375 7269  M-1047"?><securi
+00000030: 7479 7265 7375 6c74 2078 6d6c 6e73 3d22  tyresult xmlns="
+00000040: 6874 7470 3a2f 2f77 7777 2e69 626d 2e63  http://www.ibm.c
+00000050: 6f6d 2f73 7973 7465 6d73 2f7a 6f73 2f73  om/systems/zos/s
+00000060: 6166 2f49 5252 534d 4f30 3052 6573 756c  af/IRRSMO00Resul
+00000070: 7431 223e 3c75 7365 7220 6e61 6d65 3d22  t1"><user name="
+00000080: 5351 5549 4457 5244 2220 6f70 6572 6174  SQUIDWRD" operat
+00000090: 696f 6e3d 226c 6973 7464 6174 6122 2072  ion="listdata" r
+000000a0: 6571 7565 7374 6964 3d22 5573 6572 5265  equestid="UserRe
+000000b0: 7175 6573 7422 3e3c 636f 6d6d 616e 643e  quest"><command>
+000000c0: 3c73 6166 7265 7475 726e 636f 6465 3e30  <safreturncode>0
+000000d0: 3c2f 7361 6672 6574 7572 6e63 6f64 653e  </safreturncode>
+000000e0: 3c72 6574 7572 6e63 6f64 653e 303c 2f72  <returncode>0</r
+000000f0: 6574 7572 6e63 6f64 653e 3c72 6561 736f  eturncode><reaso
+00000100: 6e63 6f64 653e 303c 2f72 6561 736f 6e63  ncode>0</reasonc
+00000110: 6f64 653e 3c69 6d61 6765 3e4c 4953 5455  ode><image>LISTU
+00000120: 5345 5220 5351 5549 4457 5244 203c 2f69  SER SQUIDWRD </i
+00000130: 6d61 6765 3e3c 6d65 7373 6167 653e 5553  mage><message>US
+00000140: 4552 3d53 5155 4944 5752 4420 204e 414d  ER=SQUIDWRD  NAM
+00000150: 453d 5351 5549 4457 4152 4420 2020 2020  E=SQUIDWARD     
+00000160: 2020 2020 2020 2020 4f57 4e45 523d 4c45          OWNER=LE
+00000170: 4f4e 4152 4420 2020 4352 4541 5445 443d  ONARD   CREATED=
+00000180: 3233 2e30 3934 3c2f 6d65 7373 6167 653e  23.094</message>
+00000190: 3c6d 6573 7361 6765 3e20 4445 4641 554c  <message> DEFAUL
+000001a0: 542d 4752 4f55 503d 5359 5331 2020 2020  T-GROUP=SYS1    
+000001b0: 2050 4153 5344 4154 453d 3030 2e30 3030   PASSDATE=00.000
+000001c0: 2050 4153 532d 494e 5445 5256 414c 3d31   PASS-INTERVAL=1
+000001d0: 3836 2050 4852 4153 4544 4154 453d 4e2f  86 PHRASEDATE=N/
+000001e0: 413c 2f6d 6573 7361 6765 3e3c 6d65 7373  A</message><mess
+000001f0: 6167 653e 2041 5454 5249 4255 5445 533d  age> ATTRIBUTES=
+00000200: 4e4f 4e45 3c2f 6d65 7373 6167 653e 3c6d  NONE</message><m
+00000210: 6573 7361 6765 3e20 5245 564f 4b45 2044  essage> REVOKE D
+00000220: 4154 453d 4e4f 4e45 2020 2052 4553 554d  ATE=NONE   RESUM
+00000230: 4520 4441 5445 3d4e 4f4e 453c 2f6d 6573  E DATE=NONE</mes
+00000240: 7361 6765 3e3c 6d65 7373 6167 653e 204c  sage><message> L
+00000250: 4153 542d 4143 4345 5353 3d32 332e 3039  AST-ACCESS=23.09
+00000260: 342f 3132 3a35 353a 3337 3c2f 6d65 7373  4/12:55:37</mess
+00000270: 6167 653e 3c6d 6573 7361 6765 3e20 434c  age><message> CL
+00000280: 4153 5320 4155 5448 4f52 495a 4154 494f  ASS AUTHORIZATIO
+00000290: 4e53 3d4e 4f4e 453c 2f6d 6573 7361 6765  NS=NONE</message
+000002a0: 3e3c 6d65 7373 6167 653e 204e 4f2d 494e  ><message> NO-IN
+000002b0: 5354 414c 4c41 5449 4f4e 2d44 4154 413c  STALLATION-DATA<
+000002c0: 2f6d 6573 7361 6765 3e3c 6d65 7373 6167  /message><messag
+000002d0: 653e 204e 4f2d 4d4f 4445 4c2d 4e41 4d45  e> NO-MODEL-NAME
+000002e0: 3c2f 6d65 7373 6167 653e 3c6d 6573 7361  </message><messa
+000002f0: 6765 3e20 4c4f 474f 4e20 414c 4c4f 5745  ge> LOGON ALLOWE
+00000300: 4420 2020 2844 4159 5329 2020 2020 2020  D   (DAYS)      
+00000310: 2020 2020 2854 494d 4529 3c2f 6d65 7373      (TIME)</mess
+00000320: 6167 653e 3c6d 6573 7361 6765 3e20 2d2d  age><message> --
+00000330: 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d  ----------------
+00000340: 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d 2d2d  ----------------
+00000350: 2d2d 2d2d 2d2d 2d2d 2d2d 2d3c 2f6d 6573  -----------</mes
+00000360: 7361 6765 3e3c 6d65 7373 6167 653e 2041  sage><message> A
+00000370: 4e59 4441 5920 2020 2020 2020 2020 2020  NYDAY           
+00000380: 2020 2020 2020 2020 2020 2020 2020 2041                 A
+00000390: 4e59 5449 4d45 3c2f 6d65 7373 6167 653e  NYTIME</message>
+000003a0: 3c6d 6573 7361 6765 3e20 2047 524f 5550  <message>  GROUP
+000003b0: 3d53 5953 3120 2020 2020 2041 5554 483d  =SYS1      AUTH=
+000003c0: 5553 4520 2020 2020 2043 4f4e 4e45 4354  USE      CONNECT
+000003d0: 2d4f 574e 4552 3d4c 454f 4e41 5244 2020  -OWNER=LEONARD  
+000003e0: 2043 4f4e 4e45 4354 2d44 4154 453d 3233   CONNECT-DATE=23
+000003f0: 2e30 3934 3c2f 6d65 7373 6167 653e 3c6d  .094</message><m
+00000400: 6573 7361 6765 3e20 2020 2043 4f4e 4e45  essage>    CONNE
+00000410: 4354 533d 2020 2020 3030 2020 5541 4343  CTS=    00  UACC
+00000420: 3d4e 4f4e 4520 2020 2020 4c41 5354 2d43  =NONE     LAST-C
+00000430: 4f4e 4e45 4354 3d55 4e4b 4e4f 574e 3c2f  ONNECT=UNKNOWN</
+00000440: 6d65 7373 6167 653e 3c6d 6573 7361 6765  message><message
+00000450: 3e20 2020 2043 4f4e 4e45 4354 2041 5454  >    CONNECT ATT
+00000460: 5249 4255 5445 533d 4e4f 4e45 3c2f 6d65  RIBUTES=NONE</me
+00000470: 7373 6167 653e 3c6d 6573 7361 6765 3e20  ssage><message> 
+00000480: 2020 2052 4556 4f4b 4520 4441 5445 3d4e     REVOKE DATE=N
+00000490: 4f4e 4520 2020 5245 5355 4d45 2044 4154  ONE   RESUME DAT
+000004a0: 453d 4e4f 4e45 3c2f 6d65 7373 6167 653e  E=NONE</message>
+000004b0: 3c6d 6573 7361 6765 3e53 4543 5552 4954  <message>SECURIT
+000004c0: 592d 4c45 5645 4c3d 4e4f 4e45 2053 5045  Y-LEVEL=NONE SPE
+000004d0: 4349 4649 4544 3c2f 6d65 7373 6167 653e  CIFIED</message>
+000004e0: 3c6d 6573 7361 6765 3e43 4154 4547 4f52  <message>CATEGOR
+000004f0: 592d 4155 5448 4f52 495a 4154 494f 4e3c  Y-AUTHORIZATION<
+00000500: 2f6d 6573 7361 6765 3e3c 6d65 7373 6167  /message><messag
+00000510: 653e 204e 4f4e 4520 5350 4543 4946 4945  e> NONE SPECIFIE
+00000520: 443c 2f6d 6573 7361 6765 3e3c 6d65 7373  D</message><mess
+00000530: 6167 653e 5345 4355 5249 5459 2d4c 4142  age>SECURITY-LAB
+00000540: 454c 3d4e 4f4e 4520 5350 4543 4946 4945  EL=NONE SPECIFIE
+00000550: 443c 2f6d 6573 7361 6765 3e3c 2f63 6f6d  D</message></com
+00000560: 6d61 6e64 3e3c 2f75 7365 723e 3c72 6574  mand></user><ret
+00000570: 7572 6e63 6f64 653e 303c 2f72 6574 7572  urncode>0</retur
+00000580: 6e63 6f64 653e 3c72 6561 736f 6e63 6f64  ncode><reasoncod
+00000590: 653e 303c 2f72 6561 736f 6e63 6f64 653e  e>0</reasoncode>
+000005a0: 3c2f 7365 6375 7269 7479 7265 7375 6c74  </securityresult
+000005a7: 3e                                       >
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                              UserAdmin.extract()                              
+                                                                               
+
+{
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "listdata",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTUSER SQUIDWRD ",
+          "messages": [
+            "USER=SQUIDWRD  NAME=SQUIDWARD             OWNER=LEONARD   CREATED=23.094",
+            " DEFAULT-GROUP=SYS1     PASSDATE=00.000 PASS-INTERVAL=186 PHRASEDATE=N/A",
+            " ATTRIBUTES=NONE",
+            " REVOKE DATE=NONE   RESUME DATE=NONE",
+            " LAST-ACCESS=23.094/12:55:37",
+            " CLASS AUTHORIZATIONS=NONE",
+            " NO-INSTALLATION-DATA",
+            " NO-MODEL-NAME",
+            " LOGON ALLOWED   (DAYS)          (TIME)",
+            " ---------------------------------------------",
+            " ANYDAY                          ANYTIME",
+            "  GROUP=SYS1      AUTH=USE      CONNECT-OWNER=LEONARD   CONNECT-DATE=23.094",
+            "    CONNECTS=    00  UACC=NONE     LAST-CONNECT=UNKNOWN",
+            "    CONNECT ATTRIBUTES=NONE",
+            "    REVOKE DATE=NONE   RESUME DATE=NONE",
+            "SECURITY-LEVEL=NONE SPECIFIED",
+            "CATEGORY-AUTHORIZATION",
+            " NONE SPECIFIED",
+            "SECURITY-LABEL=NONE SPECIFIED"
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0,
+    "runningUserid": "testuser"
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                     Result Dictionary (Formatted Profile)                     
+                              UserAdmin.extract()                              
+                                                                               
+
+{
+  "securityResult": {
+    "user": {
+      "name": "SQUIDWRD",
+      "operation": "listdata",
+      "requestId": "UserRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTUSER SQUIDWRD ",
+          "profiles": [
+            {
+              "base": {
+                "user": "squidwrd",
+                "name": "squidward",
+                "owner": "leonard",
+                "created": "4/4/2023",
+                "defaultGroup": "sys1",
+                "passwordDate": null,
+                "passwordInterval": 186,
+                "passphraseDate": null,
+                "attributes": [],
+                "revokeDate": null,
+                "resumeDate": null,
+                "lastAccess": "4/4/2023 12:55 PM",
+                "classAuthorizations": [],
+                "logonAllowedDays": "anyday",
+                "logonAllowedTime": "anytime",
+                "groups": {
+                  "SYS1": {
+                    "auth": "use",
+                    "connectOwner": "leonard",
+                    "connectDate": "4/4/2023",
+                    "connects": 0,
+                    "uacc": null,
+                    "lastConnect": null,
+                    "connectAttributes": [],
+                    "revokeDate": null,
+                    "resumeDate": null
+                  }
+                },
+                "securityLevel": null,
+                "categoryAuthorization": null,
+                "securityLabel": null
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0,
+    "runningUserid": "testuser"
+  }
+}
+

@@ -15,6 +15,7 @@ class DataSetAdmin(SecurityAdmin):
 
     def __init__(
         self,
+        irrsmo00_response_buffer_size: Union[int, None] = None,
         debug: bool = False,
         dump_mode: bool = False,
         generate_requests_only: bool = False,
@@ -64,6 +65,7 @@ class DataSetAdmin(SecurityAdmin):
         }
         super().__init__(
             "dataSet",
+            irrsmo00_response_buffer_size=irrsmo00_response_buffer_size,
             debug=debug,
             dump_mode=dump_mode,
             generate_requests_only=generate_requests_only,

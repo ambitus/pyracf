@@ -146,3 +146,11 @@ TEST_DOWNSTREAM_FATAL_ERROR_GENERIC_TEXT = (
     + "about this error.\n"
     + "https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-return-reason-codes"
 )
+
+# ============================================================================
+# Dump Processing
+# ============================================================================
+
+TEST_EXTRACT_USER_SUCCESS_DUMP_MODE_LOG = get_sample(
+    "extract_user_success_dump_mode.log"
+)

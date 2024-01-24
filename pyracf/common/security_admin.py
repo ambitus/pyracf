@@ -29,6 +29,7 @@ class SecurityAdmin:
     def __init__(
         self,
         profile_type: str,
+        irrsmo00_response_buffer_size: Union[int, None] = None,
         debug: bool = False,
         dump_mode: bool = False,
         generate_requests_only: bool = False,
@@ -71,7 +72,16 @@ class SecurityAdmin:
             "base:password": "racf:password",
             "base:passphrase": "racf:phrase",
         }
-        self.__irrsmo00 = IRRSMO00()
+        self.__irrsmo00_response_buffer_size = irrsmo00_response_buffer_size
+        if (
+            self.__irrsmo00_response_buffer_size
+            and self.__irrsmo00_response_buffer_size > 0
+        ):
+            self.__irrsmo00 = IRRSMO00(
+                response_buffer_size=self.__irrsmo00_response_buffer_size
+            )
+        else:
+            self.__irrsmo00 = IRRSMO00()
         self._profile_type = profile_type
         self._segment_traits = {}
         # used to preserve segment traits for debug logging.

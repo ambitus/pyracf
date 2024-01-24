@@ -4,6 +4,7 @@ import hashlib
 import inspect
 import json
 import os
+import platform
 import re
 import struct
 from datetime import datetime
@@ -391,9 +392,14 @@ class Logger:
         interpreted_row = ""
         i = 0
         hex_dump = ""
+        encoding = "cp1047"
+        if platform.system() != "OS/390" and encoding == "cp1047":
+            # If not running on z/OS, EBCDIC is most likely not supported.
+            # Force iso-8859-1 if running tests on Linux, Mac, Windows, etc...
+            encoding = "iso-8859-1"
         for byte in raw_binary_response:
             color_function = self.__green
-            char = struct.pack("B", byte).decode("cp1047")
+            char = struct.pack("B", byte).decode(encoding)
             # Non-displayable characters should be interpreted as '.'.
             match len(repr(char)):
                 # All non-displayable characters should be red.
