@@ -22,7 +22,7 @@ class IRRSMO00:
         self.__raw_binary_response = b""
 
     def get_raw_binary_response(self) -> bytes:
-        return bytes(self.__raw_binary_response)
+        return self.__raw_binary_response
 
     def clear_raw_binary_response(self) -> None:
         self.__raw_binary_response = b""
@@ -48,12 +48,24 @@ class IRRSMO00:
             running_userid=running_userid,
             running_userid_length=running_userid_length,
         )
-        if response[0] == b"":
-            return list(response[1:4])
         # Preserve raw binary respone just in case we need to create a dump.
         # If the decoded response cannot be parsed with the XML parser,
         # a dump may need to be taken to aid in problem determination.
-        # Also note that the response xml returned is a memory view object.
-        # We must cast the memoryview object to a bytes object.
         self.__raw_binary_response = response[0]
-        return response[0].decode("cp1047")
+        # 'irrsmo00.c' returns a raw unmodified bytes object containing a copy
+        # of the exact contents of the response xml buffer that the IRRSMO00
+        # callable service populates.
+        #
+        # The first occurance of a null byte '0x00' is the end of the IBM-1047
+        # encoded XML response and all of the trailing null bytes should be removed
+        # from the XML response to ensure that downstream XML parsing is successful.
+        response_length = len(response[0])
+        null_terminator_index = response[0].find(b"\x00")
+        if null_terminator_index != -1:
+            response_length = null_terminator_index
+        # If 'response_length' is 0, this indicates that the IRRSMO00 callable
+        # service was unable to process the request. in this case, would should
+        # only return the return and reasons codes for error handling downstream.
+        if response_length == 0:
+            return list(response[1:4])
+        return response[0][:response_length].decode("cp1047")

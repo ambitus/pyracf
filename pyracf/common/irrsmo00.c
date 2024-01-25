@@ -14,7 +14,7 @@ typedef struct
     char running_userid[8];
 } running_userid_t;
 
-// This function changes any null character not preceded by '>' to a blank character.
+// This function changes any null character not preceded by '>' to a space character.
 // This is a workaround for an issue where profile data embedded in response xml
 // returned by IRROSMO00 sometimes includes null characters instead of properly
 // encoded text, which causes the returned xml to be truncated.
@@ -24,13 +24,13 @@ void null_byte_fix(char *str, unsigned int length)
     {
         if (str[i] == 0)
         {
-            if (str[i - 1] == 0x6E)
+            if (str[i - 1] == 0x6E)     // 0xfE is a '>' character in IBM-1047
             {
                 return;
             }
             else
             {
-                str[i] = 0x40;
+                str[i] = 0x40;          // 0x40 is a space character in IBM-1047
             }
         }
     }
@@ -108,6 +108,39 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         response_buffer);
 
     null_byte_fix(response_buffer, response_buffer_size);
+
+    // https://docs.python.org/3/c-api/arg.html#c.Py_BuildValue
+    //
+    // According to the Python 3 C API documentation:
+    //      When memory buffers are passed as parameters to supply data to 
+    //      build objects, as for the s and s# formats, the required data is 
+    //      copied. Buffers provided by the caller are never referenced by 
+    //      the objects created by Py_BuildValue(). In other words, if your 
+    //      code invokes malloc() and passes the allocated memory to 
+    //      Py_BuildValue(), your code is responsible for calling free() for 
+    //      that memory once Py_BuildValue() returns.
+    //
+    //      y# (bytes) [const char *, Py_ssize_t]
+    //          This converts a C string and its lengths to a Python object. 
+    //          If the C string pointer is NULL, None is returned.
+    //
+    //      https://docs.python.org/3/c-api/arg.html#c.Py_BuildValue
+    //
+    // So, given that 'response_buffer' is a stack allocated buffer
+    // and that Python creates a copy of the buffer, which Python's
+    // garbage collection should be responsible for, we do not need
+    // to do any memory mangement here. 'response_buffer' will simply
+    // just be popped off the stack when this function returns.
+    //
+    // Also, according to the Python3 C documentation 'y#' should be 
+    // just giving us a copy copy of exactly what is in the buffer,
+    // without attempting to do any transformations to the data.
+    // The following GeesForGeeks article futher confirms that we are
+    // going to get a bytes object that is completely unmanipulated.
+    // https://www.geeksforgeeks.org/c-strings-conversion-to-python/
+    //
+    // In this case, all post processing of the data is handled on
+    // the Python side.
 
     return Py_BuildValue(
         "y#BBB", 
