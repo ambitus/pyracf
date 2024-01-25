@@ -14,7 +14,9 @@ User Administration functions for modifying a user's password.
 
 <br>
 ```python
-def set_password(self, userid: str, password: Union[str, bool]) -> Union[dict, bytes]:
+def set_password(
+    self, userid: str, password: Union[str, bool], expired: Union[bool, None] = None
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -40,6 +42,9 @@ Set a user's **password**.
 
 * `password`<br>
   The **password** to set for the specified user or `False` to delete the current value.
+
+* `expired`<br>
+  A boolean toggle that is used to determine whether or not the user's **password** should be set as **expired**,  meaning that the user will be required to change their **password** on next logon. If this argument is not provided, RACF will set the user's **password** as **expired** by default.
 
 #### 📤 Returns
 

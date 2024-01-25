@@ -14,7 +14,9 @@ User Administration functions for modifying a user's passphrase.
 
 <br>
 ```python
-def set_passphrase(self, userid: str, passphrase: str) -> Union[dict, bytes]:
+def set_passphrase(
+    self,  userid: str, passphrase: str, expired: Union[bool, None] = None
+) -> Union[dict, bytes]:
 ```
 
 #### 📄 Description
@@ -40,6 +42,9 @@ Set a user's **passphrase**.
 
 * `passphrase`<br>
   The **passphrase** to set for the specified user or `False` to delete the current value.
+
+* `expired`<br>
+  A boolean toggle that is used to determine whether or not the user's **passphrase** should be set as **expired**,  meaning that the user will be required to change their **passphrase** on next logon. If this argument is not provided, RACF will set the user's **passphrase** as **expired** by default.
 
 #### 📤 Returns
 
