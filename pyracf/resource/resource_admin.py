@@ -1,5 +1,6 @@
 """General Resource Profile Administration."""
 
+from collections import Counter
 from typing import List, Union
 
 from pyracf.common.add_operation_error import AddOperationError
@@ -738,6 +739,9 @@ class ResourceAdmin(SecurityAdmin):
                 bad_access_levels.append(attempt_argument)
         match len(bad_access_levels):
             case 0:
+                self.__check_for_duplicates(
+                    [success, failure, all], "attempt types", "access level"
+                )
                 return
             case 1:
                 value_error_text = (
@@ -759,3 +763,23 @@ class ResourceAdmin(SecurityAdmin):
                     + f"{value_error_text}"
                 )
         raise ValueError(value_error_text)
+
+    def __check_for_duplicates(
+        self, input_list: list, argument: str, value: str
+    ) -> None:
+        duplicates = [
+            key
+            for (key, value) in Counter(input_list).items()
+            if (value > 1 and not (key is None))
+        ]
+        if duplicates == []:
+            return
+        value_error_text = []
+        for duplicate in duplicates:
+            value_error_text.append(
+                f"You entered '{duplicate}' for multiple parameters which is not supported."
+            )
+        value_error_text.append(
+            f"Please use multiple function calls to set multiple {argument} to the same {value}."
+        )
+        raise ValueError("\n".join(value_error_text))

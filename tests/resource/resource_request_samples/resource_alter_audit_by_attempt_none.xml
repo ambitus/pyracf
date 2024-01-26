@@ -2,7 +2,7 @@
   <resource name="TESTING" class="ELIJTEST" operation="set" requestid="ResourceRequest">
     <base>
       <racf:audupdt operation="set">success</racf:audupdt>
-      <racf:audread operation="set">failure</racf:audread>
+      <racf:audread operation="set">all</racf:audread>
     </base>
   </resource>
 </securityrequest>

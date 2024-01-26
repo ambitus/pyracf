@@ -131,6 +131,23 @@ class TestResourceSetters(unittest.TestCase):
             error_string,
         )
 
+    def test_resource_admin_build_overwrite_audit_by_attempt_value_duplicates(self):
+        success = "alter"
+        failure = "alter"
+        with self.assertRaises(ValueError) as exception:
+            self.resource_admin.overwrite_audit_by_attempt(
+                "TESTING", "ELIJTEST", success=success, failure=failure
+            )
+        error_string = (
+            f"You entered '{success}' for multiple parameters which is not supported.\n"
+            + "Please use multiple function calls to set multiple attempt types to the "
+            + "same access level."
+        )
+        self.assertEqual(
+            str(exception.exception),
+            error_string,
+        )
+
     @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
     def test_resource_admin_build_alter_audit_by_access_level_request(
         self,
@@ -152,7 +169,7 @@ class TestResourceSetters(unittest.TestCase):
         resource_admin_extract_mock: Mock,
     ):
         resource_admin_extract_mock.return_value = (
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_WITH_ALL
         )
         self.assertEqual(
             self.resource_admin.alter_audit_by_access_level("TESTING", "ELIJTEST"),
@@ -215,7 +232,7 @@ class TestResourceSetters(unittest.TestCase):
         resource_admin_extract_mock: Mock,
     ):
         resource_admin_extract_mock.return_value = (
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_WITH_ALL
         )
         self.assertEqual(
             self.resource_admin.alter_audit_by_attempt("TESTING", "ELIJTEST"),

@@ -169,6 +169,7 @@ TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_NONE_REQUEST_XML = get_sample(
 # ============================================================================
 
 TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES = {"success": "update", "failures": "read"}
+TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_WITH_ALL = {"success": "update", "all": "read"}
 TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_SINGLE = {"failures": "read"}
 
 # ============================================================================
