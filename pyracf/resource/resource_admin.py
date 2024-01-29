@@ -294,6 +294,7 @@ class ResourceAdmin(SecurityAdmin):
     ) -> Union[dict, bytes, None]:
         """Get the auditing rules associated with this general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
+        print(profile)
         return self._get_field(profile, "base", "auditing")
 
     def overwrite_audit_by_attempt(
@@ -332,8 +333,7 @@ class ResourceAdmin(SecurityAdmin):
         to audit by access level, preserving existing non-conflicting rules.
         """
         self.__validate_access_levels(success, failure, all)
-        profile = self.extract(resource, class_name, profile_only=True)
-        audit_rules = self._get_field(profile, "base", "auditing")
+        audit_rules = self.get_audit_rules(resource, class_name)
         traits = {}
         if "success" in audit_rules:
             traits[f"base:audit_{audit_rules['success']}"] = "success"
@@ -388,8 +388,7 @@ class ResourceAdmin(SecurityAdmin):
         Alters the auditing rules for this general resource profile with a new
         rule to audit alter access, preserving existing non-conflicting rules.
         """
-        profile = self.extract(resource, class_name, profile_only=True)
-        audit_rules = self._get_field(profile, "base", "auditing")
+        audit_rules = self.get_audit_rules(resource, class_name)
         traits = {}
         if "success" in audit_rules:
             traits[f"base:audit_{audit_rules['success']}"] = "success"
@@ -739,9 +738,7 @@ class ResourceAdmin(SecurityAdmin):
                 bad_access_levels.append(attempt_argument)
         match len(bad_access_levels):
             case 0:
-                self.__check_for_duplicates(
-                    [success, failure, all], "attempt types", "access level"
-                )
+                self.__check_for_duplicates([success, failure, all], "Access Level")
                 return
             case 1:
                 value_error_text = (
@@ -764,22 +761,18 @@ class ResourceAdmin(SecurityAdmin):
                 )
         raise ValueError(value_error_text)
 
-    def __check_for_duplicates(
-        self, input_list: list, argument: str, value: str
-    ) -> None:
+    def __check_for_duplicates(self, argument_list: list, argument: str) -> None:
         duplicates = [
             key
-            for (key, value) in Counter(input_list).items()
-            if (value > 1 and not (key is None))
+            for (key, value) in Counter(argument_list).items()
+            if (value > 1 and key is not None)
         ]
         if duplicates == []:
             return
         value_error_text = []
         for duplicate in duplicates:
             value_error_text.append(
-                f"You entered '{duplicate}' for multiple parameters which is not supported."
+                f"'{duplicate}' is provided as an '{argument}' multiple times, which is not "
+                + "allowed."
             )
-        value_error_text.append(
-            f"Please use multiple function calls to set multiple {argument} to the same {value}."
-        )
         raise ValueError("\n".join(value_error_text))

@@ -139,21 +139,20 @@ class TestResourceSetters(unittest.TestCase):
                 "TESTING", "ELIJTEST", success=success, failure=failure
             )
         error_string = (
-            f"You entered '{success}' for multiple parameters which is not supported.\n"
-            + "Please use multiple function calls to set multiple attempt types to the "
-            + "same access level."
+            f"'{success}' is provided as an 'Access Level' multiple times, which is not "
+            + "allowed."
         )
         self.assertEqual(
             str(exception.exception),
             error_string,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_access_level_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
         )
         self.assertEqual(
@@ -163,12 +162,12 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_REQUEST_XML,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_access_level_none_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_WITH_ALL
         )
         self.assertEqual(
@@ -176,12 +175,12 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_NONE_REQUEST_XML,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_access_level_multiple_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
         )
         self.assertEqual(
@@ -191,12 +190,12 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_MULT_REQUEST_XML,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_access_level_all_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
         )
         self.assertEqual(
@@ -211,12 +210,12 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_ALL_REQUEST_XML,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_attempt_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
         )
         self.assertEqual(
@@ -226,12 +225,12 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_REQUEST_XML,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_attempt_none_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_WITH_ALL
         )
         self.assertEqual(
@@ -239,12 +238,12 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_NONE_REQUEST_XML,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_attempt_multiple_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
         )
         self.assertEqual(
@@ -254,12 +253,12 @@ class TestResourceSetters(unittest.TestCase):
             TestResourceConstants.TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_MULT_REQUEST_XML,
         )
 
-    @patch("pyracf.resource.resource_admin.ResourceAdmin.extract")
+    @patch("pyracf.resource.resource_admin.ResourceAdmin.get_audit_rules")
     def test_resource_admin_build_alter_audit_by_attempt_all_request(
         self,
-        resource_admin_extract_mock: Mock,
+        resource_admin_get_audit_rules_mock: Mock,
     ):
-        resource_admin_extract_mock.return_value = (
+        resource_admin_get_audit_rules_mock.return_value = (
             TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES
         )
         self.assertEqual(
