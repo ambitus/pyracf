@@ -30,7 +30,7 @@ class IRRSMO00:
         """Clear the current preserved raw response from IRRSMO00."""
         self.__raw_response = b""
 
-    def __null_byte_fix(response: bytes) -> bytes:
+    def __null_byte_fix(self, response: bytes) -> bytes:
         """
         This function replaces all null bytes that exist before the
         last occurance the '>' (0x6E in IBM-1047) character in the
