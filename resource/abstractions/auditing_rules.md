@@ -28,7 +28,7 @@ Get the **Auditing Rules** for a general resource profile.
 
 #### 📤 Returns
 * `Union[dict, bytes, None]`<br>
-  Returns `None` when the general resource profile has no **Auditing Rules** defined, otherwise returns the **Auditing Rules** as a dictionary. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the general resource profile has no **Auditing Rules** defined, otherwise the **Auditing Rules** are returned as a dictionary. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -42,7 +42,7 @@ Get the **Auditing Rules** for a general resource profile.
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.get_audit_rules("TESTING","ELIJTEST")
+>>> resource_admin.get_audit_rules("TESTING", "ELIJTEST")
 {"success": "update", "failures": "read"}
 ```
 
@@ -81,7 +81,7 @@ Remove all **Auditing Rules** defined for a general resource profile.
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.remove_all_audit_rules("TESTING","ELIJTEST")
+>>> resource_admin.remove_all_audit_rules("TESTING", "ELIJTEST")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( NONE    )","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
@@ -132,11 +132,15 @@ def overwrite_audit_by_attempt(
 
 #### 📄 Description
 
-Remove all currently defined **Auditing Rules** for a general resource profile and replace them with the new **Auditing Rules** specified by **Access Attempt**.
-
 {: .note }
-> _Valid values for **Access Attempts** are limited to the **Access Levels** `alter`, `control`, `read`, and `update`._
-> _You may not specify the same **Access Level** for 2+ **Access Attempts** on a single call of `overwrite_audit_by_attempt`._
+> _Valid values for **Access Attempts** are limited to the **Access Level** values of `alter`, `control`, `read`, and `update`._
+
+&nbsp;
+
+{:.warning}
+> _Using an **Access Level** value more than once is **NOT** allowed._
+
+Remove all currently defined **Auditing Rules** for a general resource profile and replace them with the new **Auditing Rules** specified by **Access Attempt**.
 
 #### 📥 Parameters
 * `resource`<br>
@@ -146,13 +150,13 @@ Remove all currently defined **Auditing Rules** for a general resource profile a
   The name of the **class** the specified general resource profile belongs to.
 
 * `success`<br>
-  The **access_level** which **Successes** should be audited for.
+  The **Access Level** which **Successes** should be audited for.
 
 * `failure`<br>
-  The **access_level** which **Failures** should be audited for.
+  The **Access Level** which **Failures** should be audited for.
 
 * `all`<br>
-  TThe **access_level** which both **Successes** and **Failures** should be audited for.
+  The **Access Level** which both **Successes** and **Failures** should be audited for.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -174,7 +178,7 @@ Remove all currently defined **Auditing Rules** for a general resource profile a
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_attempt("TESTING","ELIJTEST",success="alter")
+>>> resource_admin.overwrite_audit_by_attempt("TESTING", "ELIJTEST", success="alter")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (alter       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
@@ -226,10 +230,10 @@ def overwrite_audit_by_access_level(
 
 #### 📄 Description
 
-Remove all currently defined **Auditing Rules** for a general resource profile and replace them with the new **Auditing Rules** specified by **Access Level**.
-
 {: .note }
-> _Valid values for **Access Levels** are limited to the **Access Attempts** `success`, `failure`, and `all`._
+> _Valid values for **Access Levels** are limited to the **Access Attempt** values of `success`, `failure`, and `all`._
+
+Remove all currently defined **Auditing Rules** for a general resource profile and replace them with the new **Auditing Rules** specified by **Access Level**.
 
 #### 📥 Parameters
 * `resource`<br>
@@ -239,16 +243,16 @@ Remove all currently defined **Auditing Rules** for a general resource profile a
   The name of the **class** the specified general resource profile belongs to.
 
 * `alter`<br>
-  The type of **Access Attempt** which **Alter** attempts should be audited.
+  The type of **Access Attempt** which **Alter** attempts should be audited for.
 
 * `control`<br>
-  The type of **Access Attempt** which **Control** attempts should be audited.
+  The type of **Access Attempt** which **Control** attempts should be audited for.
 
 * `read`<br>
-  The type of **Access Attempt** which **Read** attempts should be audited.
+  The type of **Access Attempt** which **Read** attempts should be audited for.
 
 * `update`<br>
-  The type of **Access Attempt** which **Update** attempts should be audited.
+  The type of **Access Attempt** which **Update** attempts should be audited for.
 
 
 #### 📤 Returns
@@ -269,7 +273,7 @@ Remove all currently defined **Auditing Rules** for a general resource profile a
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_by_access_leve("TESTING","ELIJTEST",alter="success")
+>>> resource_admin.overwrite_audit_by_access_leve("TESTING", "ELIJTEST", alter="success")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( success (ALTER       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
@@ -320,11 +324,15 @@ def alter_audit_by_attempt(
 
 #### 📄 Description
 
-Alter the **Auditing Rules** of a general resource profile specified by **Access Attempt**.
-
 {: .note }
-> _Valid values for **Access Attempts** are limited to the **Access Levels** `alter`, `control`, `read`, and `update`._
-> _You may not specify the same **Access Level** for 2+ **Access Attempts** on a single call of `alter_audit_by_attempt`._
+> _Valid values for **Access Attempts** are limited to the **Access Level** values of `alter`, `control`, `read`, and `update`._
+
+&nbsp;
+
+{:.warning}
+> _Using an **Access Level** value more than once is **NOT** allowed._
+
+Alter the **Auditing Rules** of a general resource profile specified by **Access Attempt**.
 
 #### 📥 Parameters
 * `resource`<br>
@@ -334,13 +342,13 @@ Alter the **Auditing Rules** of a general resource profile specified by **Access
   The name of the **class** the specified general resource profile belongs to.
 
 * `success`<br>
-  The **access_level** which **Successes** should be audited for.
+  The **Access Level** which **Successes** should be audited for.
 
 * `failure`<br>
-  The **access_level** which **Failures** should be audited for.
+  The **Access Level** which **Failures** should be audited for.
 
 * `all`<br>
-  TThe **access_level** which both **Successes** and **Failures** should be audited for.
+  TThe **Access Level** which both **Successes** and **Failures** should be audited for.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -362,7 +370,7 @@ Alter the **Auditing Rules** of a general resource profile specified by **Access
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_attempt("TESTING","ELIJTEST",success="control")
+>>> resource_admin.alter_audit_by_attempt("TESTING", "ELIJTEST", success="control")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) SUCCESS (CONTROL     ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
@@ -414,10 +422,10 @@ def alter_audit_by_access_level(
 
 #### 📄 Description
 
-Alter the **Auditing Rules** of a general resource profile specified by **Access Level**.
-
 {: .note }
-> _Valid values for **Access Levels** are limited to the **Access Attempts** `success`, `failure`, and `all`._
+> _Valid values for **Access Levels** are limited to the **Access Attempt** values of `success`, `failure`, and `all`._
+
+Alter the **Auditing Rules** of a general resource profile specified by **Access Level**.
 
 #### 📥 Parameters
 * `resource`<br>
@@ -427,16 +435,16 @@ Alter the **Auditing Rules** of a general resource profile specified by **Access
   The name of the **class** the specified general resource profile belongs to.
 
 * `alter`<br>
-  The type of **Access Attempt** which **Alter** attempts should be audited.
+  The type of **Access Attempt** which **Alter** attempts should be audited for.
 
 * `control`<br>
-  The type of **Access Attempt** which **Control** attempts should be audited.
+  The type of **Access Attempt** which **Control** attempts should be audited for.
 
 * `read`<br>
-  The type of **Access Attempt** which **Read** attempts should be audited.
+  The type of **Access Attempt** which **Read** attempts should be audited for.
 
 * `update`<br>
-  The type of **Access Attempt** which **Update** attempts should be audited.
+  The type of **Access Attempt** which **Update** attempts should be audited for.
 
 #### 📤 Returns
 * `Union[dict, bytes]`<br>
@@ -456,7 +464,7 @@ Alter the **Auditing Rules** of a general resource profile specified by **Access
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.alter_audit_by_access_level("TESTING","ELIJTEST",alter="success")
+>>> resource_admin.alter_audit_by_access_level("TESTING", "ELIJTEST", alter="success")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( SUCCESS (UPDATE      ) FAILURE (READ        ) success (ALTER       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
