@@ -4,7 +4,6 @@ import hashlib
 import inspect
 import json
 import os
-import platform
 import re
 import struct
 from datetime import datetime
@@ -149,17 +148,20 @@ class Logger:
 
     def __redact_string(
         self,
-        input_string: str,
+        input_string: Union[str, bytes],
         start_ind: int,
-        end_pattern: str,
+        end_pattern: Union[str, bytes],
     ):
         """
         Redacts characters in a string between a starting index and ending pattern.
         Replaces the identified characters with '********' regardless of the original length.
         """
+        asterisks = "********"
+        if isinstance(input_string, bytes):
+            asterisks = asterisks.encode("cp1047")
         pre_keyword = input_string[:start_ind]
         post_keyword = end_pattern.join(input_string[start_ind:].split(end_pattern)[1:])
-        return pre_keyword + "********" + end_pattern + post_keyword
+        return pre_keyword + asterisks + end_pattern + post_keyword
 
     def redact_request_xml(
         self,
@@ -196,7 +198,7 @@ class Logger:
 
     def redact_result_xml(
         self,
-        security_response: Union[str, List[int]],
+        security_response: Union[str, bytes, List[int]],
         secret_traits: dict,
     ) -> str:
         """
@@ -209,11 +211,18 @@ class Logger:
             return security_response
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            match = re.search(rf"{racf_key.upper()} +\(", security_response)
+            end_pattern = ")"
+            if isinstance(security_response, bytes):
+                match = re.search(
+                    rf"{racf_key.upper()} +\(", security_response.decode("cp1047")
+                )
+                end_pattern = end_pattern.encode("cp1047")
+            else:
+                match = re.search(rf"{racf_key.upper()} +\(", security_response)
             if not match:
                 continue
             security_response = self.__redact_string(
-                security_response, match.end(), ")"
+                security_response, match.end(), end_pattern
             )
         return security_response
 
@@ -346,7 +355,7 @@ class Logger:
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
 
-    def binary_dump(self, raw_binary_response: bytes) -> str:
+    def raw_dump(self, raw_binary_response: bytes) -> str:
         """Dump raw binary response returned by IRRSMO00 to a dump file."""
 
         def opener(path: str, flags: int) -> int:
@@ -383,7 +392,9 @@ class Logger:
         """
         return datetime.now().strftime("%Y%m%d-%H%M%S")
 
-    def log_formatted_hex_dump(self, raw_binary_response: bytes) -> None:
+    def log_formatted_hex_dump(
+        self, raw_binary_response: bytes, secret_traits: dict
+    ) -> None:
         """
         Log the raw binary response returned by IRRSMO00 as a formatted hex dump.
         """
@@ -392,14 +403,14 @@ class Logger:
         interpreted_row = ""
         i = 0
         hex_dump = ""
-        encoding = "cp1047"
-        if platform.system() != "OS/390" and encoding == "cp1047":
-            # If not running on z/OS, EBCDIC is most likely not supported.
-            # Force iso-8859-1 if running tests on Linux, Mac, Windows, etc...
-            encoding = "iso-8859-1"
+        # Redact secrets from raw result because we are logging it to the console.
+        raw_binary_response = self.redact_result_xml(
+            raw_binary_response,
+            secret_traits,
+        )
         for byte in raw_binary_response:
             color_function = self.__green
-            char = struct.pack("B", byte).decode(encoding)
+            char = struct.pack("B", byte).decode("cp1047")
             # Non-displayable characters should be interpreted as '.'.
             match len(repr(char)):
                 # All non-displayable characters should be red.

@@ -136,11 +136,15 @@ class SecurityAdmin:
     # ============================================================================
     # Dump Mode
     # ============================================================================
-    def __binary_dump(self) -> None:
-        raw_binary_response = self.__irrsmo00.get_raw_binary_response()
-        self.__logger.binary_dump(raw_binary_response)
+    def __raw_dump(self) -> None:
+        raw_binary_response = self.__irrsmo00.get_raw_response()
+        self.__logger.raw_dump(raw_binary_response)
         if self.__debug:
-            self.__logger.log_formatted_hex_dump(raw_binary_response)
+            # Note, since the hex dump is logged to the console,
+            # secrets will be redacted.
+            self.__logger.log_formatted_hex_dump(
+                raw_binary_response, self.__secret_traits
+            )
 
     # ============================================================================
     # Secrets Redaction
@@ -236,16 +240,16 @@ class SecurityAdmin:
         except xml.etree.ElementTree.ParseError as e:
             # If the result XML cannot be parsed, a dump of the raw binary
             # response will be created to aid in problem determination.
-            self.__binary_dump()
-            self.__irrsmo00.clear_raw_binary_response()
+            self.__raw_dump()
+            self.__irrsmo00.clear_raw_response()
             # After creating the dump, re-raise the exception.
             raise e
         if self.__dump_mode:
             # If in dump mode a dump of the raw binary response
             # will be created even if the raw security result was
             # able to be processed successfully
-            self.__binary_dump()
-        self.__irrsmo00.clear_raw_binary_response()
+            self.__raw_dump()
+        self.__irrsmo00.clear_raw_response()
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
@@ -628,12 +632,12 @@ class SecurityAdmin:
         profile[current_segment]["users"][user_index]["access"] = self._cast_from_str(
             user_fields[1]
         )
-        profile[current_segment]["users"][user_index][
-            "accessCount"
-        ] = self._cast_from_str(user_fields[2])
-        profile[current_segment]["users"][user_index][
-            "universalAccess"
-        ] = self._cast_from_str(user_fields[3])
+        profile[current_segment]["users"][user_index]["accessCount"] = (
+            self._cast_from_str(user_fields[2])
+        )
+        profile[current_segment]["users"][user_index]["universalAccess"] = (
+            self._cast_from_str(user_fields[3])
+        )
 
         self.__add_key_value_pairs_to_segment(
             current_segment,

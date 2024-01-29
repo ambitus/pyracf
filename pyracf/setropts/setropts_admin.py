@@ -712,10 +712,10 @@ class SetroptsAdmin(SecurityAdmin):
                             subdictionary["enabled"] = self._cast_from_str(
                                 value_tokens[0]
                             )
-                            subdictionary[
-                                "options"
-                            ] = self.__process_generic_subsubfield_options(
-                                value_tokens[1]
+                            subdictionary["options"] = (
+                                self.__process_generic_subsubfield_options(
+                                    value_tokens[1]
+                                )
                             )
                         else:
                             subdictionary["enabled"] = self._cast_from_str(value_raw)

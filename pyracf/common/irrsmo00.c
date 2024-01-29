@@ -14,28 +14,6 @@ typedef struct
     char running_userid[8];
 } running_userid_t;
 
-// This function changes any null character not preceded by '>' to a space character.
-// This is a workaround for an issue where profile data embedded in response xml
-// returned by IRROSMO00 sometimes includes null characters instead of properly
-// encoded text, which causes the returned xml to be truncated.
-void null_byte_fix(char *str, unsigned int length)
-{
-    for (int i = 1; i < length; i++)
-    {
-        if (str[i] == 0)
-        {
-            if (str[i - 1] == 0x6E)     // 0xfE is a '>' character in IBM-1047
-            {
-                return;
-            }
-            else
-            {
-                str[i] = 0x40;          // 0x40 is a space character in IBM-1047
-            }
-        }
-    }
-}
-
 static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
 {
     const char *request_xml;
@@ -107,8 +85,6 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         response_buffer_size,
         response_buffer);
 
-    null_byte_fix(response_buffer, response_buffer_size);
-
     // https://docs.python.org/3/c-api/arg.html#c.Py_BuildValue
     //
     // According to the Python 3 C API documentation:
@@ -132,8 +108,8 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     // to do any memory mangement here. 'response_buffer' will simply
     // just be popped off the stack when this function returns.
     //
-    // Also, according to the Python3 C documentation 'y#' should be 
-    // just giving us a copy copy of exactly what is in the buffer,
+    // Also, according to the Python3 C API documentation, 'y#' should
+    // be just giving us a copy copy of exactly what is in the buffer,
     // without attempting to do any transformations to the data.
     // The following GeesForGeeks article futher confirms that we are
     // going to get a bytes object that is completely unmanipulated.
@@ -141,6 +117,9 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     //
     // In this case, all post processing of the data is handled on
     // the Python side.
+    //
+    // Also note that when two or more return values are provided,
+    // Py_BuildValue() will return a Tuple.
 
     return Py_BuildValue(
         "y#BBB", 
