@@ -111,7 +111,7 @@ class TestResourceGetters(unittest.TestCase):
         )
         self.assertEqual(
             self.resource_admin.get_audit_rules("TESTING", "ELIJTEST"),
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES,
+            TestResourceConstants.TEST_GET_AUDIT_RULES,
         )
 
     def test_resource_admin_get_audit_rules_single(
@@ -123,7 +123,7 @@ class TestResourceGetters(unittest.TestCase):
         )
         self.assertEqual(
             self.resource_admin.get_audit_rules("TEST*", "ELIJTEST"),
-            TestResourceConstants.TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_SINGLE,
+            TestResourceConstants.TEST_GET_AUDIT_RULES_SINGLE,
         )
 
     def test_resource_admin_get_audit_rules_none(

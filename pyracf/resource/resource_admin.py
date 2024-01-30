@@ -296,7 +296,7 @@ class ResourceAdmin(SecurityAdmin):
         profile = self.extract(resource, class_name, profile_only=True)
         return self._get_field(profile, "base", "auditing")
 
-    def overwrite_audit_by_attempt(
+    def overwrite_audit_rules_by_attempt(
         self,
         resource: str,
         class_name: str,
@@ -319,7 +319,7 @@ class ResourceAdmin(SecurityAdmin):
         result = self.alter(resource, class_name, traits=traits)
         return self._to_steps(result)
 
-    def alter_audit_by_attempt(
+    def alter_audit_rules_by_attempt(
         self,
         resource: str,
         class_name: str,
@@ -349,7 +349,7 @@ class ResourceAdmin(SecurityAdmin):
         result = self.alter(resource, class_name, traits=traits)
         return self._to_steps(result)
 
-    def overwrite_audit_by_access_level(
+    def overwrite_audit_rules_by_access_level(
         self,
         resource: str,
         class_name: str,
@@ -374,7 +374,7 @@ class ResourceAdmin(SecurityAdmin):
         result = self.alter(resource, class_name, traits=traits)
         return self._to_steps(result)
 
-    def alter_audit_by_access_level(
+    def alter_audit_rules_by_access_level(
         self,
         resource: str,
         class_name: str,

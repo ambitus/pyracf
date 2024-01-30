@@ -115,63 +115,62 @@ TEST_RESOURCE_SET_UNIVERSAL_ACCESS_XML = get_sample("resource_set_universal_acce
 TEST_RESOURCE_REMOVE_ALL_AUDIT_RULES_REQUEST_XML = get_sample(
     "resource_remove_all_audit_rules.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_access_level.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_access_level.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_MULT_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_access_level_multiple.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_MULT_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_access_level_multiple.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_ALL_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_access_level_all.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_ALL_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_access_level_all.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_NONE_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_access_level_none.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_NONE_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_access_level_none.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_access_level.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_access_level.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_MULT_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_access_level_multiple.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_MULT_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_access_level_multiple.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_ALL_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_access_level_all.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_ALL_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_access_level_all.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ACCESS_LEVEL_NONE_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_access_level_none.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_NONE_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_access_level_none.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_attempt.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_attempt.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_MULT_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_attempt_multiple.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_MULT_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_attempt_multiple.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_ALL_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_attempt_all.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_ALL_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_attempt_all.xml"
 )
-TEST_RESOURCE_OVERWRITE_AUDIT_BY_ATTEMPT_NONE_REQUEST_XML = get_sample(
-    "resource_overwrite_audit_by_attempt_none.xml"
+TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_NONE_REQUEST_XML = get_sample(
+    "resource_overwrite_audit_rules_by_attempt_none.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_attempt.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ATTEMPT_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_attempt.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_MULT_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_attempt_multiple.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ATTEMPT_MULT_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_attempt_multiple.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_ALL_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_attempt_all.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ATTEMPT_ALL_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_attempt_all.xml"
 )
-TEST_RESOURCE_ALTER_AUDIT_BY_ATTEMPT_NONE_REQUEST_XML = get_sample(
-    "resource_alter_audit_by_attempt_none.xml"
+TEST_RESOURCE_ALTER_AUDIT_RULES_BY_ATTEMPT_NONE_REQUEST_XML = get_sample(
+    "resource_alter_audit_rules_by_attempt_none.xml"
 )
 
 # ============================================================================
 # Resource Administration Getters Result Data
 # ============================================================================
 
-TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES = {"success": "update", "failures": "read"}
-TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_SINGLE = {"failures": "read"}
-
-TEST_EXTRACT_RESOURCE_GET_AUDIT_RULES_WITH_ALL = {"success": "update", "all": "read"}
+TEST_GET_AUDIT_RULES = {"success": "update", "failures": "read"}
+TEST_GET_AUDIT_RULES_SINGLE = {"failures": "read"}
+TEST_GET_AUDIT_RULES_WITH_ALL = {"success": "update", "all": "read"}
 
 # ============================================================================
 # Debug Logging
