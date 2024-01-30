@@ -56,7 +56,7 @@ class TestResourceSetters(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_NONE_REQUEST_XML,  # noqa: E501
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_NONE_REQUEST_XML,
         )
 
     def test_resource_admin_build_overwrite_audit_rules_by_access_level_multiple_request(
@@ -67,7 +67,7 @@ class TestResourceSetters(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_MULT_REQUEST_XML,  # noqa: E501
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_MULT_REQUEST_XML,
         )
 
     def test_resource_admin_build_overwrite_audit_rules_by_access_level_all_request(
@@ -83,7 +83,7 @@ class TestResourceSetters(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_ALL_REQUEST_XML,  # noqa: E501
+            TestResourceConstants.TEST_RESOURCE_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_ALL_REQUEST_XML,
         )
 
     def test_resource_admin_build_overwrite_audit_rules_by_attempt_request(self):
