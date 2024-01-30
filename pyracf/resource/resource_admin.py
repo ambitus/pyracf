@@ -294,7 +294,6 @@ class ResourceAdmin(SecurityAdmin):
     ) -> Union[dict, bytes, None]:
         """Get the auditing rules associated with this general resource profile."""
         profile = self.extract(resource, class_name, profile_only=True)
-        print(profile)
         return self._get_field(profile, "base", "auditing")
 
     def overwrite_audit_by_attempt(
