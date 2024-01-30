@@ -132,6 +132,8 @@ def overwrite_audit_by_attempt(
 
 #### 📄 Description
 
+&nbsp;
+
 {: .note }
 > _Valid values for **Access Attempts** are limited to the **Access Level** values of `alter`, `control`, `read`, and `update`._
 
@@ -139,6 +141,8 @@ def overwrite_audit_by_attempt(
 
 {:.warning}
 > _Using an **Access Level** value more than once is **NOT** allowed._
+
+&nbsp;
 
 Remove all currently defined **Auditing Rules** for a general resource profile and replace them with the new **Auditing Rules** specified by **Access Attempt**.
 
@@ -230,8 +234,12 @@ def overwrite_audit_by_access_level(
 
 #### 📄 Description
 
+&nbsp;
+
 {: .note }
 > _Valid values for **Access Levels** are limited to the **Access Attempt** values of `success`, `failure`, and `all`._
+
+&nbsp;
 
 Remove all currently defined **Auditing Rules** for a general resource profile and replace them with the new **Auditing Rules** specified by **Access Level**.
 
@@ -324,6 +332,8 @@ def alter_audit_by_attempt(
 
 #### 📄 Description
 
+&nbsp;
+
 {: .note }
 > _Valid values for **Access Attempts** are limited to the **Access Level** values of `alter`, `control`, `read`, and `update`._
 
@@ -331,6 +341,8 @@ def alter_audit_by_attempt(
 
 {:.warning}
 > _Using an **Access Level** value more than once is **NOT** allowed._
+
+&nbsp;
 
 Alter the **Auditing Rules** of a general resource profile specified by **Access Attempt**.
 
@@ -422,8 +434,12 @@ def alter_audit_by_access_level(
 
 #### 📄 Description
 
+&nbsp;
+
 {: .note }
 > _Valid values for **Access Levels** are limited to the **Access Attempt** values of `success`, `failure`, and `all`._
+
+&nbsp;
 
 Alter the **Auditing Rules** of a general resource profile specified by **Access Level**.
 
