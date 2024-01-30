@@ -281,7 +281,7 @@ Remove all currently defined **Auditing Rules** for a general resource profile a
 ```python
 >>> from pyracf import ResourceAdmin
 >>> resource_admin = ResourceAdmin()
->>> resource_admin.overwrite_audit_rules_by_access_leve("TESTING", "ELIJTEST", alter="success")
+>>> resource_admin.overwrite_audit_rules_by_access_level("TESTING", "ELIJTEST", alter="success")
 {"step1":{"securityResult":{"resource":{"name":"TESTING","class":"ELIJTEST","operation":"set","requestId":"ResourceRequest","info":["Definition exists. Add command skipped due  to precheck option"],"commands":[{"safReturnCode":0,"returnCode":0,"reasonCode":0,"image":"RALTER  ELIJTEST             (TESTING)  AUDIT( success (ALTER       ))","messages":["ICH11009I RACLISTED PROFILES FOR ELIJTEST WILL NOT REFLECT THE UPDATE(S) UNTIL A SETROPTS REFRESH IS ISSUED."]}]},"returnCode":0,"reasonCode":0}}}
 ```
 
