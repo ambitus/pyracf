@@ -24,6 +24,7 @@
                 "installationData": null,
                 "applicationData": null,
                 "auditing": {
+                  "success": "update",
                   "failures": "read"
                 },
                 "notify": null,

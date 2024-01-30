@@ -1,5 +1,6 @@
 """General Resource Profile Administration."""
 
+from collections import Counter
 from typing import List, Union
 
 from pyracf.common.add_operation_error import AddOperationError
@@ -25,7 +26,7 @@ class ResourceAdmin(SecurityAdmin):
         self._valid_segment_traits = {
             "base": {
                 "base:application_data": "racf:appldata",
-                "base:audit_alter:": "racf:audaltr",
+                "base:audit_alter": "racf:audaltr",
                 "base:audit_control": "racf:audcntl",
                 "base:audit_none": "racf:audnone",
                 "base:audit_read": "racf:audread",
@@ -286,6 +287,133 @@ class ResourceAdmin(SecurityAdmin):
         return self._get_field(profile, "base", "yourAccess")
 
     # ============================================================================
+    # Auditing Rules
+    # ============================================================================
+    def get_audit_rules(
+        self, resource: str, class_name: str
+    ) -> Union[dict, bytes, None]:
+        """Get the auditing rules associated with this general resource profile."""
+        profile = self.extract(resource, class_name, profile_only=True)
+        return self._get_field(profile, "base", "auditing")
+
+    def overwrite_audit_rules_by_attempt(
+        self,
+        resource: str,
+        class_name: str,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Overwrites the auditing rules for this general resource profile with new
+        rules to audit based on specified access attempts.
+        """
+        self.__validate_access_levels(success, failure, all)
+        traits = {}
+        if success is not None:
+            traits[f"base:audit_{success}"] = "success"
+        if failure is not None:
+            traits[f"base:audit_{failure}"] = "failure"
+        if all is not None:
+            traits[f"base:audit_{all}"] = "all"
+        result = self.alter(resource, class_name, traits=traits)
+        return self._to_steps(result)
+
+    def alter_audit_rules_by_attempt(
+        self,
+        resource: str,
+        class_name: str,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Alters the auditing rules for this general resource profile with new rules
+        to audit by access level, preserving existing non-conflicting rules.
+        """
+        self.__validate_access_levels(success, failure, all)
+        audit_rules = self.get_audit_rules(resource, class_name)
+        traits = {}
+        if "success" in audit_rules:
+            traits[f"base:audit_{audit_rules['success']}"] = "success"
+        if "failures" in audit_rules:
+            traits[f"base:audit_{audit_rules['failures']}"] = "failure"
+        if "all" in audit_rules:
+            traits[f"base:audit_{audit_rules['all']}"] = "all"
+        if success is not None:
+            traits[f"base:audit_{success}"] = "success"
+        if failure is not None:
+            traits[f"base:audit_{failure}"] = "failure"
+        if all is not None:
+            traits[f"base:audit_{all}"] = "all"
+        result = self.alter(resource, class_name, traits=traits)
+        return self._to_steps(result)
+
+    def overwrite_audit_rules_by_access_level(
+        self,
+        resource: str,
+        class_name: str,
+        alter: Union[str, None] = None,
+        control: Union[str, None] = None,
+        read: Union[str, None] = None,
+        update: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Overwrites the auditing rules for this general resource profile with new
+        rules to audit based on specified access levels.
+        """
+        traits = {}
+        if alter is not None:
+            traits["base:audit_alter"] = alter
+        if control is not None:
+            traits["base:audit_control"] = control
+        if read is not None:
+            traits["base:audit_read"] = read
+        if update is not None:
+            traits["base:audit_update"] = update
+        result = self.alter(resource, class_name, traits=traits)
+        return self._to_steps(result)
+
+    def alter_audit_rules_by_access_level(
+        self,
+        resource: str,
+        class_name: str,
+        alter: Union[str, None] = None,
+        control: Union[str, None] = None,
+        read: Union[str, None] = None,
+        update: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Alters the auditing rules for this general resource profile with a new
+        rule to audit alter access, preserving existing non-conflicting rules.
+        """
+        audit_rules = self.get_audit_rules(resource, class_name)
+        traits = {}
+        if "success" in audit_rules:
+            traits[f"base:audit_{audit_rules['success']}"] = "success"
+        if "failures" in audit_rules:
+            traits[f"base:audit_{audit_rules['failures']}"] = "failure"
+        if "all" in audit_rules:
+            traits[f"base:audit_{audit_rules['all']}"] = "all"
+        if alter is not None:
+            traits["base:audit_alter"] = alter
+        if control is not None:
+            traits["base:audit_control"] = control
+        if read is not None:
+            traits["base:audit_read"] = read
+        if update is not None:
+            traits["base:audit_update"] = update
+        result = self.alter(resource, class_name, traits=traits)
+        return self._to_steps(result)
+
+    def remove_all_audit_rules(
+        self, resource: str, class_name: str
+    ) -> Union[dict, bytes]:
+        """Clears the auditing rules completely."""
+        result = self.alter(resource, class_name, {"base:audit_none": True})
+        return self._to_steps(result)
+
+    # ============================================================================
     # Class Administration
     # ============================================================================
     def add_resource_class(
@@ -527,8 +655,8 @@ class ResourceAdmin(SecurityAdmin):
             return self._make_request(profile_request, irrsmo00_precheck=True)
         try:
             profile = self.extract(resource, class_name, profile_only=True)
-        except SecurityRequestError:
-            raise AlterOperationError(resource, class_name)
+        except SecurityRequestError as exception:
+            raise AlterOperationError(resource, class_name) from exception
         if not self._get_field(profile, "base", "name") == resource.lower():
             raise AlterOperationError(resource, class_name)
         self._build_segment_trait_dictionary(traits)
@@ -589,3 +717,61 @@ class ResourceAdmin(SecurityAdmin):
 
         del result["securityResult"]["resource"]["commands"][0]["messages"]
         result["securityResult"]["resource"]["commands"][0]["profiles"] = profiles
+
+    def __validate_access_levels(
+        self,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ):
+        valid_access_levels = ("alter", "control", "read", "update")
+        value_error_text = (
+            "Valid access levels include 'alter', 'control', 'read', and 'update'."
+        )
+        bad_access_levels = []
+        for attempt_argument in (success, failure, all):
+            if (
+                attempt_argument is not None
+                and str(attempt_argument).lower() not in valid_access_levels
+            ):
+                bad_access_levels.append(attempt_argument)
+        match len(bad_access_levels):
+            case 0:
+                self.__check_for_duplicates([success, failure, all], "Access Level")
+                return
+            case 1:
+                value_error_text = (
+                    f"'{bad_access_levels[0]}' is not a valid access level. "
+                    + f"{value_error_text}"
+                )
+            case 2:
+                value_error_text = (
+                    f"'{bad_access_levels[0]}' and '{bad_access_levels[1]}' are not valid "
+                    + f"access levels. {value_error_text}"
+                )
+            case _:
+                bad_access_levels = [
+                    f"'{bad_access_level}'" for bad_access_level in bad_access_levels
+                ]
+                bad_access_levels[-1] = f"and {bad_access_levels[-1]} "
+                value_error_text = (
+                    f"{', '.join(bad_access_levels)}are not valid access levels. "
+                    + f"{value_error_text}"
+                )
+        raise ValueError(value_error_text)
+
+    def __check_for_duplicates(self, argument_list: list, argument: str) -> None:
+        duplicates = [
+            key
+            for (key, value) in Counter(argument_list).items()
+            if (value > 1 and key is not None)
+        ]
+        if duplicates == []:
+            return
+        value_error_text = []
+        for duplicate in duplicates:
+            value_error_text.append(
+                f"'{duplicate}' is provided as an '{argument}' multiple times, which is not "
+                + "allowed."
+            )
+        raise ValueError("\n".join(value_error_text))
