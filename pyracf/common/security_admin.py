@@ -88,7 +88,17 @@ class SecurityAdmin:
         self.__preserved_segment_traits = {}
         self._trait_map = {}
         self.__debug = debug
+        if self.__debug:
+            self.__logger.log_warning(
+                "'Debug Logging' is enabled. This feature should only "
+                + "be used for development and debugging."
+            )
         self.__dump_mode = dump_mode
+        if self.__dump_mode:
+            self.__logger.log_warning(
+                "'Dump Mode' is enabled. This feature should only "
+                + "be used for development and debugging."
+            )
         self._generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
             self.__update_valid_segment_traits(update_existing_segment_traits)
@@ -718,9 +728,9 @@ class SecurityAdmin:
                         subfield: self._clean_and_separate(value_tokens[-1].rstrip(")"))
                     }
                 else:
-                    profile[current_segment][field][
-                        subfield
-                    ] = self._clean_and_separate(value_tokens[-1].rstrip(")"))
+                    profile[current_segment][field][subfield] = (
+                        self._clean_and_separate(value_tokens[-1].rstrip(")"))
+                    )
             elif field in list_fields:
                 profile[current_segment][field] = []
                 profile[current_segment][field].append(self._clean_and_separate(value))

@@ -105,7 +105,7 @@ class Logger:
 
     def log_warning(self, message: str):
         """Log a warning message to the console."""
-        print(f"[ {self.yellow('WARN')} ] {message}")
+        print(f"[ {self.__yellow('WARN')} ] {message}")
 
     def log_debug(self, header_message: str, message: str) -> None:
         """Log function to use for debug logging."""

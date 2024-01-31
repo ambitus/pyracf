@@ -40,11 +40,13 @@ class IRRSMO00:
         bytes instead of properly encoded text, which causes the
         returned xml to be truncated.
         """
+        response = bytearray(response)
         last_greater_than = response.rfind(b"\x6e")
         for i in range(last_greater_than):
             if response[i] == 0:
-                response[i] = b"\x40"
-        return response
+                # 64 is 0x40, which is a space character in IBM-1047 encoding.
+                response[i] = 64
+        return bytes(response)
 
     def call_racf(
         self,

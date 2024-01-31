@@ -4,7 +4,7 @@
 
 [tool.poetry]
     name="pyracf"
-    version="1.0b4"
+    version="1.0b5"
     description="Python interface to RACF using IRRSMO00 RACF Callable Service."
     license = "Apache-2.0"
     authors = [
