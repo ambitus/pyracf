@@ -281,12 +281,13 @@ class UserAdmin(SecurityAdmin):
     # Password
     # ============================================================================
     def set_password(
-        self,
-        userid: str,
-        password: Union[str, bool],
+        self, userid: str, password: Union[str, bool], expired: Union[bool, None] = None
     ) -> Union[dict, bytes]:
         """Set a user's password."""
-        result = self.alter(userid, traits={"base:password": password})
+        traits = {"base:password": password}
+        if expired is not None:
+            traits["base:password_expired"] = expired
+        result = self.alter(userid, traits=traits)
         return self._to_steps(result)
 
     # ============================================================================
@@ -296,9 +297,13 @@ class UserAdmin(SecurityAdmin):
         self,
         userid: str,
         passphrase: Union[str, bool],
+        expired: Union[bool, None] = None,
     ) -> Union[dict, bytes]:
         """Set a user's passphrase."""
-        result = self.alter(userid, traits={"base:passphrase": passphrase})
+        traits = {"base:passphrase": passphrase}
+        if expired is not None:
+            traits["base:password_expired"] = expired
+        result = self.alter(userid, traits=traits)
         return self._to_steps(result)
 
     # ============================================================================
@@ -799,8 +804,8 @@ class UserAdmin(SecurityAdmin):
             return self._make_request(user_request, irrsmo00_precheck=True)
         try:
             self.extract(userid)
-        except SecurityRequestError:
-            raise AlterOperationError(userid, self._profile_type)
+        except SecurityRequestError as exception:
+            raise AlterOperationError(userid, self._profile_type) from exception
         self._build_segment_trait_dictionary(traits)
         user_request = UserRequest(userid, "set")
         self._build_xml_segments(user_request, alter=True)

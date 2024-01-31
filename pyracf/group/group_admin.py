@@ -153,8 +153,8 @@ class GroupAdmin(SecurityAdmin):
             return self._make_request(group_request, irrsmo00_precheck=True)
         try:
             self.extract(group)
-        except SecurityRequestError:
-            raise AlterOperationError(group, self._profile_type)
+        except SecurityRequestError as exception:
+            raise AlterOperationError(group, self._profile_type) from exception
         self._build_segment_trait_dictionary(traits)
         group_request = GroupRequest(group, "set")
         self._build_xml_segments(group_request, alter=True)

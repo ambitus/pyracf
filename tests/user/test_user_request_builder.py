@@ -34,7 +34,6 @@ class TestUserRequestBuilder(unittest.TestCase):
             "squidwrd",
             traits=TestUserConstants.TEST_ADD_USER_BASE_OMVS_TSO_REVOKE_RESUME_REQUEST_TRAITS,
         )
-        print(result)
         self.assertEqual(
             result,
             TestUserConstants.TEST_ADD_USER_BASE_OMVS_TSO_REVOKE_RESUME_REQUEST_XML,
