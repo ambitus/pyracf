@@ -7,7 +7,6 @@ import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
 from pyracf import DownstreamFatalError, UserAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -16,7 +15,6 @@ __init__
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 class TestDownstreamFatalError(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     user_admin = UserAdmin()
 
     def test_donwstream_fatal_error_thrown_on_precheck_error(

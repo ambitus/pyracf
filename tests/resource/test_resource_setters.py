@@ -7,7 +7,6 @@ import __init__
 
 import tests.resource.test_resource_constants as TestResourceConstants
 from pyracf import ResourceAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -15,7 +14,6 @@ __init__
 
 class TestResourceSetters(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     resource_admin = ResourceAdmin(generate_requests_only=True)
 
     # ============================================================================

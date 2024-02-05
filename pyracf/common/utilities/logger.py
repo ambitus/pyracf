@@ -1,12 +1,10 @@
 """Logging for pyRACF."""
 
-import hashlib
 import inspect
 import json
 import os
 import re
 import struct
-from datetime import datetime
 from typing import List, Union
 
 
@@ -106,6 +104,10 @@ class Logger:
     def log_warning(self, message: str):
         """Log a warning message to the console."""
         print(f"[ {self.__yellow('WARN')} ] {message}")
+
+    def log_fatal(self, message: str):
+        """Log a fatal error message to the console."""
+        print(f"[ {self.__red('FATAL')} ] {message}")
 
     def log_debug(self, header_message: str, message: str) -> None:
         """Log function to use for debug logging."""
@@ -354,43 +356,6 @@ class Logger:
             current_line = f"<{current_line}>"
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
-
-    def raw_dump(self, raw_binary_response: bytes) -> str:
-        """Dump raw binary response returned by IRRSMO00 to a dump file."""
-
-        def opener(path: str, flags: int) -> int:
-            return os.open(path, flags, 0o600)
-
-        dot_pyracf_directory = os.path.join(os.path.expanduser("~"), ".pyracf")
-        dump_directory = os.path.join(dot_pyracf_directory, "dump")
-        if not os.path.exists(dump_directory):
-            os.makedirs(dump_directory, mode=0o700)
-        # umask may override the permission bits we set
-        # upon creation of directories. It also is a possiblity
-        # that existing directories have permssion bits set that
-        # are too permissive, so always exlpicitely setting the
-        # the permission bits on directories using os.chmod()
-        # ensures that directories always have the the correct
-        # permissions
-        if oct(os.stat(dot_pyracf_directory).st_mode)[-3:] != "700":
-            os.chmod(dot_pyracf_directory, 0o700)
-        if oct(os.stat(dump_directory).st_mode)[-3:] != "700":
-            os.chmod(dump_directory, 0o700)
-        timestamp = self.get_timestamp()
-        md5_hash = hashlib.md5(raw_binary_response).hexdigest()
-        dump_file_name = f"pyracf.{timestamp}.{md5_hash}.dump"
-        dump_file_path = os.path.join(dump_directory, dump_file_name)
-        with open(dump_file_path, "wb", opener=opener) as dump_file_writer:
-            dump_file_writer.write(raw_binary_response)
-        self.log_info(f"Raw binary response written to '{dump_file_path}'.\n")
-        return dump_file_path
-
-    def get_timestamp(self) -> str:
-        """
-        'datetime' is immutable, so we need this function to allow the
-        timestamp generataion function to be mocked for unit tests.
-        """
-        return datetime.now().strftime("%Y%m%d-%H%M%S")
 
     def log_formatted_hex_dump(
         self, raw_binary_response: bytes, secret_traits: dict

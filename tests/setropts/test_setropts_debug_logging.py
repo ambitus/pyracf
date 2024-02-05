@@ -10,7 +10,6 @@ import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
 from pyracf import SecurityRequestError, SetroptsAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -19,7 +18,6 @@ __init__
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 class TestSetroptsDebugLogging(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     setropts_admin = SetroptsAdmin(debug=True)
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 

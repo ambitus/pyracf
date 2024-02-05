@@ -11,7 +11,6 @@ import __init__
 import tests.common.test_common_constants as TestCommonConstants
 import tests.user.test_user_constants as TestUserConstants
 from pyracf import ResourceAdmin, UserAdmin, UserIdError
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -19,7 +18,6 @@ __init__
 
 class TestRunAsUserId(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")

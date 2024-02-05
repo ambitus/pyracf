@@ -1,13 +1,11 @@
 """Test data set profile request builder."""
 
 import unittest
-from unittest.mock import Mock
 
 import __init__
 
 import tests.data_set.test_data_set_constants as TestDataSetConstants
 from pyracf import DataSetAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -15,7 +13,6 @@ __init__
 
 class TestDataSetRequestBuilder(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     data_set_admin = DataSetAdmin(generate_requests_only=True)
 
     def test_data_set_admin_build_add_data_set_request(self):

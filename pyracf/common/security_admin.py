@@ -6,25 +6,58 @@ import xml.etree.ElementTree
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
-from .downstream_fatal_error import DownstreamFatalError
+from .exceptions.downstream_fatal_error import DownstreamFatalError
+from .exceptions.security_request_error import SecurityRequestError
+from .exceptions.segment_error import SegmentError
+from .exceptions.segment_trait_error import SegmentTraitError
+from .exceptions.userid_error import UserIdError
 from .irrsmo00 import IRRSMO00
-from .logger import Logger
 from .security_request import SecurityRequest
-from .security_request_error import SecurityRequestError
 from .security_result import SecurityResult
-from .segment_error import SegmentError
-from .segment_trait_error import SegmentTraitError
-from .userid_error import UserIdError
+from .utilities.dumper import Dumper
+from .utilities.logger import Logger
 
 
 class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
+
+    _common_base_traits_data_set_generic = {
+        "base:aclcnt": "racf:aclcnt",
+        "base:aclacnt": "racf:aclacnt",
+        "base:aclacs": "racf:aclacs",
+        "base:aclid": "racf:aclid",
+        "base:acl2cnt": "racf:acl2cnt",
+        "base:acl2acnt": "racf:acl2acnt",
+        "base:acl2acs": "racf:acl2acs",
+        "base:acl2cond": "racf:acl2cond",
+        "base:acl2ent": "racf:acl2ent",
+        "base:acl2id": "racf:acl2id",
+        "base:acsaltr": "racf:acsaltr",
+        "base:acscntl": "racf:acscntl",
+        "base:acsread": "racf:acsread",
+        "base:acsupdt": "racf:acsupdt",
+        "base:all": "racf:all",
+        "base:audaltr": "racf:audaltr",
+        "base:audcntl": "racf:audcntl",
+        "base:audnone": "racf:audnone",
+        "base:audread": "racf:audread",
+        "base:audupdt": "racf:audupdt",
+        "base:authuser": "racf:authuser",
+        "base:fvolume": "racf:fvolume",
+        "base:gaudaltr": "racf:gaudaltr",
+        "base:gaudcntl": "racf:gaudcntl",
+        "base:gaudnone": "racf:gaudnone",
+        "base:gaudread": "racf:gaudread",
+        "base:gaudupdt": "racf:gaudupdt",
+        "base:generic": "racf:generic",
+    }
 
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
     _case_sensitive_extracted_values = []
     __running_userid = None
     __logger = Logger()
+    __dumper = Dumper()
 
     def __init__(
         self,
@@ -38,36 +71,6 @@ class SecurityAdmin:
         additional_secret_traits: Union[List[str], None] = None,
         run_as_userid: Union[str, None] = None,
     ) -> None:
-        self._common_base_traits_data_set_generic = {
-            "base:aclcnt": "racf:aclcnt",
-            "base:aclacnt": "racf:aclacnt",
-            "base:aclacs": "racf:aclacs",
-            "base:aclid": "racf:aclid",
-            "base:acl2cnt": "racf:acl2cnt",
-            "base:acl2acnt": "racf:acl2acnt",
-            "base:acl2acs": "racf:acl2acs",
-            "base:acl2cond": "racf:acl2cond",
-            "base:acl2ent": "racf:acl2ent",
-            "base:acl2id": "racf:acl2id",
-            "base:acsaltr": "racf:acsaltr",
-            "base:acscntl": "racf:acscntl",
-            "base:acsread": "racf:acsread",
-            "base:acsupdt": "racf:acsupdt",
-            "base:all": "racf:all",
-            "base:audaltr": "racf:audaltr",
-            "base:audcntl": "racf:audcntl",
-            "base:audnone": "racf:audnone",
-            "base:audread": "racf:audread",
-            "base:audupdt": "racf:audupdt",
-            "base:authuser": "racf:authuser",
-            "base:fvolume": "racf:fvolume",
-            "base:gaudaltr": "racf:gaudaltr",
-            "base:gaudcntl": "racf:gaudcntl",
-            "base:gaudnone": "racf:gaudnone",
-            "base:gaudread": "racf:gaudread",
-            "base:gaudupdt": "racf:gaudupdt",
-            "base:generic": "racf:generic",
-        }
         self.__secret_traits = {
             "base:password": "racf:password",
             "base:passphrase": "racf:phrase",
@@ -148,7 +151,8 @@ class SecurityAdmin:
     # ============================================================================
     def __raw_dump(self) -> None:
         raw_binary_response = self.__irrsmo00.get_raw_response()
-        self.__logger.raw_dump(raw_binary_response)
+        dump_file_path = self.__dumper.raw_dump(raw_binary_response)
+        self.__logger.log_info(f"Raw binary response written to '{dump_file_path}'.\n")
         if self.__debug:
             # Note, since the hex dump is logged to the console,
             # secrets will be redacted.
@@ -250,6 +254,7 @@ class SecurityAdmin:
         except xml.etree.ElementTree.ParseError as e:
             # If the result XML cannot be parsed, a dump of the raw binary
             # response will be created to aid in problem determination.
+            self.__logger.log_fatal("Unable to parse result XML returned by IRRSMO00.")
             self.__raw_dump()
             self.__irrsmo00.clear_raw_response()
             # After creating the dump, re-raise the exception.

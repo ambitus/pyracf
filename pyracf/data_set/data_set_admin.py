@@ -2,10 +2,10 @@
 
 from typing import List, Union
 
-from pyracf.common.add_operation_error import AddOperationError
-from pyracf.common.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.add_operation_error import AddOperationError
+from pyracf.common.exceptions.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.security_request_error import SecurityRequestError
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
 
 from .data_set_request import DataSetRequest
 
@@ -63,6 +63,10 @@ class DataSetAdmin(SecurityAdmin):
             "dfp": {"dfp:owner": "racf:resowner", "dfp:ckds_data_key": "racf:datakey"},
             "tme": {"tme:roles": "racf:roles"},
         }
+        self._valid_segment_traits["base"].update(
+            self._common_base_traits_data_set_generic
+        )
+        del self._valid_segment_traits["base"]["base:generic"]
         super().__init__(
             "dataSet",
             irrsmo00_response_buffer_size=irrsmo00_response_buffer_size,
@@ -74,10 +78,6 @@ class DataSetAdmin(SecurityAdmin):
             additional_secret_traits=additional_secret_traits,
             run_as_userid=run_as_userid,
         )
-        self._valid_segment_traits["base"].update(
-            self._common_base_traits_data_set_generic
-        )
-        del self._valid_segment_traits["base"]["base:generic"]
 
     # ============================================================================
     # Access

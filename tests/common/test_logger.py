@@ -4,7 +4,7 @@ import unittest
 
 import __init__
 
-from pyracf.common.logger import Logger
+from pyracf.common.utilities.logger import Logger
 
 # Resolves F401
 __init__

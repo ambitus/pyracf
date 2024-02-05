@@ -144,6 +144,10 @@ TEST_EXTRACT_USER_SUCCESS_DUMP_MODE_LOG = get_sample(
     "extract_user_success_dump_mode.log"
 )
 
+TEST_EXTRACT_USER_FAILURE_DUMP_MODE_LOG = get_sample(
+    "extract_user_failure_dump_mode.log"
+)
+
 TEST_EXTRACT_USER_SUCCESS_UNEVEN_BYTE_BOUNDARY_LOG = get_sample(
     "extract_user_success_dump_mode_uneven_byte_boundary.log"
 )

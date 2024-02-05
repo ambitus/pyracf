@@ -2,10 +2,10 @@
 
 from typing import List, Union
 
-from pyracf.common.add_operation_error import AddOperationError
-from pyracf.common.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.add_operation_error import AddOperationError
+from pyracf.common.exceptions.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.security_request_error import SecurityRequestError
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
 
 from .user_request import UserRequest
 

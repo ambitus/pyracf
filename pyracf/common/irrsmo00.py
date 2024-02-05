@@ -60,7 +60,11 @@ class IRRSMO00:
         if run_as_userid:
             running_userid = run_as_userid.encode("cp1047")
         response = self.__call_irrsmo00_wrapper(
-            request_xml, irrsmo00_options, running_userid
+            request_xml,
+            len(request_xml),
+            irrsmo00_options,
+            running_userid,
+            len(running_userid),
         )
         # Preserve raw binary respone just in case we need to create a dump.
         # If the decoded response cannot be parsed with the XML parser,
@@ -87,13 +91,18 @@ class IRRSMO00:
         return response_xml[:response_length].decode("cp1047")
 
     def __call_irrsmo00_wrapper(
-        self, request_xml: bytes, irrsmo00_options: int, running_userid: bytes
+        self,
+        request_xml: bytes,
+        request_xml_length: int,
+        irrsmo00_options: int,
+        running_userid: bytes,
+        running_userid_length: int,
     ) -> Tuple[bytes, int, int, int]:
         return call_irrsmo00(
             request_xml=request_xml,
-            request_xml_length=len(request_xml),
+            request_xml_length=request_xml_length,
             response_buffer_size=self.__response_buffer_size,
             irrsmo00_options=irrsmo00_options,
             running_userid=running_userid,
-            running_userid_length=len(running_userid),
+            running_userid_length=running_userid_length,
         )
