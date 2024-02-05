@@ -97,8 +97,33 @@ class TestDumpProcessing(unittest.TestCase):
     @patch.object(Dumper, "_Dumper__get_timestamp")
     def test_create_dump_file(self, get_timestamp_mock: Mock):
         get_timestamp_mock.return_value = self.timestamp
-        # asumme '.pyracf' directory and dump directory already exist
+        # asumme '.pyracf' directory and 'dump' directory already exist
         os.makedirs(self.dump_directory, mode=0o700)
+        dump_file_path_actual = self.dumper.raw_dump(self.dump_bytes)
+        # dump file path
+        self.assertEqual(dump_file_path_actual, self.dump_file_path)
+        # permission bits
+        if platform.platform().split("-")[0] != "Windows":
+            # Skip these tests on Windows because setting the
+            # permissions bits on things does not work on Windows.
+            self.assertEqual(
+                oct(os.stat(self.dot_pyracf_directory).st_mode)[-3:], "700"
+            )
+            self.assertEqual(oct(os.stat(self.dump_directory).st_mode)[-3:], "700")
+            self.assertEqual(oct(os.stat(self.dump_file_path).st_mode)[-3:], "600")
+        # dump file contents
+        with open(self.dump_file_path, "rb") as dump_file:
+            self.assertEqual(dump_file.read(), self.dump_bytes)
+
+    @patch.object(Dumper, "_Dumper__get_timestamp")
+    def test_pyracf_and_dump_folder_permissions_and_create_dump_file(
+        self,
+        get_timestamp_mock: Mock,
+    ):
+        get_timestamp_mock.return_value = self.timestamp
+        # asumme '.pyracf' directory and 'dump' directory already exist
+        # assume '.pyracf' directory and 'dump' directory have the wrong permissions.
+        os.makedirs(self.dump_directory, mode=0o777)
         dump_file_path_actual = self.dumper.raw_dump(self.dump_bytes)
         # dump file path
         self.assertEqual(dump_file_path_actual, self.dump_file_path)
