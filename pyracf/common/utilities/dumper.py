@@ -18,7 +18,7 @@ class Dumper:
         # are too permissive, so always exlpicitely setting the
         # the permission bits on directories using os.chmod()
         # ensures that directories always have the the correct
-        # permissions
+        # permissions.
         if oct(os.stat(dot_pyracf_directory).st_mode)[-3:] != "700":
             os.chmod(dot_pyracf_directory, 0o700)
         if oct(os.stat(dump_directory).st_mode)[-3:] != "700":

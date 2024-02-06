@@ -57,7 +57,7 @@ class TestDumpProcessing(unittest.TestCase):
         self, get_timestamp_mock: Mock
     ):
         get_timestamp_mock.return_value = self.timestamp
-        # asume '.pyracf' directory does NOT exist.
+        # Assume '.pyracf' directory does NOT exist.
         dump_file_path_actual = self.dumper.raw_dump(self.dump_bytes)
         # dump file path
         self.assertEqual(dump_file_path_actual, self.dump_file_path)
@@ -77,7 +77,7 @@ class TestDumpProcessing(unittest.TestCase):
     @patch.object(Dumper, "_Dumper__get_timestamp")
     def test_create_dump_folder_and_dump_file(self, get_timestamp_mock: Mock):
         get_timestamp_mock.return_value = self.timestamp
-        # asumme '.pyracf' directory already exists
+        # Assume '.pyracf' directory already exists.
         os.makedirs(self.dot_pyracf_directory, mode=0o700)
         dump_file_path_actual = self.dumper.raw_dump(self.dump_bytes)
         # dump file path
@@ -98,7 +98,7 @@ class TestDumpProcessing(unittest.TestCase):
     @patch.object(Dumper, "_Dumper__get_timestamp")
     def test_create_dump_file(self, get_timestamp_mock: Mock):
         get_timestamp_mock.return_value = self.timestamp
-        # asumme '.pyracf' directory and 'dump' directory already exist
+        # Assume '.pyracf' directory and 'dump' directory already exist.
         os.makedirs(self.dump_directory, mode=0o700)
         dump_file_path_actual = self.dumper.raw_dump(self.dump_bytes)
         # dump file path
@@ -122,8 +122,8 @@ class TestDumpProcessing(unittest.TestCase):
         get_timestamp_mock: Mock,
     ):
         get_timestamp_mock.return_value = self.timestamp
-        # asumme '.pyracf' directory and 'dump' directory already exist
-        # assume '.pyracf' directory and 'dump' directory have the wrong permissions.
+        # Assume '.pyracf' directory and 'dump' directory already exist.
+        # Assume '.pyracf' directory and 'dump' directory have the wrong permissions.
         os.makedirs(self.dump_directory, mode=0o777)
         dump_file_path_actual = self.dumper.raw_dump(self.dump_bytes)
         # dump file path

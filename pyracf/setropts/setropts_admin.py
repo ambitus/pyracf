@@ -322,7 +322,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     def list_racf_options(self, options_only: bool = False) -> Union[dict, bytes]:
         """List RACF options."""
-        self._logger.log_experimental("Replace Existing Segment Traits")
+        self._logger.log_experimental("List RACF Options")
         self._build_segment_trait_dictionary({"base:list": True})
         setropts_request = SetroptsRequest()
         self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)

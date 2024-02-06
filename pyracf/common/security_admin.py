@@ -260,7 +260,7 @@ class SecurityAdmin:
         if self.__dump_mode:
             # If in dump mode a dump of the raw binary response
             # will be created even if the raw security result was
-            # able to be processed successfully
+            # able to be processed successfully.
             self.__raw_dump()
         self.__irrsmo00.clear_raw_response()
         if self.__debug:
