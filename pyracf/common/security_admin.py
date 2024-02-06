@@ -156,9 +156,7 @@ class SecurityAdmin:
         if self.__debug:
             # Note, since the hex dump is logged to the console,
             # secrets will be redacted.
-            self._logger.log_formatted_hex_dump(
-                raw_binary_response, self.__secret_traits
-            )
+            self._logger.log_hex_dump(raw_binary_response, self.__secret_traits)
 
     # ============================================================================
     # Secrets Redaction

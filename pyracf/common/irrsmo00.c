@@ -147,8 +147,7 @@ static PyMethodDef cpyracf_methods[] = {
      METH_VARARGS | METH_KEYWORDS, call_irrsmo00_docs},
     {NULL}};
 
-static struct PyModuleDef cpyracf_module_def =
-    {
+static struct PyModuleDef cpyracf_module_def = {
         PyModuleDef_HEAD_INIT,
         "cpyracf",
         "C code that enables pyRACF to call the IRRSMO00 RACF callable service.\n",

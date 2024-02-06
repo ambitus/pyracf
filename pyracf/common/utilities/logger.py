@@ -355,11 +355,9 @@ class Logger:
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
 
-    def log_formatted_hex_dump(
-        self, raw_binary_response: bytes, secret_traits: dict
-    ) -> None:
+    def log_hex_dump(self, raw_binary_response: bytes, secret_traits: dict) -> None:
         """
-        Log the raw binary response returned by IRRSMO00 as a formatted hex dump.
+        Log the raw response returned by IRRSMO00 as a hex dump.
         """
         hex_row = ""
         hex_row_size = 0
@@ -410,4 +408,4 @@ class Logger:
             row_index = hex(i - len(interpreted_row))[2:].rjust(8, "0")
             interpreted_row = " " * (40 - hex_row_size) + interpreted_row
             hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
-        self.log_debug("Formatted Hex Dump", hex_dump)
+        self.log_debug("Hex Dump", hex_dump)
