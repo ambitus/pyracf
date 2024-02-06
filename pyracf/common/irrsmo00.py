@@ -62,6 +62,7 @@ class IRRSMO00:
         response = self.__call_irrsmo00_wrapper(
             request_xml,
             len(request_xml),
+            self.__response_buffer_size,
             irrsmo00_options,
             running_userid,
             len(running_userid),
@@ -94,6 +95,7 @@ class IRRSMO00:
         self,
         request_xml: bytes,
         request_xml_length: int,
+        response_buffer_size: int,
         irrsmo00_options: int,
         running_userid: bytes,
         running_userid_length: int,
@@ -101,7 +103,7 @@ class IRRSMO00:
         return call_irrsmo00(
             request_xml=request_xml,
             request_xml_length=request_xml_length,
-            response_buffer_size=self.__response_buffer_size,
+            response_buffer_size=response_buffer_size,
             irrsmo00_options=irrsmo00_options,
             running_userid=running_userid,
             running_userid_length=running_userid_length,

@@ -63,24 +63,29 @@ class TestClassAttributes(unittest.TestCase):
             admin_object = admin_type()
             self.assertEqual(admin_object.__dict__["_generate_requests_only"], False)
 
-    def test_all_admin_types_support_update_existing_segment_traits(self):
+    @patch.object(SecurityAdmin, "_SecurityAdmin__update_valid_segment_traits")
+    def test_all_admin_types_support_update_existing_segment_traits(
+        self,
+        update_valid_segment_traits_mock: Mock,
+    ):
         for admin_type in self.admin_types:
-            admin_object = admin_type(
-                update_existing_segment_traits={"base": {"base:gary": "gary"}}
-            )
-            self.assertIn(
-                "base:gary",
-                admin_object.__dict__["_valid_segment_traits"]["base"].keys(),
-            )
-            self.assertEqual(
-                admin_object.__dict__["_valid_segment_traits"]["base"]["base:gary"],
-                "gary",
-            )
-            admin_object = admin_type()
-            self.assertNotIn(
-                "base:gary",
-                admin_object.__dict__["_valid_segment_traits"]["base"].keys(),
-            )
+            admin_type(update_existing_segment_traits={"base": {"base:gary": "gary"}})
+            admin_type()
+        update_valid_segment_traits_mock.assert_has_calls(
+            [call({"base": {"base:gary": "gary"}})] * len(self.admin_types)
+        )
+
+    @patch.object(SecurityAdmin, "_SecurityAdmin__replace_valid_segment_traits")
+    def test_all_admin_types_support_replace_existing_segment_traits(
+        self,
+        replace_valid_segment_traits_mock: Mock,
+    ):
+        for admin_type in self.admin_types:
+            admin_type(replace_existing_segment_traits={"base": {"base:gary": "gary"}})
+            admin_type()
+        replace_valid_segment_traits_mock.assert_has_calls(
+            [call({"base": {"base:gary": "gary"}})] * len(self.admin_types)
+        )
 
     @patch.object(SecurityAdmin, "_SecurityAdmin__add_additional_secret_traits")
     def test_all_admin_types_support_additional_secret_traits(

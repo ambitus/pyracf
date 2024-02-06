@@ -113,16 +113,30 @@ class TestIRRSMO00Interface(unittest.TestCase):
     def test_irrsmo00_minimum_arguments(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
         self.irrsmo00.call_racf(b"some bytes")
-        call_irrsmo00_wrapper_mock.assert_called_with(b"some bytes", 10, 13, b"", 0)
+        call_irrsmo00_wrapper_mock.assert_called_with(
+            b"some bytes", 10, 16384, 13, b"", 0
+        )
 
     def test_irrsmo00_with_precheck_set_to_true(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
         self.irrsmo00.call_racf(b"some bytes", precheck=True)
-        call_irrsmo00_wrapper_mock.assert_called_with(b"some bytes", 10, 15, b"", 0)
+        call_irrsmo00_wrapper_mock.assert_called_with(
+            b"some bytes", 10, 16384, 15, b"", 0
+        )
 
     def test_irrsmo00_with_run_as_userid_set(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
         self.irrsmo00.call_racf(b"some bytes", run_as_userid="KRABS")
         call_irrsmo00_wrapper_mock.assert_called_with(
-            b"some bytes", 10, 13, b"\xd2\xd9\xc1\xc2\xe2", 5
+            b"some bytes", 10, 16384, 13, b"\xd2\xd9\xc1\xc2\xe2", 5
+        )
+
+    def test_irrsmo00_with_custom_response_buffer_size(
+        self, call_irrsmo00_wrapper_mock: Mock
+    ):
+        call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
+        irrsmo00 = IRRSMO00(response_buffer_size=32768)
+        irrsmo00.call_racf(b"some bytes")
+        call_irrsmo00_wrapper_mock.assert_called_with(
+            b"some bytes", 10, 32768, 13, b"", 0
         )

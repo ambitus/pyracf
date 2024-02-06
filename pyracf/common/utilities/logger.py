@@ -58,14 +58,6 @@ class Logger:
         """Make background color of a string magenta."""
         return self.__colorize_string(self.__ansi_purple_background, string)
 
-    def __no_color(self, string) -> str:
-        """Don't modiify the color of a string."""
-        # Lambdas could be used when a color function is required,
-        # but use of lambdas will make linters unhappy because it can
-        # make code less clear and more confusing. So, that is why
-        # a color function that does nothing is defined here.
-        return string
-
     def __colorize_string(self, ansi_color: str, string: str) -> str:
         return f"{ansi_color}{string}{self.__ansi_reset}"
 
@@ -131,6 +123,12 @@ class Logger:
             + f"{self.__purple_background(' '*79)}\n"
         )
         print(f"{header}\n{message}")
+
+    def log_experimental(self, feature: str) -> None:
+        self.log_warning(
+            f"'{feature}' is an experimental feature. This feature is "
+            + "subject to major changes and even being removed entirely."
+        )
 
     def __redact_request_dictionary(
         self,
@@ -390,7 +388,8 @@ class Logger:
                     char = "."
             if byte == 0:
                 # Null bytes (0x00) should have no color.
-                color_function = self.__no_color
+                # 'str()' will return an unmodified version of the string passed to it.
+                color_function = str
             elif byte == 255:
                 # 0xFF should be light blue.
                 color_function = self.__light_blue

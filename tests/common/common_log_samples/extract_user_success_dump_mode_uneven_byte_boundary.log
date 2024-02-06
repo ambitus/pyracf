@@ -55,7 +55,7 @@
   <reasoncode>0</reasoncode>
 </securityresult>
 
-[ INFO ] Raw binary response written to '/u/testuser/.pyracf/dump/pyracf.20240108-131054.fb6609cd3fb99efb4b8fc2df296d5997.dump'.
+[ INFO ] Raw binary response written to '/u/testuser/.pyracf/dump/pyracf.timestamp.md5.dump'.
 
                                                                                
                                  [pyRACF:Debug]                                

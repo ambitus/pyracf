@@ -56,7 +56,7 @@ class SecurityAdmin:
     _extracted_key_value_pair_segment_traits_map = {}
     _case_sensitive_extracted_values = []
     __running_userid = None
-    __logger = Logger()
+    _logger = Logger()
     __dumper = Dumper()
 
     def __init__(
@@ -76,10 +76,7 @@ class SecurityAdmin:
             "base:passphrase": "racf:phrase",
         }
         self.__irrsmo00_response_buffer_size = irrsmo00_response_buffer_size
-        if (
-            self.__irrsmo00_response_buffer_size
-            and self.__irrsmo00_response_buffer_size > 0
-        ):
+        if self.__irrsmo00_response_buffer_size:
             self.__irrsmo00 = IRRSMO00(
                 response_buffer_size=self.__irrsmo00_response_buffer_size
             )
@@ -92,22 +89,25 @@ class SecurityAdmin:
         self._trait_map = {}
         self.__debug = debug
         if self.__debug:
-            self.__logger.log_warning(
+            self._logger.log_warning(
                 "'Debug Logging' is enabled. This feature should only "
                 + "be used for development and debugging."
             )
         self.__dump_mode = dump_mode
         if self.__dump_mode:
-            self.__logger.log_warning(
+            self._logger.log_warning(
                 "'Dump Mode' is enabled. This feature should only "
                 + "be used for development and debugging."
             )
         self._generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
+            self._logger.log_experimental("Update Existing Segment Traits")
             self.__update_valid_segment_traits(update_existing_segment_traits)
         if replace_existing_segment_traits is not None:
+            self._logger.log_experimental("Replace Existing Segment Traits")
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
+            self._logger.log_experimental("Add Additional Secret Traits")
             self.__add_additional_secret_traits(additional_secret_traits)
         self.set_running_userid(run_as_userid)
 
@@ -152,11 +152,11 @@ class SecurityAdmin:
     def __raw_dump(self) -> None:
         raw_binary_response = self.__irrsmo00.get_raw_response()
         dump_file_path = self.__dumper.raw_dump(raw_binary_response)
-        self.__logger.log_info(f"Raw binary response written to '{dump_file_path}'.\n")
+        self._logger.log_info(f"Raw binary response written to '{dump_file_path}'.\n")
         if self.__debug:
             # Note, since the hex dump is logged to the console,
             # secrets will be redacted.
-            self.__logger.log_formatted_hex_dump(
+            self._logger.log_formatted_hex_dump(
                 raw_binary_response, self.__secret_traits
             )
 
@@ -193,9 +193,7 @@ class SecurityAdmin:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built, and profile
             # extract doesn't return any secrets anyways.
-            self.__logger.log_dictionary(
-                "Result Dictionary (Formatted Profile)", result
-            )
+            self._logger.log_dictionary("Result Dictionary (Formatted Profile)", result)
         return result
 
     def _make_request(
@@ -208,24 +206,24 @@ class SecurityAdmin:
         Note: Secrets are redacted from all data returned to the user and log messages.
         """
         if self.__debug:
-            self.__logger.log_dictionary(
+            self._logger.log_dictionary(
                 "Request Dictionary",
                 self.__preserved_segment_traits,
                 secret_traits=self.__secret_traits,
             )
-            self.__logger.log_xml(
+            self._logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
-        request_xml = self.__logger.redact_request_xml(
+        request_xml = self._logger.redact_request_xml(
             security_request.dump_request_xml(encoding="utf-8"),
             secret_traits=self.__secret_traits,
         )
         if self._generate_requests_only:
             self.__clear_state(security_request)
             return request_xml
-        raw_result = self.__logger.redact_result_xml(
+        raw_result = self._logger.redact_result_xml(
             self.__irrsmo00.call_racf(
                 security_request.dump_request_xml(),
                 irrsmo00_precheck,
@@ -248,13 +246,13 @@ class SecurityAdmin:
         if self.__debug:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
-            self.__logger.log_xml("Result XML", raw_result)
+            self._logger.log_xml("Result XML", raw_result)
         try:
             result = SecurityResult(raw_result, self.get_running_userid())
         except xml.etree.ElementTree.ParseError as e:
             # If the result XML cannot be parsed, a dump of the raw binary
             # response will be created to aid in problem determination.
-            self.__logger.log_fatal("Unable to parse result XML returned by IRRSMO00.")
+            self._logger.log_fatal("Unable to parse result XML returned by IRRSMO00.")
             self.__raw_dump()
             self.__irrsmo00.clear_raw_response()
             # After creating the dump, re-raise the exception.
@@ -268,7 +266,7 @@ class SecurityAdmin:
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
-            self.__logger.log_dictionary(
+            self._logger.log_dictionary(
                 "Result Dictionary", result.get_result_dictionary()
             )
         result_dictionary = result.get_result_dictionary()

@@ -6,7 +6,7 @@ import re
 import shutil
 import unittest
 import xml.etree.ElementTree
-from unittest.mock import Mock, call, patch
+from unittest.mock import Mock, patch
 
 import __init__
 import ebcdic
@@ -32,6 +32,7 @@ class TestDumpProcessing(unittest.TestCase):
     timestamp = "20240108-131054"
     dump_file_name = f"pyracf.{timestamp}.e2c865db4162bed963bfaa9ef6ac18f0.dump"
     dump_file_path = os.path.join(dump_directory, dump_file_name)
+    generic_dump_file_path = "/u/testuser/.pyracf/dump/pyracf.timestamp.md5.dump"
     dump_bytes = bytes([i for i in range(256)])
     path_separator = "/"
     if platform.platform().split("-")[0] == "Windows":
@@ -43,10 +44,10 @@ class TestDumpProcessing(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self):
-        shutil.rmtree(self.mock_home_directory)
+        shutil.rmtree(self.mock_home_directory, ignore_errors=True)
 
     def tearDown(self):
-        shutil.rmtree(self.dot_pyracf_directory)
+        shutil.rmtree(self.dot_pyracf_directory, ignore_errors=True)
 
     # ============================================================================
     # Directories and Dump File Creation
@@ -144,14 +145,14 @@ class TestDumpProcessing(unittest.TestCase):
     # Debug Logging
     # ============================================================================
     @patch("pyracf.common.irrsmo00.IRRSMO00.clear_raw_response")
-    @patch.object(Dumper, "_Dumper__get_timestamp")
+    @patch("pyracf.common.utilities.dumper.Dumper.raw_dump")
     @patch("pyracf.common.irrsmo00.IRRSMO00.get_raw_response")
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_debug_and_dump_mode(
         self,
         call_racf_mock: Mock,
         get_raw_response_mock: Mock,
-        get_timestamp_mock: Mock,
+        raw_dump_mock: Mock,
         clear_raw_response_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, dump_mode=True)
@@ -162,29 +163,27 @@ class TestDumpProcessing(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             "cp1047",
         ).ljust(2048, b"\00")
-        get_timestamp_mock.return_value = self.timestamp
+        raw_dump_mock.return_value = self.generic_dump_file_path
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             user_admin.extract("squidwrd")
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        success_log = success_log.replace(
-            f"{self.dump_directory}{self.path_separator}", "/u/testuser/.pyracf/dump/"
-        )
         self.assertEqual(
             success_log, TestCommonConstants.TEST_EXTRACT_USER_SUCCESS_DUMP_MODE_LOG
         )
         get_raw_response_mock.assert_called_once()
+        raw_dump_mock.assert_called_once()
         clear_raw_response_mock.assert_called_once()
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.clear_raw_response")
-    @patch.object(Dumper, "_Dumper__get_timestamp")
+    @patch("pyracf.common.utilities.dumper.Dumper.raw_dump")
     @patch("pyracf.common.irrsmo00.IRRSMO00.get_raw_response")
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_debug_and_dump_mode_uneven_byte_boundary(
         self,
         call_racf_mock: Mock,
         get_raw_response_mock: Mock,
-        get_timestamp_mock: Mock,
+        raw_dump_mock: Mock,
         clear_raw_response_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, dump_mode=True)
@@ -195,30 +194,28 @@ class TestDumpProcessing(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
             "cp1047",
         ).ljust(2007, b"\00")
-        get_timestamp_mock.return_value = self.timestamp
+        raw_dump_mock.return_value = self.generic_dump_file_path
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             user_admin.extract("squidwrd")
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        success_log = success_log.replace(
-            f"{self.dump_directory}{self.path_separator}", "/u/testuser/.pyracf/dump/"
-        )
         self.assertEqual(
             success_log,
             TestCommonConstants.TEST_EXTRACT_USER_SUCCESS_UNEVEN_BYTE_BOUNDARY_LOG,
         )
         get_raw_response_mock.assert_called_once()
+        raw_dump_mock.assert_called_once()
         clear_raw_response_mock.assert_called_once()
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.clear_raw_response")
-    @patch.object(Dumper, "_Dumper__get_timestamp")
+    @patch("pyracf.common.utilities.dumper.Dumper.raw_dump")
     @patch("pyracf.common.irrsmo00.IRRSMO00.get_raw_response")
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_debug_and_dump_mode_all_bytes(
         self,
         call_racf_mock: Mock,
         get_raw_response_mock: Mock,
-        get_timestamp_mock: Mock,
+        raw_dump_mock: Mock,
         clear_raw_response_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, dump_mode=True)
@@ -228,30 +225,28 @@ class TestDumpProcessing(unittest.TestCase):
         get_raw_response_mock.return_value = bytes(
             bytearray([i for i in range(256)])
         ).ljust(512, b"\00")
-        get_timestamp_mock.return_value = self.timestamp
+        raw_dump_mock.return_value = self.generic_dump_file_path
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             user_admin.extract("squidwrd")
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        success_log = success_log.replace(
-            f"{self.dump_directory}{self.path_separator}", "/u/testuser/.pyracf/dump/"
-        )
         self.assertEqual(
             success_log,
             TestCommonConstants.TEST_EXTRACT_USER_SUCCESS_DUMP_MODE_ALL_BYTES_LOG,
         )
         get_raw_response_mock.assert_called_once()
+        raw_dump_mock.assert_called_once()
         clear_raw_response_mock.assert_called_once()
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.clear_raw_response")
-    @patch.object(Dumper, "_Dumper__get_timestamp")
+    @patch("pyracf.common.utilities.dumper.Dumper.raw_dump")
     @patch("pyracf.common.irrsmo00.IRRSMO00.get_raw_response")
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_debug_and_dump_mode_secrets_redaction(
         self,
         call_racf_mock: Mock,
         get_raw_response_mock: Mock,
-        get_timestamp_mock: Mock,
+        raw_dump_mock: Mock,
         clear_raw_response_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, dump_mode=True)
@@ -263,7 +258,7 @@ class TestDumpProcessing(unittest.TestCase):
             TestUserConstants.TEST_ALTER_USER_PASSWORD_RESULT_SUCCESS_XML,
             "cp1047",
         ).ljust(1024, b"\00")
-        get_timestamp_mock.return_value = self.timestamp
+        raw_dump_mock.return_value = self.generic_dump_file_path
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             user_admin.alter(
@@ -271,24 +266,22 @@ class TestDumpProcessing(unittest.TestCase):
                 traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_PASSWORD,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        success_log = success_log.replace(
-            f"{self.dump_directory}{self.path_separator}", "/u/testuser/.pyracf/dump/"
-        )
         self.assertEqual(
             success_log, TestCommonConstants.TEST_ALTER_USER_PASSWORD_DUMP_MODE_LOG
         )
-        get_raw_response_mock.assert_has_calls([call(), call()])
-        clear_raw_response_mock.assert_has_calls([call(), call()])
+        self.assertEqual(get_raw_response_mock.call_count, 2)
+        self.assertEqual(raw_dump_mock.call_count, 2)
+        self.assertEqual(clear_raw_response_mock.call_count, 2)
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.clear_raw_response")
-    @patch.object(Dumper, "_Dumper__get_timestamp")
+    @patch("pyracf.common.utilities.dumper.Dumper.raw_dump")
     @patch("pyracf.common.irrsmo00.IRRSMO00.get_raw_response")
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_debug_and_dump_mode_xml_parsing_failure(
         self,
         call_racf_mock: Mock,
         get_raw_response_mock: Mock,
-        get_timestamp_mock: Mock,
+        raw_dump_mock: Mock,
         clear_raw_response_mock: Mock,
     ):
         user_admin = UserAdmin(debug=True, dump_mode=True)
@@ -300,7 +293,7 @@ class TestDumpProcessing(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML[:-3],
             "cp1047",
         ).ljust(2048, b"\00")
-        get_timestamp_mock.return_value = self.timestamp
+        raw_dump_mock.return_value = self.generic_dump_file_path
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             try:
@@ -308,11 +301,9 @@ class TestDumpProcessing(unittest.TestCase):
             except xml.etree.ElementTree.ParseError:
                 pass
         error_log = self.ansi_escape.sub("", stdout.getvalue())
-        error_log = error_log.replace(
-            f"{self.dump_directory}{self.path_separator}", "/u/testuser/.pyracf/dump/"
-        )
         self.assertEqual(
             error_log, TestCommonConstants.TEST_EXTRACT_USER_FAILURE_DUMP_MODE_LOG
         )
         get_raw_response_mock.assert_called_once()
+        raw_dump_mock.assert_called_once()
         clear_raw_response_mock.assert_called_once()

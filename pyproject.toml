@@ -1,6 +1,6 @@
 [build-system]
     build-backend = "poetry.core.masonry.api"
-    requires = ["poetry-core>=1.7.0", "setuptools>=61"]
+    requires = ["poetry-core>=1.9.0", "setuptools>=69"]
 
 [tool.poetry]
     name="pyracf"
