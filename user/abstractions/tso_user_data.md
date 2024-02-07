@@ -21,7 +21,7 @@ Get a user's **TSO User Data**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO User Data** is being requested.
+  The **z/OS userid** of the user whose **TSO User Data** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **TSO User Data**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO User Data** is being changed.
+  The **z/OS userid** of the user whose **TSO User Data** is being changed.
 
 * `user_data`<br>
   The **User Data** to set for the specified user or `False` to delete the current value.

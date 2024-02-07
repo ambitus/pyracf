@@ -21,7 +21,7 @@ Get a user's **TSO Logon Procedure**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Logon Procedure** is being requested.
+  The **z/OS userid** of the user whose **TSO Logon Procedure** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **TSO Logon Procedure**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Logon Procedure** is being changed.
+  The **z/OS userid** of the user whose **TSO Logon Procedure** is being changed.
 
 * `logon_procedure`<br>
   The **TSO Logon Procedure** to set for the specified user or `False` to delete the current value.

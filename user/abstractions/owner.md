@@ -21,7 +21,7 @@ Get a user's **Owner**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Owner** is being requested.
+  The **z/OS userid** of the user whose **Owner** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -55,7 +55,7 @@ Set a user's **Owner**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Owner** is being set.
+  The **z/OS userid** of the user whose **Owner** is being set.
 
 * `revoke_date`<br>
   The **Owner** to set for the specified user.

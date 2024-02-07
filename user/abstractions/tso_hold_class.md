@@ -21,7 +21,7 @@ Get a user's **TSO Hold Class**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Hold Class** is being requested.
+  The **z/OS userid** of the user whose **TSO Hold Class** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **TSO Hold Class**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Hold Class** is being changed.
+  The **z/OS userid** of the user whose **TSO Hold Class** is being changed.
 
 * `hold_class`<br>
   The **TSO Hold Class** to set for the specified user or `False` to delete the current value.

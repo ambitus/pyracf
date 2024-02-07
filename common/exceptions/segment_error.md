@@ -1,6 +1,7 @@
 ---
 layout: default
-parent: Common
+grand_parent: Common
+parent: Exceptions
 ---
 
 # Segment Error

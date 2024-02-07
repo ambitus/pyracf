@@ -21,7 +21,7 @@ Get a user's **z/OS Unix System Services Default Shell**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Default Shell** is being requested.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Default Shell** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **z/OS Unix System Services Default Shell**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Default Shell** is being changed.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Default Shell** is being changed.
 
 * `default_shell`<br>
   The filesystem path to the **z/OS Unix System Services Default Shell** set for the specified user or `False` to delete the current value.

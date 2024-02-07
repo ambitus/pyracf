@@ -21,7 +21,7 @@ Get a user's **TSO Max Region Size**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Max Region Size** is being requested.
+  The **z/OS userid** of the user whose **TSO Max Region Size** is being requested.
 
 #### 📤 Returns
 * `Union[int, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **TSO Max Region Size**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Max Region Size** is being changed.
+  The **z/OS userid** of the user whose **TSO Max Region Size** is being changed.
 
 * `max_region_size`<br>
   The **TSO Max Region Size** to set for the specified user or `False` to delete the current value.

@@ -21,7 +21,7 @@ Get a user's **Name**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Name** is being requested.
+  The **z/OS userid** of the user whose **Name** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -55,7 +55,7 @@ Set a user's **Name**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Name** is being set.
+  The **z/OS userid** of the user whose **Name** is being set.
 
 * `revoke_date`<br>
   The **Name** to give to the specified user or `False` to delete the current value.
