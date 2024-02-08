@@ -20,15 +20,15 @@ class IRRSMO00:
     def __init__(self, result_buffer_size=16384) -> None:
         # Initialize size of the result buffer (16 kilobytes by default)
         self.__result_buffer_size = result_buffer_size
-        self.__raw_result = b""
+        self.__raw_result_xml = b""
 
     def get_raw_result_xml(self) -> bytes:
         """Get the current preserved raw result XML from IRRSMO00."""
-        return self.__raw_result
+        return self.__raw_result_xml
 
     def clear_raw_result_xml(self) -> None:
         """Clear the current preserved raw result XML from IRRSMO00."""
-        self.__raw_result = b""
+        self.__raw_result_xml = b""
 
     def __null_byte_fix(self, result_xml: bytes) -> bytes:
         """
@@ -70,7 +70,7 @@ class IRRSMO00:
         # Preserve raw binary respone just in case we need to create a dump.
         # If the decoded result XML cannot be parsed with the XML parser,
         # a dump may need to be taken to aid in problem determination.
-        self.__raw_result = result[0]
+        self.__raw_result_xml = result[0]
         # Replace any null bytes in the result XML with spaces.
         result_xml = self.__null_byte_fix(result[0])
         # 'irrsmo00.c' returns a raw unmodified bytes object containing a copy

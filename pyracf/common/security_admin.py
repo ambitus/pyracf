@@ -147,15 +147,15 @@ class SecurityAdmin:
     # Dump Mode
     # ============================================================================
     def __raw_dump(self) -> None:
-        raw_security_result = self.__irrsmo00.get_raw_result_xml()
-        dump_file_path = self.__dumper.raw_dump(raw_security_result)
+        raw_result_xml = self.__irrsmo00.get_raw_result_xml()
+        dump_file_path = self.__dumper.raw_dump(raw_result_xml)
         self._logger.log_info(
             f"Raw security result XML has been written to '{dump_file_path}'.\n"
         )
         if self.__debug:
             # Note, since the hex dump is logged to the console,
             # secrets will be redacted.
-            self._logger.log_hex_dump(raw_security_result, self.__secret_traits)
+            self._logger.log_hex_dump(raw_result_xml, self.__secret_traits)
 
     # ============================================================================
     # Secrets Redaction
