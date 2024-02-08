@@ -198,7 +198,7 @@ class Logger:
 
     def redact_result_xml(
         self,
-        security_response: Union[str, bytes, List[int]],
+        security_result: Union[str, bytes, List[int]],
         secret_traits: dict,
     ) -> str:
         """
@@ -207,24 +207,24 @@ class Logger:
             'TRAIT (value)'
         This function also accounts for varied amounts of whitespace in the pattern.
         """
-        if isinstance(security_response, list):
-            return security_response
+        if isinstance(security_result, list):
+            return security_result
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
             end_pattern = ")"
-            if isinstance(security_response, bytes):
+            if isinstance(security_result, bytes):
                 match = re.search(
-                    rf"{racf_key.upper()} +\(", security_response.decode("cp1047")
+                    rf"{racf_key.upper()} +\(", security_result.decode("cp1047")
                 )
                 end_pattern = end_pattern.encode("cp1047")
             else:
-                match = re.search(rf"{racf_key.upper()} +\(", security_response)
+                match = re.search(rf"{racf_key.upper()} +\(", security_result)
             if not match:
                 continue
-            security_response = self.__redact_string(
-                security_response, match.end(), end_pattern
+            security_result = self.__redact_string(
+                security_result, match.end(), end_pattern
             )
-        return security_response
+        return security_result
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""
@@ -355,9 +355,9 @@ class Logger:
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
 
-    def log_hex_dump(self, raw_binary_response: bytes, secret_traits: dict) -> None:
+    def log_hex_dump(self, raw_result_xml: bytes, secret_traits: dict) -> None:
         """
-        Log the raw response returned by IRRSMO00 as a hex dump.
+        Log the raw result XML returned by IRRSMO00 as a hex dump.
         """
         hex_row = ""
         hex_row_size = 0
@@ -365,11 +365,11 @@ class Logger:
         i = 0
         hex_dump = ""
         # Redact secrets from raw result because we are logging it to the console.
-        raw_binary_response = self.redact_result_xml(
-            raw_binary_response,
+        raw_result_xml = self.redact_result_xml(
+            raw_result_xml,
             secret_traits,
         )
-        for byte in raw_binary_response:
+        for byte in raw_result_xml:
             color_function = self.__green
             char = struct.pack("B", byte).decode("cp1047")
             # Non-displayable characters should be interpreted as '.'.

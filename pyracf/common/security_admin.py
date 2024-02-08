@@ -62,7 +62,7 @@ class SecurityAdmin:
     def __init__(
         self,
         profile_type: str,
-        irrsmo00_response_buffer_size: Union[int, None] = None,
+        irrsmo00_result_buffer_size: Union[int, None] = None,
         debug: bool = False,
         dump_mode: bool = False,
         generate_requests_only: bool = False,
@@ -75,11 +75,8 @@ class SecurityAdmin:
             "base:password": "racf:password",
             "base:passphrase": "racf:phrase",
         }
-        self.__irrsmo00_response_buffer_size = irrsmo00_response_buffer_size
-        if self.__irrsmo00_response_buffer_size:
-            self.__irrsmo00 = IRRSMO00(
-                response_buffer_size=self.__irrsmo00_response_buffer_size
-            )
+        if irrsmo00_result_buffer_size:
+            self.__irrsmo00 = IRRSMO00(result_buffer_size=irrsmo00_result_buffer_size)
         else:
             self.__irrsmo00 = IRRSMO00()
         self._profile_type = profile_type
@@ -150,13 +147,15 @@ class SecurityAdmin:
     # Dump Mode
     # ============================================================================
     def __raw_dump(self) -> None:
-        raw_binary_response = self.__irrsmo00.get_raw_response()
-        dump_file_path = self.__dumper.raw_dump(raw_binary_response)
-        self._logger.log_info(f"Raw binary response written to '{dump_file_path}'.\n")
+        raw_security_result = self.__irrsmo00.get_raw_result_xml()
+        dump_file_path = self.__dumper.raw_dump(raw_security_result)
+        self._logger.log_info(
+            f"Raw security result XML has been written to '{dump_file_path}'.\n"
+        )
         if self.__debug:
             # Note, since the hex dump is logged to the console,
             # secrets will be redacted.
-            self._logger.log_hex_dump(raw_binary_response, self.__secret_traits)
+            self._logger.log_hex_dump(raw_security_result, self.__secret_traits)
 
     # ============================================================================
     # Secrets Redaction
@@ -231,7 +230,7 @@ class SecurityAdmin:
         )
         self.__clear_state(security_request)
         if isinstance(raw_result, list):
-            # When IRRSMO00 encounters some errors, it returns no XML response string.
+            # When IRRSMO00 encounters some errors, it returns no result XML string.
             # When this happens, the C code instead surfaces the return and reason
             # codes which causes a DownstreamFatalError to be raised.
             raise DownstreamFatalError(
@@ -248,19 +247,21 @@ class SecurityAdmin:
         try:
             result = SecurityResult(raw_result, self.get_running_userid())
         except xml.etree.ElementTree.ParseError as e:
-            # If the result XML cannot be parsed, a dump of the raw binary
-            # response will be created to aid in problem determination.
-            self._logger.log_fatal("Unable to parse result XML returned by IRRSMO00.")
+            # If the result XML cannot be parsed, a dump of the raw result
+            # XML will be created to aid in problem determination.
+            self._logger.log_fatal(
+                "Unable to parse security result XML returned by IRRSMO00."
+            )
             self.__raw_dump()
-            self.__irrsmo00.clear_raw_response()
+            self.__irrsmo00.clear_raw_result_xml()
             # After creating the dump, re-raise the exception.
             raise e
         if self.__dump_mode:
-            # If in dump mode a dump of the raw binary response
+            # If in dump mode a dump of the raw result XML
             # will be created even if the raw security result was
             # able to be processed successfully.
             self.__raw_dump()
-        self.__irrsmo00.clear_raw_response()
+        self.__irrsmo00.clear_raw_result_xml()
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.

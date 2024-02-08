@@ -25,19 +25,19 @@ class TestClassAttributes(unittest.TestCase):
         UserAdmin,
     ]
 
-    def test_all_admin_types_support_irrsmo00_response_buffer_size(self):
+    def test_all_admin_types_support_irrsmo00_result_buffer_size(self):
         for admin_type in self.admin_types:
-            admin_object = admin_type(irrsmo00_response_buffer_size=32768)
+            admin_object = admin_type(irrsmo00_result_buffer_size=32768)
             self.assertEqual(
                 admin_object.__dict__["_SecurityAdmin__irrsmo00"].__dict__[
-                    "_IRRSMO00__response_buffer_size"
+                    "_IRRSMO00__result_buffer_size"
                 ],
                 32768,
             )
             admin_object = admin_type()
             self.assertEqual(
                 admin_object.__dict__["_SecurityAdmin__irrsmo00"].__dict__[
-                    "_IRRSMO00__response_buffer_size"
+                    "_IRRSMO00__result_buffer_size"
                 ],
                 16384,
             )

@@ -10,7 +10,8 @@ ebcdic
 IRRSMO00
 
 
-@patch.object(IRRSMO00, "_IRRSMO00__call_irrsmo00_wrapper")
+# @patch.object(IRRSMO00, "_IRRSMO00__call_irrsmo00_wrapper")
+@patch("pyracf.common.irrsmo00.call_irrsmo00")
 class TestIRRSMO00Interface(unittest.TestCase):
     maxDiff = None
     irrsmo00 = IRRSMO00()
@@ -33,7 +34,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
     good_xml_null_terminator_index = good_xml.find(b"\x00")
 
     # ============================================================================
-    # Test IRRSMO00 Response Post Processing
+    # Test IRRSMO00 Result XML Post Processing
     # ============================================================================
     def test_irrsmo00_null_byte_fix(
         self,
@@ -61,7 +62,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
             self.good_xml.decode("cp1047")[: self.good_xml_null_terminator_index],
         )
 
-    def test_irrsmo00_null_response(
+    def test_irrsmo00_empty_result(
         self,
         call_irrsmo00_wrapper_mock: Mock,
     ):
@@ -74,21 +75,21 @@ class TestIRRSMO00Interface(unittest.TestCase):
         ]
         self.assertEqual(self.irrsmo00.call_racf(b""), [8, 200, 16])
 
-    def test_irrsmo00_response_buffer_full_failure(
+    def test_irrsmo00_result_buffer_full_failure(
         self,
         call_irrsmo00_wrapper_mock: Mock,
     ):
-        # Simulate scenario where response buffer is too small.
+        # Simulate scenario where result buffer is too small.
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml[:32], 8, 4000, 32]
         self.assertEqual(
             self.irrsmo00.call_racf(b""), self.good_xml.decode("cp1047")[:32]
         )
 
-    def test_irrsmo00_response_buffer_full_success(
+    def test_irrsmo00_result_buffer_full_success(
         self,
         call_irrsmo00_wrapper_mock: Mock,
     ):
-        # Simulate scenario where response buffer is exactly the right size.
+        # Simulate scenario where result buffer is exactly the right size.
         call_irrsmo00_wrapper_mock.return_value = [
             self.good_xml[: self.good_xml_null_terminator_index],
             0,
@@ -100,7 +101,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
             self.good_xml.decode("cp1047")[: self.good_xml_null_terminator_index],
         )
 
-    def test_irrsmo00_normal_response(self, call_irrsmo00_wrapper_mock: Mock):
+    def test_irrsmo00_normal_result(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
         self.assertEqual(
             self.irrsmo00.call_racf(b""),
@@ -114,29 +115,49 @@ class TestIRRSMO00Interface(unittest.TestCase):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
         self.irrsmo00.call_racf(b"some bytes")
         call_irrsmo00_wrapper_mock.assert_called_with(
-            b"some bytes", 10, 16384, 13, b"", 0
+            request_xml=b"some bytes",
+            request_xml_length=10,
+            result_buffer_size=16384,
+            irrsmo00_options=13,
+            running_userid=b"",
+            running_userid_length=0,
         )
 
     def test_irrsmo00_with_precheck_set_to_true(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
         self.irrsmo00.call_racf(b"some bytes", precheck=True)
         call_irrsmo00_wrapper_mock.assert_called_with(
-            b"some bytes", 10, 16384, 15, b"", 0
+            request_xml=b"some bytes",
+            request_xml_length=10,
+            result_buffer_size=16384,
+            irrsmo00_options=15,
+            running_userid=b"",
+            running_userid_length=0,
         )
 
     def test_irrsmo00_with_run_as_userid_set(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
         self.irrsmo00.call_racf(b"some bytes", run_as_userid="KRABS")
         call_irrsmo00_wrapper_mock.assert_called_with(
-            b"some bytes", 10, 16384, 13, b"\xd2\xd9\xc1\xc2\xe2", 5
+            request_xml=b"some bytes",
+            request_xml_length=10,
+            result_buffer_size=16384,
+            irrsmo00_options=13,
+            running_userid=b"\xd2\xd9\xc1\xc2\xe2",
+            running_userid_length=5,
         )
 
-    def test_irrsmo00_with_custom_response_buffer_size(
+    def test_irrsmo00_with_custom_result_buffer_size(
         self, call_irrsmo00_wrapper_mock: Mock
     ):
         call_irrsmo00_wrapper_mock.return_value = [self.good_xml, 0, 0, 0]
-        irrsmo00 = IRRSMO00(response_buffer_size=32768)
+        irrsmo00 = IRRSMO00(result_buffer_size=32768)
         irrsmo00.call_racf(b"some bytes")
         call_irrsmo00_wrapper_mock.assert_called_with(
-            b"some bytes", 10, 32768, 13, b"", 0
+            request_xml=b"some bytes",
+            request_xml_length=10,
+            result_buffer_size=32768,
+            irrsmo00_options=13,
+            running_userid=b"",
+            running_userid_length=0,
         )

@@ -55,8 +55,8 @@
   <reasoncode>0</reasoncode>
 </securityresu>
 
-[ FATAL ] Unable to parse result XML returned by IRRSMO00.
-[ INFO ] Raw binary response written to '/u/testuser/.pyracf/dump/pyracf.timestamp.md5.dump'.
+[ FATAL ] Unable to parse security result XML returned by IRRSMO00.
+[ INFO ] Raw security result XML has been written to '/u/testuser/.pyracf/dump/pyracf.<timestamp>.<md5>.dump'.
 
                                                                                
                                  [pyRACF:Debug]                                
