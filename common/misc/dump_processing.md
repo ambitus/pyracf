@@ -6,7 +6,7 @@ parent: Misc
 
 # Dump Processing
 
-How pyRACF creates and processes IRRSMO00 Raw Security Result Dumps
+How pyRACF creates and processes IRRSMO00 Raw Security Result Dumps.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -31,15 +31,15 @@ Both the `.pyracf` directory and the `dump` directory are created with `700` per
 &nbsp;
 
 {: .warning}
-> _If a the **Security Result XML** returned by IRRSMO00 cannot be parsed as XML, a dump is created, and `xml.etree.ElementTree.ParseError` is raised, you should open an issue [here](https://github.com/ambitus/pyracf/issues) if the problem was not the result of user error or a system configuration problem._
+> _If a the **Security Result XML** returned by IRRSMO00 cannot be parsed as XML, a dump is created, and `xml.etree.ElementTree.ParseError` is raised, you should open an issue [here](https://github.com/ambitus/pyracf/issues) if the problem was **NOT** the result of user error or a system configuration problem._
 
 &nbsp;
 
-When a dump is created due to the **Security Result XML** not being able to be parsed as XML, pyRACF log print the following messages to the console. After creating the dump, the original `xml.etree.ElementTree.ParseError` will be raised.
+When a dump is created due to the **Security Result XML** not being able to be parsed as XML, pyRACF will print the following messages to the console. After creating the dump, the original `xml.etree.ElementTree.ParseError` will be raised.
 
 ###### Console Output
 ```console
-[ FATAL ] Unable to parse result XML returned by IRRSMO00.
+[ FATAL ] Unable to parse security result XML returned by IRRSMO00.
 [ INFO ] Raw security result XML has been written to '/u/testuser/.pyracf/dump/pyracf.<timestamp>.<md5>.dump'.
 ```
 

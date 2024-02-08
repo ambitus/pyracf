@@ -6,7 +6,7 @@ parent: Class Attributes
 
 # Dump Mode
 
-What is Dump Mode and how to use it
+What is Dump Mode and how to use it.
 {: .fs-6 .fw-300 }
 
 &nbsp;

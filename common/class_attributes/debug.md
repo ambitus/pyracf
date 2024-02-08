@@ -6,7 +6,7 @@ parent: Class Attributes
 
 # Debug Logging
 
-How to enable Debug Logging
+How to enable Debug Logging.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -31,7 +31,7 @@ How to enable Debug Logging
 
 &nbsp;
 
-**Debug Logging** can be enabled on any "Admin" object by setting the `debug` class attrubute to `True` through the constructor. Once enabled, the metadata for the following steps will be printed to the console.
+**Debug Logging** can be enabled on any "Admin" object by setting the `debug` class attrubute to `True` through the constructor. Once enabled, the following will be printed to the console.
 
 &nbsp;
 

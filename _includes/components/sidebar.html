@@ -12,7 +12,7 @@
             | where_exp:"item", "item.nav_exclude != true"
             | size %}
       {% if pages_top_size > 0 %}
-        {% include nav.html pages=site.html_pages key=nil %}
+        {% include components/nav.html pages=site.html_pages key=nil %}
       {% endif %}
       {%- if site.nav_external_links -%}
         <ul class="nav-list">
@@ -41,15 +41,15 @@
                     <a href="#" class="nav-list-expander"><svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg></a>
                     {%- endif -%}
                     <div class="nav-category">{{ collection_value.name }}</div>
-                    {% include nav.html pages=collection key=collection_key %}
+                    {% include components/nav.html pages=collection key=collection_key %}
                   </li>
                 </ul>
               {% else %}
                 <div class="nav-category">{{ collection_value.name }}</div>
-                {% include nav.html pages=collection key=collection_key %}
+                {% include components/nav.html pages=collection key=collection_key %}
               {% endif %}
             {% else %}
-              {% include nav.html pages=collection key=collection_key %}
+              {% include components/nav.html pages=collection key=collection_key %}
             {% endif %}
           {% endif %}
         {% endfor %}
@@ -65,6 +65,7 @@
       <footer class="site-footer">
         <br>
         <br>
+        pyRACF {{ site.pyracf_version }}<br><br>
         pyRACF is maintained by <a href="https://github.com/Ambitus">Ambitus</a><br><br>
         This site uses <a href="https://github.com/just-the-docs/just-the-docs">Just the Docs</a>, a documentation theme for Jekyll.
         <br>

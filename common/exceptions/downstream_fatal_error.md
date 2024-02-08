@@ -21,7 +21,7 @@ Understanding the `DownstreamFatalError` exception.
 
 &nbsp;
 
-pyRACF expects IRRSMO00 to return a non-empty response string after processing a request. If IRRSMO00 returns an empty response string or the **SAF Return Code** is greater than `4`, indicating that there was an issue with command image processing, a `DownstramFatalError` will be raised. It is possible that RACF commands are executed in this situation, but this is not the case for any known causes of this error.
+pyRACF expects IRRSMO00 to return a non-empty result string after processing a request. If IRRSMO00 returns an empty result string or the **SAF Return Code** is greater than `4`, indicating that there was an issue with command image processing, a `DownstramFatalError` will be raised. It is possible that RACF commands are executed in this situation, but this is not the case for any known causes of this error.
 
 ## RACF Authorizations
 
