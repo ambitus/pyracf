@@ -17,12 +17,12 @@ How to enable Debug Logging.
 &nbsp;
 
 {: .note }
-> _Whenever a user password is set using the `base:password` trait in the `UserAdmin` class, all instances of the specified password will be redacted from debug log messages._
+> _pyRACF's enhanced secrets redaction is applied to all content that can contain sestivite information that is printed to the console. Also note that **IRRSMO00** redacts secrets such as **Passwords** and **Passphrases** from all **Security Results** that it returns._
 
 &nbsp;
 
 {: .note }
-> _When a dump of the **Raw Security Result XML** returned by IRRSMO00 is created either due to a failure where the **Security Result XML** cannot be parsed as XML and or when [Dump Mode](../dump_mode) is enabled, a **Hex Dump** of the **Raw Security Result XML** will be printed to the console as well._
+> _When a dump of the **Raw Security Result XML** returned by **IRRSMO00** is created either due to a failure where the **Security Result XML** cannot be parsed as XML and or when [Dump Mode](../dump_mode) is enabled, a **Hex Dump** of the **Raw Security Result XML** will be printed to the console as well._
 
 &nbsp;
 

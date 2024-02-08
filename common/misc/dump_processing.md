@@ -31,7 +31,7 @@ Both the `.pyracf` directory and the `dump` directory are created with `700` per
 &nbsp;
 
 {: .warning}
-> _If a the **Security Result XML** returned by IRRSMO00 cannot be parsed as XML, a dump is created, and `xml.etree.ElementTree.ParseError` is raised, you should open an issue [here](https://github.com/ambitus/pyracf/issues) if the problem was **NOT** the result of user error or a system configuration problem._
+> _If a the **Security Result XML** returned by IRRSMO00 cannot be parsed as XML, a dump is created, and `xml.etree.ElementTree.ParseError` is raised, you should open an issue [here](https://github.com/ambitus/pyracf/issues) if the problem was **NOT** the result of user error or an environment/configuration problem._
 
 &nbsp;
 

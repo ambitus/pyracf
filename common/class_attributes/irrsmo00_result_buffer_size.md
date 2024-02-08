@@ -27,7 +27,7 @@ Customize the size of the result buffer that IRRSMO00 uses.
 &nbsp;
 
 {: .warning}
-> _**IRRSMO00 Result Buffer Size** must be **greater than or equal** to `10000`. Avoid values greater than `100000000` **(100MB)**. Large values can result in a `SIGKILL` signal being raised, which will result in the Python task that pyRACF is running under be killed._
+> _**IRRSMO00 Result Buffer Size** must be an integer value **greater than or equal to** `10000`, otherwise `ValueError` will be raised. Avoid values greater than `100000000` **(100MB)**. Large values can result in a `SIGKILL` signal being raised, which will result in the Python process that pyRACF is running under be killed._
 
 &nbsp;
 
