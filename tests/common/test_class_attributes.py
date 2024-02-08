@@ -42,6 +42,43 @@ class TestClassAttributes(unittest.TestCase):
                 16384,
             )
 
+    def test_all_admin_types_raise_value_error_when_irrsmo00_result_buffer_size_is_no_good(
+        self,
+    ):
+        for admin_type in self.admin_types:
+            with self.assertRaises(ValueError) as exception:
+                admin_type(irrsmo00_result_buffer_size=9999)
+            self.assertEqual(
+                str(exception.exception),
+                "IRRSMO00 result buffer size must be an "
+                + "integer value greater than or equal to '10000'.",
+            )
+            with self.assertRaises(ValueError) as exception:
+                admin_type(irrsmo00_result_buffer_size="Plankton")
+            self.assertEqual(
+                str(exception.exception),
+                "IRRSMO00 result buffer size must be an "
+                + "integer value greater than or equal to '10000'.",
+            )
+
+    @patch("pyracf.common.utilities.logger.Logger.log_warning")
+    def test_all_admin_type_log_a_warning_when_irrsmo00_result_buffer_size_is_very_large(
+        self, log_warning_mock: Mock
+    ):
+        for admin_type in self.admin_types:
+            admin_type(irrsmo00_result_buffer_size=100000001)
+        log_warning_mock.assert_has_calls(
+            [
+                call(
+                    "IRRSMO00 result buffer sizes greater than '100000000' may "
+                    + "result in a 'SIGKILL' signal to be raised, which is NOT "
+                    + "recoverable and will lead to the Python process that "
+                    + "pyRACF is running under to be killed."
+                )
+            ]
+            * len(self.admin_types)
+        )
+
     def test_all_admin_types_support_debug(self):
         for admin_type in self.admin_types:
             admin_object = admin_type(debug=True)

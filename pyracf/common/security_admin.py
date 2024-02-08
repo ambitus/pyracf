@@ -76,6 +76,21 @@ class SecurityAdmin:
             "base:passphrase": "racf:phrase",
         }
         if irrsmo00_result_buffer_size:
+            if (
+                not isinstance(irrsmo00_result_buffer_size, int)
+                or irrsmo00_result_buffer_size < 10000
+            ):
+                raise ValueError(
+                    "IRRSMO00 result buffer size must be an "
+                    + "integer value greater than or equal to '10000'."
+                )
+            elif irrsmo00_result_buffer_size > 100000000:
+                self._logger.log_warning(
+                    "IRRSMO00 result buffer sizes greater than '100000000' may "
+                    + "result in a 'SIGKILL' signal to be raised, which is NOT "
+                    + "recoverable and will lead to the Python process that "
+                    + "pyRACF is running under to be killed."
+                )
             self.__irrsmo00 = IRRSMO00(result_buffer_size=irrsmo00_result_buffer_size)
         else:
             self.__irrsmo00 = IRRSMO00()
