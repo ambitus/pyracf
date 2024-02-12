@@ -67,7 +67,7 @@ class IRRSMO00:
             running_userid=running_userid,
             running_userid_length=len(running_userid),
         )
-        # Preserve raw binary respone just in case we need to create a dump.
+        # Preserve raw result XML just in case we need to create a dump.
         # If the decoded result XML cannot be parsed with the XML parser,
         # a dump may need to be taken to aid in problem determination.
         self.__raw_result_xml = result[0]
