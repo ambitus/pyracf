@@ -35,7 +35,7 @@ Both the `.pyracf` directory and the `dump` directory are created with `700` per
 
 &nbsp;
 
-When a dump is created due to the **Security Result XML** not being able to be parsed as XML, pyRACF will print the following messages to the console. After creating the dump, the original `xml.etree.ElementTree.ParseError` will be raised.
+When pyRACF creates a dump due to a failure parsing the **Security Result XML** as XML, the following messages are printed to the console. After creating the dump, the original `xml.etree.ElementTree.ParseError` will be raised.
 
 ###### Console Output
 ```console
@@ -43,7 +43,7 @@ When a dump is created due to the **Security Result XML** not being able to be p
 [ INFO ] Raw security result XML has been written to '/u/testuser/.pyracf/dump/pyracf.<timestamp>.<md5>.dump'.
 ```
 
-When a dump is created as a result of [Dump Mode](../../class_attributes/dump_mode) being enabled, pyRACF will print the following message to the console. Normal processing continues after creating the dump.
+When pyRACF creates a dump due to [Dump Mode](../../class_attributes/dump_mode) being enabled, the following messages are printed to the console. Normal processing continues after creating the dump.
 
 ###### Console Output
 ```console

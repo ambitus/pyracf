@@ -44,7 +44,7 @@ user_admin.extract("squidwrd")
 ```
 
 {: .note }
-> _If both **Dump Mode** and [Debug Logging](../debug) are enabled, a **Hex Dump** of the **Raw Result XML** returned by **IRRSMO00** will also be printed to the console. Also keep in mind that pyRACF's enhanced secrets redaction is applied to the **Raw Security Result XML Hex Dump** that is printed to the console, which is done for everything that may contain sensitive information that pyRACF prints to the console._
+> _If both **Dump Mode** and [Debug Logging](../debug) are enabled, a **Hex Dump** of the **Raw Result XML** returned by **IRRSMO00** will also be printed to the console. Also keep in mind that pyRACF's enhanced secrets redaction is applied to everything printed to the console that may contain sensitive information. This also includes the **Raw Security Result XML Hex Dump** that gets printed to the console in this scenario._
 
 ###### Python Script
 ```python
