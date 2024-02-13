@@ -21,7 +21,7 @@ Get the **Running User's** access to a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **general resource profile** to get the current user's access level for.
+  The **general resource profile** to get the running user's access level for.
 
 * `class_name`<br>
   The name of the **class** the specified general resource profile belongs to.
