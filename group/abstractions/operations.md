@@ -24,7 +24,7 @@ Check if a user has **Operations** authority within a group.
   The group where the user's authority is being checked.
 
 * `userid`<br>
-  The **z/OS userid** of the user who's authority is being checked.
+  The **z/OS userid** of the user whose authority is being checked.
 
 #### 📤 Returns
 * `Union[bool,bytes]`<br>

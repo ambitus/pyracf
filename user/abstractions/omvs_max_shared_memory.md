@@ -21,7 +21,7 @@ Get a user's **z/OS Unix System Services Max Shared Memory**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Max Shared Memory** is being requested.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Max Shared Memory** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **z/OS Unix System Services Max Shared Memory**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Max Shared Memory** is being set.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Max Shared Memory** is being set.
 
 * `max_files_per_shared_memory`<br>
   The **z/OS Unix System Services Max Shared Memory** to set for the specified user or `False` to delete the current value.

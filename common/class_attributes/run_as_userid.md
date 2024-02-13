@@ -1,6 +1,7 @@
 ---
 layout: default
-parent: Common
+grand_parent: Common
+parent: Class Attributes
 ---
 
 # Run as Userid
@@ -16,14 +17,11 @@ Make security requests as another user.
 &nbsp;
 
 {: .warning}
-> _In order to use `run_as_userid`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to execute commands as. Further information can be found outlined in [our dependencies note](../../index)._
+> _In order to use **Run as Userid**, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to execute commands as. Further information can be found outlined in [Our Dependencies Note](../../../index)._
 
 &nbsp;
 
 The **Running Userid** can be set using the `run_as_userid` class attribute on any "Admin" object as shown in the below example. The **Running Userid** can also be set using the `set_running_userid()` function, which is a class function available on all "Admin" objects.
-
-&nbsp;
-
 
 ## Example
 
@@ -45,11 +43,11 @@ def set_running_userid(
 
 #### 📄 Description
 
-Set the **z/OS userid** who's authority this "Admin" object will use to make security requests.
+Set the **z/OS userid** whose authority this "Admin" object will use to make security requests.
 
 #### 📥 Parameters
 * `new_userid`<br>
-  The **z/OS userid** who's authority this "Admin" object will use to make security requests. If `None` is specified, the default behavior will take effect, and the calling user's authority will be used to make security requests.
+  The **z/OS userid** whose authority this "Admin" object will use to make security requests. If `None` is specified, the default behavior will take effect, and the calling user's authority will be used to make security requests.
 
 #### ❌ Raises
 * `UserIdError`<br>
@@ -84,7 +82,7 @@ def get_running_userid(self) -> None:
 
 #### 📄 Description
 
-Get the **z/OS userid** who's authority this "Admin" object is using to make security requests.
+Get the **z/OS userid** whose authority this "Admin" object is using to make security requests.
 
 #### 💻 Example
 

@@ -62,7 +62,7 @@ Python interface into the RACF management application programming interface.
 &nbsp;
 
 1. [Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
-2. [IRRSMO00 Precheck Setup](../common/setup_precheck)
+2. [IRRSMO00 Precheck Setup](../common/misc/setup_precheck)
 
 ### Use
 

@@ -21,7 +21,7 @@ Delete a user's **connection** to a group.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **connection** to a group is being deleted.
+  The **z/OS userid** of the user whose **connection** to a group is being deleted.
 * `group`<br>
   The group to delete the users **connection** from.
 

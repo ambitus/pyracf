@@ -21,7 +21,7 @@ Get a user's **TSO Account Number**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Account Number** is being requested.
+  The **z/OS userid** of the user whose **TSO Account Number** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **TSO Account Number**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Account Number** is being changed.
+  The **z/OS userid** of the user whose **TSO Account Number** is being changed.
 
 * `account_number`<br>
   The **TSO Account Number** to set for the specified user or `False` to delete the current value.

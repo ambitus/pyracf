@@ -38,7 +38,7 @@ Set a user's **passphrase**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **passphrase** is being set.
+  The **z/OS userid** of the user whose **passphrase** is being set.
 
 * `passphrase`<br>
   The **passphrase** to set for the specified user or `False` to delete the current value.

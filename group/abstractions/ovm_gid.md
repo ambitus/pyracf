@@ -21,7 +21,7 @@ Get a group's **z/VM Open Extensions GID**.
 
 #### 📥 Parameters
 * `group`<br>
-  The group who's **z/VM Open Extensions GID** is being requested.
+  The group whose **z/VM Open Extensions GID** is being requested.
 
 #### 📤 Returns
 * `Union[int, None, bytes]`<br>
@@ -55,7 +55,7 @@ Change a group's **z/VM Open Extensions GID**.
 
 #### 📥 Parameters
 * `group`<br>
-  The group who's **z/VM Open Extensions GID** is being changed.
+  The group whose **z/VM Open Extensions GID** is being changed.
 
 * `gid`<br>
   The **z/VM Open Extensions GID** to set for the specified group.
