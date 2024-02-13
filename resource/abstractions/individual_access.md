@@ -6,7 +6,7 @@ parent: Abstractions
 
 # Individual Access
 
-General Resource Profile Administration functions for checking an individual user's access to a General Resource Profile. 
+General Resource Profile Administration functions for checking an Individual User's access to a General Resource Profile. 
 {: .fs-6 .fw-300 }
 
 ## `ResourceAdmin.get_my_access()`
@@ -17,18 +17,18 @@ def get_my_access(self, resource: str, class_name: str) -> Union[str, bytes, Non
 
 #### 📄 Description
 
-Check **Your Access** for a general resource profile.
+Get the **Running User's** access to a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **general resource profile** for which RACF should check the current user's access level.
+  The name of the **general resource profile** to evaluate with this command.
 
 * `class_name`<br>
-  The name of the **class** the general resource profile being checked belongs to.
+  The name of the **class** the specified general resource profile belongs to.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
-  Returns `None` when the general resource profile has no **Your Access** defined, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the general resource profile has no **Your Access** section defined for the running userid, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -57,25 +57,25 @@ def get_user_access(self, resource: str, class_name: str, userid: str) -> Union[
 &nbsp;
 
 {:.warning}
-> > _In order to use `get_user_access`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to check access for. Further information can be found outlined in [our dependencies note](../../index)._
+> _In order to use `get_user_access`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to check access for. Further information can be found outlined in [Our Dependencies Note](../../index)._
 
 &nbsp;
 
-Check a **User's Access** for a general resource profile.
+Get a **Specified User's** access to a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **general resource profile** for which RACF should check the current user's access level.
+  The name of the **general resource profile** to evaluate with this command.
 
 * `class_name`<br>
-  The name of the **class** the general resource profile being checked belongs to.
+  The name of the **class** the specified general resource profile belongs to.
 
 * `userid`<br>
-  The **z/OS userid** that you are checking access for.
+  The **z/OS Userid** whose access is being requested.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
-  Returns `None` when the general resource profile has no **Your Access** defined, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the general resource profile has no **Your Access** section defined for the specified userid, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `UserIdError`<br>
