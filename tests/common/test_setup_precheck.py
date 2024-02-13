@@ -10,7 +10,6 @@ import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
 from pyracf import SecurityRequestError, setup_precheck
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -19,7 +18,6 @@ __init__
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 class TestSetupPrecheck(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     def test_setup_precheck_works_when_no_setup_done(

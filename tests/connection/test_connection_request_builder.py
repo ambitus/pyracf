@@ -1,13 +1,11 @@
 """Test connection request builder."""
 
 import unittest
-from unittest.mock import Mock
 
 import __init__
 
 import tests.connection.test_connection_constants as TestConnectionConstants
 from pyracf import ConnectionAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -15,7 +13,6 @@ __init__
 
 class TestConnectionRequestBuilder(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     connection_admin = ConnectionAdmin(generate_requests_only=True)
 
     def test_connection_admin_build_connect_connection_request(self):

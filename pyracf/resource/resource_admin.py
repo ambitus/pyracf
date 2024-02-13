@@ -3,10 +3,10 @@
 from collections import Counter
 from typing import List, Union
 
-from pyracf.common.add_operation_error import AddOperationError
-from pyracf.common.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.add_operation_error import AddOperationError
+from pyracf.common.exceptions.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.security_request_error import SecurityRequestError
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
 
 from .resource_request import ResourceRequest
 
@@ -16,7 +16,9 @@ class ResourceAdmin(SecurityAdmin):
 
     def __init__(
         self,
+        irrsmo00_result_buffer_size: Union[int, None] = None,
         debug: bool = False,
+        dump_mode: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
@@ -238,7 +240,9 @@ class ResourceAdmin(SecurityAdmin):
         }
         super().__init__(
             "resource",
+            irrsmo00_result_buffer_size=irrsmo00_result_buffer_size,
             debug=debug,
+            dump_mode=dump_mode,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,

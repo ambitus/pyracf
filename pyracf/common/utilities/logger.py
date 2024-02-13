@@ -4,6 +4,7 @@ import inspect
 import json
 import os
 import re
+import struct
 from typing import List, Union
 
 
@@ -13,33 +14,48 @@ class Logger:
     __ansi_reset = "\033[0m"
     __ansi_gray = "\033[2m"
     __ansi_green = "\033[32m"
+    __ansi_red = "\033[0;31m"
+    __ansi_yellow = "\033[1;33m"
     __ansi_blue = "\033[34m"
+    __ansi_light_blue = "\033[1;34m"
     __ansi_orange = "\033[38;5;214m"
     __ansi_cyan = "\033[96m"
     __ansi_purple_background = "\033[1;45m"
 
     def __gray(self, string: str) -> str:
-        """Make contents of string gray."""
+        """Make the text in a string gray."""
         return self.__colorize_string(self.__ansi_gray, string)
 
     def __green(self, string: str) -> str:
-        """Make contents of string green."""
+        """Make the text in a string green."""
         return self.__colorize_string(self.__ansi_green, string)
 
+    def __red(self, string: str) -> str:
+        """Make the text in a string red."""
+        return self.__colorize_string(self.__ansi_red, string)
+
+    def __yellow(self, string: str) -> str:
+        """Make the text in a string yellow."""
+        return self.__colorize_string(self.__ansi_yellow, string)
+
     def __blue(self, string: str) -> str:
-        """Make contents of string blue."""
+        """Make the text in a string blue."""
         return self.__colorize_string(self.__ansi_blue, string)
 
+    def __light_blue(self, string: str) -> str:
+        """Make the text in a string light blue."""
+        return self.__colorize_string(self.__ansi_light_blue, string)
+
     def __orange(self, string: str) -> str:
-        """Make contents of string orange."""
+        """Make the text in a string orange."""
         return self.__colorize_string(self.__ansi_orange, string)
 
     def __cyan(self, string: str) -> str:
-        """Make contents of string cyan."""
+        """Make the text in a string cyan."""
         return self.__colorize_string(self.__ansi_cyan, string)
 
     def __purple_background(self, string: str) -> str:
-        """Make contents of string magenta."""
+        """Make background color of a string magenta."""
         return self.__colorize_string(self.__ansi_purple_background, string)
 
     def __colorize_string(self, ansi_color: str, string: str) -> str:
@@ -73,6 +89,18 @@ class Logger:
         colorized_indented_xml_string = self.__colorize_xml(indented_xml_string)
         self.log_debug(header_message, colorized_indented_xml_string)
 
+    def log_info(self, message: str):
+        """Log an informational message to the console."""
+        print(f"[ {self.__cyan('INFO')} ] {message}")
+
+    def log_warning(self, message: str):
+        """Log a warning message to the console."""
+        print(f"[ {self.__yellow('WARN')} ] {message}")
+
+    def log_fatal(self, message: str):
+        """Log a fatal error message to the console."""
+        print(f"[ {self.__red('FATAL')} ] {message}")
+
     def log_debug(self, header_message: str, message: str) -> None:
         """Log function to use for debug logging."""
         stack = list(reversed(inspect.stack()))
@@ -96,6 +124,12 @@ class Logger:
         )
         print(f"{header}\n{message}")
 
+    def log_experimental(self, feature: str) -> None:
+        self.log_warning(
+            f"'{feature}' is an experimental feature. This feature is "
+            + "subject to major changes and even being removed entirely."
+        )
+
     def __redact_request_dictionary(
         self,
         dictionary: dict,
@@ -114,17 +148,20 @@ class Logger:
 
     def __redact_string(
         self,
-        input_string: str,
+        input_string: Union[str, bytes],
         start_ind: int,
-        end_pattern: str,
+        end_pattern: Union[str, bytes],
     ):
         """
         Redacts characters in a string between a starting index and ending pattern.
         Replaces the identified characters with '********' regardless of the original length.
         """
+        asterisks = "********"
+        if isinstance(input_string, bytes):
+            asterisks = asterisks.encode("cp1047")
         pre_keyword = input_string[:start_ind]
         post_keyword = end_pattern.join(input_string[start_ind:].split(end_pattern)[1:])
-        return pre_keyword + "********" + end_pattern + post_keyword
+        return pre_keyword + asterisks + end_pattern + post_keyword
 
     def redact_request_xml(
         self,
@@ -161,7 +198,7 @@ class Logger:
 
     def redact_result_xml(
         self,
-        security_response: Union[str, List[int]],
+        security_result: Union[str, bytes, List[int]],
         secret_traits: dict,
     ) -> str:
         """
@@ -170,17 +207,24 @@ class Logger:
             'TRAIT (value)'
         This function also accounts for varied amounts of whitespace in the pattern.
         """
-        if isinstance(security_response, list):
-            return security_response
+        if isinstance(security_result, list):
+            return security_result
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            match = re.search(rf"{racf_key.upper()} +\(", security_response)
+            end_pattern = ")"
+            if isinstance(security_result, bytes):
+                match = re.search(
+                    rf"{racf_key.upper()} +\(", security_result.decode("cp1047")
+                )
+                end_pattern = end_pattern.encode("cp1047")
+            else:
+                match = re.search(rf"{racf_key.upper()} +\(", security_result)
             if not match:
                 continue
-            security_response = self.__redact_string(
-                security_response, match.end(), ")"
+            security_result = self.__redact_string(
+                security_result, match.end(), end_pattern
             )
-        return security_response
+        return security_result
 
     def __colorize_json(self, json_text: str) -> str:
         updated_json_text = ""
@@ -310,3 +354,58 @@ class Logger:
             current_line = f"<{current_line}>"
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
+
+    def log_hex_dump(self, raw_result_xml: bytes, secret_traits: dict) -> None:
+        """
+        Log the raw result XML returned by IRRSMO00 as a hex dump.
+        """
+        hex_row = ""
+        hex_row_size = 0
+        interpreted_row = ""
+        i = 0
+        hex_dump = ""
+        # Redact secrets from raw result because we are logging it to the console.
+        raw_result_xml = self.redact_result_xml(
+            raw_result_xml,
+            secret_traits,
+        )
+        for byte in raw_result_xml:
+            color_function = self.__green
+            char = struct.pack("B", byte).decode("cp1047")
+            # Non-displayable characters should be interpreted as '.'.
+            match len(repr(char)):
+                # All non-displayable characters should be red.
+                # Two exceptions are 0x00 and 0xff, which are
+                # overriden later on.
+                case 6:
+                    color_function = self.__red
+                    char = "."
+                # '\t', '\r', and '\n' control characters should be yellow.
+                case 4:
+                    color_function = self.__yellow
+                    char = "."
+            if byte == 0:
+                # Null bytes (0x00) should have no color.
+                # 'str()' will return an unmodified version of the string passed to it.
+                color_function = str
+            elif byte == 255:
+                # 0xFF should be light blue.
+                color_function = self.__light_blue
+            hex_row += f"{color_function(hex(byte)[2:].rjust(2, '0'))}"
+            hex_row_size += 2
+            interpreted_row += f"{color_function(char)}"
+            i += 1
+            if i % 2 == 0:
+                hex_row += " "
+                hex_row_size += 1
+            if i % 16 == 0:
+                row_index = hex(i - 16)[2:].rjust(8, "0")
+                hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
+                hex_row = ""
+                hex_row_size = 0
+                interpreted_row = ""
+        if interpreted_row != "":
+            row_index = hex(i - len(interpreted_row))[2:].rjust(8, "0")
+            interpreted_row = " " * (40 - hex_row_size) + interpreted_row
+            hex_dump += f"{row_index}: {hex_row} {interpreted_row}\n"
+        self.log_debug("Hex Dump", hex_dump)

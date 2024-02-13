@@ -2,86 +2,124 @@
 
 import platform
 import re
+import xml.etree.ElementTree
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
-from .downstream_fatal_error import DownstreamFatalError
+from .exceptions.downstream_fatal_error import DownstreamFatalError
+from .exceptions.security_request_error import SecurityRequestError
+from .exceptions.segment_error import SegmentError
+from .exceptions.segment_trait_error import SegmentTraitError
+from .exceptions.userid_error import UserIdError
 from .irrsmo00 import IRRSMO00
-from .logger import Logger
 from .security_request import SecurityRequest
-from .security_request_error import SecurityRequestError
 from .security_result import SecurityResult
-from .segment_error import SegmentError
-from .segment_trait_error import SegmentTraitError
-from .userid_error import UserIdError
+from .utilities.dumper import Dumper
+from .utilities.logger import Logger
 
 
 class SecurityAdmin:
     """Base Class for RACF Administration Interface."""
 
+    _common_base_traits_data_set_generic = {
+        "base:aclcnt": "racf:aclcnt",
+        "base:aclacnt": "racf:aclacnt",
+        "base:aclacs": "racf:aclacs",
+        "base:aclid": "racf:aclid",
+        "base:acl2cnt": "racf:acl2cnt",
+        "base:acl2acnt": "racf:acl2acnt",
+        "base:acl2acs": "racf:acl2acs",
+        "base:acl2cond": "racf:acl2cond",
+        "base:acl2ent": "racf:acl2ent",
+        "base:acl2id": "racf:acl2id",
+        "base:acsaltr": "racf:acsaltr",
+        "base:acscntl": "racf:acscntl",
+        "base:acsread": "racf:acsread",
+        "base:acsupdt": "racf:acsupdt",
+        "base:all": "racf:all",
+        "base:audaltr": "racf:audaltr",
+        "base:audcntl": "racf:audcntl",
+        "base:audnone": "racf:audnone",
+        "base:audread": "racf:audread",
+        "base:audupdt": "racf:audupdt",
+        "base:authuser": "racf:authuser",
+        "base:fvolume": "racf:fvolume",
+        "base:gaudaltr": "racf:gaudaltr",
+        "base:gaudcntl": "racf:gaudcntl",
+        "base:gaudnone": "racf:gaudnone",
+        "base:gaudread": "racf:gaudread",
+        "base:gaudupdt": "racf:gaudupdt",
+        "base:generic": "racf:generic",
+    }
+
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
     _case_sensitive_extracted_values = []
     __running_userid = None
-    __logger = Logger()
+    _logger = Logger()
+    __dumper = Dumper()
 
     def __init__(
         self,
         profile_type: str,
+        irrsmo00_result_buffer_size: Union[int, None] = None,
         debug: bool = False,
+        dump_mode: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
         additional_secret_traits: Union[List[str], None] = None,
         run_as_userid: Union[str, None] = None,
     ) -> None:
-        self._common_base_traits_data_set_generic = {
-            "base:aclcnt": "racf:aclcnt",
-            "base:aclacnt": "racf:aclacnt",
-            "base:aclacs": "racf:aclacs",
-            "base:aclid": "racf:aclid",
-            "base:acl2cnt": "racf:acl2cnt",
-            "base:acl2acnt": "racf:acl2acnt",
-            "base:acl2acs": "racf:acl2acs",
-            "base:acl2cond": "racf:acl2cond",
-            "base:acl2ent": "racf:acl2ent",
-            "base:acl2id": "racf:acl2id",
-            "base:acsaltr": "racf:acsaltr",
-            "base:acscntl": "racf:acscntl",
-            "base:acsread": "racf:acsread",
-            "base:acsupdt": "racf:acsupdt",
-            "base:all": "racf:all",
-            "base:audaltr": "racf:audaltr",
-            "base:audcntl": "racf:audcntl",
-            "base:audnone": "racf:audnone",
-            "base:audread": "racf:audread",
-            "base:audupdt": "racf:audupdt",
-            "base:authuser": "racf:authuser",
-            "base:fvolume": "racf:fvolume",
-            "base:gaudaltr": "racf:gaudaltr",
-            "base:gaudcntl": "racf:gaudcntl",
-            "base:gaudnone": "racf:gaudnone",
-            "base:gaudread": "racf:gaudread",
-            "base:gaudupdt": "racf:gaudupdt",
-            "base:generic": "racf:generic",
-        }
         self.__secret_traits = {
             "base:password": "racf:password",
             "base:passphrase": "racf:phrase",
         }
-        self.__irrsmo00 = IRRSMO00()
+        if irrsmo00_result_buffer_size:
+            if (
+                not isinstance(irrsmo00_result_buffer_size, int)
+                or irrsmo00_result_buffer_size < 10000
+            ):
+                raise ValueError(
+                    "IRRSMO00 result buffer size must be an "
+                    + "integer value greater than or equal to '10000'."
+                )
+            elif irrsmo00_result_buffer_size > 100000000:
+                self._logger.log_warning(
+                    "IRRSMO00 result buffer sizes greater than '100000000' may "
+                    + "result in a 'SIGKILL' signal to be raised, which is NOT "
+                    + "recoverable and will lead to the Python process that "
+                    + "pyRACF is running under to be killed."
+                )
+            self.__irrsmo00 = IRRSMO00(result_buffer_size=irrsmo00_result_buffer_size)
+        else:
+            self.__irrsmo00 = IRRSMO00()
         self._profile_type = profile_type
         self._segment_traits = {}
         # used to preserve segment traits for debug logging.
         self.__preserved_segment_traits = {}
         self._trait_map = {}
         self.__debug = debug
+        if self.__debug:
+            self._logger.log_warning(
+                "'Debug Logging' is enabled. This feature should only "
+                + "be used for development and debugging."
+            )
+        self.__dump_mode = dump_mode
+        if self.__dump_mode:
+            self._logger.log_warning(
+                "'Dump Mode' is enabled. This feature should only "
+                + "be used for development and debugging."
+            )
         self._generate_requests_only = generate_requests_only
         if update_existing_segment_traits is not None:
+            self._logger.log_experimental("Update Existing Segment Traits")
             self.__update_valid_segment_traits(update_existing_segment_traits)
         if replace_existing_segment_traits is not None:
+            self._logger.log_experimental("Replace Existing Segment Traits")
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
+            self._logger.log_experimental("Add Additional Secret Traits")
             self.__add_additional_secret_traits(additional_secret_traits)
         self.set_running_userid(run_as_userid)
 
@@ -121,6 +159,20 @@ class SecurityAdmin:
         self._valid_segment_traits = new_valid_segment_traits
 
     # ============================================================================
+    # Dump Mode
+    # ============================================================================
+    def __raw_dump(self) -> None:
+        raw_result_xml = self.__irrsmo00.get_raw_result_xml()
+        dump_file_path = self.__dumper.raw_dump(raw_result_xml)
+        self._logger.log_info(
+            f"Raw security result XML has been written to '{dump_file_path}'.\n"
+        )
+        if self.__debug:
+            # Note, since the hex dump is logged to the console,
+            # secrets will be redacted.
+            self._logger.log_hex_dump(raw_result_xml, self.__secret_traits)
+
+    # ============================================================================
     # Secrets Redaction
     # ============================================================================
     def __add_additional_secret_traits(self, additional_secret_traits: list) -> None:
@@ -153,9 +205,7 @@ class SecurityAdmin:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built, and profile
             # extract doesn't return any secrets anyways.
-            self.__logger.log_dictionary(
-                "Result Dictionary (Formatted Profile)", result
-            )
+            self._logger.log_dictionary("Result Dictionary (Formatted Profile)", result)
         return result
 
     def _make_request(
@@ -168,24 +218,24 @@ class SecurityAdmin:
         Note: Secrets are redacted from all data returned to the user and log messages.
         """
         if self.__debug:
-            self.__logger.log_dictionary(
+            self._logger.log_dictionary(
                 "Request Dictionary",
                 self.__preserved_segment_traits,
                 secret_traits=self.__secret_traits,
             )
-            self.__logger.log_xml(
+            self._logger.log_xml(
                 "Request XML",
                 security_request.dump_request_xml(encoding="utf-8"),
                 secret_traits=self.__secret_traits,
             )
-        request_xml = self.__logger.redact_request_xml(
+        request_xml = self._logger.redact_request_xml(
             security_request.dump_request_xml(encoding="utf-8"),
             secret_traits=self.__secret_traits,
         )
         if self._generate_requests_only:
             self.__clear_state(security_request)
             return request_xml
-        raw_result = self.__logger.redact_result_xml(
+        raw_result = self._logger.redact_result_xml(
             self.__irrsmo00.call_racf(
                 security_request.dump_request_xml(),
                 irrsmo00_precheck,
@@ -195,7 +245,7 @@ class SecurityAdmin:
         )
         self.__clear_state(security_request)
         if isinstance(raw_result, list):
-            # When IRRSMO00 encounters some errors, it returns no XML response string.
+            # When IRRSMO00 encounters some errors, it returns no result XML string.
             # When this happens, the C code instead surfaces the return and reason
             # codes which causes a DownstreamFatalError to be raised.
             raise DownstreamFatalError(
@@ -208,12 +258,29 @@ class SecurityAdmin:
         if self.__debug:
             # No need to redact anything here since the raw result XML
             # already has secrets redacted when it is built.
-            self.__logger.log_xml("Result XML", raw_result)
-        result = SecurityResult(raw_result, self.get_running_userid())
+            self._logger.log_xml("Result XML", raw_result)
+        try:
+            result = SecurityResult(raw_result, self.get_running_userid())
+        except xml.etree.ElementTree.ParseError as e:
+            # If the result XML cannot be parsed, a dump of the raw result
+            # XML will be created to aid in problem determination.
+            self._logger.log_fatal(
+                "Unable to parse security result XML returned by IRRSMO00."
+            )
+            self.__raw_dump()
+            self.__irrsmo00.clear_raw_result_xml()
+            # After creating the dump, re-raise the exception.
+            raise e
+        if self.__dump_mode:
+            # If in dump mode a dump of the raw result XML
+            # will be created even if the raw security result was
+            # able to be processed successfully.
+            self.__raw_dump()
+        self.__irrsmo00.clear_raw_result_xml()
         if self.__debug:
             # No need to redact anything here since the result dictionary
             # already has secrets redacted when it is built.
-            self.__logger.log_dictionary(
+            self._logger.log_dictionary(
                 "Result Dictionary", result.get_result_dictionary()
             )
         result_dictionary = result.get_result_dictionary()
@@ -574,12 +641,12 @@ class SecurityAdmin:
         profile[current_segment]["users"][user_index]["access"] = self._cast_from_str(
             user_fields[1]
         )
-        profile[current_segment]["users"][user_index][
-            "accessCount"
-        ] = self._cast_from_str(user_fields[2])
-        profile[current_segment]["users"][user_index][
-            "universalAccess"
-        ] = self._cast_from_str(user_fields[3])
+        profile[current_segment]["users"][user_index]["accessCount"] = (
+            self._cast_from_str(user_fields[2])
+        )
+        profile[current_segment]["users"][user_index]["universalAccess"] = (
+            self._cast_from_str(user_fields[3])
+        )
 
         self.__add_key_value_pairs_to_segment(
             current_segment,
@@ -678,9 +745,9 @@ class SecurityAdmin:
                         subfield: self._clean_and_separate(value_tokens[-1].rstrip(")"))
                     }
                 else:
-                    profile[current_segment][field][
-                        subfield
-                    ] = self._clean_and_separate(value_tokens[-1].rstrip(")"))
+                    profile[current_segment][field][subfield] = (
+                        self._clean_and_separate(value_tokens[-1].rstrip(")"))
+                    )
             elif field in list_fields:
                 profile[current_segment][field] = []
                 profile[current_segment][field].append(self._clean_and_separate(value))

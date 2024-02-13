@@ -12,7 +12,9 @@ class SetroptsAdmin(SecurityAdmin):
 
     def __init__(
         self,
+        irrsmo00_result_buffer_size: Union[int, None] = None,
         debug: bool = False,
+        dump_mode: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
@@ -110,7 +112,9 @@ class SetroptsAdmin(SecurityAdmin):
         }
         super().__init__(
             "systemSettings",
+            irrsmo00_result_buffer_size=irrsmo00_result_buffer_size,
             debug=debug,
+            dump_mode=dump_mode,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,
@@ -318,6 +322,7 @@ class SetroptsAdmin(SecurityAdmin):
     # ============================================================================
     def list_racf_options(self, options_only: bool = False) -> Union[dict, bytes]:
         """List RACF options."""
+        self._logger.log_experimental("List RACF Options")
         self._build_segment_trait_dictionary({"base:list": True})
         setropts_request = SetroptsRequest()
         self._add_traits_directly_to_request_xml_with_no_segments(setropts_request)
@@ -708,10 +713,10 @@ class SetroptsAdmin(SecurityAdmin):
                             subdictionary["enabled"] = self._cast_from_str(
                                 value_tokens[0]
                             )
-                            subdictionary[
-                                "options"
-                            ] = self.__process_generic_subsubfield_options(
-                                value_tokens[1]
+                            subdictionary["options"] = (
+                                self.__process_generic_subsubfield_options(
+                                    value_tokens[1]
+                                )
                             )
                         else:
                             subdictionary["enabled"] = self._cast_from_str(value_raw)

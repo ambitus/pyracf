@@ -1,4 +1,5 @@
 """Exception to use when IRRSMO00 is unable to process a request."""
+
 from typing import Union
 
 

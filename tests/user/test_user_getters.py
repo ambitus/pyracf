@@ -7,7 +7,6 @@ import __init__
 
 import tests.user.test_user_constants as TestUserConstants
 from pyracf import SecurityRequestError, UserAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -16,7 +15,6 @@ __init__
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 class TestUserGetters(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     user_admin = UserAdmin()
 
     # ============================================================================

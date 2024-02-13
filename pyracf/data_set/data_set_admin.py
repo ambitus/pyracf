@@ -2,10 +2,10 @@
 
 from typing import List, Union
 
-from pyracf.common.add_operation_error import AddOperationError
-from pyracf.common.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.add_operation_error import AddOperationError
+from pyracf.common.exceptions.alter_operation_error import AlterOperationError
+from pyracf.common.exceptions.security_request_error import SecurityRequestError
 from pyracf.common.security_admin import SecurityAdmin
-from pyracf.common.security_request_error import SecurityRequestError
 
 from .data_set_request import DataSetRequest
 
@@ -15,7 +15,9 @@ class DataSetAdmin(SecurityAdmin):
 
     def __init__(
         self,
+        irrsmo00_result_buffer_size: Union[int, None] = None,
         debug: bool = False,
+        dump_mode: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
@@ -61,19 +63,21 @@ class DataSetAdmin(SecurityAdmin):
             "dfp": {"dfp:owner": "racf:resowner", "dfp:ckds_data_key": "racf:datakey"},
             "tme": {"tme:roles": "racf:roles"},
         }
+        self._valid_segment_traits["base"].update(
+            self._common_base_traits_data_set_generic
+        )
+        del self._valid_segment_traits["base"]["base:generic"]
         super().__init__(
             "dataSet",
+            irrsmo00_result_buffer_size=irrsmo00_result_buffer_size,
             debug=debug,
+            dump_mode=dump_mode,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,
             additional_secret_traits=additional_secret_traits,
             run_as_userid=run_as_userid,
         )
-        self._valid_segment_traits["base"].update(
-            self._common_base_traits_data_set_generic
-        )
-        del self._valid_segment_traits["base"]["base:generic"]
 
     # ============================================================================
     # Access

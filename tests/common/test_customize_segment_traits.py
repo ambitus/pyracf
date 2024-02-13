@@ -7,7 +7,6 @@ import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
 from pyracf import UserAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -15,7 +14,6 @@ __init__
 
 class TestCustomizeSegmentTraits(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
 
     # ============================================================================
     # Customize Segment Traits Request Generation

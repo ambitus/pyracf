@@ -102,18 +102,7 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
 # ============================================================================
 
 TEST_RUNNING_USERID = "eswift"
-TEST_ALTER_USER_REQUEST_TRAITS = {
-    "base:special": False,
-    "omvs:home_directory": "/u/clarinet",
-    "omvs:default_shell": False,
-}
-TEST_ALTER_USER_REQUEST_XML = get_sample("alter_user_request.xml")
-TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML = get_sample(
-    "extract_user_result_base_only_success.xml"
-)
-TEST_ALTER_USER_SUCCESS_LOG = get_sample("alter_user_success.log")
 TEST_ALTER_USER_SUCCESS_AS_ESWIFT_LOG = get_sample("alter_user_success_as_eswift.log")
-TEST_ALTER_USER_RESULT_SUCCESS_XML = get_sample("alter_user_result_success.xml")
 TEST_EXTRACT_RESOURCE_PRECHECK_AS_SQUIDWRD_LOG = get_sample(
     "extract_resource_precheck_as_squidwrd.log"
 )
@@ -145,4 +134,28 @@ TEST_DOWNSTREAM_FATAL_ERROR_GENERIC_TEXT = (
     + "the documented IRRSMO00 return and reason codes for more information "
     + "about this error.\n"
     + "https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-return-reason-codes"
+)
+
+# ============================================================================
+# Dump Processing
+# ============================================================================
+
+TEST_EXTRACT_USER_SUCCESS_DUMP_MODE_LOG = get_sample(
+    "extract_user_success_dump_mode.log"
+)
+
+TEST_EXTRACT_USER_FAILURE_DUMP_MODE_LOG = get_sample(
+    "extract_user_failure_dump_mode.log"
+)
+
+TEST_EXTRACT_USER_SUCCESS_UNEVEN_BYTE_BOUNDARY_LOG = get_sample(
+    "extract_user_success_dump_mode_uneven_byte_boundary.log"
+)
+
+TEST_EXTRACT_USER_SUCCESS_DUMP_MODE_ALL_BYTES_LOG = get_sample(
+    "extract_user_success_dump_mode_all_bytes.log"
+)
+
+TEST_ALTER_USER_PASSWORD_DUMP_MODE_LOG = get_sample(
+    "alter_user_password_success_dump_mode.log"
 )

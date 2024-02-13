@@ -11,9 +11,9 @@ def main():
     json_profile = json.dumps(profile, indent=2)
     print(f"Profile extract for userid '{userid}' was successful:\n\n{json_profile}\n")
 
-    # The following testcase is designed to test the DownstreamFatalError's null response
-    # trigger by attempting to run as a userid for 'NOTAUSER' which is assumed to not
-    # exist as a valid userid in this environment. If 'NOTAUSER' is a user, the test
+    # The following testcase is designed to test the DownstreamFatalError's empty/null
+    # result trigger by attempting to run as a userid for 'NOTAUSER' which is assumed to
+    # not exist as a valid userid in this environment. If 'NOTAUSER' is a user, the test
     # will still function correctly as long as the tester does not have at least 'UPDATE'
     # access to 'NOTAUSER.IRRSMO00' in the 'SURROGAT' class.
     user_admin.set_running_userid("NOTAUSER")

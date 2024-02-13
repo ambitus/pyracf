@@ -7,7 +7,6 @@ import __init__
 
 import tests.setropts.test_setropts_constants as TestSetroptsConstants
 from pyracf import SecurityRequestError
-from pyracf.common.irrsmo00 import IRRSMO00
 from pyracf.setropts.setropts_admin import SetroptsAdmin
 
 # Resolves F401
@@ -17,7 +16,6 @@ __init__
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 class TestSetroptsResultParser(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     setropts_admin = SetroptsAdmin()
 
     # ============================================================================

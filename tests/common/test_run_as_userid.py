@@ -9,8 +9,8 @@ from unittest.mock import Mock, patch
 import __init__
 
 import tests.common.test_common_constants as TestCommonConstants
+import tests.user.test_user_constants as TestUserConstants
 from pyracf import ResourceAdmin, UserAdmin, UserIdError
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -18,7 +18,6 @@ __init__
 
 class TestRunAsUserId(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
@@ -28,14 +27,14 @@ class TestRunAsUserId(unittest.TestCase):
     ):
         user_admin = UserAdmin(debug=True, run_as_userid="ESWIFT")
         call_racf_mock.side_effect = [
-            TestCommonConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestCommonConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             user_admin.alter(
                 "squidwrd",
-                traits=TestCommonConstants.TEST_ALTER_USER_REQUEST_TRAITS,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -60,14 +59,14 @@ class TestRunAsUserId(unittest.TestCase):
         user_admin = UserAdmin(debug=True)
         user_admin.set_running_userid("ESWIFT")
         call_racf_mock.side_effect = [
-            TestCommonConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestCommonConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             user_admin.alter(
                 "squidwrd",
-                traits=TestCommonConstants.TEST_ALTER_USER_REQUEST_TRAITS,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
         self.assertEqual(
@@ -95,17 +94,17 @@ class TestRunAsUserId(unittest.TestCase):
         user_admin = UserAdmin(debug=True, run_as_userid="ESWIFT")
         user_admin.set_running_userid(userid=None)
         call_racf_mock.side_effect = [
-            TestCommonConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestCommonConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_XML,
         ]
         stdout = io.StringIO()
         with contextlib.redirect_stdout(stdout):
             user_admin.alter(
                 "squidwrd",
-                traits=TestCommonConstants.TEST_ALTER_USER_REQUEST_TRAITS,
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS,
             )
         success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(success_log, TestCommonConstants.TEST_ALTER_USER_SUCCESS_LOG)
+        self.assertEqual(success_log, TestUserConstants.TEST_ALTER_USER_SUCCESS_LOG)
 
     def test_get_running_userid(self):
         user_admin = UserAdmin(run_as_userid="ESWIFT")

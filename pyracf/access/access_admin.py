@@ -12,7 +12,9 @@ class AccessAdmin(SecurityAdmin):
 
     def __init__(
         self,
+        irrsmo00_result_buffer_size: Union[int, None] = None,
         debug: bool = False,
+        dump_mode: bool = False,
         generate_requests_only: bool = False,
         update_existing_segment_traits: Union[dict, None] = None,
         replace_existing_segment_traits: Union[dict, None] = None,
@@ -44,7 +46,9 @@ class AccessAdmin(SecurityAdmin):
         }
         super().__init__(
             "permission",
+            irrsmo00_result_buffer_size=irrsmo00_result_buffer_size,
             debug=debug,
+            dump_mode=dump_mode,
             generate_requests_only=generate_requests_only,
             update_existing_segment_traits=update_existing_segment_traits,
             replace_existing_segment_traits=replace_existing_segment_traits,

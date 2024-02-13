@@ -7,7 +7,6 @@ import __init__
 
 import tests.access.test_access_constants as TestAccessConstants
 from pyracf import AccessAdmin, SecurityRequestError
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -16,7 +15,6 @@ __init__
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 class TestAccessResultParser(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     access_admin = AccessAdmin()
 
     # ============================================================================

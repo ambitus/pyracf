@@ -1,13 +1,11 @@
 """Test group request builder."""
 
 import unittest
-from unittest.mock import Mock
 
 import __init__
 
 import tests.group.test_group_constants as TestGroupConstants
 from pyracf import GroupAdmin
-from pyracf.common.irrsmo00 import IRRSMO00
 
 # Resolves F401
 __init__
@@ -15,7 +13,6 @@ __init__
 
 class TestGroupRequestBuilder(unittest.TestCase):
     maxDiff = None
-    IRRSMO00.__init__ = Mock(return_value=None)
     group_admin = GroupAdmin(generate_requests_only=True)
 
     def test_group_admin_build_add_group_request(self):

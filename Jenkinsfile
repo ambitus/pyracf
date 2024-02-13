@@ -175,7 +175,7 @@ def clean_python_environment() {
 def install_poetry(python) {
     echo "Installing Poetry..."
 
-    sh "bash -c 'curl -sSL https://install.python-poetry.org | ${python} -'"
+    sh "bash -c 'curl -sSL https://install.python-poetry.org' | ${python} -"
 }
 
 def build_poetry_environment(python) {
