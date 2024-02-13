@@ -57,7 +57,7 @@ def get_user_access(self, resource: str, class_name: str, userid: str) -> Union[
 &nbsp;
 
 {:.warning}
-> _In order to use `get_user_access`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to check access for. Further information can be found outlined in [Our Dependencies Note](../../index)._
+> _In order to use `get_user_access`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to check access for. Further information can be found outlined in [Our Dependencies Note](../../../index)._
 
 &nbsp;
 
@@ -65,7 +65,7 @@ Get a **Specified User's** access to a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The **general resource profile** to get the current user's access level for.
+  The **general resource profile** to get the specified user's access level for.
 
 * `class_name`<br>
   The name of the **class** the specified general resource profile belongs to.
