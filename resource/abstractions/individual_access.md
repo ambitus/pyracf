@@ -21,14 +21,14 @@ Get the **Running User's** access to a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The name of the **general resource profile** to evaluate with this command.
+  The **general resource profile** to get the current user's access level for.
 
 * `class_name`<br>
   The name of the **class** the specified general resource profile belongs to.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
-  Returns `None` when the general resource profile has no **Your Access** section defined for the running userid, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the general resource profile has no **Your Access** section defined for the running userid, otherwise the **Access Level** is returned as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `SecurityRequestError`<br>
@@ -65,7 +65,7 @@ Get a **Specified User's** access to a general resource profile.
 
 #### 📥 Parameters
 * `resource`<br>
-  The name of the **general resource profile** to evaluate with this command.
+  The **general resource profile** to get the current user's access level for.
 
 * `class_name`<br>
   The name of the **class** the specified general resource profile belongs to.
@@ -75,7 +75,7 @@ Get a **Specified User's** access to a general resource profile.
 
 #### 📤 Returns
 * `Union[str, bytes, None]`<br>
-  Returns `None` when the general resource profile has no **Your Access** section defined for the specified userid, otherwise returns the access level as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
+  Returns `None` when the general resource profile has no **Your Access** section defined for the specified userid, otherwise the **Access Level** is returned as a string. If the `ResourceAdmin.generate_requests_only` class attribute is set to `True`, **concatenated Security Request XML bytes** will be returned.
 
 #### ❌ Raises
 * `UserIdError`<br>
