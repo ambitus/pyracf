@@ -149,19 +149,33 @@ class Logger:
     def __redact_string(
         self,
         input_string: Union[str, bytes],
-        start_ind: int,
-        end_pattern: Union[str, bytes],
-    ):
+        key: str,
+    ) -> Union[str, bytes]:
         """
-        Redacts characters in a string between a starting index and ending pattern.
+        Redacts characters in a string between a starting index and ending tag.
         Replaces the identified characters with '********' regardless of the original length.
         """
         asterisks = "********"
+        is_bytes = False
         if isinstance(input_string, bytes):
-            asterisks = asterisks.encode("cp1047")
-        pre_keyword = input_string[:start_ind]
-        post_keyword = end_pattern.join(input_string[start_ind:].split(end_pattern)[1:])
-        return pre_keyword + asterisks + end_pattern + post_keyword
+            input_string = input_string.decode("cp1047")
+            is_bytes = True
+        quoted = re.search(rf"{key.upper()}( +)\(\'.*?(?<!\\)\'\)", input_string)
+        if quoted is not None:
+            input_string = re.sub(
+                rf"{key.upper()}( +)\(\'.*?(?<!\\)\'\)",
+                rf"{key.upper()}\1('{asterisks}')",
+                input_string,
+            )
+        else:
+            input_string = re.sub(
+                rf"{key.upper()}( +)\(.*?(?<!\\)\)",
+                rf"{key.upper()}\1({asterisks})",
+                input_string,
+            )
+        if is_bytes:
+            return input_string.encode("cp1047")
+        return input_string
 
     def redact_request_xml(
         self,
@@ -191,7 +205,11 @@ class Logger:
             # <tag operation="del" />
             if f"</{xml_key}>" not in xml_string:
                 continue
-            xml_string = self.__redact_string(xml_string, match.end(), f"</{xml_key}")
+            xml_string = re.sub(
+                rf"{xml_key}(.*)>.*<\/{xml_key}",
+                rf"{xml_key}\1>********</{xml_key}",
+                xml_string,
+            )
         if is_bytes:
             xml_string = xml_string.encode("utf-8")
         return xml_string
@@ -203,27 +221,24 @@ class Logger:
     ) -> str:
         """
         Redacts a list of specific secret traits in a result xml string.
-        Based on the following RACF command pattern:
+        Based on the following RACF command patterns:
             'TRAIT (value)'
+            "TRAIT ('value')"
         This function also accounts for varied amounts of whitespace in the pattern.
         """
         if isinstance(security_result, list):
             return security_result
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            end_pattern = ")"
             if isinstance(security_result, bytes):
                 match = re.search(
                     rf"{racf_key.upper()} +\(", security_result.decode("cp1047")
                 )
-                end_pattern = end_pattern.encode("cp1047")
             else:
                 match = re.search(rf"{racf_key.upper()} +\(", security_result)
             if not match:
                 continue
-            security_result = self.__redact_string(
-                security_result, match.end(), end_pattern
-            )
+            security_result = self.__redact_string(security_result, racf_key)
             if isinstance(security_result, bytes):
                 security_result = re.sub(
                     rf"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>",
