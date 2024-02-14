@@ -228,14 +228,14 @@ class Logger:
                 security_result = re.sub(
                     rf"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>",
                     rf"<message>REDACTED MESSAGE CONCERNING {racf_key.upper()}, "
-                    + r"REVIEW DOCUMENTATION OF \1 FOR MORE INFORMATION </message>",
+                    + r"REVIEW DOCUMENTATION OF \1 FOR MORE INFORMATION</message>",
                     security_result.decode("cp1047"),
                 ).encode("cp1047")
             else:
                 security_result = re.sub(
                     rf"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>",
                     rf"<message>REDACTED MESSAGE CONCERNING {racf_key.upper()}, "
-                    + r"REVIEW DOCUMENTATION OF \1 FOR MORE INFORMATION </message>",
+                    + r"REVIEW DOCUMENTATION OF \1 FOR MORE INFORMATION</message>",
                     security_result,
                 )
         return security_result
