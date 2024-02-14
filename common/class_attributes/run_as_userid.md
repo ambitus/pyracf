@@ -17,7 +17,7 @@ Make security requests as another user.
 &nbsp;
 
 {: .warning}
-> _In order to use **Run as Userid**, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to execute commands as. Further information can be found outlined in [Our Dependencies Note](../../../index)._
+> _In order to use **Run as Userid**, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to execute commands as. More information about IRRSMO00 authorizations can be found [here](https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-racf-authorization)._
 
 &nbsp;
 

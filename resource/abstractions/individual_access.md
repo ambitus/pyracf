@@ -57,7 +57,7 @@ def get_user_access(self, resource: str, class_name: str, userid: str) -> Union[
 &nbsp;
 
 {:.warning}
-> _In order to use `get_user_access`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to check access for. Further information can be found outlined in [Our Dependencies Note](../../../index)._
+> _In order to use `get_user_access`, the caller must have at least `UPDATE` access to the `userid.IRRSMO00` resource in the `SURROGAT` class, where `userid` represents the specific userid you wish to check access for. More information about IRRSMO00 authorizations can be found [here](https://www.ibm.com/docs/en/zos/3.1.0?topic=operations-racf-authorization)._
 
 &nbsp;
 
