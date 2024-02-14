@@ -399,3 +399,41 @@ class TestSetroptsSetters(unittest.TestCase):
         self.assertEqual(
             result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_RACLIST_MULTIPLE_XML
         )
+
+    def test_setropts_admin_build_refresh_generic_request(self):
+        result = self.setropts_admin.refresh_generic_profile_lists("elijtest")
+        self.assertEqual(
+            result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_GENERIC_XML
+        )
+
+    def test_setropts_admin_build_refresh_generic_multiple_request_list(self):
+        result = self.setropts_admin.refresh_generic_profile_lists(
+            ["elijtest", "xfacilit"]
+        )
+        self.assertEqual(
+            result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_GENERIC_MULTIPLE_XML
+        )
+
+    def test_setropts_admin_build_refresh_generic_multiple_request_string(self):
+        result = self.setropts_admin.refresh_generic_profile_lists("elijtest xfacilit")
+        self.assertEqual(
+            result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_GENERIC_MULTIPLE_XML
+        )
+
+    def test_setropts_admin_build_refresh_global_request(self):
+        result = self.setropts_admin.refresh_global_access_lists("elijtest")
+        self.assertEqual(result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_GLOBAL_XML)
+
+    def test_setropts_admin_build_refresh_global_multiple_request_list(self):
+        result = self.setropts_admin.refresh_global_access_lists(
+            ["elijtest", "xfacilit"]
+        )
+        self.assertEqual(
+            result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_GLOBAL_MULTIPLE_XML
+        )
+
+    def test_setropts_admin_build_refresh_global_multiple_request_string(self):
+        result = self.setropts_admin.refresh_global_access_lists("elijtest xfacilit")
+        self.assertEqual(
+            result, TestSetroptsConstants.TEST_SETROPTS_REFRESH_GLOBAL_MULTIPLE_XML
+        )

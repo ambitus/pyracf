@@ -91,7 +91,6 @@ TEST_SETROPTS_REMOVE_GLOBAL_ACCESS_CLASS_XML = get_sample(
 )
 TEST_SETROPTS_ADD_RACLIST_CLASS_XML = get_sample("setropts_add_raclist_class.xml")
 TEST_SETROPTS_REMOVE_RACLIST_CLASS_XML = get_sample("setropts_remove_raclist_class.xml")
-TEST_SETROPTS_REFRESH_RACLIST_XML = get_sample("setropts_refresh_raclist.xml")
 TEST_SETROPTS_ADD_AUDIT_CLASSES_XML = get_sample("setropts_add_audit_classes.xml")
 TEST_SETROPTS_REMOVE_AUDIT_CLASSES_XML = get_sample("setropts_remove_audit_classes.xml")
 TEST_SETROPTS_ADD_ACTIVE_CLASSES_XML = get_sample("setropts_add_active_classes.xml")
@@ -132,8 +131,17 @@ TEST_SETROPTS_ADD_RACLIST_CLASSES_XML = get_sample("setropts_add_raclist_classes
 TEST_SETROPTS_REMOVE_RACLIST_CLASSES_XML = get_sample(
     "setropts_remove_raclist_classes.xml"
 )
+TEST_SETROPTS_REFRESH_RACLIST_XML = get_sample("setropts_refresh_raclist.xml")
 TEST_SETROPTS_REFRESH_RACLIST_MULTIPLE_XML = get_sample(
     "setropts_refresh_raclist_multiple.xml"
+)
+TEST_SETROPTS_REFRESH_GENERIC_XML = get_sample("setropts_refresh_generic.xml")
+TEST_SETROPTS_REFRESH_GENERIC_MULTIPLE_XML = get_sample(
+    "setropts_refresh_generic_multiple.xml"
+)
+TEST_SETROPTS_REFRESH_GLOBAL_XML = get_sample("setropts_refresh_global.xml")
+TEST_SETROPTS_REFRESH_GLOBAL_MULTIPLE_XML = get_sample(
+    "setropts_refresh_global_multiple.xml"
 )
 
 # ============================================================================

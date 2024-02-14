@@ -131,11 +131,32 @@ class SetroptsAdmin(SecurityAdmin):
         return self._get_field(profile, "passwordProcessingOptions", "syntaxRules")
 
     # ============================================================================
-    # Raclist Refresh
+    # Refresh Commands
     # ============================================================================
     def refresh_raclist(self, class_names: Union[str, List[str]]) -> Union[dict, bytes]:
         """Refresh raclist."""
         result = self.alter(options={"base:raclist": class_names, "base:refresh": True})
+        return self._to_steps(result)
+
+    def refresh_generic_profile_lists(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Refresh in-storage generic profile lists."""
+        result = self.alter(
+            options={
+                "base:generic_profile_checking_classes": class_names,
+                "base:refresh": True,
+            }
+        )
+        return self._to_steps(result)
+
+    def refresh_global_access_lists(
+        self, class_names: Union[str, List[str]]
+    ) -> Union[dict, bytes]:
+        """Refresh global access checking lists."""
+        result = self.alter(
+            options={"base:global_access_classes": class_names, "base:refresh": True}
+        )
         return self._to_steps(result)
 
     # ============================================================================
