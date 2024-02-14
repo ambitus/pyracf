@@ -21,7 +21,7 @@ Get a user's **Revoke Date**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Revoke Date** is being requested.
+  The **z/OS userid** of the user whose **Revoke Date** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -55,7 +55,7 @@ Set a user's **Revoke Date**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Revoke Date** is being set.
+  The **z/OS userid** of the user whose **Revoke Date** is being set.
 
 * `revoke_date`<br>
   The **Revoke Date** to set for the specified user or `False` to delete the current value.

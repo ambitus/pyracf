@@ -21,7 +21,7 @@ Get a user's **z/OS Unix System Services Max File Mapping Pages**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Max File Mapping Pages** is being requested.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Max File Mapping Pages** is being requested.
 
 #### 📤 Returns
 * `Union[int, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **z/OS Unix System Services Max File Mapping Pages**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Max File Mapping Pages** is being set.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Max File Mapping Pages** is being set.
 
 * `max_file_mapping_pages`<br>
   The **z/OS Unix System Services Max File Mapping Pages** to set for the specified user or `False` to delete the current value.

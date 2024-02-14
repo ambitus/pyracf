@@ -1,11 +1,12 @@
 ---
 layout: default
-parent: Common
+grand_parent: Common
+parent: Class Attributes
 ---
 
 # Debug Logging
 
-How to enable debug logging
+How to enable Debug Logging.
 {: .fs-6 .fw-300 }
 
 &nbsp;
@@ -16,26 +17,37 @@ How to enable debug logging
 &nbsp;
 
 {: .note }
-> _Whenever a user password is set using the `base:password` trait in the `UserAdmin` class, all instances of the specified password will be redacted from debug log messages._
+> _pyRACF's enhanced secrets redaction is applied to all content that can contain sestivite information that is printed to the console. Also note that **IRRSMO00** redacts secrets such as **Passwords** and **Passphrases** from all **Security Results** that it returns._
 
 &nbsp;
 
-Debug logging can be enabled on any "Admin" class by setting the `debug` class attrubute to `True` through the constructor. Once enabled, the metadata for the following steps will be printed to the console.
+{: .note }
+> _When a dump of the **Raw Security Result XML** returned by **IRRSMO00** is created either due to a failure where the **Security Result XML** cannot be parsed as XML and or when [Dump Mode](../dump_mode) is enabled, a **Hex Dump** of the **Raw Security Result XML** will be printed to the console as well._
 
 &nbsp;
 
-* Pre-processed request dictionary
-* Security request XML generated from the pre-processed request dictionary.
-* Security result XML returned from IRRSMO00.
-* Security result dictionary built from security result XML
-* Post-processed security result dictionary for profile extract.
+{: .warning}
+> _**Debug Logging** should only be used for **Development** and **Debugging** purposes._
+
+&nbsp;
+
+**Debug Logging** can be enabled on any "Admin" object by setting the `debug` class attrubute to `True` through the constructor. Once enabled, the following will be printed to the console.
+
+&nbsp;
+
+* Pre-processed **Request Dictionary**.
+* **Security Request XML** generated from the pre-processed request dictionary.
+* **Security Result XML** returned from IRRSMO00.
+* **Hex Dump** of the **Raw Security Result XML** returned by IRRSMO00 if the **Security Result XML** cannot be parsed as XML or when [Dump Mode](../dump_mode) is enabled.
+* **Security Result Dictionary** built from **Security Result XML**.
+* Post-processed **Security Result Dictionary** for profile extract.
 
 ## Example
 
 &nbsp;
 
 {: .note }
-> _If your terminal supports it, all output will be printed to the console with **sytax highlighting** using **ANSI escape sequences**._
+> _If your terminal supports it, all output will be printed to the console with **Sytax Highlighting** using **ANSI Escape Sequences**._
 
 ###### Python Script
 ```python

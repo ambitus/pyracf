@@ -21,7 +21,7 @@ Get a user's **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Class Authorizations** is being requested.
+  The **z/OS userid** of the user whose **Class Authorizations** is being requested.
 
 #### 📤 Returns
 * `Union[List[str], bytes]`<br>
@@ -57,7 +57,7 @@ Overwrite a user's existing **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **Class Authorizations** are being overwritten.
+  The **z/OS userid** of the user whose **Class Authorizations** are being overwritten.
 
 * `class_authorizations`<br>
   A list of one or more **Class Authorizations** that will become the user's new **Class Authorizations**.
@@ -296,7 +296,7 @@ Delete all of a user's **Class Authorizations**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's class authorizations will be deleted.
+  The **z/OS userid** of the user whose class authorizations will be deleted.
 
 #### 📤 Returns
 * `Union[dict, bool, bytes]`<br>

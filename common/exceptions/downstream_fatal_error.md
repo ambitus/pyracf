@@ -1,6 +1,7 @@
 ---
 layout: default
-parent: Common
+grand_parent: Common
+parent: Exceptions
 ---
 
 # Downstream Fatal Error
@@ -20,13 +21,13 @@ Understanding the `DownstreamFatalError` exception.
 
 &nbsp;
 
-pyRACF expects IRRSMO00 to return a non-empty response string after processing a request. If IRRSMO00 returns an empty response string or the **SAF Return Code** is greater than `4`, indicating that there was an issue with command image processing, a `DownstramFatalError` will be raised. It is possible that RACF commands are executed in this situation, but this is not the case for any known causes of this error.
+pyRACF expects IRRSMO00 to return a non-empty result string after processing a request. If IRRSMO00 returns an empty result string or the **SAF Return Code** is greater than `4`, indicating that there was an issue with command image processing, a `DownstramFatalError` will be raised. It is possible that RACF commands are executed in this situation, but this is not the case for any known causes of this error.
 
 ## RACF Authorizations
 
 &nbsp;
 
-A common cause of this error is that the user does not have the proper RACF authorizations as outlined in [our dependencies note](../../index). One of the possible causes for this error is the user not having at least `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource in the `XFACILIT` class, which is required for `set` or `alter` operations. See the [Check for & set up RACF Authorizations](../setup_precheck) documentation for more details. Another possible cause of this error is the user not having `ALTER` authority to the `userid.IRRSMO00` resource in the `SURROGAT` class, which is required to make security requests as another userid. Please review our [run as userid](../run_as_userid) documentation for more information on this feature.
+A common cause of this error is that the user does not have the proper RACF authorizations as outlined in [Our Dependencies Note](../../../index). One of the possible causes for this error is the user not having at least `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource in the `XFACILIT` class, which is required for `set` or `alter` operations. See the [Check for & set up RACF Authorizations](../../misc/setup_precheck) documentation for more details. Another possible cause of this error is the user not having `ALTER` authority to the `userid.IRRSMO00` resource in the `SURROGAT` class, which is required to make security requests as another userid. Please review our [Run as Userid](../../class_attributes/run_as_userid) documentation for more information on this feature.
 
 ###### Python Script
 ```python

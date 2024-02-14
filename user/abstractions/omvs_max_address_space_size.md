@@ -21,7 +21,7 @@ Get a user's **z/OS Unix System Services Max Address Space Size**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Max Address Space Size** is being requested.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Max Address Space Size** is being requested.
 
 #### 📤 Returns
 * `Union[int, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **z/OS Unix System Services Max Address Space Size**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **z/OS Unix System Services Max Address Space Size** is being set.
+  The **z/OS userid** of the user whose **z/OS Unix System Services Max Address Space Size** is being set.
 
 * `max_address_space_size`<br>
   The **z/OS Unix System Services Max Address Space Size** to set for the specified user or `False` to delete the current value.

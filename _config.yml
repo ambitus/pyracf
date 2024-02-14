@@ -15,13 +15,14 @@
 
 
 title: pyRACF
+pyracf_version: 1.0b5
 description: >- # this means to ignore newlines until "baseurl:"
   Python interface to the RACF Command interface.
 permalink: /:title/ 
 logo: "/assets/images/logo.png"
 
 # Build settings
-remote_theme: just-the-docs/just-the-docs@v0.6.2
+remote_theme: just-the-docs/just-the-docs@v0.7.0
 include:
   - contribute.markdown
 color_scheme: dark
@@ -71,7 +72,7 @@ callouts:
 mermaid:
   # Version of mermaid library
   # Pick an available version from https://cdn.jsdelivr.net/npm/mermaid/
-  version: "10.1.0"
+  version: "10.8.0"
 
 # Exclude from processing.
 # The following items will not be processed, by default.

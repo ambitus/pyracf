@@ -28,7 +28,7 @@ Check if a user has **RACF Special** authority.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's authority is being checked.
+  The **z/OS userid** of the user whose authority is being checked.
 
 #### 📤 Returns
 * `Union[bool, bytes]`<br>

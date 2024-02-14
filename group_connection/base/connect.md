@@ -34,7 +34,7 @@ Create or change a **group connection**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's connection to the specified group is being created or changed.
+  The **z/OS userid** of the user whose connection to the specified group is being created or changed.
 * `group`<br>
   The **group** to which the user's connection is being created or changed.
 

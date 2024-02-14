@@ -21,7 +21,7 @@ Get a group's **z/OS Unix System Services GID**.
 
 #### 📥 Parameters
 * `group`<br>
-  The group who's **z/OS Unix System Services GID** is being requested.
+  The group whose **z/OS Unix System Services GID** is being requested.
 
 #### 📤 Returns
 * `Union[int, None, bytes]`<br>
@@ -55,7 +55,7 @@ Change a group's **z/OS Unix System Services GID**.
 
 #### 📥 Parameters
 * `group`<br>
-  The group who's **z/OS Unix System Services GID** is being changed.
+  The group whose **z/OS Unix System Services GID** is being changed.
 
 * `gid`<br>
   The **z/OS Unix System Services GID** to set for the specified group.

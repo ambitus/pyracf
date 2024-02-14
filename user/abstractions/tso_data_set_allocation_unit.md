@@ -21,7 +21,7 @@ Get a user's **TSO Data Set Allocation Unit**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Data Set Allocation Unit** is being requested.
+  The **z/OS userid** of the user whose **TSO Data Set Allocation Unit** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **TSO Data Set Allocation Unit**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Data Set Allocation Unit** is being changed.
+  The **z/OS userid** of the user whose **TSO Data Set Allocation Unit** is being changed.
 
 * `data_set_allocation_unit`<br>
   The **TSO Data Set Allocation Unit** to set for the specified user or `False` to delete the current value.

@@ -1,6 +1,7 @@
 ---
 layout: default
-parent: Common
+grand_parent: Common
+parent: Misc
 ---
 
 # Setup Precheck
@@ -15,7 +16,7 @@ How to set up and check IRRSMO00 precheck configuration.
 
 &nbsp;
 
-In order to use `set` or `alter` functions in pyRACF, users must have at least `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource as outlined in [our dependencies note](../../index).
+In order to use `set` or `alter` functions in pyRACF, users must have at least `READ` authority to the `IRR.IRRSMO00.PRECHECK` resource as outlined in [Our Dependencies Note](../../../index).
 
 &nbsp;
 

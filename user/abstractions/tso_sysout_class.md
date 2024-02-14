@@ -21,7 +21,7 @@ Get a user's **TSO Sysout Class**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO  Class** is being requested.
+  The **z/OS userid** of the user whose **TSO  Class** is being requested.
 
 #### 📤 Returns
 * `Union[str, None, bytes]`<br>
@@ -57,7 +57,7 @@ Change a user's **TSO Sysout Class**.
 
 #### 📥 Parameters
 * `userid`<br>
-  The **z/OS userid** of the user who's **TSO Sysotu Class** is being changed.
+  The **z/OS userid** of the user whose **TSO Sysotu Class** is being changed.
 
 * `sysout_class`<br>
   The **TSO Sysout Class** to set for the specified user or `False` to delete the current value.
