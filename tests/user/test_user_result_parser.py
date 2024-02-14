@@ -523,3 +523,27 @@ class TestUserResultParser(unittest.TestCase):
             f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
             exception.exception.result,
         )
+
+    def test_user_admin_custom_secret_redacted_when_complex_characters(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(additional_secret_traits=["base:installation_data"])
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_INST_DATA_SUCCESS_XML,
+        ]
+        result = user_admin.alter(
+            "squidwrd",
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA,
+        )
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_INST_DATA_SECRET_DICTIONARY,
+        )
+        self.assertNotIn(
+            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA[
+                "base:installation_data"
+            ],
+            result,
+        )

@@ -160,10 +160,10 @@ class Logger:
         if isinstance(input_string, bytes):
             input_string = input_string.decode("cp1047")
             is_bytes = True
-        quoted = re.search(rf"{key.upper()}( +)\(\'.*?(?<!\\)\'\)", input_string)
+        quoted = re.search(rf"{key.upper()}( +)\(\'.*?(?<!\')\'\)", input_string)
         if quoted is not None:
             input_string = re.sub(
-                rf"{key.upper()}( +)\(\'.*?(?<!\\)\'\)",
+                rf"{key.upper()}( +)\(\'.*?(?<!\')\'\)",
                 rf"{key.upper()}\1('{asterisks}')",
                 input_string,
             )

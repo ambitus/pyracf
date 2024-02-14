@@ -71,6 +71,12 @@ TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_DICTIONARY = get_sample(
 TEST_ALTER_USER_RESULT_ERROR_UID_SECRET_DICTIONARY = get_sample(
     "alter_user_result_error_uid_secret.json"
 )
+TEST_ALTER_USER_RESULT_INST_DATA_SUCCESS_XML = get_sample(
+    "alter_user_result_success_inst_data.xml"
+)
+TEST_ALTER_USER_RESULT_SUCCESS_INST_DATA_SECRET_DICTIONARY = get_sample(
+    "alter_user_result_success_inst_data_secret.json"
+)
 
 # Extract User
 TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML = get_sample(
@@ -218,6 +224,10 @@ TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD["base:passphrase"] = (
 )
 TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR = dict(TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED)
 TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"] = 90000000000
+TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA = dict(TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED)
+TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA["base:installation_data"] = (
+    "Test = Value; Other(stuff goes here)'')"
+)
 
 # Extract User
 TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
