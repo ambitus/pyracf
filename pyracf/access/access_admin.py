@@ -67,6 +67,7 @@ class AccessAdmin(SecurityAdmin):
         traits: dict,
         volume: Union[str, None] = None,
         generic: bool = False,
+        check_refresh: bool = False,
     ) -> Union[dict, bytes]:
         """Create or change a permission"""
         traits["base:auth_id"] = auth_id
@@ -75,7 +76,10 @@ class AccessAdmin(SecurityAdmin):
         self._add_traits_directly_to_request_xml_with_no_segments(
             access_request, alter=True
         )
-        return self._make_request(access_request)
+        result = self._make_request(access_request)
+        if not check_refresh:
+            return result
+        return self.contains_target_message(result, "ICH06011I")
 
     def delete(
         self,
@@ -84,10 +88,14 @@ class AccessAdmin(SecurityAdmin):
         auth_id: str,
         volume: Union[str, None] = None,
         generic: bool = False,
+        check_refresh: bool = False,
     ) -> Union[dict, bytes]:
         """Delete a permission."""
         traits = {"base:auth_id": auth_id}
         self._build_segment_trait_dictionary(traits)
         access_request = AccessRequest(resource, class_name, "del", volume, generic)
         self._add_traits_directly_to_request_xml_with_no_segments(access_request)
-        return self._make_request(access_request)
+        result = self._make_request(access_request)
+        if not check_refresh:
+            return result
+        return self.contains_target_message(result, "ICH06011I")

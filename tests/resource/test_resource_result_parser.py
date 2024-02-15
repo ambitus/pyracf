@@ -35,7 +35,11 @@ class TestResourceResultParser(unittest.TestCase):
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
         ]
         self.assertEqual(
-            self.resource_admin.add("TESTING", "ELIJTEST"),
+            self.resource_admin.add(
+                "TESTING",
+                "ELIJTEST",
+                traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_TRAITS,
+            ),
             TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -125,6 +129,48 @@ class TestResourceResultParser(unittest.TestCase):
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_DICTIONARY,
         )
 
+    def test_resource_admin_add_can_check_for_necessary_refresh_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML,
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        self.assertEqual(
+            self.resource_admin.add(
+                "TESTING",
+                "ELIJTEST",
+                traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_TRAITS,
+                check_refresh=True,
+            ),
+            True,
+        )
+
+    def test_resource_admin_add_can_check_for_unnecessary_refresh_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        add_resource_xml_no_refresh = (
+            TestResourceConstants.TEST_ADD_RESOURCE_RESULT_SUCCESS_XML
+        )
+        add_resource_xml_no_refresh = add_resource_xml_no_refresh.replace(
+            "ICH10006I", "NOMESSAGE"
+        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_ERROR_XML,
+            add_resource_xml_no_refresh,
+        ]
+        self.assertEqual(
+            self.resource_admin.add(
+                "TESTING",
+                "ELIJTEST",
+                traits=TestResourceConstants.TEST_ADD_RESOURCE_REQUEST_TRAITS,
+                check_refresh=True,
+            ),
+            False,
+        )
+
     # ============================================================================
     # Alter Resource
     # ============================================================================
@@ -211,6 +257,48 @@ class TestResourceResultParser(unittest.TestCase):
             TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_DICTIONARY,
         )
 
+    def test_resource_admin_alter_can_check_for_necessary_refresh_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        self.assertEqual(
+            self.resource_admin.alter(
+                "TESTING",
+                "ELIJTEST",
+                traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
+                check_refresh=True,
+            ),
+            True,
+        )
+
+    def test_resource_admin_alter_can_check_for_unnecessary_refresh_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        alter_resource_xml_no_refresh = (
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML
+        )
+        alter_resource_xml_no_refresh = alter_resource_xml_no_refresh.replace(
+            "ICH11009I", "NOMSG"
+        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            alter_resource_xml_no_refresh,
+        ]
+        self.assertEqual(
+            self.resource_admin.alter(
+                "TESTING",
+                "ELIJTEST",
+                traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
+                check_refresh=True,
+            ),
+            False,
+        )
+
     # ============================================================================
     # Extract Resource
     # ============================================================================
@@ -282,4 +370,32 @@ class TestResourceResultParser(unittest.TestCase):
         self.assertEqual(
             exception.exception.result,
             TestResourceConstants.TEST_DELETE_RESOURCE_RESULT_ERROR_DICTIONARY,
+        )
+
+    def test_resource_admin_delete_can_check_for_necessary_refresh_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestResourceConstants.TEST_DELETE_RESOURCE_RESULT_SUCCESS_XML
+        )
+        self.assertEqual(
+            self.resource_admin.delete("TESTING", "ELIJTEST", check_refresh=True),
+            True,
+        )
+
+    def test_resource_admin_delete_can_check_for_unnecessary_refresh_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        delete_resource_xml_no_refresh = (
+            TestResourceConstants.TEST_DELETE_RESOURCE_RESULT_SUCCESS_XML
+        )
+        delete_resource_xml_no_refresh = delete_resource_xml_no_refresh.replace(
+            "ICH12002I", "NOMSG"
+        )
+        call_racf_mock.return_value = delete_resource_xml_no_refresh
+        self.assertEqual(
+            self.resource_admin.delete("TESTING", "ELIJTEST", check_refresh=True),
+            False,
         )

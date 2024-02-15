@@ -28,8 +28,7 @@ class SecurityRequestError(Exception):
         )
         if not isinstance(commands, list):
             return False
-        messages = commands[0].get("messages", [])
-        if error_message_id in "".join(messages):
-            return True
-        else:
-            return False
+        for command in commands:
+            if error_message_id in "".join(command.get("messages", [])):
+                return True
+        return False

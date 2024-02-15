@@ -630,7 +630,11 @@ class ResourceAdmin(SecurityAdmin):
     # Base Functions
     # ============================================================================
     def add(
-        self, resource: str, class_name: str, traits: dict = {}
+        self,
+        resource: str,
+        class_name: str,
+        traits: dict = {},
+        check_refresh: bool = False,
     ) -> Union[dict, bytes]:
         """Create a new general resource profile."""
         if self._generate_requests_only:
@@ -648,9 +652,14 @@ class ResourceAdmin(SecurityAdmin):
         self._build_segment_trait_dictionary(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request)
-        return self._make_request(profile_request)
+        result = self._make_request(profile_request)
+        if not check_refresh:
+            return result
+        return self.contains_target_message(result, "ICH10006I")
 
-    def alter(self, resource: str, class_name: str, traits: dict) -> Union[dict, bytes]:
+    def alter(
+        self, resource: str, class_name: str, traits: dict, check_refresh: bool = False
+    ) -> Union[dict, bytes]:
         """Alter an existing general resource profile."""
         if self._generate_requests_only:
             self._build_segment_trait_dictionary(traits)
@@ -666,7 +675,10 @@ class ResourceAdmin(SecurityAdmin):
         self._build_segment_trait_dictionary(traits)
         profile_request = ResourceRequest(resource, class_name, "set")
         self._build_xml_segments(profile_request, alter=True)
-        return self._make_request(profile_request, irrsmo00_precheck=True)
+        result = self._make_request(profile_request, irrsmo00_precheck=True)
+        if not check_refresh:
+            return result
+        return self.contains_target_message(result, "ICH11009I")
 
     def extract(
         self,
@@ -684,10 +696,15 @@ class ResourceAdmin(SecurityAdmin):
             return self._get_profile(result)
         return result
 
-    def delete(self, resource: str, class_name: str) -> Union[dict, bytes]:
+    def delete(
+        self, resource: str, class_name: str, check_refresh: bool = False
+    ) -> Union[dict, bytes]:
         """Delete a general resource profile."""
         profile_request = ResourceRequest(resource, class_name, "del")
-        return self._make_request(profile_request)
+        result = self._make_request(profile_request)
+        if not check_refresh:
+            return result
+        return self.contains_target_message(result, "ICH12002I")
 
     # ============================================================================
     # Private/Protected Utility Functions

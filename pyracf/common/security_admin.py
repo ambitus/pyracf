@@ -938,3 +938,25 @@ class SecurityAdmin:
         return field_tokens[0] + "".join(
             [field_token.title() for field_token in field_tokens[1:]]
         )
+
+    # ============================================================================
+    # Result Dictionary Parsing Functions
+    # ============================================================================
+    def contains_target_message(
+        self, result_dictionary: dict, target_ids: Union[str, List[str]]
+    ):
+        """Checks to see if specific error message id appears in the security request error."""
+        if isinstance(target_ids, str):
+            target_ids = [target_ids]
+        commands = result_dictionary["securityResult"][self._profile_type].get(
+            "commands"
+        )
+        if not isinstance(commands, list):
+            return False
+        for command in commands:
+            if any(
+                message_id in "".join(command.get("messages", []))
+                for message_id in target_ids
+            ):
+                return True
+        return False
