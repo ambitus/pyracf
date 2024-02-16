@@ -196,7 +196,7 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML
         )
         self.assertEqual(
-            self.user_admin.extract("squidwrd", segments=["omvs"]),
+            self.user_admin.extract("squidwrd"),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_JSON,
         )
 
@@ -249,6 +249,20 @@ class TestUserResultParser(unittest.TestCase):
         self.assertEqual(
             self.user_admin.extract("squidwrd", segments=["omvs", "tso"]),
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_DICTIONARY,
+        )
+
+    def test_user_admin_can_parse_extract_user_base_only_installation_data_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_INST_DATA_SUCCESS_XML
+        )
+        result = self.user_admin.extract("squidwrd")
+        print(result)
+        self.assertEqual(
+            result,
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_INST_DATA_SUCCESS_JSON,
         )
 
     # ============================================================================

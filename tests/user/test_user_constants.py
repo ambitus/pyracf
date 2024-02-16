@@ -91,6 +91,12 @@ TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML = get_sample(
 TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_JSON = get_sample(
     "extract_user_result_base_only_success.json"
 )
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_INST_DATA_SUCCESS_XML = get_sample(
+    "extract_user_result_base_only_installation_data_success.xml"
+)
+TEST_EXTRACT_USER_RESULT_BASE_ONLY_INST_DATA_SUCCESS_JSON = get_sample(
+    "extract_user_result_base_only_installation_data_success.json"
+)
 TEST_EXTRACT_USER_RESULT_BASE_ONLY_ERROR_XML = get_sample(
     "extract_user_result_base_only_error.xml"
 )

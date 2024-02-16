@@ -552,6 +552,7 @@ class SecurityAdmin:
         self, messages: List[str], profile: dict, current_segment: str, i: int
     ) -> int:
         """Specialized logic for formatting user profile data."""
+        indent = "                   "
         if messages[i][:1] == " ":
             messages[i] = (
                 messages[i]
@@ -584,6 +585,29 @@ class SecurityAdmin:
                 current_segment, profile[current_segment], messages[i]
             )
             i += 1
+        elif messages[i].startswith(" INSTALLATION-DATA="):
+            # This for loop accounts for Text Block Fields spanning up to 6 lines of 69 chars which
+            # would be possible under the maximum specifiable length of data for INSTALLATION-DATA
+            # since the indentation takes up 19 characters and 50 remaining characters per line
+            # with a maximum of 255 characters could be spread over 6 lines in theory.
+            message = messages[i]
+            key_length = message.index("=") + 1
+            line_length = 69 - key_length
+            indent = key_length * " "
+            print(f"{key_length} {line_length}")
+            start_i = i
+            for j in range(start_i + 1, i + 6):
+                if not messages[j].startswith(indent):
+                    break
+                # This adds back in any whitespace padding stripped away in the response_xml
+                # by IRRSMO00. This may still leave out whitespace padding at the very end of
+                # the value, but will save any in the middle of the value.
+                message = message.ljust((j - start_i) * line_length + key_length)
+                message = message + messages[j][len(indent) :]
+                i = j
+            self.__add_key_value_text_block_to_segment(
+                current_segment, profile[current_segment], message
+            )
         else:
             self.__add_key_value_pairs_to_segment(
                 current_segment, profile[current_segment], messages[i]
@@ -754,6 +778,18 @@ class SecurityAdmin:
             else:
                 profile[current_segment][field] = self._clean_and_separate(value)
         return
+
+    def __add_key_value_text_block_to_segment(
+        self,
+        segment_name: str,
+        segment: dict,
+        message: str,
+    ) -> None:
+        """Add a key value pair to a segment dictionary when the value is a "text" block."""
+        field = self._profile_field_to_camel_case(
+            segment_name, message.split("=")[0].strip().lower()
+        )
+        segment[field] = message[message.index("=") + 1 :]
 
     def __add_key_value_pairs_to_segment(
         self,
