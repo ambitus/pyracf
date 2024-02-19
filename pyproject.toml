@@ -42,7 +42,7 @@
 [tool.poetry.dependencies]
     python = ">=3.10"
     defusedxml = ">=0.7.1"
-    pandas = {version = ">=1.5.1.post3", source = "IBM Python AI Toolkit"}
+    pandas = {version = "==1.5.1.post3", source = "IBM Python AI Toolkit"}
 
 [tool.poetry.group.dev.dependencies]
     isort = ">=5.13.2"
