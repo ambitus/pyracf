@@ -812,7 +812,11 @@ class UserAdmin(SecurityAdmin):
         return self._make_request(user_request, irrsmo00_precheck=True)
 
     def extract(
-        self, userid: str, segments: List[str] = [], profile_only: bool = False
+        self,
+        userid: str,
+        segments: List[str] = [],
+        profile_only: bool = False,
+        user_template: bool = False,
     ) -> Union[dict, bytes]:
         """Extract a user's profile."""
         self._build_segment_dictionary(segments)
@@ -821,6 +825,8 @@ class UserAdmin(SecurityAdmin):
         result = self._extract_and_check_result(user_request)
         if profile_only:
             return self._get_profile(result)
+        if user_template:
+            return self._build_template(self._get_profile(result))
         return result
 
     def delete(self, userid: str) -> Union[dict, bytes]:

@@ -537,3 +537,21 @@ class TestUserResultParser(unittest.TestCase):
             f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
             exception.exception.result,
         )
+
+    # ============================================================================
+    # Build template user
+    # ============================================================================
+
+    def test_user_admin_can_build_template_user_base_omvs_tso_revoke_resume_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML
+        )
+        self.assertEqual(
+            self.user_admin.extract(
+                "squidwrd", segments=["omvs", "tso"], user_template=True
+            ),
+            TestUserConstants.TEST_EXTRACT_USER_BASE_OMVS_TSO_REVOKE_RESUME_TEMPLATE_TRAITS,
+        )

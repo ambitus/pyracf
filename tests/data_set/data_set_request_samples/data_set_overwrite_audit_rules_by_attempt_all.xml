@@ -1,0 +1,9 @@
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="set" generic="no" requestid="DatasetRequest">
+    <base>
+      <racf:audaltr operation="set">success</racf:audaltr>
+      <racf:audupdt operation="set">failure</racf:audupdt>
+      <racf:audread operation="set">all</racf:audread>
+    </base>
+  </dataset>
+</securityrequest>

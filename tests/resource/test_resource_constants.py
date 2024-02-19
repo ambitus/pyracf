@@ -182,6 +182,9 @@ TEST_ALTER_RESOURCE_ERROR_LOG = get_sample("alter_resource_error.log")
 
 TEST_EXTRACT_RESOURCE_BASE_SUCCESS_LOG = get_sample("extract_resource_base_success.log")
 TEST_EXTRACT_RESOURCE_BASE_ERROR_LOG = get_sample("extract_resource_base_error.log")
+TEST_EXTRACT_RESOURCE_BASE_AS_SQUIDWRD_SUCCESS_LOG = get_sample(
+    "extract_resource_base_as_squidwrd_success.log"
+)
 
 # ============================================================================
 # Class Administration

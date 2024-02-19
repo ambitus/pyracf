@@ -1,0 +1,166 @@
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Request Dictionary                              
+                         DataSetAdmin.get_user_access()                        
+                                                                               
+
+{}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                  Request XML                                  
+                         DataSetAdmin.get_user_access()                        
+                                                                               
+
+<securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
+  <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="listdata" generic="no" requestid="DatasetRequest"/>
+</securityrequest>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                                   Result XML                                  
+                         DataSetAdmin.get_user_access()                        
+                                                                               
+
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <dataset name="ESWIFT.TEST.T1136242.P3020470" operation="listdata" generic="no" requestid="DatasetRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')</image>
+      <message>INFORMATION FOR DATASET ESWIFT.TEST.T1136242.P3020470</message>
+      <message/>
+      <message>LEVEL  OWNER    UNIVERSAL ACCESS   WARNING   ERASE</message>
+      <message>-----  -------- ----------------   -------   -----</message>
+      <message> 00    ESWIFT          READ          NO      NO</message>
+      <message/>
+      <message>AUDITING</message>
+      <message>--------</message>
+      <message>FAILURES(READ)</message>
+      <message/>
+      <message>NOTIFY</message>
+      <message>--------</message>
+      <message>NO USER TO BE NOTIFIED</message>
+      <message/>
+      <message>YOUR ACCESS  CREATION GROUP  DATASET TYPE</message>
+      <message>-----------  --------------  ------------</message>
+      <message> READ         SYS1           NON-VSAM</message>
+      <message/>
+      <message>VOLUMES ON WHICH DATASET RESIDES</message>
+      <message>--------------------------------</message>
+      <message>USRAT2</message>
+      <message/>
+      <message>NO INSTALLATION DATA</message>
+    </command>
+  </dataset>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                               Result Dictionary                               
+                         DataSetAdmin.get_user_access()                        
+                                                                               
+
+{
+  "securityResult": {
+    "dataSet": {
+      "name": "ESWIFT.TEST.T1136242.P3020470",
+      "operation": "listdata",
+      "generic": "no",
+      "requestId": "DatasetRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')",
+          "messages": [
+            "INFORMATION FOR DATASET ESWIFT.TEST.T1136242.P3020470",
+            null,
+            "LEVEL  OWNER    UNIVERSAL ACCESS   WARNING   ERASE",
+            "-----  -------- ----------------   -------   -----",
+            " 00    ESWIFT          READ          NO      NO",
+            null,
+            "AUDITING",
+            "--------",
+            "FAILURES(READ)",
+            null,
+            "NOTIFY",
+            "--------",
+            "NO USER TO BE NOTIFIED",
+            null,
+            "YOUR ACCESS  CREATION GROUP  DATASET TYPE",
+            "-----------  --------------  ------------",
+            " READ         SYS1           NON-VSAM",
+            null,
+            "VOLUMES ON WHICH DATASET RESIDES",
+            "--------------------------------",
+            "USRAT2",
+            null,
+            "NO INSTALLATION DATA"
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0,
+    "runningUserid": "squidwrd"
+  }
+}
+
+                                                                               
+                                 [pyRACF:Debug]                                
+                     Result Dictionary (Formatted Profile)                     
+                         DataSetAdmin.get_user_access()                        
+                                                                               
+
+{
+  "securityResult": {
+    "dataSet": {
+      "name": "ESWIFT.TEST.T1136242.P3020470",
+      "operation": "listdata",
+      "generic": "no",
+      "requestId": "DatasetRequest",
+      "commands": [
+        {
+          "safReturnCode": 0,
+          "returnCode": 0,
+          "reasonCode": 0,
+          "image": "LISTDSD  DATASET     ('ESWIFT.TEST.T1136242.P3020470')",
+          "profiles": [
+            {
+              "base": {
+                "name": "eswift.test.t1136242.p3020470",
+                "level": 0,
+                "owner": "eswift",
+                "universalAccess": "read",
+                "warning": null,
+                "erase": null,
+                "auditing": {
+                  "failures": "read"
+                },
+                "notify": null,
+                "yourAccess": "read",
+                "creationGroup": "sys1",
+                "dataSetType": "non-vsam",
+                "volumes": [
+                  "usrat2"
+                ],
+                "installationData": null,
+                "generic": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "returnCode": 0,
+    "reasonCode": 0,
+    "runningUserid": "squidwrd"
+  }
+}
+

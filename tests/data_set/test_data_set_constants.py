@@ -110,6 +110,7 @@ TEST_EXTRACT_DATA_SET_REQUEST_GENRIC_BASE_XML = get_sample(
 TEST_EXTRACT_DATA_SET_REQUEST_GENERIC_BASE_TRAITS = {
     "datasetname": "ESWIFT.TEST.T1136242.*"
 }
+TEST_EXTRACT_DATA_SET_BASE_ONLY_TEMPLATE_TRAITS = {}
 
 # Delete Data Set
 TEST_DELETE_DATA_SET_REQUEST_XML = get_sample("delete_data_set_request.xml")
@@ -119,6 +120,68 @@ TEST_DELETE_DATA_SET_REQUEST_XML = get_sample("delete_data_set_request.xml")
 # ============================================================================
 
 TEST_DATA_SET_SET_UNIVERSAL_ACCESS_XML = get_sample("data_set_set_universal_access.xml")
+# Audit Rules Request Samples
+TEST_DATA_SET_REMOVE_ALL_AUDIT_RULES_REQUEST_XML = get_sample(
+    "data_set_remove_all_audit_rules.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ATTEMPT_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_attempt.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ATTEMPT_MULT_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_attempt_multiple.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ATTEMPT_ALL_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_attempt_all.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ATTEMPT_NONE_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_attempt_none.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_access_level.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_MULT_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_access_level_multiple.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_ALL_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_access_level_all.xml"
+)
+TEST_DATA_SET_ALTER_AUDIT_RULES_BY_ACCESS_LEVEL_NONE_REQUEST_XML = get_sample(
+    "data_set_alter_audit_rules_by_access_level_none.xml"
+)
+TEST_DATA_SET_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_attempt.xml"
+)
+TEST_DATA_SET_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_MULT_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_attempt_multiple.xml"
+)
+TEST_DATA_SET_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_ALL_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_attempt_all.xml"
+)
+TEST_DATA_SET_OVERWRITE_AUDIT_RULES_BY_ATTEMPT_NONE_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_attempt_none.xml"
+)
+TEST_DATA_SET_OVERWRITE_AUDIT_RULES_BY_ACCESS_LEVEL_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_access_level.xml"
+)
+# The following Test variables break convention to avoid E501 length errors from Flake8
+TEST_DATA_SET_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_MULT_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_access_level_multiple.xml"
+)
+TEST_DATA_SET_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_ALL_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_access_level_all.xml"
+)
+TEST_DATA_SET_OVERWRITE_AUDIT_BY_ACCESS_LEVEL_NONE_REQUEST_XML = get_sample(
+    "data_set_overwrite_audit_rules_by_access_level_none.xml"
+)
+
+
+# ============================================================================
+# Data Set Administration Getters Result Data
+# ============================================================================
+
+TEST_GET_AUDIT_RULES = {"success": "update", "failures": "read"}
+TEST_GET_AUDIT_RULES_SINGLE = {"failures": "read"}
+TEST_GET_AUDIT_RULES_WITH_ALL = {"success": "update", "all": "read"}
 
 # ============================================================================
 # Debug Logging
@@ -132,4 +195,7 @@ TEST_EXTRACT_DATA_SET_BASE_ONLY_SUCCESS_LOG = get_sample(
 )
 TEST_EXTRACT_DATA_SET_BASE_ONLY_ERROR_LOG = get_sample(
     "extract_data_set_base_only_error.log"
+)
+TEST_EXTRACT_DATA_SET_BASE_AS_SQUIDWRD_SUCCESS = get_sample(
+    "extract_data_set_base_as_squidwrd_success.log"
 )

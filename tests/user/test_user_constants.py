@@ -229,6 +229,39 @@ TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"] = 90000000000
 TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
     "extract_user_request_base_omvs.xml"
 )
+TEST_EXTRACT_USER_BASE_OMVS_TSO_REVOKE_RESUME_TEMPLATE_TRAITS = {
+    "base:name": "squidward",
+    "base:owner": "leonard",
+    "base:default_group": "sys1",
+    "base:revoke_date": "10/22/23",
+    "base:resume_date": "11/2/23",
+    "base:class_authorizations": [],
+    "base:logon_allowed_days": "anyday",
+    "base:logon_allowed_time": "anytime",
+    "base:security_level": None,
+    "base:security_label": None,
+    "omvs:uid": 1919,
+    "omvs:home_directory": "/u/squidward",
+    "omvs:default_shell": "/bin/sh",
+    "omvs:max_cpu_time": 1500,
+    "omvs:max_address_space_size": 10485760,
+    "omvs:max_files_per_process": 50,
+    "omvs:max_processes": 128,
+    "omvs:max_threads": 48,
+    "omvs:max_file_mapping_pages": 350,
+    "omvs:max_non_shared_memory": "4g",
+    "omvs:max_shared_memory": "2g",
+    "tso:account_number": "sb29",
+    "tso:hold_class": "a",
+    "tso:message_class": "b",
+    "tso:logon_procedure": "proc",
+    "tso:default_region_size": 1024,
+    "tso:max_region_size": 2048,
+    "tso:sysout_class": "o",
+    "tso:data_set_allocation_unit": "sysda",
+    "tso:user_data": "abcd",
+    "tso:logon_command": "ispf",
+}
 
 # Delete User
 TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")

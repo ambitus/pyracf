@@ -103,9 +103,6 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
 
 TEST_RUNNING_USERID = "eswift"
 TEST_ALTER_USER_SUCCESS_AS_ESWIFT_LOG = get_sample("alter_user_success_as_eswift.log")
-TEST_EXTRACT_RESOURCE_PRECHECK_AS_SQUIDWRD_LOG = get_sample(
-    "extract_resource_precheck_as_squidwrd.log"
-)
 
 # ============================================================================
 # Downstream Fatal Error

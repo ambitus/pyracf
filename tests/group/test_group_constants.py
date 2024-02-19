@@ -88,7 +88,14 @@ TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS = {"omvs:gid": "3000000000"}
 TEST_EXTRACT_GROUP_REQUEST_BASE_OMVS_XML = get_sample(
     "extract_group_request_base_omvs.xml"
 )
-
+TEST_EXTRACT_GROUP_BASE_OMVS_TEMPLATE_TRAITS = {
+    "base:installation_data": None,
+    "base:model_data_set": None,
+    "base:owner": "eswift",
+    "base:superior_group": "sys1",
+    "base:terminal_universal_access": True,
+    "omvs:gid": 1234567,
+}
 # Delete Group
 TEST_DELETE_GROUP_REQUEST_XML = get_sample("delete_group_request.xml")
 

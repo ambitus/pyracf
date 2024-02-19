@@ -13,7 +13,7 @@
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-  <resource name="IRR.IRRSMO00.PRECHECK" class="XFACILIT" operation="listdata" requestid="ResourceRequest"/>
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest"/>
 </securityrequest>
 
                                                                                
@@ -24,23 +24,19 @@
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <resource name="IRR.IRRSMO00.PRECHECK" class="XFACILIT" operation="listdata" requestid="ResourceRequest">
+  <resource name="TESTING" class="ELIJTEST" operation="listdata" requestid="ResourceRequest">
     <command>
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
       <reasoncode>0</reasoncode>
-      <image>RLIST   XFACILIT             (IRR.IRRSMO00.PRECHECK) </image>
+      <image>RLIST   ELIJTEST             (TESTING) </image>
       <message>CLASS      NAME</message>
       <message>-----      ----</message>
-      <message>XFACILIT   IRR.IRRSMO00.PRECHECK</message>
-      <message> </message>
-      <message>GROUP CLASS NAME</message>
-      <message>----- ----- ----</message>
-      <message>GXFACILI</message>
+      <message>ELIJTEST   TESTING</message>
       <message> </message>
       <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
       <message>-----  --------   ----------------  -----------  -------</message>
-      <message> 00    ESWIFT          READ               READ    NO</message>
+      <message> 00    ESWIFT          READ              ALTER    NO</message>
       <message> </message>
       <message>INSTALLATION DATA</message>
       <message>-----------------</message>
@@ -52,7 +48,7 @@
       <message> </message>
       <message>AUDITING</message>
       <message>--------</message>
-      <message>FAILURES(READ)</message>
+      <message>SUCCESS(UPDATE),FAILURES(READ)</message>
       <message> </message>
       <message>NOTIFY</message>
       <message>------</message>
@@ -72,8 +68,8 @@
 {
   "securityResult": {
     "resource": {
-      "name": "IRR.IRRSMO00.PRECHECK",
-      "class": "XFACILIT",
+      "name": "TESTING",
+      "class": "ELIJTEST",
       "operation": "listdata",
       "requestId": "ResourceRequest",
       "commands": [
@@ -81,19 +77,15 @@
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "RLIST   XFACILIT             (IRR.IRRSMO00.PRECHECK) ",
+          "image": "RLIST   ELIJTEST             (TESTING) ",
           "messages": [
             "CLASS      NAME",
             "-----      ----",
-            "XFACILIT   IRR.IRRSMO00.PRECHECK",
-            " ",
-            "GROUP CLASS NAME",
-            "----- ----- ----",
-            "GXFACILI",
+            "ELIJTEST   TESTING",
             " ",
             "LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING",
             "-----  --------   ----------------  -----------  -------",
-            " 00    ESWIFT          READ               READ    NO",
+            " 00    ESWIFT          READ              ALTER    NO",
             " ",
             "INSTALLATION DATA",
             "-----------------",
@@ -105,7 +97,7 @@
             " ",
             "AUDITING",
             "--------",
-            "FAILURES(READ)",
+            "SUCCESS(UPDATE),FAILURES(READ)",
             " ",
             "NOTIFY",
             "------",
@@ -129,8 +121,8 @@
 {
   "securityResult": {
     "resource": {
-      "name": "IRR.IRRSMO00.PRECHECK",
-      "class": "XFACILIT",
+      "name": "TESTING",
+      "class": "ELIJTEST",
       "operation": "listdata",
       "requestId": "ResourceRequest",
       "commands": [
@@ -138,21 +130,21 @@
           "safReturnCode": 0,
           "returnCode": 0,
           "reasonCode": 0,
-          "image": "RLIST   XFACILIT             (IRR.IRRSMO00.PRECHECK) ",
+          "image": "RLIST   ELIJTEST             (TESTING) ",
           "profiles": [
             {
               "base": {
-                "class": "xfacilit",
-                "name": "irr.irrsmo00.precheck",
-                "groupClassName": "gxfacili",
+                "class": "elijtest",
+                "name": "testing",
                 "level": 0,
                 "owner": "eswift",
                 "universalAccess": "read",
-                "yourAccess": "read",
+                "yourAccess": "alter",
                 "warning": null,
                 "installationData": null,
                 "applicationData": null,
                 "auditing": {
+                  "success": "update",
                   "failures": "read"
                 },
                 "notify": null,

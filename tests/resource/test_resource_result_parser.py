@@ -399,3 +399,21 @@ class TestResourceResultParser(unittest.TestCase):
             self.resource_admin.delete("TESTING", "ELIJTEST", check_refresh=True),
             False,
         )
+
+    # ============================================================================
+    # Build template general resource profile
+    # ============================================================================
+
+    # def test_group_admin_can_build_template_group_base_omvs_tso_revoke_resume_success_xml(
+    #     self,
+    #     call_racf_mock: Mock,
+    # ):
+    #     call_racf_mock.return_value = (
+    #         TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
+    #     )
+    #     self.assertEqual(
+    #         self.group_admin.extract(
+    #             "testgrp0", segments=["omvs"], group_template=True
+    #         ),
+    #         TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_TEMPLATE_TRAITS,
+    #     )

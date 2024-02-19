@@ -3,6 +3,7 @@
 import platform
 import re
 import xml.etree.ElementTree
+from collections import Counter
 from datetime import datetime
 from typing import Any, List, Tuple, Union
 
@@ -188,6 +189,77 @@ class SecurityAdmin:
             if secret not in self._valid_segment_traits[segment]:
                 continue
             self.__secret_traits[secret] = self._valid_segment_traits[segment][secret]
+
+    # ============================================================================
+    # Common Subfunctions for Child Classes
+    # ============================================================================
+    def _validate_access_levels(
+        self,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ):
+        valid_access_levels = ("alter", "control", "read", "update")
+        value_error_text = (
+            "Valid access levels include 'alter', 'control', 'read', and 'update'."
+        )
+        bad_access_levels = []
+        for attempt_argument in (success, failure, all):
+            if (
+                attempt_argument is not None
+                and str(attempt_argument).lower() not in valid_access_levels
+            ):
+                bad_access_levels.append(attempt_argument)
+        match len(bad_access_levels):
+            case 0:
+                self.__check_for_duplicates([success, failure, all], "Access Level")
+                return
+            case 1:
+                value_error_text = (
+                    f"'{bad_access_levels[0]}' is not a valid access level. "
+                    + f"{value_error_text}"
+                )
+            case 2:
+                value_error_text = (
+                    f"'{bad_access_levels[0]}' and '{bad_access_levels[1]}' are not valid "
+                    + f"access levels. {value_error_text}"
+                )
+            case _:
+                bad_access_levels = [
+                    f"'{bad_access_level}'" for bad_access_level in bad_access_levels
+                ]
+                bad_access_levels[-1] = f"and {bad_access_levels[-1]} "
+                value_error_text = (
+                    f"{', '.join(bad_access_levels)}are not valid access levels. "
+                    + f"{value_error_text}"
+                )
+        raise ValueError(value_error_text)
+
+    def _build_traits_from_audit_rules(self, audit_rules: dict) -> dict:
+        traits = {}
+        if "success" in audit_rules:
+            traits[f"base:audit_{audit_rules['success']}"] = "success"
+        if "failures" in audit_rules:
+            traits[f"base:audit_{audit_rules['failures']}"] = "failure"
+        if "all" in audit_rules:
+            traits[f"base:audit_{audit_rules['all']}"] = "all"
+        return traits
+
+    def __check_for_duplicates(self, argument_list: list, argument: str) -> None:
+        duplicates = [
+            key
+            for (key, value) in Counter(argument_list).items()
+            if (value > 1 and key is not None)
+        ]
+        if duplicates == []:
+            return
+        value_error_text = []
+        for duplicate in duplicates:
+            value_error_text.append(
+                f"'{duplicate}' is provided as an '{argument}' multiple times, which is not "
+                + "allowed."
+            )
+        raise ValueError("\n".join(value_error_text))
 
     # ============================================================================
     # Request Execution
@@ -443,6 +515,32 @@ class SecurityAdmin:
         return result["securityResult"][self._profile_type]["commands"][0]["profiles"][
             index
         ]
+
+    def _build_template(
+        self,
+        profile: dict,
+    ) -> dict:
+        """Map the profile to a template for an add or alter request."""
+        if self._generate_requests_only:
+            # Allows this function to work with "self._generate_requests_only" mode.
+            return profile
+        template = {}
+        for segment in profile.keys():
+            for trait in profile[segment].keys():
+                if (
+                    f"{segment}:{self.__camel_case_to_snake_case(trait)}"
+                    not in self._valid_segment_traits[segment]
+                ):
+                    continue
+                template[f"{segment}:{self.__camel_case_to_snake_case(trait)}"] = (
+                    profile[segment][trait]
+                )
+                if "Date" in trait:
+                    template[f"{segment}:{self.__camel_case_to_snake_case(trait)}"] = (
+                        re.sub(r"20([0-9][0-9])", r"\1", profile[segment][trait])
+                    )
+        print(template)
+        return template
 
     def _get_field(
         self,
@@ -974,6 +1072,11 @@ class SecurityAdmin:
         return field_tokens[0] + "".join(
             [field_token.title() for field_token in field_tokens[1:]]
         )
+
+    def __camel_case_to_snake_case(self, string: str) -> str:
+        """Convert a camel case string to snake case"""
+        string = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", string)
+        return re.sub("([a-z0-9])([A-Z])", r"\1_\2", string).lower()
 
     # ============================================================================
     # Result Dictionary Parsing Functions

@@ -80,7 +80,7 @@ class DataSetAdmin(SecurityAdmin):
         )
 
     # ============================================================================
-    # Access
+    # Universal Access
     # ============================================================================
     def get_universal_access(self, data_set: str) -> Union[str, bytes, None]:
         """Get universal access for data set profile."""
@@ -94,10 +94,131 @@ class DataSetAdmin(SecurityAdmin):
         result = self.alter(data_set, {"base:universal_access": universal_acccess})
         return self._to_steps(result)
 
+    # ============================================================================
+    # Individual Access
+    # ============================================================================
     def get_my_access(self, data_set: str) -> Union[str, bytes, None]:
-        """Get the access associated with your own data set profile."""
+        """Get your own level of access associated with a data set profile."""
         profile = self.extract(data_set, profile_only=True)
         return self._get_field(profile, "base", "yourAccess")
+
+    def get_user_access(self, data_set: str, userid: str) -> Union[str, bytes, None]:
+        """Get a target user's own level of access associated with a data set profile."""
+        original_userid = self.get_running_userid()
+        self.set_running_userid(userid)
+        profile = self.extract(data_set, profile_only=True)
+        self.set_running_userid(original_userid)
+        return self._get_field(profile, "base", "yourAccess")
+
+    # ============================================================================
+    # Auditing Rules
+    # ============================================================================
+    def get_audit_rules(self, data_set: str) -> Union[dict, bytes, None]:
+        """Get the auditing rules associated with this data set profile."""
+        profile = self.extract(data_set, profile_only=True)
+        return self._get_field(profile, "base", "auditing")
+
+    def overwrite_audit_rules_by_attempt(
+        self,
+        data_set: str,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Overwrites the auditing rules for this data set profile with new
+        rules to audit based on specified access attempts.
+        """
+        self._validate_access_levels(success, failure, all)
+        traits = {}
+        if success is not None:
+            traits[f"base:audit_{success}"] = "success"
+        if failure is not None:
+            traits[f"base:audit_{failure}"] = "failure"
+        if all is not None:
+            traits[f"base:audit_{all}"] = "all"
+        result = self.alter(data_set, traits=traits)
+        return self._to_steps(result)
+
+    def alter_audit_rules_by_attempt(
+        self,
+        data_set: str,
+        success: Union[str, None] = None,
+        failure: Union[str, None] = None,
+        all: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Alters the auditing rules for this data set profile with new rules
+        to audit by access level, preserving existing non-conflicting rules.
+        """
+        self._validate_access_levels(success, failure, all)
+        audit_rules = self.get_audit_rules(data_set)
+        traits = self._build_traits_from_audit_rules(audit_rules)
+        if success is not None:
+            traits[f"base:audit_{success}"] = "success"
+        if failure is not None:
+            traits[f"base:audit_{failure}"] = "failure"
+        if all is not None:
+            traits[f"base:audit_{all}"] = "all"
+        result = self.alter(data_set, traits=traits)
+        return self._to_steps(result)
+
+    def overwrite_audit_rules_by_access_level(
+        self,
+        data_set: str,
+        alter: Union[str, None] = None,
+        control: Union[str, None] = None,
+        read: Union[str, None] = None,
+        update: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Overwrites the auditing rules for this data set profile with new
+        rules to audit based on specified access levels.
+        """
+        traits = {}
+        if alter is not None:
+            traits["base:audit_alter"] = alter
+        if control is not None:
+            traits["base:audit_control"] = control
+        if read is not None:
+            traits["base:audit_read"] = read
+        if update is not None:
+            traits["base:audit_update"] = update
+        result = self.alter(data_set, traits=traits)
+        return self._to_steps(result)
+
+    def alter_audit_rules_by_access_level(
+        self,
+        data_set: str,
+        alter: Union[str, None] = None,
+        control: Union[str, None] = None,
+        read: Union[str, None] = None,
+        update: Union[str, None] = None,
+    ) -> Union[dict, bytes]:
+        """
+        Alters the auditing rules for this data set profile with a new
+        rule to audit alter access, preserving existing non-conflicting rules.
+        """
+        audit_rules = self.get_audit_rules(data_set)
+        traits = self._build_traits_from_audit_rules(audit_rules)
+        if alter is not None:
+            traits["base:audit_alter"] = alter
+        if control is not None:
+            traits["base:audit_control"] = control
+        if read is not None:
+            traits["base:audit_read"] = read
+        if update is not None:
+            traits["base:audit_update"] = update
+        result = self.alter(data_set, traits=traits)
+        return self._to_steps(result)
+
+    def remove_all_audit_rules(
+        self,
+        data_set: str,
+    ) -> Union[dict, bytes]:
+        """Clears the auditing rules completely."""
+        result = self.alter(data_set, {"base:audit_none": True})
+        return self._to_steps(result)
 
     # ============================================================================
     # Base Functions
@@ -162,6 +283,7 @@ class DataSetAdmin(SecurityAdmin):
         volume: Union[str, None] = None,
         generic: bool = False,
         profile_only: bool = False,
+        data_set_template: bool = False,
     ) -> Union[dict, bytes]:
         """Extract a data set profile."""
         self._build_segment_dictionary(segments)
@@ -170,6 +292,8 @@ class DataSetAdmin(SecurityAdmin):
         result = self._extract_and_check_result(data_set_request)
         if profile_only:
             return self._get_profile(result)
+        if data_set_template:
+            return self._build_template(self._get_profile(result))
         return result
 
     def delete(

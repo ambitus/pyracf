@@ -27,7 +27,7 @@ class GroupAdmin(SecurityAdmin):
         self._valid_segment_traits = {
             "base": {
                 "base:installation_data": "racf:data",
-                "base:data_set_model": "racf:model",
+                "base:model_data_set": "racf:model",
                 "base:owner": "racf:owner",
                 "base:superior_group": "racf:supgroup",
                 "base:terminal_universal_access": "racf:termuacc",
@@ -161,7 +161,11 @@ class GroupAdmin(SecurityAdmin):
         return self._make_request(group_request, irrsmo00_precheck=True)
 
     def extract(
-        self, group: str, segments: List[str] = [], profile_only: bool = False
+        self,
+        group: str,
+        segments: List[str] = [],
+        profile_only: bool = False,
+        group_template=False,
     ) -> Union[dict, bytes]:
         """Extract a group's profile."""
         self._build_segment_dictionary(segments)
@@ -170,6 +174,8 @@ class GroupAdmin(SecurityAdmin):
         result = self._extract_and_check_result(group_request)
         if profile_only:
             return self._get_profile(result)
+        if group_template:
+            return self._build_template(self._get_profile(result))
         return result
 
     def delete(self, group: str) -> Union[dict, bytes]:
