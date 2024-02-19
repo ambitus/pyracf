@@ -103,14 +103,23 @@ TEST_EXTRACT_DATA_SET_REQUEST_BASE_XML = get_sample("extract_data_set_request_ba
 TEST_EXTRACT_DATA_SET_REQUEST_BASE_TRAITS = {
     "datasetname": "ESWIFT.TEST.T1136242.P3020470"
 }
-# Extract Data Set
 TEST_EXTRACT_DATA_SET_REQUEST_GENRIC_BASE_XML = get_sample(
     "extract_data_set_request_generic_base.xml"
 )
 TEST_EXTRACT_DATA_SET_REQUEST_GENERIC_BASE_TRAITS = {
     "datasetname": "ESWIFT.TEST.T1136242.*"
 }
-TEST_EXTRACT_DATA_SET_BASE_ONLY_TEMPLATE_TRAITS = {}
+TEST_EXTRACT_DATA_SET_BASE_ONLY_TEMPLATE_TRAITS = {
+    "base:audit_read": "failure",
+    "base:level": 0,
+    "base:owner": "eswift",
+    "base:universal_access": "read",
+    "base:warn_on_insufficient_access": None,
+    "base:erase_data_sets_on_delete": None,
+    "base:notify_userid": None,
+    "base:volumes": ["usrat2"],
+    "base:installation_data": None,
+}
 
 # Delete Data Set
 TEST_DELETE_DATA_SET_REQUEST_XML = get_sample("delete_data_set_request.xml")

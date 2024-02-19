@@ -404,16 +404,19 @@ class TestResourceResultParser(unittest.TestCase):
     # Build template general resource profile
     # ============================================================================
 
-    # def test_group_admin_can_build_template_group_base_omvs_tso_revoke_resume_success_xml(
-    #     self,
-    #     call_racf_mock: Mock,
-    # ):
-    #     call_racf_mock.return_value = (
-    #         TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML
-    #     )
-    #     self.assertEqual(
-    #         self.group_admin.extract(
-    #             "testgrp0", segments=["omvs"], group_template=True
-    #         ),
-    #         TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_TEMPLATE_TRAITS,
-    #     )
+    def test_resource_admin_can_build_template_resource_base_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_AND_SUBFUNCTIONS_SUCCESS_XML
+        )
+        self.assertEqual(
+            self.resource_admin.extract(
+                "TESTING",
+                "ELIJTEST",
+                segments=["cfdef", "cdtinfo", "kerb", "session", "sigver", "stdata"],
+                resource_template=True,
+            ),
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_BASE_AND_SUBFUNCTIONS_TEMPLATE_TRAITS,
+        )

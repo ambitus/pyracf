@@ -61,6 +61,70 @@ TEST_EXTRACT_RESOURCE_RESULT_BAD_CLASS_ERROR_DICTIONARY = get_sample(
 TEST_EXTRACT_RESOURCE_RESULT_BASE_GENERIC_SUCCESS_XML = get_sample(
     "extract_resource_result_base_generic_success.xml"
 )
+# Note: It is impractical that one profile would have data in all of these segments, but it does
+# have value to test with this larger value.
+TEST_EXTRACT_RESOURCE_RESULT_BASE_AND_SUBFUNCTIONS_SUCCESS_XML = get_sample(
+    "extract_resource_result_base_and_subfunctions_success.xml"
+)
+TEST_EXTRACT_RESOURCE_BASE_AND_SUBFUNCTIONS_TEMPLATE_TRAITS = {
+    "base:application_data": None,
+    "base:audit_read": "failure",
+    "base:installation_data": None,
+    "base:level": 0,
+    "base:notify_userid": None,
+    "base:owner": "eswift",
+    "base:universal_access": None,
+    "base:warn_on_insufficient_access": None,
+    "cdtinfo:case_allowed": "upper",
+    "cdtinfo:default_racroute_return_code": 8,
+    "cdtinfo:default_universal_access": None,
+    "cdtinfo:generic_profile_checking": "allowed",
+    "cdtinfo:generic_profile_sharing": "disallowed",
+    "cdtinfo:grouping_class_name": None,
+    "cdtinfo:key_qualifiers": 0,
+    "cdtinfo:manditory_access_control_processing": "normal",
+    "cdtinfo:max_length": 246,
+    "cdtinfo:max_length_entityx": 246,
+    "cdtinfo:member_class_name": None,
+    "cdtinfo:operations": None,
+    "cdtinfo:posit_number": 200,
+    "cdtinfo:profiles_allowed": "yes",
+    "cdtinfo:raclist_allowed": "allowed",
+    "cdtinfo:security_label_required": None,
+    "cdtinfo:send_enf_signal_on_profile_creation": None,
+    "cdtinfo:valid_first_characters": "alpha",
+    "cdtinfo:valid_other_characters": ["alpha", "numeric"],
+    "cfdef:custom_field_data_type": "char",
+    "cfdef:help_text": ["favorite", "tv", "show"],
+    "cfdef:max_field_length": None,
+    "cfdef:max_numeric_value": None,
+    "cfdef:min_numeric_value": None,
+    "cfdef:mixed_case_allowed": None,
+    "cfdef:valid_first_characters": "alpha",
+    "cfdef:valid_other_characters": "alpha",
+    "kerb:encryption_algorithms": [
+        "des",
+        "des3",
+        "desd",
+        "aes128",
+        "aes256",
+        "aes128sha2",
+        "aes256sha2",
+    ],
+    "kerb:validate_addresses": None,
+    "session:locked": True,
+    "session:security_checking_level": "conv",
+    "session:session_key": "e3c5e2e3d2c5e800",
+    "session:session_key_interval": 5,
+    "sigver:fail_program_load_condition": "never",
+    "sigver:log_signature_verification_events": "success",
+    "sigver:signature_required": None,
+    "stdata:group": None,
+    "stdata:privileged": None,
+    "stdata:trace": None,
+    "stdata:trusted": "yes",
+    "stdata:user": None,
+}
 
 # Delete Resource
 TEST_DELETE_RESOURCE_RESULT_SUCCESS_XML = get_sample(

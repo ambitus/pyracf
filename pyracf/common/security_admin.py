@@ -53,6 +53,16 @@ class SecurityAdmin:
         "base:generic": "racf:generic",
     }
 
+    __template_map = {
+        "base:warning": "base:warn_on_insufficient_access",
+        "base:erase": "base:erase_data_sets_on_delete",
+        "base:notify": "base:notify_userid",
+        "cdtinfo:security_labels_required": "cdtinfo:security_label_required",
+        "cfdef:maxlength": "cfdef:max_field_length",
+        "kerb:key_encryption_type": "kerb:encryption_algorithms",
+        "kerb:check_addresses": "kerb:validate_addresses",
+    }
+
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
     _case_sensitive_extracted_values = []
@@ -235,7 +245,7 @@ class SecurityAdmin:
                 )
         raise ValueError(value_error_text)
 
-    def _build_traits_from_audit_rules(self, audit_rules: dict) -> dict:
+    def _build_traits_from_audit_rules(self, audit_rules: dict = {}) -> dict:
         traits = {}
         if "success" in audit_rules:
             traits[f"base:audit_{audit_rules['success']}"] = "success"
@@ -524,13 +534,17 @@ class SecurityAdmin:
         if self._generate_requests_only:
             # Allows this function to work with "self._generate_requests_only" mode.
             return profile
-        template = {}
+        audit_rules = profile["base"].get("auditing", {})
+        template = self._build_traits_from_audit_rules(audit_rules)
         for segment in profile.keys():
             for trait in profile[segment].keys():
                 if (
                     f"{segment}:{self.__camel_case_to_snake_case(trait)}"
                     not in self._valid_segment_traits[segment]
                 ):
+                    template = self.__map_extract_to_template(
+                        template, segment, trait, profile[segment][trait]
+                    )
                     continue
                 template[f"{segment}:{self.__camel_case_to_snake_case(trait)}"] = (
                     profile[segment][trait]
@@ -539,7 +553,14 @@ class SecurityAdmin:
                     template[f"{segment}:{self.__camel_case_to_snake_case(trait)}"] = (
                         re.sub(r"20([0-9][0-9])", r"\1", profile[segment][trait])
                     )
-        print(template)
+        return template
+
+    def __map_extract_to_template(
+        self, template: dict, segment: str, trait: str, value: Union[str, List, int]
+    ):
+        key = f"{segment}:{self.__camel_case_to_snake_case(trait)}"
+        if key in self.__template_map:
+            template[self.__template_map[key]] = value
         return template
 
     def _get_field(

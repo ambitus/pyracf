@@ -292,14 +292,16 @@ class TestDataSetResultParser(unittest.TestCase):
     # Build Template Data Set Profile
     # ============================================================================
 
-    # def test_data_set_admin_can_build_template_data_set_base_success_xml(
-    #     self,
-    #     call_racf_mock: Mock,
-    # ):
-    #     call_racf_mock.return_value = (
-    #         TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML
-    #     )
-    #     self.assertEqual(
-    #       self.data_set_admin.extract("ESWIFT.TEST.T1136242.P3020470",data_set_template = True),
-    #         TestDataSetConstants.TEST_EXTRACT_DATA_SET_BASE_ONLY_TEMPLATE_TRAITS,
-    #     )
+    def test_data_set_admin_can_build_template_data_set_base_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML
+        )
+        self.assertEqual(
+            self.data_set_admin.extract(
+                "ESWIFT.TEST.T1136242.P3020470", data_set_template=True
+            ),
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_BASE_ONLY_TEMPLATE_TRAITS,
+        )

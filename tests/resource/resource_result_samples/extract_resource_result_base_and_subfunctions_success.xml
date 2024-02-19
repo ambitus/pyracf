@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="IBM-1047"?>
+<securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
+  <resource name="TSTTSKEL" class="STARTED" operation="listdata" requestid="ResourceRequest">
+    <command>
+      <safreturncode>0</safreturncode>
+      <returncode>0</returncode>
+      <reasoncode>0</reasoncode>
+      <image>RLIST   STARTED             (TSTTSKEL)  STDATA  </image>
+      <message>CLASS      NAME</message>
+      <message>-----      ----</message>
+      <message>STARTED    TSTTSKEL</message>
+      <message> </message>
+      <message>LEVEL  OWNER      UNIVERSAL ACCESS  YOUR ACCESS  WARNING</message>
+      <message>-----  --------   ----------------  -----------  -------</message>
+      <message> 00    ESWIFT          NONE               NONE    NO</message>
+      <message> </message>
+      <message>INSTALLATION DATA</message>
+      <message>-----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>APPLICATION DATA</message>
+      <message>----------------</message>
+      <message>NONE</message>
+      <message> </message>
+      <message>AUDITING</message>
+      <message>--------</message>
+      <message>FAILURES(READ)</message>
+      <message> </message>
+      <message>NOTIFY</message>
+      <message>------</message>
+      <message>NO USER TO BE NOTIFIED</message>
+      <message> </message>
+      <message>STDATA INFORMATION</message>
+      <message>------------------</message>
+      <message>USER=</message>
+      <message>GROUP=</message>
+      <message>TRUSTED= YES</message>
+      <message>PRIVILEGED= NO</message>
+      <message>TRACE= NO</message>
+      <message> </message>
+      <message>CDTINFO INFORMATION</message>
+      <message>-------------------</message>
+      <message>CASE = UPPER</message>
+      <message>DEFAULTRC = 008</message>
+      <message>DEFAULTUACC = NONE</message>
+      <message>FIRST = ALPHA</message>
+      <message>GENLIST = DISALLOWED</message>
+      <message>GENERIC = ALLOWED</message>
+      <message>GROUP =         </message>
+      <message>KEYQUALIFIERS = 0000000000</message>
+      <message>MACPROCESSING = NORMAL</message>
+      <message>MAXLENGTH = 246</message>
+      <message>MAXLENX = 0000000246</message>
+      <message>MEMBER =         </message>
+      <message>OPERATIONS = NO</message>
+      <message>OTHER = ALPHA NUMERIC</message>
+      <message>POSIT = 0000000200</message>
+      <message>PROFILESALLOWED = YES</message>
+      <message>RACLIST = ALLOWED</message>
+      <message>SECLABELSREQUIRED = NO</message>
+      <message>SIGNAL = NO</message>
+      <message> </message>
+      <message>CFDEF INFORMATION</message>
+      <message>-----------------</message>
+      <message>TYPE = CHAR</message>
+      <message>MAXLENGTH = NONE</message>
+      <message>MAXVALUE = NONE</message>
+      <message>MINVALUE = NONE</message>
+      <message>FIRST = ALPHA</message>
+      <message>OTHER = ALPHA</message>
+      <message>MIXED = NO</message>
+      <message>HELP = FAVORITE TV SHOW</message>
+      <message> </message>
+      <message>KERB INFORMATION</message>
+      <message>----------------</message>
+      <message>KEY ENCRYPTION TYPE= DES DES3 DESD AES128 AES256 AES128SHA2 AES256SHA2</message>
+      <message>CHECK ADDRESSES= NO</message>
+      <message> </message>
+      <message>SESSION INFORMATION</message>
+      <message>-------------------</message>
+      <message>SESSION KEY IS E3C5E2E3D2C5E800</message>
+      <message>SESSION KEY INTERVAL IS 00005 DAYS</message>
+      <message>LOCKED</message>
+      <message>CONVSEC= CONV</message>
+      <message> </message>
+      <message>SIGVER INFORMATION</message>
+      <message>------------------</message>
+      <message>SIGREQUIRED = NO</message>
+      <message>FAILLOAD = NEVER</message>
+      <message>SIGAUDIT = SUCCESS</message>
+    </command>
+  </resource>
+  <returncode>0</returncode>
+  <reasoncode>0</reasoncode>
+</securityresult>
