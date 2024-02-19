@@ -57,6 +57,7 @@
 [[tool.poetry.source]]
 name = "pyaitoolkit"
 url = "https://downloads.pyaitoolkit.ibm.net:443/repository/python_ai_toolkit_zos/simple"
+priority = "explicit"
 
 [tool.isort]
     profile = "black"
