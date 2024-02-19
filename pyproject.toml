@@ -42,7 +42,7 @@
 [tool.poetry.dependencies]
     python = ">=3.10"
     defusedxml = ">=0.7.1"
-    pandas = {version = "==1.5.1.post3", source = "IBM Python AI Toolkit"}
+    pandas = { version = "==1.5.1.post3", source = "pyaitoolkit" }
 
 [tool.poetry.group.dev.dependencies]
     isort = ">=5.13.2"
@@ -55,9 +55,8 @@
     ebcdic = ">=1.1.1"
 
 [[tool.poetry.source]]
-name = "IBM Python AI Toolkit"
-url = "https://downloads.pyaitoolkit.ibm.net:443/repository/python_ai_toolkit_zos/simple/"
-default = true
+name = "pyaitoolkit"
+url = "https://downloads.pyaitoolkit.ibm.net:443/repository/python_ai_toolkit_zos/simple"
 
 [tool.isort]
     profile = "black"
