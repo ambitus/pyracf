@@ -25,18 +25,16 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
 
     static char *kwlist[] = {
         "request_xml",
-        "request_xml_length",
         "result_buffer_size",
         "irrsmo00_options",
         "running_userid",
-        "running_userid_length",
         NULL};
 
     if (
         !PyArg_ParseTupleAndKeywords(
             args,
             kwargs,
-            "y|IIIyb",
+            "y#|IIy#",
             kwlist,
             &request_xml,
             &request_xml_length,
@@ -122,12 +120,12 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     // Py_BuildValue() will return a Tuple.
 
     return Py_BuildValue(
-        "y#BBB", 
-        result_buffer, 
-        result_buffer_size, 
-        saf_rc, 
-        racf_rc, 
-        racf_rsn);
+        "{s:y#,s:I,s:B,s:B,s:B}", 
+        "resultBuffer", result_buffer, result_buffer_size,
+        "handlePointer", req_handle,
+        "safReturnCode", saf_rc, 
+        "racfReturnCode", racf_rc, 
+        "racfReasonCode", racf_rsn);
 }
 
 static char call_irrsmo00_docs[] =
