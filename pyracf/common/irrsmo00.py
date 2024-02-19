@@ -61,18 +61,16 @@ class IRRSMO00:
             running_userid = run_as_userid.encode("cp1047")
         result = call_irrsmo00(
             request_xml=request_xml,
-            request_xml_length=len(request_xml),
             result_buffer_size=self.__result_buffer_size,
             irrsmo00_options=irrsmo00_options,
             running_userid=running_userid,
-            running_userid_length=len(running_userid),
         )
         # Preserve raw result XML just in case we need to create a dump.
         # If the decoded result XML cannot be parsed with the XML parser,
         # a dump may need to be taken to aid in problem determination.
-        self.__raw_result_xml = result[0]
+        self.__raw_result_xml = result["resultBuffer"]
         # Replace any null bytes in the result XML with spaces.
-        result_xml = self.__null_byte_fix(result[0])
+        result_xml = self.__null_byte_fix(result["resultBuffer"])
         # 'irrsmo00.c' returns a raw unmodified bytes object containing a copy
         # of the exact contents of the result xml buffer that the IRRSMO00
         # callable service populates.
@@ -88,5 +86,9 @@ class IRRSMO00:
         # service was unable to process the request. in this case, would should
         # only return the return and reasons codes for error handling downstream.
         if result_xml_length == 0:
-            return list(result[1:4])
+            return [
+                result["safReturnCode"],
+                result["racfReturnCode"],
+                result["racfReasonCode"],
+            ]
         return result_xml[:result_xml_length].decode("cp1047")
