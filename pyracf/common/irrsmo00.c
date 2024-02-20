@@ -91,7 +91,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     full_result = PyList_New(1);
     PyList_SetItem(full_result, 0, Py_BuildValue("y#", result_buffer, result_len));
 
-    if ((saf_rc == 8) && (racf_rc == 4000) && (racf_rsn < (100000000 - result_buffer_size))){
+    if ((saf_rc == 8) && (racf_rc == 4000) && (racf_rsn < 100000000)){
         free(result_buffer);
         result_len = racf_rsn;
         result_buffer = malloc(result_len);
