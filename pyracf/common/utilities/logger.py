@@ -170,19 +170,29 @@ class Logger:
         if isinstance(input_string, bytes):
             input_string = input_string.decode("cp1047")
             is_bytes = True
-        quoted = re.search(rf"{key.upper()}( +)\(\'.*?(?<!\')\'\)", input_string)
+        quoted = re.search(rf"{key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)", input_string)
+        nested = re.search(
+            rf"{key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)", input_string
+        )
         if quoted is not None:
             input_string = re.sub(
-                rf"{key.upper()}( +)\(\'.*?(?<!\')\'\)",
+                rf"{key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)",
                 rf"{key.upper()}\1('{asterisks}')",
                 input_string,
             )
         else:
-            input_string = re.sub(
-                rf"{key.upper()}( +)\(.*?(?<!\\)\)",
-                rf"{key.upper()}\1({asterisks})",
-                input_string,
-            )
+            if nested is not None:
+                input_string = re.sub(
+                    rf"{key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)",
+                    rf"{key.upper()}\1({asterisks})",
+                    input_string,
+                )
+            else:
+                input_string = re.sub(
+                    rf"{key.upper()}( +){{0,}}\(.*?(?<!\\)\)",
+                    rf"{key.upper()}\1({asterisks})",
+                    input_string,
+                )
         if is_bytes:
             return input_string.encode("cp1047")
         return input_string
@@ -233,6 +243,7 @@ class Logger:
         Redacts a list of specific secret traits in a result xml string.
         Based on the following RACF command patterns:
             'TRAIT (value)'
+            'TRAIT (subtrait1(value) subtrait2(value))
             "TRAIT ('value')"
         This function also accounts for varied amounts of whitespace in the pattern.
         """
@@ -244,10 +255,10 @@ class Logger:
                 racf_key = self.__racf_key_map[racf_key]
             if isinstance(security_result, bytes):
                 match = re.search(
-                    rf"{racf_key.upper()} +\(", security_result.decode("cp1047")
+                    rf"{racf_key.upper()}( +){{0,}}\(", security_result.decode("cp1047")
                 )
             else:
-                match = re.search(rf"{racf_key.upper()} +\(", security_result)
+                match = re.search(rf"{racf_key.upper()}( +){{0,}}\(", security_result)
             if not match:
                 continue
             security_result = self.__redact_string(security_result, racf_key)

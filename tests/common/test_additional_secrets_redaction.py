@@ -21,13 +21,13 @@ from pyracf import (
 __init__
 
 
-@patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
 class TestAdditionalSecretsRedaction(unittest.TestCase):
     maxDiff = None
 
     # ============================================================================
     # User Administration
     # ============================================================================
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_user_admin_custom_secret_redacted_on_success(
         self,
         call_racf_mock: Mock,
@@ -50,6 +50,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             result,
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_user_admin_custom_secret_redacted_on_error(
         self,
         call_racf_mock: Mock,
@@ -73,6 +74,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             exception.exception.result,
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_user_admin_custom_secret_redacted_when_complex_characters(
         self,
         call_racf_mock: Mock,
@@ -97,9 +99,26 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             result,
         )
 
+    def test_user_admin_custom_secret_redacted_request(self):
+        user_admin = UserAdmin(
+            additional_secret_traits=["omvs:uid"], generate_requests_only=True
+        )
+        result = user_admin.alter(
+            "squidwrd",
+            traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
+        )
+        self.assertNotIn(
+            bytes(
+                TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
+                "utf-8",
+            ),
+            result,
+        )
+
     # ============================================================================
     # Group Administration
     # ============================================================================
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_group_admin_custom_secret_redacted_on_success(
         self,
         call_racf_mock: Mock,
@@ -122,6 +141,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             result,
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_group_admin_custom_secret_redacted_on_error(
         self,
         call_racf_mock: Mock,
@@ -145,9 +165,25 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             exception.exception.result,
         )
 
+    def test_group_admin_custom_secret_redacted_request(self):
+        group_admin = GroupAdmin(
+            additional_secret_traits=["omvs:gid"], generate_requests_only=True
+        )
+        result = group_admin.alter(
+            "squidwrd",
+            traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS,
+        )
+        self.assertNotIn(
+            bytes(
+                TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"], "utf-8"
+            ),
+            result,
+        )
+
     # ============================================================================
     # General Resource Profile Administration
     # ============================================================================
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_resource_admin_custom_secret_redacted_on_success(
         self,
         call_racf_mock: Mock,
@@ -171,6 +207,31 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             result,
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_resource_admin_custom_mapped_secret_redacted_on_success(
+        self,
+        call_racf_mock: Mock,
+    ):
+        resource_admin = ResourceAdmin(additional_secret_traits=["base:audit_update"])
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_OVERWRITE_AUDIT_RESULT_SUCCESS_XML,
+        ]
+        result = resource_admin.overwrite_audit_rules_by_access_level(
+            "TESTING",
+            "ELIJTEST",
+            update="ALL",
+        )
+        self.assertEqual(
+            result,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_AUDIT_SECRET_DICTIONARY,
+        )
+        self.assertNotIn(
+            "ALL",
+            result,
+        )
+
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_resource_admin_custom_secret_redacted_on_error(
         self,
         call_racf_mock: Mock,
@@ -198,9 +259,27 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             exception.exception.result,
         )
 
+    def test_resource_admin_custom_secret_redacted_request(self):
+        resource_admin = ResourceAdmin(
+            additional_secret_traits=["base:owner"], generate_requests_only=True
+        )
+        result = resource_admin.alter(
+            "TESTING",
+            "ELIJTEST",
+            traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
+        )
+        self.assertNotIn(
+            bytes(
+                TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS["base:owner"],
+                "utf-8",
+            ),
+            result,
+        )
+
     # ============================================================================
     # Data Set Profile Administration
     # ============================================================================
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_data_set_admin_custom_secret_redacted_on_success(
         self,
         call_racf_mock: Mock,
@@ -223,6 +302,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             result,
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
     def test_data_set_admin_custom_secret_redacted_on_error(
         self,
         call_racf_mock: Mock,
@@ -245,4 +325,20 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         self.assertNotIn(
             TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS[f"{secret_trait}"],
             exception.exception.result,
+        )
+
+    def test_data_set_admin_custom_secret_redacted_request(self):
+        data_set_admin = DataSetAdmin(
+            additional_secret_traits=["base:owner"], generate_requests_only=True
+        )
+        result = data_set_admin.alter(
+            "ESWIFT.TEST.T1136242.P3020470",
+            traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
+        )
+        self.assertNotIn(
+            bytes(
+                TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS["base:owner"],
+                "utf-8",
+            ),
+            result,
         )

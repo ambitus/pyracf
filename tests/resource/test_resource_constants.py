@@ -25,11 +25,17 @@ TEST_ADD_RESOURCE_RESULT_ERROR_DICTIONARY = get_sample("add_resource_result_erro
 
 # Alter Resource
 TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML = get_sample("alter_resource_result_success.xml")
+TEST_ALTER_RESOURCE_OVERWRITE_AUDIT_RESULT_SUCCESS_XML = get_sample(
+    "alter_resource_overwrite_audit_result_success.xml"
+)
 TEST_ALTER_RESOURCE_RESULT_SUCCESS_DICTIONARY = get_sample(
     "alter_resource_result_success.json"
 )
 TEST_ALTER_RESOURCE_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY = get_sample(
     "alter_resource_result_success_owner_secret.json"
+)
+TEST_ALTER_RESOURCE_RESULT_SUCCESS_AUDIT_SECRET_DICTIONARY = get_sample(
+    "alter_resource_result_success_audit_secret.json"
 )
 TEST_ALTER_RESOURCE_RESULT_ERROR_XML = get_sample("alter_resource_result_error.xml")
 TEST_ALTER_RESOURCE_RESULT_ERROR_DICTIONARY = get_sample(
