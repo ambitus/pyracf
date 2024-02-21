@@ -177,6 +177,9 @@ class SecurityAdmin:
     # ============================================================================
     def __add_additional_secret_traits(self, additional_secret_traits: list) -> None:
         """Add additional fields to be redacted in logger output."""
+        unsupported_profile_types = ["permission", "groupConnection", "systemSettings"]
+        if self._profile_type in unsupported_profile_types:
+            return
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
                 continue

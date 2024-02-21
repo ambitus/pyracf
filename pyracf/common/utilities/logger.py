@@ -11,6 +11,16 @@ from typing import List, Union
 class Logger:
     """Logging for pyRACF."""
 
+    __racf_key_map = {
+        "audaltr": "audit",
+        "audcntl": "audit",
+        "audnone": "audit",
+        "audread": "audit",
+        "audupdt": "audit",
+    }
+
+    __racf_message_key_map = {"uacc": "universal access"}
+
     __ansi_reset = "\033[0m"
     __ansi_gray = "\033[2m"
     __ansi_green = "\033[32m"
@@ -230,6 +240,8 @@ class Logger:
             return security_result
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
+            if racf_key in self.__racf_key_map:
+                racf_key = self.__racf_key_map[racf_key]
             if isinstance(security_result, bytes):
                 match = re.search(
                     rf"{racf_key.upper()} +\(", security_result.decode("cp1047")
@@ -239,6 +251,8 @@ class Logger:
             if not match:
                 continue
             security_result = self.__redact_string(security_result, racf_key)
+            if racf_key in self.__racf_message_key_map:
+                racf_key = self.__racf_message_key_map[racf_key]
             if isinstance(security_result, bytes):
                 security_result = re.sub(
                     rf"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>",
