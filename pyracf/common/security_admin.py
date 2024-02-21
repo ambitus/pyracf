@@ -119,7 +119,6 @@ class SecurityAdmin:
             self._logger.log_experimental("Replace Existing Segment Traits")
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
-            self._logger.log_experimental("Add Additional Secret Traits")
             self.__add_additional_secret_traits(additional_secret_traits)
         self.set_running_userid(run_as_userid)
 

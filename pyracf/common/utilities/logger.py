@@ -159,38 +159,77 @@ class Logger:
     def __redact_string(
         self,
         input_string: Union[str, bytes],
-        key: str,
+        trait_key: str,
     ) -> Union[str, bytes]:
-        """
+        r"""
         Redacts characters in a string between a starting index and ending tag.
         Replaces the identified characters with '********' regardless of the original length.
+
+        This function employs the following regular expressions explained below
+
+        Regex 1 ("quoted")
+        This is designed to match the pattern TRAIT('value') by matching the TRAIT name:
+        {trait_key.upper()}, a variable (potentially zero) amount of spaces ( +){{0,}}, then the
+        ('value') portion which must start and end with (' and '), but can conceivably contain
+        any characters, but a negative lookbehind is used to look for any unescaped single quotes
+        .*?(?<!\') that would indicate the matching of (' and ') is otherwise a coincidence.
+
+        Regex 2 ("nested")
+        This is designed to match the pattern TRAIT( subtrait1(value) subtrait2(value)) by
+        matching the TRAIT name: {trait_key.upper()}, a variable (potentially zero) amount of
+        spaces ( +){{0,}}, then the ( subtrait1(value) subtrait2(value)) portion which must
+        start and end with ( and ), but must also contain a nested set of opened parentheses
+        rather than a direct seqence of them. The pattern \([^)]*\( looks for these nested
+        open parenthesis as a sequence would have a ) character between them. Then the expression
+        allows any non-newline characters: .* and the "end pattern" of ) and ) separated by a
+        variable (potentially zero) whitespace.
+
+        If neither of these two patterns is found for a supplied trait_key, then it is assumed
+        this trait is set with the default pattern below.
+
+        Regex 3 ("default")
+        This is designed to match the pattern TRAIT(value) by matching the TRAIT name:
+        {trait_key.upper()}, a variable (potentially zero) amount of spaces ( +){{0,}}, then the
+        (value) portion which must start and end with ( and ), but can conceivably contain any
+        characters, but a negative lookbehind is used to look for any escape \ character .*?(?<!\\)
+        that would indicate the matching of the ( and ) is otherwise a coincidence.
+
+        In all replacement expressions, the variable amounts of whitespace are captured so that
+        they can be preserved by this redaction operations. This is indicated by the \1 in the
+        replacement string.
+
         """
+        # Regex 1 ("quoted") - {trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)
+        # Regex 2 ("nested") - {trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)
+        # Regex 3 ("default") - {trait_key.upper()}( +){{0,}}\(.*?(?<!\\)\)
         asterisks = "********"
         is_bytes = False
         if isinstance(input_string, bytes):
             input_string = input_string.decode("cp1047")
             is_bytes = True
-        quoted = re.search(rf"{key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)", input_string)
+        quoted = re.search(
+            rf"{trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)", input_string
+        )
         nested = re.search(
-            rf"{key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)", input_string
+            rf"{trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)", input_string
         )
         if quoted is not None:
             input_string = re.sub(
-                rf"{key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)",
-                rf"{key.upper()}\1('{asterisks}')",
+                rf"{trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)",
+                rf"{trait_key.upper()}\1('{asterisks}')",
                 input_string,
             )
         else:
             if nested is not None:
                 input_string = re.sub(
-                    rf"{key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)",
-                    rf"{key.upper()}\1({asterisks})",
+                    rf"{trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)",
+                    rf"{trait_key.upper()}\1({asterisks})",
                     input_string,
                 )
             else:
                 input_string = re.sub(
-                    rf"{key.upper()}( +){{0,}}\(.*?(?<!\\)\)",
-                    rf"{key.upper()}\1({asterisks})",
+                    rf"{trait_key.upper()}( +){{0,}}\(.*?(?<!\\)\)",
+                    rf"{trait_key.upper()}\1({asterisks})",
                     input_string,
                 )
         if is_bytes:
@@ -202,11 +241,20 @@ class Logger:
         xml_string: Union[str, bytes],
         secret_traits: dict,
     ) -> Union[str, bytes]:
-        """
+        r"""
         Redact a list of specific secret traits in a request xml string or bytes object.
         Based the following xml pattern:
             '<xmltag attribute="any">xml value</xmltag>'
         This function also accounts for any number of arbitrary xml attributes.
+
+        This function employs the following regular expression:
+        {xml_key}(.*)>.*<\/{xml_key} - Designed to match the above pattern by starting and ending
+        with the xmltag string as shown, but the starting tage allows for any characters between
+        "xmltag" and the > character to allow for the attribute specification shown above. This
+        results in the starting of the xml as {xml_key}(.*)> and the ending as <\/{xml_key}.
+        The miscellaneous characters are "captured" as a variable and preserved by the
+        substitution operation through the use of the \1 supplied in the replacement string.
+        Between these tags, any non-newline characters are allowed using the .* expression.
         """
         is_bytes = False
         if isinstance(xml_string, bytes):
