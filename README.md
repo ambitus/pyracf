@@ -1,8 +1,11 @@
 ![pyRACF Logo](logo.png)
 
-![GitHub Actions Build Status](https://github.com/ambitus/pyracf/actions/workflows/.github-actions.yml/badge.svg?branch=dev)
+![tests](https://github.com/ambitus/pyracf/actions/workflows/unittest.yml/badge.svg?branch=dev)
+![coverage](https://github.com/ambitus/pyracf/actions/workflows/coverage.yml/badge.svg?branch=dev)
+![pylint](https://github.com/ambitus/pyracf/actions/workflows/pylint.yml/badge.svg?branch=dev)
+![flake8](https://github.com/ambitus/pyracf/actions/workflows/flake8.yml/badge.svg?branch=dev)
+![cppcheck](https://github.com/ambitus/pyracf/actions/workflows/cppcheck.yml/badge.svg?branch=dev)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/8437/badge)](https://bestpractices.coreinfrastructure.org/projects/8437)
-
 
 Python interface into the RACF management application programming interface.
 
