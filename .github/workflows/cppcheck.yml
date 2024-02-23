@@ -19,6 +19,4 @@ jobs:
                  --inconclusive \
                  --language=c \
                  --force \
-                 --suppress=missingIncludeSystem \
-                 --suppress=unusedFunction \
                  ./pyracf/common/irrsmo00.c
