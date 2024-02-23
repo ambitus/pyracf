@@ -1,3 +1,5 @@
+> :warning: _Ensure that you have adhered to this projects [Contribution Guidelines](../CONTRIBUTING.md) before opening a pull request._
+
 ### :bulb: Issue Reference
 
 **Issue:**  *Include any issues related to this PR*

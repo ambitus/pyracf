@@ -1,6 +1,8 @@
 ![pyRACF Logo](logo.png)
 
 ![GitHub Actions Build Status](https://github.com/ambitus/pyracf/actions/workflows/.github-actions.yml/badge.svg?branch=dev)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/8437/badge)](https://bestpractices.coreinfrastructure.org/projects/8437)
+
 
 Python interface into the RACF management application programming interface.
 
@@ -42,11 +44,22 @@ As automation becomes more and more prevalent, the need to manage the security e
 
 ## Help
 
-* [Github Discussions](https://github.com/ambitus/pyracf/discussions)
+* [GitHub Discussions](https://github.com/ambitus/pyracf/discussions)
+
+## Report Bugs/Vulnerabilities & Request Enhancements
+
+:warning: _You may also report **vulnerabilities** privately by emailing this project's [Maintainers](#maintainers). This method is preferred if the vulnerability is high severity._
+
+* [GitHub Issues](https://github.com/ambitus/pyracf/issues)
 
 ## Authors
 
 * Joe Bostian: jbostian@ibm.com
 * Frank De Gilio: degilio@us.ibm.com
+* Leonard Carcaramo: lcarcaramo@ibm.com
+* Elijah Swift: Elijah.Swift@ibm.com
+
+## Maintainers
+
 * Leonard Carcaramo: lcarcaramo@ibm.com
 * Elijah Swift: Elijah.Swift@ibm.com

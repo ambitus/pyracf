@@ -24,7 +24,7 @@ def build(setup_kwargs: dict):
                     sources=["pyracf/common/irrsmo00.c"],
                     extra_compile_args=[
                         "-D_XOPEN_SOURCE_EXTENDED",
-                        "-Wc,lp64,langlvl(EXTC99),STACKPROTECT(ALL),",
+                        "-Wc,lp64,langlvl(EXTC99),-Wc,info(all,als),STACKPROTECT(ALL),"
                         "-qcpluscmt",
                     ],
                 )
