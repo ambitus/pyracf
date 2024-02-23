@@ -10,9 +10,9 @@ jobs:
     - name: Install cppcheck
       run: sudo apt-get install -y cppcheck
     - name: Run cppcheck
-      run: cppcheck --help
-      run: cppcheck --version
       run: |
+        cppcheck --help
+        cppcheck --version
         cppcheck --error-exitcode=1 \
                  --std=c99 \
                  --enable=all \
