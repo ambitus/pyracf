@@ -65,18 +65,6 @@ TEST_ALTER_USER_PASSPHRASE_AND_PASSWORD_RESULT_ERROR_DICTIONARY = get_sample(
 TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML = get_sample(
     "alter_user_result_extended_success.xml"
 )
-TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_DICTIONARY = get_sample(
-    "alter_user_result_extended_success.json"
-)
-TEST_ALTER_USER_RESULT_ERROR_UID_SECRET_DICTIONARY = get_sample(
-    "alter_user_result_error_uid_secret.json"
-)
-TEST_ALTER_USER_RESULT_INST_DATA_SUCCESS_XML = get_sample(
-    "alter_user_result_success_inst_data.xml"
-)
-TEST_ALTER_USER_RESULT_SUCCESS_INST_DATA_SECRET_DICTIONARY = get_sample(
-    "alter_user_result_success_inst_data_secret.json"
-)
 
 # Extract User
 TEST_EXTRACT_USER_RESULT_BASE_OMVS_SUCCESS_XML = get_sample(

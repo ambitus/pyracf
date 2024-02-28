@@ -54,6 +54,10 @@ class SecurityAdmin:
 
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
+    _racf_key_map = {}
+    _racf_message_key_map = {}
+    _racf_key_map = {}
+    _racf_message_key_map = {}
     _case_sensitive_extracted_values = []
     __running_userid = None
     _logger = Logger()
@@ -119,6 +123,7 @@ class SecurityAdmin:
             self._logger.log_experimental("Replace Existing Segment Traits")
             self.__replace_valid_segment_traits(replace_existing_segment_traits)
         if additional_secret_traits is not None:
+            self._logger.log_experimental("Add Additional Secret Traits")
             self.__add_additional_secret_traits(additional_secret_traits)
         self.set_running_userid(run_as_userid)
 
@@ -169,7 +174,12 @@ class SecurityAdmin:
         if self.__debug:
             # Note, since the hex dump is logged to the console,
             # secrets will be redacted.
-            self._logger.log_hex_dump(raw_result_xml, self.__secret_traits)
+            self._logger.log_hex_dump(
+                raw_result_xml,
+                self.__secret_traits,
+                self._racf_key_map,
+                self._racf_message_key_map,
+            )
 
     # ============================================================================
     # Secrets Redaction
@@ -244,6 +254,8 @@ class SecurityAdmin:
                 self.__running_userid,
             ),
             self.__secret_traits,
+            self._racf_key_map,
+            self._racf_message_key_map,
         )
         self.__clear_state(security_request)
         if isinstance(raw_result, list):

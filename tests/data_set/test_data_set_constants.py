@@ -34,15 +34,9 @@ TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML = get_sample("alter_data_set_result_succe
 TEST_ALTER_DATA_SET_RESULT_SUCCESS_DICTIONARY = get_sample(
     "alter_data_set_result_success.json"
 )
-TEST_ALTER_DATA_SET_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY = get_sample(
-    "alter_data_set_result_success_owner_secret.json"
-)
 TEST_ALTER_DATA_SET_RESULT_ERROR_XML = get_sample("alter_data_set_result_error.xml")
 TEST_ALTER_DATA_SET_RESULT_ERROR_DICTIONARY = get_sample(
     "alter_data_set_result_error.json"
-)
-TEST_ALTER_DATA_SET_RESULT_ERROR_UACC_SECRET_DICTIONARY = get_sample(
-    "alter_data_set_result_error_uacc_secret.json"
 )
 
 # Extract Data Set

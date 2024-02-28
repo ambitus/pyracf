@@ -63,6 +63,14 @@ class DataSetAdmin(SecurityAdmin):
             "dfp": {"dfp:owner": "racf:resowner", "dfp:ckds_data_key": "racf:datakey"},
             "tme": {"tme:roles": "racf:roles"},
         }
+        self._racf_key_map = {
+            "audaltr": "audit",
+            "audcntl": "audit",
+            "audnone": "audit",
+            "audread": "audit",
+            "audupdt": "audit",
+        }
+        self._racf_message_key_map = {"uacc": "universal access"}
         self._valid_segment_traits["base"].update(
             self._common_base_traits_data_set_generic
         )

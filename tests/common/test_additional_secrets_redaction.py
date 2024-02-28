@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 
 import __init__
 
+import tests.common.test_common_constants as TestCommonConstants
 import tests.data_set.test_data_set_constants as TestDataSetConstants
 import tests.group.test_group_constants as TestGroupConstants
 import tests.resource.test_resource_constants as TestResourceConstants
@@ -43,7 +44,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_USER_RESULT_SUCCESS_UID_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
@@ -67,7 +68,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_UID_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_USER_RESULT_ERROR_UID_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"],
@@ -82,7 +83,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         user_admin = UserAdmin(additional_secret_traits=["base:installation_data"])
         call_racf_mock.side_effect = [
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestUserConstants.TEST_ALTER_USER_RESULT_INST_DATA_SUCCESS_XML,
+            TestCommonConstants.TEST_ALTER_USER_RESULT_INST_DATA_SUCCESS_XML,
         ]
         result = user_admin.alter(
             "squidwrd",
@@ -90,7 +91,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestUserConstants.TEST_ALTER_USER_RESULT_SUCCESS_INST_DATA_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_USER_RESULT_SUCCESS_INST_DATA_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA[
@@ -134,7 +135,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_GID_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_GID_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"],
@@ -158,7 +159,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_GID_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_GROUP_RESULT_ERROR_GID_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS["omvs:gid"],
@@ -200,7 +201,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS["base:owner"],
@@ -215,7 +216,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         resource_admin = ResourceAdmin(additional_secret_traits=["base:audit_update"])
         call_racf_mock.side_effect = [
             TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
-            TestResourceConstants.TEST_ALTER_RESOURCE_OVERWRITE_AUDIT_RESULT_SUCCESS_XML,
+            TestCommonConstants.TEST_ALTER_RESOURCE_OVERWRITE_AUDIT_RESULT_SUCCESS_XML,
         ]
         result = resource_admin.overwrite_audit_rules_by_access_level(
             "TESTING",
@@ -224,7 +225,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_AUDIT_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_AUDIT_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             "ALL",
@@ -250,7 +251,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_UACC_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_UACC_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS[
@@ -295,7 +296,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
         )
         self.assertEqual(
             result,
-            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS["base:owner"],
@@ -320,7 +321,7 @@ class TestAdditionalSecretsRedaction(unittest.TestCase):
             )
         self.assertEqual(
             exception.exception.result,
-            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_UACC_SECRET_DICTIONARY,
+            TestCommonConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_UACC_SECRET_DICTIONARY,
         )
         self.assertNotIn(
             TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS[f"{secret_trait}"],

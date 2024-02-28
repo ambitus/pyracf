@@ -26,14 +26,8 @@ TEST_ALTER_GROUP_RESULT_SUCCESS_XML = get_sample("alter_group_result_success.xml
 TEST_ALTER_GROUP_RESULT_SUCCESS_DICTIONARY = get_sample(
     "alter_group_result_success.json"
 )
-TEST_ALTER_GROUP_RESULT_SUCCESS_GID_SECRET_DICTIONARY = get_sample(
-    "alter_group_result_success_gid_secret.json"
-)
 TEST_ALTER_GROUP_RESULT_ERROR_XML = get_sample("alter_group_result_error.xml")
 TEST_ALTER_GROUP_RESULT_ERROR_DICTIONARY = get_sample("alter_group_result_error.json")
-TEST_ALTER_GROUP_RESULT_ERROR_GID_SECRET_DICTIONARY = get_sample(
-    "alter_group_result_error_gid_secret.json"
-)
 
 # Extract Group
 TEST_EXTRACT_GROUP_RESULT_BASE_OMVS_SUCCESS_XML = get_sample(

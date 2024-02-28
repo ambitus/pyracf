@@ -11,16 +11,6 @@ from typing import List, Union
 class Logger:
     """Logging for pyRACF."""
 
-    __racf_key_map = {
-        "audaltr": "audit",
-        "audcntl": "audit",
-        "audnone": "audit",
-        "audread": "audit",
-        "audupdt": "audit",
-    }
-
-    __racf_message_key_map = {"uacc": "universal access"}
-
     __ansi_reset = "\033[0m"
     __ansi_gray = "\033[2m"
     __ansi_green = "\033[32m"
@@ -167,41 +157,36 @@ class Logger:
 
         This function employs the following regular expressions explained below
 
-        Regex 1 ("quoted")
-        This is designed to match the pattern TRAIT('value') by matching the TRAIT name:
-        {trait_key.upper()}, a variable (potentially zero) amount of spaces ( +){{0,}}, then the
-        ('value') portion which must start and end with (' and '), but can conceivably contain
-        any characters, but a negative lookbehind is used to look for any unescaped single quotes
-        .*?(?<!\') that would indicate the matching of (' and ') is otherwise a coincidence.
+        Regex 1 ("quoted") - {trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)
+        This is designed to match the pattern TRAIT('value') by matching the TRAIT name, a
+        variable (potentially zero) amount of spaces, then the ('value') portion which must
+        start and end with (' and '), but can conceivably contain any characters, but a negative
+        lookbehind is used to look for any unescaped single quotes that would indicate the matching
+        of ') is otherwise a coincidence.
 
-        Regex 2 ("nested")
+        Regex 2 ("nested") - {trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)
         This is designed to match the pattern TRAIT( subtrait1(value) subtrait2(value)) by
-        matching the TRAIT name: {trait_key.upper()}, a variable (potentially zero) amount of
-        spaces ( +){{0,}}, then the ( subtrait1(value) subtrait2(value)) portion which must
-        start and end with ( and ), but must also contain a nested set of opened parentheses
-        rather than a direct seqence of them. The pattern \([^)]*\( looks for these nested
-        open parenthesis as a sequence would have a ) character between them. Then the expression
-        allows any non-newline characters: .* and the "end pattern" of ) and ) separated by a
-        variable (potentially zero) whitespace.
+        matching the TRAIT name, a variable (potentially zero) amount of spaces, then the
+        ( subtrait1(value) subtrait2(value)) portion which must start and end with ( and ),
+        but must also contain a nested set of opened parentheses rather than a direct seqence of
+        them. The pattern looks for these nested open parenthesis as a sequence would have a )
+        character between them. Then the expression allows any non-newline characters and the
+        "end pattern" of ) and ) separated by a variable (potentially zero) whitespace.
 
         If neither of these two patterns is found for a supplied trait_key, then it is assumed
         this trait is set with the default pattern below.
 
-        Regex 3 ("default")
-        This is designed to match the pattern TRAIT(value) by matching the TRAIT name:
-        {trait_key.upper()}, a variable (potentially zero) amount of spaces ( +){{0,}}, then the
-        (value) portion which must start and end with ( and ), but can conceivably contain any
-        characters, but a negative lookbehind is used to look for any escape \ character .*?(?<!\\)
-        that would indicate the matching of the ( and ) is otherwise a coincidence.
+        Regex 3 ("default") - {trait_key.upper()}( +){{0,}}\(.*?(?<!\\)\)
+        This is designed to match the pattern TRAIT(value) by matching the TRAIT name, a variable
+        (potentially zero) amount of spaces, then the (value) portion which must start and end
+        with ( and ), but can conceivably contain any characters, but a negative lookbehind
+        is used to look for any escape \ character that would indicate the matching of the
+        ( and ) is otherwise a coincidence.
 
         In all replacement expressions, the variable amounts of whitespace are captured so that
-        they can be preserved by this redaction operations. This is indicated by the \1 in the
-        replacement string.
+        they can be preserved by this redaction operations.
 
         """
-        # Regex 1 ("quoted") - {trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)
-        # Regex 2 ("nested") - {trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)
-        # Regex 3 ("default") - {trait_key.upper()}( +){{0,}}\(.*?(?<!\\)\)
         asterisks = "********"
         is_bytes = False
         if isinstance(input_string, bytes):
@@ -286,6 +271,8 @@ class Logger:
         self,
         security_result: Union[str, bytes, List[int]],
         secret_traits: dict,
+        racf_key_map: dict = {},
+        racf_message_key_map: dict = {},
     ) -> str:
         """
         Redacts a list of specific secret traits in a result xml string.
@@ -299,8 +286,9 @@ class Logger:
             return security_result
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            if racf_key in self.__racf_key_map:
-                racf_key = self.__racf_key_map[racf_key]
+            if racf_key in racf_key_map:
+                print(racf_key_map[racf_key])
+                racf_key = racf_key_map[racf_key]
             if isinstance(security_result, bytes):
                 match = re.search(
                     rf"{racf_key.upper()}( +){{0,}}\(", security_result.decode("cp1047")
@@ -310,8 +298,8 @@ class Logger:
             if not match:
                 continue
             security_result = self.__redact_string(security_result, racf_key)
-            if racf_key in self.__racf_message_key_map:
-                racf_key = self.__racf_message_key_map[racf_key]
+            if racf_key in racf_message_key_map:
+                racf_key = racf_message_key_map[racf_key]
             if isinstance(security_result, bytes):
                 security_result = re.sub(
                     rf"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>",
@@ -457,7 +445,13 @@ class Logger:
             indented_xml += f"{'  ' * indent_level}{current_line}\n"
         return indented_xml[:-2]
 
-    def log_hex_dump(self, raw_result_xml: bytes, secret_traits: dict) -> None:
+    def log_hex_dump(
+        self,
+        raw_result_xml: bytes,
+        secret_traits: dict,
+        racf_key_map: dict,
+        racf_message_key_map: dict,
+    ) -> None:
         """
         Log the raw result XML returned by IRRSMO00 as a hex dump.
         """
@@ -470,6 +464,8 @@ class Logger:
         raw_result_xml = self.redact_result_xml(
             raw_result_xml,
             secret_traits,
+            racf_key_map,
+            racf_message_key_map,
         )
         for byte in raw_result_xml:
             color_function = self.__green
