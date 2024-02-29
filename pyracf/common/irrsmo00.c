@@ -29,16 +29,16 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         "request_xml_len",
         "result_buffer_size",
         "irrsmo00_options",
+        "handle",
         "running_userid",
         "running_userid_len",
-        "handle",
         NULL};
 
     if (
         !PyArg_ParseTupleAndKeywords(
             args,
             kwargs,
-            "yIIIy|yb",
+            "yIII|yyb",
             kwlist,
             &request_xml,
             &request_xml_length,
@@ -89,40 +89,6 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         &result_len,
         result_buffer);
 
-    // Use a PyList Structure to accumulate "bytes" objects of result_buffers
-    full_result = PyList_New(1);
-    PyList_SetItem(full_result, 0, Py_BuildValue("y#", result_buffer, result_len));
-
-    if ((saf_rc == 8) && (racf_rc == 4000) && (racf_rsn < 100000000)){
-        free(result_buffer);
-        result_len = racf_rsn;
-        result_buffer = malloc(result_len);
-        memset(result_buffer, 0, result_len);
-
-        // Call IRRSMO64 Again with the appropriate buffer size
-        IRRSMO64(
-            work_area,
-            alet,
-            &saf_rc,
-            alet,
-            &racf_rc,
-            alet,
-            &racf_rsn,
-            num_parms,
-            fn,
-            irrsmo00_options,
-            request_xml_length,
-            request_xml,
-            new_req_handle,
-            running_userid_struct,
-            acee,
-            &result_len,
-            result_buffer);
-
-        PyList_Append(full_result, Py_BuildValue("y#", result_buffer, result_len));
-    }
-
-    free(result_buffer);
 
     // https://docs.python.org/3/c-api/arg.html#c.Py_BuildValue
     //
