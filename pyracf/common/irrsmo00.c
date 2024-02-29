@@ -59,6 +59,9 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     unsigned int saf_rc = 0;
     unsigned int racf_rc = 0;
     unsigned int racf_rsn = 0;
+    unsigned int new_saf_rc = 0;
+    unsigned int new_racf_rc = 0;
+    unsigned int new_racf_rsn = 0;
     unsigned int result_len = result_buffer_size;
     unsigned int num_parms = 17;
     unsigned int fn = 1;
@@ -101,11 +104,11 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         IRRSMO64(
             work_area,
             alet,
-            &saf_rc,
+            &new_saf_rc,
             alet,
-            &racf_rc,
+            &new_racf_rc,
             alet,
-            &racf_rsn,
+            &new_racf_rsn,
             num_parms,
             fn,
             irrsmo00_options,
