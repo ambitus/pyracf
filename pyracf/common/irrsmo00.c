@@ -20,52 +20,56 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     const unsigned int request_xml_length;
     const unsigned int result_buffer_size;
     const unsigned int irrsmo00_options;
+    const char request_handle[64] = {0};
     const char *running_userid;
     const uint8_t running_userid_length;
 
     static char *kwlist[] = {
         "request_xml",
-        "request_xml_length",
+        "request_xml_len",
         "result_buffer_size",
         "irrsmo00_options",
+        "handle",
         "running_userid",
-        "running_userid_length",
+        "running_userid_len",
         NULL};
 
     if (
         !PyArg_ParseTupleAndKeywords(
             args,
             kwargs,
-            "y|IIIyb",
+            "yIII|w*yb",
             kwlist,
             &request_xml,
             &request_xml_length,
             &result_buffer_size,
             &irrsmo00_options,
+            &request_handle,
             &running_userid,
             &running_userid_length))
     {
         return NULL;
     }
 
+    PyObject * full_result;
     char work_area[1024];
-    char req_handle[64] = {0};
     running_userid_t running_userid_struct = {running_userid_length, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
-    unsigned char result_buffer[result_buffer_size];
+    unsigned char * result_buffer = malloc(result_buffer_size);
     memset(result_buffer, 0, result_buffer_size);
     unsigned int saf_rc = 0;
     unsigned int racf_rc = 0;
     unsigned int racf_rsn = 0;
+    unsigned int result_len = result_buffer_size;
     unsigned int num_parms = 17;
-    unsigned int fn = 1; 
+    unsigned int fn = 1;
 
     strncpy(
         running_userid_struct.running_userid, 
         running_userid, 
         running_userid_struct.running_userid_length);
-
+    
     IRRSMO64(
         work_area,
         alet,
@@ -79,11 +83,12 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         irrsmo00_options,
         request_xml_length,
         request_xml,
-        req_handle,
+        request_handle,
         running_userid_struct,
         acee,
-        result_buffer_size,
+        &result_len,
         result_buffer);
+
 
     // https://docs.python.org/3/c-api/arg.html#c.Py_BuildValue
     //
@@ -122,12 +127,10 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     // Py_BuildValue() will return a Tuple.
 
     return Py_BuildValue(
-        "y#BBB", 
-        result_buffer, 
-        result_buffer_size, 
-        saf_rc, 
-        racf_rc, 
-        racf_rsn);
+        "{s:y#,s:[B,B,B],s:w*}", 
+        "resultBuffer", result_buffer, result_len,
+        "returnCodes", saf_rc, racf_rc, racf_rsn,
+        "handle", request_handle);
 }
 
 static char call_irrsmo00_docs[] =
@@ -138,7 +141,7 @@ static char call_irrsmo00_docs[] =
     "    irrsmo00_options: uint,\n"
     "    running_userid: bytes,\n"
     "    running_userid_length: uint,\n"
-    ") -> List[bytes,int,int,int]:\n"
+    ") -> Dict{ resultBuffers: List[bytes], returnCodes: List[int,int,int] }:\n"
     "# Returns an XML result string and return and reason "
     "codes from the IRRSMO00 RACF Callable Service.\n";
 
