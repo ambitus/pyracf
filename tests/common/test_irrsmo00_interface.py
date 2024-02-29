@@ -57,7 +57,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
         ])
         # fmt: on
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": xml_containing_null_bytes,
+            "resultBuffers": [xml_containing_null_bytes],
             "returnCodes": [0, 0, 0],
         }
         self.assertEqual(
@@ -71,7 +71,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
     ):
         # Simulate failure due to incomplete 'IRR.IRRSMO00.PRECHECK' setup
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": bytes([0 for i in range(256)]),
+            "resultBuffers": [bytes([0 for i in range(256)])],
             "returnCodes": [8, 200, 16],
         }
         self.assertEqual(self.irrsmo00.call_racf(b""), [8, 200, 16])
@@ -82,31 +82,12 @@ class TestIRRSMO00Interface(unittest.TestCase):
     ):
         # Simulate scenario where result buffer is too small.
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": self.good_xml[:32],
-            "returnCodes": [8, 4000, 100000000],
+            "resultBuffers": [self.good_xml[:32]],
+            "returnCodes": [8, 4000, 32],
         }
         self.assertEqual(
             self.irrsmo00.call_racf(b""), self.good_xml.decode("cp1047")[:32]
         )
-
-    # def test_irrsmo00_result_buffer_full_redrive(
-    #     self,
-    #     call_irrsmo00_wrapper_mock: Mock,
-    # ):
-    #     # Simulate scenario where result buffer is too small.
-    #     call_irrsmo00_wrapper_mock.side_effect = [
-    #     {
-    #         "resultBuffer": self.good_xml[:32],
-    #         "returnCodes": [8, 4000, 32],
-    #     },
-    #     {
-    #         "resultBuffer": self.good_xml[32:],
-    #         "returnCodes": [0, 0, 0],
-    #     },
-    #     ]
-    #     self.assertEqual(
-    #         self.irrsmo00.call_racf(b""), self.good_xml.decode("cp1047")
-    #     )
 
     def test_irrsmo00_result_buffer_full_success(
         self,
@@ -114,7 +95,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
     ):
         # Simulate scenario where result buffer is exactly the right size.
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": self.good_xml[: self.good_xml_null_terminator_index],
+            "resultBuffers": [self.good_xml[: self.good_xml_null_terminator_index]],
             "returnCodes": [0, 0, 0],
         }
         self.assertEqual(
@@ -124,7 +105,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
 
     def test_irrsmo00_normal_result(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": self.good_xml,
+            "resultBuffers": [self.good_xml],
             "returnCodes": [0, 0, 0],
         }
         self.assertEqual(
@@ -137,7 +118,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
     # ============================================================================
     def test_irrsmo00_minimum_arguments(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": self.good_xml,
+            "resultBuffers": [self.good_xml],
             "returnCodes": [0, 0, 0],
         }
         self.irrsmo00.call_racf(b"some bytes")
@@ -152,7 +133,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
 
     def test_irrsmo00_with_precheck_set_to_true(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": self.good_xml,
+            "resultBuffers": [self.good_xml],
             "returnCodes": [0, 0, 0],
         }
         self.irrsmo00.call_racf(b"some bytes", precheck=True)
@@ -167,7 +148,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
 
     def test_irrsmo00_with_run_as_userid_set(self, call_irrsmo00_wrapper_mock: Mock):
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": self.good_xml,
+            "resultBuffers": [self.good_xml],
             "returnCodes": [0, 0, 0],
         }
         self.irrsmo00.call_racf(b"some bytes", run_as_userid="KRABS")
@@ -184,7 +165,7 @@ class TestIRRSMO00Interface(unittest.TestCase):
         self, call_irrsmo00_wrapper_mock: Mock
     ):
         call_irrsmo00_wrapper_mock.return_value = {
-            "resultBuffer": self.good_xml,
+            "resultBuffers": [self.good_xml],
             "returnCodes": [0, 0, 0],
         }
         irrsmo00 = IRRSMO00(result_buffer_size=32768)
