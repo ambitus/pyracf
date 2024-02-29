@@ -38,7 +38,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         !PyArg_ParseTupleAndKeywords(
             args,
             kwargs,
-            "yIII|yyb",
+            "yIII|wyb",
             kwlist,
             &request_xml,
             &request_xml_length,
@@ -127,7 +127,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     // Py_BuildValue() will return a Tuple.
 
     return Py_BuildValue(
-        "{s:y#,s:[B,B,B],s:y#}", 
+        "{s:y#,s:[B,B,B],s:w#}", 
         "resultBuffer", result_buffer, result_len,
         "returnCodes", saf_rc, racf_rc, racf_rsn,
         "handle", request_handle, 64);
