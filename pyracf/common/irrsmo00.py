@@ -80,6 +80,7 @@ class IRRSMO00:
                 irrsmo00_options=irrsmo00_options,
                 running_userid=running_userid,
                 running_userid_len=len(running_userid),
+                handle=result["handle"],
             )
             print(result)
         # Preserve raw result XML just in case we need to create a dump.

@@ -20,6 +20,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     const unsigned int request_xml_length;
     const unsigned int result_buffer_size;
     const unsigned int irrsmo00_options;
+    const char request_handle[64] = {0};
     const char *running_userid;
     const uint8_t running_userid_length;
 
@@ -30,18 +31,20 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         "irrsmo00_options",
         "running_userid",
         "running_userid_len",
+        "handle",
         NULL};
 
     if (
         !PyArg_ParseTupleAndKeywords(
             args,
             kwargs,
-            "y|IIIyb",
+            "yIIIy|yb",
             kwlist,
             &request_xml,
             &request_xml_length,
             &result_buffer_size,
             &irrsmo00_options,
+            &request_handle,
             &running_userid,
             &running_userid_length))
     {
@@ -49,15 +52,14 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     }
 
     char work_area[1024];
-    unsigned char req_handle[64] = {0};
     running_userid_t running_userid_struct = {running_userid_length, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
     unsigned char result_buffer[result_buffer_size];
     memset(result_buffer, 0, result_buffer_size);
-    unsigned int saf_rc = 8;
-    unsigned int racf_rc = 4000;
-    unsigned int racf_rsn = 85771;
+    unsigned int saf_rc = 0;
+    unsigned int racf_rc = 0;
+    unsigned int racf_rsn = 0;
     unsigned int result_len = result_buffer_size;
     unsigned int num_parms = 17;
     unsigned int fn = 1;
@@ -90,7 +92,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         irrsmo00_options,
         request_xml_length,
         request_xml,
-        req_handle,
+        request_handle,
         running_userid_struct,
         acee,
         &result_len,
@@ -144,9 +146,10 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     // Py_BuildValue() will return a Tuple.
 
     return Py_BuildValue(
-        "{s:y#,s:[B,B,B]}", 
+        "{s:y#,s:[B,B,B],s:y}", 
         "resultBuffer", result_buffer, result_len,
-        "returnCodes", saf_rc, racf_rc, racf_rsn);
+        "returnCodes", saf_rc, racf_rc, racf_rsn,
+        "handle",request_handle);
 }
 
 static char call_irrsmo00_docs[] =
