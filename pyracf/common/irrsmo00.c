@@ -51,6 +51,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     PyObject * full_result;
     char work_area[1024];
     unsigned char req_handle[64] = {0};
+    unsigned char new_req_handle[64] = {0};
     running_userid_t running_userid_struct = {running_userid_length, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
@@ -59,9 +60,6 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     unsigned int saf_rc = 0;
     unsigned int racf_rc = 0;
     unsigned int racf_rsn = 0;
-    unsigned int new_saf_rc = 0;
-    unsigned int new_racf_rc = 0;
-    unsigned int new_racf_rsn = 0;
     unsigned int result_len = result_buffer_size;
     unsigned int num_parms = 17;
     unsigned int fn = 1;
@@ -104,17 +102,17 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         IRRSMO64(
             work_area,
             alet,
-            &new_saf_rc,
+            &saf_rc,
             alet,
-            &new_racf_rc,
+            &racf_rc,
             alet,
-            &new_racf_rsn,
+            &racf_rsn,
             num_parms,
             fn,
             irrsmo00_options,
             request_xml_length,
             request_xml,
-            req_handle,
+            new_req_handle,
             running_userid_struct,
             acee,
             &result_len,
