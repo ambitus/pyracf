@@ -126,7 +126,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     //
     // Also note that when two or more return values are provided,
     // Py_BuildValue() will return a Tuple.
-
+    printf("About to 'build' my return value!\n");
     return Py_BuildValue(
         "{s:y#,s:[B,B,B],s:w*}", 
         "resultBuffer", result_buffer, result_len,
