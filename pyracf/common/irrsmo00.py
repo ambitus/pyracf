@@ -67,10 +67,25 @@ class IRRSMO00:
             running_userid=running_userid,
             running_userid_len=len(running_userid),
         )
+        if (
+            (result["returnCodes"][0] == 8)
+            and (result["returnCodes"][1] == 4000)
+            and (result["returnCodes"][2] < 100000000)
+        ):
+            print(result)
+            result = call_irrsmo00(
+                request_xml=request_xml,
+                request_xml_len=len(request_xml),
+                result_buffer_size=result["returnCodes"][2],
+                irrsmo00_options=irrsmo00_options,
+                running_userid=running_userid,
+                running_userid_len=len(running_userid),
+            )
+            print(result)
         # Preserve raw result XML just in case we need to create a dump.
         # If the decoded result XML cannot be parsed with the XML parser,
         # a dump may need to be taken to aid in problem determination.
-        self.__raw_result_xml = b"".join(result["resultBuffers"])
+        self.__raw_result_xml = result["resultBuffer"]
         # Replace any null bytes in the result XML with spaces.
         result_xml = self.__null_byte_fix(self.__raw_result_xml)
         # 'irrsmo00.c' returns a raw unmodified bytes object containing a copy
