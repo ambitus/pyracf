@@ -86,7 +86,7 @@ class IRRSMO00:
         # Preserve raw result XML just in case we need to create a dump.
         # If the decoded result XML cannot be parsed with the XML parser,
         # a dump may need to be taken to aid in problem determination.
-        self.__raw_result_xml = b"".join(result["resultBuffers"])
+        self.__raw_result_xml = result["resultBuffer"]
         # Replace any null bytes in the result XML with spaces.
         result_xml = self.__null_byte_fix(self.__raw_result_xml)
         # 'irrsmo00.c' returns a raw unmodified bytes object containing a copy

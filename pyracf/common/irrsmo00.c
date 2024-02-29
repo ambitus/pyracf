@@ -127,10 +127,10 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     // Py_BuildValue() will return a Tuple.
 
     return Py_BuildValue(
-        "{s:y#,s:[B,B,B],s:y}", 
+        "{s:y#,s:[B,B,B],s:y#}", 
         "resultBuffer", result_buffer, result_len,
         "returnCodes", saf_rc, racf_rc, racf_rsn,
-        "handle",request_handle);
+        "handle", request_handle, 64);
 }
 
 static char call_irrsmo00_docs[] =
