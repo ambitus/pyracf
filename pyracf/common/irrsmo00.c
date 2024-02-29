@@ -20,7 +20,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     const unsigned int request_xml_length;
     const unsigned int result_buffer_size;
     const unsigned int irrsmo00_options;
-    const char request_handle[64] = {0};
+    Py_buffer handle_buffer;
     const char *running_userid;
     const uint8_t running_userid_length;
 
@@ -44,14 +44,15 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
             &request_xml_length,
             &result_buffer_size,
             &irrsmo00_options,
-            &request_handle,
+            &handle_buffer,
             &running_userid,
             &running_userid_length))
     {
         return NULL;
     }
 
-    PyObject * full_result;
+    printf("Arg parse complete!\n");
+
     char work_area[1024];
     running_userid_t running_userid_struct = {running_userid_length, {0}};
     unsigned int alet = 0;
@@ -83,7 +84,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         irrsmo00_options,
         request_xml_length,
         request_xml,
-        request_handle,
+        handle_buffer.buf,
         running_userid_struct,
         acee,
         &result_len,
@@ -130,7 +131,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         "{s:y#,s:[B,B,B],s:w*}", 
         "resultBuffer", result_buffer, result_len,
         "returnCodes", saf_rc, racf_rc, racf_rsn,
-        "handle", request_handle);
+        "handle", handle_buffer);
 }
 
 static char call_irrsmo00_docs[] =
