@@ -168,10 +168,10 @@ class Logger:
         This is designed to match the pattern TRAIT( subtrait1(value) subtrait2(value)) by
         matching the TRAIT name, a variable (potentially zero) amount of spaces, then the
         ( subtrait1(value) subtrait2(value)) portion which must start and end with ( and ),
-        but must also contain a nested set of opened parentheses rather than a direct seqence of
-        them. The pattern looks for these nested open parenthesis as a sequence would have a )
-        character between them. Then the expression allows any non-newline characters and the
-        "end pattern" of ) and ) separated by a variable (potentially zero) whitespace.
+        but must also contain a nested set of open and close parentheses rather than a direct
+        seqence of them. The pattern looks for these nested open parenthesis as a sequence would
+        have a ) character between them. Then the expression allows any non-newline characters and
+        the "end pattern" of ) and ) separated by a variable (potentially zero) whitespace.
 
         If neither of these two patterns is found for a supplied trait_key, then it is assumed
         this trait is set with the default pattern below.
@@ -180,7 +180,7 @@ class Logger:
         This is designed to match the pattern TRAIT(value) by matching the TRAIT name, a variable
         (potentially zero) amount of spaces, then the (value) portion which must start and end
         with ( and ), but can conceivably contain any characters, but a negative lookbehind
-        is used to look for any escape \ character that would indicate the matching of the
+        is used to look for any escape character `\` that would indicate the matching of the
         ( and ) is otherwise a coincidence.
 
         In all replacement expressions, the variable amounts of whitespace are captured so that
@@ -189,32 +189,33 @@ class Logger:
         """
         asterisks = "********"
         is_bytes = False
+        quoted_regex = rf"{trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)"
+        nested_regex = rf"{trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)"
+        default_regex = rf"{trait_key.upper()}( +){{0,}}\(.*?(?<!\\)\)"
+        redacted_regex = rf"{trait_key.upper()}\1({asterisks})"
+        redacted_w_quotes_regex = rf"{trait_key.upper()}\1('{asterisks}')"
         if isinstance(input_string, bytes):
             input_string = input_string.decode("cp1047")
             is_bytes = True
-        quoted = re.search(
-            rf"{trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)", input_string
-        )
-        nested = re.search(
-            rf"{trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)", input_string
-        )
+        quoted = re.search(quoted_regex, input_string)
+        nested = re.search(nested_regex, input_string)
         if quoted is not None:
             input_string = re.sub(
-                rf"{trait_key.upper()}( +){{0,}}\(\'.*?(?<!\')\'\)",
-                rf"{trait_key.upper()}\1('{asterisks}')",
+                quoted_regex,
+                redacted_w_quotes_regex,
                 input_string,
             )
         else:
             if nested is not None:
                 input_string = re.sub(
-                    rf"{trait_key.upper()}( +){{0,}}\([^)]*\(.*\)( +){{0,}}\)",
-                    rf"{trait_key.upper()}\1({asterisks})",
+                    nested_regex,
+                    redacted_regex,
                     input_string,
                 )
             else:
                 input_string = re.sub(
-                    rf"{trait_key.upper()}( +){{0,}}\(.*?(?<!\\)\)",
-                    rf"{trait_key.upper()}\1({asterisks})",
+                    default_regex,
+                    redacted_regex,
                     input_string,
                 )
         if is_bytes:
@@ -234,10 +235,10 @@ class Logger:
 
         This function employs the following regular expression:
         {xml_key}(.*)>.*<\/{xml_key} - Designed to match the above pattern by starting and ending
-        with the xmltag string as shown, but the starting tage allows for any characters between
+        with the xmltag string as shown, but the starting tag allows for any characters between
         "xmltag" and the > character to allow for the attribute specification shown above. This
         results in the starting of the xml as {xml_key}(.*)> and the ending as <\/{xml_key}.
-        The miscellaneous characters are "captured" as a variable and preserved by the
+        The characters between the xml tags are "captured" as a variable and preserved by the
         substitution operation through the use of the \1 supplied in the replacement string.
         Between these tags, any non-newline characters are allowed using the .* expression.
         """
@@ -246,9 +247,8 @@ class Logger:
             is_bytes = True
             xml_string = xml_string.decode("utf-8")
         for xml_key in secret_traits.values():
-            match = re.search(rf"\<{xml_key}+[^>]*\>", xml_string)
-            if not match:
-                continue
+            start_tag_eng_tag_regex = rf"{xml_key}(.*)>.*<\/{xml_key}"
+            redacted_regex = rf"{xml_key}\1>********</{xml_key}"
             # Delete operation has no end tag and and redaction should not be attempted.
             #
             # Redact this:
@@ -256,11 +256,9 @@ class Logger:
             #
             # Don't try to redact this:
             # <tag operation="del" />
-            if f"</{xml_key}>" not in xml_string:
-                continue
             xml_string = re.sub(
-                rf"{xml_key}(.*)>.*<\/{xml_key}",
-                rf"{xml_key}\1>********</{xml_key}",
+                start_tag_eng_tag_regex,
+                redacted_regex,
                 xml_string,
             )
         if is_bytes:
@@ -271,8 +269,7 @@ class Logger:
         self,
         security_result: Union[str, bytes, List[int]],
         secret_traits: dict,
-        racf_key_map: dict = {},
-        racf_message_key_map: dict = {},
+        racf_trait_and_message_key_map: dict = {},
     ) -> str:
         """
         Redacts a list of specific secret traits in a result xml string.
@@ -286,32 +283,38 @@ class Logger:
             return security_result
         for xml_key in secret_traits.values():
             racf_key = xml_key.split(":")[1] if ":" in xml_key else xml_key
-            if racf_key in racf_key_map:
-                print(racf_key_map[racf_key])
-                racf_key = racf_key_map[racf_key]
+            if racf_key in racf_trait_and_message_key_map.get("trait_map", {}):
+                racf_key = racf_trait_and_message_key_map["trait_map"][racf_key]
+            racf_command_argument_regex = rf"{racf_key.upper()}( +){{0,}}\("
             if isinstance(security_result, bytes):
                 match = re.search(
-                    rf"{racf_key.upper()}( +){{0,}}\(", security_result.decode("cp1047")
+                    racf_command_argument_regex, security_result.decode("cp1047")
                 )
             else:
                 match = re.search(rf"{racf_key.upper()}( +){{0,}}\(", security_result)
             if not match:
                 continue
             security_result = self.__redact_string(security_result, racf_key)
-            if racf_key in racf_message_key_map:
-                racf_key = racf_message_key_map[racf_key]
+            if racf_key in racf_trait_and_message_key_map.get("message_map", {}):
+                racf_key = racf_trait_and_message_key_map["message_map"][racf_key]
+            racf_message_regex = (
+                r"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*"
+                + rf"{racf_key.upper()}[^<>]*<\/message>"
+            )
+            redacted_racf_message_regex = (
+                rf"<message>REDACTED MESSAGE CONCERNING {racf_key.upper()}, "
+                + r"REVIEW DOCUMENTATION OF \1 FOR MORE INFORMATION</message>"
+            )
             if isinstance(security_result, bytes):
                 security_result = re.sub(
-                    rf"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>",
-                    rf"<message>REDACTED MESSAGE CONCERNING {racf_key.upper()}, "
-                    + r"REVIEW DOCUMENTATION OF \1 FOR MORE INFORMATION</message>",
+                    racf_message_regex,
+                    redacted_racf_message_regex,
                     security_result.decode("cp1047"),
                 ).encode("cp1047")
             else:
                 security_result = re.sub(
-                    rf"<message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>",
-                    rf"<message>REDACTED MESSAGE CONCERNING {racf_key.upper()}, "
-                    + r"REVIEW DOCUMENTATION OF \1 FOR MORE INFORMATION</message>",
+                    racf_message_regex,
+                    redacted_racf_message_regex,
                     security_result,
                 )
         return security_result
@@ -449,8 +452,7 @@ class Logger:
         self,
         raw_result_xml: bytes,
         secret_traits: dict,
-        racf_key_map: dict,
-        racf_message_key_map: dict,
+        racf_trait_and_message_key_map: dict,
     ) -> None:
         """
         Log the raw result XML returned by IRRSMO00 as a hex dump.
@@ -464,8 +466,7 @@ class Logger:
         raw_result_xml = self.redact_result_xml(
             raw_result_xml,
             secret_traits,
-            racf_key_map,
-            racf_message_key_map,
+            racf_trait_and_message_key_map,
         )
         for byte in raw_result_xml:
             color_function = self.__green

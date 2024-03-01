@@ -212,10 +212,7 @@ TEST_ALTER_USER_REQUEST_TRAITS_PASSPHRASE_AND_PASSWORD["base:passphrase"] = (
 )
 TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR = dict(TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED)
 TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"] = 90000000000
-TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA = dict(TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED)
-TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA["base:installation_data"] = (
-    "Test = Value; Other(stuff goes here)'')"
-)
+
 
 # Extract User
 TEST_EXTRACT_USER_REQUEST_BASE_OMVS_XML = get_sample(
@@ -418,13 +415,6 @@ TEST_USER_SET_TSO_DATA_SET_ALLOCATION_UNIT_DELETE_XML = get_sample(
 
 TEST_ALTER_USER_SUCCESS_LOG = get_sample("alter_user_success.log")
 TEST_ALTER_USER_ERROR_LOG = get_sample("alter_user_error.log")
-
-TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
-    "alter_user_additional_secret_added_success.log"
-)
-TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
-    "alter_user_additional_secret_added_error.log"
-)
 
 TEST_ALTER_USER_PASSWORD_SUCCESS_LOG = get_sample("alter_user_password_success.log")
 TEST_ALTER_USER_PASSWORD_ERROR_LOG = get_sample("alter_user_password_error.log")

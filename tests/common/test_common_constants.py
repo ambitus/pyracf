@@ -101,6 +101,16 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
 # Additional Secrets Redaction
 # ============================================================================
 
+TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA = {
+    "base:name": "Squidward",
+    "base:owner": "leonard",
+    "base:special": True,
+    "omvs:uid": "2424",
+    "omvs:home_directory": "/u/squidwrd",
+    "omvs:default_shell": "/bin/sh",
+    "base:installation_data": "Test = Value; Other(stuff goes here)'')",
+}
+
 TEST_ALTER_DATA_SET_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY = get_sample(
     "alter_data_set_result_success_owner_secret.json"
 )
@@ -139,6 +149,13 @@ TEST_ALTER_USER_RESULT_INST_DATA_SUCCESS_XML = get_sample(
 )
 TEST_ALTER_USER_RESULT_SUCCESS_INST_DATA_SECRET_DICTIONARY = get_sample(
     "alter_user_result_success_inst_data_secret.json"
+)
+
+TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "alter_user_additional_secret_added_success.log"
+)
+TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "alter_user_additional_secret_added_error.log"
 )
 
 # ============================================================================

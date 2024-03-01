@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Any, List, Tuple, Union
 
 from .exceptions.downstream_fatal_error import DownstreamFatalError
+from .exceptions.secrets_redaction_error import SecretsRedactionError
 from .exceptions.security_request_error import SecurityRequestError
 from .exceptions.segment_error import SegmentError
 from .exceptions.segment_trait_error import SegmentTraitError
@@ -54,10 +55,8 @@ class SecurityAdmin:
 
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
-    _racf_key_map = {}
-    _racf_message_key_map = {}
-    _racf_key_map = {}
-    _racf_message_key_map = {}
+    # Use this structure to map traits to their RACF keywords and Message keywords for redaction
+    _racf_trait_and_message_key_map = {"trait_map": {}, "message_map": {}}
     _case_sensitive_extracted_values = []
     __running_userid = None
     _logger = Logger()
@@ -177,8 +176,7 @@ class SecurityAdmin:
             self._logger.log_hex_dump(
                 raw_result_xml,
                 self.__secret_traits,
-                self._racf_key_map,
-                self._racf_message_key_map,
+                self._racf_trait_and_message_key_map,
             )
 
     # ============================================================================
@@ -188,18 +186,26 @@ class SecurityAdmin:
         """Add additional fields to be redacted in logger output."""
         unsupported_profile_types = ["permission", "groupConnection", "systemSettings"]
         if self._profile_type in unsupported_profile_types:
-            return
+            raise SecretsRedactionError(profile_type=self._profile_type)
+        bad_secret_traits = []
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
                 continue
             if ":" not in secret:
+                bad_secret_traits.append(secret)
                 continue
             segment = secret.split(":")[0]
             if segment not in self._valid_segment_traits:
+                bad_secret_traits.append(secret)
                 continue
             if secret not in self._valid_segment_traits[segment]:
+                bad_secret_traits.append(secret)
                 continue
             self.__secret_traits[secret] = self._valid_segment_traits[segment][secret]
+        if bad_secret_traits:
+            raise SecretsRedactionError(
+                profile_type=self._profile_type, bad_secret_traits=bad_secret_traits
+            )
 
     # ============================================================================
     # Request Execution
@@ -254,8 +260,7 @@ class SecurityAdmin:
                 self.__running_userid,
             ),
             self.__secret_traits,
-            self._racf_key_map,
-            self._racf_message_key_map,
+            self._racf_trait_and_message_key_map,
         )
         self.__clear_state(security_request)
         if isinstance(raw_result, list):

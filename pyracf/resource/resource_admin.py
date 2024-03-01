@@ -238,14 +238,16 @@ class ResourceAdmin(SecurityAdmin):
                 "sigrequired": "signatureRequired",
             },
         }
-        self._racf_key_map = {
+        self._racf_trait_and_message_key_map["trait_map"] = {
             "audaltr": "audit",
             "audcntl": "audit",
             "audnone": "audit",
             "audread": "audit",
             "audupdt": "audit",
         }
-        self._racf_message_key_map = {"uacc": "universal access"}
+        self._racf_trait_and_message_key_map["message_map"] = {
+            "uacc": "universal access"
+        }
         super().__init__(
             "resource",
             irrsmo00_result_buffer_size=irrsmo00_result_buffer_size,
