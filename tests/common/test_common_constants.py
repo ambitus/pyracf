@@ -4,7 +4,12 @@ Sample data for testing Common functions in pyracf.
 
 from typing import Union
 
+import ebcdic
+
 import tests.test_utilities as TestUtilities
+
+# Resolves F401
+ebcdic
 
 
 def get_sample(sample_file: str) -> Union[str, bytes]:
@@ -158,4 +163,19 @@ TEST_EXTRACT_USER_SUCCESS_DUMP_MODE_ALL_BYTES_LOG = get_sample(
 
 TEST_ALTER_USER_PASSWORD_DUMP_MODE_LOG = get_sample(
     "alter_user_password_success_dump_mode.log"
+)
+
+# ============================================================================
+# IRRSMO64 Interface
+# ============================================================================
+
+TEST_EXTRACT_RESOURCE_REQUEST_ALL_FACILITY_XML = (
+    get_sample("extract_resource_request_all_facility.xml")
+    .decode("utf-8")
+    .encode("cp1047")
+)
+TEST_EXTRACT_RESOURCE_REQUEST_ALL_XFACILIT_XML = (
+    get_sample("extract_resource_request_all_xfacilit.xml")
+    .decode("utf-8")
+    .encode("cp1047")
 )

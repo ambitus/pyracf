@@ -6,13 +6,16 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef __MVS__
 #pragma linkage(IRRSMO64, OS)
-
 typedef struct
 {
     unsigned char running_userid_length;
     char running_userid[8];
 } running_userid_t;
+#else
+#include "irrsmo64.h"
+#endif
 
 static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
 {
@@ -91,33 +94,41 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     full_result = PyList_New(1);
     PyList_SetItem(full_result, 0, Py_BuildValue("y#", result_buffer, result_len));
 
-    if ((saf_rc == 8) && (racf_rc == 4000) && (racf_rsn < 100000000)){
-        free(result_buffer);
-        result_len = racf_rsn;
-        result_buffer = malloc(result_len);
-        memset(result_buffer, 0, result_len);
+    if ((saf_rc == 8) && (racf_rc == 4000)){
+        if (racf_rsn < 100000000) {
+            free(result_buffer);
+            result_len = racf_rsn + 1;
+            result_buffer = malloc(result_len);
+            memset(result_buffer, 0, result_len);
 
-        // Call IRRSMO64 Again with the appropriate buffer size
-        IRRSMO64(
-            work_area,
-            alet,
-            &saf_rc,
-            alet,
-            &racf_rc,
-            alet,
-            &racf_rsn,
-            num_parms,
-            fn,
-            irrsmo00_options,
-            request_xml_length,
-            request_xml,
-            req_handle,
-            running_userid_struct,
-            acee,
-            &result_len,
-            result_buffer);
+            // Call IRRSMO64 Again with the appropriate buffer size
+            IRRSMO64(
+                work_area,
+                alet,
+                &saf_rc,
+                alet,
+                &racf_rc,
+                alet,
+                &racf_rsn,
+                num_parms,
+                fn,
+                irrsmo00_options,
+                request_xml_length,
+                request_xml,
+                req_handle,
+                running_userid_struct,
+                acee,
+                &result_len,
+                result_buffer);
 
-        PyList_Append(full_result, Py_BuildValue("y#", result_buffer, result_len));
+
+            PyList_Append(full_result, Py_BuildValue("y#", result_buffer, result_len));
+        }
+        else {
+            // Reset the PyList object because the xml would now be incomplete
+            memset(result_buffer, 0, result_len);
+            PyList_SetItem(full_result, 0, Py_BuildValue("y#", result_buffer , result_len));
+        }
     }
 
     free(result_buffer);
