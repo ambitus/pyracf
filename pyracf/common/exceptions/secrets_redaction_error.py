@@ -30,6 +30,11 @@ class SecretsRedactionError(Exception):
                 self.message = self.message + (
                     f"\nCould not map {trait} to a valid segment trait."
                 )
+        else:
+            self.message = self.message + (
+                f"\n{profile_map[profile_type]} administration does"
+                + " not support additional secrets redaction."
+            )
 
     def __str__(self) -> str:
         return self.message
