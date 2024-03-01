@@ -54,6 +54,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
     printf("Arg parse complete!\n");
 
     char work_area[1024];
+    char req_handle[64];
     running_userid_t running_userid_struct = {running_userid_length, {0}};
     unsigned int alet = 0;
     unsigned int acee = 0;
@@ -71,6 +72,12 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         running_userid, 
         running_userid_struct.running_userid_length);
     
+    memcpy(
+        req_handle,
+        handle_buffer.buf,
+        64
+    );
+    
     IRRSMO64(
         work_area,
         alet,
@@ -84,7 +91,7 @@ static PyObject *call_irrsmo00(PyObject *self, PyObject *args, PyObject *kwargs)
         irrsmo00_options,
         request_xml_length,
         request_xml,
-        handle_buffer.buf,
+        req_handle,
         running_userid_struct,
         acee,
         &result_len,
