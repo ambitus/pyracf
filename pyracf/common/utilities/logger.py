@@ -168,10 +168,14 @@ class Logger:
         This is designed to match the pattern TRAIT( subtrait1(value) subtrait2(value)) by
         matching the TRAIT name, a variable (potentially zero) amount of spaces, then the
         ( subtrait1(value) subtrait2(value)) portion which must start and end with ( and ),
-        but must also contain a nested set of open and close parentheses rather than a direct
-        seqence of them. The pattern looks for these nested open parenthesis as a sequence would
-        have a ) character between them. Then the expression allows any non-newline characters and
-        the "end pattern" of ) and ) separated by a variable (potentially zero) whitespace.
+        but must also contain a'(' before the ')'. This indicates that there is a "nested"
+        structure rather than a sequential one. In the example, this portion of the pattern
+        matches '( subtrait1(', but would not match '(value) subtrait2(' because of the ')'
+        character between the two '(' characters. The pattern looks for these nested open
+        parenthesis as a sequence would have a ')' character between them. Then the expression
+        allows any non-newline characters to handle all possible trait values and subtrait names
+        followed by the "end pattern" of ')' and ')' separated by a variable (potentially zero)
+        whitespace.
 
         If neither of these two patterns is found for a supplied trait_key, then it is assumed
         this trait is set with the default pattern below.
@@ -179,9 +183,9 @@ class Logger:
         Regex 3 ("default") - {trait_key.upper()}( +){{0,}}\(.*?(?<!\\)\)
         This is designed to match the pattern TRAIT(value) by matching the TRAIT name, a variable
         (potentially zero) amount of spaces, then the (value) portion which must start and end
-        with ( and ), but can conceivably contain any characters, but a negative lookbehind
-        is used to look for any escape character `\` that would indicate the matching of the
-        ( and ) is otherwise a coincidence.
+        with '(' and ')', but can conceivably contain any characters, but a negative lookbehind
+        is used to look for any escape character '\' that would indicate the matching of the
+        '(' and ')' is otherwise a coincidence.
 
         In all replacement expressions, the variable amounts of whitespace are captured so that
         they can be preserved by this redaction operations.
@@ -247,7 +251,7 @@ class Logger:
             is_bytes = True
             xml_string = xml_string.decode("utf-8")
         for xml_key in secret_traits.values():
-            start_tag_eng_tag_regex = rf"{xml_key}(.*)>.*<\/{xml_key}"
+            start_tag_end_tag_regex = rf"{xml_key}(.*)>.*<\/{xml_key}"
             redacted_regex = rf"{xml_key}\1>********</{xml_key}"
             # Delete operation has no end tag and and redaction should not be attempted.
             #
@@ -257,7 +261,7 @@ class Logger:
             # Don't try to redact this:
             # <tag operation="del" />
             xml_string = re.sub(
-                start_tag_eng_tag_regex,
+                start_tag_end_tag_regex,
                 redacted_regex,
                 xml_string,
             )
@@ -271,13 +275,21 @@ class Logger:
         secret_traits: dict,
         racf_trait_and_message_key_map: dict = {},
     ) -> str:
-        """
+        r"""
         Redacts a list of specific secret traits in a result xml string.
         Based on the following RACF command patterns:
             'TRAIT (value)'
             'TRAIT (subtrait1(value) subtrait2(value))
             "TRAIT ('value')"
         This function also accounts for varied amounts of whitespace in the pattern.
+
+        This function employs the following regular expression:
+        <message>([A-Z]*[0-9]*[A-Z]) [^<>]*{racf_key.upper()}[^<>]*<\/message>" -
+        Designed to match the above pattern by starting and ending with the message xml tag
+        string as shown, the value of the message is targeted based on the racf_key. This
+        should capture only messages that contain information about a redacted key.
+        The message identifier is "captured" as a variable and preserved by the substitution
+        operation through the use of the \1 supplied in the replacement string.
         """
         if isinstance(security_result, list):
             return security_result

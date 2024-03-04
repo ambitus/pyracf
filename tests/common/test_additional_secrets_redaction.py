@@ -50,7 +50,7 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             TestCommonConstants.TEST_ALTER_USER_RESULT_SUCCESS_UID_SECRET_DICTIONARY,
         )
         self.assertNotIn(
-            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
+            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"]),
             str(result),
         )
 
@@ -112,7 +112,7 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
         )
         self.assertNotIn(
-            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
+            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"]),
             str(result),
         )
 
@@ -138,7 +138,7 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             TestCommonConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_GID_SECRET_DICTIONARY,
         )
         self.assertNotIn(
-            TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"],
+            str(TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"]),
             str(result),
         )
 
@@ -162,7 +162,7 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             TestCommonConstants.TEST_ALTER_GROUP_RESULT_ERROR_GID_SECRET_DICTIONARY,
         )
         self.assertNotIn(
-            TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS["omvs:gid"],
+            str(TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS["omvs:gid"]),
             str(exception.exception.result),
         )
 
@@ -175,7 +175,7 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS,
         )
         self.assertNotIn(
-            TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"],
+            str(TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"]),
             str(result),
         )
 
@@ -252,9 +252,11 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             TestCommonConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_UACC_SECRET_DICTIONARY,
         )
         self.assertNotIn(
-            TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS[
-                f"{secret_trait}"
-            ],
+            str(
+                TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS[
+                    secret_trait
+                ]
+            ),
             str(exception.exception.result),
         )
 
@@ -319,7 +321,7 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             TestCommonConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_UACC_SECRET_DICTIONARY,
         )
         self.assertNotIn(
-            TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS[f"{secret_trait}"],
+            TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS[secret_trait],
             str(exception.exception.result),
         )
 
@@ -367,7 +369,7 @@ class TestAdditionalSecretsLoggingRedaction(unittest.TestCase):
             TestCommonConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
         )
         self.assertNotIn(
-            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
+            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"]),
             success_log,
         )
 
@@ -397,6 +399,6 @@ class TestAdditionalSecretsLoggingRedaction(unittest.TestCase):
             TestCommonConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
         )
         self.assertNotIn(
-            f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
+            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"]),
             error_log,
         )

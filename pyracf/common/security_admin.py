@@ -7,7 +7,6 @@ from datetime import datetime
 from typing import Any, List, Tuple, Union
 
 from .exceptions.downstream_fatal_error import DownstreamFatalError
-from .exceptions.secrets_redaction_error import SecretsRedactionError
 from .exceptions.security_request_error import SecurityRequestError
 from .exceptions.segment_error import SegmentError
 from .exceptions.segment_trait_error import SegmentTraitError
@@ -184,28 +183,49 @@ class SecurityAdmin:
     # ============================================================================
     def __add_additional_secret_traits(self, additional_secret_traits: list) -> None:
         """Add additional fields to be redacted in logger output."""
+        profile_map = {
+            "user": "User",
+            "group": "Group",
+            "dataSet": "Data Set",
+            "resource": "General Resource",
+            "permission": "Access",
+            "groupConnection": "Group Connection",
+            "systemSettings": "Setropts",
+        }
         unsupported_profile_types = ["permission", "groupConnection", "systemSettings"]
+        error_message = (
+            f"Cannot add specified additional secrets to {profile_map[self._profile_type]} "
+            + "administration."
+        )
         if self._profile_type in unsupported_profile_types:
-            raise SecretsRedactionError(profile_type=self._profile_type)
+            error_message = error_message + (
+                f"\n{profile_map[self._profile_type]} administration does"
+                + " not support additional secrets redaction."
+            )
+            raise ValueError(error_message)
         bad_secret_traits = []
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
                 continue
             if ":" not in secret:
-                bad_secret_traits.append(secret)
+                bad_secret_traits.append(
+                    f"\nCould not map {secret} to a valid segment trait."
+                )
                 continue
             segment = secret.split(":")[0]
             if segment not in self._valid_segment_traits:
-                bad_secret_traits.append(secret)
+                bad_secret_traits.append(
+                    f"\nCould not map {secret} to a valid segment trait."
+                )
                 continue
             if secret not in self._valid_segment_traits[segment]:
-                bad_secret_traits.append(secret)
+                bad_secret_traits.append(
+                    f"\nCould not map {secret} to a valid segment trait."
+                )
                 continue
             self.__secret_traits[secret] = self._valid_segment_traits[segment][secret]
         if bad_secret_traits:
-            raise SecretsRedactionError(
-                profile_type=self._profile_type, bad_secret_traits=bad_secret_traits
-            )
+            raise ValueError(error_message + "".join(bad_secret_traits))
 
     # ============================================================================
     # Request Execution
