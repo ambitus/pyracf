@@ -30,6 +30,7 @@ __init__
 
 class TestAdditionalSecretsResultRedaction(unittest.TestCase):
     maxDiff = None
+    ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
     # ============================================================================
     # User Administration
@@ -119,6 +120,61 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             str(result),
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_success(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            user_admin.alter(
+                "squidwrd",
+                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
+            )
+        success_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            success_log,
+            TestCommonConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
+        )
+        self.assertNotIn(
+            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"]),
+            success_log,
+        )
+
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_error(
+        self,
+        call_racf_mock: Mock,
+    ):
+        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
+        call_racf_mock.side_effect = [
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            try:
+                user_admin.alter(
+                    "squidwrd",
+                    traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
+                )
+            except SecurityRequestError:
+                pass
+        error_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            error_log,
+            TestCommonConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
+        )
+        self.assertNotIn(
+            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"]),
+            error_log,
+        )
+
     # ============================================================================
     # Group Administration
     # ============================================================================
@@ -180,6 +236,61 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
         self.assertNotIn(
             str(TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"]),
             str(result),
+        )
+
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_group_request_debug_log_additional_secret_added_get_redacted_on_success(
+        self,
+        call_racf_mock: Mock,
+    ):
+        group_admin = GroupAdmin(debug=True, additional_secret_traits=["omvs:gid"])
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestGroupConstants.TEST_ALTER_GROUP_RESULT_SUCCESS_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            group_admin.alter(
+                "testgrp0",
+                traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS,
+            )
+        success_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            success_log,
+            TestCommonConstants.TEST_ALTER_GROUP_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
+        )
+        self.assertNotIn(
+            str(TestGroupConstants.TEST_ALTER_GROUP_REQUEST_TRAITS["omvs:gid"]),
+            success_log,
+        )
+
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_group_request_debug_log_additional_secret_added_get_redacted_on_error(
+        self,
+        call_racf_mock: Mock,
+    ):
+        group_admin = GroupAdmin(debug=True, additional_secret_traits=["omvs:gid"])
+        call_racf_mock.side_effect = [
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestGroupConstants.TEST_ALTER_GROUP_RESULT_ERROR_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            try:
+                group_admin.alter(
+                    "testgrp0",
+                    traits=TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS,
+                )
+            except SecurityRequestError:
+                pass
+        error_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            error_log,
+            TestCommonConstants.TEST_ALTER_GROUP_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
+        )
+        self.assertNotIn(
+            str(TestGroupConstants.TEST_ALTER_GROUP_REQUEST_ERROR_TRAITS["omvs:gid"]),
+            error_log,
         )
 
     # ============================================================================
@@ -277,6 +388,62 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             str(result),
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_resource_request_debug_log_additional_secret_added_get_redacted_on_success(
+        self,
+        call_racf_mock: Mock,
+    ):
+        resource_admin = ResourceAdmin(
+            debug=True, additional_secret_traits=["base:owner"]
+        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_SUCCESS_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            resource_admin.alter(
+                "TESTING",
+                "ELIJTEST",
+                traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_TRAITS,
+            )
+        success_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            success_log,
+            TestCommonConstants.TEST_ALTER_RESOURCE_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
+        )
+        # No AssertNotInTest because Equal test to log is sufficient and value technically appears
+
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_resource_request_debug_log_additional_secret_added_get_redacted_on_error(
+        self,
+        call_racf_mock: Mock,
+    ):
+        secret_trait = "base:universal_access"
+        resource_admin = ResourceAdmin(
+            debug=True, additional_secret_traits=[secret_trait]
+        )
+        call_racf_mock.side_effect = [
+            TestResourceConstants.TEST_EXTRACT_RESOURCE_RESULT_BASE_SUCCESS_XML,
+            TestResourceConstants.TEST_ALTER_RESOURCE_RESULT_ERROR_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            try:
+                resource_admin.alter(
+                    "TESTING",
+                    "ELIJTEST",
+                    traits=TestResourceConstants.TEST_ALTER_RESOURCE_REQUEST_ERROR_TRAITS,
+                )
+            except SecurityRequestError:
+                pass
+        error_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            error_log,
+            TestCommonConstants.TEST_ALTER_RESOURCE_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
+        )
+        # No AssertNotInTest because Equal test to log is sufficient and value technically appears
+
     # ============================================================================
     # Data Set Profile Administration
     # ============================================================================
@@ -341,6 +508,63 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             str(result),
         )
 
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_data_set_request_debug_log_additional_secret_added_get_redacted_on_success(
+        self,
+        call_racf_mock: Mock,
+    ):
+        data_set_admin = DataSetAdmin(
+            debug=True, additional_secret_traits=["base:owner"]
+        )
+        call_racf_mock.side_effect = [
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_SUCCESS_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            data_set_admin.alter(
+                "ESWIFT.TEST.T1136242.P3020470",
+                traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
+            )
+        success_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            success_log,
+            TestCommonConstants.TEST_ALTER_DATA_SET_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
+        )
+        # No AssertNotInTest because Equal test to log is sufficient and value technically appears
+
+    @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
+    def test_alter_data_set_request_debug_log_additional_secret_added_get_redacted_on_error(
+        self,
+        call_racf_mock: Mock,
+    ):
+        secret_trait = "base:universal_access"
+        data_set_admin = DataSetAdmin(
+            debug=True, additional_secret_traits=[secret_trait]
+        )
+        call_racf_mock.side_effect = [
+            TestDataSetConstants.TEST_EXTRACT_DATA_SET_RESULT_BASE_ONLY_SUCCESS_XML,
+            TestDataSetConstants.TEST_ALTER_DATA_SET_RESULT_ERROR_XML,
+        ]
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            try:
+                data_set_admin.alter(
+                    "ESWIFT.TEST.T1136242.P3020470",
+                    traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_ERROR_TRAITS,
+                )
+            except SecurityRequestError:
+                pass
+        error_log = self.ansi_escape.sub("", stdout.getvalue())
+        self.assertEqual(
+            error_log,
+            TestCommonConstants.TEST_ALTER_DATA_SET_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
+        )
+        # No AssertNotInTest because Equal test to log is sufficient and value technically appears
+
+    # ============================================================================
+    # Generic Testing for all Admin Types
+    # ============================================================================
     def test_incompatible_admin_custom_secret_redaction_error(self):
         admin_types = [
             (AccessAdmin, "permission"),
@@ -382,68 +606,3 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
                 f"Cannot add specified additional secrets to '{profile_type}' object.\n"
                 + incompatible_traits_text,
             )
-
-
-@patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
-class TestAdditionalSecretsLoggingRedaction(unittest.TestCase):
-    maxDiff = None
-    user_admin = UserAdmin(debug=True)
-    ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
-
-    # ============================================================================
-    # Add Additional Secrets
-    # ============================================================================
-    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_success(
-        self,
-        call_racf_mock: Mock,
-    ):
-        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
-        call_racf_mock.side_effect = [
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML,
-        ]
-        stdout = io.StringIO()
-        with contextlib.redirect_stdout(stdout):
-            user_admin.alter(
-                "squidwrd",
-                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
-            )
-        success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(
-            success_log,
-            TestCommonConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
-        )
-        self.assertNotIn(
-            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"]),
-            success_log,
-        )
-
-    # Secret redacted from command image but not from resulting error message.
-    # Marked experimental until resolved
-    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_error(
-        self,
-        call_racf_mock: Mock,
-    ):
-        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
-        call_racf_mock.side_effect = [
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
-        ]
-        stdout = io.StringIO()
-        with contextlib.redirect_stdout(stdout):
-            try:
-                user_admin.alter(
-                    "squidwrd",
-                    traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
-                )
-            except SecurityRequestError:
-                pass
-        error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(
-            error_log,
-            TestCommonConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
-        )
-        self.assertNotIn(
-            str(TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR["omvs:uid"]),
-            error_log,
-        )

@@ -11,7 +11,6 @@ from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
 from tests.common.test_additional_secrets_redaction import (
-    TestAdditionalSecretsLoggingRedaction,
     TestAdditionalSecretsResultRedaction,
 )
 from tests.common.test_class_attributes import TestClassAttributes
@@ -74,7 +73,6 @@ def __test_suite() -> unittest.TestSuite:
         TestAccessRequestBuilder,
         TestAccessDebugLogging,
         TestAdditionalSecretsResultRedaction,
-        TestAdditionalSecretsLoggingRedaction,
         TestClassAttributes,
         TestCustomizeSegmentTraits,
         TestSetupPrecheck,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <groupconnection name="ESWIFT" group="TESTGRP0" operation="del" requestid="ConnectionRequest">
+  <groupconnection name="ESWIFT" group="testgrp0" operation="del" requestid="ConnectionRequest">
     <command>
       <safreturncode>8</safreturncode>
       <returncode>16</returncode>

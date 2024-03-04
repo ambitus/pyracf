@@ -56,7 +56,7 @@ class TestDataSetDebugLogging(unittest.TestCase):
             try:
                 self.data_set_admin.alter(
                     "ESWIFT.TEST.T1136242.P3020470",
-                    traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS,
+                    traits=TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_ERROR_TRAITS,
                 )
             except SecurityRequestError:
                 pass
