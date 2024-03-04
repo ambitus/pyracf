@@ -609,15 +609,19 @@ class SecurityAdmin:
         }
         template_dict = {}
         if traits_dict["resumeDate"] is not None:
-            resume_date = datetime.strptime(traits_dict["resumeDate"], "%y.%j").date()
-            date = datetime.now()
+            resume_date = datetime.strptime(
+                traits_dict["resumeDate"], "%m/%d/%Y"
+            ).date()
+            date = datetime.today().date()
             if resume_date <= date:
                 template_dict["base:resume"] = True
             else:
                 template_dict["base:resume"] = resume_date.strftime("%m/%d/%y")
         if traits_dict["revokeDate"] is not None:
-            revoke_date = datetime.strptime(traits_dict["revokeDate"], "%y.%j").date()
-            traits_dict["revokeDate"] = True
+            revoke_date = datetime.strptime(
+                traits_dict["revokeDate"], "%m/%d/%Y"
+            ).date()
+            date = datetime.today().date()
             if revoke_date <= date:
                 template_dict["base:revoke"] = True
             else:

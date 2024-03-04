@@ -265,11 +265,28 @@ class TestGroupResultParser(unittest.TestCase):
         call_racf_mock.return_value = (
             TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
         )
-        template = self.group_admin.extract(
-            "testgrp0", segments=["omvs"], connection_template=True
-        )
-        print(template)
         self.assertEqual(
-            template,
+            self.group_admin.extract(
+                "testgrp0", segments=["omvs"], connection_template=True
+            ),
             TestGroupConstants.TEST_EXTRACT_GROUP_CONNECTION_TEMPLATE_TRAITS,
+        )
+
+    def test_group_admin_can_build_template_connection_success_with_past_dates_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        extract_group_xml = (
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
+        )
+        extract_group_xml = extract_group_xml.replace(
+            "<message>         REVOKE DATE=NONE                 RESUME DATE=NONE</message>",
+            "<message>         REVOKE DATE=23.340               RESUME DATE=23.360</message>",
+        )
+        call_racf_mock.return_value = extract_group_xml
+        self.assertEqual(
+            self.group_admin.extract(
+                "testgrp0", segments=["omvs"], connection_template=True
+            ),
+            TestGroupConstants.TEST_EXTRACT_GROUP_CONNECTION_TEMPLATE_PAST_DATES_TRAITS,
         )

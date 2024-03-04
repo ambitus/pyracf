@@ -259,7 +259,6 @@ class TestUserResultParser(unittest.TestCase):
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_INST_DATA_SUCCESS_XML
         )
         result = self.user_admin.extract("squidwrd")
-        print(result)
         self.assertEqual(
             result,
             TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_INST_DATA_SUCCESS_JSON,
@@ -568,4 +567,23 @@ class TestUserResultParser(unittest.TestCase):
                 "squidwrd", segments=["omvs", "tso"], connection_template=True
             ),
             TestUserConstants.TEST_EXTRACT_USER_CONNECTION_TEMPLATE_TRAITS,
+        )
+
+    def test_user_admin_can_build_template_connection_success_with_future_dates_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        extract_user_xml = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML
+        )
+        extract_user_xml = extract_user_xml.replace(
+            "<message>    REVOKE DATE=NONE   RESUME DATE=NONE</message>",
+            "<message>    REVOKE DATE=50.150  RESUME DATE=50.200</message>",
+        )
+        call_racf_mock.return_value = extract_user_xml
+        self.assertEqual(
+            self.user_admin.extract(
+                "squidwrd", segments=["omvs", "tso"], connection_template=True
+            ),
+            TestUserConstants.TEST_EXTRACT_USER_CONNECTION_TEMPLATE_FUTURE_DATES_TRAITS,
         )

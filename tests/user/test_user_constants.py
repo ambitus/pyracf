@@ -269,6 +269,18 @@ TEST_EXTRACT_USER_CONNECTION_TEMPLATE_TRAITS = [
         "traits": {"base:group_authority": "use", "base:owner": "leonard"},
     }
 ]
+TEST_EXTRACT_USER_CONNECTION_TEMPLATE_FUTURE_DATES_TRAITS = [
+    {
+        "userid": "squidwrd",
+        "group": "SYS1",
+        "traits": {
+            "base:group_authority": "use",
+            "base:owner": "leonard",
+            "base:revoke": "05/30/50",
+            "base:resume": "07/19/50",
+        },
+    }
+]
 
 # Delete User
 TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")

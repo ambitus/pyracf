@@ -116,6 +116,30 @@ TEST_EXTRACT_GROUP_CONNECTION_TEMPLATE_TRAITS = [
         },
     },
 ]
+TEST_EXTRACT_GROUP_CONNECTION_TEMPLATE_PAST_DATES_TRAITS = [
+    {
+        "userid": "eswift",
+        "group": "testgrp0",
+        "traits": {
+            "base:revoke": True,
+            "base:resume": True,
+            "base:group_authority": "use",
+            "base:universal_access": None,
+            "base:special": True,
+        },
+    },
+    {
+        "userid": "leonard",
+        "group": "testgrp0",
+        "traits": {
+            "base:revoke": True,
+            "base:resume": True,
+            "base:group_authority": "use",
+            "base:universal_access": None,
+            "base:operations": True,
+        },
+    },
+]
 
 # Delete Group
 TEST_DELETE_GROUP_REQUEST_XML = get_sample("delete_group_request.xml")
