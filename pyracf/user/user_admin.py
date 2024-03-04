@@ -817,6 +817,7 @@ class UserAdmin(SecurityAdmin):
         segments: List[str] = [],
         profile_only: bool = False,
         user_template: bool = False,
+        connection_template: bool = False,
     ) -> Union[dict, bytes]:
         """Extract a user's profile."""
         self._build_segment_dictionary(segments)
@@ -827,6 +828,8 @@ class UserAdmin(SecurityAdmin):
             return self._get_profile(result)
         if user_template:
             return self._build_template(self._get_profile(result))
+        if connection_template:
+            return self._build_connection_template(self._get_profile(result), userid)
         return result
 
     def delete(self, userid: str) -> Union[dict, bytes]:

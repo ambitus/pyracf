@@ -262,6 +262,13 @@ TEST_EXTRACT_USER_BASE_OMVS_TSO_REVOKE_RESUME_TEMPLATE_TRAITS = {
     "tso:user_data": "abcd",
     "tso:logon_command": "ispf",
 }
+TEST_EXTRACT_USER_CONNECTION_TEMPLATE_TRAITS = [
+    {
+        "userid": "squidwrd",
+        "group": "SYS1",
+        "traits": {"base:group_authority": "use", "base:owner": "leonard"},
+    }
+]
 
 # Delete User
 TEST_DELETE_USER_REQUEST_XML = get_sample("delete_user_request.xml")

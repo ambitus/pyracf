@@ -539,7 +539,7 @@ class TestUserResultParser(unittest.TestCase):
         )
 
     # ============================================================================
-    # Build template user
+    # Build Templates
     # ============================================================================
 
     def test_user_admin_can_build_template_user_base_omvs_tso_revoke_resume_success_xml(
@@ -554,4 +554,18 @@ class TestUserResultParser(unittest.TestCase):
                 "squidwrd", segments=["omvs", "tso"], user_template=True
             ),
             TestUserConstants.TEST_EXTRACT_USER_BASE_OMVS_TSO_REVOKE_RESUME_TEMPLATE_TRAITS,
+        )
+
+    def test_user_admin_can_build_template_connection_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_OMVS_TSO_REVOKE_RESUME_XML
+        )
+        self.assertEqual(
+            self.user_admin.extract(
+                "squidwrd", segments=["omvs", "tso"], connection_template=True
+            ),
+            TestUserConstants.TEST_EXTRACT_USER_CONNECTION_TEMPLATE_TRAITS,
         )

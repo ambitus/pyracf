@@ -166,6 +166,7 @@ class GroupAdmin(SecurityAdmin):
         segments: List[str] = [],
         profile_only: bool = False,
         group_template=False,
+        connection_template=False,
     ) -> Union[dict, bytes]:
         """Extract a group's profile."""
         self._build_segment_dictionary(segments)
@@ -176,6 +177,8 @@ class GroupAdmin(SecurityAdmin):
             return self._get_profile(result)
         if group_template:
             return self._build_template(self._get_profile(result))
+        if connection_template:
+            return self._build_connection_template(self._get_profile(result), group)
         return result
 
     def delete(self, group: str) -> Union[dict, bytes]:

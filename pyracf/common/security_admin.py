@@ -526,6 +526,36 @@ class SecurityAdmin:
             index
         ]
 
+    def _build_connection_template(
+        self,
+        profile: dict,
+        name: str,
+    ) -> dict:
+        """Map the profile to a template for connection requests."""
+        templates = []
+        connections = []
+        if self._generate_requests_only:
+            # Allows this function to work with "self._generate_requests_only" mode.
+            return profile
+        if self._profile_type == "user":
+            user_connections = profile["base"].get("groups", {})
+            for key in user_connections.keys():
+                user_connections[key].update([("group", key), ("userid", name)])
+                connections.append(user_connections[key])
+        elif self._profile_type == "group":
+            connections = profile["base"].get("users", {})
+            for connection in connections:
+                connection.update({"group": name})
+        else:
+            return profile
+        for connection in connections:
+            template = {}
+            template["userid"] = connection["userid"]
+            template["group"] = connection["group"]
+            template["traits"] = self.__make_connection_traits(connection)
+            templates.append(template)
+        return templates
+
     def _build_template(
         self,
         profile: dict,
@@ -562,6 +592,43 @@ class SecurityAdmin:
         if key in self.__template_map:
             template[self.__template_map[key]] = value
         return template
+
+    def __make_connection_traits(self, traits_dict: dict) -> dict:
+        connection_map = {
+            "connectOwner": "base:owner",
+            "universalAccess": "base:universal_access",
+            "access": "base:group_authority",
+            "auth": "base:group_authority",
+        }
+        attribute_map = {
+            "adsp": "base:automatic_data_set_protection",
+            "auditor": "base:auditor",
+            "grpacc": "base:group_access",
+            "operations": "base:operations",
+            "special": "base:special",
+        }
+        template_dict = {}
+        if traits_dict["resumeDate"] is not None:
+            resume_date = datetime.strptime(traits_dict["resumeDate"], "%y.%j").date()
+            date = datetime.now()
+            if resume_date <= date:
+                template_dict["base:resume"] = True
+            else:
+                template_dict["base:resume"] = resume_date.strftime("%m/%d/%y")
+        if traits_dict["revokeDate"] is not None:
+            revoke_date = datetime.strptime(traits_dict["revokeDate"], "%y.%j").date()
+            traits_dict["revokeDate"] = True
+            if revoke_date <= date:
+                template_dict["base:revoke"] = True
+            else:
+                template_dict["base:revoke"] = revoke_date.strftime("%m/%d/%y")
+        for trait, value in traits_dict.items():
+            if trait in connection_map:
+                template_dict[connection_map[trait]] = value
+        for attribute in traits_dict["connectAttributes"]:
+            if attribute in attribute_map:
+                template_dict[attribute_map[attribute]] = True
+        return template_dict
 
     def _get_field(
         self,

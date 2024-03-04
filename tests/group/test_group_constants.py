@@ -96,6 +96,27 @@ TEST_EXTRACT_GROUP_BASE_OMVS_TEMPLATE_TRAITS = {
     "base:terminal_universal_access": True,
     "omvs:gid": 1234567,
 }
+TEST_EXTRACT_GROUP_CONNECTION_TEMPLATE_TRAITS = [
+    {
+        "userid": "eswift",
+        "group": "testgrp0",
+        "traits": {
+            "base:group_authority": "use",
+            "base:universal_access": None,
+            "base:special": True,
+        },
+    },
+    {
+        "userid": "leonard",
+        "group": "testgrp0",
+        "traits": {
+            "base:group_authority": "use",
+            "base:universal_access": None,
+            "base:operations": True,
+        },
+    },
+]
+
 # Delete Group
 TEST_DELETE_GROUP_REQUEST_XML = get_sample("delete_group_request.xml")
 

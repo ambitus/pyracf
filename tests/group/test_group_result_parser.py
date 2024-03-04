@@ -257,3 +257,19 @@ class TestGroupResultParser(unittest.TestCase):
             ),
             TestGroupConstants.TEST_EXTRACT_GROUP_BASE_OMVS_TEMPLATE_TRAITS,
         )
+
+    def test_group_admin_can_build_template_connection_success_xml(
+        self,
+        call_racf_mock: Mock,
+    ):
+        call_racf_mock.return_value = (
+            TestGroupConstants.TEST_EXTRACT_GROUP_RESULT_BASE_ONLY_SUCCESS_XML
+        )
+        template = self.group_admin.extract(
+            "testgrp0", segments=["omvs"], connection_template=True
+        )
+        print(template)
+        self.assertEqual(
+            template,
+            TestGroupConstants.TEST_EXTRACT_GROUP_CONNECTION_TEMPLATE_TRAITS,
+        )
