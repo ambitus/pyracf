@@ -1,7 +1,7 @@
 {
   "securityResult": {
     "group": {
-      "name": "TESTGRP0",
+      "name": "testgrp0",
       "operation": "set",
       "requestId": "GroupRequest",
       "info": [

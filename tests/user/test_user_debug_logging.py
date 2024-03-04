@@ -262,64 +262,6 @@ class TestUserDebugLogging(unittest.TestCase):
         self.assertIn(self.simple_password, error_log)
 
     # ============================================================================
-    # Add Additional Secrets
-    # ============================================================================
-    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_success(
-        self,
-        call_racf_mock: Mock,
-    ):
-        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
-        call_racf_mock.side_effect = [
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestUserConstants.TEST_ALTER_USER_RESULT_EXTENDED_SUCCESS_XML,
-        ]
-        stdout = io.StringIO()
-        with contextlib.redirect_stdout(stdout):
-            user_admin.alter(
-                "squidwrd",
-                traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED,
-            )
-        success_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(
-            success_log,
-            TestUserConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG,
-        )
-        self.assertNotIn(
-            TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_EXTENDED["omvs:uid"],
-            success_log,
-        )
-
-    # Secret redacted from command image but not from resulting error message.
-    # Marked experimental until resolved
-    def test_alter_user_request_debug_log_additional_secret_added_get_redacted_on_error(
-        self,
-        call_racf_mock: Mock,
-    ):
-        user_admin = UserAdmin(debug=True, additional_secret_traits=["omvs:uid"])
-        call_racf_mock.side_effect = [
-            TestUserConstants.TEST_EXTRACT_USER_RESULT_BASE_ONLY_SUCCESS_XML,
-            TestUserConstants.TEST_ALTER_USER_RESULT_ERROR_XML,
-        ]
-        stdout = io.StringIO()
-        with contextlib.redirect_stdout(stdout):
-            try:
-                user_admin.alter(
-                    "squidwrd",
-                    traits=TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR,
-                )
-            except SecurityRequestError:
-                pass
-        error_log = self.ansi_escape.sub("", stdout.getvalue())
-        self.assertEqual(
-            error_log,
-            TestUserConstants.TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG,
-        )
-        self.assertNotIn(
-            f"({TestUserConstants.TEST_ALTER_USER_REQUEST_TRAITS_UID_ERROR['omvs:uid']})",
-            error_log,
-        )
-
-    # ============================================================================
     # Extract User
     # ============================================================================
     def test_extract_user_base_omvs_request_debug_log_works_on_success(

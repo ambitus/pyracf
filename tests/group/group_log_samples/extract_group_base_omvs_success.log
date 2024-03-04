@@ -15,7 +15,7 @@
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+  <group name="testgrp0" operation="listdata" requestid="GroupRequest">
     <omvs/>
   </group>
 </securityrequest>
@@ -28,7 +28,7 @@
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+  <group name="testgrp0" operation="listdata" requestid="GroupRequest">
     <command>
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
@@ -60,7 +60,7 @@
 {
   "securityResult": {
     "group": {
-      "name": "TESTGRP0",
+      "name": "testgrp0",
       "operation": "listdata",
       "requestId": "GroupRequest",
       "commands": [
@@ -100,7 +100,7 @@
 {
   "securityResult": {
     "group": {
-      "name": "TESTGRP0",
+      "name": "testgrp0",
       "operation": "listdata",
       "requestId": "GroupRequest",
       "commands": [

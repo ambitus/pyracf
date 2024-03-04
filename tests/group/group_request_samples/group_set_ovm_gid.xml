@@ -1,5 +1,5 @@
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-  <group name="TESTGRP0" operation="set" requestid="GroupRequest">
+  <group name="testgrp0" operation="set" requestid="GroupRequest">
     <ovm>
       <racf:gid operation="set">1234567</racf:gid>
     </ovm>

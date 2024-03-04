@@ -24,7 +24,7 @@
                                                                                
 
 <securityrequest xmlns="http://www.ibm.com/systems/zos/saf" xmlns:racf="http://www.ibm.com/systems/zos/racf">
-  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+  <groupconnection name="ESWIFT" group="testgrp0" operation="set" requestid="ConnectionRequest">
     <racf:oper operation="del"/>
     <racf:special operation="set"/>
   </groupconnection>
@@ -38,7 +38,7 @@
 
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <groupconnection name="ESWIFT" group="TESTGRP0" operation="set" requestid="ConnectionRequest">
+  <groupconnection name="ESWIFT" group="testgrp0" operation="set" requestid="ConnectionRequest">
     <command>
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>
@@ -60,7 +60,7 @@
   "securityResult": {
     "groupConnection": {
       "name": "ESWIFT",
-      "group": "TESTGRP0",
+      "group": "testgrp0",
       "operation": "set",
       "requestId": "ConnectionRequest",
       "commands": [

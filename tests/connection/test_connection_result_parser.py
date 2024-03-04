@@ -30,7 +30,7 @@ class TestConnectionResultParser(unittest.TestCase):
         self.assertEqual(
             self.connection_admin.connect(
                 "ESWIFT",
-                "TESTGRP0",
+                "testgrp0",
                 traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
             ),
             TestConnectionConstants.TEST_CONNECT_CONNECTION_RESULT_SUCCESS_DICTIONARY,
@@ -47,7 +47,7 @@ class TestConnectionResultParser(unittest.TestCase):
         with self.assertRaises(SecurityRequestError) as exception:
             self.connection_admin.connect(
                 "ESWIFT",
-                "TESTGRP0",
+                "testgrp0",
                 traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
             )
         self.assertEqual(
@@ -66,7 +66,7 @@ class TestConnectionResultParser(unittest.TestCase):
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_SUCCESS_XML
         )
         self.assertEqual(
-            self.connection_admin.delete("ESWIFT", "TESTGRP0"),
+            self.connection_admin.delete("ESWIFT", "testgrp0"),
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_SUCCESS_DICTIONARY,
         )
 
@@ -79,7 +79,7 @@ class TestConnectionResultParser(unittest.TestCase):
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_ERROR_XML
         )
         with self.assertRaises(SecurityRequestError) as exception:
-            self.connection_admin.delete("ESWIFT", "TESTGRP0")
+            self.connection_admin.delete("ESWIFT", "testgrp0")
         self.assertEqual(
             exception.exception.result,
             TestConnectionConstants.TEST_DELETE_CONNECTION_RESULT_ERROR_DICTIONARY,

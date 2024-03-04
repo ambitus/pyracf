@@ -35,7 +35,7 @@ class TestConnectionDebugLogging(unittest.TestCase):
         with contextlib.redirect_stdout(stdout):
             self.connection_admin.connect(
                 "ESWIFT",
-                "TESTGRP0",
+                "testgrp0",
                 traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
             ),
         success_log = self.ansi_escape.sub("", stdout.getvalue())
@@ -55,7 +55,7 @@ class TestConnectionDebugLogging(unittest.TestCase):
             try:
                 self.connection_admin.connect(
                     "ESWIFT",
-                    "TESTGRP0",
+                    "testgrp0",
                     traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
                 ),
             except SecurityRequestError:

@@ -2,7 +2,7 @@
   "securityResult": {
     "groupConnection": {
       "name": "ESWIFT",
-      "group": "TESTGRP0",
+      "group": "testgrp0",
       "operation": "set",
       "requestId": "ConnectionRequest",
       "commands": [

@@ -97,6 +97,10 @@ TEST_ALTER_DATA_SET_REQUEST_TRAITS = {
     "base:universal_access": "Read",
     "base:owner": "eswift",
 }
+TEST_ALTER_DATA_SET_REQUEST_ERROR_TRAITS = {
+    "base:universal_access": "Alter",
+    "base:owner": "eswift",
+}
 
 # Extract Data Set
 TEST_EXTRACT_DATA_SET_REQUEST_BASE_XML = get_sample("extract_data_set_request_base.xml")

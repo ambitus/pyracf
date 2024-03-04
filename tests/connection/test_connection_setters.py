@@ -20,7 +20,7 @@ class TestConnectionSetters(unittest.TestCase):
     # ============================================================================
     def test_connection_admin_build_give_group_special_request(self):
         result = self.connection_admin.give_group_special_authority(
-            "ESWIFT", "TESTGRP0"
+            "ESWIFT", "testgrp0"
         )
         self.assertEqual(
             result, TestConnectionConstants.TEST_CONNECTION_GIVE_GROUP_SPECIAL_AUTHORITY
@@ -28,7 +28,7 @@ class TestConnectionSetters(unittest.TestCase):
 
     def test_connection_admin_build_take_away_group_special_authority_request(self):
         result = self.connection_admin.take_away_group_special_authority(
-            "ESWIFT", "TESTGRP0"
+            "ESWIFT", "testgrp0"
         )
         self.assertEqual(
             result,
@@ -40,7 +40,7 @@ class TestConnectionSetters(unittest.TestCase):
     # ============================================================================
     def test_connection_admin_build_give_group_auditor_authority_request(self):
         result = self.connection_admin.give_group_auditor_authority(
-            "ESWIFT", "TESTGRP0"
+            "ESWIFT", "testgrp0"
         )
         self.assertEqual(
             result, TestConnectionConstants.TEST_CONNECTION_GIVE_GROUP_AUDITOR_AUTHORITY
@@ -48,7 +48,7 @@ class TestConnectionSetters(unittest.TestCase):
 
     def test_connection_admin_build_take_away_group_auditor_authority_request(self):
         result = self.connection_admin.take_away_group_auditor_authority(
-            "ESWIFT", "TESTGRP0"
+            "ESWIFT", "testgrp0"
         )
         self.assertEqual(
             result,
@@ -60,7 +60,7 @@ class TestConnectionSetters(unittest.TestCase):
     # ============================================================================
     def test_connection_admin_build_give_group_operations_authority_request(self):
         result = self.connection_admin.give_group_operations_authority(
-            "ESWIFT", "TESTGRP0"
+            "ESWIFT", "testgrp0"
         )
         self.assertEqual(
             result,
@@ -69,7 +69,7 @@ class TestConnectionSetters(unittest.TestCase):
 
     def test_connection_admin_build_take_away_group_operations_authority_request(self):
         result = self.connection_admin.take_away_group_operations_authority(
-            "ESWIFT", "TESTGRP0"
+            "ESWIFT", "testgrp0"
         )
         self.assertEqual(
             result,
@@ -80,14 +80,14 @@ class TestConnectionSetters(unittest.TestCase):
     # Group Access Attribute
     # ============================================================================
     def test_connection_admin_build_give_group_access_attribute_request(self):
-        result = self.connection_admin.give_group_access_attribute("ESWIFT", "TESTGRP0")
+        result = self.connection_admin.give_group_access_attribute("ESWIFT", "testgrp0")
         self.assertEqual(
             result, TestConnectionConstants.TEST_CONNECTION_SET_GROUP_ACCESS_ATTRIBUTE
         )
 
     def test_connection_admin_build_take_away_group_access_attribute(self):
         result = self.connection_admin.take_away_group_access_attribute(
-            "ESWIFT", "TESTGRP0"
+            "ESWIFT", "testgrp0"
         )
         self.assertEqual(
             result,

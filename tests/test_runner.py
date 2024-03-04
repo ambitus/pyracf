@@ -10,6 +10,9 @@ import __init__
 from tests.access.test_access_debug_logging import TestAccessDebugLogging
 from tests.access.test_access_request_builder import TestAccessRequestBuilder
 from tests.access.test_access_result_parser import TestAccessResultParser
+from tests.common.test_additional_secrets_redaction import (
+    TestAdditionalSecretsResultRedaction,
+)
 from tests.common.test_class_attributes import TestClassAttributes
 from tests.common.test_customize_segment_traits import TestCustomizeSegmentTraits
 from tests.common.test_downstream_fatal_error import TestDownstreamFatalError
@@ -69,6 +72,7 @@ def __test_suite() -> unittest.TestSuite:
         TestAccessResultParser,
         TestAccessRequestBuilder,
         TestAccessDebugLogging,
+        TestAdditionalSecretsResultRedaction,
         TestClassAttributes,
         TestCustomizeSegmentTraits,
         TestSetupPrecheck,
