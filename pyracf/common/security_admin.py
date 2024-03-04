@@ -183,24 +183,13 @@ class SecurityAdmin:
     # ============================================================================
     def __add_additional_secret_traits(self, additional_secret_traits: list) -> None:
         """Add additional fields to be redacted in logger output."""
-        profile_map = {
-            "user": "User",
-            "group": "Group",
-            "dataSet": "Data Set",
-            "resource": "General Resource",
-            "permission": "Access",
-            "groupConnection": "Group Connection",
-            "systemSettings": "Setropts",
-        }
         unsupported_profile_types = ["permission", "groupConnection", "systemSettings"]
         error_message = (
-            f"Cannot add specified additional secrets to {profile_map[self._profile_type]} "
-            + "administration."
+            f"Cannot add specified additional secrets to '{self._profile_type}' object."
         )
         if self._profile_type in unsupported_profile_types:
             error_message = error_message + (
-                f"\n{profile_map[self._profile_type]} administration does"
-                + " not support additional secrets redaction."
+                f"\n'{self._profile_type}' object does not support additional secrets redaction."
             )
             raise ValueError(error_message)
         bad_secret_traits = []

@@ -14,10 +14,13 @@ import tests.group.test_group_constants as TestGroupConstants
 import tests.resource.test_resource_constants as TestResourceConstants
 import tests.user.test_user_constants as TestUserConstants
 from pyracf import (
+    AccessAdmin,
+    ConnectionAdmin,
     DataSetAdmin,
     GroupAdmin,
     ResourceAdmin,
     SecurityRequestError,
+    SetroptsAdmin,
     UserAdmin,
 )
 
@@ -337,6 +340,48 @@ class TestAdditionalSecretsResultRedaction(unittest.TestCase):
             TestDataSetConstants.TEST_ALTER_DATA_SET_REQUEST_TRAITS["base:owner"],
             str(result),
         )
+
+    def test_incompatible_admin_custom_secret_redaction_error(self):
+        admin_types = [
+            (AccessAdmin, "permission"),
+            (ConnectionAdmin, "groupConnection"),
+            (SetroptsAdmin, "systemSettings"),
+        ]
+        for admin_type, profile_type in admin_types:
+            with self.assertRaises(ValueError) as exception:
+                admin_type(additional_secret_traits=["base:name"])
+            self.assertEqual(
+                str(exception.exception),
+                f"Cannot add specified additional secrets to '{profile_type}' object.\n"
+                f"'{profile_type}' object does not support additional secrets redaction.",
+            )
+
+    def test_compatible_admin_incompatible_traits_custom_secret_redaction_error(self):
+        admin_types = [
+            (UserAdmin, "user"),
+            (GroupAdmin, "group"),
+            (ResourceAdmin, "resource"),
+            (DataSetAdmin, "dataSet"),
+        ]
+        incompatible_traits = [
+            "nosegment",
+            "incompatible:trait",
+            "omvs:name",
+        ]
+        incompatible_traits_text = "\n".join(
+            [
+                f"Could not map {trait} to a valid segment trait."
+                for trait in incompatible_traits
+            ]
+        )
+        for admin_type, profile_type in admin_types:
+            with self.assertRaises(ValueError) as exception:
+                admin_type(additional_secret_traits=incompatible_traits)
+            self.assertEqual(
+                str(exception.exception),
+                f"Cannot add specified additional secrets to '{profile_type}' object.\n"
+                + incompatible_traits_text,
+            )
 
 
 @patch("pyracf.common.irrsmo00.IRRSMO00.call_racf")
