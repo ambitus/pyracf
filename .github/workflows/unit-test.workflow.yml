@@ -1,4 +1,4 @@
-name: pyRACF Linting & Unit Test
+name: Unit Test
 on: [push, pull_request]
 jobs:
   build:
@@ -19,10 +19,6 @@ jobs:
       run: poetry env info
     - name: Install Development Dependencies
       run: poetry install --no-root
-    - name: Flake8
-      run: poetry run flake8 .
-    - name: Pylint
-      run: poetry run pylint --recursive=y .
     - name: Unit Test
       run: poetry run coverage run tests/test_runner.py
     - name: Code Coverage
