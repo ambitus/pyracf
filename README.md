@@ -2,7 +2,7 @@
 
 ![GitHub Actions Build Status](https://github.com/ambitus/pyracf/actions/workflows/.github-actions.yml/badge.svg?branch=dev)
 
-⚠️ _If this is not what you are looking for, it is likely because you are looking for a different package that used to be distributed under the `pyracf` name. You may instead be looking for the [`mfpandas`](https://pypi.org/project/mfpandas/) package, which was distributed under the `pyracf` name prior to October 2024._
+> ⚠️ _If this is not what you are looking for, it is likely because you are looking for a different package that used to be distributed under the `pyracf` name. You may instead be looking for the [`mfpandas`](https://pypi.org/project/mfpandas/) package, which was distributed under the `pyracf` name prior to October 2024._
 
 Python interface into the RACF management application programming interface.
 
