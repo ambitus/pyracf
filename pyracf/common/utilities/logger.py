@@ -116,11 +116,11 @@ class Logger:
         admin_class = "".join(class_tokens)
         function_called_by_user = f"{admin_class}.{user_call[1]}()"
         header = (
-            f"{self.__purple_background(' '*79)}\n"
+            f"{self.__purple_background(' ' * 79)}\n"
             + f"{self.__purple_background('[pyRACF:Debug]'.center(79))}\n"
             + f"{self.__purple_background(header_message.center(79))}\n"
             + f"{self.__purple_background(function_called_by_user.center(79))}\n"
-            + f"{self.__purple_background(' '*79)}\n"
+            + f"{self.__purple_background(' ' * 79)}\n"
         )
         print(f"{header}\n{message}")
 

@@ -336,7 +336,7 @@ class SecurityAdmin:
             pre_processed_results.append(result)
         steps_dictionary = {}
         for step, result_dictionary in enumerate(pre_processed_results):
-            steps_dictionary[f"step{step+1}"] = result_dictionary
+            steps_dictionary[f"step{step + 1}"] = result_dictionary
         return steps_dictionary
 
     # ============================================================================
@@ -579,7 +579,7 @@ class SecurityAdmin:
             )
             i += 3
         elif "=" not in messages[i] and messages[i].strip()[:3] != "NO-":
-            messages[i] = f"{messages[i]}={messages[i+1]}"
+            messages[i] = f"{messages[i]}={messages[i + 1]}"
             self.__add_key_value_pairs_to_segment(
                 current_segment, profile[current_segment], messages[i]
             )
