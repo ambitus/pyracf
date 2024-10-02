@@ -44,7 +44,7 @@ As automation becomes more and more prevalent, the need to manage the security e
 pip install pyracf
 ```
 
-💡 _You may also optionally [Download & Install pyRACF From GitHub](https://github.com/ambitus/pyracf/releases)_
+> 💡 _You may also optionally [Download & Install pyRACF From GitHub](https://github.com/ambitus/pyracf/releases)._
 
 ### Usage
 
