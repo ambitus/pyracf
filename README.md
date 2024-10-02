@@ -2,9 +2,9 @@
 
 ![Lint](https://github.com/ambitus/pyracf/actions/workflows/lint.workflow.yml/badge.svg?branch=dev)
 ![Unit Test](https://github.com/ambitus/pyracf/actions/workflows/unit-test.workflow.yml/badge.svg?branch=dev)
-[![Beta Version](https://img.shields.io/pypi/v/pyracf?label=stable)][PyPI Releases]
-[![Python Versions](https://img.shields.io/pypi/pyversions/pyracf)][PyPI]
-[![Download Stats](https://img.shields.io/pypi/dm/pyracf)](https://pypistats.org/packages/pyracf)
+![Beta Version](https://img.shields.io/pypi/v/pyracf?label=beta)
+![Python Versions](https://img.shields.io/pypi/pyversions/pyracf)
+![Download Stats](https://img.shields.io/pypi/dm/pyracf)
 
 > ⚠️ _If this is not what you are looking for, it is likely because you are looking for a different package that used to be distributed under the `pyracf` name. You may instead be looking for the [`mfpandas`](https://pypi.org/project/mfpandas/) package, which was distributed under the `pyracf` name prior to October 2024._
 
