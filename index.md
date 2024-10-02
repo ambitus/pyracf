@@ -32,37 +32,19 @@ Python interface into the RACF management application programming interface.
 
 &nbsp;
 
-{: .note}
- > _pyRACF will eventually be made available on [pypi.org](https://pypi.org/), but currently python wheel distributions for pyRACF are only available for manual download and installation via GitHub._
-
- &nbsp;
-
-{: .warning}
-> _If you get the following error when trying to install pyRACF from GitHub using the provided commands, ensure that you have a `.curlrc` in your **Home Directory** that is configured to point to a **Trusted CA Certificate Bundle**._
->
-> ###### CA Certificate Verification Failure
-> ```console
->   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
->                                  Dload  Upload   Total   Spent    Left  Speed
->   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-> curl: (60) SSL certificate problem: unable to get local issuer certificate
-> More details here: https://curl.haxx.se/docs/sslcerts.html
-> 
-> curl failed to verify the legitimacy of the server and therefore could not
-> establish a secure connection to it. To learn more about this situation and
-> how to fix it, please visit the web page mentioned above.
-> ```
->
-> ###### .curlrc
-> ```properties
-> capath=/path/to/my/trusted/ca/
-> cacert=/path/to/my/trusted/ca/ca.pem
-> ```
+{: .warning }
+> _Ensure that [IRRSMO00 Precheck is Setup](../common/misc/setup_precheck) before you start using pyRACF._
 
 &nbsp;
 
-1. [Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
-2. [IRRSMO00 Precheck Setup](../common/misc/setup_precheck)
+{: .note }
+> _You may also optionally [Download & Install pyRACF From GitHub](https://github.com/ambitus/pyracf/releases)._
+
+&nbsp;
+
+```shell
+pip install pyracf
+```
 
 ### Use
 
