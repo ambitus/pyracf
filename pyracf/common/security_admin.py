@@ -54,6 +54,8 @@ class SecurityAdmin:
 
     _valid_segment_traits = {}
     _extracted_key_value_pair_segment_traits_map = {}
+    # Use this structure to map traits to their RACF keywords and Message keywords for redaction
+    _racf_trait_and_message_key_map = {"trait_map": {}, "message_map": {}}
     _case_sensitive_extracted_values = []
     __running_userid = None
     _logger = Logger()
@@ -170,24 +172,49 @@ class SecurityAdmin:
         if self.__debug:
             # Note, since the hex dump is logged to the console,
             # secrets will be redacted.
-            self._logger.log_hex_dump(raw_result_xml, self.__secret_traits)
+            self._logger.log_hex_dump(
+                raw_result_xml,
+                self.__secret_traits,
+                self._racf_trait_and_message_key_map,
+            )
 
     # ============================================================================
     # Secrets Redaction
     # ============================================================================
     def __add_additional_secret_traits(self, additional_secret_traits: list) -> None:
         """Add additional fields to be redacted in logger output."""
+        unsupported_profile_types = ["permission", "groupConnection", "systemSettings"]
+        error_message = (
+            f"Cannot add specified additional secrets to '{self._profile_type}' object."
+        )
+        if self._profile_type in unsupported_profile_types:
+            error_message = error_message + (
+                f"\n'{self._profile_type}' object does not support additional secrets redaction."
+            )
+            raise ValueError(error_message)
+        bad_secret_traits = []
         for secret in additional_secret_traits:
             if secret in self.__secret_traits:
                 continue
             if ":" not in secret:
+                bad_secret_traits.append(
+                    f"\nCould not map {secret} to a valid segment trait."
+                )
                 continue
             segment = secret.split(":")[0]
             if segment not in self._valid_segment_traits:
+                bad_secret_traits.append(
+                    f"\nCould not map {secret} to a valid segment trait."
+                )
                 continue
             if secret not in self._valid_segment_traits[segment]:
+                bad_secret_traits.append(
+                    f"\nCould not map {secret} to a valid segment trait."
+                )
                 continue
             self.__secret_traits[secret] = self._valid_segment_traits[segment][secret]
+        if bad_secret_traits:
+            raise ValueError(error_message + "".join(bad_secret_traits))
 
     # ============================================================================
     # Request Execution
@@ -242,6 +269,7 @@ class SecurityAdmin:
                 self.__running_userid,
             ),
             self.__secret_traits,
+            self._racf_trait_and_message_key_map,
         )
         self.__clear_state(security_request)
         if isinstance(raw_result, list):

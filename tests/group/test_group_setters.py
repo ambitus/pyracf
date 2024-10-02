@@ -16,9 +16,9 @@ class TestGroupSetters(unittest.TestCase):
     group_admin = GroupAdmin(generate_requests_only=True)
 
     def test_group_admin_build_set_ovm_gid_request(self):
-        result = self.group_admin.set_ovm_gid("TESTGRP0", "1234567")
+        result = self.group_admin.set_ovm_gid("testgrp0", "1234567")
         self.assertEqual(result, TestGroupConstants.TEST_GROUP_SET_OVM_GID_XML)
 
     def test_group_admin_build_set_omvs_gid_request(self):
-        result = self.group_admin.set_omvs_gid("TESTGRP0", "1234567")
+        result = self.group_admin.set_omvs_gid("testgrp0", "1234567")
         self.assertEqual(result, TestGroupConstants.TEST_GROUP_SET_OMVS_GID_XML)

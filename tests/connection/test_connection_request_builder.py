@@ -18,7 +18,7 @@ class TestConnectionRequestBuilder(unittest.TestCase):
     def test_connection_admin_build_connect_connection_request(self):
         result = self.connection_admin.connect(
             "ESWIFT",
-            "TESTGRP0",
+            "testgrp0",
             traits=TestConnectionConstants.TEST_CONNECT_CONNECTION_REQUEST_TRAITS,
         )
         self.assertEqual(
@@ -26,7 +26,7 @@ class TestConnectionRequestBuilder(unittest.TestCase):
         )
 
     def test_connection_admin_build_delete_connection_request(self):
-        result = self.connection_admin.delete("ESWIFT", "TESTGRP0")
+        result = self.connection_admin.delete("ESWIFT", "testgrp0")
         self.assertEqual(
             result, TestConnectionConstants.TEST_DELETE_CONNECTION_REQUEST_XML
         )

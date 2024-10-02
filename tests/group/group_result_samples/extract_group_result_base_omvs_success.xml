@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="IBM-1047"?>
 <securityresult xmlns="http://www.ibm.com/systems/zos/saf/IRRSMO00Result1">
-  <group name="TESTGRP0" operation="listdata" requestid="GroupRequest">
+  <group name="testgrp0" operation="listdata" requestid="GroupRequest">
     <command>
       <safreturncode>0</safreturncode>
       <returncode>0</returncode>

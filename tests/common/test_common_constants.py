@@ -98,6 +98,83 @@ TEST_EXTRACT_USER_RESULT_BASE_OMVS_CSDATA_SUCCESS_DICTIONARY = get_sample(
 )
 
 # ============================================================================
+# Additional Secrets Redaction
+# ============================================================================
+
+TEST_ALTER_USER_REQUEST_TRAITS_INST_DATA = {
+    "base:name": "Squidward",
+    "base:owner": "leonard",
+    "base:special": True,
+    "omvs:uid": "2424",
+    "omvs:home_directory": "/u/squidwrd",
+    "omvs:default_shell": "/bin/sh",
+    "base:installation_data": "Test = Value; Other(stuff goes here)'')",
+}
+TEST_ALTER_USER_RESULT_SUCCESS_UID_SECRET_DICTIONARY = get_sample(
+    "alter_user_result_success_uid_secret.json"
+)
+TEST_ALTER_USER_RESULT_ERROR_UID_SECRET_DICTIONARY = get_sample(
+    "alter_user_result_error_uid_secret.json"
+)
+TEST_ALTER_USER_RESULT_INST_DATA_SUCCESS_XML = get_sample(
+    "alter_user_result_success_inst_data.xml"
+)
+TEST_ALTER_USER_RESULT_SUCCESS_INST_DATA_SECRET_DICTIONARY = get_sample(
+    "alter_user_result_success_inst_data_secret.json"
+)
+TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "alter_user_additional_secret_added_success.log"
+)
+TEST_ALTER_USER_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "alter_user_additional_secret_added_error.log"
+)
+
+TEST_ALTER_DATA_SET_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY = get_sample(
+    "alter_data_set_result_success_owner_secret.json"
+)
+TEST_ALTER_DATA_SET_RESULT_ERROR_UACC_SECRET_DICTIONARY = get_sample(
+    "alter_data_set_result_error_uacc_secret.json"
+)
+TEST_ALTER_DATA_SET_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "alter_data_set_additional_secret_added_success.log"
+)
+TEST_ALTER_DATA_SET_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "alter_data_set_additional_secret_added_error.log"
+)
+
+TEST_ALTER_GROUP_RESULT_SUCCESS_GID_SECRET_DICTIONARY = get_sample(
+    "alter_group_result_success_gid_secret.json"
+)
+TEST_ALTER_GROUP_RESULT_ERROR_GID_SECRET_DICTIONARY = get_sample(
+    "alter_group_result_error_gid_secret.json"
+)
+TEST_ALTER_GROUP_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "alter_group_additional_secret_added_success.log"
+)
+TEST_ALTER_GROUP_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "alter_group_additional_secret_added_error.log"
+)
+
+TEST_ALTER_RESOURCE_OVERWRITE_AUDIT_RESULT_SUCCESS_XML = get_sample(
+    "alter_resource_overwrite_audit_result_success.xml"
+)
+TEST_ALTER_RESOURCE_RESULT_SUCCESS_OWNER_SECRET_DICTIONARY = get_sample(
+    "alter_resource_result_success_owner_secret.json"
+)
+TEST_ALTER_RESOURCE_RESULT_SUCCESS_AUDIT_SECRET_DICTIONARY = get_sample(
+    "alter_resource_result_success_audit_secret.json"
+)
+TEST_ALTER_RESOURCE_RESULT_ERROR_UACC_SECRET_DICTIONARY = get_sample(
+    "alter_resource_result_error_uacc_secret.json"
+)
+TEST_ALTER_RESOURCE_ADDITIONAL_SECRET_ADDED_SUCCESS_LOG = get_sample(
+    "alter_resource_additional_secret_added_success.log"
+)
+TEST_ALTER_RESOURCE_ADDITIONAL_SECRET_ADDED_ERROR_LOG = get_sample(
+    "alter_resource_additional_secret_added_error.log"
+)
+
+# ============================================================================
 # Run As UserId
 # ============================================================================
 
