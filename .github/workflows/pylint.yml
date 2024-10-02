@@ -1,4 +1,4 @@
-name: Unit Test
+name: pylint
 on: [push, pull_request]
 jobs:
   build:
@@ -19,7 +19,5 @@ jobs:
       run: poetry env info
     - name: Install Development Dependencies
       run: poetry install --no-root
-    - name: Unit Test
-      run: poetry run coverage run tests/test_runner.py
-    - name: Code Coverage
-      run: poetry run coverage report -m
+    - name: pylint
+      run: poetry run pylint --recursive=y .

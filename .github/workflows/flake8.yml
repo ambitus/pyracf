@@ -1,4 +1,4 @@
-name: Lint
+name: flake8
 on: [push, pull_request]
 jobs:
   build:
@@ -19,7 +19,5 @@ jobs:
       run: poetry env info
     - name: Install Development Dependencies
       run: poetry install --no-root
-    - name: Flake8
+    - name: flake8
       run: poetry run flake8 .
-    - name: Pylint
-      run: poetry run pylint --recursive=y .

@@ -1,8 +1,10 @@
 ![pyRACF Logo](https://raw.githubusercontent.com/ambitus/pyracf/refs/heads/main/logo.png)
 
-![Lint](https://github.com/ambitus/pyracf/actions/workflows/lint.workflow.yml/badge.svg?branch=dev)
-![Unit Test](https://github.com/ambitus/pyracf/actions/workflows/unit-test.workflow.yml/badge.svg?branch=dev)
-[![Beta Version](https://img.shields.io/pypi/v/pyracf?label=beta)](https://pypi.org/project/poetry/#history)
+[![tests](https://github.com/ambitus/pyracf/actions/workflows/unittest.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/unittest.yml)
+[![coverage](https://github.com/ambitus/pyracf/actions/workflows/coverage.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/coverage.yml)
+[![pylint](https://github.com/ambitus/pyracf/actions/workflows/pylint.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/pylint.yml)
+[![flake8](https://github.com/ambitus/pyracf/actions/workflows/flake8.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/flake8.yml)
+[![Beta Version](https://img.shields.io/pypi/v/pyracf?label=beta)](https://pypi.org/project/pyracf/#history)
 [![Python Versions](https://img.shields.io/pypi/pyversions/pyracf)](https://pypi.org/project/pyracf/)
 [![Download Stats](https://img.shields.io/pypi/dm/pyracf)](https://pypistats.org/packages/pyracf)
 
