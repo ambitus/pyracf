@@ -1,6 +1,14 @@
-![pyRACF Logo](logo.png)
+![pyRACF Logo](https://raw.githubusercontent.com/ambitus/pyracf/refs/heads/main/logo.png)
 
-![GitHub Actions Build Status](https://github.com/ambitus/pyracf/actions/workflows/.github-actions.yml/badge.svg?branch=dev)
+[![tests](https://github.com/ambitus/pyracf/actions/workflows/unittest.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/unittest.yml)
+[![coverage](https://github.com/ambitus/pyracf/actions/workflows/coverage.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/coverage.yml)
+[![pylint](https://github.com/ambitus/pyracf/actions/workflows/pylint.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/pylint.yml)
+[![flake8](https://github.com/ambitus/pyracf/actions/workflows/flake8.yml/badge.svg)](https://github.com/ambitus/pyracf/actions/workflows/flake8.yml)
+[![Beta Version](https://img.shields.io/pypi/v/pyracf?label=beta)](https://pypi.org/project/pyracf/#history)
+[![Python Versions](https://img.shields.io/pypi/pyversions/pyracf)](https://pypi.org/project/pyracf/)
+[![Download Stats](https://img.shields.io/pypi/dm/pyracf)](https://pypistats.org/packages/pyracf)
+
+> ⚠️ _If this is not what you are looking for, it is likely because you are looking for a different package that used to be distributed under the `pyracf` name. You may instead be looking for the [`mfpandas`](https://pypi.org/project/mfpandas/) package, which was distributed under the `pyracf` name prior to October 2024._
 
 Python interface into the RACF management application programming interface.
 
@@ -32,9 +40,11 @@ As automation becomes more and more prevalent, the need to manage the security e
 
 ### Installation
 
-:warning: _pyRACF will eventually be made available on [pypi.org](https://pypi.org/), but currently python wheel distributions for pyRACF are only available for manual download and installation via GitHub._
+```shell
+pip install pyracf
+```
 
-* [Download & Install From GitHub](https://github.com/ambitus/pyracf/releases)
+> 💡 _You may also optionally [Download & Install pyRACF From GitHub](https://github.com/ambitus/pyracf/releases)._
 
 ### Usage
 

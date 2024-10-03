@@ -1,11 +1,11 @@
-name: pyRACF Linting & Unit Test
+name: flake8
 on: [push, pull_request]
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.10", "3.11", "3.12"]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -14,16 +14,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install Poetry
-      run: curl -sSL https://install.python-poetry.org | python3 -
+      run: pipx install poetry
     - name: Show Poetry Environment Info
       run: poetry env info
     - name: Install Development Dependencies
       run: poetry install --no-root
-    - name: Flake8
+    - name: flake8
       run: poetry run flake8 .
-    - name: Pylint
-      run: poetry run pylint --recursive=y .
-    - name: Unit Test
-      run: poetry run coverage run tests/test_runner.py
-    - name: Code Coverage
-      run: poetry run coverage report -m
